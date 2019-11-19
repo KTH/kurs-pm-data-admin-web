@@ -33,9 +33,10 @@ function _staticRender(context, location) {
 async function getIndex(req, res, next) {
   try {
     const context = {}
+    const { courseCode, semester } = req.params
     const renderProps = _staticRender(context, req.url)
 
-    renderProps.props.children.props.routerStore.getData()
+    renderProps.props.children.props.routerStore.getData(courseCode, semester)
 
     const html = ReactDOMServer.renderToString(renderProps)
 
