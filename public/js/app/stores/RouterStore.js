@@ -3,8 +3,9 @@ import { observable, action } from 'mobx'
 class RouterStore {
   @observable message = 'This is the default string...'
 
-  @action getData() {
-    this.message = 'Happy coding!! :)'
+  @action getData(courseCode, semester) {
+    console.log('semester', semester)
+    this.message = 'Happy coding!! :)' + courseCode + semester
   }
 
   @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
