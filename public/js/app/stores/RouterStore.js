@@ -2,6 +2,7 @@ import { observable, action } from 'mobx'
 
 class RouterStore {
   @observable message = 'This is the default string...'
+  @observable syllabusObjFromKopps
 
   @action getData(courseCode, semester) {
     console.log('semester', semester)
