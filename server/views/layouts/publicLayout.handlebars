@@ -16,9 +16,10 @@
     {{prefixStyle '/static/app.css' 'styles' 'screen'}}
 
     {{{render 'styles'}}}
-
+    {{prefixScript '/static/tinymce/tinymce.min.js' 'head-scripts'}}
     {{prefixScript '/static/vendor.js' 'head-scripts'}}
     {{prefixScript '/static/browserConfig' 'head-scripts'}}
+
     {{#extend 'head-scripts'}}
       <script src="//www.kth.se/social/toolbar/widget.js"></script>
       <!-- analytics start -->
