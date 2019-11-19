@@ -1,15 +1,15 @@
 {
   "//": "JSHint configuration - http://jshint.com/docs/options/",
-  "name": "node-web",
+  "name": "kurs-pm-data-admin-web",
   "version": "2.0.0",
-  "description": "Template project for a node express web server",
+  "description": "Kurs-pm administation tool and editor to create a kurs-pm by filling in data in editor and fetching data from syllabus",
   "main": "app.js",
   "private": true,
   "license": "MIT",
   "author": "KTH",
   "repository": {
     "type": "git",
-    "uri": "https://github.com/KTH/node-web"
+    "uri": "https://github.com/KTH/kurs-pm-data-admin-web"
   },
   "scripts": {
     "vendor": "parcel build  ./public/js/vendor.js",
@@ -19,7 +19,6 @@
     "build-dev": "cross-env NODE_ENV=development npm run move-handlebar-pages && rm -rf dist && parcel build ./public/js/vendor.js --public-url /kursinfoadmin/pmdata/static && parcel watch ./public/js/app/app.jsx --public-url /kursinfoadmin/pmdata/static",
     "start": "NODE_ENV=production node app.js",
     "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\"",
-    "wrap-tinymce": "cp ./tinymce/tinymce.min.js ./dist/",
     "move-handlebar-pages": "cp ./node_modules/kth-node-web-common/lib/handlebars/pages/views/error.handlebars ./server/views/system/error.handlebars && cp ./node_modules/kth-node-web-common/lib/handlebars/pages/layouts/errorLayout.handlebars ./server/views/layouts/errorLayout.handlebars"
   },
   "dependencies": {
