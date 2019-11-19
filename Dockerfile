@@ -1,7 +1,5 @@
 FROM kthse/kth-nodejs:10.14.0
 
-LABEL maintainer="KTH-Webb web-developers@kth.se"
-
 RUN mkdir -p /npm && \
   mkdir -p /application
 
@@ -21,8 +19,8 @@ RUN cp -a /npm/node_modules /application && \
 # Copy files used by Gulp.
 COPY ["config", "config"]
 COPY ["public", "public"]
+COPY ["tinymce", "tinymce"]
 COPY ["i18n", "i18n"]
-COPY ["gulpfile.js", "gulpfile.js"]
 COPY ["package.json", "package.json"]
 COPY [".babelrc", ".babelrc"]
 RUN npm run docker
