@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Jumbotron, Button } from 'reactstrap'
+import { Editor } from '@tinymce/tinymce-react'
 
 @inject(['routerStore'])
 @observer
 class Start extends Component {
   state = {
     buttonClicked: false
+  }
+
+  handleEditorChange = e => {
+    console.log('Content was updated:', e.target.getContent())
   }
 
   toggleButton = () => this.setState({ buttonClicked: !this.state.buttonClicked })
@@ -23,6 +28,23 @@ class Start extends Component {
           <Button onClick={this.toggleButton}>Try me</Button>
           <p>{this.state.buttonClicked ? 'Button works!' : ''}</p>
         </Jumbotron>
+        <Editor
+          initialValue="<p>This is the initial content of the editor</p>"
+          init={{
+            height: 500,
+            menubar: false,
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table paste code help wordcount'
+            ] //,
+            // toolbar:
+            //   'undo redo | formatselect | bold italic backcolor | \
+            //   alignleft aligncenter alignright alignjustify | \
+            //   bullist numlist outdent indent | removeformat | help'
+          }}
+          onChange={this.handleEditorChange}
+        />
       </div>
     )
   }
