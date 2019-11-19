@@ -16,12 +16,14 @@
     "test": "NODE_ENV=development mocha --exit test/unit/*.js",
     "docker": "npm install --development && npm run build && npm prune --production",
     "build": "NODE_ENV=production npm run move-handlebar-pages && rm -rf dist && parcel build ./public/js/app/app.jsx && npm run vendor --preserve-comments",
-    "build-dev": "cross-env NODE_ENV=development npm run move-handlebar-pages && rm -rf dist && parcel build ./public/js/vendor.js --public-url /node/static && parcel watch ./public/js/app/app.jsx --public-url /node/static",
+    "build-dev": "cross-env NODE_ENV=development npm run move-handlebar-pages && rm -rf dist && parcel build ./public/js/vendor.js --public-url /kursinfoadmin/pmdata/static && parcel watch ./public/js/app/app.jsx --public-url /kursinfoadmin/pmdata/static",
     "start": "NODE_ENV=production node app.js",
     "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\"",
+    "wrap-tinymce": "cp ./tinymce/tinymce.min.js ./dist/",
     "move-handlebar-pages": "cp ./node_modules/kth-node-web-common/lib/handlebars/pages/views/error.handlebars ./server/views/system/error.handlebars && cp ./node_modules/kth-node-web-common/lib/handlebars/pages/layouts/errorLayout.handlebars ./server/views/layouts/errorLayout.handlebars"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^3.3.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.1.3",
     "component-registry": "^1.0.0",
