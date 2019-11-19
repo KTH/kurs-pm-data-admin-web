@@ -17,7 +17,8 @@ class Start extends Component {
   toggleButton = () => this.setState({ buttonClicked: !this.state.buttonClicked })
 
   render() {
-    const { message } = this.props.routerStore
+    const { message, syllabusObjFromKopps } = this.props.routerStore
+
     return (
       <div>
         <Jumbotron>
@@ -29,7 +30,7 @@ class Start extends Component {
           <p>{this.state.buttonClicked ? 'Button works!' : ''}</p>
         </Jumbotron>
         <Editor
-          initialValue="<p>This is the initial content of the editor</p>"
+          initialValue={`<p>Lärandemål from kopps:<p> ${syllabusObjFromKopps.goals}`}
           init={{
             height: 500,
             menubar: false,
@@ -37,7 +38,7 @@ class Start extends Component {
               'advlist autolink lists link image charmap print preview anchor',
               'searchreplace visualblocks code fullscreen',
               'insertdatetime media table paste code help wordcount'
-            ] //,
+            ]
             // toolbar:
             //   'undo redo | formatselect | bold italic backcolor | \
             //   alignleft aligncenter alignright alignjustify | \
