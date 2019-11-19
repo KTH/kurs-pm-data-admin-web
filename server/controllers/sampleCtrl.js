@@ -2,9 +2,11 @@
 
 const api = require('../api')
 const log = require('kth-node-log')
+const language = require('kth-node-web-common/lib/language')
 
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
+const { getSyllabus } = require('../koppsApi')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -33,11 +35,16 @@ function _staticRender(context, location) {
 async function getIndex(req, res, next) {
   try {
     const context = {}
+    const lang = language.getLanguage(res) || 'sv'
     const { courseCode, semester } = req.params
     const renderProps = _staticRender(context, req.url)
 
-    renderProps.props.children.props.routerStore.getData(courseCode, semester)
-
+    // renderProps.props.children.props.routerStore.getData(courseCode, semester)
+    renderProps.props.children.props.routerStore.syllabusObjFromKopps = await getSyllabus(
+      courseCode,
+      semester,
+      lang
+    )
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('sample/index', {
