@@ -12,7 +12,8 @@ const {
   devDefaults,
   unpackLDAPConfig,
   unpackRedisConfig,
-  unpackNodeApiConfig
+  unpackNodeApiConfig,
+  unpackKOPPSConfig
 } = require('kth-node-configuration')
 const { typeConversion } = require('kth-node-configuration/lib/utils')
 const { safeGet } = require('safe-utils')
@@ -21,8 +22,9 @@ const { safeGet } = require('safe-utils')
 const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
-const devInnovationApi = devDefaults('http://localhost:3001/api/node?defaultTimeout=10000') // required=true&
-const devSessionKey = devDefaults('node-web.sid')
+const devInnovationApi = devDefaults('http://localhost:3001/api/kursinfo?defaultTimeout=10000') // required=true&
+const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/')
+const devSessionKey = devDefaults('kurs-pm-data-admin-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
 const devLdap = undefined // Do not enter LDAP_URI or LDAP_PASSWORD here, use env_vars
@@ -65,6 +67,7 @@ module.exports = {
   apiKey: {
     nodeApi: getEnv('NODE_API_KEY', devDefaults('1234'))
   },
+  koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
 
   // Authentication
   auth: {
@@ -98,6 +101,10 @@ module.exports = {
     level: 'debug'
   },
   cache: {
+    koppsApi: {
+      redis: unpackRedisConfig('REDIS_URI', devRedis),
+      expireTime: getEnv('KOPPS_API_CACHE_EXPIRE_TIME', 60 * 60) // 60 minuteS
+    },
     cortinaBlock: {
       redis: unpackRedisConfig('REDIS_URI', devRedis)
     }
