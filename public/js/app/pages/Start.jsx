@@ -30,19 +30,26 @@ class Start extends Component {
           <p>{this.state.buttonClicked ? 'Button works!' : ''}</p>
         </Jumbotron>
         <Editor
-          initialValue={`<p>Lärandemål from kopps:<p> ${syllabusObjFromKopps.goals}`}
+          id="editor1"
+          // initialValue={`<p>Lärandemål from kopps:<p> ${syllabusObjFromKopps.goals}`}
           init={{
             height: 500,
             menubar: false,
             plugins: [
-              'advlist autolink lists link image charmap print preview anchor',
+              'advlist autolink autosave lists link image imagetools charmap print preview anchor',
               'searchreplace visualblocks code fullscreen',
               'insertdatetime media table paste code help wordcount'
-            ]
-            // toolbar:
-            //   'undo redo | formatselect | bold italic backcolor | \
-            //   alignleft aligncenter alignright alignjustify | \
-            //   bullist numlist outdent indent | removeformat | help'
+            ],
+            language: 'sv_SE',
+            toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript| searchreplace | image | link | restoredraft | fullscreen |
+              table tabledelete | tableprops tablerowprops tablecellprops | 
+              bullist numlist outdent indent | removeformat | help`,
+            imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+            autosave_interval: '5s',
+            autosave_ask_before_unload: true,
+            autosave_restore_when_empty: true,
+            autosave_retention: '1m',
+            block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3'
           }}
           onChange={this.handleEditorChange}
         />
