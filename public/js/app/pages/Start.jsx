@@ -1,17 +1,26 @@
+/* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Jumbotron, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 import { Editor } from '@tinymce/tinymce-react'
 
 @inject(['routerStore'])
 @observer
 class Start extends Component {
   state = {
+    editorContent: '',
     buttonClicked: false
   }
 
-  handleEditorChange = e => {
-    console.log('Content was updated:', e.target.getContent())
+  handleEditorChange = editorContent => {
+    this.setState({
+      editorContent
+    })
+    console.log('Content was updated:', this.state.editorContent)
+  }
+
+  submit = () => {
+    console.log('Content was submited:', this.state.editorContent)
   }
 
   toggleButton = () => this.setState({ buttonClicked: !this.state.buttonClicked })
@@ -21,14 +30,9 @@ class Start extends Component {
 
     return (
       <div>
-        <Jumbotron>
-          <h1 className="display-3">Node-web</h1>
-          <h2>You are upp and running kth-node react!</h2>
-          <hr className="my-2" />
-          <h3>{`Message from routerStore: ${message}`}</h3>
-          <Button onClick={this.toggleButton}>Try me</Button>
-          <p>{this.state.buttonClicked ? 'Button works!' : ''}</p>
-        </Jumbotron>
+        <h2>Lärandemål</h2>
+        <p dangerouslySetInnerHTML={{ __html: syllabusObjFromKopps.goals }} />
+        <h2>Målrelaterade betygskriterier</h2>
         <Editor
           id="editor1"
           // initialValue={`<p>Lärandemål from kopps:<p> ${syllabusObjFromKopps.goals}`}
@@ -51,8 +55,9 @@ class Start extends Component {
             autosave_retention: '1m',
             block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3'
           }}
-          onChange={this.handleEditorChange}
+          onEditorChange={this.handleEditorChange}
         />
+        <Button onClick={this.submit}>Submit</Button>
       </div>
     )
   }
