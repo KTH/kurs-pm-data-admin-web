@@ -19,7 +19,7 @@ class Start extends Component {
     console.log('Content was updated:', this.state.editorContent)
   }
 
-  submit = () => {
+  handleConfirm = () => {
     console.log('Content was submited:', this.state.editorContent)
   }
 
@@ -57,7 +57,7 @@ class Start extends Component {
           }}
           onEditorChange={this.handleEditorChange}
         />
-        <Button onClick={this.submit}>Submit</Button>
+        <Button onClick={this.handleConfirm}>Button</Button>
       </div>
     )
   }
