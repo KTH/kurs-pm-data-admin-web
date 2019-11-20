@@ -36,12 +36,12 @@ class Start extends Component {
             height: 500,
             menubar: false,
             plugins: [
-              'advlist autolink autosave lists link image imagetools charmap print preview anchor',
+              'advlist autolink autosave lists link image imagetools charmap preview anchor',
               'searchreplace visualblocks code fullscreen',
-              'insertdatetime media table paste code help wordcount'
+              'table paste code help wordcount'
             ],
             language: 'sv_SE',
-            toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript| searchreplace | image | link | restoredraft | fullscreen |
+            toolbar: `code | undo redo | formatselect  charmap | bold italic underline subscript superscript| searchreplace | image | link | restoredraft | fullscreen |
               table tabledelete | tableprops tablerowprops tablecellprops | 
               bullist numlist outdent indent | removeformat | help`,
             imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
