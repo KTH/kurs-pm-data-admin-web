@@ -23,7 +23,7 @@ function appFactory() {
   return (
     <Provider routerStore={routerStore}>
       <Switch>
-        <Route exact path="/kursinfoadmin/pmdata/:courseCode/:semester" component={Start} />
+        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester" component={Start} />
       </Switch>
     </Provider>
   )
