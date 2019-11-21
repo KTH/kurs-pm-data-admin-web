@@ -45,8 +45,9 @@ class Start extends Component {
               'table paste code help wordcount'
             ],
             language: 'sv_SE',
-            toolbar: `code | undo redo | formatselect  charmap | bold italic underline subscript superscript| searchreplace | image | link | restoredraft | fullscreen |
-              table tabledelete | tableprops tablerowprops tablecellprops | 
+            toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
+              searchreplace | image | link | restoredraft | fullscreen |
+              table | 
               bullist numlist outdent indent | removeformat | help`,
             imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
             autosave_interval: '5s',
