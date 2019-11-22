@@ -220,13 +220,13 @@ server.use('/', systemRoute.getRouter())
 const appRoute = AppRouter()
 appRoute.get('system.index', config.proxyPrefixPath.uri + '/:courseCode/:semester', Sample.getIndex)
 appRoute.get('system.index', config.proxyPrefixPath.uri + '/:page', serverLogin, Sample.getIndex)
-appRoute.get(
-  'system.gateway',
-  config.proxyPrefixPath.uri + '/gateway',
-  getServerGatewayLogin('/'),
-  requireRole('isAdmin'),
-  Sample.getIndex
-)
+// appRoute.get(
+//   'system.gateway',
+//   config.proxyPrefixPath.uri + '/gateway',
+//   getServerGatewayLogin('/'),
+//   requireRole('isAdmin'),
+//   Sample.getIndex
+// )
 server.use('/', appRoute.getRouter())
 
 // Not found etc
