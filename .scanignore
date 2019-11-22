@@ -11,3 +11,17 @@
 /tinymce/themes/mobile/theme.min.js
 /tinymce/themes/silver/theme.min.js
 /tinymce/tinymce.min.js
+/public/js/lib/firebug-lite/build/chrome-extension/firebug-lite.js
+/public/js/lib/firebug-lite/build/firebug-lite-beta.js
+/public/js/lib/firebug-lite/build/firebug-lite-debug.js
+/public/js/lib/firebug-lite/build/firebug-lite.js
+/public/js/lib/firebug-lite/content/firebug/consoleInjector.js
+/public/js/lib/firebug-lite/content/firebug/reps.js
+/public/js/lib/firebug-lite/content/firediff/content/firediff/domEvents.js
+/public/js/lib/firebug-lite/content/firediff/content/firediff-original/domEvents.js
+/public/js/lib/firebug-lite/content/firerainbow/chrome/content/firerainbow-original.js
+/public/js/lib/firebug-lite/content/firerainbow/chrome/content/firerainbow.js
+/public/js/lib/firebug-lite/content/lite/commandLine.js
+/public/js/lib/firebug-lite/content/lite/firebug.js
+/public/js/lib/firebug-lite/content/lite/lite/proxy.js
+/public/js/lib/firebug-lite/content/lite/temp/html2.js
