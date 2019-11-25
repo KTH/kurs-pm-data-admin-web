@@ -49,10 +49,13 @@ async function getIndex(req, res, next) {
 
     res.render('sample/index', {
       html,
-      title: 'TODO',
+      title: lang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',
       initialState: JSON.stringify(hydrateStores(renderProps)),
-      // lang: lang,
-      description: 'TODO' // lang === 'sv' ? "KTH  för "+courseCode.toUpperCase() : "KTH course information "+courseCode.toUpperCase()
+      lang,
+      description:
+        lang === 'sv'
+          ? '[NY] Kursinformation – Administration av kurs-PM'
+          : '[NEW] Course Information – Administration of course memos'
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })
