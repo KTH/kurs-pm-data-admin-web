@@ -30,9 +30,12 @@ class Start extends Component {
 
     return (
       <div>
-        <h2>Lärandemål</h2>
+        <h1>Skapa nytt kurs-pm</h1>
+        <h2>Innehåll och lärandemål</h2>
+        <h3>Lärandemål</h3>
         <p dangerouslySetInnerHTML={{ __html: syllabusObjFromKopps.goals }} />
-        <h2>Målrelaterade betygskriterier</h2>
+        <h2>Examination och slutförande</h2>
+        <h3>Målrelaterade betygskriterier</h3>
         <Editor
           id="editor1"
           // initialValue={`<p>Lärandemål from kopps:<p> ${syllabusObjFromKopps.goals}`}
