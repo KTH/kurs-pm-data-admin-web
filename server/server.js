@@ -130,6 +130,51 @@ const { languageHandler } = require('kth-node-web-common/lib/language')
 server.use(config.proxyPrefixPath.uri, languageHandler)
 
 /* ******************************
+ * ******* AUTHENTICATION *******
+ * ******************************
+ */
+const passport = require('passport')
+// const ldapClient = require('./adldapClient')
+const {
+  authLoginHandler,
+  authCheckHandler,
+  logoutHandler,
+  pgtCallbackHandler,
+  serverLogin,
+  getServerGatewayLogin
+} = require('kth-node-passport-cas').routeHandlers({
+  casLoginUri: config.proxyPrefixPath.uri + '/login',
+  casGatewayUri: config.proxyPrefixPath.uri + '/loginGateway',
+  proxyPrefixPath: config.proxyPrefixPath.uri,
+  server
+})
+const { redirectAuthenticatedUserHandler } = require('./authentication')
+server.use(passport.initialize())
+server.use(passport.session())
+
+const authRoute = AppRouter()
+authRoute.get(
+  'cas.login',
+  config.proxyPrefixPath.uri + '/login',
+  authLoginHandler,
+  redirectAuthenticatedUserHandler
+)
+authRoute.get(
+  'cas.gateway',
+  config.proxyPrefixPath.uri + '/loginGateway',
+  authCheckHandler,
+  redirectAuthenticatedUserHandler
+)
+authRoute.get('cas.logout', config.proxyPrefixPath.uri + '/logout', logoutHandler)
+// Optional pgtCallback (use config.cas.pgtUrl?)
+authRoute.get('cas.pgtCallback', config.proxyPrefixPath.uri + '/pgtCallback', pgtCallbackHandler)
+server.use('/', authRoute.getRouter())
+
+// Convenience methods that should really be removed
+server.login = serverLogin
+server.gatewayLogin = getServerGatewayLogin
+
+/* ******************************
  * ******* CORTINA BLOCKS *******
  * ******************************
  */
@@ -161,6 +206,7 @@ server.use(
  * **********************************
  */
 const { System, Sample } = require('./controllers')
+const { requireRole } = require('./authentication')
 
 // System routes
 const systemRoute = AppRouter()
@@ -173,6 +219,7 @@ server.use('/', systemRoute.getRouter())
 // App routes
 const appRoute = AppRouter()
 appRoute.get('system.index', config.proxyPrefixPath.uri + '/:courseCode/:semester', Sample.getIndex)
+appRoute.get('system.index', config.proxyPrefixPath.uri + '/:page', serverLogin, Sample.getIndex)
 // appRoute.get(
 //   'system.gateway',
 //   config.proxyPrefixPath.uri + '/gateway',
