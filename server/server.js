@@ -218,6 +218,12 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
+appRoute.post(
+  'memo.updateContent',
+  config.proxyPrefixPath.uri + '/intern-api/:courseCode/:semester',
+  Sample.updateContent
+)
+
 appRoute.get('system.index', config.proxyPrefixPath.uri + '/:courseCode/:semester', Sample.getIndex)
 appRoute.get('system.index', config.proxyPrefixPath.uri + '/:page', serverLogin, Sample.getIndex)
 appRoute.get(
@@ -227,6 +233,7 @@ appRoute.get(
   requireRole('isAdmin'),
   Sample.getIndex
 )
+
 server.use('/', appRoute.getRouter())
 
 // Not found etc
