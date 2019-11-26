@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Button } from 'reactstrap'
 import { Editor } from '@tinymce/tinymce-react'
+import axios from 'axios'
 
 @inject(['routerStore'])
 @observer
@@ -12,6 +13,10 @@ class Start extends Component {
     buttonClicked: false
   }
 
+  courseCode = this.props.routerStore.courseCode
+
+  semester = this.props.routerStore.semester
+
   handleEditorChange = editorContent => {
     this.setState({
       editorContent
@@ -20,13 +25,21 @@ class Start extends Component {
   }
 
   handleConfirm = () => {
-    console.log('Content was submited:', this.state.editorContent)
+    const body = {
+      koppsObject: this.props.routerStore.syllabusObjFromKopps,
+      editorContent: this.state.editorContent
+    }
+    console.log('Content is submited, preparing to save changes:', this.state.editorContent)
+    return axios
+      .post('/kursinfoadmin/kurs-pm-data/intern-api/' + this.courseCode + '/' + this.semester, body) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
+      .then(() => console.log('Success handleConfirm'))
+      .catch(error => console.log('Error handleConfirm', error))
   }
 
   toggleButton = () => this.setState({ buttonClicked: !this.state.buttonClicked })
 
   render() {
-    const { message, syllabusObjFromKopps } = this.props.routerStore
+    const { message, memoData, syllabusObjFromKopps } = this.props.routerStore
 
     return (
       <div>
@@ -38,7 +51,7 @@ class Start extends Component {
         <h3>Målrelaterade betygskriterier</h3>
         <Editor
           id="editor1"
-          // initialValue={`<p>Lärandemål from kopps:<p> ${syllabusObjFromKopps.goals}`}
+          initialValue={memoData ? memoData.betygskriterier : ''}
           init={{
             height: 500,
             menubar: false,
@@ -53,15 +66,20 @@ class Start extends Component {
               table | 
               bullist numlist outdent indent | removeformat | help`,
             imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-            autosave_interval: '5s',
+            autosave_interval: '60s',
             autosave_ask_before_unload: true,
             autosave_restore_when_empty: true,
             autosave_retention: '1m',
-            block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3'
+            block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4'
           }}
           onEditorChange={this.handleEditorChange}
         />
-        <Button onClick={this.handleConfirm}>Button</Button>
+        <br />
+        <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
+          Spara
+        </Button>
+        <br />
+        <br />
       </div>
     )
   }
