@@ -1,12 +1,17 @@
 'use strict'
 
-const api = require('../api')
+const apis = require('../api')
+// const kursPmDataApi = require('../kursPmDataApi')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
 
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
+const { getMemoDataById, postMemoDataById } = require('../kursPmDataApi')
+// const { safeGet } = require('safe-utils')
+const serverPaths = require('../server').getPaths()
+const { browser, server } = require('../configuration')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -40,7 +45,20 @@ async function getIndex(req, res, next) {
     const renderProps = _staticRender(context, req.url)
 
     // renderProps.props.children.props.routerStore.getData(courseCode, semester)
+    renderProps.props.children.props.routerStore.setBrowserConfig(
+      browser,
+      serverPaths,
+      apis,
+      server.hostUrl
+    )
+    renderProps.props.children.props.routerStore.courseCode = courseCode
+    renderProps.props.children.props.routerStore.semester = semester
     renderProps.props.children.props.routerStore.syllabusObjFromKopps = await getSyllabus(
+      courseCode,
+      semester,
+      lang
+    )
+    renderProps.props.children.props.routerStore.memoData = await getMemoDataById(
       courseCode,
       semester,
       lang
@@ -63,6 +81,23 @@ async function getIndex(req, res, next) {
   }
 }
 
+async function updateContent(req, res, next) {
+  try {
+    const { courseCode, semester } = req.params
+    // const lang = language.getLanguage(res) || 'sv'
+    const result = await postMemoDataById(courseCode, semester, req.body)
+    // if (safeGet(() => result.body.message)) {
+    //   log.error('Error from API: ', result.body.message)
+    // }
+    log.info('Memo contents was updated in kursinfo api for course:', courseCode)
+    return res.json(result)
+  } catch (err) {
+    log.error('Error in updateDescription', { error: err })
+    next(err)
+  }
+}
+
 module.exports = {
-  getIndex
+  getIndex,
+  updateContent
 }
