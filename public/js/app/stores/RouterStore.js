@@ -1,19 +1,55 @@
 import { observable, action } from 'mobx'
+import axios from 'axios'
+// import api from '../../../../server/api'
+// import postMemoDataById from '../../../../server/kursPmDataApi'
 
 class RouterStore {
   @observable message = 'This is the default string...'
+
+  @observable courseCode
+
+  @observable semester
+
   @observable syllabusObjFromKopps
 
-  @action getData(courseCode, semester) {
-    console.log('semester', semester)
-    this.message = 'Happy coding!! :)' + courseCode + semester
+  @observable memoData
+
+  // @action doUpsertItem (body, courseCode, semester) {
+  //   return axios.post('intern-api/kurs-pm-data')// postMemoDataById(body, courseCode, semester)
+  //   .then(res => {
+  //     console.log('post Memo Data By Id')
+  //   })
+  //   .catch(err => {
+  //     if (err.response) {
+  //       throw new Error(err.message, err.response.data)
+  //     }
+  //     throw err
+  //   })
+  // }
+
+  // eslint-disable-next-line class-methods-use-this
+  @action doUpsertItem(body, courseCode, semester) {
+    // return axios.post('intern-api/'+courseCode)
+    console.log('Post to internal api first')
+    return axios
+      .post('/kursinfoadmin/kurs-pm-data/intern-api/' + courseCode + '/' + semester, body)
+      .then(res => {
+        console.log('Success uppserted item to api', res)
+        return res
+      })
+      .catch(err => {
+        if (err.response) {
+          throw new Error(err.message, err.response.data)
+        }
+        throw err
+      })
   }
 
-  @action setBrowserConfig(config, paths, apiHost, profileBaseUrl) {
+  @action setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {
     this.browserConfig = config
     this.paths = paths
     this.apiHost = apiHost
-    this.profileBaseUrl = profileBaseUrl
+    this.thisHostBaseUrl = thisHostBaseUrl
   }
 
   @action SSRsetCookieHeader(cookieHeader) {
