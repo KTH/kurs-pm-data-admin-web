@@ -7,5 +7,5 @@
 
 module.exports = {
   System: require('./systemCtrl'),
-  Sample: require('./sampleCtrl')
+  MemoContent: require('./memoCtrl')
 }

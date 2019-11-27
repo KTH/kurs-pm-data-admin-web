@@ -9,7 +9,7 @@ const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
 const { getMemoDataById, postMemoDataById } = require('../kursPmDataApi')
-// const { safeGet } = require('safe-utils')
+const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 
@@ -37,7 +37,7 @@ function _staticRender(context, location) {
   return staticRender(context, location)
 }
 
-async function getIndex(req, res, next) {
+async function getContent(req, res, next) {
   try {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
@@ -65,7 +65,7 @@ async function getIndex(req, res, next) {
     )
     const html = ReactDOMServer.renderToString(renderProps)
 
-    res.render('sample/index', {
+    res.render('memo/index', {
       html,
       title: lang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',
       initialState: JSON.stringify(hydrateStores(renderProps)),
@@ -76,7 +76,7 @@ async function getIndex(req, res, next) {
           : '[NEW] Course Information – Administration of course memos'
     })
   } catch (err) {
-    log.error('Error in getIndex', { error: err })
+    log.error('Error in getContent', { error: err })
     next(err)
   }
 }
@@ -86,9 +86,9 @@ async function updateContent(req, res, next) {
     const { courseCode, semester } = req.params
     // const lang = language.getLanguage(res) || 'sv'
     const result = await postMemoDataById(courseCode, semester, req.body)
-    // if (safeGet(() => result.body.message)) {
-    //   log.error('Error from API: ', result.body.message)
-    // }
+    if (safeGet(() => result.body.message)) {
+      log.error('Error from API: ', result.body.message)
+    }
     log.info('Memo contents was updated in kursinfo api for course:', courseCode)
     return res.json(result)
   } catch (err) {
@@ -98,6 +98,6 @@ async function updateContent(req, res, next) {
 }
 
 module.exports = {
-  getIndex,
+  getContent,
   updateContent
 }
