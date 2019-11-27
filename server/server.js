@@ -205,7 +205,7 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { System, Sample } = require('./controllers')
+const { System, MemoContent } = require('./controllers')
 const { requireRole } = require('./authentication')
 
 // System routes
@@ -220,18 +220,21 @@ server.use('/', systemRoute.getRouter())
 const appRoute = AppRouter()
 appRoute.post(
   'memo.updateContent',
-  config.proxyPrefixPath.uri + '/intern-api/:courseCode/:semester',
-  Sample.updateContent
+  config.proxyPrefixPath.uri + '/internal-api/:courseCode/:semester',
+  MemoContent.updateContent
 )
 
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/:courseCode/:semester', Sample.getIndex)
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/:page', serverLogin, Sample.getIndex)
+appRoute.get(
+  'memo.getContent',
+  config.proxyPrefixPath.uri + '/:courseCode/:semester',
+  MemoContent.getContent
+)
 appRoute.get(
   'system.gateway',
   config.proxyPrefixPath.uri + '/gateway',
   getServerGatewayLogin('/'),
   requireRole('isAdmin'),
-  Sample.getIndex
+  MemoContent.getContent
 )
 
 server.use('/', appRoute.getRouter())

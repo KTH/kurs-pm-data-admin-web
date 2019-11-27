@@ -31,7 +31,10 @@ class Start extends Component {
     }
     console.log('Content is submited, preparing to save changes:', this.state.editorContent)
     return axios
-      .post('/kursinfoadmin/kurs-pm-data/intern-api/' + this.courseCode + '/' + this.semester, body) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
+      .post(
+        '/kursinfoadmin/kurs-pm-data/internal-api/' + this.courseCode + '/' + this.semester,
+        body
+      ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
       .then(() => console.log('Success handleConfirm'))
       .catch(error => console.log('Error handleConfirm', error))
   }
@@ -39,7 +42,7 @@ class Start extends Component {
   toggleButton = () => this.setState({ buttonClicked: !this.state.buttonClicked })
 
   render() {
-    const { message, memoData, syllabusObjFromKopps } = this.props.routerStore
+    const { memoData, syllabusObjFromKopps } = this.props.routerStore
 
     return (
       <div>
