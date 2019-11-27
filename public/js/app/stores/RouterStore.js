@@ -14,38 +14,8 @@ class RouterStore {
 
   @observable memoData
 
-  // @action doUpsertItem (body, courseCode, semester) {
-  //   return axios.post('intern-api/kurs-pm-data')// postMemoDataById(body, courseCode, semester)
-  //   .then(res => {
-  //     console.log('post Memo Data By Id')
-  //   })
-  //   .catch(err => {
-  //     if (err.response) {
-  //       throw new Error(err.message, err.response.data)
-  //     }
-  //     throw err
-  //   })
-  // }
-
-  // eslint-disable-next-line class-methods-use-this
-  @action doUpsertItem(body, courseCode, semester) {
-    // return axios.post('intern-api/'+courseCode)
-    console.log('Post to internal api first')
-    return axios
-      .post('/kursinfoadmin/kurs-pm-data/intern-api/' + courseCode + '/' + semester, body)
-      .then(res => {
-        console.log('Success uppserted item to api', res)
-        return res
-      })
-      .catch(err => {
-        if (err.response) {
-          throw new Error(err.message, err.response.data)
-        }
-        throw err
-      })
-  }
-
   @action setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {
+    console.log(' ===??? apihost ', apiHost)
     this.browserConfig = config
     this.paths = paths
     this.apiHost = apiHost
