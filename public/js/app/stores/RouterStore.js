@@ -1,11 +1,6 @@
 import { observable, action } from 'mobx'
-import axios from 'axios'
-// import api from '../../../../server/api'
-// import postMemoDataById from '../../../../server/kursPmDataApi'
 
 class RouterStore {
-  @observable message = 'This is the default string...'
-
   @observable courseCode
 
   @observable semester
@@ -13,6 +8,10 @@ class RouterStore {
   @observable syllabusObjFromKopps
 
   @observable memoData
+
+  @action tempMemoData(memoData) {
+    this.memoData = memoData
+  }
 
   @action setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {
     console.log(' ===??? apihost ', apiHost)
