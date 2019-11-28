@@ -25,8 +25,8 @@ class Start extends Component {
 
   handleConfirm = () => {
     const body = this.state
-    // {
-    //   obligatory: this.props.routerStore.syllabusObjFromKopps,
+    // { //TODO: It will be needed at the stage when we get 'fresh' data from Kopps
+    //   obligatory: this.props.routerStore.koppsFreshData,
     //   editable: this.state
     // }
     console.log('Content is submited, preparing to save changes:', this.state)
@@ -44,14 +44,14 @@ class Start extends Component {
   }
 
   render() {
-    const { syllabusObjFromKopps } = this.props.routerStore
+    const { koppsFreshData } = this.props.routerStore
 
     return (
       <div>
         <h1>Skapa nytt kurs-pm</h1>
         <h2>Innehåll och lärandemål</h2>
         <h3>Lärandemål</h3>
-        <p dangerouslySetInnerHTML={{ __html: syllabusObjFromKopps.goals }} />
+        <p dangerouslySetInnerHTML={{ __html: koppsFreshData.goals }} />
         <h2>Genomföra kursen</h2>
         <EditorPerTitle id="planning" onEditorChange={this.handleEditorChange} />
         <h2>Examination och slutförande</h2>

@@ -53,7 +53,7 @@ async function getContent(req, res, next) {
     )
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
-    renderProps.props.children.props.routerStore.syllabusObjFromKopps = await getSyllabus(
+    renderProps.props.children.props.routerStore.koppsFreshData = await getSyllabus(
       courseCode,
       semester,
       lang

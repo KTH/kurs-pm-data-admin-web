@@ -5,7 +5,7 @@ class RouterStore {
 
   @observable semester
 
-  @observable syllabusObjFromKopps
+  @observable koppsFreshData
 
   @observable memoData
 
