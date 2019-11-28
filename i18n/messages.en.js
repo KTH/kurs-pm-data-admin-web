@@ -32,7 +32,11 @@ module.exports = {
     lang_block_id: '1.77273',
     locale_text: 'English',
 
-    site_name: 'Administration of course memos',
+    site_name: 'Administration of Course Memos',
     host_name: 'KTH'
+  },
+  header: {
+    planning: 'Detailed Planning',
+    gradingCriteria: 'Grading Criteria'
   }
 }

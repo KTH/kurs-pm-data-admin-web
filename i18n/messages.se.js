@@ -34,5 +34,9 @@ module.exports = {
 
     site_name: 'Administration av kurs-PM',
     host_name: 'KTH'
+  },
+  header: {
+    planning: 'Detaljplanering',
+    gradingCriteria: 'Målrelaterade betygskriterier'
   }
 }
