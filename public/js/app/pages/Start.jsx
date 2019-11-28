@@ -24,11 +24,12 @@ class Start extends Component {
   }
 
   handleConfirm = () => {
-    const body = {
-      koppsObject: this.props.routerStore.syllabusObjFromKopps,
-      editorContent: this.state.memoData
-    }
-    console.log('Content is submited, preparing to save changes:', this.state.editorContent)
+    const body = this.state
+    // {
+    //   obligatory: this.props.routerStore.syllabusObjFromKopps,
+    //   editable: this.state
+    // }
+    console.log('Content is submited, preparing to save changes:', this.state)
     return axios
       .post(
         '/kursinfoadmin/kurs-pm-data/internal-api/' + this.courseCode + '/' + this.semester,
