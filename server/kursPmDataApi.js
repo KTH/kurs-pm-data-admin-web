@@ -19,19 +19,20 @@ async function getMemoDataById(courseCode, semester) {
   }
 }
 
-async function postMemoDataById(courseCode, semester, content) {
+async function postMemoDataById(courseCode, semester, body) {
   const { client, paths } = api.kursPmDataApi
   const id = `${courseCode}${semester}`
   const uri = client.resolve(paths.postCourseMemoData.uri, { id })
-  console.log('postMemoDataById', content)
+  // const { obligatory, editable } = content
 
-  const body = {
-    _id: id,
-    courseCode,
-    semester,
-    koppsGoals: content.koppsObject.goals,
-    betygskriterier: content.editorContent
-  }
+  // const body = {
+  //   _id: id,
+  //   courseCode,
+  //   semester,
+  //   koppsGoals: obligatory.goals,
+  //   ...editable
+  // }
+  console.log('Prepared whole object is', body)
 
   try {
     const res = await client.postAsync({ uri, body, useCache: false })
