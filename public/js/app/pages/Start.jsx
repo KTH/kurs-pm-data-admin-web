@@ -12,6 +12,8 @@ import i18n from '../../../../i18n'
 class Start extends Component {
   state = this.props.routerStore.memoData
 
+  isApiExisted = !this.props.routerStore.memoData
+
   courseCode = this.props.routerStore.courseCode
 
   semester = this.props.routerStore.semester
@@ -24,11 +26,17 @@ class Start extends Component {
   }
 
   handleConfirm = () => {
-    const body = this.state
-    // { //TODO: It will be needed at the stage when we get 'fresh' data from Kopps
-    //   obligatory: this.props.routerStore.koppsFreshData,
-    //   editable: this.state
-    // }
+    const { courseCode, semester } = this
+    const start = {
+      // It will be needed at the stage when we get 'fresh' data from Kopps
+      _id: courseCode + semester,
+      courseCode,
+      semester
+    }
+    const body = this.isApiExisted
+      ? this.state
+      : { ...start, ...this.props.routerStore.koppsFreshData, ...this.state }
+
     console.log('Content is submited, preparing to save changes:', this.state)
     return axios
       .post(
