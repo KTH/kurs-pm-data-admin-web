@@ -1,11 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Button } from 'reactstrap'
-import { Editor } from '@tinymce/tinymce-react'
+import { Container, Row, Col, Button } from 'reactstrap'
 import EditorPerTitle from '../components/Editor'
 import axios from 'axios'
-import i18n from '../../../../i18n'
 
 @inject(['routerStore'])
 @observer
@@ -55,22 +54,40 @@ class Start extends Component {
     const { koppsFreshData } = this.props.routerStore
 
     return (
-      <div>
-        <h1>Skapa nytt kurs-pm</h1>
-        <h2>Innehåll och lärandemål</h2>
-        <h3>Lärandemål</h3>
-        <p dangerouslySetInnerHTML={{ __html: koppsFreshData.goals }} />
-        <h2>Genomföra kursen</h2>
-        <EditorPerTitle id="planning" onEditorChange={this.handleEditorChange} />
-        <h2>Examination och slutförande</h2>
-        <EditorPerTitle id="gradingCriteria" onEditorChange={this.handleEditorChange} />
-        <br />
-        <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
-          Spara
-        </Button>
-        <br />
-        <br />
-      </div>
+      <Container>
+        <Row>
+          <h1>Skapa nytt kurs-pm</h1>
+        </Row>
+        <Row>
+          <Col
+            xl="4"
+            lg="4"
+            style={{ backgroundColor: '#005ea4', color: '#ffffff', paddingTop: 'calc(2em + 1px)' }}
+          >
+            <p style={{ color: '#ffffff', fontWeight: '700' }}>Innehåll och lärandemål</p>
+            <p style={{ color: '#ffffff' }}>Lärandemål</p>
+            <p style={{ color: '#ffffff', fontWeight: '700' }}>Genomföra kursen</p>
+            <p style={{ color: '#ffffff' }}>Detaljplanering</p>
+            <p style={{ color: '#ffffff', fontWeight: '700' }}>Examination och slutförande</p>
+            <p style={{ color: '#ffffff' }}>Målrelaterade betygskriterier</p>
+          </Col>
+          <Col xl="8" lg="8">
+            <h2>Innehåll och lärandemål</h2>
+            <h3>Lärandemål</h3>
+            <p dangerouslySetInnerHTML={{ __html: koppsFreshData.goals }} />
+            <h2>Genomföra kursen</h2>
+            <EditorPerTitle id="planning" onEditorChange={this.handleEditorChange} />
+            <h2>Examination och slutförande</h2>
+            <EditorPerTitle id="gradingCriteria" onEditorChange={this.handleEditorChange} />
+            <br />
+            <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
+              Spara
+            </Button>
+            <br />
+            <br />
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
