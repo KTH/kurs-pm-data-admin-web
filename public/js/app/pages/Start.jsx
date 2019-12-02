@@ -56,28 +56,64 @@ class Start extends Component {
     return (
       <Container>
         <Row>
-          <h1>Skapa nytt kurs-pm</h1>
+          <Col>
+            <h1>Skapa nytt kurs-pm</h1>
+          </Col>
         </Row>
         <Row>
-          <Col
-            xl="4"
-            lg="4"
-            style={{ backgroundColor: '#005ea4', color: '#ffffff', paddingTop: 'calc(2em + 1px)' }}
-          >
-            <p style={{ color: '#ffffff', fontWeight: '700' }}>Innehåll och lärandemål</p>
-            <p style={{ color: '#ffffff' }}>Lärandemål</p>
-            <p style={{ color: '#ffffff', fontWeight: '700' }}>Genomföra kursen</p>
-            <p style={{ color: '#ffffff' }}>Detaljplanering</p>
-            <p style={{ color: '#ffffff', fontWeight: '700' }}>Examination och slutförande</p>
-            <p style={{ color: '#ffffff' }}>Målrelaterade betygskriterier</p>
+          <Col lg="4">
+            <nav
+              id="mainMenu"
+              className="col navbar navbar-expand-lg navbar-light"
+              style={{ paddingLeft: '0' }}
+            >
+              <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="nav nav-ancestor">
+                  <li>
+                    <span className="nav-item ancestor">Innehåll och lärandemål</span>
+                  </li>
+                </ul>
+                <ul className="nav nav-list">
+                  <li className="nav-item selected">
+                    <a className="nav-link" href="#1">
+                      Lärandemål
+                    </a>
+                  </li>
+                </ul>
+                <ul className="nav nav-ancestor">
+                  <li>
+                    <span className="nav-item ancestor">Genomföra kursen</span>
+                  </li>
+                </ul>
+                <ul className="nav nav-list">
+                  <li className="nav-item leaf">
+                    <a className="nav-link" href="#2">
+                      Detaljplanering
+                    </a>
+                  </li>
+                </ul>
+                <ul className="nav nav-ancestor">
+                  <li>
+                    <span className="nav-item ancestor">Examination och slutförande</span>
+                  </li>
+                </ul>
+                <ul className="nav nav-list">
+                  <li className="nav-item leaf">
+                    <a className="nav-link" href="#3">
+                      Målrelaterade betygskriterier
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
           </Col>
-          <Col xl="8" lg="8">
+          <Col lg="8">
             <h2>Innehåll och lärandemål</h2>
-            <h3>Lärandemål</h3>
+            <h3 id="1">Lärandemål</h3>
             <p dangerouslySetInnerHTML={{ __html: koppsFreshData.goals }} />
-            <h2>Genomföra kursen</h2>
+            <h2 id="2">Genomföra kursen</h2>
             <EditorPerTitle id="planning" onEditorChange={this.handleEditorChange} />
-            <h2>Examination och slutförande</h2>
+            <h2 id="3">Examination och slutförande</h2>
             <EditorPerTitle id="gradingCriteria" onEditorChange={this.handleEditorChange} />
             <br />
             <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
