@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import EditorPerTitle from '../components/Editor'
 import axios from 'axios'
+import SideMenu from '../components/SideMenu'
 
 @inject(['routerStore'])
 @observer
@@ -62,7 +63,8 @@ class Start extends Component {
         </Row>
         <Row>
           <Col lg="4">
-            <nav
+            <SideMenu id="mainMenu" />
+            {/* <nav
               id="mainMenu"
               className="col navbar navbar-expand-lg navbar-light"
               style={{ paddingLeft: '0' }}
@@ -105,7 +107,7 @@ class Start extends Component {
                   </li>
                 </ul>
               </div>
-            </nav>
+            </nav> */}
           </Col>
           <Col lg="8">
             <h2>Innehåll och lärandemål</h2>
