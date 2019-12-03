@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import EditorPerTitle from '../components/Editor'
 import axios from 'axios'
+import SideMenu from '../components/SideMenu'
 
 @inject(['routerStore'])
 @observer
@@ -62,50 +63,7 @@ class Start extends Component {
         </Row>
         <Row>
           <Col lg="4">
-            <nav
-              id="mainMenu"
-              className="col navbar navbar-expand-lg navbar-light"
-              style={{ paddingLeft: '0' }}
-            >
-              <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="nav nav-ancestor">
-                  <li>
-                    <span className="nav-item ancestor">Innehåll och lärandemål</span>
-                  </li>
-                </ul>
-                <ul className="nav nav-list">
-                  <li className="nav-item selected">
-                    <a className="nav-link" href="#1">
-                      Lärandemål
-                    </a>
-                  </li>
-                </ul>
-                <ul className="nav nav-ancestor">
-                  <li>
-                    <span className="nav-item ancestor">Genomföra kursen</span>
-                  </li>
-                </ul>
-                <ul className="nav nav-list">
-                  <li className="nav-item leaf">
-                    <a className="nav-link" href="#2">
-                      Detaljplanering
-                    </a>
-                  </li>
-                </ul>
-                <ul className="nav nav-ancestor">
-                  <li>
-                    <span className="nav-item ancestor">Examination och slutförande</span>
-                  </li>
-                </ul>
-                <ul className="nav nav-list">
-                  <li className="nav-item leaf">
-                    <a className="nav-link" href="#3">
-                      Målrelaterade betygskriterier
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
+            <SideMenu id="mainMenu" />
           </Col>
           <Col lg="8">
             <h2>Innehåll och lärandemål</h2>
