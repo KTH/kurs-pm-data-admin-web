@@ -1,20 +1,11 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import i18n from '../../../../i18n'
 import { menuContent } from '../util/exampleData'
 
 @inject(['routerStore'])
 @observer
 class SideMenu extends Component {
-  state = {}
-
-  updateMemoContent = editorContent => {
-    this.props.onEditorChange(editorContent, this.props.id)
-  }
-
   render() {
-    // const { header } = i18n.messages[1]
-    // const { selectedId } = this.props.routerStore
     const { id } = this.props
 
     const menuElements = []
