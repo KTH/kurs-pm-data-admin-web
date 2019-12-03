@@ -16,6 +16,55 @@ class SideMenu extends Component {
     // const { selectedId } = this.props.routerStore
     const { id } = this.props
 
+    const menuContent = [
+      {
+        level: 'ancestor',
+        title: 'Innehåll och lärandemål'
+      },
+      {
+        level: 'item',
+        title: 'Lärandemål',
+        selected: true,
+        href: '#'
+      },
+      {
+        level: 'ancestor',
+        title: 'Genomföra kursen'
+      },
+      {
+        level: 'item',
+        title: 'Detaljplanering',
+        selected: false,
+        href: '#1'
+      },
+      {
+        level: 'ancestor',
+        title: 'Examination och slutförande'
+      },
+      {
+        level: 'item',
+        title: 'Målrelaterade betygskriterier',
+        selected: false,
+        href: '#2'
+      }
+    ]
+
+    const menuElements = []
+    menuContent.forEach((content, index) => {
+      if (content.level === 'ancestor') {
+        menuElements.push(<Ancestor index={index} title={content.title} />)
+      } else if (content.level === 'item') {
+        menuElements.push(
+          <Item
+            index={index}
+            title={content.title}
+            selected={content.selected}
+            href={content.href}
+          />
+        )
+      }
+    })
+
     return (
       <nav
         id={id}
@@ -23,74 +72,29 @@ class SideMenu extends Component {
         style={{ paddingLeft: '0' }}
       >
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="nav nav-ancestor">
-            <li>
-              <span className="nav-item ancestor">Innehåll och lärandemål</span>
-            </li>
-          </ul>
-          <ul className="nav nav-list">
-            <li className="nav-item selected">
-              <a className="nav-link" href="#1">
-                Lärandemål
-              </a>
-            </li>
-          </ul>
-          <ul className="nav nav-ancestor">
-            <li>
-              <span className="nav-item ancestor">Genomföra kursen</span>
-            </li>
-          </ul>
-          <ul className="nav nav-list">
-            <li className="nav-item leaf">
-              <a className="nav-link" href="#2">
-                Detaljplanering
-              </a>
-            </li>
-          </ul>
-          <ul className="nav nav-ancestor">
-            <li>
-              <span className="nav-item ancestor">Examination och slutförande</span>
-            </li>
-          </ul>
-          <ul className="nav nav-list">
-            <li className="nav-item leaf">
-              <a className="nav-link" href="#3">
-                Målrelaterade betygskriterier
-              </a>
-            </li>
-          </ul>
+          {menuElements}
         </div>
       </nav>
-
-      // <span>
-      //   <h3>{header[id]}</h3>
-      //   <Editor
-      //     id={id}
-      //     initialValue={memoData ? memoData[id] : ''}
-      //     init={{
-      //       height: 500,
-      //       menubar: false,
-      //       plugins: [
-      //         'advlist autolink autosave lists link image imagetools charmap preview anchor',
-      //         'searchreplace visualblocks code fullscreen',
-      //         'table paste code help wordcount'
-      //       ],
-      //       language: i18n.isSwedish() ? 'sv_SE' : 'en_En',
-      //       toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-      //           searchreplace | image | link | restoredraft | fullscreen |
-      //           table |
-      //           bullist numlist outdent indent | removeformat | help`,
-      //       imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-      //       autosave_interval: '60s',
-      //       autosave_ask_before_unload: true,
-      //       autosave_restore_when_empty: true,
-      //       autosave_retention: '1m',
-      //       block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4'
-      //     }}
-      //     onEditorChange={this.updateMemoContent}
-      //   />
-      // </span>
     )
   }
 }
+
+const Ancestor = props => (
+  <ul key={props.index} className="nav nav-ancestor">
+    <li key={props.index}>
+      <span className="nav-item ancestor">{props.title}</span>
+    </li>
+  </ul>
+)
+
+const Item = props => (
+  <ul key={props.index} className="nav nav-list">
+    <li key={props.index} className={props.selected ? 'nav-item selected' : 'nav-item leaf'}>
+      <a className="nav-link" href={props.href}>
+        {props.title}
+      </a>
+    </li>
+  </ul>
+)
+
 export default SideMenu
