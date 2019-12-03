@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import i18n from '../../../../i18n'
+import { menuContent } from '../util/exampleData'
 
 @inject(['routerStore'])
 @observer
@@ -15,39 +16,6 @@ class SideMenu extends Component {
     // const { header } = i18n.messages[1]
     // const { selectedId } = this.props.routerStore
     const { id } = this.props
-
-    const menuContent = [
-      {
-        level: 'ancestor',
-        title: 'Innehåll och lärandemål'
-      },
-      {
-        level: 'item',
-        title: 'Lärandemål',
-        selected: true,
-        href: '#'
-      },
-      {
-        level: 'ancestor',
-        title: 'Genomföra kursen'
-      },
-      {
-        level: 'item',
-        title: 'Detaljplanering',
-        selected: false,
-        href: '#1'
-      },
-      {
-        level: 'ancestor',
-        title: 'Examination och slutförande'
-      },
-      {
-        level: 'item',
-        title: 'Målrelaterade betygskriterier',
-        selected: false,
-        href: '#2'
-      }
-    ]
 
     const menuElements = []
     menuContent.forEach((content, index) => {
