@@ -9,13 +9,13 @@ class SideMenu extends Component {
     const { id } = this.props
 
     const menuElements = []
-    menuContent.forEach((content, index) => {
+    menuContent.forEach(content => {
       if (content.level === 'ancestor') {
-        menuElements.push(<Ancestor index={index} title={content.title} />)
+        menuElements.push(<Ancestor key={menuElements.length} title={content.title} />)
       } else if (content.level === 'item') {
         menuElements.push(
           <Item
-            index={index}
+            key={menuElements.length}
             title={content.title}
             selected={content.selected}
             href={content.href}
@@ -39,16 +39,16 @@ class SideMenu extends Component {
 }
 
 const Ancestor = props => (
-  <ul key={props.index} className="nav nav-ancestor">
-    <li key={props.index}>
+  <ul className="nav nav-ancestor">
+    <li>
       <span className="nav-item ancestor">{props.title}</span>
     </li>
   </ul>
 )
 
 const Item = props => (
-  <ul key={props.index} className="nav nav-list">
-    <li key={props.index} className={props.selected ? 'nav-item selected' : 'nav-item leaf'}>
+  <ul className="nav nav-list">
+    <li className={props.selected ? 'nav-item selected' : 'nav-item leaf'}>
       <a className="nav-link" href={props.href}>
         {props.title}
       </a>
