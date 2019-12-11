@@ -36,6 +36,26 @@ module.exports = {
     host_name: 'KTH'
   },
   header: {
+    courseContent: 'Course contents',
+    learningOutcomes: 'Intended learning outcomes',
+    equipment: 'Equipment',
+    literature: 'Literature',
+    additionalRegulations: 'Additional regulations',
+    gradingScale: 'Grading scale',
+    ethicalApproach: 'Ethical approach',
+    examination: 'Examination',
+    examinationComment: '+[examination comment (fixed text)]',
+    examinationCommentEditable: '+ [examination comment (free text)]',
+    supplementaryExam: 'Opportunity to complete the requirements via supplementary examination',
+    raiseApprovedGrade: 'Opportunity to raise an approved grade via renewed examination',
+    otherRequirementsForFinalGrade: 'Other requirements for final grade',
+    examiner: 'Examiner',
+    communicationWithTeachers: 'Communication with teachers',
+    courseCoordinator: 'Course coordinator ',
+    labSupervisors: 'Lab supervisors',
+    teacherAssistants: 'Teacher assistants',
+    teacher: 'Teacher',
+    languageOfInstructions: 'Language of instruction',
     planning: 'Detailed Planning',
     gradingCriteria: 'Grading Criteria'
   }

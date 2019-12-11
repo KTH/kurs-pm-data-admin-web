@@ -36,6 +36,26 @@ module.exports = {
     host_name: 'KTH'
   },
   header: {
+    courseContent: 'Kursinnehåll',
+    learningOutcomes: 'Lärandemål',
+    equipment: 'Utrustning',
+    literature: 'Kurslitteratur',
+    additionalRegulations: 'Övriga föreskrifter',
+    gradingScale: 'Betygsskala',
+    ethicalApproach: 'Etiskt förhållningssätt',
+    examination: 'Examination',
+    examinationComment: '+ [kommentar till examination (fast text)]',
+    examinationCommentEditable: '+ [kommentar till examination (fritext)]',
+    supplementaryExam: 'Möjlighet till komplettering',
+    raiseApprovedGrade: 'Möjlighet till plussning',
+    otherRequirementsForFinalGrade: 'Övriga krav för slutbetyg',
+    examiner: 'Examinator',
+    communicationWithTeachers: 'Kommunikation med lärare',
+    courseCoordinator: 'Kursansvarig',
+    labSupervisors: 'Labbhandledare',
+    teacherAssistants: 'Lärarassistenter',
+    teacher: 'Lärare',
+    languageOfInstructions: 'Undervisningsspråk',
     planning: 'Detaljplanering',
     gradingCriteria: 'Målrelaterade betygskriterier'
   }
