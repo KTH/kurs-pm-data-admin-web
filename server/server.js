@@ -226,7 +226,7 @@ appRoute.post(
 
 appRoute.get(
   'memo.getContent',
-  config.proxyPrefixPath.uri + '/:courseCode/:semester',
+  config.proxyPrefixPath.uri + '/:courseCode/:semester*',
   MemoContent.getContent
 )
 appRoute.get(

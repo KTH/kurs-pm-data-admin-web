@@ -3,12 +3,10 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
-import EditorPerTitle from '../components/Editor'
-import { context, contentAndOutcomes, prep, reqToFinal, extra } from '../util/filedsByType'
+// import EditorPerTitle from '../components/Editor'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
-import i18n from '../../../../i18n'
-
+import Section from '../components/Section'
 @inject(['routerStore'])
 @observer
 class Start extends Component {
@@ -65,28 +63,12 @@ class Start extends Component {
             <SideMenu id="mainMenu" />
           </Col>
           <Col lg="8">
-            <h2 id="1">Innehåll och lärandemål</h2>
-            {contentAndOutcomes.map(title =>
-              context[title].isFromSyllabus ? (
-                <span id={title}>
-                  <h3>{header[title]}</h3>
-                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
-                </span>
-              ) : (
-                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
-              )
-            )}
-            <h2 id="2">Kurslitteratur och förberedelser</h2>
-            {prep.map(title =>
-              context[title].isFromSyllabus ? (
-                <span id={title}>
-                  <h3>{header[title]}</h3>
-                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
-                </span>
-              ) : (
-                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
-              )
-            )}
+            <Section />
+            {/* <h2>Innehåll och lärandemål</h2>
+            <h3 id="1">Lärandemål</h3>
+            <p dangerouslySetInnerHTML={{ __html: koppsFreshData.goals }} />
+            <h2 id="2">Genomföra kursen</h2>
+            <EditorPerTitle id="planning" onEditorChange={this.handleEditorChange} />
             <h2 id="3">Examination och slutförande</h2>
             {reqToFinal.map(title =>
               context[title].isFromSyllabus ? (
@@ -114,7 +96,7 @@ class Start extends Component {
               Spara
             </Button>
             <br />
-            <br />
+            <br /> */}
           </Col>
         </Row>
       </Container>
