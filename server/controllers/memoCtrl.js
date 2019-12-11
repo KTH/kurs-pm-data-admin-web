@@ -81,6 +81,7 @@ async function getContent(req, res, next) {
   }
 }
 
+// eslint-disable-next-line consistent-return
 async function updateContent(req, res, next) {
   try {
     const { courseCode, semester } = req.params
