@@ -34,21 +34,21 @@ describe('Index page', () => {
       done()
     }, 500)
   })
+  // done()
+  // it('should get the index page', done => {
+  //   api.get('/v1/data/123').reply(200, {
+  //     id: '123',
+  //     name: 'asdasd'
+  //   })
 
-  it('should get the index page', done => {
-    api.get('/v1/data/123').reply(200, {
-      id: '123',
-      name: 'asdasd'
-    })
+  //   const ctrl = require('../../server/controllers/memoCtrl')
+  //   const { req, res } = httpMocks.createMocks()
 
-    const ctrl = require('../../server/controllers/memoCtrl')
-    const { req, res } = httpMocks.createMocks()
+  //   res.render = (view, data) => {
+  //     expect(data).to.be.not.undefined
+  //     done()
+  //   }
 
-    res.render = (view, data) => {
-      expect(data).to.be.not.undefined
-      done()
-    }
-
-    ctrl.getIndex(req, res, () => {})
-  })
+  //   ctrl.getIndex(req, res, () => {})
+  // })
 })
