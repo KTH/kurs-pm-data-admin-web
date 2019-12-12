@@ -26,7 +26,7 @@ const koppsConfig = {
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
 function getSelectedSyllabus(syllabusObject) {
-  //TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
+  // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
   return syllabusObject.publicSyllabusVersions[0]
 }
 
@@ -37,8 +37,24 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const selectedSyllabus = getSelectedSyllabus(res.body, semester, language)
-    const { goals } = selectedSyllabus.courseSyllabus
-    return { goals }
+    const {
+      goals,
+      content,
+      additionalRegulations,
+      formattedGradeScales,
+      ethicalApproach,
+      examComments,
+      reqsForFinalGrade
+    } = selectedSyllabus.courseSyllabus
+    return {
+      goals,
+      content,
+      additionalRegulations,
+      formattedGradeScales,
+      ethicalApproach,
+      examComments,
+      reqsForFinalGrade
+    }
   } catch (err) {
     log.debug('Kopps is not available', err)
     return err
