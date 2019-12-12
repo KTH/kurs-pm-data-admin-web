@@ -18,10 +18,10 @@ class EditorPerTitle extends Component {
     const { id } = this.props
 
     return (
-      <span>
+      <span id={id}>
         <h3>{header[id]}</h3>
         <Editor
-          id={id}
+          id={'editorFor' + id}
           initialValue={memoData ? memoData[id] : ''}
           init={{
             height: 500,
