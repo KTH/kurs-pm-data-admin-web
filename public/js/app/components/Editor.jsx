@@ -14,12 +14,10 @@ class EditorPerTitle extends Component {
 
   render() {
     const { memoData } = this.props.routerStore
-    const { header } = i18n.messages[1]
     const { id } = this.props
 
     return (
-      <span id={id}>
-        <h3>{header[id]}</h3>
+      <span>
         <Editor
           id={'editorFor' + id}
           initialValue={memoData ? memoData[id] : ''}
