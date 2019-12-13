@@ -1,36 +1,45 @@
-const _menuContent = [
+const _contents = [
   {
-    level: 'ancestor',
+    level: 'heading',
     title: 'Innehåll och lärandemål'
   },
   {
-    level: 'item',
+    id: '1',
+    level: 'section',
     title: 'Lärandemål',
     selected: true,
-    href: '#learningOutcomes'
+    href: '#learningOutcomes',
+    text:
+      'Spicy jalapeno bacon ipsum dolor amet et minim meatloaf kielbasa ut pork beef qui burgdoggen reprehenderit. Ut bresaola culpa ullamco ad, quis sirloin magna alcatra. Pork belly reprehenderit beef hamburger sed, tail meatball biltong. Excepteur tongue meatloaf quis bresaola spare ribs, pork commodo do adipisicing consequat doner short ribs lorem turkey. Spicy jalapeno bacon ipsum dolor amet et minim meatloaf kielbasa ut pork beef qui burgdoggen reprehenderit. Ut bresaola culpa ullamco ad, quis sirloin magna alcatra. Pork belly reprehenderit beef hamburger sed, tail meatball biltong. Excepteur tongue meatloaf quis bresaola spare ribs, pork commodo do adipisicing consequat doner short ribs lorem turkey.'
   },
   {
-    level: 'ancestor',
+    level: 'heading',
     title: 'Genomföra kursen'
   },
   {
-    level: 'item',
+    id: '2',
+    level: 'section',
     title: 'Detaljplanering',
     selected: false,
-    href: '#planning'
+    href: '#planning',
+    text:
+      'Spicy jalapeno bacon ipsum dolor amet et minim meatloaf kielbasa ut pork beef qui burgdoggen reprehenderit. Ut bresaola culpa ullamco ad, quis sirloin magna alcatra. Pork belly reprehenderit beef hamburger sed, tail meatball biltong. Excepteur tongue meatloaf quis bresaola spare ribs, pork commodo do adipisicing consequat doner short ribs lorem turkey.'
   },
   {
-    level: 'ancestor',
+    level: 'heading',
     title: 'Examination och slutförande'
   },
   {
-    level: 'item',
+    id: '3',
+    level: 'section',
     title: 'Målrelaterade betygskriterier',
     selected: false,
-    href: '#gradingCriteria'
+    href: '#gradingCriteria',
+    text:
+      'Spicy jalapeno bacon ipsum dolor amet et minim meatloaf kielbasa ut pork beef qui burgdoggen reprehenderit. Ut bresaola culpa ullamco ad, quis sirloin magna alcatra. Pork belly reprehenderit beef hamburger sed, tail meatball biltong. Excepteur tongue meatloaf quis bresaola spare ribs, pork commodo do adipisicing consequat doner short ribs lorem turkey. Spicy jalapeno bacon ipsum dolor amet et minim meatloaf kielbasa ut pork beef qui burgdoggen reprehenderit. Ut bresaola culpa ullamco ad, quis sirloin magna alcatra. Pork belly reprehenderit beef hamburger sed, tail meatball biltong.'
   }
 ]
 
 module.exports = {
-  menuContent: _menuContent
+  contents: _contents
 }

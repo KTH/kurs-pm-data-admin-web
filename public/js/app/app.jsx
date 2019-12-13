@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { StaticRouter } from 'react-router'
 import { Provider } from 'mobx-react'
 
@@ -22,13 +22,7 @@ function appFactory() {
 
   return (
     <Provider routerStore={routerStore}>
-      <Switch>
-        <Route path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester/" component={Start} />
-        <Route
-          path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester/:section"
-          component={Start}
-        />
-      </Switch>
+      <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester" component={Start} />
     </Provider>
   )
 }
