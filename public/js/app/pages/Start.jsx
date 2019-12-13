@@ -48,9 +48,6 @@ class Start extends Component {
   }
 
   render() {
-    const { koppsFreshData } = this.props.routerStore
-    const { header } = i18n.messages[1]
-
     return (
       <Container>
         <Row>
@@ -64,39 +61,12 @@ class Start extends Component {
           </Col>
           <Col lg="8">
             <Section />
-            {/* <h2>Innehåll och lärandemål</h2>
-            <h3 id="1">Lärandemål</h3>
-            <p dangerouslySetInnerHTML={{ __html: koppsFreshData.goals }} />
-            <h2 id="2">Genomföra kursen</h2>
-            <EditorPerTitle id="planning" onEditorChange={this.handleEditorChange} />
-            <h2 id="3">Examination och slutförande</h2>
-            {reqToFinal.map(title =>
-              context[title].isFromSyllabus ? (
-                <span id={title}>
-                  <h3>{header[title]}</h3>
-                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
-                </span>
-              ) : (
-                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
-              )
-            )}
-            <h2 id="4">Ytterligare Information</h2>
-            {extra.map(title =>
-              context[title].isFromSyllabus ? (
-                <span id={title}>
-                  <h3>{header[title]}</h3>
-                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
-                </span>
-              ) : (
-                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
-              )
-            )}
             <br />
             <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
               Spara
             </Button>
             <br />
-            <br /> */}
+            <br />
           </Col>
         </Row>
       </Container>
