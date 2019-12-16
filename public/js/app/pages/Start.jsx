@@ -8,6 +8,7 @@ import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
+import { ProgressBar } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -51,7 +52,7 @@ class Start extends Component {
 
   render() {
     const { koppsFreshData } = this.props.routerStore
-    const { header } = i18n.messages[1]
+    const { header, pages } = i18n.messages[1]
 
     return (
       <Container>
@@ -60,6 +61,7 @@ class Start extends Component {
             <h1>Skapa nytt kurs-pm</h1>
           </Col>
         </Row>
+        <ProgressBar active={2} pages={pages} />
         <Row>
           <Col lg="4">
             <SideMenu id="mainMenu" />

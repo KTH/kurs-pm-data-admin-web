@@ -1,5 +1,25 @@
 // Scss code goes here!
+$light-grey: #d4d4d4;
 
 #kth-node {
   background: pink;
+}
+#app {
+  width: 100%;
+}
+//remove it later
+.progress-bar-container {
+  margin: 0 0 50px 0;
+  p {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+  .progress-bar1 {
+    border-bottom: 2px solid $light-grey;
+    padding-left: 0;
+    margin-bottom: 10px;
+    &.progress-active {
+      font-weight: 900;
+    }
+  }
 }
