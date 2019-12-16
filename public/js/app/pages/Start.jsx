@@ -3,10 +3,12 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
-// import EditorPerTitle from '../components/Editor'
+import EditorPerTitle from '../components/Editor'
+import { context, contentAndOutcomes, prep, reqToFinal, extra } from '../util/filedsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
-import Section from '../components/Section'
+import i18n from '../../../../i18n'
+
 @inject(['routerStore'])
 @observer
 class Start extends Component {
@@ -48,6 +50,9 @@ class Start extends Component {
   }
 
   render() {
+    const { koppsFreshData } = this.props.routerStore
+    const { header } = i18n.messages[1]
+
     return (
       <Container>
         <Row>
@@ -60,7 +65,50 @@ class Start extends Component {
             <SideMenu id="mainMenu" />
           </Col>
           <Col lg="8">
-            <Section />
+            <h2 id="1">Innehåll och lärandemål</h2>
+            {contentAndOutcomes.map(title =>
+              context[title].isFromSyllabus ? (
+                <span id={title}>
+                  <h3>{header[title]}</h3>
+                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
+                </span>
+              ) : (
+                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
+              )
+            )}
+            <h2 id="2">Kurslitteratur och förberedelser</h2>
+            {prep.map(title =>
+              context[title].isFromSyllabus ? (
+                <span id={title}>
+                  <h3>{header[title]}</h3>
+                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
+                </span>
+              ) : (
+                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
+              )
+            )}
+            <h2 id="3">Examination och slutförande</h2>
+            {reqToFinal.map(title =>
+              context[title].isFromSyllabus ? (
+                <span id={title}>
+                  <h3>{header[title]}</h3>
+                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
+                </span>
+              ) : (
+                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
+              )
+            )}
+            <h2 id="4">Ytterligare Information</h2>
+            {extra.map(title =>
+              context[title].isFromSyllabus ? (
+                <span id={title}>
+                  <h3>{header[title]}</h3>
+                  <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
+                </span>
+              ) : (
+                <EditorPerTitle id={title} onEditorChange={this.handleEditorChange} />
+              )
+            )}
             <br />
             <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
               Spara
