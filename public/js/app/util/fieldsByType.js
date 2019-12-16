@@ -23,41 +23,48 @@ const context = {
   gradingCriteria: { type: '', isFromSyllabus: false }
 }
 
-const contentAndOutcomes = [
-  'courseContent',
-  'learningOutcomes',
-  'languageOfInstructions',
-  'planning'
-]
-
-const prep = ['equipment', 'literature']
-
-const reqToFinal = [
-  'gradingScale',
-  'examination',
-  'examinationComment',
-  'otherRequirementsForFinalGrade',
-  'examiner',
-  'ethicalApproach',
-  'examinationCommentEditable',
-  'gradingCriteria',
-  'supplementaryExam',
-  'raiseApprovedGrade'
-]
-
-const extra = [
-  'additionalRegulations',
-  'teacher',
-  'teacherAssistants',
-  'labSupervisors',
-  'courseCoordinator',
-  'communicationWithTeachers'
+const sections = [
+  {
+    id: 'contentAndOutcomes',
+    title: 'Innehåll och lärandemål',
+    content: ['courseContent', 'learningOutcomes', 'languageOfInstructions', 'planning']
+  },
+  {
+    id: 'prep',
+    title: 'Kurslitteratur och förberedelser',
+    content: ['equipment', 'literature']
+  },
+  {
+    id: 'reqToFinal',
+    title: 'Examination och slutförande',
+    content: [
+      'gradingScale',
+      'examination',
+      'examinationComment',
+      'otherRequirementsForFinalGrade',
+      'examiner',
+      'ethicalApproach',
+      'examinationCommentEditable',
+      'gradingCriteria',
+      'supplementaryExam',
+      'raiseApprovedGrade'
+    ]
+  },
+  {
+    id: 'extra',
+    title: 'Ytterligare Information',
+    content: [
+      'additionalRegulations',
+      'teacher',
+      'teacherAssistants',
+      'labSupervisors',
+      'courseCoordinator',
+      'communicationWithTeachers'
+    ]
+  }
 ]
 
 module.exports = {
   context,
-  contentAndOutcomes,
-  prep,
-  reqToFinal,
-  extra
+  sections
 }
