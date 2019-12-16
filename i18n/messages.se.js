@@ -58,5 +58,23 @@ module.exports = {
     languageOfInstructions: 'Undervisningsspråk',
     planning: 'Detaljplanering',
     gradingCriteria: 'Målrelaterade betygskriterier'
-  }
+  },
+  pages: [
+    {
+      title: '1. Välj kursomgång',
+      intro: `Börja med att välja termin och kursomgång för den kursanalys som ska publiceras (steg 1 av 3). 
+      I nästa steg (2 av 3) kommer viss kurs PM data för kursen att hämtas automatiskt från Kopps och UG för den termin och kursomgång som valts. Det finns sedan möjlighet att redigera viss kurs-PM data. 
+      I sista steget (3 av 3) ges möjlighet att först granska och sedan publicera kurs-PM på sidan ....`
+    },
+    {
+      title: '2. Redigera kurs-PM data',
+      intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
+      I nästa steg granskas all kurs-PM data innan publicering.`
+    },
+    {
+      title: '3. Granska och publicera',
+      intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
+      Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
+    }
+  ]
 }
