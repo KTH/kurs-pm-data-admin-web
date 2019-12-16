@@ -79,5 +79,11 @@ module.exports = {
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
       It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
-  ]
+  ],
+  sections: {
+    contentAndOutcomes: '',
+    prep: '',
+    reqToFinal: '',
+    extra: ''
+  }
 }

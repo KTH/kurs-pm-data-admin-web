@@ -76,5 +76,11 @@ module.exports = {
       intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
       Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
     }
-  ]
+  ],
+  sections: {
+    contentAndOutcomes: 'Innehåll och lärandemål',
+    prep: 'Kurslitteratur och förberedelser',
+    reqToFinal: 'Examination och slutförande',
+    extra: 'Ytterligare Information'
+  }
 }
