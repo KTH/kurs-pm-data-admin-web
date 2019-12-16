@@ -2,38 +2,31 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 
-import { contents } from '../util/exampleData'
+import { sections } from '../util/fieldsByType'
+import i18n from '../../../../i18n'
 
 @inject(['routerStore'])
 @observer
 class SideMenu extends Component {
   render() {
-    const { id } = this.props
-
-    const menu = []
-    contents.forEach(content => {
-      if (content.level === 'heading') {
-        menu.push(<NavHeading key={menu.length} title={content.title} />)
-      } else if (content.level === 'section') {
-        menu.push(
-          <NavItem
-            key={menu.length}
-            id={content.id}
-            title={content.title}
-            selected={content.selected}
-          />
-        )
-      }
-    })
-
+    const { header } = i18n.messages[1]
     return (
       <nav
-        id={id}
+        id={this.props.id}
         className="col navbar navbar-expand-lg navbar-light"
         style={{ paddingLeft: '0' }}
       >
         <div className="collapse navbar-collapse" id="navbarNav">
-          {menu}
+          {sections.map(section => (
+            <span key={section.id}>
+              <NavHeading key={'nav-' + section.id} title={section.title} />
+              <>
+                {section.content.map(title => (
+                  <NavItem key={'nav-' + title} id={title} title={header[title]} selected={false} />
+                ))}
+              </>
+            </span>
+          ))}
         </div>
       </nav>
     )
