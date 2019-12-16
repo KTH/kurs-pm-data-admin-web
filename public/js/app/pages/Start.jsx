@@ -2,7 +2,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Container, Row, Col, ButtonGroup, Button } from 'reactstrap'
 import EditorPerTitle from '../components/Editor'
 import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
@@ -50,6 +50,10 @@ class Start extends Component {
       .catch(error => console.log('Error handleConfirm', error))
   }
 
+  toggleViewMode = () => {
+    this.setState(state => ({ singleMode: !state.singleMode }))
+  }
+
   render() {
     const { koppsFreshData } = this.props.routerStore
     const { header, pages } = i18n.messages[1]
@@ -57,8 +61,18 @@ class Start extends Component {
     return (
       <Container>
         <Row>
-          <Col>
+          <Col lg="10">
             <h1>Skapa nytt kurs-pm</h1>
+          </Col>
+          <Col lg="2">
+            <Button
+              onClick={this.toggleViewMode}
+              color="info"
+              size="sm"
+              style={{ marginTop: '1em' }}
+            >
+              {this.state.singleMode ? 'Switch to Scroll View' : 'Switch to Single View'}
+            </Button>
           </Col>
         </Row>
         <ProgressBar active={2} pages={pages} />
