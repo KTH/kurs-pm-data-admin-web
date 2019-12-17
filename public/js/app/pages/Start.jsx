@@ -2,7 +2,9 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, ButtonGroup, Button } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
+import { Route } from 'react-router-dom'
+
 import EditorPerTitle from '../components/Editor'
 import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
@@ -81,29 +83,63 @@ class Start extends Component {
             <SideMenu id="mainMenu" />
           </Col>
           <Col lg="8">
-            {sections.map(section => (
-              <span key={section.id}>
-                <h2 id={section.id} key={'header-' + section.id}>
-                  {section.title}
-                </h2>
-                {section.content.map(title =>
-                  context[title].isFromSyllabus ? (
-                    <span id={title} key={title}>
-                      <h3>{header[title]}</h3>
-                      <p
-                        dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }}
-                      />
-                    </span>
+            {this.state.singleMode ? (
+              <Route
+                render={({ location }) => {
+                  const sectionId = location.hash.substr(1)
+                  const section = context[sectionId]
+
+                  if (!section) return null
+
+                  if (!section.isFromSyllabus)
+                    return (
+                      <>
+                        <h2>{section.title}</h2>
+                        <EditorPerTitle id={sectionId} onEditorChange={this.handleEditorChange} />
+                      </>
+                    )
+
+                  const text = section.kopps ? (
+                    // eslint-disable-next-line react/no-danger
+                    <p dangerouslySetInnerHTML={{ __html: koppsFreshData[section.kopps] }} />
                   ) : (
-                    <EditorPerTitle
-                      id={title}
-                      key={title}
-                      onEditorChange={this.handleEditorChange}
-                    />
+                    <p />
                   )
-                )}
-              </span>
-            ))}
+
+                  return (
+                    <>
+                      <h2>{section.title}</h2>
+
+                      <p>{text}</p>
+                    </>
+                  )
+                }}
+              />
+            ) : (
+              sections.map(section => (
+                <span key={section.id}>
+                  <h2 id={section.id} key={'header-' + section.id}>
+                    {section.title}
+                  </h2>
+                  {section.content.map(title =>
+                    context[title].isFromSyllabus ? (
+                      <span id={title} key={title}>
+                        <h3>{header[title]}</h3>
+                        <p
+                          dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }}
+                        />
+                      </span>
+                    ) : (
+                      <EditorPerTitle
+                        id={title}
+                        key={title}
+                        onEditorChange={this.handleEditorChange}
+                      />
+                    )
+                  )}
+                </span>
+              ))
+            )}
             <br />
             <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
               Spara
