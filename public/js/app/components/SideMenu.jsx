@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Link } from 'react-router-dom'
+import { HashLink as Link } from 'react-router-hash-link'
 
 import { sections } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
@@ -44,7 +44,12 @@ const NavHeading = props => (
 const NavItem = props => (
   <ul className="nav nav-list">
     <li className={props.selected ? 'nav-item selected' : 'nav-item leaf'}>
-      <Link className="nav-link" to={location => ({ ...location, hash: props.id })}>
+      <Link
+        smooth
+        className="nav-link"
+        to={'#' + props.id}
+        scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+      >
         {props.title}
       </Link>
     </li>

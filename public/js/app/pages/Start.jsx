@@ -23,6 +23,10 @@ class Start extends Component {
 
   semester = this.props.routerStore.semester
 
+  componentDidMount() {
+    this.scrollIntoView()
+  }
+
   handleEditorChange = (editorContent, contentHeader) => {
     this.setState({
       [contentHeader]: editorContent
@@ -53,7 +57,17 @@ class Start extends Component {
   }
 
   toggleViewMode = () => {
-    this.setState(state => ({ singleMode: !state.singleMode }))
+    this.setState(state => ({ singleMode: !state.singleMode }), this.scrollIntoView)
+  }
+
+  scrollIntoView = () => {
+    if (window.location.hash) {
+      const id = window.location.hash.replace('#', '')
+      const element = document.getElementById(id)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    }
   }
 
   render() {
