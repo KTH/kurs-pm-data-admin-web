@@ -70,9 +70,63 @@ class Start extends Component {
     }
   }
 
-  render() {
+  renderSingleView = ({ location }) => {
     const { koppsFreshData } = this.props.routerStore
-    const { header, pages } = i18n.messages[1]
+
+    const sectionId = location.hash.substr(1)
+    const section = context[sectionId]
+
+    if (!section) return null
+
+    if (!section.isFromSyllabus)
+      return (
+        <>
+          <h2>{section.title}</h2>
+          <EditorPerTitle id={sectionId} onEditorChange={this.handleEditorChange} />
+        </>
+      )
+
+    const text = section.kopps ? (
+      // eslint-disable-next-line react/no-danger
+      <p dangerouslySetInnerHTML={{ __html: koppsFreshData[section.kopps] }} />
+    ) : (
+      <p />
+    )
+
+    return (
+      <>
+        <h2>{section.title}</h2>
+
+        <p>{text}</p>
+      </>
+    )
+  }
+
+  renderScrollView = () => {
+    const { koppsFreshData } = this.props.routerStore
+    const { header } = i18n.messages[1]
+
+    return sections.map(section => (
+      <span key={section.id}>
+        <h2 id={section.id} key={'header-' + section.id}>
+          {section.title}
+        </h2>
+        {section.content.map(title =>
+          context[title].isFromSyllabus ? (
+            <span id={title} key={title}>
+              <h3>{header[title]}</h3>
+              <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
+            </span>
+          ) : (
+            <EditorPerTitle id={title} key={title} onEditorChange={this.handleEditorChange} />
+          )
+        )}
+      </span>
+    ))
+  }
+
+  render() {
+    const { pages } = i18n.messages[1]
 
     return (
       <Container>
@@ -98,68 +152,13 @@ class Start extends Component {
           </Col>
           <Col lg="8">
             {this.state.singleMode ? (
-              <Route
-                render={({ location }) => {
-                  const sectionId = location.hash.substr(1)
-                  const section = context[sectionId]
-
-                  if (!section) return null
-
-                  if (!section.isFromSyllabus)
-                    return (
-                      <>
-                        <h2>{section.title}</h2>
-                        <EditorPerTitle id={sectionId} onEditorChange={this.handleEditorChange} />
-                      </>
-                    )
-
-                  const text = section.kopps ? (
-                    // eslint-disable-next-line react/no-danger
-                    <p dangerouslySetInnerHTML={{ __html: koppsFreshData[section.kopps] }} />
-                  ) : (
-                    <p />
-                  )
-
-                  return (
-                    <>
-                      <h2>{section.title}</h2>
-
-                      <p>{text}</p>
-                    </>
-                  )
-                }}
-              />
+              <Route render={this.renderSingleView} />
             ) : (
-              sections.map(section => (
-                <span key={section.id}>
-                  <h2 id={section.id} key={'header-' + section.id}>
-                    {section.title}
-                  </h2>
-                  {section.content.map(title =>
-                    context[title].isFromSyllabus ? (
-                      <span id={title} key={title}>
-                        <h3>{header[title]}</h3>
-                        <p
-                          dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }}
-                        />
-                      </span>
-                    ) : (
-                      <EditorPerTitle
-                        id={title}
-                        key={title}
-                        onEditorChange={this.handleEditorChange}
-                      />
-                    )
-                  )}
-                </span>
-              ))
+              this.renderScrollView()
             )}
-            <br />
             <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
               Spara
             </Button>
-            <br />
-            <br />
           </Col>
         </Row>
       </Container>
