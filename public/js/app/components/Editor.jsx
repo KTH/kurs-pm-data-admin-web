@@ -31,7 +31,7 @@ class EditorPerTitle extends Component {
               'searchreplace visualblocks code fullscreen',
               'table paste code help wordcount'
             ],
-            language: i18n.isSwedish() ? 'sv_SE' : 'en_US',
+            language: i18n.isSwedish() ? 'sv_SE' : null,
             toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
                 searchreplace | image | link | restoredraft | fullscreen |
                 table | 
