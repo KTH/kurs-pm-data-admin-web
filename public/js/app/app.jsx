@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 import { StaticRouter } from 'react-router'
 import { Provider } from 'mobx-react'
 
@@ -12,7 +12,6 @@ import RouterStore from './stores/RouterStore'
 
 // Pages
 import Start from './pages/Start'
-import AltStart from './pages/AltStart'
 
 function appFactory() {
   const routerStore = new RouterStore()
@@ -23,14 +22,7 @@ function appFactory() {
 
   return (
     <Provider routerStore={routerStore}>
-      <Switch>
-        <Route
-          exact
-          path="/kursinfoadmin/kurs-pm-data/alt/:courseCode/:semester"
-          component={AltStart}
-        />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester" component={Start} />
-      </Switch>
+      <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester" component={Start} />
     </Provider>
   )
 }
