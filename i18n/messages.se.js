@@ -82,5 +82,32 @@ module.exports = {
     prep: 'Kurslitteratur och förberedelser',
     reqToFinal: 'Examination och slutförande',
     extra: 'Ytterligare Information'
+  },
+  pageTitles: {
+    new: 'Publicera ny kurs-PM',
+    draft: 'Publicera kurs-PM utkast',
+    published: 'Ändra publicerad kurs-PM',
+    preview: 'Förhandsgranska sparat utkast av kurs-PM'
+  },
+  actionModals: {
+    infoCancel: {
+      header: 'To be aware of before cancelling!',
+      body:
+        '<p>Unsaved changes will be lost if you cancel the publishing of course information (image and text) <br/>  <br/> Do you want to cancel?</p>',
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, cancel'
+    }
+  },
+  buttons: {
+    /** ************ BUTTONS ****************** */
+    btn_preview: 'Granska',
+    btn_edit: 'Redigera',
+    btn_cancel: 'Avbryt',
+    btn_save: 'Spara utkast',
+    btn_publish: 'Publicera',
+    btn_back: 'Välj kursomgång',
+    btn_delete: 'Radera',
+    btn_save_and_cancel: 'Spara utkast och avsluta',
+    btn_copy: 'Kopiera länk till utkast'
   }
 }
