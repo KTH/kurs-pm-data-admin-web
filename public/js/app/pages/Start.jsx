@@ -21,7 +21,7 @@ import {
 @inject(['routerStore'])
 @observer
 class Start extends Component {
-  state = this.props.routerStore.memoData
+  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
 
   isApiExisted = !this.props.routerStore.memoData
 
