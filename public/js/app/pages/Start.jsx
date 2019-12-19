@@ -12,6 +12,7 @@ import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import TitleAndInfo from '../components/TitleAndInfo'
 
 @inject(['routerStore'])
 @observer
@@ -114,14 +115,14 @@ class Start extends Component {
         <h2 id={section.id} key={'header-' + section.id}>
           {section.title}
         </h2>
-        {section.content.map(title =>
-          context[title].isFromSyllabus ? (
-            <span id={title} key={title}>
-              <h3>{header[title]}</h3>
-              <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
+        {section.content.map(apiTitle =>
+          context[apiTitle].isFromSyllabus ? (
+            <span id={apiTitle} key={apiTitle}>
+              <TitleAndInfo shortTitle={apiTitle} title={header[apiTitle]} />
+              <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
             </span>
           ) : (
-            <EditorPerTitle id={title} key={title} onEditorChange={this.handleEditorChange} />
+            <EditorPerTitle id={apiTitle} key={apiTitle} onEditorChange={this.handleEditorChange} />
           )
         )}
       </span>
