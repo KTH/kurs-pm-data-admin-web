@@ -11,7 +11,7 @@ import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
-import { ProgressBar } from '@kth/kth-kip-style-react-components'
+import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -19,6 +19,8 @@ class Start extends Component {
   state = this.props.routerStore.memoData
 
   isApiExisted = !this.props.routerStore.memoData
+
+  koppsFreshData = this.props.routerStore.koppsFreshData
 
   courseCode = this.props.routerStore.courseCode
 
@@ -128,13 +130,19 @@ class Start extends Component {
 
   render() {
     const { pages } = i18n.messages[1]
+    const progress = 2 // TODO: Change progress as a state
+    const { title, credits } = this.koppsFreshData
 
     return (
       <Container>
         <Row>
-          <Col lg="10">
-            <h1>Skapa nytt kurs-pm</h1>
-          </Col>
+          <PageTitle
+            id="mainHeading"
+            className="step-2-title"
+            pageTitle={pages[progress - 1].title}
+          >
+            <span>{this.courseCode + ' ' + title + ' ' + credits + ' hp'}</span>
+          </PageTitle>
           <Col lg="2">
             <Button
               onClick={this.toggleViewMode}
