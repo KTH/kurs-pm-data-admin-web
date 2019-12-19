@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../i18n'
+import TitleAndInfo from './TitleAndInfo'
 
 @inject(['routerStore'])
 @observer
@@ -19,7 +20,7 @@ class EditorPerTitle extends Component {
 
     return (
       <span id={id}>
-        <h3>{header[id]}</h3>
+        <TitleAndInfo shortTitle={id} title={header[id]} />
         <Editor
           id={'editorFor' + id}
           initialValue={memoData ? memoData[id] : ''}
@@ -41,7 +42,7 @@ class EditorPerTitle extends Component {
             autosave_ask_before_unload: true,
             autosave_restore_when_empty: true,
             autosave_retention: '1m',
-            block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4'
+            block_formats: 'Paragraph=p; Header 4=h4'
           }}
           onEditorChange={this.updateMemoContent}
         />
