@@ -91,11 +91,13 @@ module.exports = {
   },
   actionModals: {
     infoCancel: {
-      header: 'To be aware of before cancelling!',
-      body:
-        '<p>Unsaved changes will be lost if you cancel the publishing of course information (image and text) <br/>  <br/> Do you want to cancel?</p>',
-      btnClose: 'No, go back',
-      btnConfirm: 'Yes, cancel'
+      header: 'Att tänka på innan du avbryter!',
+      body: `Ändringar för text och bild kommer att försvinna om du avbryter. 
+      <br/>  
+      <br/> 
+            Vill du fortsätta att avbryta?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt avbryta'
     }
   },
   buttons: {

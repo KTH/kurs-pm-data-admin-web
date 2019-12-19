@@ -85,5 +85,26 @@ module.exports = {
     prep: '',
     reqToFinal: '',
     extra: ''
+  },
+  actionModals: {
+    infoCancel: {
+      header: 'To be aware of before cancelling!',
+      body:
+        '<p>Unsaved changes will be lost if you cancel the publishing of ....... <br/>  <br/> Do you want to cancel?</p>',
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, cancel'
+    }
+  },
+  buttons: {
+    /** ************ BUTTONS ****************** */
+    btn_preview: 'Preview',
+    btn_add_analysis: 'Edit',
+    btn_cancel: 'Cancel',
+    btn_save: 'Save draft',
+    btn_publish: 'Publish',
+    btn_back: 'Choose course offering',
+    btn_delete: 'Delete',
+    btn_save_and_cancel: 'Save draft and cancel',
+    btn_copy: 'Copy link to preview'
   }
 }
