@@ -57,7 +57,7 @@ class Start extends Component {
         body
       ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
       .then(() => alert('Successfully saved '))
-      .catch(error => console.log('Error handleConfirm', error))
+      .catch(error => alert('Successfully saved ' + error))
   }
 
   toggleViewMode = () => {
@@ -180,7 +180,7 @@ class Start extends Component {
         <Row className="control-buttons">
           <Col sm="4" className="step-back">
             <Button onClick={() => alert('back')} className="btn-back" id="back-to-.." alt="BACK">
-              Välja kursomgång
+              {buttons.btn_back}
             </Button>
           </Col>
           <Col sm="4" className="btn-cancel">
