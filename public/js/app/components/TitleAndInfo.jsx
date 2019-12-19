@@ -16,7 +16,6 @@ const TitleAndInfo = ({ title, shortTitle }) => {
       <h3 data-testid={shortTitle + '-heading'}>
         {title}
         <InfoModalButton
-          type="danger"
           modalId={shortTitle + '-infoModal'}
           modalLabels={infoModalLabels.shortTitle} // use later i18n message: infoModalLabels[shortTitle]
         />
