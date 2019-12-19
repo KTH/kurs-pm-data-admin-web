@@ -7,9 +7,37 @@ $light-grey: #d4d4d4;
 #app {
   width: 100%;
 }
-//remove it later
+
+//remove all this later when i will connect kth-kip-styles
+h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+h4 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+.control-buttons {
+  margin-top: 50px;
+  padding: 15px 0;
+}
+
+.kip-container,
+.kursinfo-main-page {
+  // .kursinfo-main-page
+  padding-bottom: 20px;
+  padding-top: 2em;
+  width: 100%;
+
+  .btn-primary,
+  .btn-success,
+  .btn-secondary {
+    margin: 1em 0;
+  }
+}
+
 .progress-bar-container {
-  margin: 0 0 50px 0;
+  margin: 0 15px 50px 15px;
   p {
     margin-top: 20px;
     margin-bottom: 0;
