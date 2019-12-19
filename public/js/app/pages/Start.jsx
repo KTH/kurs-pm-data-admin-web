@@ -150,7 +150,11 @@ class Start extends Component {
         <StickyContainer>
           <Row>
             <Col lg="4">
-              <Sticky>{({ style }) => <SideMenu id="mainMenu" style={style} />}</Sticky>
+              <Sticky>
+                {({ style }) => (
+                  <SideMenu id="mainMenu" style={{ ...style, ...{ paddingTop: '30px' } }} />
+                )}
+              </Sticky>
             </Col>
             <Col lg="8">
               {this.state.singleMode ? (
