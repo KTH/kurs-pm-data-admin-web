@@ -115,7 +115,7 @@ class Start extends Component {
           context[title].isFromSyllabus ? (
             <span id={title} key={title}>
               <h3>{header[title]}</h3>
-              <p dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
+              <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[title].kopps] }} />
             </span>
           ) : (
             <EditorPerTitle id={title} key={title} onEditorChange={this.handleEditorChange} />
