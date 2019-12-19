@@ -4,7 +4,7 @@ import { InfoModalButton } from '@kth/kth-kip-style-react-components'
 
 const TitleAndInfo = ({ title, shortTitle }) => {
   const infoModalLabels = {
-    // will be moved to messages for each
+    // will be moved to i18n messages for each
     shortTitle: {
       header: i18n.messages[1].header[shortTitle],
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....',
