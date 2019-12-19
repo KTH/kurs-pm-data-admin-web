@@ -11,7 +11,7 @@ import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
 import TitleAndInfo from '../components/TitleAndInfo'
 
 @inject(['routerStore'])
@@ -56,7 +56,7 @@ class Start extends Component {
         '/kursinfoadmin/kurs-pm-data/internal-api/' + this.courseCode + '/' + this.semester,
         body
       ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
-      .then(() => console.log('Success handleConfirm'))
+      .then(() => alert('Successfully saved '))
       .catch(error => console.log('Error handleConfirm', error))
   }
 
@@ -130,12 +130,12 @@ class Start extends Component {
   }
 
   render() {
-    const { pages } = i18n.messages[1]
+    const { pages, actionModals, buttons } = i18n.messages[1]
     const progress = 2 // TODO: Change progress as a state
     const { title, credits } = this.koppsFreshData
 
     return (
-      <Container>
+      <Container className="kip-container">
         <Row>
           <PageTitle
             id="mainHeading"
@@ -172,11 +172,39 @@ class Start extends Component {
                 this.renderScrollView()
               )}
               <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
-                Spara
+                {buttons.btn_save}
               </Button>
             </Col>
           </Row>
         </StickyContainer>
+        <Row className="control-buttons">
+          <Col sm="4" className="step-back">
+            <Button onClick={() => alert('back')} className="btn-back" id="back-to-.." alt="BACK">
+              Välja kursomgång
+            </Button>
+          </Col>
+          <Col sm="4" className="btn-cancel">
+            <ActionModalButton
+              btnLabel={buttons.btn_cancel}
+              modalId="cancelStep2"
+              type="cancel"
+              modalLabels={actionModals.infoCancel}
+              onConfirm={() => console.log('Cancelled')}
+            />
+          </Col>
+          <Col sm="4" className="step-forward">
+            <Button
+              onClick={() => alert('Go to granska')}
+              id="to-peview"
+              className="btn-next"
+              color="success"
+              alt={'Go to ' + buttons.btn_preview}
+              disabled={false /* this.state.isError */}
+            >
+              {buttons.btn_preview}
+            </Button>
+          </Col>
+        </Row>
       </Container>
     )
   }
