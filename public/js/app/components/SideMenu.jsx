@@ -14,7 +14,7 @@ class SideMenu extends Component {
       <nav
         id={this.props.id}
         className="col navbar navbar-expand-lg navbar-light"
-        style={{ paddingLeft: '0' }}
+        style={{ ...this.props.style, ...{ paddingLeft: '0' } }}
       >
         <div className="collapse navbar-collapse" id="navbarNav">
           {sections.map(section => (

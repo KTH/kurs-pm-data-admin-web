@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
+import { StickyContainer, Sticky } from 'react-sticky'
 
 import EditorPerTitle from '../components/Editor'
 import { context, sections } from '../util/fieldsByType'
@@ -146,21 +147,23 @@ class Start extends Component {
           </Col>
         </Row>
         <ProgressBar active={2} pages={pages} />
-        <Row>
-          <Col lg="4">
-            <SideMenu id="mainMenu" />
-          </Col>
-          <Col lg="8">
-            {this.state.singleMode ? (
-              <Route render={this.renderSingleView} />
-            ) : (
-              this.renderScrollView()
-            )}
-            <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
-              Spara
-            </Button>
-          </Col>
-        </Row>
+        <StickyContainer>
+          <Row>
+            <Col lg="4">
+              <Sticky>{({ style }) => <SideMenu id="mainMenu" style={style} />}</Sticky>
+            </Col>
+            <Col lg="8">
+              {this.state.singleMode ? (
+                <Route render={this.renderSingleView} />
+              ) : (
+                this.renderScrollView()
+              )}
+              <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
+                Spara
+              </Button>
+            </Col>
+          </Row>
+        </StickyContainer>
       </Container>
     )
   }
