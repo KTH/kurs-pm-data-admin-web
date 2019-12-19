@@ -15,16 +15,18 @@ $light-grey: #d4d4d4;
 #app {
   width: 100%;
 }
-
+// h4.modal-title {
+//   margin-top: 1em;
+// }
 //remove all this later when i will connect kth-kip-styles
 h3 {
   margin-top: 0;
   margin-bottom: 15px;
 }
-h4 {
-  margin-top: 30px;
-  margin-bottom: 15px;
-}
+// h4 { // not for modal
+//   margin-top: 30px;
+//   margin-bottom: 15px;
+// }
 span.title_and_info {
   @extend %row;
   align-items: flex-start;
