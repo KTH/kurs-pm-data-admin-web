@@ -27,7 +27,18 @@ const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
 function getSelectedSyllabus(syllabusObject) {
   // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
-  return syllabusObject.publicSyllabusVersions[0]
+  const lastSyllabus = syllabusObject.publicSyllabusVersions[0].courseSyllabus
+  const selectedFields = {
+    // TODO: Adapt keys to kurs-pm API instead of kopps naming
+    goals: lastSyllabus.goals,
+    content: lastSyllabus.content,
+    additionalRegulations: lastSyllabus.additionalRegulations,
+    formattedGradeScales: lastSyllabus.formattedGradeScales,
+    ethicalApproach: lastSyllabus.ethicalApproach,
+    examComments: lastSyllabus.examComments,
+    reqsForFinalGrade: lastSyllabus.reqsForFinalGrade
+  }
+  return selectedFields
 }
 
 async function getSyllabus(courseCode, semester, language = 'sv') {
@@ -36,24 +47,11 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
   const uri = `${config.koppsApi.basePath}syllabuses/${courseCode}/${semester}?l=${language}`
   try {
     const res = await client.getAsync({ uri, useCache: true })
-    const selectedSyllabus = getSelectedSyllabus(res.body, semester, language)
-    const {
-      goals,
-      content,
-      additionalRegulations,
-      formattedGradeScales,
-      ethicalApproach,
-      examComments,
-      reqsForFinalGrade
-    } = selectedSyllabus.courseSyllabus
+    const selectedSyllabus = getSelectedSyllabus(res.body)
+    const commonInfo = { title: res.body.course.title, credits: res.body.course.credits }
     return {
-      goals,
-      content,
-      additionalRegulations,
-      formattedGradeScales,
-      ethicalApproach,
-      examComments,
-      reqsForFinalGrade
+      ...selectedSyllabus,
+      ...commonInfo
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
