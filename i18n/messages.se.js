@@ -177,6 +177,8 @@ module.exports = {
     btn_back: 'Välj kursomgång',
     btn_delete: 'Radera',
     btn_save_and_cancel: 'Spara utkast och avsluta',
-    btn_copy: 'Kopiera länk till utkast'
+    btn_copy: 'Kopiera länk till utkast',
+    btn_show_in_memo: 'Visa i kurs-pm',
+    btn_hide_in_memo: 'Dölj i kurs-pm'
   }
 }

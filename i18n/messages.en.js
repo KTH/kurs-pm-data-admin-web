@@ -172,6 +172,8 @@ module.exports = {
     btn_back: 'Choose course offering',
     btn_delete: 'Delete',
     btn_save_and_cancel: 'Save draft and cancel',
-    btn_copy: 'Copy link to preview'
+    btn_copy: 'Copy link to preview',
+    btn_show_in_memo: 'Show in course memo',
+    btn_hide_in_memo: 'Hide i kurs-pm'
   }
 }
