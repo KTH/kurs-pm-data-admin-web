@@ -27,19 +27,8 @@ h3 {
 //   margin-top: 30px;
 //   margin-bottom: 15px;
 // }
-span.title_and_info {
-  @extend %row;
-  align-items: flex-start;
-  .btn-info-modal {
-    ///specific for this project
-    vertical-align: middle;
-  }
-  h2,
-  h3 {
-    margin-top: 0;
-  }
-}
-.title_and_info + p {
+
+.title-and-info + p {
   font-weight: 900;
 }
 .control-buttons {

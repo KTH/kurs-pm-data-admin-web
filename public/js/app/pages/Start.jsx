@@ -11,8 +11,12 @@ import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
-import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
-import TitleAndInfo from '../components/TitleAndInfo'
+import {
+  PageTitle,
+  ProgressBar,
+  ActionModalButton,
+  TitleAndInfoModal
+} from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -108,7 +112,7 @@ class Start extends Component {
 
   renderScrollView = () => {
     const { koppsFreshData } = this.props.routerStore
-    const { header } = i18n.messages[1]
+    const { memoHeadings, buttons } = i18n.messages[1]
 
     return sections.map(section => (
       <span key={section.id}>
@@ -118,7 +122,11 @@ class Start extends Component {
         {section.content.map(apiTitle =>
           context[apiTitle].isFromSyllabus ? (
             <span id={apiTitle} key={apiTitle}>
-              <TitleAndInfo shortTitle={apiTitle} title={header[apiTitle]} />
+              <TitleAndInfoModal
+                modalId={apiTitle}
+                titleAndInfo={memoHeadings[apiTitle]}
+                btnClose={buttons.btnClose}
+              />
               <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
             </span>
           ) : (

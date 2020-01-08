@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../i18n'
-import TitleAndInfo from './TitleAndInfo'
+import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -15,12 +15,16 @@ class EditorPerTitle extends Component {
 
   render() {
     const { memoData } = this.props.routerStore
-    const { header } = i18n.messages[1]
+    const { memoHeadings, buttons } = i18n.messages[1]
     const { id } = this.props
 
     return (
       <span id={id}>
-        <TitleAndInfo shortTitle={id} title={header[id]} />
+        <TitleAndInfoModal
+          modalId={id}
+          titleAndInfo={memoHeadings[id]}
+          btnClose={buttons.btnClose}
+        />
         <Editor
           id={'editorFor' + id}
           initialValue={memoData ? memoData[id] : ''}
