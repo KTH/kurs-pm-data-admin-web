@@ -15,9 +15,7 @@ $light-grey: #d4d4d4;
 #app {
   width: 100%;
 }
-// h4.modal-title {
-//   margin-top: 1em;
-// }
+
 //remove all this later when i will connect kth-kip-styles
 h3 {
   margin-top: 0;
@@ -52,21 +50,6 @@ h3 {
   }
 }
 
-.progress-bar-container {
-  margin: 0 15px 50px 15px;
-  p {
-    margin-top: 20px;
-    margin-bottom: 0;
-  }
-  .progress-bar1 {
-    border-bottom: 2px solid $light-grey;
-    padding-left: 0;
-    margin-bottom: 10px;
-    &.progress-active {
-      font-weight: 900;
-    }
-  }
-}
 .control-buttons {
   margin-top: 50px;
   padding: 15px 0;
