@@ -9,7 +9,7 @@ import i18n from '../../../../i18n'
 @observer
 class SideMenu extends Component {
   render() {
-    const { header } = i18n.messages[1]
+    const { memoHeadings } = i18n.messages[1]
     return (
       <nav
         id={this.props.id}
@@ -25,7 +25,12 @@ class SideMenu extends Component {
               <NavHeading key={'nav-' + section.id} title={section.title} />
               <>
                 {section.content.map(title => (
-                  <NavItem key={'nav-' + title} id={title} title={header[title]} selected={false} />
+                  <NavItem
+                    key={'nav-' + title}
+                    id={title}
+                    title={memoHeadings[title].header}
+                    selected={false}
+                  />
                 ))}
               </>
             </span>
