@@ -9,7 +9,7 @@
   "author": "KTH",
   "repository": {
     "type": "git",
-    "uri": "git+https://github.com/KTH/kursinfo-admin-web.git"
+    "uri": "git+https://github.com/KTH/kurs-pm-data-admin-web.git"
   },
   "scripts": {
     "vendor": "parcel build  ./public/js/vendor.js",
