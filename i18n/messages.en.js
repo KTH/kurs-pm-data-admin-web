@@ -35,29 +35,95 @@ module.exports = {
     site_name: 'Administration of Course Memos',
     host_name: 'KTH'
   },
-  header: {
-    courseContent: 'Course contents',
-    learningOutcomes: 'Intended learning outcomes',
-    equipment: 'Equipment',
-    literature: 'Literature',
-    additionalRegulations: 'Additional regulations',
-    gradingScale: 'Grading scale',
-    ethicalApproach: 'Ethical approach',
-    examination: 'Examination',
-    examinationComment: '+[examination comment (fixed text)]',
-    examinationCommentEditable: '+ [examination comment (free text)]',
-    supplementaryExam: 'Opportunity to complete the requirements via supplementary examination',
-    raiseApprovedGrade: 'Opportunity to raise an approved grade via renewed examination',
-    otherRequirementsForFinalGrade: 'Other requirements for final grade',
-    examiner: 'Examiner',
-    communicationWithTeachers: 'Communication with teachers',
-    courseCoordinator: 'Course coordinator ',
-    labSupervisors: 'Lab supervisors',
-    teacherAssistants: 'Teacher assistants',
-    teacher: 'Teacher',
-    languageOfInstructions: 'Language of instruction',
-    planning: 'Detailed Planning',
-    gradingCriteria: 'Grading Criteria'
+  memoHeadings: {
+    courseContent: {
+      header: 'Course contents',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    learningOutcomes: {
+      header: 'Intended learning outcomes',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    equipment: {
+      header: 'Equipment',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    literature: {
+      header: 'Literature',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    additionalRegulations: {
+      header: 'Additional regulations',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    gradingScale: {
+      header: 'Grading scale',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    ethicalApproach: {
+      header: 'Ethical approach',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    examination: {
+      header: 'Examination',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    examinationComment: {
+      header: '+[examination comment (fixed text)]',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    examinationCommentEditable: {
+      header: '+ [examination comment (free text)]',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    supplementaryExam: {
+      header: 'Opportunity to complete the requirements via supplementary examination',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    raiseApprovedGrade: {
+      header: 'Opportunity to raise an approved grade via renewed examination',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    otherRequirementsForFinalGrade: {
+      header: 'Other requirements for final grade',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    examiner: {
+      header: 'Examiner',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    communicationWithTeachers: {
+      header: 'Communication with teachers',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    courseCoordinator: {
+      header: 'Course coordinator ',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    labSupervisors: {
+      header: 'Lab supervisors',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    teacherAssistants: {
+      header: 'Teacher assistants',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    teacher: {
+      header: 'Teacher',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    languageOfInstructions: {
+      header: 'Language of instruction',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    planning: {
+      header: 'Detailed Planning',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    gradingCriteria: {
+      header: 'Grading Criteria',
+      body: 'It is important for students because they can plan their studies....'
+    }
   },
   pages: [
     {
@@ -97,6 +163,7 @@ module.exports = {
   },
   buttons: {
     /** ************ BUTTONS ****************** */
+    btnClose: 'Close',
     btn_preview: 'Preview',
     btn_add_analysis: 'Edit',
     btn_cancel: 'Cancel',
