@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
+import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
@@ -33,6 +34,16 @@ class Start extends Component {
 
   componentDidMount() {
     this.scrollIntoView()
+  }
+
+  @computed
+  get memoData() {
+    return this.props.routerStore.memoData
+  }
+
+  @computed
+  get visibleInMemo() {
+    return this.props.routerStore.memoData.visibleInMemo
   }
 
   handleEditorChange = (editorContent, contentHeader) => {
@@ -126,6 +137,7 @@ class Start extends Component {
                 modalId={apiTitle}
                 titleAndInfo={memoHeadings[apiTitle]}
                 btnClose={buttons.btnClose}
+                visibleInMemo={apiTitle in this.visibleInMemo ? this.visibleInMemo[apiTitle] : true}
               />
               <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
             </span>

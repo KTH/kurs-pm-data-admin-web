@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../i18n'
@@ -9,12 +10,21 @@ import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 class EditorPerTitle extends Component {
   state = {}
 
+  @computed
+  get memoData() {
+    return this.props.routerStore.memoData
+  }
+
+  @computed
+  get visibleInMemo() {
+    return this.memoData.visibleInMemo
+  }
+
   updateMemoContent = editorContent => {
     this.props.onEditorChange(editorContent, this.props.id)
   }
 
   render() {
-    const { memoData } = this.props.routerStore
     const { memoHeadings, buttons } = i18n.messages[1]
     const { id } = this.props
 
@@ -24,10 +34,11 @@ class EditorPerTitle extends Component {
           modalId={id}
           titleAndInfo={memoHeadings[id]}
           btnClose={buttons.btnClose}
+          visibleInMemo={id in this.visibleInMemo ? this.visibleInMemo[id] : true}
         />
         <Editor
           id={'editorFor' + id}
-          initialValue={memoData ? memoData[id] : ''}
+          initialValue={this.memoData ? this.memoData[id] : ''}
           init={{
             height: 500,
             menubar: false,
