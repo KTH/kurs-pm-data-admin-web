@@ -122,3 +122,9 @@ span.section_info {
 .btn-cancel {
   text-align: end;
 }
+
+a.nav-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
