@@ -3,8 +3,9 @@ import { Button } from 'reactstrap'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import i18n from '../../../../i18n'
 import { InfoModalButton } from '@kth/kth-kip-style-react-components'
+import { observer } from 'mobx-react'
 
-const TitleAndInfo = ({ title, shortTitle, visibleInMemo }) => {
+const TitleAndInfo = observer(({ title, shortTitle, visibleInMemo, toggleVisibleInMemo }) => {
   const { header, buttons } = i18n.messages[1]
   const infoModalLabels = {
     // will be moved to i18n messages for each
@@ -33,12 +34,12 @@ const TitleAndInfo = ({ title, shortTitle, visibleInMemo }) => {
             {visibleInMemo ? 'Visas i kurs-PM' : 'Döljs i kurs-PM'}
           </span>
         </span>
-        <Button style={{ marginTop: 0 }}>
+        <Button style={{ marginTop: 0 }} onClick={toggleVisibleInMemo}>
           {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
         </Button>
       </span>
     </>
   )
-}
+})
 
 export default TitleAndInfo

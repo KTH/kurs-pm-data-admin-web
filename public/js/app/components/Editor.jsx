@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../i18n'
@@ -8,20 +7,14 @@ import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 @inject(['routerStore'])
 @observer
 class EditorPerTitle extends Component {
-  state = {}
-
-  @computed
-  get memoData() {
-    return this.props.routerStore.memoData
-  }
-
-  @computed
-  get visibleInMemo() {
-    return this.memoData.visibleInMemo
-  }
+  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
 
   updateMemoContent = editorContent => {
     this.props.onEditorChange(editorContent, this.props.id)
+  }
+
+  toggleVisibleInMemo = () => {
+    this.props.toggleVisibleInMemo(this.props.id)
   }
 
   render() {
@@ -34,7 +27,8 @@ class EditorPerTitle extends Component {
           modalId={id}
           titleAndInfo={memoHeadings[id]}
           btnClose={buttons.btnClose}
-          visibleInMemo={id in this.visibleInMemo ? this.visibleInMemo[id] : true}
+          visibleInMemo={id in this.state.visibleInMemo ? this.state.visibleInMemo[id] : true}
+          toggleVisibleInMemo={this.toggleVisibleInMemo}
         />
         <Editor
           id={'editorFor' + id}

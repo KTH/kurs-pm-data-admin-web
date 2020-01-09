@@ -1,7 +1,7 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
-import { computed } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
@@ -36,21 +36,27 @@ class Start extends Component {
     this.scrollIntoView()
   }
 
-  @computed
-  get memoData() {
-    return this.props.routerStore.memoData
-  }
-
-  @computed
-  get visibleInMemo() {
-    return this.props.routerStore.memoData.visibleInMemo
-  }
-
   handleEditorChange = (editorContent, contentHeader) => {
     this.setState({
       [contentHeader]: editorContent
     })
-    console.log('Content was updated:', this.state)
+  }
+
+  toggleVisibleInMemo = contentHeader => {
+    this.setState(previousState => {
+      const visible =
+        contentHeader in previousState.visibleInMemo
+          ? previousState.visibleInMemo[contentHeader]
+          : true
+      return {
+        visibleInMemo: {
+          ...previousState.visibleInMemo,
+          ...{
+            [contentHeader]: !visible
+          }
+        }
+      }
+    })
   }
 
   handleConfirm = () => {
@@ -137,12 +143,20 @@ class Start extends Component {
                 modalId={apiTitle}
                 titleAndInfo={memoHeadings[apiTitle]}
                 btnClose={buttons.btnClose}
-                visibleInMemo={apiTitle in this.visibleInMemo ? this.visibleInMemo[apiTitle] : true}
+                visibleInMemo={
+                  apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
+                }
+                toggleVisibleInMemo={() => this.toggleVisibleInMemo(apiTitle)}
               />
               <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
             </span>
           ) : (
-            <EditorPerTitle id={apiTitle} key={apiTitle} onEditorChange={this.handleEditorChange} />
+            <EditorPerTitle
+              id={apiTitle}
+              key={apiTitle}
+              onEditorChange={this.handleEditorChange}
+              toggleVisibleInMemo={this.toggleVisibleInMemo}
+            />
           )
         )}
       </span>
