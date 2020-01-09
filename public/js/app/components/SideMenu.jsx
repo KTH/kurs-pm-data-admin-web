@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { HashLink as Link } from 'react-router-hash-link'
+import { FaRegEyeSlash } from 'react-icons/fa'
 
 import { sections } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
@@ -30,6 +31,11 @@ class SideMenu extends Component {
                     id={title}
                     title={memoHeadings[title].header}
                     selected={false}
+                    visibleInMemo={
+                      title in this.props.routerStore.memoData.visibleInMemo
+                        ? this.props.routerStore.memoData.visibleInMemo[title]
+                        : true
+                    }
                   />
                 ))}
               </>
@@ -41,15 +47,15 @@ class SideMenu extends Component {
   }
 }
 
-const NavHeading = props => (
+const NavHeading = observer(props => (
   <ul className="nav nav-ancestor">
     <li>
       <span className="nav-item ancestor">{props.title}</span>
     </li>
   </ul>
-)
+))
 
-const NavItem = props => (
+const NavItem = observer(props => (
   <ul className="nav nav-list">
     <li className={props.selected ? 'nav-item selected' : 'nav-item leaf'}>
       <Link
@@ -58,10 +64,11 @@ const NavItem = props => (
         to={'#' + props.id}
         scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
       >
-        {props.title}
+        <span>{props.title}</span>
+        {props.visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
       </Link>
     </li>
   </ul>
-)
+))
 
 export default SideMenu
