@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
 
 import { sections } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 
-@inject(['routerStore'])
-@observer
 class SideMenu extends Component {
   render() {
     const { memoHeadings } = i18n.messages[1]
@@ -32,11 +29,9 @@ class SideMenu extends Component {
                     title={memoHeadings[title].header}
                     selected={false}
                     visibleInMemo={
-                      title in this.props.routerStore.memoData.visibleInMemo
-                        ? this.props.routerStore.memoData.visibleInMemo[title]
-                        : true
+                      title in this.props.visibleInMemo ? this.props.visibleInMemo[title] : true
                     }
-                  />
+                />
                 ))}
               </>
             </span>
@@ -47,15 +42,15 @@ class SideMenu extends Component {
   }
 }
 
-const NavHeading = observer(props => (
+const NavHeading = props => (
   <ul className="nav nav-ancestor">
     <li>
       <span className="nav-item ancestor">{props.title}</span>
     </li>
   </ul>
-))
+)
 
-const NavItem = observer(props => (
+const NavItem = props => (
   <ul className="nav nav-list">
     <li className={props.selected ? 'nav-item selected' : 'nav-item leaf'}>
       <Link
@@ -69,6 +64,6 @@ const NavItem = observer(props => (
       </Link>
     </li>
   </ul>
-))
+)
 
 export default SideMenu

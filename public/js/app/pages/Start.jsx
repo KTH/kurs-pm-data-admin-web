@@ -156,6 +156,7 @@ class Start extends Component {
               key={apiTitle}
               onEditorChange={this.handleEditorChange}
               toggleVisibleInMemo={this.toggleVisibleInMemo}
+              visibleInMemo={this.state.visibleInMemo}
             />
           )
         )}
@@ -195,7 +196,11 @@ class Start extends Component {
             <Col lg="4">
               <Sticky>
                 {({ style }) => (
-                  <SideMenu id="mainMenu" style={{ ...style, ...{ paddingTop: '30px' } }} />
+                  <SideMenu
+                    id="mainMenu"
+                    style={{ ...style, ...{ paddingTop: '30px' } }}
+                    visibleInMemo={this.state.visibleInMemo}
+                  />
                 )}
               </Sticky>
             </Col>

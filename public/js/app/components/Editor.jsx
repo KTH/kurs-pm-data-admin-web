@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../i18n'
 import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 
-@inject(['routerStore'])
-@observer
 class EditorPerTitle extends Component {
-  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
-
   updateMemoContent = editorContent => {
     this.props.onEditorChange(editorContent, this.props.id)
   }
@@ -27,7 +22,7 @@ class EditorPerTitle extends Component {
           modalId={id}
           titleAndInfo={memoHeadings[id]}
           btnClose={buttons.btnClose}
-          visibleInMemo={id in this.state.visibleInMemo ? this.state.visibleInMemo[id] : true}
+          visibleInMemo={id in this.props.visibleInMemo ? this.props.visibleInMemo[id] : true}
           toggleVisibleInMemo={this.toggleVisibleInMemo}
         />
         <Editor
