@@ -45,10 +45,15 @@ class Start extends Component {
 
   toggleVisibleInMemo = contentHeader => {
     this.setState(previousState => {
-      const visible =
-        contentHeader in previousState.visibleInMemo
-          ? previousState.visibleInMemo[contentHeader]
-          : true
+      let visible
+      if (previousState.visibleInMemo) {
+        visible =
+          contentHeader in previousState.visibleInMemo
+            ? previousState.visibleInMemo[contentHeader]
+            : true
+      } else {
+        visible = true
+      }
       return {
         visibleInMemo: {
           ...previousState.visibleInMemo,
@@ -138,8 +143,13 @@ class Start extends Component {
           {section.title}
         </h2>
         {section.content.map(apiTitle => {
-          const visibleInMemo =
-            apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
+          let visibleInMemo
+          if (this.state.visibleInMemo) {
+            visibleInMemo =
+              apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
+          } else {
+            visibleInMemo = true
+          }
 
           return context[apiTitle].isFromSyllabus ? (
             <span id={apiTitle} key={apiTitle}>

@@ -29,9 +29,13 @@ class SideMenu extends Component {
                     title={memoHeadings[title].header}
                     selected={false}
                     visibleInMemo={
-                      title in this.props.visibleInMemo ? this.props.visibleInMemo[title] : true
+                      this.props.visibleInMemo
+                        ? title in this.props.visibleInMemo
+                          ? this.props.visibleInMemo[title]
+                          : true
+                        : true
                     }
-                />
+                  />
                 ))}
               </>
             </span>
