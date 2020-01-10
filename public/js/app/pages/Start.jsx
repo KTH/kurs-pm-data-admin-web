@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
+import { FaRegEyeSlash } from 'react-icons/fa'
 
 import EditorPerTitle from '../components/Editor'
 import { context, sections } from '../util/fieldsByType'
@@ -136,18 +137,31 @@ class Start extends Component {
         <h2 id={section.id} key={'header-' + section.id}>
           {section.title}
         </h2>
-        {section.content.map(apiTitle =>
-          context[apiTitle].isFromSyllabus ? (
+        {section.content.map(apiTitle => {
+          const visibleInMemo =
+            apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
+
+          return context[apiTitle].isFromSyllabus ? (
             <span id={apiTitle} key={apiTitle}>
               <TitleAndInfoModal
                 modalId={apiTitle}
                 titleAndInfo={memoHeadings[apiTitle]}
                 btnClose={buttons.btnClose}
-                visibleInMemo={
-                  apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
-                }
-                toggleVisibleInMemo={() => this.toggleVisibleInMemo(apiTitle)}
               />
+              <span className="section_info">
+                <span>
+                  {visibleInMemo ? null : (
+                    <FaRegEyeSlash className="section_info_visibility_icon" />
+                  )}
+                  <span className="section_info_visibility_label">
+                    {visibleInMemo ? 'Visas i kurs-PM' : 'Döljs i kurs-PM'}
+                  </span>
+                </span>
+                <Button style={{ marginTop: 0 }} onClick={() => this.toggleVisibleInMemo(apiTitle)}>
+                  {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
+                </Button>
+              </span>
+
               <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
             </span>
           ) : (
@@ -159,7 +173,7 @@ class Start extends Component {
               visibleInMemo={this.state.visibleInMemo}
             />
           )
-        )}
+        })}
       </span>
     ))
   }

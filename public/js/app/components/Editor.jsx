@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { Button } from 'reactstrap'
 import { Editor } from '@tinymce/tinymce-react'
+import { FaRegEyeSlash } from 'react-icons/fa'
 import i18n from '../../../../i18n'
 import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 
@@ -15,6 +17,7 @@ class EditorPerTitle extends Component {
   render() {
     const { memoHeadings, buttons } = i18n.messages[1]
     const { id } = this.props
+    const visibleInMemo = id in this.props.visibleInMemo ? this.props.visibleInMemo[id] : true
 
     return (
       <span id={id}>
@@ -22,9 +25,18 @@ class EditorPerTitle extends Component {
           modalId={id}
           titleAndInfo={memoHeadings[id]}
           btnClose={buttons.btnClose}
-          visibleInMemo={id in this.props.visibleInMemo ? this.props.visibleInMemo[id] : true}
-          toggleVisibleInMemo={this.toggleVisibleInMemo}
         />
+        <span className="section_info">
+          <span>
+            {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
+            <span className="section_info_visibility_label">
+              {visibleInMemo ? 'Visas i kurs-PM' : 'Döljs i kurs-PM'}
+            </span>
+          </span>
+          <Button style={{ marginTop: 0 }} onClick={this.toggleVisibleInMemo}>
+            {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
+          </Button>
+        </span>
         <Editor
           id={'editorFor' + id}
           initialValue={this.memoData ? this.memoData[id] : ''}
