@@ -17,8 +17,12 @@ class EditorPerTitle extends Component {
   render() {
     const { memoHeadings, buttons } = i18n.messages[1]
     const { id } = this.props
-    const visibleInMemo = id in this.props.visibleInMemo ? this.props.visibleInMemo[id] : true
-
+    let visibleInMemo
+    if (this.props.visibleInMemo) {
+      visibleInMemo = id in this.props.visibleInMemo ? this.props.visibleInMemo[id] : true
+    } else {
+      visibleInMemo = true
+    }
     return (
       <span id={id}>
         <TitleAndInfoModal
