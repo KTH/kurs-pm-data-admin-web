@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
 import { HashLink as Link } from 'react-router-hash-link'
+import { FaRegEyeSlash } from 'react-icons/fa'
 
 import { sections } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 
-@inject(['routerStore'])
-@observer
 class SideMenu extends Component {
   render() {
     const { memoHeadings } = i18n.messages[1]
@@ -30,7 +28,10 @@ class SideMenu extends Component {
                     id={title}
                     title={memoHeadings[title].header}
                     selected={false}
-                  />
+                    visibleInMemo={
+                      title in this.props.visibleInMemo ? this.props.visibleInMemo[title] : true
+                    }
+                />
                 ))}
               </>
             </span>
@@ -58,7 +59,8 @@ const NavItem = props => (
         to={'#' + props.id}
         scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
       >
-        {props.title}
+        <span>{props.title}</span>
+        {props.visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
       </Link>
     </li>
   </ul>

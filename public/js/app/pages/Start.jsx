@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
@@ -5,6 +6,7 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
+import { FaRegEyeSlash } from 'react-icons/fa'
 
 import EditorPerTitle from '../components/Editor'
 import { context, sections } from '../util/fieldsByType'
@@ -21,7 +23,7 @@ import {
 @inject(['routerStore'])
 @observer
 class Start extends Component {
-  state = this.props.routerStore.memoData
+  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
 
   isApiExisted = !this.props.routerStore.memoData
 
@@ -39,7 +41,23 @@ class Start extends Component {
     this.setState({
       [contentHeader]: editorContent
     })
-    console.log('Content was updated:', this.state)
+  }
+
+  toggleVisibleInMemo = contentHeader => {
+    this.setState(previousState => {
+      const visible =
+        contentHeader in previousState.visibleInMemo
+          ? previousState.visibleInMemo[contentHeader]
+          : true
+      return {
+        visibleInMemo: {
+          ...previousState.visibleInMemo,
+          ...{
+            [contentHeader]: !visible
+          }
+        }
+      }
+    })
   }
 
   handleConfirm = () => {
@@ -119,20 +137,43 @@ class Start extends Component {
         <h2 id={section.id} key={'header-' + section.id}>
           {section.title}
         </h2>
-        {section.content.map(apiTitle =>
-          context[apiTitle].isFromSyllabus ? (
+        {section.content.map(apiTitle => {
+          const visibleInMemo =
+            apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
+
+          return context[apiTitle].isFromSyllabus ? (
             <span id={apiTitle} key={apiTitle}>
               <TitleAndInfoModal
                 modalId={apiTitle}
                 titleAndInfo={memoHeadings[apiTitle]}
                 btnClose={buttons.btnClose}
               />
+              <span className="section_info">
+                <span>
+                  {visibleInMemo ? null : (
+                    <FaRegEyeSlash className="section_info_visibility_icon" />
+                  )}
+                  <span className="section_info_visibility_label">
+                    {visibleInMemo ? 'Visas i kurs-PM' : 'Döljs i kurs-PM'}
+                  </span>
+                </span>
+                <Button style={{ marginTop: 0 }} onClick={() => this.toggleVisibleInMemo(apiTitle)}>
+                  {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
+                </Button>
+              </span>
+
               <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
             </span>
           ) : (
-            <EditorPerTitle id={apiTitle} key={apiTitle} onEditorChange={this.handleEditorChange} />
+            <EditorPerTitle
+              id={apiTitle}
+              key={apiTitle}
+              onEditorChange={this.handleEditorChange}
+              toggleVisibleInMemo={this.toggleVisibleInMemo}
+              visibleInMemo={this.state.visibleInMemo}
+            />
           )
-        )}
+        })}
       </span>
     ))
   }
@@ -169,7 +210,11 @@ class Start extends Component {
             <Col lg="4">
               <Sticky>
                 {({ style }) => (
-                  <SideMenu id="mainMenu" style={{ ...style, ...{ paddingTop: '30px' } }} />
+                  <SideMenu
+                    id="mainMenu"
+                    style={{ ...style, ...{ paddingTop: '30px' } }}
+                    visibleInMemo={this.state.visibleInMemo}
+                  />
                 )}
               </Sticky>
             </Col>
