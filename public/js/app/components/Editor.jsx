@@ -49,7 +49,7 @@ class EditorPerTitle extends Component {
           id={'editorFor' + id}
           initialValue={memoData ? memoData[id] : ''}
           init={{
-            height: 500,
+            height: 200,
             menubar: false,
             plugins: [
               'advlist autolink autosave lists link image imagetools charmap preview anchor',
