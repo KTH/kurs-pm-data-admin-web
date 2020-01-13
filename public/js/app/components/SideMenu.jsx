@@ -1,49 +1,48 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
 
 import { sections } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 
-class SideMenu extends Component {
-  render() {
-    const { memoHeadings } = i18n.messages[1]
-    return (
-      <nav
-        id={this.props.id}
-        className="col navbar navbar-expand-lg navbar-light"
-        style={{
-          ...this.props.style,
-          ...{ paddingLeft: '0', width: '100%', height: '100%', overflow: 'scroll' }
-        }}
-      >
-        <div className="collapse navbar-collapse" id="navbarNav">
-          {sections.map(section => (
-            <span key={section.id}>
-              <NavHeading key={'nav-' + section.id} title={section.title} />
-              <>
-                {section.content.map(title => (
-                  <NavItem
-                    key={'nav-' + title}
-                    id={title}
-                    title={memoHeadings[title].header}
-                    selected={false}
-                    visibleInMemo={
-                      this.props.visibleInMemo
-                        ? title in this.props.visibleInMemo
-                          ? this.props.visibleInMemo[title]
-                          : true
-                        : true
-                    }
-                  />
-                ))}
-              </>
-            </span>
-          ))}
-        </div>
-      </nav>
-    )
+const isVisibleInMemo = (visibleInMemo, title) => {
+  if (visibleInMemo) {
+    return title in visibleInMemo ? visibleInMemo[title] : true
   }
+  return true
+}
+
+const SideMenu = ({ id, style, visibleInMemo }) => {
+  const { memoHeadings } = i18n.messages[1]
+  return (
+    <nav
+      id={id}
+      className="col navbar navbar-expand-lg navbar-light"
+      style={{
+        ...style,
+        ...{ paddingLeft: '0', width: '100%', height: '100%', overflow: 'scroll' }
+      }}
+    >
+      <div className="collapse navbar-collapse" id="navbarNav">
+        {sections.map(section => (
+          <span key={section.id}>
+            <NavHeading key={'nav-' + section.id} title={section.title} />
+            <>
+              {section.content.map(title => (
+                <NavItem
+                  key={'nav-' + title}
+                  id={title}
+                  title={memoHeadings[title].header}
+                  selected={false}
+                  visibleInMemo={isVisibleInMemo(visibleInMemo, title)}
+                />
+              ))}
+            </>
+          </span>
+        ))}
+      </div>
+    </nav>
+  )
 }
 
 const NavHeading = props => (
