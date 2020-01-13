@@ -174,7 +174,7 @@ class Start extends Component {
     const { title, credits } = this.koppsFreshData
 
     return (
-      <Container className="kip-container">
+      <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
           <PageTitle
             id="mainHeading"
@@ -202,7 +202,7 @@ class Start extends Component {
                 {({ style }) => (
                   <SideMenu
                     id="mainMenu"
-                    style={{ ...style, ...{ paddingTop: '30px' } }}
+                    style={{ ...style, ...{ paddingTop: '30px', paddingBottom: '115px' } }}
                     visibleInMemo={this.state.visibleInMemo}
                   />
                 )}
@@ -220,7 +220,10 @@ class Start extends Component {
             </Col>
           </Row>
         </StickyContainer>
-        <Row className="control-buttons">
+        <Row
+          className="fixed-bottom control-buttons"
+          style={{ backgroundColor: 'white', padding: '0px 73px 0px 73px' }}
+        >
           <Col sm="4" className="step-back">
             <Button onClick={() => alert('back')} className="btn-back" id="back-to-.." alt="BACK">
               {buttons.btn_back}
