@@ -1,14 +1,24 @@
 import { observable, action } from 'mobx'
+import { context } from '../util/fieldsByType'
 
 class RouterStore {
   @observable courseCode
 
   @observable semester
 
-  @observable koppsFreshData
+  @observable koppsFreshData = {}
 
-  @observable memoData
+  @observable memoData = {}
 
+  @observable defaultValues = {
+    ///LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
+  }
+  @action combineDefaultValues() {
+    this.defaultValues = {
+      examinationModules: this[context['examinationModules'].defaultSource].examinationModules //koppsFreshData.examinationModules
+      ///LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
+    }
+  }
   @action tempMemoData(memoData) {
     this.memoData = memoData
   }
