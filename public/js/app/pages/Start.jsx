@@ -148,6 +148,7 @@ class Start extends Component {
 
           return context[apiTitle].isFromSyllabus ? (
             <Section
+              key={apiTitle}
               title={apiTitle}
               visibleInMemo={visibleInMemo}
               toggleVisibleInMemo={this.toggleVisibleInMemo}
