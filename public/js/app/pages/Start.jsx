@@ -6,19 +6,14 @@ import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { FaRegEyeSlash } from 'react-icons/fa'
 
 import EditorPerTitle from '../components/Editor'
+import Section from '../components/Section'
 import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
-import {
-  PageTitle,
-  ProgressBar,
-  ActionModalButton,
-  TitleAndInfoModal
-} from '@kth/kth-kip-style-react-components'
+import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -105,37 +100,37 @@ class Start extends Component {
     const { koppsFreshData } = this.props.routerStore
 
     const sectionId = location.hash.substr(1)
-    const section = context[sectionId]
+    const sectionConfig = context[sectionId]
+    if (!sectionConfig) return null
 
-    if (!section) return null
+    let visibleInMemo
+    if (this.state.visibleInMemo) {
+      visibleInMemo =
+        sectionId in this.state.visibleInMemo ? this.state.visibleInMemo[sectionId] : true
+    } else {
+      visibleInMemo = true
+    }
 
-    if (!section.isFromSyllabus)
-      return (
-        <>
-          <h2>{section.title}</h2>
-          <EditorPerTitle id={sectionId} onEditorChange={this.handleEditorChange} />
-        </>
-      )
-
-    const text = section.kopps ? (
-      // eslint-disable-next-line react/no-danger
-      <p dangerouslySetInnerHTML={{ __html: koppsFreshData[section.kopps] }} />
+    return sectionConfig.isFromSyllabus ? (
+      <Section
+        title={sectionId}
+        visibleInMemo={visibleInMemo}
+        toggleVisibleInMemo={this.toggleVisibleInMemo}
+        html={koppsFreshData[sectionConfig.kopps]}
+      />
     ) : (
-      <p />
-    )
-
-    return (
-      <>
-        <h2>{section.title}</h2>
-
-        <p>{text}</p>
-      </>
+      <EditorPerTitle
+        id={sectionId}
+        key={sectionId}
+        onEditorChange={this.handleEditorChange}
+        toggleVisibleInMemo={this.toggleVisibleInMemo}
+        visibleInMemo={this.state.visibleInMemo}
+      />
     )
   }
 
   renderScrollView = () => {
     const { koppsFreshData } = this.props.routerStore
-    const { memoHeadings, buttons } = i18n.messages[1]
 
     return sections.map(section => (
       <span key={section.id}>
@@ -152,28 +147,12 @@ class Start extends Component {
           }
 
           return context[apiTitle].isFromSyllabus ? (
-            <span id={apiTitle} key={apiTitle}>
-              <TitleAndInfoModal
-                modalId={apiTitle}
-                titleAndInfo={memoHeadings[apiTitle]}
-                btnClose={buttons.btnClose}
-              />
-              <span className="section_info">
-                <span>
-                  {visibleInMemo ? null : (
-                    <FaRegEyeSlash className="section_info_visibility_icon" />
-                  )}
-                  <span className="section_info_visibility_label">
-                    {visibleInMemo ? 'Visas i kurs-PM' : 'Döljs i kurs-PM'}
-                  </span>
-                </span>
-                <Button style={{ marginTop: 0 }} onClick={() => this.toggleVisibleInMemo(apiTitle)}>
-                  {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
-                </Button>
-              </span>
-
-              <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
-            </span>
+            <Section
+              title={apiTitle}
+              visibleInMemo={visibleInMemo}
+              toggleVisibleInMemo={this.toggleVisibleInMemo}
+              html={koppsFreshData[context[apiTitle].kopps]}
+            />
           ) : (
             <EditorPerTitle
               id={apiTitle}
