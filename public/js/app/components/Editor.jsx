@@ -18,7 +18,7 @@ class EditorPerTitle extends Component {
   }
 
   render() {
-    const { memoData } = this.props.routerStore
+    const { memoData, defaultValues } = this.props.routerStore
     const { memoHeadings, buttons } = i18n.messages[1]
     const { id } = this.props
     let visibleInMemo
@@ -47,7 +47,7 @@ class EditorPerTitle extends Component {
         </span>
         <Editor
           id={'editorFor' + id}
-          initialValue={memoData ? memoData[id] : ''}
+          initialValue={memoData[id] || defaultValues[id] || ''}
           init={{
             height: 200,
             menubar: false,
