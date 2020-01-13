@@ -65,7 +65,7 @@ function combineExamInfo(examModules, selectedSyllabus) {
     exam => exam.liStr
   )}</ul></p>`
   const examination = `${examModulesHtmlList}<p>${selectedSyllabus.examComments}</p>`
-  const examinationModules = examModules.map(exam => `<h4>${exam.title}</h4>`)
+  const examinationModules = `${examModules.map(exam => `<h4>${exam.title}</h4>`)}`
   return { examination, examinationModules }
 }
 
@@ -83,7 +83,6 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     )
     const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
     const commonInfo = getCommonInfo(res.body.course)
-    console.log('examModules ', examModules)
     return {
       ...commonInfo,
       ...combinedExamInfo,
