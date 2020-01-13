@@ -26,21 +26,7 @@ h3 {
 //   margin-bottom: 15px;
 // }
 
-span.title-and-info {
-  @extend %row;
-  align-items: flex-start;
-  .btn-info-modal {
-    ///specific for this project
-    vertical-align: middle;
-  }
-  h2,
-  h3 {
-    margin-top: 15px;
-    margin-bottom: 0;
-  }
-}
-
-.title_and_info + p {
+.title-and-info + p {
   font-weight: 900;
 }
 
