@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
@@ -7,21 +8,17 @@ import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
 
 import EditorPerTitle from '../components/Editor'
+import Section from '../components/Section'
 import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
-import {
-  PageTitle,
-  ProgressBar,
-  ActionModalButton,
-  TitleAndInfoModal
-} from '@kth/kth-kip-style-react-components'
+import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
 class Start extends Component {
-  state = this.props.routerStore.memoData
+  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
 
   isApiExisted = !this.props.routerStore.memoData
 
@@ -39,7 +36,28 @@ class Start extends Component {
     this.setState({
       [contentHeader]: editorContent
     })
-    console.log('Content was updated:', this.state)
+  }
+
+  toggleVisibleInMemo = contentHeader => {
+    this.setState(previousState => {
+      let visible
+      if (previousState.visibleInMemo) {
+        visible =
+          contentHeader in previousState.visibleInMemo
+            ? previousState.visibleInMemo[contentHeader]
+            : true
+      } else {
+        visible = true
+      }
+      return {
+        visibleInMemo: {
+          ...previousState.visibleInMemo,
+          ...{
+            [contentHeader]: !visible
+          }
+        }
+      }
+    })
   }
 
   handleConfirm = () => {
@@ -82,57 +100,70 @@ class Start extends Component {
     const { koppsFreshData } = this.props.routerStore
 
     const sectionId = location.hash.substr(1)
-    const section = context[sectionId]
+    const sectionConfig = context[sectionId]
+    if (!sectionConfig) return null
 
-    if (!section) return null
+    let visibleInMemo
+    if (this.state.visibleInMemo) {
+      visibleInMemo =
+        sectionId in this.state.visibleInMemo ? this.state.visibleInMemo[sectionId] : true
+    } else {
+      visibleInMemo = true
+    }
 
-    if (!section.isFromSyllabus)
-      return (
-        <>
-          <h2>{section.title}</h2>
-          <EditorPerTitle id={sectionId} onEditorChange={this.handleEditorChange} />
-        </>
-      )
-
-    const text = section.kopps ? (
-      // eslint-disable-next-line react/no-danger
-      <p dangerouslySetInnerHTML={{ __html: koppsFreshData[section.kopps] }} />
+    return sectionConfig.isFromSyllabus ? (
+      <Section
+        title={sectionId}
+        visibleInMemo={visibleInMemo}
+        toggleVisibleInMemo={this.toggleVisibleInMemo}
+        html={koppsFreshData[sectionConfig.kopps]}
+      />
     ) : (
-      <p />
-    )
-
-    return (
-      <>
-        <h2>{section.title}</h2>
-
-        <p>{text}</p>
-      </>
+      <EditorPerTitle
+        id={sectionId}
+        key={sectionId}
+        onEditorChange={this.handleEditorChange}
+        toggleVisibleInMemo={this.toggleVisibleInMemo}
+        visibleInMemo={this.state.visibleInMemo}
+      />
     )
   }
 
   renderScrollView = () => {
     const { koppsFreshData } = this.props.routerStore
-    const { memoHeadings, buttons } = i18n.messages[1]
 
     return sections.map(section => (
       <span key={section.id}>
         <h2 id={section.id} key={'header-' + section.id}>
           {section.title}
         </h2>
-        {section.content.map(apiTitle =>
-          context[apiTitle].isFromSyllabus ? (
-            <span id={apiTitle} key={apiTitle}>
-              <TitleAndInfoModal
-                modalId={apiTitle}
-                titleAndInfo={memoHeadings[apiTitle]}
-                btnClose={buttons.btnClose}
-              />
-              <span dangerouslySetInnerHTML={{ __html: koppsFreshData[context[apiTitle].kopps] }} />
-            </span>
+        {section.content.map(apiTitle => {
+          let visibleInMemo
+          if (this.state.visibleInMemo) {
+            visibleInMemo =
+              apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
+          } else {
+            visibleInMemo = true
+          }
+
+          return context[apiTitle].isFromSyllabus ? (
+            <Section
+              key={apiTitle}
+              title={apiTitle}
+              visibleInMemo={visibleInMemo}
+              toggleVisibleInMemo={this.toggleVisibleInMemo}
+              html={koppsFreshData[context[apiTitle].kopps]}
+            />
           ) : (
-            <EditorPerTitle id={apiTitle} key={apiTitle} onEditorChange={this.handleEditorChange} />
+            <EditorPerTitle
+              id={apiTitle}
+              key={apiTitle}
+              onEditorChange={this.handleEditorChange}
+              toggleVisibleInMemo={this.toggleVisibleInMemo}
+              visibleInMemo={this.state.visibleInMemo}
+            />
           )
-        )}
+        })}
       </span>
     ))
   }
@@ -169,7 +200,11 @@ class Start extends Component {
             <Col lg="4">
               <Sticky>
                 {({ style }) => (
-                  <SideMenu id="mainMenu" style={{ ...style, ...{ paddingTop: '30px' } }} />
+                  <SideMenu
+                    id="mainMenu"
+                    style={{ ...style, ...{ paddingTop: '30px' } }}
+                    visibleInMemo={this.state.visibleInMemo}
+                  />
                 )}
               </Sticky>
             </Col>

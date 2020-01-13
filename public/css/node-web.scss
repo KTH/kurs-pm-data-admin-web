@@ -26,12 +26,40 @@ h3 {
 //   margin-bottom: 15px;
 // }
 
-.title-and-info + p {
+span.title-and-info {
+  @extend %row;
+  align-items: flex-start;
+  .btn-info-modal {
+    ///specific for this project
+    vertical-align: middle;
+  }
+  h2,
+  h3 {
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+}
+
+.title_and_info + p {
   font-weight: 900;
 }
+
 .control-buttons {
   margin-top: 50px;
   padding: 15px 0;
+}
+
+span.section_info {
+  @extend %row;
+  justify-content: space-between;
+}
+
+.section_info_visibility_label {
+  font-style: italic;
+}
+
+.section_info_visibility_icon {
+  margin-right: 0.5em;
 }
 
 .kip-container,
@@ -93,4 +121,10 @@ h3 {
 .btn-last,
 .btn-cancel {
   text-align: end;
+}
+
+a.nav-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
