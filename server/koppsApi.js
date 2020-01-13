@@ -33,12 +33,40 @@ function getSelectedSyllabus(syllabusObject) {
     goals: lastSyllabus.goals,
     content: lastSyllabus.content,
     additionalRegulations: lastSyllabus.additionalRegulations,
-    formattedGradeScales: lastSyllabus.formattedGradeScales,
     ethicalApproach: lastSyllabus.ethicalApproach,
     examComments: lastSyllabus.examComments,
     reqsForFinalGrade: lastSyllabus.reqsForFinalGrade
   }
   return selectedFields
+}
+function getCommonInfo(courseObj) {
+  const { title, credits, creditUnitAbbr } = courseObj
+  return { title, credits, creditUnitAbbr }
+}
+function getExamModules(examinationSets, grades, roundLang) {
+  const language = roundLang === 'en' ? 0 : 1
+  let examSet = examinationSets.map(exam => {
+    exam.credits =
+      exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
+    return {
+      title: exam.title,
+      liStr: `<li> ${exam.examCode} - ${exam.title}, ${
+        language === 0 ? exam.credits : exam.credits.toString().replace('.', ',')
+      } ${language === 0 ? 'credits' : 'hp'}, ${
+        language === 0 ? 'Grading scale' : 'Betygsskala'
+      }: ${grades[exam.gradeScaleCode]} </li>`
+    }
+  })
+  return examSet
+}
+
+function combineExamInfo(examModules, selectedSyllabus) {
+  const examModulesHtmlList = `<p><ul class="ul-no-padding">${examModules.map(
+    exam => exam.liStr
+  )}</ul></p>`
+  const examination = `${examModulesHtmlList}<p>${selectedSyllabus.examComments}</p>`
+  const examinationModules = `${examModules.map(exam => `<h4>${exam.title}</h4>`)}`
+  return { examination, examinationModules }
 }
 
 async function getSyllabus(courseCode, semester, language = 'sv') {
@@ -48,10 +76,17 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const selectedSyllabus = getSelectedSyllabus(res.body)
-    const commonInfo = { title: res.body.course.title, credits: res.body.course.credits }
+    const examModules = getExamModules(
+      res.body.examinationSets[semester].examinationRounds,
+      res.body.formattedGradeScales,
+      language
+    )
+    const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
+    const commonInfo = getCommonInfo(res.body.course)
     return {
-      ...selectedSyllabus,
-      ...commonInfo
+      ...commonInfo,
+      ...combinedExamInfo,
+      ...selectedSyllabus
     }
   } catch (err) {
     log.debug('Kopps is not available', err)

@@ -63,6 +63,8 @@ async function getContent(req, res, next) {
       semester,
       lang
     )
+    await renderProps.props.children.props.routerStore.combineDefaultValues()
+
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('memo/index', {

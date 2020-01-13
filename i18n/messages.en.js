@@ -68,12 +68,8 @@ module.exports = {
       header: 'Examination',
       body: 'It is important for students because they can plan their studies....'
     },
-    examinationComment: {
-      header: '+[examination comment (fixed text)]',
-      body: 'It is important for students because they can plan their studies....'
-    },
-    examinationCommentEditable: {
-      header: '+ [examination comment (free text)]',
+    examinationModules: {
+      header: 'Examination set',
       body: 'It is important for students because they can plan their studies....'
     },
     supplementaryExam: {

@@ -68,12 +68,8 @@ module.exports = {
       header: 'Examination',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    examinationComment: {
-      header: '+ [kommentar till examination (fast text)]',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    examinationCommentEditable: {
-      header: '+ [kommentar till examination (fritext)]',
+    examinationModules: {
+      header: 'Examinationsmoduler',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     supplementaryExam: {

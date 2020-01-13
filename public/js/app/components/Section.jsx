@@ -16,7 +16,7 @@ const Section = ({ title, visibleInMemo, toggleVisibleInMemo, html }) => (
       titleAndInfo={memoHeadings[title]}
       btnClose={buttons.btnClose}
     />
-    <span className="section_info">
+    <span className="section_info word-break">
       <span>
         {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
         <span className="section_info_visibility_label">
