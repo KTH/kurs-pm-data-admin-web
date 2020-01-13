@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
 import { Button } from 'reactstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import i18n from '../../../../i18n'
 import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 
+@inject(['routerStore'])
+@observer
 class EditorPerTitle extends Component {
   updateMemoContent = editorContent => {
     this.props.onEditorChange(editorContent, this.props.id)
@@ -15,6 +18,7 @@ class EditorPerTitle extends Component {
   }
 
   render() {
+    const { memoData } = this.props.routerStore
     const { memoHeadings, buttons } = i18n.messages[1]
     const { id } = this.props
     let visibleInMemo
@@ -43,7 +47,7 @@ class EditorPerTitle extends Component {
         </span>
         <Editor
           id={'editorFor' + id}
-          initialValue={this.memoData ? this.memoData[id] : ''}
+          initialValue={memoData ? memoData[id] : ''}
           init={{
             height: 500,
             menubar: false,
