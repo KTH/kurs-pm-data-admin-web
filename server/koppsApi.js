@@ -35,6 +35,7 @@ function getSelectedSyllabus(syllabusObject) {
     additionalRegulations: lastSyllabus.additionalRegulations,
     ethicalApproach: lastSyllabus.ethicalApproach,
     examComments: lastSyllabus.examComments,
+    languageOfInstruction: lastSyllabus.languageOfInstruction,
     reqsForFinalGrade: lastSyllabus.reqsForFinalGrade
   }
   return selectedFields
@@ -49,12 +50,12 @@ function getExamModules(examinationSets, grades, roundLang) {
     exam.credits =
       exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
     return {
-      title: exam.title,
+      title: `${exam.title} ( ${exam.examCode} )`,
       liStr: `<li> ${exam.examCode} - ${exam.title}, ${
         language === 0 ? exam.credits : exam.credits.toString().replace('.', ',')
       } ${language === 0 ? 'credits' : 'hp'}, ${
         language === 0 ? 'Grading scale' : 'Betygsskala'
-      }: ${grades[exam.gradeScaleCode]} </li>`
+      }: ${grades[exam.gradeScaleCode]}</li>`
     }
   })
   return examSet
