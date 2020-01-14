@@ -4,7 +4,7 @@ import { Button } from 'reactstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import i18n from '../../../../i18n'
-import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
+import { TitleAndInfoModal, Collapse } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -45,6 +45,9 @@ class EditorPerTitle extends Component {
             {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
           </Button>
         </span>
+        <Collapse alt="Expand this" uLabel={id} color="white" buttonText="Hjälptext">
+          <p>Hjälptext som hjälper</p>
+        </Collapse>
         <Editor
           id={'editorFor' + id}
           initialValue={(memoData && memoData[id]) || defaultValues[id] || ''}
