@@ -3,7 +3,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Container, Row, Col, Button, Alert } from 'reactstrap'
 import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
 
@@ -60,7 +60,7 @@ class Start extends Component {
     })
   }
 
-  handleConfirm = () => {
+  handleSave = callback => {
     const { courseCode, semester } = this
     const start = {
       // It will be needed at the stage when we get 'fresh' data from Kopps
@@ -78,8 +78,30 @@ class Start extends Component {
         '/kursinfoadmin/kurs-pm-data/internal-api/' + this.courseCode + '/' + this.semester,
         body
       ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
-      .then(() => alert('Successfully saved '))
-      .catch(error => alert('Successfully saved ' + error))
+      .then(() => callback())
+      .catch(error => callback(error))
+  }
+
+  handleAutoSave = () => {
+    const { alerts } = i18n.messages[1]
+    this.handleSave(() => this.handleAlert(alerts.autoSaved))
+  }
+
+  handleAlert = alertText => {
+    this.setState({ alertIsOpen: true, alertText })
+    setTimeout(() => {
+      this.setState({ alertIsOpen: false, alertText: '' })
+    }, 2000)
+  }
+
+  handleConfirm = () => {
+    this.handleSave(error => {
+      if (error) {
+        alert('Successfully saved ' + error)
+      } else {
+        alert('Successfully saved ')
+      }
+    })
   }
 
   toggleViewMode = () => {
@@ -161,6 +183,10 @@ class Start extends Component {
               onEditorChange={this.handleEditorChange}
               toggleVisibleInMemo={this.toggleVisibleInMemo}
               visibleInMemo={this.state.visibleInMemo}
+              onBlur={() => {
+                console.log('onBlur')
+                this.handleAutoSave()
+              }}
             />
           )
         })}
@@ -224,6 +250,11 @@ class Start extends Component {
           className="fixed-bottom control-buttons"
           style={{ backgroundColor: 'white', padding: '0px 73px 0px 73px' }}
         >
+          <Row style={{ width: '100%', margin: '0 auto' }}>
+            <Alert isOpen={!!this.state.alertIsOpen}>
+              {this.state.alertText ? this.state.alertText : ''}
+            </Alert>
+          </Row>
           <Col sm="4" className="step-back">
             <Button onClick={() => alert('back')} className="btn-back" id="back-to-.." alt="BACK">
               {buttons.btn_back}
