@@ -96,13 +96,15 @@ class Start extends Component {
   }
 
   handleConfirm = () => {
-    this.handleSave(error => {
-      if (error) {
-        alert('Successfully saved ' + error)
-      } else {
-        alert('Successfully saved ')
-      }
-    })
+    // TODO: Refactor and change name of handleAutoSave when handleConfirm is further developed.
+    this.handleAutoSave()
+    // this.handleSave(error => {
+    //   if (error) {
+    //     alert('Successfully saved ' + error)
+    //   } else {
+    //     alert('Successfully saved ')
+    //   }
+    // })
   }
 
   toggleViewMode = () => {
