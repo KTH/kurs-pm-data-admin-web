@@ -46,27 +46,25 @@ function getCommonInfo(courseObj) {
 }
 function getExamModules(examinationSets, grades, roundLang) {
   const language = roundLang === 'en' ? 0 : 1
-  let examSet = examinationSets.map(exam => {
-    exam.credits =
+  let titles = ''
+  let liStrs = ''
+  examinationSets.map(exam => {
+    const credits =
       exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
-    return {
-      title: `${exam.title} ( ${exam.examCode} )`,
-      liStr: `<li> ${exam.examCode} - ${exam.title}, ${
-        language === 0 ? exam.credits : exam.credits.toString().replace('.', ',')
+    ;(titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`),
+      (liStrs += `<li>${exam.examCode} - ${exam.title}, ${
+        language === 0 ? credits : credits.toString().replace('.', ',')
       } ${language === 0 ? 'credits' : 'hp'}, ${
         language === 0 ? 'Grading scale' : 'Betygsskala'
-      }: ${grades[exam.gradeScaleCode]}</li>`
-    }
+      }: ${grades[exam.gradeScaleCode]}</li>`)
   })
-  return examSet
+  return { titles, liStrs }
 }
 
 function combineExamInfo(examModules, selectedSyllabus) {
-  const examModulesHtmlList = `<p><ul class="ul-no-padding">${examModules.map(
-    exam => exam.liStr
-  )}</ul></p>`
+  const examModulesHtmlList = `<p><ul class="ul-no-padding">${examModules.liStrs}</ul></p>`
   const examination = `${examModulesHtmlList}<p>${selectedSyllabus.examComments}</p>`
-  const examinationModules = `${examModules.map(exam => `<h4>${exam.title}</h4>`)}`
+  const examinationModules = examModules.titles
   return { examination, examinationModules }
 }
 
