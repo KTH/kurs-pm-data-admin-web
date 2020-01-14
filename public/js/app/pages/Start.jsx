@@ -239,7 +239,7 @@ class Start extends Component {
                 )}
               </Sticky>
             </Col>
-            <Col lg="8">
+            <Col lg="8" className="memo-content">
               {this.state.singleMode ? (
                 <Route render={this.renderSingleView} />
               ) : (
