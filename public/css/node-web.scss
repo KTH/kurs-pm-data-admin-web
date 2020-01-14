@@ -37,6 +37,37 @@ div.tox.tox-tinymce {
   }
 }
 
+.card.collapsible.white {
+  margin-top: -1em;
+  .card-body {
+    padding: 1em 0;
+    @media (min-width: 768px) {
+      display: flex;
+      flex-direction: row;
+      span:last-of-type {
+        align-self: flex-start;
+        height: 100%;
+        margin-left: 3em;
+        span {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+  & > .card-header {
+    h4 {
+      margin-left: -0.7em;
+    }
+  }
+  p {
+    margin-bottom: 0;
+  }
+  & + p {
+    margin-bottom: 15px;
+  }
+}
+
 // h4 { // not for modal
 //   margin-top: 30px;
 //   margin-bottom: 15px;
