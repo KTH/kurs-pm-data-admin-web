@@ -47,7 +47,7 @@ class EditorPerTitle extends Component {
         </span>
         <Editor
           id={'editorFor' + id}
-          initialValue={memoData[id] || defaultValues[id] || ''}
+          initialValue={(memoData && memoData[id]) || defaultValues[id] || ''}
           init={{
             height: 200,
             menubar: false,
