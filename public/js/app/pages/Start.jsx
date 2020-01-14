@@ -243,9 +243,6 @@ class Start extends Component {
               ) : (
                 this.renderScrollView()
               )}
-              <Button onClick={this.handleConfirm} color="success" style={{ float: 'right' }}>
-                {buttons.btn_save}
-              </Button>
             </Col>
           </Row>
         </StickyContainer>
@@ -273,6 +270,9 @@ class Start extends Component {
             />
           </Col>
           <Col sm="4" className="step-forward">
+            <Button onClick={this.handleConfirm} color="secondary" style={{ marginRight: '10px' }}>
+              {buttons.btn_save}
+            </Button>
             <Button
               onClick={() => alert('Go to granska')}
               id="to-peview"
