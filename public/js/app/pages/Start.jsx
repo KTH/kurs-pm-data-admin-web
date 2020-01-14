@@ -34,7 +34,8 @@ class Start extends Component {
 
   handleEditorChange = (editorContent, contentHeader) => {
     this.setState({
-      [contentHeader]: editorContent
+      [contentHeader]: editorContent,
+      dirtyEditor: contentHeader
     })
   }
 
@@ -184,8 +185,10 @@ class Start extends Component {
               toggleVisibleInMemo={this.toggleVisibleInMemo}
               visibleInMemo={this.state.visibleInMemo}
               onBlur={() => {
-                console.log('onBlur')
-                this.handleAutoSave()
+                if (this.state.dirtyEditor === apiTitle) {
+                  this.handleAutoSave()
+                }
+                this.setState({ dirtyEditor: '' })
               }}
             />
           )
