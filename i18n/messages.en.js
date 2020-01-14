@@ -171,5 +171,8 @@ module.exports = {
     btn_copy: 'Copy link to preview',
     btn_show_in_memo: 'Show in course memo',
     btn_hide_in_memo: 'Hide i kurs-pm'
+  },
+  alerts: {
+    autoSaved: 'Draft saved'
   }
 }

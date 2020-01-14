@@ -69,6 +69,7 @@ class EditorPerTitle extends Component {
             block_formats: 'Paragraph=p; Header 4=h4'
           }}
           onEditorChange={this.updateMemoContent}
+          onBlur={this.props.onBlur}
         />
       </span>
     )
