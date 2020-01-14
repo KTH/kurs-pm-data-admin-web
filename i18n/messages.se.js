@@ -176,5 +176,8 @@ module.exports = {
     btn_copy: 'Kopiera länk till utkast',
     btn_show_in_memo: 'Visa i kurs-pm',
     btn_hide_in_memo: 'Dölj i kurs-pm'
+  },
+  alerts: {
+    autoSaved: 'Sparat utkast'
   }
 }

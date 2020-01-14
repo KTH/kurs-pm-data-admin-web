@@ -14,7 +14,13 @@ class SideMenu extends Component {
         className="col navbar navbar-expand-lg navbar-light"
         style={{
           ...this.props.style,
-          ...{ paddingLeft: '0', width: '100%', height: '100%', overflow: 'scroll' }
+          ...{
+            paddingLeft: '0',
+            width: '105%',
+            height: '100%',
+            overflowX: 'hidden',
+            overflowY: 'scroll'
+          }
         }}
       >
         <div className="collapse navbar-collapse" id="navbarNav">
