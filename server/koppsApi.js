@@ -30,19 +30,22 @@ function getSelectedSyllabus(syllabusObject) {
   const lastSyllabus = syllabusObject.publicSyllabusVersions[0].courseSyllabus
   const selectedFields = {
     // TODO: Adapt keys to kurs-pm API instead of kopps naming
-    goals: lastSyllabus.goals,
-    content: lastSyllabus.content,
+    learningOutcomes: lastSyllabus.goals,
+    courseContent: lastSyllabus.content,
     additionalRegulations: lastSyllabus.additionalRegulations,
     ethicalApproach: lastSyllabus.ethicalApproach,
     examComments: lastSyllabus.examComments,
-    languageOfInstruction: lastSyllabus.languageOfInstruction,
-    reqsForFinalGrade: lastSyllabus.reqsForFinalGrade
+    literature: lastSyllabus.literature
+      ? lastSyllabus.literature + lastSyllabus.literatureComment
+      : '<i>No information found in kopps</i>',
+    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade
   }
   return selectedFields
 }
-function getCommonInfo(courseObj) {
-  const { title, credits, creditUnitAbbr } = courseObj
-  return { title, credits, creditUnitAbbr }
+function getCommonInfo(resBody) {
+  const { credits, creditUnitAbbr, gradeScaleCode, title } = resBody.course
+  const gradingScale = resBody.formattedGradeScales[gradeScaleCode]
+  return { credits, creditUnitAbbr, gradingScale, title }
 }
 function getExamModules(examinationSets, grades, roundLang) {
   const language = roundLang === 'en' ? 0 : 1
@@ -62,7 +65,7 @@ function getExamModules(examinationSets, grades, roundLang) {
 }
 
 function combineExamInfo(examModules, selectedSyllabus) {
-  const examModulesHtmlList = `<p><ul class="ul-no-padding">${examModules.liStrs}</ul></p>`
+  const examModulesHtmlList = `<p><ul>${examModules.liStrs}</ul></p>`
   const examination = `${examModulesHtmlList}<p>${selectedSyllabus.examComments}</p>`
   const examinationModules = examModules.titles
   return { examination, examinationModules }
@@ -81,7 +84,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
       language
     )
     const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
-    const commonInfo = getCommonInfo(res.body.course)
+    const commonInfo = getCommonInfo(res.body)
     return {
       ...commonInfo,
       ...combinedExamInfo,
@@ -100,9 +103,10 @@ async function getDetailedInformation(courseCode, language = 'sv') {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const { infoContactName, possibilityToCompletion, possibilityToAddition } = res.body.course //Kontaktperson
-    const { schemaUrl } = res.body.roundInfos[1] //hardcoded
+    const { schemaUrl, round } = res.body.roundInfos[1] //hardcoded
     return {
       infoContactName,
+      languageOfInstructions: round.language,
       possibilityToCompletion,
       possibilityToAddition,
       schemaUrl
