@@ -9,7 +9,7 @@ import i18n from '../../../../i18n'
 
 const { messages, memoHeadings, buttons } = i18n.messages[1]
 
-const Section = ({ title, visibleInMemo, toggleVisibleInMemo, html }) => (
+const Section = ({ title, mandatory, visibleInMemo, toggleVisibleInMemo, html }) => (
   <span id={title} key={title}>
     <TitleAndInfoModal
       modalId={title}
@@ -20,12 +20,19 @@ const Section = ({ title, visibleInMemo, toggleVisibleInMemo, html }) => (
       <span>
         {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
         <span className="section_info_visibility_label">
-          {visibleInMemo ? messages.shown_in_memo : messages.hidden_in_memo}
+          {visibleInMemo
+            ? messages.section_info_visibility_label_shown
+            : messages.section_info_visibility_label_hidden}
         </span>
       </span>
-      <Button style={{ marginTop: 0 }} onClick={() => toggleVisibleInMemo(title)}>
-        {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
-      </Button>
+      {mandatory && (
+        <Button
+          style={{ marginTop: 0, marginBottom: 0 }}
+          onClick={() => toggleVisibleInMemo(title)}
+        >
+          {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
+        </Button>
+      )}
     </span>
 
     <span dangerouslySetInnerHTML={{ __html: html }} />

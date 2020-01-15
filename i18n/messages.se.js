@@ -38,8 +38,8 @@ module.exports = {
     /**
      * Labels
      */
-    shown_in_memo: 'Visas i kurs-pm',
-    hidden_in_memo: 'Döljs i kurs-pm'
+    section_info_visibility_label_shown: 'Visas i kurs-pm',
+    section_info_visibility_label_hidden: 'Döljs i kurs-pm'
   },
   memoHeadings: {
     courseContent: {

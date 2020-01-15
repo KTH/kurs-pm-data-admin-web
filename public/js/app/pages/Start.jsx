@@ -142,6 +142,7 @@ class Start extends Component {
         visibleInMemo={visibleInMemo}
         toggleVisibleInMemo={this.toggleVisibleInMemo}
         html={koppsFreshData[sectionConfig.kopps]}
+        mandatory
       />
     ) : (
       <EditorPerTitle

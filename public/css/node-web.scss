@@ -85,6 +85,7 @@ div.tox.tox-tinymce {
 span.section_info {
   @extend %row;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 
 .section_info_visibility_label {

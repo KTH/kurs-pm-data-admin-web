@@ -38,8 +38,8 @@ module.exports = {
     /**
      * Labels
      */
-    shown_in_memo: 'Shown in course memo',
-    hidden_in_memo: 'Hidden in course memo'
+    section_info_visibility_label_shown: 'Shown in course memo',
+    section_info_visibility_label_hidden: 'Hidden in course memo'
   },
   memoHeadings: {
     courseContent: {
