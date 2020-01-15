@@ -141,7 +141,7 @@ class Start extends Component {
         title={sectionId}
         visibleInMemo={visibleInMemo}
         toggleVisibleInMemo={this.toggleVisibleInMemo}
-        html={koppsFreshData[sectionConfig.kopps]}
+        html={koppsFreshData[sectionId]}
         mandatory
       />
     ) : (
@@ -178,7 +178,7 @@ class Start extends Component {
               title={apiTitle}
               visibleInMemo={visibleInMemo}
               toggleVisibleInMemo={this.toggleVisibleInMemo}
-              html={koppsFreshData[context[apiTitle].kopps]}
+              html={koppsFreshData[apiTitle]}
             />
           ) : (
             <EditorPerTitle

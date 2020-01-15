@@ -82,11 +82,11 @@ module.exports = {
       header: 'Info contact name',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    supplementaryExam: {
+    possibilityToCompletion: {
       header: 'Opportunity to complete the requirements via supplementary examination',
       body: 'It is important for students because they can plan their studies....'
     },
-    raiseApprovedGrade: {
+    possibilityToAddition: {
       header: 'Opportunity to raise an approved grade via renewed examination',
       body: 'It is important for students because they can plan their studies....'
     },
