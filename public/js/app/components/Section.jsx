@@ -7,7 +7,7 @@ import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 
 import i18n from '../../../../i18n'
 
-const { memoHeadings, buttons } = i18n.messages[1]
+const { messages, memoHeadings, buttons } = i18n.messages[1]
 
 const Section = ({ title, visibleInMemo, toggleVisibleInMemo, html }) => (
   <span id={title} key={title}>
@@ -20,7 +20,7 @@ const Section = ({ title, visibleInMemo, toggleVisibleInMemo, html }) => (
       <span>
         {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
         <span className="section_info_visibility_label">
-          {visibleInMemo ? 'Visas i kurs-PM' : 'Döljs i kurs-PM'}
+          {visibleInMemo ? messages.shown_in_memo : messages.hidden_in_memo}
         </span>
       </span>
       <Button style={{ marginTop: 0 }} onClick={() => toggleVisibleInMemo(title)}>

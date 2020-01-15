@@ -33,7 +33,13 @@ module.exports = {
     locale_text: 'English',
 
     site_name: 'Administration of Course Memos',
-    host_name: 'KTH'
+    host_name: 'KTH',
+
+    /**
+     * Labels
+     */
+    shown_in_memo: 'Shown in course memo',
+    hidden_in_memo: 'Hidden in course memo'
   },
   memoHeadings: {
     courseContent: {
@@ -170,7 +176,7 @@ module.exports = {
     btn_save_and_cancel: 'Save draft and cancel',
     btn_copy: 'Copy link to preview',
     btn_show_in_memo: 'Show in course memo',
-    btn_hide_in_memo: 'Hide i kurs-pm'
+    btn_hide_in_memo: 'Hide in course memo'
   },
   alerts: {
     autoSaved: 'Draft saved'

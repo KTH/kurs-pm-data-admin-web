@@ -33,7 +33,13 @@ module.exports = {
     locale_text: 'Svenska',
 
     site_name: 'Administration av kurs-PM',
-    host_name: 'KTH'
+    host_name: 'KTH',
+
+    /**
+     * Labels
+     */
+    shown_in_memo: 'Visas i kurs-pm',
+    hidden_in_memo: 'Döljs i kurs-pm'
   },
   memoHeadings: {
     courseContent: {
