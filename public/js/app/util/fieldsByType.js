@@ -12,11 +12,12 @@ const context = {
   raiseApprovedGrade: { isFromSyllabus: false },
   otherRequirementsForFinalGrade: { isFromSyllabus: true, kopps: 'reqsForFinalGrade' },
   examiner: { isFromSyllabus: false },
-  communicationWithTeachers: { isFromSyllabus: false },
-  courseCoordinator: { isFromSyllabus: false },
-  labSupervisors: { isFromSyllabus: false },
-  teacherAssistants: { isFromSyllabus: false },
-  teacher: { isFromSyllabus: false },
+  communicationWithTeachers: { isFromSyllabus: false }, //Kommunikation med lärare
+  courseCoordinator: { isFromSyllabus: false }, //kursansvarig
+  infoContactName: { isFromSyllabus: true, kopps: 'infoContactName' }, //new
+  otherContacts: { isFromSyllabus: false }, //new
+  teacherAssistants: { isFromSyllabus: false }, //lärarassistenter
+  teacher: { isFromSyllabus: false }, //lärare
   languageOfInstructions: { isFromSyllabus: false },
   planning: { isFromSyllabus: false },
   gradingCriteria: { isFromSyllabus: false }
@@ -30,12 +31,12 @@ const sections = [
   },
   {
     id: 'prep',
-    title: 'Kurslitteratur och förberedelser',
+    title: 'Förbereda inför kursstart',
     content: ['equipment', 'literature']
   },
   {
     id: 'reqToFinal',
-    title: 'Examination och slutförande',
+    title: 'Examination',
     content: [
       'gradingScale',
       'examination',
@@ -49,16 +50,22 @@ const sections = [
     ]
   },
   {
-    id: 'extra',
-    title: 'Ytterligare Information',
+    id: 'contacts',
+    title: 'Kontakter',
     content: [
-      'additionalRegulations',
+      'communicationWithTeachers',
+      'infoContactName', //Kontaktperson
+      'courseCoordinator',
       'teacher',
       'teacherAssistants',
-      'labSupervisors',
-      'courseCoordinator',
-      'communicationWithTeachers'
+      'examiner',
+      'otherContacts' //new Övriga kontakter
     ]
+  },
+  {
+    id: 'extra',
+    title: 'Ytterligare Information',
+    content: ['additionalRegulations']
   }
 ]
 

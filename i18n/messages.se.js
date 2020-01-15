@@ -78,6 +78,10 @@ module.exports = {
       header: 'Examinationsmoduler',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
+    infoContactName: {
+      header: 'Kontaktperson',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     supplementaryExam: {
       header: 'Möjlighet till komplettering',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
@@ -102,8 +106,8 @@ module.exports = {
       header: 'Kursansvarig',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    labSupervisors: {
-      header: 'Labbhandledare',
+    otherContacts: {
+      header: 'Övriga kontakter',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     teacherAssistants: {

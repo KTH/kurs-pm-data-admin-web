@@ -85,7 +85,27 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     return {
       ...commonInfo,
       ...combinedExamInfo,
-      ...selectedSyllabus
+      ...selectedSyllabus,
+      ...(await getDetailedInformation(courseCode, language))
+    }
+  } catch (err) {
+    log.debug('Kopps is not available', err)
+    return err
+  }
+}
+
+async function getDetailedInformation(courseCode, language = 'sv') {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
+  try {
+    const res = await client.getAsync({ uri, useCache: true })
+    const { infoContactName, possibilityToCompletion, possibilityToAddition } = res.body.course //Kontaktperson
+    const { schemaUrl } = res.body.roundInfos[1] //hardcoded
+    return {
+      infoContactName,
+      possibilityToCompletion,
+      possibilityToAddition,
+      schemaUrl
     }
   } catch (err) {
     log.debug('Kopps is not available', err)

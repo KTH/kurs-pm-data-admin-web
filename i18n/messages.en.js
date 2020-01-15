@@ -78,6 +78,10 @@ module.exports = {
       header: 'Examination set',
       body: 'It is important for students because they can plan their studies....'
     },
+    infoContactName: {
+      header: 'Info contact name',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     supplementaryExam: {
       header: 'Opportunity to complete the requirements via supplementary examination',
       body: 'It is important for students because they can plan their studies....'
@@ -102,9 +106,10 @@ module.exports = {
       header: 'Course coordinator ',
       body: 'It is important for students because they can plan their studies....'
     },
-    labSupervisors: {
-      header: 'Lab supervisors',
-      body: 'It is important for students because they can plan their studies....'
+    otherContacts: {
+      header: 'Other contacts',
+      body:
+        'It is important to know Lab supervisors for students because they can plan their studies....'
     },
     teacherAssistants: {
       header: 'Teacher assistants',
