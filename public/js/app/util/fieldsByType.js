@@ -1,24 +1,24 @@
 const context = {
-  additionalRegulations: { isFromSyllabus: true, kopps: 'additionalRegulations' },
-  courseContent: { isFromSyllabus: true, kopps: 'content' },
-  gradingScale: { isFromSyllabus: true, kopps: 'formattedGradeScales' },
-  ethicalApproach: { isFromSyllabus: true, kopps: 'ethicalApproach' },
-  examination: { isFromSyllabus: true, kopps: 'examination' },
+  additionalRegulations: { isFromSyllabus: true },
+  courseContent: { isFromSyllabus: true },
+  gradingScale: { isFromSyllabus: true },
+  ethicalApproach: { isFromSyllabus: true },
+  examination: { isFromSyllabus: true },
   examinationModules: { isFromSyllabus: false, hasDefault: true, defaultSource: 'koppsFreshData' },
   equipment: { isFromSyllabus: false },
-  learningOutcomes: { isFromSyllabus: true, kopps: 'goals' },
-  literature: { isFromSyllabus: false },
-  supplementaryExam: { isFromSyllabus: false },
-  raiseApprovedGrade: { isFromSyllabus: false },
-  otherRequirementsForFinalGrade: { isFromSyllabus: true, kopps: 'reqsForFinalGrade' },
+  learningOutcomes: { isFromSyllabus: true },
+  literature: { isFromSyllabus: true },
+  possibilityToCompletion: { isFromSyllabus: true },
+  possibilityToAddition: { isFromSyllabus: true },
+  otherRequirementsForFinalGrade: { isFromSyllabus: true },
   examiner: { isFromSyllabus: false },
   communicationWithTeachers: { isFromSyllabus: false }, //Kommunikation med lärare
   courseCoordinator: { isFromSyllabus: false }, //kursansvarig
-  infoContactName: { isFromSyllabus: true, kopps: 'infoContactName' }, //new
+  infoContactName: { isFromSyllabus: true }, //new
   otherContacts: { isFromSyllabus: false }, //new
   teacherAssistants: { isFromSyllabus: false }, //lärarassistenter
   teacher: { isFromSyllabus: false }, //lärare
-  languageOfInstructions: { isFromSyllabus: false },
+  languageOfInstructions: { isFromSyllabus: true },
   planning: { isFromSyllabus: false },
   gradingCriteria: { isFromSyllabus: false }
 }
@@ -45,8 +45,8 @@ const sections = [
       'examiner',
       'ethicalApproach',
       'gradingCriteria',
-      'supplementaryExam',
-      'raiseApprovedGrade'
+      'possibilityToCompletion',
+      'possibilityToAddition'
     ]
   },
   {
