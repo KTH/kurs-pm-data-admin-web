@@ -71,6 +71,31 @@ function combineExamInfo(examModules, selectedSyllabus) {
   return { examination, examinationModules }
 }
 
+function getScheduleDetailsTemplate(roundLang) {
+  const language = roundLang === 'en'
+  const header = `<thead><tr>
+  <td style="width: 33.3333%">${language ? 'Learning activities' : 'Läraktivitet'}</td>
+  <td style="width: 33.3333%">${language ? 'Content' : 'Innehåll'}</td>
+  <td style="width: 33.3333%">${language ? 'Preparations' : 'Förberedelse'}</td>
+  </tr></thead>`
+
+  const emptyRow = `<tr>
+  <td style="width: 33.3333%;">&nbsp;</td>
+  <td style="width: 33.3333%;">&nbsp;</td>
+  <td style="width: 33.3333%;">&nbsp;</td>
+  </tr>`
+
+  const scheduleDetailsTemplate = `<table style="border-collapse: collapse; width: 100%;" border="1">
+  ${header}
+  <tbody>
+  ${emptyRow.repeat(3)}
+  </tbody>
+  </table>
+  `
+
+  return { scheduleDetailsTemplate }
+}
+
 async function getSyllabus(courseCode, semester, language = 'sv') {
   const { client } = api.koppsApi
 
@@ -85,10 +110,12 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     )
     const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
     const commonInfo = getCommonInfo(res.body)
+    const scheduleDetails = getScheduleDetailsTemplate(language)
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
+      ...scheduleDetails,
       ...(await getDetailedInformation(courseCode, language))
     }
   } catch (err) {
