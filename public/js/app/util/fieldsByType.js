@@ -44,7 +44,7 @@ const sections = [
   {
     id: 'contentAndOutcomes',
     title: 'Innehåll och lärandemål', // TODO: Later, to use i18n messages.sections for en/Sv somehow
-    content: ['courseContent', 'learningOutcomes', 'languageOfInstructions', 'planning']
+    content: ['courseContent', 'learningOutcomes', 'languageOfInstructions']
   },
   {
     id: 'prep',
@@ -65,6 +65,11 @@ const sections = [
       'possibilityToCompletion',
       'possibilityToAddition'
     ]
+  },
+  {
+    id: 'planning',
+    title: 'Planering',
+    content: ['planning']
   },
   {
     id: 'contacts',

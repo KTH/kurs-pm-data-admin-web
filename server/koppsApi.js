@@ -108,9 +108,11 @@ function getScheduleLinks(language) {
     })
     return uniqueUrls
       .map(function urlRow(uniqueUrl) {
-        return `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName}</a>`
+        return uniqueUrl
+          ? `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName}</a>`
+          : ''
       })
-      .join()
+      .join('')
   }
 }
 
@@ -146,11 +148,15 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 async function getDetailedInformation(courseCode, language = 'sv') {
   const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
+  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const { infoContactName, possibilityToCompletion, possibilityToAddition } = res.body.course //Kontaktperson
-    const { schemaUrl, round } = res.body.roundInfos[1] //hardcoded
+    const { round } = res.body.roundInfos[1] //hardcoded
+    const schemaUrl = []
+    res.body.roundInfos.forEach(roundInfo => {
+      schemaUrl.push(roundInfo.schemaUrl)
+    })
     return {
       infoContactName,
       languageOfInstructions: round.language,
