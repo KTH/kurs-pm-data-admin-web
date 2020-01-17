@@ -136,21 +136,21 @@ class Start extends Component {
       visibleInMemo = true
     }
 
-    return sectionConfig.isFromSyllabus ? (
-      <Section
-        title={sectionId}
-        visibleInMemo={visibleInMemo}
-        toggleVisibleInMemo={this.toggleVisibleInMemo}
-        html={koppsFreshData[sectionId]}
-        mandatory
-      />
-    ) : (
+    return sectionConfig.isEditable ? (
       <EditorPerTitle
         id={sectionId}
         key={sectionId}
         onEditorChange={this.handleEditorChange}
         toggleVisibleInMemo={this.toggleVisibleInMemo}
         visibleInMemo={this.state.visibleInMemo}
+      />
+    ) : (
+      <Section
+        title={sectionId}
+        visibleInMemo={visibleInMemo}
+        toggleVisibleInMemo={this.toggleVisibleInMemo}
+        html={koppsFreshData[sectionId]}
+        mandatory
       />
     )
   }
@@ -172,15 +172,7 @@ class Start extends Component {
             visibleInMemo = true
           }
 
-          return context[apiTitle].isFromSyllabus ? (
-            <Section
-              key={apiTitle}
-              title={apiTitle}
-              visibleInMemo={visibleInMemo}
-              toggleVisibleInMemo={this.toggleVisibleInMemo}
-              html={koppsFreshData[apiTitle]}
-            />
-          ) : (
+          return context[apiTitle].isEditable ? (
             <EditorPerTitle
               id={apiTitle}
               key={apiTitle}
@@ -193,6 +185,14 @@ class Start extends Component {
                 }
                 this.setState({ dirtyEditor: '' })
               }}
+            />
+          ) : (
+            <Section
+              key={apiTitle}
+              title={apiTitle}
+              visibleInMemo={visibleInMemo}
+              toggleVisibleInMemo={this.toggleVisibleInMemo}
+              html={koppsFreshData[apiTitle]}
             />
           )
         })}

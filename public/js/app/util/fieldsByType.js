@@ -1,26 +1,38 @@
 const context = {
-  additionalRegulations: { isFromSyllabus: true },
-  courseContent: { isFromSyllabus: true },
-  gradingScale: { isFromSyllabus: true },
-  ethicalApproach: { isFromSyllabus: true },
-  examination: { isFromSyllabus: true },
-  examinationModules: { isFromSyllabus: false, hasDefault: true, defaultSource: 'koppsFreshData' },
-  equipment: { isFromSyllabus: false },
-  learningOutcomes: { isFromSyllabus: true },
-  literature: { isFromSyllabus: true },
-  possibilityToCompletion: { isFromSyllabus: true },
-  possibilityToAddition: { isFromSyllabus: true },
-  otherRequirementsForFinalGrade: { isFromSyllabus: true },
-  examiner: { isFromSyllabus: false },
-  communicationWithTeachers: { isFromSyllabus: false }, //Kommunikation med lärare
-  courseCoordinator: { isFromSyllabus: false }, //kursansvarig
-  infoContactName: { isFromSyllabus: true }, //new
-  otherContacts: { isFromSyllabus: false }, //new
-  teacherAssistants: { isFromSyllabus: false }, //lärarassistenter
-  teacher: { isFromSyllabus: false }, //lärare
-  languageOfInstructions: { isFromSyllabus: true },
-  planning: { isFromSyllabus: false },
-  gradingCriteria: { isFromSyllabus: false }
+  additionalRegulations: { isEditable: false, isRequired: false, source: 'syllabus' },
+  courseContent: { isEditable: false, isRequired: true, source: 'syllabus' },
+  communicationWithTeachers: { isEditable: false, isRequired: false, source: 'kip' }, //Kommunikation med lärare
+  courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, //kursansvarig
+  infoContactName: { isEditable: false, isRequired: true, source: 'k' },
+  gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
+  gradingScale: { isEditable: false, isRequired: true, source: 'k' }, //Betygsskala
+  ethicalApproach: {
+    isEditable: true,
+    isRequired: true,
+    hasDefault: true,
+    defaultSource: 'koppsFreshData',
+    source: ''
+  }, //kan redigeras
+  examination: { isEditable: false, isRequired: true, source: 'k' },
+  examinationModules: {
+    isEditable: true,
+    isRequired: false,
+    source: 'kip',
+    hasDefault: true,
+    defaultSource: 'koppsFreshData'
+  },
+  equipment: { isEditable: true, isRequired: false, source: '' },
+  examiner: { isEditable: false, isRequired: false, source: 'ugRedis-k' },
+  languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
+  learningOutcomes: { isEditable: false, isRequired: true, source: 'syllabus' },
+  literature: { isEditable: false, isRequired: true, source: 'syllabus' },
+  possibilityToCompletion: { isEditable: false, isRequired: false, source: 'k' },
+  possibilityToAddition: { isEditable: false, isRequired: false, source: 'k' },
+  otherContacts: { isEditable: true, isRequired: false, source: 'kip' },
+  otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: 'syllabus' },
+  planning: { isEditable: true, isRequired: false, source: 'kip' },
+  teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, //lärarassistenter
+  teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' } //lärare
 }
 
 const sections = [
