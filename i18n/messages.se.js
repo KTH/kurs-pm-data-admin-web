@@ -99,7 +99,7 @@ module.exports = {
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     communicationWithTeachers: {
-      header: 'Kommunikation med lärare',
+      header: 'Kommunikation i kursen',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     courseCoordinator: {
