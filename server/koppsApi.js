@@ -71,12 +71,12 @@ function combineExamInfo(examModules, selectedSyllabus) {
   return { examination, examinationModules }
 }
 
-function getScheduleDetailsTemplate(roundLang) {
-  const language = roundLang === 'en'
+function getScheduleDetailsTemplate(language) {
+  const english = language === 'en'
   const header = `<thead><tr>
-  <td style="width: 33.3333%">${language ? 'Learning activities' : 'Läraktivitet'}</td>
-  <td style="width: 33.3333%">${language ? 'Content' : 'Innehåll'}</td>
-  <td style="width: 33.3333%">${language ? 'Preparations' : 'Förberedelse'}</td>
+  <td style="width: 33.3333%">${english ? 'Learning activities' : 'Läraktivitet'}</td>
+  <td style="width: 33.3333%">${english ? 'Content' : 'Innehåll'}</td>
+  <td style="width: 33.3333%">${english ? 'Preparations' : 'Förberedelse'}</td>
   </tr></thead>`
 
   const emptyRow = `<tr>
@@ -96,6 +96,24 @@ function getScheduleDetailsTemplate(roundLang) {
   return { scheduleDetailsTemplate }
 }
 
+function getScheduleLinks(language) {
+  const english = language === 'en'
+  const scheduleName = english ? 'Schedule' : 'Schema'
+
+  return function scheduleLinks(url) {
+    if (!url) return ''
+    const urls = Array.isArray(url) ? url : [url]
+    const uniqueUrls = urls.filter(function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index
+    })
+    return uniqueUrls
+      .map(function urlRow(uniqueUrl) {
+        return `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName}</a>`
+      })
+      .join()
+  }
+}
+
 async function getSyllabus(courseCode, semester, language = 'sv') {
   const { client } = api.koppsApi
 
@@ -111,11 +129,13 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
     const commonInfo = getCommonInfo(res.body)
     const scheduleDetails = getScheduleDetailsTemplate(language)
+    const scheduleLinks = getScheduleLinks(language)
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
       ...scheduleDetails,
+      scheduleLinks,
       ...(await getDetailedInformation(courseCode, language))
     }
   } catch (err) {

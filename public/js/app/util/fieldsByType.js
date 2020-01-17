@@ -30,7 +30,12 @@ const context = {
   possibilityToAddition: { isEditable: false, isRequired: false, source: 'k' },
   otherContacts: { isEditable: true, isRequired: false, source: 'kip' },
   otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: 'syllabus' },
-  planning: { isEditable: true, isRequired: false, source: 'kip' },
+  planning: {
+    isEditable: true,
+    isRequired: false,
+    source: 'kip',
+    defaultSource: 'koppsFreshData'
+  },
   teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, //lärarassistenter
   teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' } //lärare
 }
