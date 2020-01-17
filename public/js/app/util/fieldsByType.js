@@ -30,7 +30,12 @@ const context = {
   possibilityToAddition: { isEditable: false, isRequired: false, source: 'k' },
   otherContacts: { isEditable: true, isRequired: false, source: 'kip' },
   otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: 'syllabus' },
-  planning: { isEditable: true, isRequired: false, source: 'kip' },
+  planning: {
+    isEditable: true,
+    isRequired: false,
+    source: 'kip',
+    defaultSource: 'koppsFreshData'
+  },
   teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, //lärarassistenter
   teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' } //lärare
 }
@@ -39,7 +44,7 @@ const sections = [
   {
     id: 'contentAndOutcomes',
     title: 'Innehåll och lärandemål', // TODO: Later, to use i18n messages.sections for en/Sv somehow
-    content: ['courseContent', 'learningOutcomes', 'languageOfInstructions', 'planning']
+    content: ['courseContent', 'learningOutcomes', 'languageOfInstructions']
   },
   {
     id: 'prep',
@@ -60,6 +65,11 @@ const sections = [
       'possibilityToCompletion',
       'possibilityToAddition'
     ]
+  },
+  {
+    id: 'planning',
+    title: 'Planering',
+    content: ['planning']
   },
   {
     id: 'contacts',
