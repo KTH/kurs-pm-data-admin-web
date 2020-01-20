@@ -9,7 +9,7 @@ import i18n from '../../../../i18n'
 
 const { messages, memoHeadings, buttons } = i18n.messages[1]
 
-const Section = ({ title, mandatory, visibleInMemo, toggleVisibleInMemo, html }) => (
+const Section = ({ title, isRequired, visibleInMemo, toggleVisibleInMemo, html }) => (
   <span id={title} key={title}>
     <TitleAndInfoModal
       modalId={title}
@@ -25,7 +25,7 @@ const Section = ({ title, mandatory, visibleInMemo, toggleVisibleInMemo, html })
             : messages.section_info_visibility_label_hidden}
         </span>
       </span>
-      {mandatory && (
+      {!isRequired && (
         <Button
           style={{ marginTop: 0, marginBottom: 0 }}
           onClick={() => toggleVisibleInMemo(title)}
