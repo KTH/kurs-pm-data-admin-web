@@ -65,7 +65,6 @@ async function getContent(req, res, next) {
       lang
     )
     await renderProps.props.children.props.routerStore.combineDefaultValues()
-    // renderProps.props.children.props.routerStore.courseEmployees =
 
     const html = ReactDOMServer.renderToString(renderProps)
 
