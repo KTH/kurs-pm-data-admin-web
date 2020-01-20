@@ -50,6 +50,10 @@ module.exports = {
       header: 'Lärandemål',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
+    learningActivities: {
+      header: 'Läraktiviteter',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     equipment: {
       header: 'Utrustning',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
@@ -118,12 +122,12 @@ module.exports = {
       header: 'Lärare',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    languageOfInstructions: {
-      header: 'Undervisningsspråk',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    planning: {
-      header: 'Detaljplanering',
+    // languageOfInstructions: {
+    //   header: 'Undervisningsspråk',
+    //   body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    // },
+    scheduleDetails: {
+      header: 'Detaljschema',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     gradingCriteria: {

@@ -50,6 +50,10 @@ module.exports = {
       header: 'Intended learning outcomes',
       body: 'It is important for students because they can plan their studies....'
     },
+    learningActivities: {
+      header: 'Learning Activities',
+      body: 'It is important for students because they can plan their studies....'
+    },
     equipment: {
       header: 'Equipment',
       body: 'It is important for students because they can plan their studies....'
@@ -119,12 +123,12 @@ module.exports = {
       header: 'Teacher',
       body: 'It is important for students because they can plan their studies....'
     },
-    languageOfInstructions: {
-      header: 'Language of instruction',
-      body: 'It is important for students because they can plan their studies....'
-    },
-    planning: {
-      header: 'Detailed Planning',
+    // languageOfInstructions: {
+    //   header: 'Language of instruction',
+    //   body: 'It is important for students because they can plan their studies....'
+    // },
+    scheduleDetails: {
+      header: 'Schedule Details',
       body: 'It is important for students because they can plan their studies....'
     },
     gradingCriteria: {

@@ -71,6 +71,51 @@ function combineExamInfo(examModules, selectedSyllabus) {
   return { examination, examinationModules }
 }
 
+function getScheduleDetailsTemplate(language) {
+  const english = language === 'en'
+  const header = `<thead><tr>
+  <td style="width: 33.3333%">${english ? 'Learning activities' : 'Läraktivitet'}</td>
+  <td style="width: 33.3333%">${english ? 'Content' : 'Innehåll'}</td>
+  <td style="width: 33.3333%">${english ? 'Preparations' : 'Förberedelse'}</td>
+  </tr></thead>`
+
+  const emptyRow = `<tr>
+  <td style="width: 33.3333%;">&nbsp;</td>
+  <td style="width: 33.3333%;">&nbsp;</td>
+  <td style="width: 33.3333%;">&nbsp;</td>
+  </tr>`
+
+  const scheduleDetailsTemplate = `<table style="border-collapse: collapse; width: 100%;" border="1">
+  ${header}
+  <tbody>
+  ${emptyRow.repeat(3)}
+  </tbody>
+  </table>
+  `
+
+  return { scheduleDetailsTemplate }
+}
+
+function getScheduleLinks(language) {
+  const english = language === 'en'
+  const scheduleName = english ? 'Schedule' : 'Schema'
+
+  return function scheduleLinks(url) {
+    if (!url) return ''
+    const urls = Array.isArray(url) ? url : [url]
+    const uniqueUrls = urls.filter(function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index
+    })
+    return uniqueUrls
+      .map(function urlRow(uniqueUrl) {
+        return uniqueUrl
+          ? `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName}</a>`
+          : ''
+      })
+      .join('')
+  }
+}
+
 async function getSyllabus(courseCode, semester, language = 'sv') {
   const { client } = api.koppsApi
 
@@ -85,10 +130,14 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     )
     const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
     const commonInfo = getCommonInfo(res.body)
+    const scheduleDetails = getScheduleDetailsTemplate(language)
+    const scheduleLinks = getScheduleLinks(language)
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
+      ...scheduleDetails,
+      scheduleLinks,
       ...(await getDetailedInformation(courseCode, language))
     }
   } catch (err) {
@@ -99,11 +148,15 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 async function getDetailedInformation(courseCode, language = 'sv') {
   const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
+  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const { infoContactName, possibilityToCompletion, possibilityToAddition } = res.body.course //Kontaktperson
-    const { schemaUrl, round } = res.body.roundInfos[1] //hardcoded
+    const { round } = res.body.roundInfos[1] //hardcoded
+    const schemaUrl = []
+    res.body.roundInfos.forEach(roundInfo => {
+      schemaUrl.push(roundInfo.schemaUrl)
+    })
     return {
       infoContactName,
       languageOfInstructions: round.language,

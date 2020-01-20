@@ -13,12 +13,20 @@ class RouterStore {
   @observable courseEmployees = {}
 
   @observable defaultValues = {
-    ///LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
+    //LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
   }
+
   @action combineDefaultValues() {
     this.defaultValues = {
-      examinationModules: this[context['examinationModules'].defaultSource].examinationModules //koppsFreshData.examinationModules
-      ///LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
+      examinationModules: this[context.examinationModules.defaultSource].examinationModules, // koppsFreshData.examinationModules
+      // eslint-disable-next-line no-use-before-define
+      scheduleDetails: combinePlanningValues(
+        this[context.scheduleDetails.defaultSource].scheduleDetailsTemplate,
+        this[context.scheduleDetails.defaultSource].scheduleLinks(
+          this[context.scheduleDetails.defaultSource].schemaUrl
+        )
+      )
+      // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
     }
   }
 
@@ -76,6 +84,12 @@ class RouterStore {
       }
     }
   }
+}
+
+const combinePlanningValues = (scheduleDetailsTemplate, scheduleLinks) => {
+  return scheduleLinks
+    ? `${scheduleDetailsTemplate}<p>${scheduleLinks}</p>`
+    : `${scheduleDetailsTemplate}`
 }
 
 export default RouterStore
