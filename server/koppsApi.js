@@ -43,9 +43,9 @@ function getSelectedSyllabus(syllabusObject) {
   return selectedFields
 }
 function getCommonInfo(resBody) {
-  const { credits, creditUnitAbbr, gradeScaleCode, title } = resBody.course
+  const { credits, creditUnitAbbr, gradeScaleCode, title, prerequisites } = resBody.course
   const gradingScale = resBody.formattedGradeScales[gradeScaleCode]
-  return { credits, creditUnitAbbr, gradingScale, title }
+  return { credits, creditUnitAbbr, gradingScale, title, prerequisites }
 }
 function getExamModules(examinationSets, grades, roundLang) {
   const language = roundLang === 'en' ? 0 : 1
