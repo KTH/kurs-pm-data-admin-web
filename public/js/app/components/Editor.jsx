@@ -50,7 +50,9 @@ class EditorPerTitle extends Component {
         </Collapse>
         <Editor
           id={'editorFor' + id}
-          initialValue={(memoData && memoData[id]) || defaultValues[id] || ''}
+          initialValue={
+            (memoData && memoData[id] !== '' && memoData[id]) || defaultValues[id] || ''
+          }
           init={{
             min_height: 100,
             menubar: false,
