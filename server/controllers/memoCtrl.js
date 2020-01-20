@@ -54,22 +54,18 @@ async function getContent(req, res, next) {
     )
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
-    renderProps.props.children.props.routerStore.koppsFreshData = await getSyllabus(
-      courseCode,
-      semester,
-      lang
-    )
+    renderProps.props.children.props.routerStore.koppsFreshData = {
+      ...(await getSyllabus(courseCode, semester, lang)),
+      ...(await getCourseEmployees(courseCode, semester, '1'))
+    }
+    console.log('fresh data', renderProps.props.children.props.routerStore.koppsFreshData)
     renderProps.props.children.props.routerStore.memoData = await getMemoDataById(
       courseCode,
       semester,
       lang
     )
     await renderProps.props.children.props.routerStore.combineDefaultValues()
-    renderProps.props.children.props.routerStore.courseEmployees = await getCourseEmployees(
-      courseCode,
-      semester,
-      '1'
-    )
+    // renderProps.props.children.props.routerStore.courseEmployees =
 
     const html = ReactDOMServer.renderToString(renderProps)
 
