@@ -23,7 +23,7 @@ const context = {
   },
   equipment: { isEditable: true, isRequired: false, source: '' },
   examiner: { isEditable: false, isRequired: false, source: 'ugRedis-k' },
-  languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
+  // languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
   learningOutcomes: { isEditable: false, isRequired: true, source: 'syllabus' },
   literature: { isEditable: false, isRequired: true, source: 'syllabus' },
   possibilityToCompletion: { isEditable: false, isRequired: false, source: 'k' },
@@ -37,14 +37,19 @@ const context = {
     defaultSource: 'koppsFreshData'
   },
   teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, //lärarassistenter
-  teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' } //lärare
+  teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, //lärare
+  learningActivities: { isEditable: true, isRequired: false, source: 'kip' } //läraktiviteter
 }
 
 const sections = [
   {
     id: 'contentAndOutcomes',
     title: 'Innehåll och lärandemål', // TODO: Later, to use i18n messages.sections for en/Sv somehow
-    content: ['courseContent', 'learningOutcomes', 'languageOfInstructions']
+    content: [
+      'courseContent',
+      'learningOutcomes',
+      'learningActivities' /* , 'languageOfInstructions' */
+    ]
   },
   {
     id: 'prep',
