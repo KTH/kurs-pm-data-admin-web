@@ -106,6 +106,9 @@ module.exports = {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
       expireTime: getEnv('KOPPS_API_CACHE_EXPIRE_TIME', 60 * 60) // 60 minuteS
     },
+    ugRedis: {
+      redis: unpackRedisConfig('UG_REDIS_URI', devRedis)
+    },
     cortinaBlock: {
       redis: unpackRedisConfig('REDIS_URI', devRedis)
     }
