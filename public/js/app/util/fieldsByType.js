@@ -30,7 +30,7 @@ const context = {
   possibilityToAddition: { isEditable: false, isRequired: false, source: 'k' },
   otherContacts: { isEditable: true, isRequired: false, source: 'kip' },
   otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: 'syllabus' },
-  planning: {
+  scheduleDetails: {
     isEditable: true,
     isRequired: false,
     source: 'kip',
@@ -72,9 +72,9 @@ const sections = [
     ]
   },
   {
-    id: 'planning',
+    id: 'scheduleDetails',
     title: 'Planering',
-    content: ['planning']
+    content: ['scheduleDetails']
   },
   {
     id: 'contacts',

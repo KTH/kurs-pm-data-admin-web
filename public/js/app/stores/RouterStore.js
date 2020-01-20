@@ -18,10 +18,10 @@ class RouterStore {
     this.defaultValues = {
       examinationModules: this[context.examinationModules.defaultSource].examinationModules, // koppsFreshData.examinationModules
       // eslint-disable-next-line no-use-before-define
-      planning: combinePlanningValues(
-        this[context.planning.defaultSource].scheduleDetailsTemplate,
-        this[context.planning.defaultSource].scheduleLinks(
-          this[context.planning.defaultSource].schemaUrl
+      scheduleDetails: combinePlanningValues(
+        this[context.scheduleDetails.defaultSource].scheduleDetailsTemplate,
+        this[context.scheduleDetails.defaultSource].scheduleLinks(
+          this[context.scheduleDetails.defaultSource].schemaUrl
         )
       )
       // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further

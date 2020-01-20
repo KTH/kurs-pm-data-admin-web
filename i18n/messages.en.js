@@ -127,8 +127,8 @@ module.exports = {
     //   header: 'Language of instruction',
     //   body: 'It is important for students because they can plan their studies....'
     // },
-    planning: {
-      header: 'Detailed Planning',
+    scheduleDetails: {
+      header: 'Schedule Details',
       body: 'It is important for students because they can plan their studies....'
     },
     gradingCriteria: {
