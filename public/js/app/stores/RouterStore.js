@@ -10,6 +10,8 @@ class RouterStore {
 
   @observable memoData = {}
 
+  @observable courseEmployees = {}
+
   @observable defaultValues = {
     ///LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
   }
@@ -19,6 +21,7 @@ class RouterStore {
       ///LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
     }
   }
+
   @action tempMemoData(memoData) {
     this.memoData = memoData
   }
