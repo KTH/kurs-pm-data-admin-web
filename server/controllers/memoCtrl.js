@@ -9,6 +9,7 @@ const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
 const { getMemoDataById, postMemoDataById } = require('../kursPmDataApi')
+const { getCourseEmployees } = require('../ugRedisApi')
 const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
@@ -64,6 +65,11 @@ async function getContent(req, res, next) {
       lang
     )
     await renderProps.props.children.props.routerStore.combineDefaultValues()
+    renderProps.props.children.props.routerStore.courseEmployees = await getCourseEmployees(
+      courseCode,
+      semester,
+      '1'
+    )
 
     const html = ReactDOMServer.renderToString(renderProps)
 
