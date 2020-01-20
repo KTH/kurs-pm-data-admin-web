@@ -126,8 +126,8 @@ module.exports = {
     //   header: 'Undervisningsspråk',
     //   body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     // },
-    planning: {
-      header: 'Detaljplanering',
+    scheduleDetails: {
+      header: 'Detaljschema',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     gradingCriteria: {
