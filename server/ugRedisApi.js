@@ -1,6 +1,6 @@
 const serverConfig = require('./configuration').server
 const redis = require('kth-node-redis')
-const i18n = require('../i18n')
+// const i18n = require('../i18n')
 const log = require('kth-node-log')
 
 const redisKeys = (courseCode, semester, round) => {
@@ -9,7 +9,7 @@ const redisKeys = (courseCode, semester, round) => {
     teachers: [`${courseCode}.${semester}.${round}.teachers`],
     examiner: [`${courseCode}.examiner`],
     responsibles: [`${courseCode}.${semester}.${round}.courseresponsible`],
-    assistants: [`${courseCode}.${semester}.${round}.assistants`] //edu.courses.SF.SF1624.20191.1.assistants
+    assistants: [`${courseCode}.${semester}.${round}.assistants`] // edu.courses.SF.SF1624.20191.1.assistants
   }
 }
 
@@ -24,22 +24,20 @@ const createPersonHtml = personList => {
         </a> 
       </p>  `
     })
-  console.log('---------- personString ---------', personString)
   return personString
 }
-const minimizePesonalData = personList => {
-  let personInfo = []
-  personList &&
-    personList.forEach(person => {
-      personInfo.push({
-        username: person.username,
-        givenName: person.givenName,
-        lastName: person.lastName
-      })
-    })
-  console.log('---------- personString ---------', personInfo)
-  return personInfo
-}
+// const minimizePesonalData = personList => {
+//   const personInfo = []
+//   personList &&
+//     personList.forEach(person => {
+//       personInfo.push({
+//         username: person.username,
+//         givenName: person.givenName,
+//         lastName: person.lastName
+//       })
+//     })
+//   return personInfo
+// }
 // ------- EXAMINATOR AND RESPONSIBLES FROM UG-REDIS: ------- /
 async function _getCourseEmployees(courseCode, semester, round = '1') {
   try {
@@ -51,11 +49,11 @@ async function _getCourseEmployees(courseCode, semester, round = '1') {
       .mget(teachers) // [0]
       .mget(examiner) // [1]
       .mget(responsibles) // [2]
-      .mget(assistants) //[3]
+      // .mget(assistants) // [3]
       .execAsync()
-    console.log(
+    log.info(
       'arrWithStringifiedArrayarrWithStringifiedArrayarrWithStringifiedArray ',
-      arrWithStringifiedArray[3]
+      arrWithStringifiedArray[1]
     )
     const flatArrWithHtmlStr = arrWithStringifiedArray
       .flat()
@@ -63,8 +61,8 @@ async function _getCourseEmployees(courseCode, semester, round = '1') {
     return {
       teacher: flatArrWithHtmlStr[0],
       examiner: flatArrWithHtmlStr[1],
-      courseCoordinator: flatArrWithHtmlStr[2],
-      teacherAssistants: flatArrWithHtmlStr[3]
+      courseCoordinator: flatArrWithHtmlStr[2]
+      // teacherAssistants: flatArrWithHtmlStr[3]
     }
   } catch (err) {
     log.error('Exception from ugRedis - multi', { error: err })

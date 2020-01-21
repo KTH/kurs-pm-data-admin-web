@@ -56,12 +56,12 @@ function getExamModules(examinationSets, grades, roundLang) {
   examinationSets.map(exam => {
     const credits =
       exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
-    ;(titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`),
-      (liStrs += `<li>${exam.examCode} - ${exam.title}, ${
-        language === 0 ? credits : credits.toString().replace('.', ',')
-      } ${language === 0 ? 'credits' : 'hp'}, ${
-        language === 0 ? 'Grading scale' : 'Betygsskala'
-      }: ${grades[exam.gradeScaleCode]}</li>`)
+    titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`
+    liStrs += `<li>${exam.examCode} - ${exam.title}, ${
+      language === 0 ? credits : credits.toString().replace('.', ',')
+    } ${language === 0 ? 'credits' : 'hp'}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
+      grades[exam.gradeScaleCode]
+    }</li>`
   })
   return { titles, liStrs }
 }
