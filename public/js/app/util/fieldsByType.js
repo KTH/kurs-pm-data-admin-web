@@ -3,7 +3,7 @@
 const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: 'syllabus' },
   courseContent: { isEditable: false, isRequired: true, source: 'syllabus' },
-  communicationWithTeachers: { isEditable: false, isRequired: false, source: 'kip' }, // Kommunikation med lärare
+  communicationWithTeachers: { isEditable: true, isRequired: false, source: 'kip' }, // Kommunikation med lärare
   courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Kursansvarig
   infoContactName: { isEditable: false, isRequired: true, source: 'k' },
   gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
