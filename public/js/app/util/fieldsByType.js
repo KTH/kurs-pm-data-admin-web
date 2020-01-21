@@ -3,11 +3,11 @@
 const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: 'syllabus' },
   courseContent: { isEditable: false, isRequired: true, source: 'syllabus' },
-  communicationWithTeachers: { isEditable: true, isRequired: false, source: 'kip' }, //Kommunikation med lärare
-  courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, //kursansvarig
+  communicationWithTeachers: { isEditable: false, isRequired: false, source: 'kip' }, // Kommunikation med lärare
+  courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Kursansvarig
   infoContactName: { isEditable: false, isRequired: true, source: 'k' },
   gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
-  gradingScale: { isEditable: false, isRequired: true, source: 'k' }, //Betygsskala
+  gradingScale: { isEditable: false, isRequired: true, source: 'k' }, // Betygsskala
   ethicalApproach: {
     isEditable: false,
     isRequired: true,
@@ -38,10 +38,11 @@ const context = {
     source: 'kip',
     defaultSource: 'koppsFreshData'
   },
-  teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, //lärarassistenter
-  teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, //lärare
-  learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, //läraktiviteter
-  prerequisites: { isEditable: false, isRequired: false, source: 'syllabus' } //rekommenderade förkunskaper
+  teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, // Lärarassistenter
+  teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Lärare
+  learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
+  prerequisites: { isEditable: false, isRequired: false, source: 'syllabus' }, // Rekommenderade förkunskaper
+  preparations: { isEditable: true, isRequired: false, source: 'kip' } // Förberedelser
 }
 
 const sections = [
@@ -57,7 +58,7 @@ const sections = [
   {
     id: 'prep',
     title: 'Förberedelser',
-    content: ['prerequisites', 'literature', 'equipment']
+    content: ['prerequisites', 'preparations', 'literature', 'equipment']
   },
   {
     id: 'reqToFinal',
@@ -84,12 +85,12 @@ const sections = [
     title: 'Kontakter',
     content: [
       'communicationWithTeachers',
-      'infoContactName', //Kontaktperson
+      'infoContactName', // Kontaktperson
       'courseCoordinator',
       'teacher',
       'teacherAssistants',
       'examiner',
-      'otherContacts' //new Övriga kontakter
+      'otherContacts' // New Övriga kontakter
     ]
   },
   {

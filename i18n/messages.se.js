@@ -66,6 +66,10 @@ module.exports = {
       header: 'Rekommenderade förkunskaper',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
+    preparations: {
+      header: 'Förberedelser',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     additionalRegulations: {
       header: 'Övriga föreskrifter',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
