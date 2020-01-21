@@ -39,7 +39,8 @@ function getSelectedSyllabus(syllabusObject) {
     literature: lastSyllabus.literature
       ? lastSyllabus.literature + literatureComment
       : '<i>No information found in kopps</i>',
-    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade
+    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade,
+    equipment: lastSyllabus.requiredEquipment
   }
   return selectedFields
 }
