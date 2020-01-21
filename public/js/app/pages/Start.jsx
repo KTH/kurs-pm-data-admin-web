@@ -150,7 +150,7 @@ class Start extends Component {
         visibleInMemo={visibleInMemo}
         toggleVisibleInMemo={this.toggleVisibleInMemo}
         html={koppsFreshData[sectionId]}
-        mandatory
+        isRequired={sectionConfig.isRequired}
       />
     )
   }
@@ -193,6 +193,7 @@ class Start extends Component {
               visibleInMemo={visibleInMemo}
               toggleVisibleInMemo={this.toggleVisibleInMemo}
               html={koppsFreshData[apiTitle]}
+              isRequired={context[apiTitle].isRequired}
             />
           )
         })}
