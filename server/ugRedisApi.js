@@ -49,20 +49,17 @@ async function _getCourseEmployees(courseCode, semester, round = '1') {
       .mget(teachers) // [0]
       .mget(examiner) // [1]
       .mget(responsibles) // [2]
-      // .mget(assistants) // [3]
+      .mget(assistants) // [3]
       .execAsync()
-    log.info(
-      'arrWithStringifiedArrayarrWithStringifiedArrayarrWithStringifiedArray ',
-      arrWithStringifiedArray[1]
-    )
+    log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArray[1])
     const flatArrWithHtmlStr = arrWithStringifiedArray
-      .flat()
-      .map(str => createPersonHtml(JSON.parse(str)))
+      // .flat() not implemented in some browsers
+      .map(arr => createPersonHtml(JSON.parse(arr[0])))
     return {
       teacher: flatArrWithHtmlStr[0],
       examiner: flatArrWithHtmlStr[1],
-      courseCoordinator: flatArrWithHtmlStr[2]
-      // teacherAssistants: flatArrWithHtmlStr[3]
+      courseCoordinator: flatArrWithHtmlStr[2],
+      teacherAssistants: flatArrWithHtmlStr[3]
     }
   } catch (err) {
     log.error('Exception from ugRedis - multi', { error: err })
