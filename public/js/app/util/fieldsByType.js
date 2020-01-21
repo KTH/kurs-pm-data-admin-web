@@ -1,18 +1,20 @@
+// const i18n = require('../../i18n')
+
 const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: 'syllabus' },
   courseContent: { isEditable: false, isRequired: true, source: 'syllabus' },
-  communicationWithTeachers: { isEditable: false, isRequired: false, source: 'kip' }, //Kommunikation med lärare
+  communicationWithTeachers: { isEditable: true, isRequired: false, source: 'kip' }, //Kommunikation med lärare
   courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, //kursansvarig
   infoContactName: { isEditable: false, isRequired: true, source: 'k' },
   gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
   gradingScale: { isEditable: false, isRequired: true, source: 'k' }, //Betygsskala
   ethicalApproach: {
-    isEditable: true,
+    isEditable: false,
     isRequired: true,
     hasDefault: true,
     defaultSource: 'koppsFreshData',
-    source: ''
-  }, //kan redigeras
+    source: 'syllabus'
+  },
   examination: { isEditable: false, isRequired: true, source: 'k' },
   examinationModules: {
     isEditable: true,
