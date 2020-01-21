@@ -70,6 +70,10 @@ module.exports = {
       header: 'Preparations',
       body: 'It is important for students because they can plan their studies....'
     },
+    software: {
+      header: 'Software',
+      body: 'It is important for students because they can plan their studies....'
+    },
     additionalRegulations: {
       header: 'Additional regulations',
       body: 'It is important for students because they can plan their studies....'
