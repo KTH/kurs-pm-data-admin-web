@@ -42,60 +42,36 @@ module.exports = {
     section_info_visibility_label_hidden: 'Döljs i kurs-pm'
   },
   memoHeadings: {
+    additionalRegulations: {
+      header: 'Övriga föreskrifter',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     bonusPoints: {
       header: 'Bonuspoäng',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    communicationWithTeachers: {
+      header: 'Kommunikation i kursen',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     courseContent: {
       header: 'Kursinnehåll',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    ethicalApproachThisCourse: {
-      header: 'Kursspecifika regler för etiskt förhållningssätt',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    infoForReregisteredStudents: {
-      header: 'Information till omregistrerade studenter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    learningOutcomes: {
-      header: 'Lärandemål',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    learningActivities: {
-      header: 'Läraktiviteter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    equipment: {
-      header: 'Utrustning',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    literature: {
-      header: 'Kurslitteratur',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    prerequisites: {
-      header: 'Rekommenderade förkunskaper',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    preparations: {
-      header: 'Förberedelser',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    software: {
-      header: 'Programvara',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    additionalRegulations: {
-      header: 'Övriga föreskrifter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    gradingScale: {
-      header: 'Betygsskala',
+    courseCoordinator: {
+      header: 'Kursansvarig',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     ethicalApproach: {
       header: 'Etiskt förhållningssätt',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    ethicalApproachThisCourse: {
+      header: 'Kursspecifika regler för etiskt förhållningssätt',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    equipment: {
+      header: 'Utrustning',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     examination: {
@@ -106,60 +82,84 @@ module.exports = {
       header: 'Examinationsmoduler',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    infoContactName: {
-      header: 'Kontaktperson',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    possibilityToCompletion: {
-      header: 'Möjlighet till komplettering',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    possibilityToAddition: {
-      header: 'Möjlighet till plussning',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    otherRequirementsForFinalGrade: {
-      header: 'Övriga krav för slutbetyg',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
     examiner: {
       header: 'Examinator',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    communicationWithTeachers: {
-      header: 'Kommunikation i kursen',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    courseCoordinator: {
-      header: 'Kursansvarig',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    otherContacts: {
-      header: 'Övriga kontakter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    teacherAssistants: {
-      header: 'Lärarassistenter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    teacher: {
-      header: 'Lärare',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
-    // languageOfInstructions: {
-    //   header: 'Undervisningsspråk',
-    //   body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    // },
-    scheduleDetails: {
-      header: 'Detaljschema',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     gradingCriteria: {
       header: 'Målrelaterade betygskriterier',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
+    gradingScale: {
+      header: 'Betygsskala',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    infoContactName: {
+      header: 'Kontaktperson',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    infoForReregisteredStudents: {
+      header: 'Information till omregistrerade studenter',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    // languageOfInstructions: {
+    //   header: 'Undervisningsspråk',
+    //   body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    // },
+    learningActivities: {
+      header: 'Läraktiviteter',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    learningOutcomes: {
+      header: 'Lärandemål',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    literature: {
+      header: 'Kurslitteratur',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    otherContacts: {
+      header: 'Övriga kontakter',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    otherRequirementsForFinalGrade: {
+      header: 'Övriga krav för slutbetyg',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     permanentDisability: {
       header: 'Funktionsnedsättning',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    possibilityToAddition: {
+      header: 'Möjlighet till plussning',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    possibilityToCompletion: {
+      header: 'Möjlighet till komplettering',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    preparations: {
+      header: 'Förberedelser',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    prerequisites: {
+      header: 'Rekommenderade förkunskaper',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    scheduleDetails: {
+      header: 'Detaljschema',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    software: {
+      header: 'Programvara',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    teacher: {
+      header: 'Lärare',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    teacherAssistants: {
+      header: 'Lärarassistenter',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     }
   },
