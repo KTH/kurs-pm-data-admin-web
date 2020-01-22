@@ -10,28 +10,29 @@ import { TitleAndInfoModal, Collapse } from '@kth/kth-kip-style-react-components
 @observer
 class EditorPerTitle extends Component {
   updateMemoContent = editorContent => {
-    this.props.onEditorChange(editorContent, this.props.id)
+    this.props.onEditorChange(editorContent, this.props.contentId)
   }
 
   toggleVisibleInMemo = () => {
-    this.props.toggleVisibleInMemo(this.props.id)
+    this.props.toggleVisibleInMemo(this.props.contentId)
   }
 
   render() {
     const { memoData, defaultValues } = this.props.routerStore
     const { memoHeadings, buttons } = i18n.messages[1]
-    const { id } = this.props
+    const { contentId, menuId } = this.props
     let visibleInMemo
     if (this.props.visibleInMemo) {
-      visibleInMemo = id in this.props.visibleInMemo ? this.props.visibleInMemo[id] : true
+      visibleInMemo =
+        contentId in this.props.visibleInMemo ? this.props.visibleInMemo[contentId] : true
     } else {
       visibleInMemo = true
     }
     return (
-      <span id={id}>
+      <span id={menuId}>
         <TitleAndInfoModal
-          modalId={id}
-          titleAndInfo={memoHeadings[id]}
+          modalId={contentId}
+          titleAndInfo={memoHeadings[contentId]}
           btnClose={buttons.btnClose}
         />
         <span className="section_info">
@@ -45,13 +46,15 @@ class EditorPerTitle extends Component {
             {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
           </Button>
         </span>
-        <Collapse alt="Expand this" uLabel={id} color="white" buttonText="Hjälptext">
+        <Collapse alt="Expand this" uLabel={contentId} color="white" buttonText="Hjälptext">
           <p>Hjälptext som hjälper</p>
         </Collapse>
         <Editor
-          id={'editorFor' + id}
+          id={'editorFor' + contentId}
           initialValue={
-            (memoData && memoData[id] !== '' && memoData[id]) || defaultValues[id] || ''
+            (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
+            defaultValues[contentId] ||
+            ''
           }
           init={{
             // min_height: 100,

@@ -29,8 +29,8 @@ const VisibilityInfo = ({ title, isRequired, visibleInMemo, toggleVisibleInMemo 
   </span>
 )
 
-const Section = ({ title, isRequired, visibleInMemo, toggleVisibleInMemo, html }) => (
-  <span id={title} key={title}>
+const Section = ({ menuId, title, isRequired, visibleInMemo, toggleVisibleInMemo, html }) => (
+  <span id={menuId} key={title}>
     <TitleAndInfoModal
       modalId={title}
       titleAndInfo={memoHeadings[title]}

@@ -28,16 +28,16 @@ class SideMenu extends Component {
             <span key={section.id}>
               <NavHeading key={'nav-' + section.id} title={section.title} />
               <>
-                {section.content.map(title => (
+                {section.content.map(contentId => (
                   <NavItem
-                    key={'nav-' + title}
-                    id={title}
-                    title={memoHeadings[title].header}
+                    key={'nav-' + contentId}
+                    id={section.id + '-' + contentId}
+                    title={memoHeadings[contentId].header}
                     selected={false}
                     visibleInMemo={
                       this.props.visibleInMemo
-                        ? title in this.props.visibleInMemo
-                          ? this.props.visibleInMemo[title]
+                        ? contentId in this.props.visibleInMemo
+                          ? this.props.visibleInMemo[contentId]
                           : true
                         : true
                     }
