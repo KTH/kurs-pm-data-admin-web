@@ -75,7 +75,10 @@ class EditorPerTitle extends Component {
               autosave_ask_before_unload: true,
               autosave_restore_when_empty: true,
               autosave_retention: '1m',
-              block_formats: 'Paragraph=p; Header 4=h4'
+              block_formats:
+                contentId.slice(0, -1) === 'extraHeaders'
+                  ? 'Paragraph=p; Header 3=h3; Header 4=h4'
+                  : 'Paragraph=p; Header 4=h4'
             }}
             onEditorChange={this.updateMemoContent}
             onBlur={this.props.onBlur}

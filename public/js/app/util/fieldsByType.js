@@ -27,6 +27,11 @@ const context = {
     defaultSource: 'koppsFreshData'
   },
   examiner: { isEditable: false, isRequired: true, source: 'ugRedis-k' },
+  extraHeaders1: { isEditable: true, isRequired: false, source: 'kip' },
+  extraHeaders2: { isEditable: true, isRequired: false, source: 'kip' },
+  extraHeaders3: { isEditable: true, isRequired: false, source: 'kip' },
+  extraHeaders4: { isEditable: true, isRequired: false, source: 'kip' },
+  extraHeaders5: { isEditable: true, isRequired: false, source: 'kip' },
   equipment: { isEditable: false, isRequired: false, source: 'k' },
   gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
   gradingScale: { isEditable: false, isRequired: true, source: 'k' }, // Betygsskala
@@ -61,7 +66,8 @@ const sections = [
     content: [
       'courseContent',
       'learningOutcomes',
-      'learningActivities' /* , 'languageOfInstructions' */
+      'learningActivities' /* , 'languageOfInstructions' */,
+      'extraHeaders1'
     ]
   },
   {
@@ -73,7 +79,8 @@ const sections = [
       'literature',
       'equipment',
       'software',
-      'permanentDisability'
+      'permanentDisability',
+      'extraHeaders2'
     ]
   },
   {
@@ -90,13 +97,19 @@ const sections = [
       'ethicalApproachThisCourse',
       'gradingCriteria',
       'possibilityToCompletion',
-      'possibilityToAddition'
+      'possibilityToAddition',
+      'extraHeaders3'
     ]
+  },
+  {
+    id: 'extra',
+    title: 'Ytterligare Information',
+    content: ['additionalRegulations', 'infoForReregisteredStudents', 'extraHeaders4']
   },
   {
     id: 'scheduleDetails',
     title: 'Planering',
-    content: ['scheduleDetails']
+    content: ['scheduleDetails', 'extraHeaders5']
   },
   {
     id: 'contacts',
@@ -108,13 +121,8 @@ const sections = [
       'teacher',
       'teacherAssistants',
       'examiner',
-      'otherContacts' // New Övriga kontakter
+      'otherContacts'
     ]
-  },
-  {
-    id: 'extra',
-    title: 'Ytterligare Information',
-    content: ['additionalRegulations', 'infoForReregisteredStudents']
   }
 ]
 

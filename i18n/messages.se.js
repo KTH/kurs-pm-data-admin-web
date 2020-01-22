@@ -87,6 +87,26 @@ module.exports = {
       header: 'Examinator',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
+    extraHeaders1: {
+      header: '[ + egna rubriker ]',
+      body: 'Here you can add owh headers to H3'
+    },
+    extraHeaders2: {
+      header: '[ + egna rubriker ]',
+      body: 'Lägg till egna rubriker H3'
+    },
+    extraHeaders3: {
+      header: '[ + egna rubriker ]',
+      body: 'Lägg till egna rubriker H3'
+    },
+    extraHeaders4: {
+      header: '[ + egna rubriker ]',
+      body: 'Lägg till egna rubriker H3'
+    },
+    extraHeaders5: {
+      header: '[ + egna rubriker ]',
+      body: 'Lägg till egna rubriker H3'
+    },
     gradingCriteria: {
       header: 'Målrelaterade betygskriterier',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
