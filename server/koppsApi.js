@@ -138,8 +138,10 @@ async function getDetailedInformation(courseCode, language) {
       possibilityToCompletion,
       possibilityToAddition,
       courseLiterature,
-      prerequisites
-    } = res.body.course // Kontaktperson
+      prerequisites,
+      requiredEquipment
+    } = res.body.course
+    console.log('requiredEquipment', requiredEquipment)
     let languageOfInstructions
     if (
       res.body.roundInfos[1] &&
@@ -154,10 +156,6 @@ async function getDetailedInformation(courseCode, language) {
     res.body.roundInfos.forEach(roundInfo => {
       schemaUrl.push(roundInfo.schemaUrl)
     })
-    const requiredEquipments = []
-    res.body.publicSyllabusVersions.forEach(publicSyllabusVersion => {
-      requiredEquipments.push(publicSyllabusVersion.courseSyllabus.requiredEquipment)
-    })
     return {
       infoContactName,
       languageOfInstructions,
@@ -166,7 +164,7 @@ async function getDetailedInformation(courseCode, language) {
       schemaUrl,
       literature: courseLiterature,
       prerequisites,
-      equipment: requiredEquipments[0]
+      equipment: requiredEquipment
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
