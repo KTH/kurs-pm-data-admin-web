@@ -97,14 +97,8 @@ class Start extends Component {
 
   handleConfirm = () => {
     // TODO: Refactor and change name of handleAutoSave when handleConfirm is further developed.
+    // It will be used probably when we develop version handling draft or published
     this.handleAutoSave()
-    // this.handleSave(error => {
-    //   if (error) {
-    //     alert('Successfully saved ' + error)
-    //   } else {
-    //     alert('Successfully saved ')
-    //   }
-    // })
   }
 
   toggleViewMode = () => {
@@ -224,7 +218,7 @@ class Start extends Component {
           <Col lg="2">
             <Button
               onClick={this.toggleViewMode}
-              color="info"
+              color="primary"
               size="sm"
               style={{ marginTop: '1em' }}
             >
