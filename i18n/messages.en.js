@@ -88,23 +88,23 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     extraHeaders1: {
-      header: '[ + own headers ]',
+      header: 'Extra headers',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders2: {
-      header: '[ + own headers ]',
+      header: 'Extra headers',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders3: {
-      header: '[ + own headers ]',
+      header: 'Extra headers',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders4: {
-      header: '[ + own headers ]',
+      header: 'Extra headers',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders5: {
-      header: '[ + own headers ]',
+      header: 'Extra headers',
       body: 'Here you can add owh headers to H3'
     },
     gradingCriteria: {
