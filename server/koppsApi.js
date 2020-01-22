@@ -39,8 +39,7 @@ function getSelectedSyllabus(syllabusObject) {
     literature: lastSyllabus.literature
       ? lastSyllabus.literature + literatureComment
       : '<i>No information found in kopps</i>',
-    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade,
-    equipment: lastSyllabus.requiredEquipment
+    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade
   }
   return selectedFields
 }
@@ -118,23 +117,45 @@ function getScheduleLinks(language) {
   }
 }
 
-async function getDetailedInformation(courseCode) {
+async function getDetailedInformation(courseCode, language) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
   try {
-    const res = await client.getAsync({ uri, useCache: false })
-    const { infoContactName, possibilityToCompletion, possibilityToAddition } = res.body.course // Kontaktperson
-    const { round } = res.body.roundInfos[1] // Hardcoded
+    const res = await client.getAsync({ uri, useCache: true })
+    const {
+      infoContactName,
+      possibilityToCompletion,
+      possibilityToAddition,
+      courseLiterature,
+      prerequisites
+    } = res.body.course // Kontaktperson
+    let languageOfInstructions
+    if (
+      res.body.roundInfos[1] &&
+      res.body.roundInfos[1].round &&
+      res.body.roundInfos[1].round.language
+    ) {
+      languageOfInstructions = res.body.roundIroundInfos[1].round.language
+    } else {
+      languageOfInstructions = language
+    }
     const schemaUrl = []
     res.body.roundInfos.forEach(roundInfo => {
       schemaUrl.push(roundInfo.schemaUrl)
     })
+    const requiredEquipments = []
+    res.body.publicSyllabusVersions.forEach(publicSyllabusVersion => {
+      requiredEquipments.push(publicSyllabusVersion.courseSyllabus.requiredEquipment)
+    })
     return {
       infoContactName,
-      languageOfInstructions: round.language,
+      languageOfInstructions,
       possibilityToCompletion,
       possibilityToAddition,
-      schemaUrl
+      schemaUrl,
+      literature: courseLiterature,
+      prerequisites,
+      equipment: requiredEquipments[0]
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
@@ -158,13 +179,15 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const commonInfo = getCommonInfo(res.body)
     const scheduleDetails = getScheduleDetailsTemplate(language)
     const scheduleLinks = getScheduleLinks(language)
+    const detailedInformation = await getDetailedInformation(courseCode, language)
+    console.log('detailedInformation', detailedInformation)
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
       ...scheduleDetails,
       scheduleLinks,
-      ...(await getDetailedInformation(courseCode, language))
+      ...detailedInformation
     }
   } catch (err) {
     log.debug('Kopps is not available', err)

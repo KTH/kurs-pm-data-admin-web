@@ -23,8 +23,8 @@ const context = {
     hasDefault: true,
     defaultSource: 'koppsFreshData'
   },
-  equipment: { isEditable: false, isRequired: false, source: 'koppsFreshData' },
-  examiner: { isEditable: false, isRequired: true, source: 'ugRedis-k' },
+  equipment: { isEditable: false, isRequired: false, source: 'k' },
+  examiner: { isEditable: false, isRequired: false, source: 'ugRedis-k' },
   // languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
   learningOutcomes: { isEditable: false, isRequired: true, source: 'syllabus' },
   literature: { isEditable: false, isRequired: true, source: 'syllabus' },
