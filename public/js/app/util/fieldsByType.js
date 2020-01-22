@@ -42,7 +42,7 @@ const context = {
   teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Lärare
   learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
   prerequisites: { isEditable: false, isRequired: false, source: 'syllabus' }, // Rekommenderade förkunskaper
-  preparations: { isEditable: true, isRequired: false, source: 'kip' }, // Förberedelser
+  preparations: { isEditable: true, isRequired: false, source: 'kip' }, // Förbereda inför kursstart
   software: { isEditable: true, isRequired: false, source: 'kip' } // Programvara
 }
 
@@ -58,7 +58,7 @@ const sections = [
   },
   {
     id: 'prep',
-    title: 'Förberedelser',
+    title: 'Förbereda inför kursstart',
     content: ['prerequisites', 'preparations', 'literature', 'equipment', 'software']
   },
   {
