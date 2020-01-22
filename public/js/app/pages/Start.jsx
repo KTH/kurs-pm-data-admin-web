@@ -148,7 +148,7 @@ class Start extends Component {
     ) : (
       <Section
         menuId={menuId}
-        title={sectionId}
+        contentId={sectionId}
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={this.toggleVisibleInMemo}
         html={koppsFreshData[sectionId]}
