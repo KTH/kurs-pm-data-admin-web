@@ -50,7 +50,7 @@ module.exports = {
       header: 'Bonuspoäng',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    communicationWithTeachers: {
+    communicationDuringCourse: {
       header: 'Kommunikation i kursen',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },

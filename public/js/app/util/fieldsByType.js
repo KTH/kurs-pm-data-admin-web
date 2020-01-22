@@ -4,7 +4,7 @@ const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: 'syllabus' },
   bonusPoints: { isEditable: true, isRequired: false, source: 'kip' },
   courseContent: { isEditable: false, isRequired: true, source: 'syllabus' },
-  communicationWithTeachers: { isEditable: true, isRequired: false, source: 'kip' }, // Kommunikation med lärare
+  communicationDuringCourse: { isEditable: true, isRequired: false, source: 'kip' }, // Kommunikation med lärare
   courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Kursansvarig
   ethicalApproach: {
     isEditable: false,
@@ -102,7 +102,7 @@ const sections = [
     id: 'contacts',
     title: 'Kontakter',
     content: [
-      'communicationWithTeachers',
+      'communicationDuringCourse',
       'infoContactName', // Kontaktperson
       'courseCoordinator',
       'teacher',

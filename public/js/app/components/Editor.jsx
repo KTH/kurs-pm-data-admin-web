@@ -54,7 +54,7 @@ class EditorPerTitle extends Component {
             (memoData && memoData[id] !== '' && memoData[id]) || defaultValues[id] || ''
           }
           init={{
-            min_height: 100,
+            // min_height: 100,
             menubar: false,
             plugins: [
               'advlist autolink autoresize autosave lists link image imagetools charmap preview anchor',
