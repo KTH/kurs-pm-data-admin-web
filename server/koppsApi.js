@@ -122,7 +122,7 @@ async function getDetailedInformation(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
   try {
-    const res = await client.getAsync({ uri, useCache: true })
+    const res = await client.getAsync({ uri, useCache: false })
     const { infoContactName, possibilityToCompletion, possibilityToAddition } = res.body.course // Kontaktperson
     const { round } = res.body.roundInfos[1] // Hardcoded
     const schemaUrl = []
@@ -147,7 +147,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
   const uri = `${config.koppsApi.basePath}syllabuses/${courseCode}/${semester}?l=${language}`
   try {
-    const res = await client.getAsync({ uri, useCache: true })
+    const res = await client.getAsync({ uri, useCache: false })
     const selectedSyllabus = getSelectedSyllabus(res.body)
     const examModules = getExamModules(
       res.body.examinationSets[semester].examinationRounds,
