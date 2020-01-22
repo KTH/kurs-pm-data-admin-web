@@ -26,8 +26,8 @@ const context = {
     hasDefault: true,
     defaultSource: 'koppsFreshData'
   },
+  examiner: { isEditable: false, isRequired: true, source: 'ugRedis-k' },
   equipment: { isEditable: false, isRequired: false, source: 'k' },
-  examiner: { isEditable: false, isRequired: false, source: 'ugRedis-k' },
   gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
   gradingScale: { isEditable: false, isRequired: true, source: 'k' }, // Betygsskala
   infoContactName: { isEditable: false, isRequired: true, source: 'k' },
