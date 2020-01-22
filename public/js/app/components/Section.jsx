@@ -46,7 +46,10 @@ const Section = ({ contentId, menuId, isRequired, visibleInMemo, onToggleVisible
       onToggleVisibleInMemo={onToggleVisibleInMemo}
     />
 
-    <span dangerouslySetInnerHTML={{ __html: html }} />
+    <span
+      style={visibleInMemo ? {} : { display: 'none' }}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   </span>
 )
 

@@ -46,39 +46,41 @@ class EditorPerTitle extends Component {
             {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
           </Button>
         </span>
-        <Collapse alt="Expand this" uLabel={contentId} color="white" buttonText="Hjälptext">
-          <p>Hjälptext som hjälper</p>
-        </Collapse>
-        <Editor
-          id={'editorFor' + contentId}
-          initialValue={
-            (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
-            defaultValues[contentId] ||
-            ''
-          }
-          init={{
-            // min_height: 100,
-            menubar: false,
-            plugins: [
-              'advlist autolink autoresize autosave lists link image imagetools charmap preview anchor',
-              'searchreplace visualblocks code fullscreen',
-              'table paste code help wordcount'
-            ],
-            language: i18n.isSwedish() ? 'sv_SE' : null,
-            toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-                searchreplace | image | link | restoredraft | fullscreen |
-                table | 
-                bullist numlist outdent indent | removeformat | help`,
-            imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-            autosave_interval: '60s',
-            autosave_ask_before_unload: true,
-            autosave_restore_when_empty: true,
-            autosave_retention: '1m',
-            block_formats: 'Paragraph=p; Header 4=h4'
-          }}
-          onEditorChange={this.updateMemoContent}
-          onBlur={this.props.onBlur}
-        />
+        <span style={visibleInMemo ? {} : { display: 'none' }}>
+          <Collapse alt="Expand this" uLabel={contentId} color="white" buttonText="Hjälptext">
+            <p>Hjälptext som hjälper</p>
+          </Collapse>
+          <Editor
+            id={'editorFor' + contentId}
+            initialValue={
+              (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
+              defaultValues[contentId] ||
+              ''
+            }
+            init={{
+              // min_height: 100,
+              menubar: false,
+              plugins: [
+                'advlist autolink autoresize autosave lists link image imagetools charmap preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'table paste code help wordcount'
+              ],
+              language: i18n.isSwedish() ? 'sv_SE' : null,
+              toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
+                  searchreplace | image | link | restoredraft | fullscreen |
+                  table | 
+                  bullist numlist outdent indent | removeformat | help`,
+              imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+              autosave_interval: '60s',
+              autosave_ask_before_unload: true,
+              autosave_restore_when_empty: true,
+              autosave_retention: '1m',
+              block_formats: 'Paragraph=p; Header 4=h4'
+            }}
+            onEditorChange={this.updateMemoContent}
+            onBlur={this.props.onBlur}
+          />
+        </span>
       </span>
     )
   }
