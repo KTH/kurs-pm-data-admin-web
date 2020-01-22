@@ -145,6 +145,10 @@ module.exports = {
     gradingCriteria: {
       header: 'Målrelaterade betygskriterier',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    permanentDisability: {
+      header: 'Funktionsnedsättning',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     }
   },
   pages: [

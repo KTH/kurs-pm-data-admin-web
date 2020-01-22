@@ -146,6 +146,10 @@ module.exports = {
     gradingCriteria: {
       header: 'Grading Criteria',
       body: 'It is important for students because they can plan their studies....'
+    },
+    permanentDisability: {
+      header: 'Permanent Disability',
+      body: 'It is important for students because they can plan their studies....'
     }
   },
   pages: [

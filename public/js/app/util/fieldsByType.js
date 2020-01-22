@@ -43,7 +43,8 @@ const context = {
   learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
   prerequisites: { isEditable: false, isRequired: false, source: 'syllabus' }, // Rekommenderade förkunskaper
   preparations: { isEditable: true, isRequired: false, source: 'kip' }, // Förbereda inför kursstart
-  software: { isEditable: true, isRequired: false, source: 'kip' } // Programvara
+  software: { isEditable: true, isRequired: false, source: 'kip' }, // Programvara
+  permanentDisability: { isEditable: false, isRequired: true, source: 'kip' } // Funktionsnedsättning
 }
 
 const sections = [
@@ -59,7 +60,14 @@ const sections = [
   {
     id: 'prep',
     title: 'Förbereda inför kursstart',
-    content: ['prerequisites', 'preparations', 'literature', 'equipment', 'software']
+    content: [
+      'prerequisites',
+      'preparations',
+      'literature',
+      'equipment',
+      'software',
+      'permanentDisability'
+    ]
   },
   {
     id: 'reqToFinal',
