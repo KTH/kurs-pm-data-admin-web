@@ -23,8 +23,8 @@ const context = {
     hasDefault: true,
     defaultSource: 'koppsFreshData'
   },
-  equipment: { isEditable: false, isRequired: false, source: 'koppsFreshData' },
-  examiner: { isEditable: false, isRequired: true, source: 'ugRedis-k' },
+  equipment: { isEditable: false, isRequired: false, source: 'k' },
+  examiner: { isEditable: false, isRequired: false, source: 'ugRedis-k' },
   // languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
   learningOutcomes: { isEditable: false, isRequired: true, source: 'syllabus' },
   literature: { isEditable: false, isRequired: true, source: 'syllabus' },
@@ -42,8 +42,9 @@ const context = {
   teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Lärare
   learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
   prerequisites: { isEditable: false, isRequired: false, source: 'syllabus' }, // Rekommenderade förkunskaper
-  preparations: { isEditable: true, isRequired: false, source: 'kip' }, // Förberedelser
-  software: { isEditable: true, isRequired: false, source: 'kip' } // Programvara
+  preparations: { isEditable: true, isRequired: false, source: 'kip' }, // Förbereda inför kursstart
+  software: { isEditable: true, isRequired: false, source: 'kip' }, // Programvara
+  permanentDisability: { isEditable: false, isRequired: true, source: 'kip' } // Funktionsnedsättning
 }
 
 const sections = [
@@ -58,8 +59,15 @@ const sections = [
   },
   {
     id: 'prep',
-    title: 'Förberedelser',
-    content: ['prerequisites', 'preparations', 'literature', 'equipment', 'software']
+    title: 'Förbereda inför kursstart',
+    content: [
+      'prerequisites',
+      'preparations',
+      'literature',
+      'equipment',
+      'software',
+      'permanentDisability'
+    ]
   },
   {
     id: 'reqToFinal',

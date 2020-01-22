@@ -39,8 +39,7 @@ function getSelectedSyllabus(syllabusObject) {
     literature: lastSyllabus.literature
       ? lastSyllabus.literature + literatureComment
       : '<i>No information found in kopps</i>',
-    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade,
-    equipment: lastSyllabus.requiredEquipment
+    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade
   }
   return selectedFields
 }
@@ -98,6 +97,17 @@ function getScheduleDetailsTemplate(language) {
   return { scheduleDetailsTemplate }
 }
 
+function getPermanentDisabilityTemplate(language) {
+  const english = language === 'en'
+  return english
+    ? `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
+    <p><a href="https://www.kth.se/en/student/studentliv/funktionsnedsattning">https://www.kth.se/en/student/studentliv/funktionsnedsattning</a></p>
+    <p>Please inform the course coordinator if you need compensatory support during the course. Present a certificate from Funka.</p>`
+    : `<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
+  <p><a href="https://www.kth.se/student/studentliv/funktionsnedsattning">https://www.kth.se/student/studentliv/funktionsnedsattning</a></p>
+  <p>Informera dessutom kursledaren om du har särskilda behov. Visa då upp intyg från Funka.</p>`
+}
+
 function getScheduleLinks(language) {
   const english = language === 'en'
   const scheduleName = english ? 'Schedule' : 'Schema'
@@ -118,23 +128,45 @@ function getScheduleLinks(language) {
   }
 }
 
-async function getDetailedInformation(courseCode) {
+async function getDetailedInformation(courseCode, language) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
   try {
-    const res = await client.getAsync({ uri, useCache: false })
-    const { infoContactName, possibilityToCompletion, possibilityToAddition } = res.body.course // Kontaktperson
-    const { round } = res.body.roundInfos[1] // Hardcoded
+    const res = await client.getAsync({ uri, useCache: true })
+    const {
+      infoContactName,
+      possibilityToCompletion,
+      possibilityToAddition,
+      courseLiterature,
+      prerequisites
+    } = res.body.course // Kontaktperson
+    let languageOfInstructions
+    if (
+      res.body.roundInfos[1] &&
+      res.body.roundInfos[1].round &&
+      res.body.roundInfos[1].round.language
+    ) {
+      languageOfInstructions = res.body.roundIroundInfos[1].round.language
+    } else {
+      languageOfInstructions = language
+    }
     const schemaUrl = []
     res.body.roundInfos.forEach(roundInfo => {
       schemaUrl.push(roundInfo.schemaUrl)
     })
+    const requiredEquipments = []
+    res.body.publicSyllabusVersions.forEach(publicSyllabusVersion => {
+      requiredEquipments.push(publicSyllabusVersion.courseSyllabus.requiredEquipment)
+    })
     return {
       infoContactName,
-      languageOfInstructions: round.language,
+      languageOfInstructions,
       possibilityToCompletion,
       possibilityToAddition,
-      schemaUrl
+      schemaUrl,
+      literature: courseLiterature,
+      prerequisites,
+      equipment: requiredEquipments[0]
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
@@ -158,13 +190,16 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const commonInfo = getCommonInfo(res.body)
     const scheduleDetails = getScheduleDetailsTemplate(language)
     const scheduleLinks = getScheduleLinks(language)
+    const permanentDisability = getPermanentDisabilityTemplate(language)
+    const detailedInformation = await getDetailedInformation(courseCode, language)
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
       ...scheduleDetails,
       scheduleLinks,
-      ...(await getDetailedInformation(courseCode, language))
+      permanentDisability,
+      ...detailedInformation
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
