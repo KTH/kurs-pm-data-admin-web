@@ -30,7 +30,7 @@ const context = {
   equipment: { isEditable: false, isRequired: false, source: 'k' },
   gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
   gradingScale: { isEditable: false, isRequired: true, source: 'k' }, // Betygsskala
-  infoContactName: { isEditable: false, isRequired: true, source: 'k' },
+  infoContactName: { isEditable: false, isRequired: false, source: 'k' },
   infoForReregisteredStudents: { isEditable: true, isRequired: false, source: 'kip' },
   // languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
   learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
