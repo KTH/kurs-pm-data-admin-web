@@ -42,8 +42,20 @@ module.exports = {
     section_info_visibility_label_hidden: 'Döljs i kurs-pm'
   },
   memoHeadings: {
+    bonusPoints: {
+      header: 'Bonuspoäng',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     courseContent: {
       header: 'Kursinnehåll',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    ethicalApproachThisCourse: {
+      header: 'Kursspecifika regler för etiskt förhållningssätt',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
+    infoForReregisteredStudents: {
+      header: 'Information till omregistrerade studenter',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     learningOutcomes: {

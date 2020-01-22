@@ -42,8 +42,20 @@ module.exports = {
     section_info_visibility_label_hidden: 'Hidden in course memo'
   },
   memoHeadings: {
+    bonusPoints: {
+      header: 'Bonus points',
+      body: 'It is important for students because they can plan their studies....'
+    },
     courseContent: {
       header: 'Course contents',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    ethicalApproachThisCourse: {
+      header: 'Course specific regulations for ethical approach',
+      body: 'It is important for students because they can plan their studies....'
+    },
+    infoForReregisteredStudents: {
+      header: 'Information for re-registered students',
       body: 'It is important for students because they can plan their studies....'
     },
     learningOutcomes: {
