@@ -4,12 +4,18 @@ import React from 'react'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import { Button } from 'reactstrap'
 import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
+import { context } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 
 const { messages, memoHeadings, buttons } = i18n.messages[1]
 
-const VisibilityInfo = ({ contentId, isRequired, visibleInMemo, onToggleVisibleInMemo }) => (
+const VisibilityInfo = ({
+  contentId,
+  isRequired = context[contentId].isRequired,
+  visibleInMemo,
+  onToggleVisibleInMemo
+}) => (
   <span className="section_info word-break">
     <span>
       {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
@@ -32,16 +38,16 @@ const VisibilityInfo = ({ contentId, isRequired, visibleInMemo, onToggleVisibleI
   </span>
 )
 
-const Section = ({ contentId, menuId, isRequired, visibleInMemo, onToggleVisibleInMemo, html }) => (
+const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html }) => (
   <span id={menuId} key={contentId}>
     <TitleAndInfoModal
       modalId={contentId}
       titleAndInfo={memoHeadings[contentId]}
+      superscript={context[contentId].source === 'syllabus' ? ' (s)' : ''}
       btnClose={buttons.btnClose}
     />
     <VisibilityInfo
       contentId={contentId}
-      isRequired={isRequired}
       visibleInMemo={visibleInMemo}
       onToggleVisibleInMemo={onToggleVisibleInMemo}
     />
