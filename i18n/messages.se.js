@@ -39,7 +39,8 @@ module.exports = {
      * Labels
      */
     section_info_visibility_label_shown: 'Visas i kurs-pm',
-    section_info_visibility_label_hidden: 'Döljs i kurs-pm'
+    section_info_visibility_label_hidden: 'Döljs i kurs-pm',
+    section_info_visibility_mandatory: 'Obligatorisk information (kan inte döljas i kurs-pm)'
   },
   memoHeadings: {
     additionalRegulations: {

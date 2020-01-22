@@ -39,7 +39,8 @@ module.exports = {
      * Labels
      */
     section_info_visibility_label_shown: 'Shown in course memo',
-    section_info_visibility_label_hidden: 'Hidden in course memo'
+    section_info_visibility_label_hidden: 'Hidden in course memo',
+    section_info_visibility_mandatory: 'Mandatory information (can’t be hidden in course memo)'
   },
   memoHeadings: {
     additionalRegulations: {
