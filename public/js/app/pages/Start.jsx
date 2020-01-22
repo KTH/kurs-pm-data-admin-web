@@ -123,8 +123,8 @@ class Start extends Component {
 
   renderSingleView = ({ location }) => {
     const { koppsFreshData } = this.props.routerStore
-
-    const sectionId = location.hash.substr(1)
+    const menuId = location.hash.substr(1)
+    const sectionId = menuId.split('-')[1]
     const sectionConfig = context[sectionId]
     if (!sectionConfig) return null
 
@@ -138,14 +138,16 @@ class Start extends Component {
 
     return sectionConfig.isEditable ? (
       <EditorPerTitle
-        id={sectionId}
+        contentId={sectionId}
         key={sectionId}
+        menuId={menuId}
         onEditorChange={this.handleEditorChange}
         toggleVisibleInMemo={this.toggleVisibleInMemo}
         visibleInMemo={this.state.visibleInMemo}
       />
     ) : (
       <Section
+        menuId={menuId}
         title={sectionId}
         visibleInMemo={visibleInMemo}
         toggleVisibleInMemo={this.toggleVisibleInMemo}
@@ -165,6 +167,7 @@ class Start extends Component {
         </h2>
         {section.content.map(apiTitle => {
           let visibleInMemo
+          const menuId = section.id + '-' + apiTitle
           if (this.state.visibleInMemo) {
             visibleInMemo =
               apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
@@ -174,7 +177,8 @@ class Start extends Component {
 
           return context[apiTitle].isEditable ? (
             <EditorPerTitle
-              id={apiTitle}
+              contentId={apiTitle}
+              menuId={menuId}
               key={apiTitle}
               onEditorChange={this.handleEditorChange}
               toggleVisibleInMemo={this.toggleVisibleInMemo}
@@ -188,6 +192,7 @@ class Start extends Component {
             />
           ) : (
             <Section
+              menuId={menuId}
               key={apiTitle}
               title={apiTitle}
               visibleInMemo={visibleInMemo}
