@@ -14,7 +14,7 @@ class EditorPerTitle extends Component {
   }
 
   toggleVisibleInMemo = () => {
-    this.props.toggleVisibleInMemo(this.props.contentId)
+    this.props.onToggleVisibleInMemo(this.props.contentId)
   }
 
   render() {

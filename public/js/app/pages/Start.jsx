@@ -142,7 +142,7 @@ class Start extends Component {
         key={sectionId}
         menuId={menuId}
         onEditorChange={this.handleEditorChange}
-        toggleVisibleInMemo={this.toggleVisibleInMemo}
+        onToggleVisibleInMemo={this.toggleVisibleInMemo}
         visibleInMemo={this.state.visibleInMemo}
       />
     ) : (
@@ -150,7 +150,7 @@ class Start extends Component {
         menuId={menuId}
         title={sectionId}
         visibleInMemo={visibleInMemo}
-        toggleVisibleInMemo={this.toggleVisibleInMemo}
+        onToggleVisibleInMemo={this.toggleVisibleInMemo}
         html={koppsFreshData[sectionId]}
         isRequired={sectionConfig.isRequired}
       />
@@ -181,7 +181,7 @@ class Start extends Component {
               menuId={menuId}
               key={apiTitle}
               onEditorChange={this.handleEditorChange}
-              toggleVisibleInMemo={this.toggleVisibleInMemo}
+              onToggleVisibleInMemo={this.toggleVisibleInMemo}
               visibleInMemo={this.state.visibleInMemo}
               onBlur={() => {
                 if (this.state.dirtyEditor === apiTitle) {
@@ -192,11 +192,11 @@ class Start extends Component {
             />
           ) : (
             <Section
+              contentId={apiTitle}
               menuId={menuId}
               key={apiTitle}
-              title={apiTitle}
               visibleInMemo={visibleInMemo}
-              toggleVisibleInMemo={this.toggleVisibleInMemo}
+              onToggleVisibleInMemo={this.toggleVisibleInMemo}
               html={koppsFreshData[apiTitle]}
               isRequired={context[apiTitle].isRequired}
             />

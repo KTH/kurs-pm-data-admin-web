@@ -9,7 +9,7 @@ import i18n from '../../../../i18n'
 
 const { messages, memoHeadings, buttons } = i18n.messages[1]
 
-const VisibilityInfo = ({ title, isRequired, visibleInMemo, toggleVisibleInMemo }) => (
+const VisibilityInfo = ({ contentId, isRequired, visibleInMemo, onToggleVisibleInMemo }) => (
   <span className="section_info word-break">
     <span>
       {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
@@ -22,25 +22,28 @@ const VisibilityInfo = ({ title, isRequired, visibleInMemo, toggleVisibleInMemo 
       </span>
     </span>
     {!isRequired && (
-      <Button style={{ marginTop: 0, marginBottom: 0 }} onClick={() => toggleVisibleInMemo(title)}>
+      <Button
+        style={{ marginTop: 0, marginBottom: 0 }}
+        onClick={() => onToggleVisibleInMemo(contentId)}
+      >
         {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
       </Button>
     )}
   </span>
 )
 
-const Section = ({ menuId, title, isRequired, visibleInMemo, toggleVisibleInMemo, html }) => (
-  <span id={menuId} key={title}>
+const Section = ({ contentId, menuId, isRequired, visibleInMemo, onToggleVisibleInMemo, html }) => (
+  <span id={menuId} key={contentId}>
     <TitleAndInfoModal
-      modalId={title}
-      titleAndInfo={memoHeadings[title]}
+      modalId={contentId}
+      titleAndInfo={memoHeadings[contentId]}
       btnClose={buttons.btnClose}
     />
     <VisibilityInfo
-      title={title}
+      contentId={contentId}
       isRequired={isRequired}
       visibleInMemo={visibleInMemo}
-      toggleVisibleInMemo={toggleVisibleInMemo}
+      onToggleVisibleInMemo={onToggleVisibleInMemo}
     />
 
     <span dangerouslySetInnerHTML={{ __html: html }} />
