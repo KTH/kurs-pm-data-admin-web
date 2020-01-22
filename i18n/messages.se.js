@@ -67,7 +67,7 @@ module.exports = {
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     preparations: {
-      header: 'Förbereda inför kursstart',
+      header: 'Förberedelser',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     software: {
