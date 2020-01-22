@@ -2,18 +2,21 @@
 
 const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: 'syllabus' },
+  bonusPoints: { isEditable: true, isRequired: false, source: 'kip' },
   courseContent: { isEditable: false, isRequired: true, source: 'syllabus' },
   communicationWithTeachers: { isEditable: true, isRequired: false, source: 'kip' }, // Kommunikation med lärare
   courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Kursansvarig
-  infoContactName: { isEditable: false, isRequired: true, source: 'k' },
-  gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
-  gradingScale: { isEditable: false, isRequired: true, source: 'k' }, // Betygsskala
   ethicalApproach: {
     isEditable: false,
     isRequired: true,
     hasDefault: true,
     defaultSource: 'koppsFreshData',
     source: 'syllabus'
+  },
+  ethicalApproachThisCourse: {
+    isEditable: true,
+    isRequired: false,
+    source: 'kip'
   },
   examination: { isEditable: false, isRequired: true, source: 'k' },
   examinationModules: {
@@ -25,7 +28,12 @@ const context = {
   },
   equipment: { isEditable: false, isRequired: false, source: 'k' },
   examiner: { isEditable: false, isRequired: false, source: 'ugRedis-k' },
+  gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
+  gradingScale: { isEditable: false, isRequired: true, source: 'k' }, // Betygsskala
+  infoContactName: { isEditable: false, isRequired: true, source: 'k' },
+  infoForReregisteredStudents: { isEditable: true, isRequired: false, source: 'kip' },
   // languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
+  learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
   learningOutcomes: { isEditable: false, isRequired: true, source: 'syllabus' },
   literature: { isEditable: false, isRequired: true, source: 'syllabus' },
   possibilityToCompletion: { isEditable: false, isRequired: false, source: 'k' },
@@ -40,7 +48,6 @@ const context = {
   },
   teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, // Lärarassistenter
   teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Lärare
-  learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
   prerequisites: { isEditable: false, isRequired: false, source: 'syllabus' }, // Rekommenderade förkunskaper
   preparations: { isEditable: true, isRequired: false, source: 'kip' }, // Förbereda inför kursstart
   software: { isEditable: true, isRequired: false, source: 'kip' }, // Programvara
@@ -77,8 +84,10 @@ const sections = [
       'examination',
       'examinationModules',
       'otherRequirementsForFinalGrade',
+      'bonusPoints',
       'examiner',
       'ethicalApproach',
+      'ethicalApproachThisCourse',
       'gradingCriteria',
       'possibilityToCompletion',
       'possibilityToAddition'
@@ -105,7 +114,7 @@ const sections = [
   {
     id: 'extra',
     title: 'Ytterligare Information',
-    content: ['additionalRegulations']
+    content: ['additionalRegulations', 'infoForReregisteredStudents']
   }
 ]
 
