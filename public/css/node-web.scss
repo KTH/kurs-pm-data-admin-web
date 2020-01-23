@@ -37,6 +37,10 @@ div.tox.tox-tinymce {
   }
 }
 
+.memo-content span:first-of-type h2 {
+  margin-top: 16px;
+}
+
 .card.collapsible.white {
   margin-top: -1em;
   .card-body {
@@ -200,4 +204,13 @@ a.nav-link {
 
 .no-wrap {
   white-space: nowrap;
+}
+
+.progress-title {
+  margin-top: 28px;
+}
+
+.progress-title h2 {
+  margin-bottom: 0;
+  margin-top: 0;
 }

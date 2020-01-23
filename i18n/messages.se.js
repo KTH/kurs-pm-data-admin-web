@@ -55,6 +55,10 @@ module.exports = {
     '(s)': 'Hämtad från kursplan (2017 - tillsvidare)'
   },
   memoHeadings: {
+    publishMemo: {
+      header: 'Publicera kurs-pm',
+      body: 'Det är viktigt för lärare att veta om det för att skriva sitt kurs-pm'
+    },
     additionalRegulations: {
       header: 'Övriga föreskrifter',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
@@ -206,18 +210,18 @@ module.exports = {
   },
   pages: [
     {
-      title: '1. Välj kursomgång',
+      title: 'Välj kursomgång',
       intro: `Börja med att välja termin och kursomgång för den kursanalys som ska publiceras (steg 1 av 3). 
       I nästa steg (2 av 3) kommer viss kurs PM data för kursen att hämtas automatiskt från Kopps och UG för den termin och kursomgång som valts. Det finns sedan möjlighet att redigera viss kurs-PM data. 
       I sista steget (3 av 3) ges möjlighet att först granska och sedan publicera kurs-PM på sidan ....`
     },
     {
-      title: '2. Redigera kurs-PM data',
+      title: 'Redigera kurs-pm',
       intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
       I nästa steg granskas all kurs-PM data innan publicering.`
     },
     {
-      title: '3. Granska och publicera',
+      title: 'Granska och publicera',
       intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
       Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
     }
@@ -229,7 +233,7 @@ module.exports = {
     extra: 'Ytterligare Information'
   },
   pageTitles: {
-    new: 'Publicera ny kurs-PM',
+    new: 'Publicera kurs-pm',
     draft: 'Publicera kurs-PM utkast',
     published: 'Ändra publicerad kurs-PM',
     preview: 'Förhandsgranska sparat utkast av kurs-PM'
