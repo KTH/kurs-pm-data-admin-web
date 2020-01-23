@@ -4,8 +4,8 @@ import { Button } from 'reactstrap'
 import { Editor } from '@tinymce/tinymce-react'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import i18n from '../../../../i18n'
-import { TitleAndInfoModal, Collapse } from '@kth/kth-kip-style-react-components'
-import { context } from '../util/fieldsByType'
+import { Collapse } from '@kth/kth-kip-style-react-components'
+import ContentHead from './ContentHead'
 
 @inject(['routerStore'])
 @observer
@@ -20,7 +20,7 @@ class EditorPerTitle extends Component {
 
   render() {
     const { memoData, defaultValues } = this.props.routerStore
-    const { memoHeadings, buttons } = i18n.messages[1]
+    const { buttons } = i18n.messages[1]
     const { contentId, menuId } = this.props
     let visibleInMemo
     if (this.props.visibleInMemo) {
@@ -31,12 +31,7 @@ class EditorPerTitle extends Component {
     }
     return (
       <span id={menuId}>
-        <TitleAndInfoModal
-          modalId={contentId}
-          superscript={' ' + context[contentId].source || ''}
-          titleAndInfo={memoHeadings[contentId]}
-          btnClose={buttons.btnClose}
-        />
+        <ContentHead contentId={contentId} />
         <span className="section_info">
           <span>
             {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
