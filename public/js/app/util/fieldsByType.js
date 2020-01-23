@@ -1,62 +1,67 @@
 // const i18n = require('../../i18n')
-
+/*
+  (s)-syllabus
+  (c)-course general information
+  (r)-course round related info
+  (pm)-pm information
+ */
 const context = {
-  additionalRegulations: { isEditable: false, isRequired: false, source: 'syllabus' },
-  bonusPoints: { isEditable: true, isRequired: false, source: 'kip' },
-  courseContent: { isEditable: false, isRequired: true, source: 'syllabus' },
-  communicationDuringCourse: { isEditable: true, isRequired: false, source: 'kip' }, // Kommunikation med lärare
-  courseCoordinator: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Kursansvarig
+  additionalRegulations: { isEditable: false, isRequired: false, source: '(s)' },
+  bonusPoints: { isEditable: true, isRequired: false, source: '(pm)' },
+  courseContent: { isEditable: false, isRequired: true, source: '(s)' },
+  communicationDuringCourse: { isEditable: true, isRequired: false, source: '(pm)' }, // Kommunikation med lärare
+  courseCoordinator: { isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
   ethicalApproach: {
     isEditable: false,
     isRequired: true,
     hasDefault: true,
     defaultSource: 'koppsFreshData',
-    source: 'syllabus'
+    source: '(s)'
   },
   ethicalApproachThisCourse: {
     isEditable: true,
     isRequired: false,
-    source: 'kip'
+    source: '(pm)'
   },
-  examination: { isEditable: false, isRequired: true, source: 'k' },
+  examination: { isEditable: false, isRequired: true, source: '(c)' },
   examinationModules: {
     isEditable: true,
     isRequired: false,
-    source: 'kip',
+    source: '(pm)',
     hasDefault: true,
     defaultSource: 'koppsFreshData'
   },
-  examiner: { isEditable: false, isRequired: true, source: 'ugRedis-k' },
-  extraHeaders1: { isEditable: true, isRequired: false, source: 'kip' },
-  extraHeaders2: { isEditable: true, isRequired: false, source: 'kip' },
-  extraHeaders3: { isEditable: true, isRequired: false, source: 'kip' },
-  extraHeaders4: { isEditable: true, isRequired: false, source: 'kip' },
-  extraHeaders5: { isEditable: true, isRequired: false, source: 'kip' },
-  equipment: { isEditable: false, isRequired: false, source: 'k' },
-  gradingCriteria: { isEditable: true, isRequired: false, source: 'kip' },
-  gradingScale: { isEditable: false, isRequired: true, source: 'k' }, // Betygsskala
-  infoContactName: { isEditable: false, isRequired: false, source: 'k' },
-  infoForReregisteredStudents: { isEditable: true, isRequired: false, source: 'kip' },
+  examiner: { isEditable: false, isRequired: true, source: '(c)' },
+  extraHeaders1: { isEditable: true, isRequired: false, source: '(pm)' },
+  extraHeaders2: { isEditable: true, isRequired: false, source: '(pm)' },
+  extraHeaders3: { isEditable: true, isRequired: false, source: '(pm)' },
+  extraHeaders4: { isEditable: true, isRequired: false, source: '(pm)' },
+  extraHeaders5: { isEditable: true, isRequired: false, source: '(pm)' },
+  equipment: { isEditable: false, isRequired: false, source: '(c)' },
+  gradingCriteria: { isEditable: true, isRequired: false, source: '(pm)' },
+  gradingScale: { isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
+  infoContactName: { isEditable: false, isRequired: false, source: '(c)' },
+  infoForReregisteredStudents: { isEditable: true, isRequired: false, source: '(pm)' },
   // languageOfInstructions: { isEditable: false, isRequired: true, source: 'kt' },
-  learningActivities: { isEditable: true, isRequired: false, source: 'kip' }, // Läraktiviteter
-  learningOutcomes: { isEditable: false, isRequired: true, source: 'syllabus' },
-  literature: { isEditable: false, isRequired: true, source: 'syllabus' },
-  possibilityToCompletion: { isEditable: false, isRequired: false, source: 'k' },
-  possibilityToAddition: { isEditable: false, isRequired: false, source: 'k' },
-  otherContacts: { isEditable: true, isRequired: false, source: 'kip' },
-  otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: 'syllabus' },
+  learningActivities: { isEditable: true, isRequired: false, source: '(pm)' }, // Läraktiviteter
+  learningOutcomes: { isEditable: false, isRequired: true, source: '(s)' },
+  literature: { isEditable: false, isRequired: true, source: '(c)' },
+  possibilityToCompletion: { isEditable: false, isRequired: false, source: '(c)' },
+  possibilityToAddition: { isEditable: false, isRequired: false, source: '(c)' },
+  otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
+  otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: '(s)' },
   scheduleDetails: {
     isEditable: true,
     isRequired: false,
-    source: 'kip',
+    source: '(pm)',
     defaultSource: 'koppsFreshData'
   },
-  teacherAssistants: { isEditable: false, isRequired: false, source: 'ugRedis-kt' }, // Lärarassistenter
-  teacher: { isEditable: false, isRequired: true, source: 'ugRedis-kt' }, // Lärare
-  prerequisites: { isEditable: false, isRequired: false, source: 'syllabus' }, // Rekommenderade förkunskaper
-  preparations: { isEditable: true, isRequired: false, source: 'kip' }, // Förbereda inför kursstart
-  software: { isEditable: true, isRequired: false, source: 'kip' }, // Programvara
-  permanentDisability: { isEditable: false, isRequired: true, source: 'kip' } // Funktionsnedsättning
+  teacherAssistants: { isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
+  teacher: { isEditable: false, isRequired: true, source: '(r)' }, // Lärare
+  prerequisites: { isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
+  preparations: { isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
+  software: { isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
+  permanentDisability: { isEditable: false, isRequired: true, source: '(pm)' } // Funktionsnedsättning
 }
 
 const sections = [

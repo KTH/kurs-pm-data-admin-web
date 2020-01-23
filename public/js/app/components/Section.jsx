@@ -43,7 +43,7 @@ const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html
     <TitleAndInfoModal
       modalId={contentId}
       titleAndInfo={memoHeadings[contentId]}
-      superscript={context[contentId].source === 'syllabus' ? ' (s)' : ''}
+      superscript={' ' + context[contentId].source || ''}
       btnClose={buttons.btnClose}
     />
     <VisibilityInfo
