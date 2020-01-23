@@ -3,7 +3,7 @@
 import React from 'react'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import { Button } from 'reactstrap'
-import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
+import ContentHead from './ContentHead'
 import { context } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
@@ -40,12 +40,7 @@ const VisibilityInfo = ({
 
 const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html }) => (
   <span id={menuId} key={contentId}>
-    <TitleAndInfoModal
-      modalId={contentId}
-      titleAndInfo={memoHeadings[contentId]}
-      superscript={' ' + context[contentId].source || ''}
-      btnClose={buttons.btnClose}
-    />
+    <ContentHead contentId={contentId} />
     <VisibilityInfo
       contentId={contentId}
       visibleInMemo={visibleInMemo}
