@@ -48,6 +48,12 @@ module.exports = {
     page_header_heading_semester: 'Semester',
     page_header_heading_course_round: 'Course round'
   },
+  sourceInfo: {
+    '(c)': 'Fetched from a general course source',
+    '(pm)': 'Fetched from a course round related source which is used to complete a course',
+    '(r)': 'Fetched from a course round related source which is used for course choice',
+    '(s)': 'Fetched from a course syllabus (2017 - tills idag)'
+  },
   memoHeadings: {
     additionalRegulations: {
       header: 'Additional regulations',

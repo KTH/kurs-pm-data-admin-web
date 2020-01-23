@@ -48,6 +48,12 @@ module.exports = {
     page_header_heading_semester: 'Termin',
     page_header_heading_course_round: 'Kursomgång'
   },
+  sourceInfo: {
+    '(c)': 'Hämtad från Kursgemensam information',
+    '(pm)': 'Hämtad från Kursomgångsinformation genomförande av kurs',
+    '(r)': 'Hämtad från Kursomgångsinformation inför kursval',
+    '(s)': 'Hämtad från kursplan (2017 - tillsvidare)'
+  },
   memoHeadings: {
     additionalRegulations: {
       header: 'Övriga föreskrifter',
