@@ -262,7 +262,9 @@ module.exports = {
     btn_save_and_cancel: 'Spara utkast och avsluta',
     btn_copy: 'Kopiera länk till utkast',
     btn_show_in_memo: 'Visa i kurs-pm',
-    btn_hide_in_memo: 'Dölj i kurs-pm'
+    btn_hide_in_memo: 'Dölj i kurs-pm',
+    btn_switch_view_single: 'Ändra till ”Fokus-vy”',
+    btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
   },
   alerts: {
     autoSaved: 'Sparat utkast'

@@ -221,28 +221,29 @@ class Start extends Component {
                 (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
             </span>
           </PageTitle>
-          <Col lg="2">
-            <Button
-              onClick={this.toggleViewMode}
-              color="primary"
-              size="sm"
-              style={{ marginTop: '1em' }}
-            >
-              {this.state.singleMode ? 'Switch to Scroll View' : 'Switch to Single View'}
-            </Button>
-          </Col>
         </Row>
         <ProgressBar active={2} pages={pages} />
         <PageHead semester={this.props.routerStore.semester} />
-        <ProgressTitle
-          id="progress-title"
-          text={pages[progress - 1].title}
-          infoModalLabels={{
-            header: pages[progress - 1].title,
-            body: pages[progress - 1].intro,
-            btnClose: 'Close'
-          }}
-        />
+        <Row>
+          <Col lg="9">
+            <ProgressTitle
+              id="progress-title"
+              text={pages[progress - 1].title}
+              infoModalLabels={{
+                header: pages[progress - 1].title,
+                body: pages[progress - 1].intro,
+                btnClose: 'Close'
+              }}
+            />
+          </Col>
+          <Col lg="3" className="change-view">
+            <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="primary" size="sm">
+              {this.state.singleMode
+                ? buttons.btn_switch_view_scroll
+                : buttons.btn_switch_view_single}
+            </Button>
+          </Col>
+        </Row>
         <StickyContainer>
           <Row>
             <Col lg="4">

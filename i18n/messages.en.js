@@ -260,7 +260,9 @@ module.exports = {
     btn_save_and_cancel: 'Save draft and cancel',
     btn_copy: 'Copy link to preview',
     btn_show_in_memo: 'Show in course memo',
-    btn_hide_in_memo: 'Hide in course memo'
+    btn_hide_in_memo: 'Hide in course memo',
+    btn_switch_view_single: 'Switch to “Single View”',
+    btn_switch_view_scroll: 'Switch to “Scroll View”'
   },
   alerts: {
     autoSaved: 'Draft saved'
