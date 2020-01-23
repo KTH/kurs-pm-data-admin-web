@@ -8,7 +8,7 @@ import { context } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 
-const { messages, memoHeadings, buttons } = i18n.messages[1]
+const { messages, buttons } = i18n.messages[1]
 
 const VisibilityInfo = ({
   contentId,
