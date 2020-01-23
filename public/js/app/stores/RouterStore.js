@@ -11,7 +11,7 @@ class RouterStore {
   @observable memoData = {}
 
   @observable defaultValues = {
-    //LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
+    // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
   }
 
   @action combineDefaultValues() {
@@ -33,7 +33,6 @@ class RouterStore {
   }
 
   @action setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {
-    console.log(' ===??? apihost ', apiHost)
     this.browserConfig = config
     this.paths = paths
     this.apiHost = apiHost

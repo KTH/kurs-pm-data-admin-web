@@ -141,7 +141,6 @@ async function getDetailedInformation(courseCode, language) {
       prerequisites,
       requiredEquipment
     } = res.body.course
-    console.log('requiredEquipment', requiredEquipment)
     let languageOfInstructions
     if (
       res.body.roundInfos[1] &&
