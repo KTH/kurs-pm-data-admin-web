@@ -204,7 +204,7 @@ class Start extends Component {
   render() {
     const { pages, actionModals, buttons } = i18n.messages[1]
     const progress = 2 // TODO: Change progress as a state
-    const { title, credits } = this.koppsFreshData
+    const { title, credits, creditUnitAbbr } = this.koppsFreshData
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -214,7 +214,15 @@ class Start extends Component {
             className="step-2-title"
             pageTitle={pages[progress - 1].title}
           >
-            <span>{this.courseCode + ' ' + title + ' ' + credits + ' hp'}</span>
+            <span>
+              {this.courseCode +
+                ' ' +
+                title +
+                ' ' +
+                credits +
+                ' ' +
+                (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
+            </span>
           </PageTitle>
           <Col lg="2">
             <Button

@@ -43,12 +43,14 @@ function getSelectedSyllabus(syllabusObject) {
   }
   return selectedFields
 }
+
 function getCommonInfo(resBody) {
   const { credits, creditUnitAbbr, gradeScaleCode, title, prerequisites } = resBody.course
   const gradingScale = resBody.formattedGradeScales[gradeScaleCode]
   return { credits, creditUnitAbbr, gradingScale, title, prerequisites }
 }
-function getExamModules(examinationSets, grades, roundLang) {
+
+function getExamModules(examinationSets, grades, roundLang, creditUnitAbbr) {
   const language = roundLang === 'en' ? 0 : 1
   let titles = ''
   let liStrs = ''
@@ -58,9 +60,9 @@ function getExamModules(examinationSets, grades, roundLang) {
     titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`
     liStrs += `<li>${exam.examCode} - ${exam.title}, ${
       language === 0 ? credits : credits.toString().replace('.', ',')
-    } ${language === 0 ? 'credits' : 'hp'}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
-      grades[exam.gradeScaleCode]
-    }</li>`
+    } ${language === 0 ? 'credits' : creditUnitAbbr}, ${
+      language === 0 ? 'Grading scale' : 'Betygsskala'
+    }: ${grades[exam.gradeScaleCode]}</li>`
   })
   return { titles, liStrs }
 }
@@ -178,13 +180,14 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
   try {
     const res = await client.getAsync({ uri, useCache: false })
     const selectedSyllabus = getSelectedSyllabus(res.body)
+    const commonInfo = getCommonInfo(res.body)
     const examModules = getExamModules(
       res.body.examinationSets[semester].examinationRounds,
       res.body.formattedGradeScales,
-      language
+      language,
+      commonInfo.creditUnitAbbr
     )
     const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
-    const commonInfo = getCommonInfo(res.body)
     const scheduleDetails = getScheduleDetailsTemplate(language)
     const scheduleLinks = getScheduleLinks(language)
     const permanentDisability = getPermanentDisabilityTemplate(language)
