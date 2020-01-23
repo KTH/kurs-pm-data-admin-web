@@ -23,7 +23,7 @@ const context = {
     isRequired: false,
     source: '(pm)'
   },
-  examination: { isEditable: false, isRequired: true, source: '(c)' },
+  examination: { isEditable: false, isRequired: true, source: '(s)' },
   examinationModules: {
     isEditable: true,
     isRequired: false,
@@ -95,14 +95,14 @@ const sections = [
       'gradingScale',
       'examination',
       'examinationModules',
+      'gradingCriteria',
       'otherRequirementsForFinalGrade',
       'bonusPoints',
+      'possibilityToCompletion',
+      'possibilityToAddition',
       'examiner',
       'ethicalApproach',
       'ethicalApproachThisCourse',
-      'gradingCriteria',
-      'possibilityToCompletion',
-      'possibilityToAddition',
       'extraHeaders3'
     ]
   },
