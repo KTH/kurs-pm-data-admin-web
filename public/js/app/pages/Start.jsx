@@ -10,6 +10,7 @@ import { StickyContainer, Sticky } from 'react-sticky'
 import EditorPerTitle from '../components/Editor'
 import Section from '../components/Section'
 import PageHead from '../components/PageHead'
+import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
@@ -202,18 +203,14 @@ class Start extends Component {
   }
 
   render() {
-    const { pages, actionModals, buttons } = i18n.messages[1]
+    const { pages, pageTitles, actionModals, buttons } = i18n.messages[1]
     const progress = 2 // TODO: Change progress as a state
     const { title, credits, creditUnitAbbr } = this.koppsFreshData
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
-          <PageTitle
-            id="mainHeading"
-            className="step-2-title"
-            pageTitle={pages[progress - 1].title}
-          >
+          <PageTitle id="mainHeading" className="step-2-title" pageTitle={pageTitles.new}>
             <span>
               {this.courseCode +
                 ' ' +
@@ -224,19 +221,29 @@ class Start extends Component {
                 (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
             </span>
           </PageTitle>
-          <Col lg="2">
-            <Button
-              onClick={this.toggleViewMode}
-              color="primary"
-              size="sm"
-              style={{ marginTop: '1em' }}
-            >
-              {this.state.singleMode ? 'Switch to Scroll View' : 'Switch to Single View'}
-            </Button>
-          </Col>
         </Row>
         <ProgressBar active={2} pages={pages} />
         <PageHead semester={this.props.routerStore.semester} />
+        <Row>
+          <Col lg="9">
+            <ProgressTitle
+              id="progress-title"
+              text={pages[progress - 1].title}
+              infoModalLabels={{
+                header: pages[progress - 1].title,
+                body: pages[progress - 1].intro,
+                btnClose: 'Close'
+              }}
+            />
+          </Col>
+          <Col lg="3" className="change-view">
+            <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="primary" size="sm">
+              {this.state.singleMode
+                ? buttons.btn_switch_view_scroll
+                : buttons.btn_switch_view_single}
+            </Button>
+          </Col>
+        </Row>
         <StickyContainer>
           <Row>
             <Col lg="4">
@@ -244,7 +251,7 @@ class Start extends Component {
                 {({ style }) => (
                   <SideMenu
                     id="mainMenu"
-                    style={{ ...style, ...{ paddingTop: '30px', paddingBottom: '115px' } }}
+                    style={{ ...style, ...{ paddingTop: '16px', paddingBottom: '115px' } }}
                     visibleInMemo={this.state.visibleInMemo}
                   />
                 )}
