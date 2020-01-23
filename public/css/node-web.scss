@@ -171,3 +171,33 @@ a.nav-link {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.page-header-wrapper {
+  display: flex;
+  margin: 0 15px;
+}
+
+.page-header-wrapper div {
+  margin-right: 1.25em;
+}
+
+.page-header-wrapper div:last-of-type {
+  margin-right: 0;
+}
+
+.page-header-container {
+  display: flex;
+}
+
+.page-header-container h4 {
+  margin: 0 0.3rem 0 0;
+  line-height: 1.5;
+  font-size: 1em;
+  &:after {
+    content: ':';
+  }
+}
+
+.no-wrap {
+  white-space: nowrap;
+}

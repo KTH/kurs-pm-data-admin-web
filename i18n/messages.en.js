@@ -40,7 +40,13 @@ module.exports = {
      */
     section_info_visibility_label_shown: 'Shown in course memo',
     section_info_visibility_label_hidden: 'Hidden in course memo',
-    section_info_visibility_mandatory: 'Mandatory information (can’t be hidden in course memo)'
+    section_info_visibility_mandatory: 'Mandatory information (can’t be hidden in course memo)',
+
+    /**
+     * Headings
+     */
+    page_header_heading_semester: 'Semester',
+    page_header_heading_course_round: 'Course round'
   },
   memoHeadings: {
     additionalRegulations: {

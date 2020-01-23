@@ -40,7 +40,13 @@ module.exports = {
      */
     section_info_visibility_label_shown: 'Visas i kurs-pm',
     section_info_visibility_label_hidden: 'Döljs i kurs-pm',
-    section_info_visibility_mandatory: 'Obligatorisk information (kan inte döljas i kurs-pm)'
+    section_info_visibility_mandatory: 'Obligatorisk information (kan inte döljas i kurs-pm)',
+
+    /**
+     * Headings
+     */
+    page_header_heading_semester: 'Termin',
+    page_header_heading_course_round: 'Kursomgång'
   },
   memoHeadings: {
     additionalRegulations: {

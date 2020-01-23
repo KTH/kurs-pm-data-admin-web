@@ -9,6 +9,7 @@ import { StickyContainer, Sticky } from 'react-sticky'
 
 import EditorPerTitle from '../components/Editor'
 import Section from '../components/Section'
+import PageHead from '../components/PageHead'
 import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
@@ -227,6 +228,7 @@ class Start extends Component {
           </Col>
         </Row>
         <ProgressBar active={2} pages={pages} />
+        <PageHead semester={this.props.routerStore.semester} />
         <StickyContainer>
           <Row>
             <Col lg="4">
