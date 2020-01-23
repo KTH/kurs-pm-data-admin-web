@@ -5,6 +5,7 @@ import { Editor } from '@tinymce/tinymce-react'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import i18n from '../../../../i18n'
 import { TitleAndInfoModal, Collapse } from '@kth/kth-kip-style-react-components'
+import { context } from '../util/fieldsByType'
 
 @inject(['routerStore'])
 @observer
@@ -32,6 +33,7 @@ class EditorPerTitle extends Component {
       <span id={menuId}>
         <TitleAndInfoModal
           modalId={contentId}
+          superscript={' ' + context[contentId].source || ''}
           titleAndInfo={memoHeadings[contentId]}
           btnClose={buttons.btnClose}
         />
