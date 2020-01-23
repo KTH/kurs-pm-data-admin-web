@@ -60,6 +60,7 @@ const context = {
   teacher: { isEditable: false, isRequired: true, source: '(r)' }, // Lärare
   prerequisites: { isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
   preparations: { isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
+  reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
   software: { isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
   permanentDisability: { isEditable: false, isRequired: true, source: '(pm)' } // Funktionsnedsättning
 }
@@ -101,6 +102,7 @@ const sections = [
       'possibilityToCompletion',
       'possibilityToAddition',
       'examiner',
+      'reportingResults',
       'ethicalApproach',
       'ethicalApproachThisCourse',
       'extraHeaders3'

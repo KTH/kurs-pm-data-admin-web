@@ -174,6 +174,10 @@ module.exports = {
       header: 'Prerequisites',
       body: 'It is important for students because they can plan their studies....'
     },
+    reportingResults: {
+      header: 'Results reporting',
+      body: '...'
+    },
     scheduleDetails: {
       header: 'Schedule Details',
       body: 'It is important for students because they can plan their studies....'

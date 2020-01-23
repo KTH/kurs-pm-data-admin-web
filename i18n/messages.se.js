@@ -173,6 +173,10 @@ module.exports = {
       header: 'Rekommenderade förkunskaper',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
+    reportingResults: {
+      header: 'Resultatrapportering',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     scheduleDetails: {
       header: 'Detaljschema',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
