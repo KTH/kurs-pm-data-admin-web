@@ -49,10 +49,14 @@ module.exports = {
     page_header_heading_course_round: 'Kursomgång'
   },
   sourceInfo: {
-    '(c)': 'Hämtad från Kursgemensam information',
-    '(pm)': 'Hämtad från Kursomgångsinformation genomförande av kurs',
-    '(r)': 'Hämtad från Kursomgångsinformation inför kursval',
-    '(s)': 'Hämtad från kursplan (2017 - tillsvidare)'
+    '(c)': '(c) Hämtad från Kursgemensam information',
+    '(pm)': '(pm) Hämtad från Kursomgångsinformation genomförande av kurs',
+    '(r)': '(r) Hämtad från Kursomgångsinformation inför kursval',
+    '(s)': '(s) Hämtad från kursplan (2017 - tillsvidare)',
+    mandatory: {
+      true: 'Obligatorisk information (kan inte döljas i kurs-pm)',
+      false: 'Frivillig rubrik'
+    }
   },
   memoHeadings: {
     publishMemo: {
@@ -69,15 +73,21 @@ module.exports = {
     },
     communicationDuringCourse: {
       header: 'Kommunikation i kursen',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p>Används till: att beskriva vem studenten kontakter för vad och hur det görs samt och när studenten kan förvanta sig svar.</p>
+      <p>Varför: Om det finns beskrivet hur kommunikationen mellan studenter och lärare ska se ut så besparar det tid och arbete ...</p>
+      <p>För att editera innehållet så väljer du: "Visa i kurs-pm”. </p>
+      <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras</p>`
     },
     courseContent: {
       header: 'Kursinnehåll',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p>Redigering av innehåll sker ....</p>
+      <p>Rubriken Kursinnehåll beskriver</p>`
     },
     courseCoordinator: {
       header: 'Kursansvarig',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p>Innehållet hämtas från den kursgemensamma informationen</p>
+      <p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p>
+      <p>Vad är examiner ....</p>`
     },
     ethicalApproach: {
       header: 'Etiskt förhållningssätt',
@@ -101,7 +111,9 @@ module.exports = {
     },
     examiner: {
       header: 'Examinator',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p>Innehållet hämtas från den kursgemensamma informationen</p>
+      <p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p>
+      <p>Vad är examiner ....</p>`
     },
     extraHeaders1: {
       header: 'Egna rubriker',
@@ -157,7 +169,10 @@ module.exports = {
     },
     otherContacts: {
       header: 'Övriga kontakter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p>Används till: att lägga in andra kontakter än de som är obligatoriska. </p>
+      <p>Varför: Det är viktigt för studenter att ha alla kontakter som de behöver för kursen samlade här.</p> 
+      <p>För att editera innehållet så väljer du: "Visa i kurs-pm”.</p> 
+      <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras.</p> `
     },
     otherRequirementsForFinalGrade: {
       header: 'Övriga krav för slutbetyg',
@@ -201,11 +216,13 @@ module.exports = {
     },
     teacher: {
       header: 'Lärare',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body:
+        '<p>Innehållet hämtas från den kursgemensamma informationen</p><p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p><p>Vad är Lärare ....</p>'
     },
     teacherAssistants: {
       header: 'Lärarassistenter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body:
+        '<p>Innehållet hämtas från den kursgemensamma informationen</p><p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p><p>Vad är Lärassistenter ....</p>'
     }
   },
   pages: [
