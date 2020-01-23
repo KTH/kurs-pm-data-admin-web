@@ -46,23 +46,24 @@ const context = {
   learningActivities: { isEditable: true, isRequired: false, source: '(pm)' }, // Läraktiviteter
   learningOutcomes: { isEditable: false, isRequired: true, source: '(s)' },
   literature: { isEditable: false, isRequired: true, source: '(c)' },
-  possibilityToCompletion: { isEditable: false, isRequired: false, source: '(c)' },
-  possibilityToAddition: { isEditable: false, isRequired: false, source: '(c)' },
   otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
   otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: '(s)' },
+  permanentDisability: { isEditable: false, isRequired: true, source: '(pm)' }, // Funktionsnedsättning
+  possibilityToCompletion: { isEditable: false, isRequired: false, source: '(c)' },
+  possibilityToAddition: { isEditable: false, isRequired: false, source: '(c)' },
+  possibilityToCompensate: { isEditable: true, isRequired: false, source: '(pm)' },
+  preparations: { isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
+  prerequisites: { isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
+  reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
   scheduleDetails: {
     isEditable: true,
     isRequired: false,
     source: '(pm)',
     defaultSource: 'koppsFreshData'
   },
-  teacherAssistants: { isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
-  teacher: { isEditable: false, isRequired: true, source: '(r)' }, // Lärare
-  prerequisites: { isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
-  preparations: { isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
-  reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
   software: { isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
-  permanentDisability: { isEditable: false, isRequired: true, source: '(pm)' } // Funktionsnedsättning
+  teacherAssistants: { isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
+  teacher: { isEditable: false, isRequired: true, source: '(r)' } // Lärare
 }
 
 const sections = [
@@ -101,6 +102,7 @@ const sections = [
       'bonusPoints',
       'possibilityToCompletion',
       'possibilityToAddition',
+      'possibilityToCompensate',
       'examiner',
       'reportingResults',
       'ethicalApproach',

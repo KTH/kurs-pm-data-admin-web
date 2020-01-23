@@ -165,6 +165,10 @@ module.exports = {
       header: 'Möjlighet till komplettering',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
+    possibilityToCompensate: {
+      header: 'Möjlighet till ersättningsuppgifter',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     preparations: {
       header: 'Förberedelser',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'

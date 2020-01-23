@@ -166,6 +166,10 @@ module.exports = {
       header: 'Opportunity to complete the requirements via supplementary examination',
       body: 'It is important for students because they can plan their studies....'
     },
+    possibilityToCompensate: {
+      header: 'Opportunity to compensate a task via another one',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+    },
     preparations: {
       header: 'Preparations',
       body: 'It is important for students because they can plan their studies....'
