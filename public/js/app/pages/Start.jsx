@@ -268,7 +268,7 @@ class Start extends Component {
         </StickyContainer>
         <Container className="fixed-bottom">
           <Row className="control-buttons">
-            <Row style={{ width: '100%', margin: '0 auto' }}>
+            <Row className="w-100 my-0 mx-auto">
               <Alert isOpen={!!this.state.alertIsOpen}>
                 {this.state.alertText ? this.state.alertText : ''}
               </Alert>

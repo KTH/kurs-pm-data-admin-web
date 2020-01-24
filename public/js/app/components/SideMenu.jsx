@@ -13,13 +13,11 @@ class SideMenu extends Component {
     return (
       <nav
         id={this.props.id}
-        className="col navbar navbar-expand-lg navbar-light"
+        className="col navbar navbar-expand-lg navbar-light pl-0 h-100"
         style={{
           ...this.props.style,
           ...{
-            paddingLeft: '0',
             width: '105%',
-            height: '100%',
             overflowX: 'hidden',
             overflowY: 'scroll'
           }
