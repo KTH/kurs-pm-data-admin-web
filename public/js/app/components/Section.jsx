@@ -28,10 +28,7 @@ const VisibilityInfo = ({
       </span>
     </span>
     {!isRequired && (
-      <Button
-        style={{ marginTop: 0, marginBottom: 0 }}
-        onClick={() => onToggleVisibleInMemo(contentId)}
-      >
+      <Button className="mt-0 mb-0" onClick={() => onToggleVisibleInMemo(contentId)}>
         {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
       </Button>
     )}
