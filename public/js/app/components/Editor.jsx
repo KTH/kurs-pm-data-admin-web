@@ -22,13 +22,7 @@ class EditorPerTitle extends Component {
     const { memoData, defaultValues } = this.props.routerStore
     const { buttons } = i18n.messages[1]
     const { contentId, menuId, visibleInMemo } = this.props
-    // let visibleInMemo
-    // if (this.props.visibleInMemo) {
-    //   visibleInMemo =
-    //     contentId in this.props.visibleInMemo ? this.props.visibleInMemo[contentId] : false
-    // } else {
-    //   visibleInMemo = false
-    // }
+
     return (
       <span id={menuId}>
         <ContentHead contentId={contentId} />
