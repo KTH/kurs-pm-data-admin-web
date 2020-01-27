@@ -127,9 +127,9 @@ class Start extends Component {
     let visibleInMemo
     if (this.state.visibleInMemo) {
       visibleInMemo =
-        sectionId in this.state.visibleInMemo ? this.state.visibleInMemo[sectionId] : true
+        sectionId in this.state.visibleInMemo ? this.state.visibleInMemo[sectionId] : false
     } else {
-      visibleInMemo = true
+      visibleInMemo = false
     }
 
     return sectionConfig.isEditable ? (
@@ -162,23 +162,21 @@ class Start extends Component {
           {section.title}
         </h2>
         {section.content.map(apiTitle => {
-          let visibleInMemo
           const menuId = section.id + '-' + apiTitle
-          if (this.state.visibleInMemo) {
-            visibleInMemo =
-              apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
-          } else {
-            visibleInMemo = true
-          }
+          const { isEditable, isRequired } = context[apiTitle]
+          // console.log('this.state.visibleInMemo ', this.state.visibleInMemo)
+          const visibleInMemo = isRequired
+            ? true
+            : (this.state.visibleInMemo && this.state.visibleInMemo[apiTitle]) || false // todo: check what happening with state if it came felaktig
 
-          return context[apiTitle].isEditable ? (
+          return isEditable ? (
             <EditorPerTitle
               contentId={apiTitle}
               menuId={menuId}
               key={apiTitle}
               onEditorChange={this.handleEditorChange}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
-              visibleInMemo={this.state.visibleInMemo}
+              visibleInMemo={visibleInMemo}
               onBlur={() => {
                 if (this.state.dirtyEditor === apiTitle) {
                   this.handleAutoSave()
@@ -194,7 +192,7 @@ class Start extends Component {
               visibleInMemo={visibleInMemo}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
               html={koppsFreshData[apiTitle]}
-              isRequired={context[apiTitle].isRequired}
+              isRequired={isRequired}
             />
           )
         })}
