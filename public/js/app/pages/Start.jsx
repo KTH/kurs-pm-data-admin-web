@@ -48,9 +48,9 @@ class Start extends Component {
         visible =
           contentHeader in previousState.visibleInMemo
             ? previousState.visibleInMemo[contentHeader]
-            : true
+            : false
       } else {
-        visible = true
+        visible = false
       }
       return {
         visibleInMemo: {
@@ -117,37 +117,37 @@ class Start extends Component {
     }
   }
 
+  checkVisibility = (isRequired, contentId) => {
+    return isRequired
+      ? true
+      : (this.state.visibleInMemo && this.state.visibleInMemo[contentId]) || false // todo: check what happening with state if it came felaktig
+  }
+
   renderSingleView = ({ location }) => {
     const { koppsFreshData } = this.props.routerStore
     const menuId = location.hash.substr(1)
-    const sectionId = menuId.split('-')[1]
-    const sectionConfig = context[sectionId]
+    const contentId = menuId.split('-')[1]
+    const sectionConfig = context[contentId]
     if (!sectionConfig) return null
+    const { isEditable, isRequired } = context[contentId]
+    const visibleInMemo = this.checkVisibility(isRequired, contentId)
 
-    let visibleInMemo
-    if (this.state.visibleInMemo) {
-      visibleInMemo =
-        sectionId in this.state.visibleInMemo ? this.state.visibleInMemo[sectionId] : true
-    } else {
-      visibleInMemo = true
-    }
-
-    return sectionConfig.isEditable ? (
+    return isEditable ? (
       <EditorPerTitle
-        contentId={sectionId}
-        key={sectionId}
+        contentId={contentId}
+        key={contentId}
         menuId={menuId}
         onEditorChange={this.handleEditorChange}
         onToggleVisibleInMemo={this.toggleVisibleInMemo}
-        visibleInMemo={this.state.visibleInMemo}
+        visibleInMemo={visibleInMemo}
       />
     ) : (
       <Section
         menuId={menuId}
-        contentId={sectionId}
+        contentId={contentId}
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={this.toggleVisibleInMemo}
-        html={koppsFreshData[sectionId]}
+        html={koppsFreshData[contentId]}
         isRequired={sectionConfig.isRequired}
       />
     )
@@ -161,26 +161,21 @@ class Start extends Component {
         <h2 id={section.id} key={'header-' + section.id}>
           {section.title}
         </h2>
-        {section.content.map(apiTitle => {
-          let visibleInMemo
-          const menuId = section.id + '-' + apiTitle
-          if (this.state.visibleInMemo) {
-            visibleInMemo =
-              apiTitle in this.state.visibleInMemo ? this.state.visibleInMemo[apiTitle] : true
-          } else {
-            visibleInMemo = true
-          }
+        {section.content.map(contentId => {
+          const menuId = section.id + '-' + contentId
+          const { isEditable, isRequired } = context[contentId]
+          const visibleInMemo = this.checkVisibility(isRequired, contentId)
 
-          return context[apiTitle].isEditable ? (
+          return isEditable ? (
             <EditorPerTitle
-              contentId={apiTitle}
+              contentId={contentId}
               menuId={menuId}
-              key={apiTitle}
+              key={contentId}
               onEditorChange={this.handleEditorChange}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
-              visibleInMemo={this.state.visibleInMemo}
+              visibleInMemo={visibleInMemo}
               onBlur={() => {
-                if (this.state.dirtyEditor === apiTitle) {
+                if (this.state.dirtyEditor === contentId) {
                   this.handleAutoSave()
                 }
                 this.setState({ dirtyEditor: '' })
@@ -188,13 +183,13 @@ class Start extends Component {
             />
           ) : (
             <Section
-              contentId={apiTitle}
+              contentId={contentId}
               menuId={menuId}
-              key={apiTitle}
+              key={contentId}
               visibleInMemo={visibleInMemo}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
-              html={koppsFreshData[apiTitle]}
-              isRequired={context[apiTitle].isRequired}
+              html={koppsFreshData[contentId]}
+              isRequired={isRequired}
             />
           )
         })}

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
 
-import { sections } from '../util/fieldsByType'
+import { sections, context } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 
 class SideMenu extends Component {
@@ -35,11 +35,9 @@ class SideMenu extends Component {
                     title={memoHeadings[contentId].header}
                     selected={false}
                     visibleInMemo={
-                      this.props.visibleInMemo
-                        ? contentId in this.props.visibleInMemo
-                          ? this.props.visibleInMemo[contentId]
-                          : true
-                        : true
+                      context[contentId].isRequired
+                        ? true
+                        : (this.props.visibleInMemo && this.props.visibleInMemo[contentId]) || false
                     }
                   />
                 ))}
