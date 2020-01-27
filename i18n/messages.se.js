@@ -116,23 +116,23 @@ module.exports = {
       <p>Vad är examiner ....</p>`
     },
     extraHeaders1: {
-      header: 'Egna rubriker',
+      header: 'Egen rubrik 1',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders2: {
-      header: 'Egna rubriker',
+      header: 'Egen rubrik 2',
       body: 'Lägg till egna rubriker H3'
     },
     extraHeaders3: {
-      header: 'Egna rubriker',
+      header: 'Egen rubrik 3',
       body: 'Lägg till egna rubriker H3'
     },
     extraHeaders4: {
-      header: 'Egna rubriker',
+      header: 'Egen rubrik 4',
       body: 'Lägg till egna rubriker H3'
     },
     extraHeaders5: {
-      header: 'Egna rubriker',
+      header: 'Egen rubrik 5',
       body: 'Lägg till egna rubriker H3'
     },
     gradingCriteria: {
