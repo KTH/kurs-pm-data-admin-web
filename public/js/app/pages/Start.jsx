@@ -48,9 +48,9 @@ class Start extends Component {
         visible =
           contentHeader in previousState.visibleInMemo
             ? previousState.visibleInMemo[contentHeader]
-            : true
+            : false
       } else {
-        visible = true
+        visible = false
       }
       return {
         visibleInMemo: {
@@ -139,7 +139,7 @@ class Start extends Component {
         menuId={menuId}
         onEditorChange={this.handleEditorChange}
         onToggleVisibleInMemo={this.toggleVisibleInMemo}
-        visibleInMemo={this.state.visibleInMemo}
+        visibleInMemo={visibleInMemo}
       />
     ) : (
       <Section
