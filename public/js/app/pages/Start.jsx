@@ -224,7 +224,7 @@ class Start extends Component {
         </Row>
         <ProgressBar active={2} pages={pages} />
         <PageHead semester={this.props.routerStore.semester} />
-        <Row>
+        <Row className="mb-4">
           <Col lg="9">
             <ProgressTitle
               id="progress-title"
@@ -251,7 +251,7 @@ class Start extends Component {
                 {({ style }) => (
                   <SideMenu
                     id="mainMenu"
-                    style={{ ...style, ...{ paddingTop: '16px', paddingBottom: '115px' } }}
+                    style={{ ...style, ...{ paddingBottom: '115px' } }}
                     visibleInMemo={this.state.visibleInMemo}
                   />
                 )}
