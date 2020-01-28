@@ -239,7 +239,7 @@ class Start extends Component {
             </Button>
           </Col>
         </Row>
-        <StickyContainer>
+        <StickyContainer className="sticky-content-section">
           <Row>
             <Col lg="4">
               <Sticky>
