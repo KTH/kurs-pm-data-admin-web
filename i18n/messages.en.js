@@ -49,10 +49,24 @@ module.exports = {
     page_header_heading_course_round: 'Course round'
   },
   sourceInfo: {
-    '(c)': '(c) Fetched from a general course source',
-    '(pm)': '(pm) Fetched from a course round related source which is used to complete a course',
-    '(r)': '(r) Fetched from a course round related source which is used for course choice',
-    '(s)': '(s) Fetched from a course syllabus (2017 - tills idag)',
+    '(c)': {
+      from: '<p><b>(c)</b> Fetched from a general course source</p>',
+      details: '<p><b></b></p>'
+    },
+    '(pm)': {
+      from:
+        '<p><b>(pm)</b> Fetched from a course round related source which is used to complete a course</p>',
+      details: '<p><b></b></p>'
+    },
+    '(r)': {
+      from:
+        '<p><b>(r)</b> Fetched from a course round related source which is used for course choice</p>',
+      details: '<p><b></b></p>'
+    },
+    '(s)': {
+      from: '<p><b>(s)</b> Fetched from a course syllabus (2017 - tills idag)</p>',
+      details: '<p><b></b></p>'
+    },
     mandatory: {
       true: 'Mandatory information (can’t be hidden in course memo)',
       false: 'Heading by choice'
