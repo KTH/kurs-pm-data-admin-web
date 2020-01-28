@@ -49,10 +49,25 @@ module.exports = {
     page_header_heading_course_round: 'Kursomgång'
   },
   sourceInfo: {
-    '(c)': '(c) Hämtad från Kursgemensam information',
-    '(pm)': '(pm) Hämtad från Kursomgångsinformation genomförande av kurs',
-    '(r)': '(r) Hämtad från Kursomgångsinformation inför kursval',
-    '(s)': '(s) Hämtad från kursplan (2017 - tillsvidare)',
+    '(c)': {
+      from: '<p><b>(c)</b> Hämtad från Kursgemensam information </p>',
+      details: '<p><b>Redigering av innehåll:</b> i <a href="#">KOPPS</a> av behöriga personal</p>'
+    },
+    '(pm)': {
+      from: '<p><b>(pm)</b> Information för kurs-pm lägger du in här </p>',
+      details: `<p><b>Redigering av innehåll:</b> välj "Visa i kurs-pm” för att öppna editeringsmöjlighter. 
+      Du kan sedan välja ”Hjälptext” för att få vägledning med vad som kan finnas med och hur innehållet kan presenteras.</p>`
+    },
+    '(r)': {
+      from: '<p><b>(r)</b> Hämtad från Kursomgångsinformation inför kursval </p>',
+      details:
+        '<p><b>Redigering av innehåll:</b> i <a href="#">KOPPS</a> av behöriga personal</p></p>'
+    },
+    '(s)': {
+      from: '<p><b>(s)</b> Hämtad från kursplan (2017 - tillsvidare) </p>',
+      details:
+        '<p><b>Redigering av innehåll:</b> i <a href="#">KOPPS</a> enligt regler för kursplan …</p>'
+    },
     mandatory: {
       true: 'Obligatorisk information (kan inte döljas i kurs-pm)',
       false: 'Frivillig rubrik'

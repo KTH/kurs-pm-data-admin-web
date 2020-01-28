@@ -38,7 +38,7 @@ function getSelectedSyllabus(syllabusObject) {
     examComments: lastSyllabus.examComments,
     literature: lastSyllabus.literature
       ? lastSyllabus.literature + literatureComment
-      : '<i>No information found in kopps</i>',
+      : '<p>Information saknas</p>',
     otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade
   }
   return selectedFields

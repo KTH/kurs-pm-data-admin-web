@@ -9,7 +9,9 @@ const ContentHead = ({ contentId }) => {
   const { header, body } = memoHeadings[contentId]
   const { source, isRequired } = context[contentId]
   const htmlInfo = `<p><i>${sourceInfo.mandatory[isRequired]}</i></p>
-    <p>${sourceInfo[source]}</p><p>${body}</p>`
+    ${sourceInfo[source].from}${sourceInfo[source].details}
+    <p><b>Informationen syftar till: …</b></p>
+    <p>${isRequired ? '' : `<b>Rubriken hjälper studenter:</b> ${body}`}</p>`
   return (
     <TitleAndInfoModal
       modalId={contentId}

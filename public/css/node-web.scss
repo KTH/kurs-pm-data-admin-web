@@ -17,10 +17,10 @@ $light-grey: #d4d4d4;
 }
 
 //remove all this later when i will connect kth-kip-styles
-h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-}
+// h3 {
+//   margin-top: 0;
+//   margin-bottom: 15px;
+// }
 
 .word-break {
   p {
@@ -86,23 +86,6 @@ div.tox.tox-tinymce {
 //   margin-bottom: 15px;
 // }
 
-.title-and-info + p {
-  font-weight: 900;
-}
-
-span.section_info {
-  @extend %row;
-  justify-content: space-between;
-}
-
-.section_info_visibility_label {
-  font-style: italic;
-}
-
-.section_info_visibility_icon {
-  margin-right: 0.5em;
-}
-
 .kip-container,
 .kursinfo-main-page {
   // .kursinfo-main-page
@@ -156,6 +139,44 @@ span.section_info {
   &.col-sm-4 {
     padding-right: 0;
   }
+}
+
+.sticky-content-section {
+  h2 {
+    margin-bottom: -29px;
+  }
+  .title-and-info {
+    margin-top: 24px;
+  }
+  p,
+  ul,
+  span {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  ul {
+    margin-top: 1em;
+  }
+  .section_info + span > p {
+    margin-top: 1em;
+  }
+  .title-and-info + p {
+    font-weight: 900;
+  }
+}
+
+span.section_info {
+  @extend %row;
+  justify-content: space-between;
+}
+
+.section_info_visibility_label {
+  font-style: italic;
+}
+
+.section_info_visibility_icon {
+  margin-right: 0.5em;
 }
 
 .step-forward,
