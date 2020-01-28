@@ -90,15 +90,9 @@ div.tox.tox-tinymce {
   font-weight: 900;
 }
 
-.control-buttons {
-  margin-top: 50px;
-  padding: 15px 0;
-}
-
 span.section_info {
   @extend %row;
   justify-content: space-between;
-  margin-bottom: 1em;
 }
 
 .section_info_visibility_label {
@@ -127,7 +121,7 @@ span.section_info {
 
 .control-buttons {
   margin-top: 50px;
-  padding: 15px 0;
+  padding: 0.5em 0;
 }
 
 //BUTTONS STYLES
@@ -185,26 +179,23 @@ a.nav-link {
 .page-header-wrapper {
   display: flex;
   margin: 0;
-}
-
-.page-header-wrapper div {
-  margin-right: 1.25em;
-}
-
-.page-header-wrapper div:last-of-type {
-  margin-right: 0;
+  div {
+    margin-right: 1.25em;
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
 }
 
 .page-header-container {
   display: flex;
-}
-
-.page-header-container h4 {
-  margin: 0 0.3rem 0 0;
-  line-height: 1.5;
-  font-size: 1em;
-  &:after {
-    content: ':';
+  h4 {
+    margin: 0 0.3rem 0 0;
+    line-height: 1.5;
+    font-size: 1em;
+    &:after {
+      content: ':';
+    }
   }
 }
 
@@ -214,9 +205,8 @@ a.nav-link {
 
 .progress-title {
   margin-top: 28px;
-}
-
-.progress-title h2 {
-  margin-bottom: 0;
-  margin-top: 0;
+  h2 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
 }
