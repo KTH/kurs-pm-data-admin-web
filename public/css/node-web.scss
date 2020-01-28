@@ -90,15 +90,9 @@ div.tox.tox-tinymce {
   font-weight: 900;
 }
 
-.control-buttons {
-  margin-top: 50px;
-  padding: 15px 0;
-}
-
 span.section_info {
   @extend %row;
   justify-content: space-between;
-  margin-bottom: 1em;
 }
 
 .section_info_visibility_label {
