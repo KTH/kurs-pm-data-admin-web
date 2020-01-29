@@ -81,7 +81,7 @@ class Start extends Component {
         '/kursinfoadmin/kurs-pm-data/internal-api/' + this.courseCode + '/' + this.semester,
         body
       ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
-      .then(() => callback())
+      .then(() => this.props.routerStore.tempMemoData(body))
       .catch(error => callback(error))
   }
 
