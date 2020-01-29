@@ -46,7 +46,7 @@ function getSelectedSyllabus(syllabusObject) {
 
 function getCommonInfo(resBody) {
   const { credits, creditUnitAbbr, gradeScaleCode, title, prerequisites } = resBody.course
-  const gradingScale = resBody.formattedGradeScales[gradeScaleCode]
+  const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
   return { credits, creditUnitAbbr, gradingScale, title, prerequisites }
 }
 

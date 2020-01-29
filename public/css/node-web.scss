@@ -31,16 +31,6 @@ div.tox.tox-tinymce {
   margin-bottom: 1rem;
 }
 
-.memo-content {
-  ul {
-    padding-left: 20px;
-  }
-}
-
-.memo-content span:first-of-type h2 {
-  margin-top: 0;
-}
-
 .card.collapsible.white {
   margin-top: 0.2em;
   .card-body {
@@ -157,6 +147,10 @@ div.tox.tox-tinymce {
   }
   ul {
     margin-top: 1em;
+    padding-left: 20px;
+  }
+  span:first-of-type h2 {
+    margin-top: 0;
   }
   .section_info + span > p {
     margin-top: 1em;
