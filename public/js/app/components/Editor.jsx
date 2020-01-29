@@ -33,7 +33,7 @@ class EditorPerTitle extends Component {
               {visibleInMemo ? 'Visas i kurs-PM' : 'Döljs i kurs-PM'}
             </span>
           </span>
-          <Button className="mt-0" onClick={this.toggleVisibleInMemo}>
+          <Button className="mb-0 mt-0" onClick={this.toggleVisibleInMemo}>
             {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
           </Button>
         </span>
