@@ -82,6 +82,7 @@ class Start extends Component {
         body
       ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
       .then(() => this.props.routerStore.tempMemoData(body))
+      .then(() => callback())
       .catch(error => callback(error))
   }
 
@@ -105,6 +106,7 @@ class Start extends Component {
 
   toggleViewMode = () => {
     this.setState(state => ({ singleMode: !state.singleMode }), this.scrollIntoView)
+    this.handleAutoSave()
   }
 
   scrollIntoView = () => {
