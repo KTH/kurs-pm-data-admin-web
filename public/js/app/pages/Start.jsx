@@ -105,8 +105,8 @@ class Start extends Component {
   }
 
   toggleViewMode = () => {
-    this.setState(state => ({ singleMode: !state.singleMode }), this.scrollIntoView)
     this.handleAutoSave()
+    this.setState(state => ({ singleMode: !state.singleMode }), this.scrollIntoView)
   }
 
   scrollIntoView = () => {
