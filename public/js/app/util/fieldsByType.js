@@ -72,7 +72,8 @@ const sections = [
     content: [
       'courseContent',
       'learningOutcomes',
-      'learningActivities' /* , 'languageOfInstructions' */,
+      'learningActivities',
+      'scheduleDetails' /* , 'languageOfInstructions' */,
       'extraHeaders1'
     ]
   },
@@ -114,9 +115,9 @@ const sections = [
     content: ['additionalRegulations', 'infoForReregisteredStudents', 'extraHeaders4']
   },
   {
-    id: 'scheduleDetails',
+    id: 'planning',
     title: 'Planering',
-    content: ['scheduleDetails', 'extraHeaders5']
+    content: ['extraHeaders5']
   },
   {
     id: 'contacts',
