@@ -96,9 +96,9 @@ const sections = [
     content: [
       'gradingScale',
       'examination',
+      'otherRequirementsForFinalGrade',
       'examinationModules',
       'gradingCriteria',
-      'otherRequirementsForFinalGrade',
       'possibilityToCompletion',
       'possibilityToAddition',
       'possibilityToCompensate',
