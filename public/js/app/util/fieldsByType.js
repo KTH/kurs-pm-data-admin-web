@@ -7,7 +7,6 @@
  */
 const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: '(s)' },
-  bonusPoints: { isEditable: true, isRequired: false, source: '(pm)' },
   courseContent: { isEditable: false, isRequired: true, source: '(s)' },
   communicationDuringCourse: { isEditable: true, isRequired: false, source: '(pm)' }, // Kommunikation med lärare
   courseCoordinator: { isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
@@ -99,7 +98,6 @@ const sections = [
       'examinationModules',
       'gradingCriteria',
       'otherRequirementsForFinalGrade',
-      'bonusPoints',
       'possibilityToCompletion',
       'possibilityToAddition',
       'possibilityToCompensate',

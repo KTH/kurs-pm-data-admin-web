@@ -82,10 +82,6 @@ module.exports = {
       header: 'Övriga föreskrifter',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
-    bonusPoints: {
-      header: 'Bonuspoäng',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    },
     communicationDuringCourse: {
       header: 'Kommunikation i kursen',
       body: `<p>Används till: att beskriva vem studenten kontakter för vad och hur det görs samt och när studenten kan förvanta sig svar.</p>

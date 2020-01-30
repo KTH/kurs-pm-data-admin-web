@@ -77,10 +77,6 @@ module.exports = {
       header: 'Additional regulations',
       body: 'It is important for students because they can plan their studies....'
     },
-    bonusPoints: {
-      header: 'Bonus points',
-      body: 'It is important for students because they can plan their studies....'
-    },
     communicationDuringCourse: {
       header: 'Communication during course',
       body: 'It is important for students because they can plan their studies....'
