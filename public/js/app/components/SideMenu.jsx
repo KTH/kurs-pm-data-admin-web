@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
+import Collapsible from 'react-collapsible'
 
 import { sections, context } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
@@ -26,8 +27,7 @@ class SideMenu extends Component {
         <div className="collapse navbar-collapse" id="navbarNav">
           {sections.map(section => (
             <span key={section.id}>
-              <NavHeading key={'nav-' + section.id} title={section.title} />
-              <>
+              <Collapsible trigger=<NavHeading key={'nav-' + section.id} title={section.title} />>
                 {section.content.map(contentId => (
                   <NavItem
                     key={'nav-' + contentId}
@@ -41,7 +41,7 @@ class SideMenu extends Component {
                     }
                   />
                 ))}
-              </>
+              </Collapsible>
             </span>
           ))}
         </div>
