@@ -2,7 +2,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
-import { FaRegEyeSlash } from 'react-icons/fa'
+import { FaRegEyeSlash, FaChevronRight } from 'react-icons/fa'
 import Collapsible from 'react-collapsible'
 
 import { sections, context } from '../util/fieldsByType'
@@ -51,11 +51,14 @@ class SideMenu extends Component {
 }
 
 const NavHeading = props => (
-  <ul className="nav nav-ancestor">
-    <li>
-      <span className="nav-item ancestor">{props.title}</span>
-    </li>
-  </ul>
+  <>
+    <FaChevronRight className="menu-icon" />
+    <ul className="nav nav-ancestor">
+      <li>
+        <span className="nav-item ancestor">{props.title}</span>
+      </li>
+    </ul>
+  </>
 )
 
 const NavItem = props => (

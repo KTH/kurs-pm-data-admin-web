@@ -230,29 +230,15 @@ ul.nav-ancestor {
   display: inline-block;
 }
 
-.Collapsible__trigger {
-  &:before {
-    content: '';
-    height: 1em;
-    width: 1em;
-    display: inline-block;
-    margin: auto;
-    margin-bottom: -1px;
-    margin-left: 0.4em;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-image: url('arrow-black-right.svg');
-  }
+.Collapsible__trigger .menu-icon {
+  margin-bottom: 0.4em;
+  margin-left: 0.4em;
 }
 
-.Collapsible__trigger.is-closed {
-  &:before {
-    animation: rotateUp 0.3s ease-in-out forwards;
-  }
+.Collapsible__trigger.is-closed .menu-icon {
+  animation: rotateUp 0.3s ease-in-out forwards;
 }
 
-.Collapsible__trigger.is-open {
-  &:before {
-    animation: rotateDown 0.3s ease-in-out forwards;
-  }
+.Collapsible__trigger.is-open .menu-icon {
+  animation: rotateDown 0.3s ease-in-out forwards;
 }
