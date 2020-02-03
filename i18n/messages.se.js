@@ -80,7 +80,8 @@ module.exports = {
     },
     additionalRegulations: {
       header: 'Övriga föreskrifter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     communicationDuringCourse: {
       header: 'Kommunikation i kursen',
@@ -105,23 +106,28 @@ module.exports = {
     },
     ethicalApproach: {
       header: 'Etiskt förhållningssätt',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     ethicalApproachThisCourse: {
       header: 'Kursspecifika regler för etiskt förhållningssätt',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     equipment: {
       header: 'Utrustning',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     examination: {
       header: 'Examination',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     examinationModules: {
       header: 'Examinationsmoduler',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     examiner: {
       header: 'Examinator',
@@ -161,23 +167,23 @@ module.exports = {
     },
     gradingScale: {
       header: 'Betygsskala',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     infoContactName: {
       header: 'Kontaktperson',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     infoForReregisteredStudents: {
       header: 'Information till omregistrerade studenter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
-    // languageOfInstructions: {
-    //   header: 'Undervisningsspråk',
-    //   body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
-    // },
     learningActivities: {
       header: 'Läraktiviteter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     learningOutcomes: {
       header: 'Lärandemål',
@@ -190,7 +196,8 @@ module.exports = {
     },
     literature: {
       header: 'Kurslitteratur',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     otherContacts: {
       header: 'Övriga kontakter',
@@ -201,43 +208,53 @@ module.exports = {
     },
     otherRequirementsForFinalGrade: {
       header: 'Övriga krav för slutbetyg',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     permanentDisability: {
       header: 'Funktionsnedsättning',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     possibilityToAddition: {
       header: 'Möjlighet till plussning',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     possibilityToCompletion: {
       header: 'Möjlighet till komplettering',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     possibilityToCompensate: {
       header: 'Möjlighet till ersättningsuppgifter',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     preparations: {
       header: 'Förberedelser',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     prerequisites: {
       header: 'Rekommenderade förkunskaper',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     reportingResults: {
       header: 'Resultatrapportering',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     scheduleDetails: {
       header: 'Detaljschema',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     software: {
       header: 'Programvara',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     teacher: {
       header: 'Lärare',

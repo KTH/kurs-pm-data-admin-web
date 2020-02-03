@@ -8,10 +8,10 @@ const { memoHeadings, buttons, sourceInfo } = i18n.messages[1]
 const ContentHead = ({ contentId }) => {
   const { header, body } = memoHeadings[contentId]
   const { source, isRequired } = context[contentId]
+  // ${sourceInfo[source].details}
   const htmlInfo = `<p><i>${sourceInfo.mandatory[isRequired]}</i></p>
-    ${sourceInfo[source].from}${sourceInfo[source].details}
-    <p><b>Informationen syftar till: …</b></p>
-    <p>${isRequired ? '' : `<b>Rubriken hjälper studenter:</b> ${body}`}</p>`
+    ${sourceInfo[source].from}
+    ${body}`
   return (
     <TitleAndInfoModal
       modalId={contentId}
