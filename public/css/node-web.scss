@@ -170,7 +170,10 @@ span.section_info {
 }
 
 .section_info_visibility_icon {
-  margin-right: 0.5em;
+  min-width: 1em;
+  min-height: 1em;
+  margin-right: 0;
+  margin-top: 0.2em;
 }
 
 .step-forward,
@@ -228,6 +231,10 @@ a.nav-link {
 
 ul.nav-ancestor {
   display: inline-block;
+}
+
+.nav-item span {
+  margin-left: 1.4em;
 }
 
 .Collapsible__trigger .menu-icon {
