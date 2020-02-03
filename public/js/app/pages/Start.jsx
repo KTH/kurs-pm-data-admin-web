@@ -244,11 +244,18 @@ class Start extends Component {
         <StickyContainer className="sticky-content-section">
           <Row>
             <Col lg="4">
-              <Sticky>
-                {({ style }) => (
+              <Sticky topOffset={-31}>
+                {({ style, isSticky }) => (
                   <SideMenu
                     id="mainMenu"
-                    style={{ ...style, ...{ paddingBottom: '115px' } }}
+                    style={{
+                      ...style,
+                      ...{
+                        paddingRight: '0',
+                        paddingBottom: '115px',
+                        paddingTop: isSticky ? '30px' : '0'
+                      }
+                    }}
                     visibleInMemo={this.state.visibleInMemo}
                   />
                 )}
