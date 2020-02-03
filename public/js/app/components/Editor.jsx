@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
@@ -20,6 +21,7 @@ class EditorPerTitle extends Component {
   render() {
     const { memoData, defaultValues } = this.props.routerStore
     const { contentId, menuId, visibleInMemo } = this.props
+    const { memoHeadings } = i18n.messages[1]
 
     return (
       <span id={menuId}>
@@ -31,7 +33,11 @@ class EditorPerTitle extends Component {
         />
         <span style={visibleInMemo ? {} : { display: 'none' }}>
           <Collapse alt="Expand this" uLabel={contentId} color="white" buttonText="Hjälptext">
-            <p>Hjälptext som hjälper</p>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: memoHeadings[contentId].help || '<p>Hjälptext som hjälper</p>'
+              }}
+            />
           </Collapse>
           <Editor
             id={'editorFor' + contentId}

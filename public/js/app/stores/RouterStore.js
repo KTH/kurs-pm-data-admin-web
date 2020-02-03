@@ -18,7 +18,7 @@ class RouterStore {
     this.defaultValues = {
       examinationModules: this[context.examinationModules.defaultSource].examinationModules, // koppsFreshData.examinationModules
       // eslint-disable-next-line no-use-before-define
-      scheduleDetails: combinePlanningValues(
+      scheduleDetails: combineScheduleValues(
         this[context.scheduleDetails.defaultSource].scheduleDetailsTemplate,
         this[context.scheduleDetails.defaultSource].scheduleLinks(
           this[context.scheduleDetails.defaultSource].schemaUrl
@@ -83,7 +83,7 @@ class RouterStore {
   }
 }
 
-const combinePlanningValues = (scheduleDetailsTemplate, scheduleLinks) => {
+const combineScheduleValues = (scheduleDetailsTemplate, scheduleLinks) => {
   return scheduleLinks
     ? `${scheduleDetailsTemplate}<p>${scheduleLinks}</p>`
     : `${scheduleDetailsTemplate}`

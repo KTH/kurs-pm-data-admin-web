@@ -115,11 +115,6 @@ const sections = [
     content: ['additionalRegulations', 'infoForReregisteredStudents', 'extraHeaders4']
   },
   {
-    id: 'planning',
-    title: 'Planering',
-    content: ['extraHeaders5']
-  },
-  {
     id: 'contacts',
     title: 'Kontakter',
     content: [

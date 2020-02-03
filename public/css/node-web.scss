@@ -170,7 +170,10 @@ span.section_info {
 }
 
 .section_info_visibility_icon {
-  margin-right: 0.5em;
+  min-width: 1em;
+  min-height: 1em;
+  margin-right: 0;
+  margin-top: 0.2em;
 }
 
 .step-forward,
@@ -224,4 +227,25 @@ a.nav-link {
     margin-bottom: 0;
     margin-top: 0;
   }
+}
+
+ul.nav-ancestor {
+  display: inline-block;
+}
+
+.nav-item span {
+  margin-left: 1.4em;
+}
+
+.Collapsible__trigger .menu-icon {
+  margin-bottom: 0.4em;
+  margin-left: 0.4em;
+}
+
+.Collapsible__trigger.is-closed .menu-icon {
+  animation: rotateUp 0.3s ease-in-out forwards;
+}
+
+.Collapsible__trigger.is-open .menu-icon {
+  animation: rotateDown 0.3s ease-in-out forwards;
 }

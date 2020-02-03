@@ -2,7 +2,8 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
-import { FaRegEyeSlash } from 'react-icons/fa'
+import { FaRegEyeSlash, FaChevronRight } from 'react-icons/fa'
+import Collapsible from 'react-collapsible'
 
 import { sections, context } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
@@ -26,8 +27,7 @@ class SideMenu extends Component {
         <div className="collapse navbar-collapse" id="navbarNav">
           {sections.map(section => (
             <span key={section.id}>
-              <NavHeading key={'nav-' + section.id} title={section.title} />
-              <>
+              <Collapsible trigger=<NavHeading key={'nav-' + section.id} title={section.title} />>
                 {section.content.map(contentId => (
                   <NavItem
                     key={'nav-' + contentId}
@@ -41,7 +41,7 @@ class SideMenu extends Component {
                     }
                   />
                 ))}
-              </>
+              </Collapsible>
             </span>
           ))}
         </div>
@@ -51,11 +51,14 @@ class SideMenu extends Component {
 }
 
 const NavHeading = props => (
-  <ul className="nav nav-ancestor">
-    <li>
-      <span className="nav-item ancestor">{props.title}</span>
-    </li>
-  </ul>
+  <>
+    <FaChevronRight className="menu-icon" />
+    <ul className="nav nav-ancestor">
+      <li>
+        <span className="nav-item ancestor">{props.title}</span>
+      </li>
+    </ul>
+  </>
 )
 
 const NavItem = props => (
@@ -66,6 +69,7 @@ const NavItem = props => (
         className="nav-link"
         to={'#' + props.id}
         scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+        style={{ paddingRight: '0' }}
       >
         <span>{props.title}</span>
         {props.visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
