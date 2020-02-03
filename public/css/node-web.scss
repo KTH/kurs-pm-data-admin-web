@@ -165,15 +165,19 @@ span.section_info {
   justify-content: space-between;
 }
 
-.section_info_visibility_label {
-  font-style: italic;
-}
-
 .section_info_visibility_icon {
   min-width: 1em;
   min-height: 1em;
-  margin-right: 0;
-  margin-top: 0.2em;
+  margin: 0 1em 0 1em;
+  // margin-right: 0;
+  // margin-top: 0.2em;
+}
+.section_pencil {
+  min-width: 1em;
+  min-height: 1em;
+  margin: 0 0 0 1em;
+  // margin-right: 0;
+  // margin-top: 0.2em;
 }
 
 .step-forward,

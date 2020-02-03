@@ -47,7 +47,7 @@ const context = {
   literature: { isEditable: false, isRequired: true, source: '(c)' },
   otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
   otherRequirementsForFinalGrade: { isEditable: false, isRequired: true, source: '(s)' },
-  permanentDisability: { isEditable: false, isRequired: true, source: '(pm)' }, // Funktionsnedsättning
+  permanentDisability: { isEditable: false, isRequired: true, source: '(c)' }, // Funktionsnedsättning
   possibilityToCompletion: { isEditable: false, isRequired: false, source: '(c)' },
   possibilityToAddition: { isEditable: false, isRequired: false, source: '(c)' },
   possibilityToCompensate: { isEditable: true, isRequired: false, source: '(pm)' },
