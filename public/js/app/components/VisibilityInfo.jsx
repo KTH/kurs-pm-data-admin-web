@@ -28,7 +28,7 @@ const VisibilityInfo = ({
           : (visibleInMemo && messages.section_info_visibility_label_shown) ||
             messages.section_info_visibility_label_hidden} */}
       </span>
-      {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
+      {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon_v" />}
       {context[contentId].isEditable && ' | '}
       {context[contentId].isEditable && <FaPencilAlt className="section_pencil" />}
     </span>
