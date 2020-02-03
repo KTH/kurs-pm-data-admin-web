@@ -32,7 +32,7 @@ class EditorPerTitle extends Component {
           onToggleVisibleInMemo={this.toggleVisibleInMemo}
         />
         <span style={visibleInMemo ? {} : { display: 'none' }}>
-          <Collapse alt="Expand this" uLabel={contentId} color="white" buttonText="Hjälptext">
+          <Collapse alt="Expand this" uLabel={contentId} color="white" buttonText="Visa vägledning">
             <span
               dangerouslySetInnerHTML={{
                 __html: memoHeadings[contentId].help || '<p>Hjälptext som hjälper</p>'
