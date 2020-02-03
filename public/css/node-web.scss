@@ -164,11 +164,13 @@ span.section_info {
   @extend %row;
   justify-content: space-between;
 }
-
+.section_info_visibility_label {
+  margin-right: 1.1em;
+}
 .section_info_visibility_icon {
   min-width: 1em;
   min-height: 1em;
-  margin: 0 1em 0 1em;
+  margin: 0 1em 0 0;
   // margin-right: 0;
   // margin-top: 0.2em;
 }
