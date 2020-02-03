@@ -232,9 +232,8 @@ module.exports = {
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     preparations: {
-      header: 'Förberedelser',
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      header: 'Särskilda förberedelser',
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     prerequisites: {
       header: 'Rekommenderade förkunskaper',

@@ -69,6 +69,7 @@ const NavItem = props => (
         className="nav-link"
         to={'#' + props.id}
         scroll={el => el.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+        style={{ paddingRight: '0' }}
       >
         <span>{props.title}</span>
         {props.visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon" />}
