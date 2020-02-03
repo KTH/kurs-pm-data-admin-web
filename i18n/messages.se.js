@@ -91,8 +91,11 @@ module.exports = {
     },
     courseContent: {
       header: 'Kursinnehåll',
-      body: `<p>Redigering av innehåll sker ....</p>
-      <p>Rubriken Kursinnehåll beskriver</p>`
+      body: `<p><b>Kursinnehåll</b> beskriver ämnesinnehållet och de generella färdigheter som behandlas eller tränas i kursen.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå vilka begrepp, ämnen, färdigheter m.m. som den behöver läsa in sig på inför och under kursen. 
+      Kursinnehållet hjälper på så sätt studenten att förbereda sig inför och under kursen.</p>
+      <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Kursinnehåll kan ändras eftersom informationen är en del av kursplanen. Läs mer om riktlinjer för att ändra Kursinnehåll på sidan 
+      <a href="https://intra.kth.se/utbildning/utbi/forbereda-utbildning/andra-i-en-kursplan-andra-kursuppgifter-i-ladok-ej-forskarniva" target="_blank">Ändra i en kursplan, ändra kursuppgifter i Ladok (ej forskarnivå)</a> (öppnas i ny flik).</p>`
     },
     courseCoordinator: {
       header: 'Kursansvarig',
@@ -148,7 +151,13 @@ module.exports = {
     },
     gradingCriteria: {
       header: 'Målrelaterade betygskriterier',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Målrelaterade betygskriterier</b> ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna relaterar till lärandemålen och med det vad den behöver göra och kunna för att uppnå respektive betyg på kursen. Att tydligt beskriva betygskriterierna bidrar även till att motivera studenten.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Visa i kurs-pm”. Ange information om målrelaterade betygskriterier i inmatningsfältet. Du kan välja ”Hjälptext” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Betygskriterierna ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål, där godkänt betyg ska innebära en grundläggande uppfyllelse av målen. Betygskriterier för högre nivåer kan exempelvis gälla kvaliteten på utförandet, svårighetsgraden, hur olika delar av kursinnehållet kombineras och nivå i Blooms taxonomi.</p>
+      <p>Examinationen ska vara tydligt kopplad till betygskriterierna. Om det finns flera examinationsmoment i kursen ska det i anslutning till betygskriterierna framgå vilka lärandemål som examineras i vilket examinationsmoment, hur slutbetyget vägs ihop av delbetyg och hur delbetyg vägs ihop av delbedömningar efter betygskriterierna.</p>
+      <p>Läs mer om betygskriterier och hitta konkreta exempel på 
+      <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Målrelaterade betygskriterier</a> (öppnas i ny flik).</p>`
     },
     gradingScale: {
       header: 'Betygsskala',
@@ -172,7 +181,12 @@ module.exports = {
     },
     learningOutcomes: {
       header: 'Lärandemål',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: `<p><b>Lärandemål</b> ska tydliggöra vilka kunskaper, färdigheter, värderingsförmågor och förhållningssätt som studenten ska visa efter genomgången kurs.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå vad studenten behöver uppnå för att få ett godkänt betyg. 
+      Lärandemålen hjälper med det studenten att lägga en plan för kursens genomförande. 
+      Efterföljande information i detta kurs-pm relaterar till kursens lärandemål varför det är viktigt att informationen är väl formulerad.</p>
+      <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Lärandemål kan ändras eftersom informationen är en del av kursplanen. 
+      Läs mer om riktlinjer för att ändra Lärandemål på sidan <a href="https://intra.kth.se/utbildning/utbi/forbereda-utbildning/andra-i-en-kursplan-andra-kursuppgifter-i-ladok-ej-forskarniva" target="_blank">Ändra i en kursplan, ändra kursuppgifter i Ladok (ej forskarnivå)</a> (öppnas i ny flik).</p>`
     },
     literature: {
       header: 'Kurslitteratur',
