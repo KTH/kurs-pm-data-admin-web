@@ -143,6 +143,11 @@ div.tox.tox-tinymce {
   span {
     &:last-of-type {
       margin-bottom: 0;
+      &#contacts-otherContacts {
+        span.section_info {
+          margin-bottom: 5em;
+        }
+      }
     }
   }
   ul {
