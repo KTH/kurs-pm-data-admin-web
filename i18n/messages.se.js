@@ -206,7 +206,7 @@ module.exports = {
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     preparations: {
-      header: 'Förberedelser',
+      header: 'Särskilda förberedelser',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     prerequisites: {
