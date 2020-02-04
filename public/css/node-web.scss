@@ -9,6 +9,10 @@ $light-grey: #d4d4d4;
   display: flex;
   flex-direction: column;
 }
+%react-icon-basic {
+  min-width: 1em;
+  min-height: 1em;
+}
 #kth-node {
   background: pink;
 }
@@ -170,27 +174,21 @@ span.section_info {
   justify-content: space-between;
 }
 .section_info_visibility_label {
-  margin-right: 1.1em;
+  @extend %react-icon-basic;
+  margin-right: 0.63em; //10.08px
 }
 .section_info_visibility_icon_v {
-  min-width: 1em;
-  min-height: 1em;
-  margin: 0 1em 0 0;
-  // margin-right: 0;
-  // margin-top: 0.2em;
+  @extend %react-icon-basic;
+  margin: 0 1.3em 0 0; //20.8px
 }
 .section_info_visibility_icon {
-  min-width: 1em;
-  min-height: 1em;
+  @extend %react-icon-basic;
   margin-right: 0;
   margin-top: 0.3em;
 }
 .section_pencil {
-  min-width: 1em;
-  min-height: 1em;
-  margin: 0 0 0 1em;
-  // margin-right: 0;
-  // margin-top: 0.2em;
+  @extend %react-icon-basic;
+  margin: 0 0 0 1.3em; //20.8px
 }
 
 .step-forward,
