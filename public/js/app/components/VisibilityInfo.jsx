@@ -20,7 +20,7 @@ const VisibilityInfo = ({
       <span className={`section_info_visibility_label ${isRequired ? 'mandatory' : 'byChoice'}`}>
         <b>{sourceInfo.mandatory[isRequired]}</b>
         {isRequired ? '|' : ': '}
-        <i className={visibleInMemo ? 'shortInfo' : 'maybeVisible'}>
+        <i>
           {isRequired ? sourceInfo[context[contentId].source] : sourceInfo.shown[visibleInMemo]}
         </i>
         {/* {isRequired
