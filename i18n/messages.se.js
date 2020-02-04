@@ -49,9 +49,9 @@ module.exports = {
     page_header_heading_course_round: 'Kursomgång'
   },
   sourceInfo: {
-    '(c)': 'Hämtad från Kursgemensam information (c)',
+    '(c)': 'Hämtad från Kursinformation (c)',
     '(pm)': '(pm)',
-    '(r)': 'Hämtad från Kursgemensam information (r)',
+    '(r)': 'Hämtad från Kursinformation (r)',
     '(s)': 'Hämtad från kursplan (s)',
     mandatory: {
       true: 'Obligatorisk rubrik',
