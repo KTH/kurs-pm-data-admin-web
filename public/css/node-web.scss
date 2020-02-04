@@ -136,22 +136,21 @@ div.tox.tox-tinymce {
 }
 
 .memo-content {
+  padding-bottom: 12em;
   h2 {
     margin-bottom: -29px;
   }
   .title-and-info {
-    margin-top: 3.125em; //50px
+    margin-top: 35px; //h3 15px + 34.88px
+    .btn-info-modal {
+      margin-left: 20px;
+    }
   }
   p,
   ul,
   span {
     &:last-of-type {
       margin-bottom: 0;
-      &#contacts-otherContacts {
-        span.section_info {
-          margin-bottom: 5em;
-        }
-      }
     }
   }
   ul {
@@ -172,6 +171,7 @@ div.tox.tox-tinymce {
 span.section_info {
   @extend %row;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 .section_info_visibility_label {
   @extend %react-icon-basic;
