@@ -55,7 +55,7 @@ module.exports = {
     '(s)': 'Hämtad från kursplan (s)',
     mandatory: {
       true: 'Obligatorisk rubrik',
-      false: 'Frivillig rubrik'
+      false: 'Valbar rubrik'
     },
     shown: {
       true: 'visas i kurs-pm',
