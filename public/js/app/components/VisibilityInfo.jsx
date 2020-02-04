@@ -20,7 +20,7 @@ const VisibilityInfo = ({
       <span className={`section_info_visibility_label ${isRequired ? 'mandatory' : 'byChoice'}`}>
         <b>{sourceInfo.mandatory[isRequired]}</b>
         {isRequired ? '|' : ': '}
-        <i className={visibleInMemo ? 'visibleInMemo' : 'maybeVisible'}>
+        <i className={visibleInMemo ? 'shortInfo' : 'maybeVisible'}>
           {isRequired ? sourceInfo[context[contentId].source] : sourceInfo.shown[visibleInMemo]}
         </i>
         {/* {isRequired
@@ -29,8 +29,12 @@ const VisibilityInfo = ({
             messages.section_info_visibility_label_hidden} */}
       </span>
       {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon_v" />}
-      {context[contentId].isEditable && '|'}
-      {context[contentId].isEditable && <FaPencilAlt className="section_pencil" />}
+      {!isRequired && '|'}
+      {context[contentId].isEditable ? (
+        <FaPencilAlt className="section_pencil" />
+      ) : (
+        !isRequired && <i className="shortInfo">{sourceInfo[context[contentId].source]}</i>
+      )}
     </span>
     {!isRequired && (
       <Button className="mb-0 mt-0" onClick={() => onToggleVisibleInMemo(contentId)}>
