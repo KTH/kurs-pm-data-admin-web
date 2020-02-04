@@ -17,10 +17,10 @@ const VisibilityInfo = ({
 }) => (
   <span className="section_info word-break">
     <span>
-      <span className="section_info_visibility_label">
+      <span className={`section_info_visibility_label ${isRequired ? 'mandatory' : 'byChoice'}`}>
         <b>{sourceInfo.mandatory[isRequired]}</b>
-        {isRequired ? ' | ' : ': '}
-        <i>
+        {isRequired ? '|' : ': '}
+        <i className={visibleInMemo ? 'visibleInMemo' : 'maybeVisible'}>
           {isRequired ? sourceInfo[context[contentId].source] : sourceInfo.shown[visibleInMemo]}
         </i>
         {/* {isRequired
@@ -29,7 +29,7 @@ const VisibilityInfo = ({
             messages.section_info_visibility_label_hidden} */}
       </span>
       {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon_v" />}
-      {context[contentId].isEditable && ' | '}
+      {context[contentId].isEditable && '|'}
       {context[contentId].isEditable && <FaPencilAlt className="section_pencil" />}
     </span>
     {!isRequired && (

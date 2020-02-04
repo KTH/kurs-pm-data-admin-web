@@ -176,10 +176,23 @@ span.section_info {
 .section_info_visibility_label {
   @extend %react-icon-basic;
   margin-right: 0.63em; //10.08px
+  &.mandatory {
+    b {
+      margin-right: 1.25em;
+      & + i {
+        margin-left: 1.25em;
+      }
+    }
+  }
+  // &.byChoice {
+  //   i.visibleInMemo {
+  //     margin-right: 20px;
+  //   }
+  // }
 }
 .section_info_visibility_icon_v {
   @extend %react-icon-basic;
-  margin: 0 1.3em 0 0; //20.8px
+  margin: 0 1.25em 0 0; //20.8px
 }
 .section_info_visibility_icon {
   @extend %react-icon-basic;
@@ -188,7 +201,7 @@ span.section_info {
 }
 .section_pencil {
   @extend %react-icon-basic;
-  margin: 0 0 0 1.3em; //20.8px
+  margin: 0 0 0 1.25em; //20.8px
 }
 
 .step-forward,
