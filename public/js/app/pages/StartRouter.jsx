@@ -5,9 +5,16 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button, Alert } from 'reactstrap'
 import Start from './Start'
+import ChoiceOptions from './ChoiceOptions'
 import PageHead from '../components/PageHead'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
+
+const STEPS = {
+  1: <ChoiceOptions />,
+  2: <Start />,
+  3: <Start />
+}
 
 @inject(['routerStore'])
 @observer
@@ -45,7 +52,7 @@ class StartRouter extends Component {
         </Row>
         <ProgressBar active={this.state.progress} pages={pages} />
         <PageHead semester={this.props.routerStore.semester} />
-        {this.state.progress === 2 && <Start />}
+        {STEPS[this.state.progress]}
         <Container className="fixed-bottom">
           <Row className="control-buttons">
             <Row className="w-100 my-0 mx-auto">
