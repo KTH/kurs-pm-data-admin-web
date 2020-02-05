@@ -54,7 +54,7 @@ class StartRouter extends Component {
               </Alert>
             </Row>
             <Col sm="4" className="step-back">
-              {this.state.progress === 2 && (
+              {this.state.progress > 1 && (
                 <Button
                   onClick={() => this.setState({ progress: this.state.progress - 1 })}
                   className="btn-back"
