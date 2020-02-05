@@ -51,7 +51,7 @@ class SideMenu extends Component {
           ...{
             width: '105%',
             overflowX: 'hidden',
-            overflowY: 'hidden'
+            overflowY: 'auto'
           }
         }}
       >
