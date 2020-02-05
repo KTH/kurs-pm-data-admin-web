@@ -205,22 +205,7 @@ class Start extends Component {
     const { title, credits, creditUnitAbbr } = this.koppsFreshData
 
     return (
-      <Container className="kip-container" style={{ marginBottom: '115px' }}>
-        <Row>
-          <PageTitle id="mainHeading" className="step-2-title" pageTitle={pageTitles.new}>
-            <span>
-              {this.courseCode +
-                ' ' +
-                title +
-                ' ' +
-                credits +
-                ' ' +
-                (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
-            </span>
-          </PageTitle>
-        </Row>
-        <ProgressBar active={2} pages={pages} />
-        <PageHead semester={this.props.routerStore.semester} />
+      <Container className="memo-container">
         <Row className="mb-4">
           <Col lg="9">
             <ProgressTitle
@@ -270,45 +255,6 @@ class Start extends Component {
             </Col>
           </Row>
         </StickyContainer>
-        <Container className="fixed-bottom">
-          <Row className="control-buttons">
-            <Row className="w-100 my-0 mx-auto">
-              <Alert isOpen={!!this.state.alertIsOpen}>
-                {this.state.alertText ? this.state.alertText : ''}
-              </Alert>
-            </Row>
-            <Col sm="4" className="step-back">
-              <Button onClick={() => alert('back')} className="btn-back" id="back-to-.." alt="BACK">
-                {buttons.btn_back}
-              </Button>
-            </Col>
-            <Col sm="4" className="btn-cancel">
-              <ActionModalButton
-                btnLabel={buttons.btn_cancel}
-                modalId="cancelStep2"
-                type="cancel"
-                modalLabels={actionModals.infoCancel}
-                onConfirm={() => console.log('Cancelled')}
-              />
-            </Col>
-            <Col sm="4" className="step-forward">
-              <Button onClick={this.handleConfirm} color="secondary">
-                {buttons.btn_save}
-              </Button>
-              <Button
-                onClick={() => alert('Go to granska')}
-                id="to-peview"
-                className="btn-next"
-                style={{ marginLeft: '1.25em' }}
-                color="success"
-                alt={'Go to ' + buttons.btn_preview}
-                disabled={false /* this.state.isError */}
-              >
-                {buttons.btn_preview}
-              </Button>
-            </Col>
-          </Row>
-        </Container>
       </Container>
     )
   }
