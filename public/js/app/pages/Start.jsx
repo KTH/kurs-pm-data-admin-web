@@ -9,13 +9,11 @@ import { StickyContainer, Sticky } from 'react-sticky'
 
 import EditorPerTitle from '../components/Editor'
 import Section from '../components/Section'
-import PageHead from '../components/PageHead'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
 import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
-import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -200,9 +198,7 @@ class Start extends Component {
   }
 
   render() {
-    const { pages, pageTitles, actionModals, buttons } = i18n.messages[1]
-    const progress = 2 // TODO: Change progress as a state
-    const { title, credits, creditUnitAbbr } = this.koppsFreshData
+    const { pages, buttons } = i18n.messages[1]
 
     return (
       <Container className="memo-container">
@@ -210,10 +206,10 @@ class Start extends Component {
           <Col lg="9">
             <ProgressTitle
               id="progress-title"
-              text={pages[progress - 1].title}
+              text={pages[this.state.progress - 1].title}
               infoModalLabels={{
-                header: pages[progress - 1].title,
-                body: pages[progress - 1].intro,
+                header: pages[this.state.progress - 1].title,
+                body: pages[this.state.progress - 1].intro,
                 btnClose: 'Close'
               }}
             />
