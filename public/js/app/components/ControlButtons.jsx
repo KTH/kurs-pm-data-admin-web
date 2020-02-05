@@ -1,0 +1,74 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-console */
+/* eslint-disable react/no-danger */
+import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
+import i18n from '../../../../i18n'
+import { Container, Row, Col, Button, Alert } from 'reactstrap'
+import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+
+@inject(['routerStore'])
+@observer
+class ControlButtons extends Component {
+  state = {}
+
+  courseCode = this.props.routerStore.courseCode
+
+  semester = this.props.routerStore.semester
+
+  componentDidMount() {}
+
+  render() {
+    const { actionModals, buttons } = i18n.messages[1]
+    const { alertIsOpen, alertText, progress } = this.props
+
+    return (
+      <Container className="fixed-bottom">
+        <Row className="control-buttons">
+          <Row className="w-100 my-0 mx-auto">
+            <Alert isOpen={!!alertIsOpen}>{alertText || ''}</Alert>
+          </Row>
+          <Col sm="4" className="step-back">
+            {progress > 1 && (
+              <Button
+                onClick={() => this.props.onClick({ progress: progress - 1 })}
+                className="btn-back"
+                id="back-to-.."
+                alt="BACK"
+              >
+                {buttons.btn_back}
+              </Button>
+            )}
+          </Col>
+          <Col sm="4" className="btn-cancel">
+            <ActionModalButton
+              btnLabel={buttons.btn_cancel}
+              modalId="cancelStep2"
+              type="cancel"
+              modalLabels={actionModals.infoCancel}
+              onConfirm={() => console.log('Cancelled')}
+            />
+          </Col>
+          <Col sm="4" className="step-forward">
+            <Button onClick={this.handleConfirm} color="secondary">
+              {buttons.btn_save}
+            </Button>
+            <Button
+              onClick={() => this.props.onClick({ progress: progress + 1 })}
+              id="to-id"
+              className="btn-next"
+              style={{ marginLeft: '1.25em' }}
+              color="success"
+              alt={'Go to ' + buttons.btn_preview}
+              disabled={false /* this.state.isError */}
+            >
+              {buttons.btn_preview}
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
+}
+
+export default ControlButtons
