@@ -199,20 +199,13 @@ class Start extends Component {
 
   render() {
     const { pages, buttons } = i18n.messages[1]
+    const progress = 2
 
     return (
       <Container className="memo-container">
         <Row className="mb-4">
           <Col lg="9">
-            <ProgressTitle
-              id="progress-title"
-              text={pages[this.state.progress - 1].title}
-              infoModalLabels={{
-                header: pages[this.state.progress - 1].title,
-                body: pages[this.state.progress - 1].intro,
-                btnClose: 'Close'
-              }}
-            />
+            <ProgressTitle id="progress-title" text={pages[progress - 1]} />
           </Col>
           <Col lg="3" className="change-view">
             <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="primary" size="sm">
