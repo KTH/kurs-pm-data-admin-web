@@ -38,9 +38,9 @@ module.exports = {
     /**
      * Labels
      */
-    section_info_visibility_label_shown: 'Visas i kurs-pm',
-    section_info_visibility_label_hidden: 'Döljs i kurs-pm',
-    section_info_visibility_mandatory: 'Obligatorisk information (kan inte döljas i kurs-pm)',
+    section_info_visibility_label_shown: 'visas i kurs-pm',
+    section_info_visibility_label_hidden: 'döljs i kurs-pm',
+    section_info_visibility_mandatory: 'Obligatorisk rubrik',
 
     /**
      * Headings
@@ -49,28 +49,17 @@ module.exports = {
     page_header_heading_course_round: 'Kursomgång'
   },
   sourceInfo: {
-    '(c)': {
-      from: '<p><b>(c)</b> Hämtad från Kursgemensam information </p>',
-      details: '<p><b>Redigering av innehåll:</b> i <a href="#">KOPPS</a> av behöriga personal</p>'
-    },
-    '(pm)': {
-      from: '<p><b>(pm)</b> Information för kurs-pm lägger du in här </p>',
-      details: `<p><b>Redigering av innehåll:</b> välj "Visa i kurs-pm” för att öppna editeringsmöjlighter. 
-      Du kan sedan välja ”Hjälptext” för att få vägledning med vad som kan finnas med och hur innehållet kan presenteras.</p>`
-    },
-    '(r)': {
-      from: '<p><b>(r)</b> Hämtad från Kursomgångsinformation inför kursval </p>',
-      details:
-        '<p><b>Redigering av innehåll:</b> i <a href="#">KOPPS</a> av behöriga personal</p></p>'
-    },
-    '(s)': {
-      from: '<p><b>(s)</b> Hämtad från kursplan (2017 - tillsvidare) </p>',
-      details:
-        '<p><b>Redigering av innehåll:</b> i <a href="#">KOPPS</a> enligt regler för kursplan …</p>'
-    },
+    '(c)': 'Hämtad från Kursinformation (c)',
+    '(pm)': '(pm)',
+    '(r)': 'Hämtad från Kursinformation (r)',
+    '(s)': 'Hämtad från kursplan (s)',
     mandatory: {
-      true: 'Obligatorisk information (kan inte döljas i kurs-pm)',
-      false: 'Frivillig rubrik'
+      true: 'Obligatorisk rubrik',
+      false: 'Valbar'
+    },
+    shown: {
+      true: 'visas i kurs-pm',
+      false: 'döljs i kurs-pm'
     }
   },
   memoHeadings: {

@@ -9,6 +9,10 @@ $light-grey: #d4d4d4;
   display: flex;
   flex-direction: column;
 }
+%react-icon-basic {
+  min-width: 1em;
+  min-height: 1em;
+}
 #kth-node {
   background: pink;
 }
@@ -132,11 +136,15 @@ div.tox.tox-tinymce {
 }
 
 .memo-content {
+  padding-bottom: 12em;
   h2 {
     margin-bottom: -29px;
   }
   .title-and-info {
-    margin-top: 24px;
+    margin-top: 35px; //h3 15px + 34.88px
+    .btn-info-modal {
+      margin-left: 20px;
+    }
   }
   p,
   ul,
@@ -163,17 +171,35 @@ div.tox.tox-tinymce {
 span.section_info {
   @extend %row;
   justify-content: space-between;
+  margin-bottom: 17px;
+  i.shortInfo {
+    margin-left: 1.25em;
+  }
 }
-
 .section_info_visibility_label {
-  font-style: italic;
+  @extend %react-icon-basic;
+  margin-right: 0.63em; //10.08px
+  &.mandatory {
+    b {
+      margin-right: 1.25em;
+      & + i {
+        margin-left: 1.25em;
+      }
+    }
+  }
 }
-
+.section_info_visibility_icon_v {
+  @extend %react-icon-basic;
+  margin: 0 1.25em 0 0; //20.8px
+}
 .section_info_visibility_icon {
-  min-width: 1em;
-  min-height: 1em;
+  @extend %react-icon-basic;
   margin-right: 0;
-  margin-top: 0.2em;
+  margin-top: 0.3em;
+}
+.section_pencil {
+  @extend %react-icon-basic;
+  margin: 0 0 0 1.25em; //20.8px
 }
 
 .step-forward,
@@ -227,25 +253,4 @@ a.nav-link {
     margin-bottom: 0;
     margin-top: 0;
   }
-}
-
-ul.nav-ancestor {
-  display: inline-block;
-}
-
-.nav-item span {
-  margin-left: 1.4em;
-}
-
-.Collapsible__trigger .menu-icon {
-  margin-bottom: 0.4em;
-  margin-left: 0.4em;
-}
-
-.Collapsible__trigger.is-closed .menu-icon {
-  animation: rotateUp 0.3s ease-in-out forwards;
-}
-
-.Collapsible__trigger.is-open .menu-icon {
-  animation: rotateDown 0.3s ease-in-out forwards;
 }
