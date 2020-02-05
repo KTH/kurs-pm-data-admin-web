@@ -17,15 +17,29 @@ class SideMenu extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      expandedId: null
+      expandedIds: []
     }
   }
 
   setExpandedId = expandedId => {
-    this.setState({ expandedId })
+    this.setState(({ expandedIds }) => {
+      if (!expandedIds.includes(expandedId)) {
+        expandedIds.push(expandedId)
+      }
+      return { expandedIds }
+    })
   }
 
-  isExpandedId = id => id === this.state.expandedId
+  removeExpandedId = expandedId =>
+    this.setState(({ expandedIds }) => ({
+      expandedIds: expandedIds.filter(id => id !== expandedId)
+    }))
+
+  isExpandedId = id => this.state.expandedIds.includes(id)
+
+  componentDidMount = () => {
+    if (this.state.expandedIds.length === 0) this.setState({ expandedIds: [sections[0].id] })
+  }
 
   render() {
     const { memoHeadings } = i18n.messages[1]
@@ -50,6 +64,7 @@ class SideMenu extends Component {
                 title={section.title}
                 isExpandedId={this.isExpandedId}
                 setExpandedId={this.setExpandedId}
+                removeExpandedId={this.removeExpandedId}
               >
                 <ul id="leftmenu-div-1" className="nav nav-list">
                   {section.content.map(contentId => (
@@ -88,11 +103,12 @@ const NavBarCollapse = ({ children }) => (
 
 const NavListExpandable = ({ children }) => <ul className="nav nav-list expandable">{children}</ul>
 
-const NavItemNode = ({ id, title, isExpandedId, setExpandedId, children }) => (
+const NavItemNode = ({ id, title, isExpandedId, setExpandedId, removeExpandedId, children }) => (
   <li className={isExpandedId(id) ? 'nav-item node selected expanded' : 'nav-item node'}>
     <Collapsible
+      open={isExpandedId(id)}
       onOpening={() => setExpandedId(id)}
-      onClosing={() => setExpandedId(null)}
+      onClosing={() => removeExpandedId(id)}
       trigger={
         // eslint-disable-next-line react/jsx-wrap-multilines
         <a href={'#' + id} className="nav-link">
