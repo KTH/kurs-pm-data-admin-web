@@ -4,15 +4,10 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button, Alert } from 'reactstrap'
-import { Route } from 'react-router-dom'
-import { StickyContainer, Sticky } from 'react-sticky'
-
-import EditorPerTitle from '../components/Editor'
-import Section from '../components/Section'
+import { StickyContainer } from 'react-sticky'
+import Start from './Start'
 import PageHead from '../components/PageHead'
 import ProgressTitle from '../components/ProgressTitle'
-import { context, sections } from '../util/fieldsByType'
-import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
 
@@ -25,9 +20,7 @@ class StartRouter extends Component {
 
   semester = this.props.routerStore.semester
 
-  componentDidMount() {
-    this.scrollIntoView()
-  }
+  componentDidMount() {}
 
   doUpdateStates = states => {
     if (states) this.setState(states)
@@ -54,29 +47,7 @@ class StartRouter extends Component {
         </Row>
         <ProgressBar active={this.state.progress} pages={pages} />
         <PageHead semester={this.props.routerStore.semester} />
-        <Row className="mb-4">
-          <Col lg="9">
-            <ProgressTitle
-              id="progress-title"
-              text={pages[this.state.progress - 1].title}
-              infoModalLabels={{
-                header: pages[this.state.progress - 1].title,
-                body: pages[this.state.progress - 1].intro,
-                btnClose: 'Close'
-              }}
-            />
-          </Col>
-          <Col lg="3" className="change-view">
-            <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="primary" size="sm">
-              {this.state.singleMode
-                ? buttons.btn_switch_view_scroll
-                : buttons.btn_switch_view_single}
-            </Button>
-          </Col>
-        </Row>
-        <StickyContainer className="sticky-content-section">
-          <Row>{/* HERE DIFFERENT CONTENT */}</Row>
-        </StickyContainer>
+        {this.state.progress === 2 && <Start />}
         <Container className="fixed-bottom">
           <Row className="control-buttons">
             <Row className="w-100 my-0 mx-auto">
@@ -85,9 +56,16 @@ class StartRouter extends Component {
               </Alert>
             </Row>
             <Col sm="4" className="step-back">
-              <Button onClick={() => alert('back')} className="btn-back" id="back-to-.." alt="BACK">
-                {buttons.btn_back}
-              </Button>
+              {this.state.progress === 2 && (
+                <Button
+                  onClick={() => this.setState({ progress: this.state.progress - 1 })}
+                  className="btn-back"
+                  id="back-to-.."
+                  alt="BACK"
+                >
+                  {buttons.btn_back}
+                </Button>
+              )}
             </Col>
             <Col sm="4" className="btn-cancel">
               <ActionModalButton
@@ -103,8 +81,8 @@ class StartRouter extends Component {
                 {buttons.btn_save}
               </Button>
               <Button
-                onClick={() => alert('Go to granska')}
-                id="to-peview"
+                onClick={() => this.setState({ progress: this.state.progress + 1 })}
+                id="to-id"
                 className="btn-next"
                 style={{ marginLeft: '1.25em' }}
                 color="success"

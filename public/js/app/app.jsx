@@ -11,7 +11,7 @@ import '../../css/node-web.scss'
 import RouterStore from './stores/RouterStore'
 
 // Pages
-import Start from './pages/Start'
+import StartRouter from './pages/StartRouter'
 
 function appFactory() {
   const routerStore = new RouterStore()
@@ -22,7 +22,11 @@ function appFactory() {
 
   return (
     <Provider routerStore={routerStore}>
-      <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester" component={Start} />
+      <Route
+        exact
+        path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester"
+        component={StartRouter}
+      />
     </Provider>
   )
 }
