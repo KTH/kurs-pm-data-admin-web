@@ -130,6 +130,17 @@ function getScheduleLinks(language) {
   }
 }
 
+async function getKoppsCourseData(courseCode, lang = 'sv') {
+  try {
+    return await api.koppsApi.getAsync(
+      `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
+    )
+  } catch (err) {
+    log.debug('getKoppsCourseData has an error:' + err)
+    return err
+  }
+}
+
 async function getDetailedInformation(courseCode, language) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
@@ -209,5 +220,6 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 module.exports = {
   koppsApi: api,
+  getKoppsCourseData,
   getSyllabus
 }
