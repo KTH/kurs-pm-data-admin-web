@@ -4,10 +4,8 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col, Button, Alert } from 'reactstrap'
-import { StickyContainer } from 'react-sticky'
 import Start from './Start'
 import PageHead from '../components/PageHead'
-import ProgressTitle from '../components/ProgressTitle'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
 
