@@ -15,6 +15,8 @@ import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
 
+const PROGRESS = 2
+
 @inject(['routerStore'])
 @observer
 class Start extends Component {
@@ -90,9 +92,9 @@ class Start extends Component {
   }
 
   handleAlert = alertText => {
-    this.setState({ alertIsOpen: true, alertText })
+    this.props.onChange({ alertIsOpen: true, alertText })
     setTimeout(() => {
-      this.setState({ alertIsOpen: false, alertText: '' })
+      this.props.onChange({ alertIsOpen: false, alertText: '' })
     }, 2000)
   }
 
@@ -199,13 +201,12 @@ class Start extends Component {
 
   render() {
     const { pages, buttons } = i18n.messages[1]
-    const progress = 2
 
     return (
       <Container className="memo-container">
         <Row className="mb-4">
           <Col lg="9">
-            <ProgressTitle id="progress-title" text={pages[progress - 1]} />
+            <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
           </Col>
           <Col lg="3" className="change-view">
             <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="primary" size="sm">
