@@ -14,16 +14,18 @@ const PROGRESS = 1
 @inject(['routerStore'])
 @observer
 class ChoiceOptions extends Component {
-  courseCode = this.props.routerStore.courseCode
+  state = {
+    semester: this.props.routerStore.semester
+  }
 
-  semester = this.props.routerStore.semester
+  courseCode = this.props.routerStore.courseCode
 
   componentDidMount() {}
 
   render() {
     const { pages, pageTitles } = i18n.messages[1]
     const { course, termsWithCourseRounds } = this.props.routerStore.koppsCourseRounds
-    console.log('!!!!! a course', course)
+    console.log('!!!!! a course', this.props.routerStore.semester)
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -51,8 +53,8 @@ class ChoiceOptions extends Component {
           }[this.state.progress]
         } */}
         <ControlButtons
-          onClick={this.doUpdateStates}
           progress={PROGRESS}
+          semester={this.state.semester}
           alertText="{this.state.alertText}"
           alertIsOpen={false} // this.state.alertIsOpen
         />

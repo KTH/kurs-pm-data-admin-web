@@ -10,11 +10,9 @@ const ADMIN = '/kursinfoadmin/kurs-pm-data/'
 @inject(['routerStore'])
 @observer
 class ControlButtons extends Component {
-  state = {}
+  semester = this.props.semester || this.props.routerStore.semester
 
   courseCode = this.props.routerStore.courseCode
-
-  semester = this.props.routerStore.semester
 
   componentDidMount() {}
 
@@ -22,6 +20,11 @@ class ControlButtons extends Component {
     if (this.props.progress === 2)
       window.location = `${ADMIN}${this.courseCode}?chosen=${this.semester}`
     else this.props.onClick({ progress: this.props.progress - 1 })
+  }
+
+  forwardTo = event => {
+    if (this.props.progress === 1) window.location = `${ADMIN}${this.courseCode}/${this.semester}`
+    else this.props.onClick({ progress: this.props.progress + 1 })
   }
 
   render() {
@@ -55,7 +58,7 @@ class ControlButtons extends Component {
               {buttons.btn_save}
             </Button>
             <Button
-              onClick={() => this.props.onClick({ progress: progress + 1 })}
+              onClick={this.forwardTo}
               id="to-id"
               className="btn-next"
               style={{ marginLeft: '1.25em' }}

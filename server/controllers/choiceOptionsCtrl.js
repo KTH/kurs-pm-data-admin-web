@@ -41,7 +41,7 @@ async function getCourseRounds(req, res, next) {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
     const { courseCode } = req.params
-    const { choosen } = req.query
+    const { chosen } = req.query
     const renderProps = _staticRender(context, req.url)
 
     // renderProps.props.children.props.routerStore.getData(courseCode, semester)
@@ -53,7 +53,7 @@ async function getCourseRounds(req, res, next) {
     )
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
     renderProps.props.children.props.routerStore.courseCode = courseCode
-    renderProps.props.children.props.routerStore.semester = choosen
+    renderProps.props.children.props.routerStore.semester = chosen
     renderProps.props.children.props.routerStore.koppsCourseRounds = await getKoppsCourseRoundTerms(
       courseCode
     )
