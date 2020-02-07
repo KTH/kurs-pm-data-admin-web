@@ -52,6 +52,7 @@ async function getContent(req, res, next) {
       apis,
       server.hostUrl
     )
+    renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
     renderProps.props.children.props.routerStore.koppsFreshData = {
