@@ -3,22 +3,17 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col } from 'reactstrap'
-import { StickyContainer } from 'react-sticky'
-import ProgressTitle from '../components/ProgressTitle'
+import { Container, Row } from 'reactstrap'
+import ControlButtons from '../components/ControlButtons'
 import i18n from '../../../../i18n'
+import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+// import { Switch,Route } from 'react-router-dom'
 
 const PROGRESS = 1
 
 @inject(['routerStore'])
 @observer
 class ChoiceOptions extends Component {
-  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
-
-  isApiExisted = !this.props.routerStore.memoData
-
-  koppsFreshData = this.props.routerStore.koppsFreshData
-
   courseCode = this.props.routerStore.courseCode
 
   semester = this.props.routerStore.semester
@@ -26,22 +21,41 @@ class ChoiceOptions extends Component {
   componentDidMount() {}
 
   render() {
-    const { pages } = i18n.messages[1]
+    const { pages, pageTitles } = i18n.messages[1]
+    const { course, termsWithCourseRounds } = this.props.routerStore.koppsCourseRounds
+    console.log('!!!!! a course', course)
 
     return (
-      <Container className="memo-container">
-        <Row className="mb-4">
-          <Col lg="9">
-            <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
-          </Col>
+      <Container className="kip-container" style={{ marginBottom: '115px' }}>
+        <Row>
+          <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
+            <span>
+              {this.courseCode +
+                ' ' +
+                course.title.sv +
+                ' ' +
+                course.credits +
+                ' ' +
+                (i18n.isSwedish() ? course.creditUnitAbbr.sv : 'credits')}
+            </span>
+          </PageTitle>
         </Row>
-        <StickyContainer className="sticky-content-section">
-          <Row>
-            <Col lg="12">
-              <h2>Hello</h2>
-            </Col>
-          </Row>
-        </StickyContainer>
+        <ProgressBar active={PROGRESS} pages={pages} />
+        {termsWithCourseRounds.map(term => (
+          <p>{term.term}</p>
+        ))}
+        {/* {
+          {
+            2: <MemoEdition onChange={this.doUpdateStates} />,
+            3: <h2>Hej! Det är sista steg</h2>
+          }[this.state.progress]
+        } */}
+        <ControlButtons
+          onClick={this.doUpdateStates}
+          progress={PROGRESS}
+          alertText="{this.state.alertText}"
+          alertIsOpen={false} // this.state.alertIsOpen
+        />
       </Container>
     )
   }
