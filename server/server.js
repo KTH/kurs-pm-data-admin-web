@@ -205,7 +205,7 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { System, MemoContent } = require('./controllers')
+const { ChoiceOptions, System, MemoContent } = require('./controllers')
 const { requireRole } = require('./authentication')
 
 // System routes
@@ -229,6 +229,13 @@ appRoute.get(
   config.proxyPrefixPath.uri + '/:courseCode/:semester*',
   MemoContent.getContent
 )
+
+appRoute.get(
+  'memo.chooseRounds',
+  config.proxyPrefixPath.uri + '/:courseCode/',
+  ChoiceOptions.getCourseRounds
+)
+
 appRoute.get(
   'system.gateway',
   config.proxyPrefixPath.uri + '/gateway',
