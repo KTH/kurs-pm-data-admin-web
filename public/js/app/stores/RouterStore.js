@@ -8,6 +8,8 @@ class RouterStore {
 
   @observable koppsFreshData = {}
 
+  @observable koppsCourseRounds
+
   @observable memoData = {}
 
   @observable defaultValues = {
