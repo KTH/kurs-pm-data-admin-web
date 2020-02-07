@@ -3,7 +3,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Button, Alert } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
 
@@ -19,7 +19,7 @@ const PROGRESS = 2
 
 @inject(['routerStore'])
 @observer
-class Start extends Component {
+class MemoEdition extends Component {
   state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
 
   isApiExisted = !this.props.routerStore.memoData
@@ -201,7 +201,7 @@ class Start extends Component {
 
   render() {
     const { pages, buttons } = i18n.messages[1]
-
+    console.log('Next ')
     return (
       <Container className="memo-container">
         <Row className="mb-4">
@@ -250,4 +250,4 @@ class Start extends Component {
   }
 }
 
-export default Start
+export default MemoEdition

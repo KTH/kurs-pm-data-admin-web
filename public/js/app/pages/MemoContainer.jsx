@@ -4,17 +4,17 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row } from 'reactstrap'
-import Start from './Start'
-import ChoiceOptions from './ChoiceOptions'
 import ControlButtons from '../components/ControlButtons'
-import PageHead from '../components/PageHead'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+// import { Switch,Route } from 'react-router-dom'
+import MemoEdition from './MemoEdition'
+import PageHead from '../components/PageHead'
 
 @inject(['routerStore'])
 @observer
-class StartRouter extends Component {
-  state = { progress: this.props.progress ? Number(this.props.progress) : 1 }
+class MemoContainer extends Component {
+  state = { progress: this.props.progress ? Number(this.props.progress) : 2 }
 
   courseCode = this.props.routerStore.courseCode
 
@@ -23,6 +23,7 @@ class StartRouter extends Component {
   componentDidMount() {}
 
   doUpdateStates = states => {
+    // To do check progress limits
     if (states) this.setState(states)
   }
 
@@ -49,8 +50,7 @@ class StartRouter extends Component {
         <PageHead semester={this.props.routerStore.semester} />
         {
           {
-            1: <ChoiceOptions onChange={this.doUpdateStates} />,
-            2: <Start onChange={this.doUpdateStates} />,
+            2: <MemoEdition onChange={this.doUpdateStates} />,
             3: <h2>Hej! Det är sista steg</h2>
           }[this.state.progress]
         }
@@ -65,4 +65,4 @@ class StartRouter extends Component {
   }
 }
 
-export default StartRouter
+export default MemoContainer
