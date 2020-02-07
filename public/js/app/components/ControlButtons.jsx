@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react'
 import i18n from '../../../../i18n'
 import { Container, Row, Col, Button, Alert } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
-
+const ADMIN = '/kursinfoadmin/kurs-pm-data/'
 @inject(['routerStore'])
 @observer
 class ControlButtons extends Component {
@@ -17,6 +17,12 @@ class ControlButtons extends Component {
   semester = this.props.routerStore.semester
 
   componentDidMount() {}
+
+  backTo = event => {
+    if (this.props.progress === 2)
+      window.location = `${ADMIN}${this.courseCode}?chosen=${this.semester}`
+    else this.props.onClick({ progress: this.props.progress - 1 })
+  }
 
   render() {
     const { actionModals, buttons } = i18n.messages[1]
@@ -30,12 +36,7 @@ class ControlButtons extends Component {
           </Row>
           <Col sm="4" className="step-back">
             {progress > 1 && (
-              <Button
-                onClick={() => this.props.onClick({ progress: progress - 1 })}
-                className="btn-back"
-                id="back-to-.."
-                alt="BACK"
-              >
+              <Button onClick={this.backTo} className="btn-back" id="back-to-.." alt="BACK">
                 {buttons.btn_back}
               </Button>
             )}
