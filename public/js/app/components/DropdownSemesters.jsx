@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
-class DropdownTerms extends Component {
+class DropdownSemesters extends Component {
   state = {
-    dropdownOpen: false,
-    term: ''
+    dropdownOpen: false
   }
 
   toggle = () => this.setState({ dropdownOpen: !this.state.dropdownOpen })
@@ -14,7 +13,7 @@ class DropdownTerms extends Component {
     return (
       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} className="select-semester">
         <DropdownToggle caret>
-          {this.state.term ? 'Vald termin: ' + this.state.term : 'Välj termin'}
+          {this.props.semester ? 'Vald termin: ' + this.props.semester : 'Välj termin'}
         </DropdownToggle>
         <DropdownMenu>
           {items &&
@@ -22,7 +21,9 @@ class DropdownTerms extends Component {
               <DropdownItem
                 id={`itemFor-${obj.term}`}
                 key={obj.term}
-                onClick={() => this.setState({ term: obj.term })}
+                onClick={() => {
+                  this.props.onChoice({ semester: obj.term })
+                }}
               >
                 {obj.term}
               </DropdownItem>
@@ -33,4 +34,4 @@ class DropdownTerms extends Component {
   }
 }
 
-export default DropdownTerms
+export default DropdownSemesters
