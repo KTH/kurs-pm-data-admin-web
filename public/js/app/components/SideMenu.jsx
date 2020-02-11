@@ -6,10 +6,20 @@ import Collapsible from 'react-collapsible'
 import { sections, context } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 
-const visibility = (contentId, visibleInMemoProp) => {
+const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
   if (context[contentId].isRequired) {
-    return (visibleInMemoProp && visibleInMemoProp[contentId]) || false
+    // Required headers are always visible, don’t show an eye slash icon
+    return false
   }
+
+  if (visibleInMemoProp && visibleInMemoProp[contentId]) {
+    // Header isn’t required and there’s a display mode saved
+    // Display mode is inverted from whether or not an eye slash icon should be shown
+    return !visibleInMemoProp[contentId]
+  }
+
+  // Header isn’t required and there’s no display mode saved
+  // Default is to hide header and therefor to show an eye slash icon
   return true
 }
 
@@ -72,7 +82,7 @@ class SideMenu extends Component {
                       key={'nav-litem-leaf-' + contentId}
                       id={section.id + '-' + contentId}
                       title={memoHeadings[contentId].header}
-                      showVisibilityIcon={visibility(contentId, this.props.visibleInMemo)}
+                      showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visibleInMemo)}
                     />
                   ))}
                 </ul>
@@ -121,7 +131,7 @@ const NavItemNode = ({ id, title, isExpandedId, setExpandedId, removeExpandedId,
   </li>
 )
 
-const NavItemLeaf = ({ id, title, showVisibilityIcon }) => (
+const NavItemLeaf = ({ id, title, showEyeSlashIcon: showIcon }) => (
   <li className="nav-item leaf">
     <Link
       smooth
@@ -130,7 +140,7 @@ const NavItemLeaf = ({ id, title, showVisibilityIcon }) => (
       scroll={el => el.scrollIntoView({ behavior: 'smooth' })}
     >
       <span>{title}</span>
-      {showVisibilityIcon && <FaRegEyeSlash className="section_info_visibility_icon" />}
+      {showIcon && <FaRegEyeSlash className="section_info_visibility_icon" />}
     </Link>
   </li>
 )
