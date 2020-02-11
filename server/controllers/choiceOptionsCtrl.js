@@ -63,7 +63,6 @@ async function getCourseRounds(req, res, next) {
     // )
 
     const html = ReactDOMServer.renderToString(renderProps)
-    console.log('DOOOOOOONE', renderProps.props.children.props.routerStore.koppsCourseRounds)
     res.render('memo/index', {
       html,
       title: lang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',

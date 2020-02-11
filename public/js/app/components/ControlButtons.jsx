@@ -54,19 +54,27 @@ class ControlButtons extends Component {
             />
           </Col>
           <Col sm="4" className="step-forward">
-            <Button onClick={this.handleConfirm} color="secondary">
-              {buttons.btn_save}
-            </Button>
+            {progress === 2 && (
+              <Button onClick={this.handleConfirm} color="secondary">
+                {buttons.btn_save}
+              </Button>
+            )}
             <Button
               onClick={this.forwardTo}
               id="to-id"
               className="btn-next"
               style={{ marginLeft: '1.25em' }}
               color="success"
-              alt={'Go to ' + buttons.btn_preview}
+              alt="Go to "
               disabled={false /* this.state.isError */}
             >
-              {buttons.btn_preview}
+              {
+                {
+                  1: buttons.btn_edit,
+                  2: buttons.btn_preview,
+                  3: buttons.btn_publish
+                }[progress]
+              }
             </Button>
           </Col>
         </Row>
