@@ -54,12 +54,14 @@ class MemoContainer extends Component {
             3: <h2>Hej! Det är sista steg</h2>
           }[this.state.progress]
         }
-        <ControlButtons
-          onClick={this.doUpdateStates}
-          progress={this.state.progress}
-          alertText={this.state.alertText}
-          alertIsOpen={this.state.alertIsOpen}
-        />
+        <Container className="fixed-bottom">
+          <ControlButtons
+            onClick={this.doUpdateStates}
+            progress={this.state.progress}
+            alertText={this.state.alertText}
+            alertIsOpen={this.state.alertIsOpen}
+          />
+        </Container>
       </Container>
     )
   }
