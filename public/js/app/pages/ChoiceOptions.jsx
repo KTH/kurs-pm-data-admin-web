@@ -6,6 +6,7 @@ import { inject, observer } from 'mobx-react'
 import { Col, Container, Row } from 'reactstrap'
 import ControlButtons from '../components/ControlButtons'
 import DropdownSemesters from '../components/DropdownSemesters'
+import CourseRoundsCheckboxes from '../components/CourseRoundsCheckboxes'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar, TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
 
@@ -31,7 +32,7 @@ class ChoiceOptions extends Component {
   }
 
   render() {
-    const { infoModals, pages, pageTitles, buttons } = i18n.messages[1]
+    const { info, pages, pageTitles, buttons } = i18n.messages[1]
     const { course, termsWithCourseRounds } = this.props.routerStore.koppsCourseRounds
 
     return (
@@ -57,7 +58,7 @@ class ChoiceOptions extends Component {
               <span>
                 <TitleAndInfoModal
                   modalId="choose-semester"
-                  titleAndInfo={infoModals.chooseSemester}
+                  titleAndInfo={info.chooseSemester}
                   btnClose={buttons.btnClose}
                 />
                 <DropdownSemesters
@@ -69,8 +70,15 @@ class ChoiceOptions extends Component {
               <span style={this.state.semester ? { marginTop: '50' } : { display: 'none' }}>
                 <TitleAndInfoModal
                   modalId="choose-course-round"
-                  titleAndInfo={infoModals.chooseRound}
+                  titleAndInfo={info.chooseRound}
                   btnClose={buttons.btnClose}
+                />
+                <p>
+                  <b>{info.chooseRound.shortInstructions}</b>
+                </p>
+                <CourseRoundsCheckboxes
+                  items={termsWithCourseRounds}
+                  semester={this.state.semester}
                 />
               </span>
             </Col>

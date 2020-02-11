@@ -296,7 +296,7 @@ module.exports = {
       btnConfirm: 'Ja, fortsätt avbryta'
     }
   },
-  infoModals: {
+  info: {
     chooseSemester: {
       header: 'Välj termin',
       body:
@@ -308,7 +308,9 @@ module.exports = {
        Programstudenter, betalande studenter och fristående studenter antas till olika kurstillfällen men kan utbildas i samma kursomgång. 
        Kurstillfällen ska alltså grupperas ihop till en kursomgång. Kursomgången är ett praktiskt genomförande av en kurs. 
        Kursomgången har en gemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
-       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`
+       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
+      shortInstructions:
+        'Följande kurstillfällen saknar ett publicerat kurs-pm eller har ett utkast. Markera en eller flera som ingår i kursomgången:'
     }
   },
   buttons: {
