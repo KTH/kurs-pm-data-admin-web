@@ -4,13 +4,17 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import i18n from '../../../../i18n'
-import { Container, Row, Col, Button, Alert } from 'reactstrap'
+import { Row, Col, Button, Alert } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+
 const ADMIN = '/kursinfoadmin/kurs-pm-data/'
+
 @inject(['routerStore'])
 @observer
 class ControlButtons extends Component {
   semester = this.props.semester || this.props.routerStore.semester
+
+  rounds = this.props.rounds || this.props.routerStore.rounds
 
   courseCode = this.props.routerStore.courseCode
 
@@ -18,12 +22,17 @@ class ControlButtons extends Component {
 
   backTo = event => {
     if (this.props.progress === 2)
-      window.location = `${ADMIN}${this.courseCode}?chosen=${this.semester}`
+      window.location = `${ADMIN}${this.courseCode}?semester=${
+        this.semester
+      }&rounds=${this.rounds.join(',')}`
     else this.props.onClick({ progress: this.props.progress - 1 })
   }
 
   forwardTo = event => {
-    if (this.props.progress === 1) window.location = `${ADMIN}${this.courseCode}/${this.semester}`
+    if (this.props.progress === 1)
+      window.location = `${ADMIN}${this.courseCode}/${this.semester}?rounds=${this.rounds.join(
+        ','
+      )}`
     else this.props.onClick({ progress: this.props.progress + 1 })
   }
 

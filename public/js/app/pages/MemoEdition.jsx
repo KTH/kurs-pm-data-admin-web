@@ -64,12 +64,13 @@ class MemoEdition extends Component {
   }
 
   handleSave = callback => {
-    const { courseCode, semester } = this
+    const { courseCode, semester, ladokRoundId } = this
     const start = {
       // It will be needed at the stage when we get 'fresh' data from Kopps
-      _id: courseCode + semester,
+      // _id: courseCode + semester,
       courseCode,
-      semester
+      semester,
+      ladokRoundId
     }
     const body = this.isApiExisted
       ? this.state
