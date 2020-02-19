@@ -8,7 +8,7 @@ const { toJS } = require('mobx')
 
 const ReactDOMServer = require('react-dom/server')
 const { getKoppsCourseRoundTerms } = require('../koppsApi')
-// const { getMemoDataById, postMemoDataById } = require('../kursPmDataApi')
+const { getAllMemosByCourseCode } = require('../kursPmDataApi')
 // const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
@@ -43,6 +43,8 @@ async function getCourseRounds(req, res, next) {
     const { courseCode } = req.params
     const semester =
       req.query.semester && req.query.semester.match(/^[0-9]{5}$/) ? req.query.semester : ''
+    const rounds = (req.query.rounds && req.query.rounds.split(',')) || []
+    // req.query.rounds && req.query.rounds.match(/^[0-9][,]{10}$/) ? req.query.rounds.split(',') : []
     const renderProps = _staticRender(context, req.url)
 
     // renderProps.props.children.props.routerStore.getData(courseCode, semester)
@@ -55,13 +57,13 @@ async function getCourseRounds(req, res, next) {
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
+    renderProps.props.children.props.routerStore.rounds = rounds
     renderProps.props.children.props.routerStore.koppsCourseRounds = await getKoppsCourseRoundTerms(
       courseCode
     )
-    // renderProps.props.children.props.routerStore.memoData = await getMemoDataById(
-    //   courseCode,
-    //   lang
-    // )
+    renderProps.props.children.props.routerStore.memoData = await getAllMemosByCourseCode(
+      courseCode
+    )
 
     const html = ReactDOMServer.renderToString(renderProps)
     res.render('memo/index', {
