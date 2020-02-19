@@ -294,6 +294,15 @@ module.exports = {
             Vill du fortsätta att avbryta?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
+    },
+    infoRemove: {
+      header: 'Att tänka på innan du ta bort utkast!',
+      body: `Ändringar för text och bild kommer att försvinna om du raderar utkast. 
+      <br/>  
+      <br/> 
+            Vill du fortsätta att radera?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt radera'
     }
   },
   info: {
@@ -316,6 +325,7 @@ module.exports = {
   buttons: {
     /** ************ BUTTONS ****************** */
     btnClose: 'Stäng',
+    btnRemove: 'Radera utkast',
     btn_preview: 'Granska',
     btn_edit: 'Redigera',
     btn_cancel: 'Avbryt',
