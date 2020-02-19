@@ -8,7 +8,7 @@ const language = require('kth-node-web-common/lib/language')
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
-const { getMemoDataById, postMemoDataById } = require('../kursPmDataApi')
+const { getMemoDataById, postMemoDataById, postNewDrafttFromScratch } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRedisApi')
 const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
@@ -86,6 +86,25 @@ async function getContent(req, res, next) {
 }
 
 // eslint-disable-next-line consistent-return
+async function createContent(req, res, next) {
+  try {
+    const { courseCode, semester } = req.params
+    const result = await postNewDrafttFromScratch(courseCode, semester, req.body)
+
+    if (safeGet(() => result.body.message)) {
+      log.error('Error from API: ', result.body.message)
+    }
+
+    log.info('Memo contents was created in kurs-pm-data api for course:', courseCode)
+
+    return res.json(result)
+  } catch (err) {
+    log.error('Error in updateDescription', { error: err })
+    next(err)
+  }
+}
+
+// eslint-disable-next-line consistent-return
 async function updateContent(req, res, next) {
   try {
     const { courseCode, semester } = req.params
@@ -103,6 +122,7 @@ async function updateContent(req, res, next) {
 }
 
 module.exports = {
+  createContent,
   getContent,
   updateContent
 }

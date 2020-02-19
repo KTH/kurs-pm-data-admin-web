@@ -218,6 +218,13 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
+
+appRoute.post(
+  'memo.createContent',
+  config.proxyPrefixPath.uri + '/internal-api/new-memo/:courseCode/:semester',
+  MemoContent.createContent
+)
+
 appRoute.post(
   'memo.updateContent',
   config.proxyPrefixPath.uri + '/internal-api/:courseCode/:semester',
