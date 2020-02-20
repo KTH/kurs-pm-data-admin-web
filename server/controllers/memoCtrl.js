@@ -8,7 +8,7 @@ const language = require('kth-node-web-common/lib/language')
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
-const { getMemoDataById, postMemoDataById, postNewDrafttFromScratch } = require('../kursPmDataApi')
+const { getMemoApiData, updateCreatedDraft } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRedisApi')
 const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
@@ -38,11 +38,11 @@ function _staticRender(context, location) {
   return staticRender(context, location)
 }
 
-async function getContent(req, res, next) {
+async function renderMemoEditorPage(req, res, next) {
   try {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
-    const { courseCode, semester } = req.params
+    const { courseCode, semester, memoEndPoint } = req.params
     const renderProps = _staticRender(context, req.url)
 
     // renderProps.props.children.props.routerStore.getData(courseCode, semester)
@@ -60,10 +60,9 @@ async function getContent(req, res, next) {
       ...(await getCourseEmployees(courseCode, semester, '1'))
     }
     console.log('fresh data', renderProps.props.children.props.routerStore.koppsFreshData)
-    renderProps.props.children.props.routerStore.memoData = await getMemoDataById(
-      courseCode,
-      semester,
-      lang
+    renderProps.props.children.props.routerStore.memoData = await getMemoApiData(
+      'getDraftByEndPoint',
+      { memoEndPoint }
     )
     await renderProps.props.children.props.routerStore.combineDefaultValues()
 
@@ -86,35 +85,15 @@ async function getContent(req, res, next) {
 }
 
 // eslint-disable-next-line consistent-return
-async function createContent(req, res, next) {
+async function updateContentByEndpoint(req, res, next) {
   try {
-    const { courseCode, semester } = req.params
-    const result = await postNewDrafttFromScratch(courseCode, semester, req.body)
-
-    if (safeGet(() => result.body.message)) {
-      log.error('Error from API: ', result.body.message)
+    const { memoEndPoint } = req.params
+    const apiResponse = await updateCreatedDraft(memoEndPoint, req.body)
+    if (safeGet(() => apiResponse.body.message)) {
+      log.debug('Error from API: ', apiResponse.body.message)
     }
-
-    log.info('Memo contents was created in kurs-pm-data api for course:', courseCode)
-
-    return res.json(result)
-  } catch (err) {
-    log.error('Error in updateDescription', { error: err })
-    next(err)
-  }
-}
-
-// eslint-disable-next-line consistent-return
-async function updateContent(req, res, next) {
-  try {
-    const { courseCode, semester } = req.params
-    // const lang = language.getLanguage(res) || 'sv'
-    const result = await postMemoDataById(courseCode, semester, req.body)
-    if (safeGet(() => result.body.message)) {
-      log.error('Error from API: ', result.body.message)
-    }
-    log.info('Memo contents was updated in kursinfo api for course:', courseCode)
-    return res.json(result)
+    log.info('Memo contents was updated in kursinfo api for memo: ', memoEndPoint)
+    return res.json(apiResponse)
   } catch (err) {
     log.error('Error in updateDescription', { error: err })
     next(err)
@@ -122,7 +101,6 @@ async function updateContent(req, res, next) {
 }
 
 module.exports = {
-  createContent,
-  getContent,
-  updateContent
+  renderMemoEditorPage,
+  updateContentByEndpoint
 }
