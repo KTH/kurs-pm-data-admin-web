@@ -1,17 +1,15 @@
 'use strict'
 
 const apis = require('../api')
-// const kursPmDataApi = require('../kursPmDataApi')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
 const { toJS } = require('mobx')
-
+const { safeGet } = require('safe-utils')
 const ReactDOMServer = require('react-dom/server')
 const { getKoppsCourseRoundTerms } = require('../koppsApi')
-const { getAllMemosByCourseCode } = require('../kursPmDataApi')
-// const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
+const { getMemoApiData, saveToMemoApi } = require('../kursPmDataApi')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -36,15 +34,13 @@ function _staticRender(context, location) {
   return staticRender(context, location)
 }
 
-async function getCourseRounds(req, res, next) {
+async function getCourseOptionsPage(req, res, next) {
   try {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
     const { courseCode } = req.params
     const semester =
       req.query.semester && req.query.semester.match(/^[0-9]{5}$/) ? req.query.semester : ''
-    const rounds = (req.query.rounds && req.query.rounds.split(',')) || []
-    // req.query.rounds && req.query.rounds.match(/^[0-9][,]{10}$/) ? req.query.rounds.split(',') : []
     const renderProps = _staticRender(context, req.url)
 
     // renderProps.props.children.props.routerStore.getData(courseCode, semester)
@@ -57,11 +53,8 @@ async function getCourseRounds(req, res, next) {
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
-    renderProps.props.children.props.routerStore.rounds = rounds
-    renderProps.props.children.props.routerStore.koppsCourseRounds = await getKoppsCourseRoundTerms(
-      courseCode
-    )
-    renderProps.props.children.props.routerStore.memoData = await getAllMemosByCourseCode(
+    renderProps.props.children.props.routerStore.memoEndPoint = req.query.memoName || ''
+    renderProps.props.children.props.routerStore.allRoundsOfCourseFromKopps = await getKoppsCourseRoundTerms(
       courseCode
     )
 
@@ -77,11 +70,49 @@ async function getCourseRounds(req, res, next) {
           : '[NEW] Course Information – Administration of course memos'
     })
   } catch (err) {
-    log.error('Error in getContent', { error: err })
+    log.error('Error in getCourseOptionsPage', { error: err })
+    next(err)
+  }
+}
+
+// eslint-disable-next-line consistent-return
+async function getUsedRounds(req, res, next) {
+  const { courseCode, semester } = req.params
+  try {
+    log.debug(
+      'trying to fetch getUsedRounds with course code: ' + courseCode + 'and semester: ' + semester
+    )
+
+    const apiResponse = await getMemoApiData('getUsedRounds', { courseCode, semester })
+    log.debug('getUsedRounds response: ', apiResponse)
+    return res.json(apiResponse)
+  } catch (error) {
+    log.error('Exception from getUsedRounds ', { error })
+    next(error)
+  }
+}
+
+// eslint-disable-next-line consistent-return
+async function createDraftByMemoEndPoint(req, res, next) {
+  try {
+    const { memoEndPoint } = req.params
+    const apiResponse = await saveToMemoApi('createDraftByMemoEndPoint', { memoEndPoint }, req.body)
+    if (safeGet(() => apiResponse.message)) {
+      log.debug('Error from API: ', apiResponse.message)
+    }
+    log.info(
+      'Memo contents was updated in kursinfo api for course memo with memoEndPoint:',
+      memoEndPoint
+    )
+    return res.json(apiResponse)
+  } catch (err) {
+    log.error('Error in createDraftCopyOfPublishedMemo', { error: err })
     next(err)
   }
 }
 
 module.exports = {
-  getCourseRounds
+  createDraftByMemoEndPoint,
+  getCourseOptionsPage,
+  getUsedRounds
 }
