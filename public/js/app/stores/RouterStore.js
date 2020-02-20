@@ -8,7 +8,9 @@ class RouterStore {
 
   @observable koppsFreshData = {}
 
-  @observable koppsCourseRounds
+  @observable allRoundsOfCourseFromKopps
+
+  @observable memoEndPoint
 
   @observable memoData = {}
 

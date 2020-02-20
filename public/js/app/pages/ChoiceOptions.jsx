@@ -17,40 +17,68 @@ class ChoiceOptions extends Component {
   state = {
     semester: this.props.routerStore.semester,
     rounds: this.props.routerStore.rounds,
+    memoEndPoint: this.props.routerStore.memoEndPoint,
+    memoStatus: 'new', // TODO: 'published', 'draft', 'new'
     hasSavedDraft: false
   }
 
   courseCode = this.props.routerStore.courseCode
 
+  usedRounds = []
+
+  componentWillMount() {
+    this.getUsedRounds(this.courseCode, this.state.semester)
+  }
+
   updateSearchPath = () => {
     const semesterParam = `semester=${this.state.semester}` || ''
-    const rounds = `rounds=${this.state.rounds.join(',')}`
+    // const rounds = `rounds=${this.state.rounds.join(',')}`
     this.props.history.push({
       pathname: this.props.history.location.pathname,
-      search: `?${semesterParam}&${rounds}`
+      search: `?${semesterParam}` // &${rounds}
     })
+  }
+
+  getUsedRounds = (courseCode, semester) => {
+    return axios
+      .get('/kursinfoadmin/kurs-pm-data/internal-api/used-rounds/' + courseCode + '/' + semester)
+      .then(result => {
+        if (result.status >= 400) {
+          return 'ERROR-' + result.status
+        }
+        console.log('---------> component get getUsedRounds')
+        this.usedRounds = result.data
+      })
+      .catch(err => {
+        if (err.response) {
+          throw new Error(err.message)
+        }
+        throw err
+      })
   }
 
   onSubmitNew = () => {
     const { courseCode } = this
     const { rounds, semester } = this.state
-
     const start = {
       courseCode,
       ladokRoundIds: rounds,
-      memoEndPoint: courseCode + semester + '-' + rounds.join('-'),
+      memoEndPoint:
+        this.state.memoStatus === 'new'
+          ? courseCode + semester + '-' + rounds.join('-')
+          : this.state.memoEndPoint,
       semester
     }
-    const body = { ...start } //
+    const body = this.state.memoStatus === 'new' ? { ...start } : {}
+    const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${start.memoEndPoint}`
 
     console.log('Content is submited, preparing to save changes:', start)
-    return axios
-      .post(
-        '/kursinfoadmin/kurs-pm-data/internal-api/new-memo/' + courseCode + '/' + semester,
-        body
-      )
-      .then(() => console.log('saaaaaveeeeedddddd'))
-
+    return axios.post(url, body).then(() => {
+      console.log('saaaaaveeeeedddddd apiResponse', start)
+      return this.props.history.push({
+        pathname: `${this.props.history.location.pathname}${start.semester}/${start.memoEndPoint}`
+      })
+    })
     //   .then(() => this.props.routerStore.tempMemoData(body))
     //   .then(() => callback())
     //   .catch(error => callback(error))
@@ -71,7 +99,7 @@ class ChoiceOptions extends Component {
 
   render() {
     const { info, pages, pageTitles, buttons } = i18n.messages[1]
-    const { course, termsWithCourseRounds } = this.props.routerStore.koppsCourseRounds
+    const { course, termsWithCourseRounds } = this.props.routerStore.allRoundsOfCourseFromKopps
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
