@@ -4,12 +4,14 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row } from 'reactstrap'
-import ControlButtons from '../components/ControlButtons'
+import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 // import { Switch,Route } from 'react-router-dom'
 import MemoEdition from './MemoEdition'
 import PageHead from '../components/PageHead'
+
+const ADMIN = '/kursinfoadmin/kurs-pm-data/'
 
 @inject(['routerStore'])
 @observer
@@ -20,11 +22,34 @@ class MemoContainer extends Component {
 
   semester = this.props.routerStore.semester
 
+  memoEndPoint = this.props.routerStore.memoEndPoint
+
   componentDidMount() {}
 
   doUpdateStates = states => {
-    // To do check progress limits
     if (states) this.setState(states)
+  }
+
+  onContinue = () => {
+    switch (this.state.progress) {
+      default:
+        this.setState({ progress: this.state.progress + 1 })
+        break
+      case 3:
+        alert('PUBLISHED')
+        break
+    }
+  }
+
+  onBack = () => {
+    switch (this.state.progress) {
+      case 2:
+        window.location = `${ADMIN}${this.courseCode}?semester=${this.semester}&memoEndPoint=${this.memoEndPoint}`
+        break
+      default:
+        this.setState({ progress: this.state.progress - 1 })
+        break
+    }
   }
 
   render() {
@@ -55,8 +80,9 @@ class MemoContainer extends Component {
           }[this.state.progress]
         }
         <Container className="fixed-bottom">
-          <ControlButtons
-            onClick={this.doUpdateStates}
+          <ControlPanel
+            onSubmit={this.onContinue}
+            onBack={this.onBack}
             progress={this.state.progress}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}
