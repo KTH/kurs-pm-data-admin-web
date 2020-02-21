@@ -11,7 +11,7 @@ import EditorPerTitle from '../components/Editor'
 import Section from '../components/Section'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
-import axios from 'axios'
+// import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
 
@@ -20,7 +20,7 @@ const PROGRESS = 2
 @inject(['routerStore'])
 @observer
 class MemoEdition extends Component {
-  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
+  state = this.props.routerStore.memoData || {}
 
   isApiExisted = !this.props.routerStore.memoData
 
@@ -31,6 +31,7 @@ class MemoEdition extends Component {
   semester = this.props.routerStore.semester
 
   componentDidMount() {
+    console.log('MemoEdition state', this.state)
     this.scrollIntoView()
   }
 
@@ -63,40 +64,26 @@ class MemoEdition extends Component {
     })
   }
 
-  handleSave = callback => {
-    const { courseCode, semester, ladokRoundId } = this
-    const start = {
-      // It will be needed at the stage when we get 'fresh' data from Kopps
-      // _id: courseCode + semester,
-      courseCode,
-      semester,
-      ladokRoundId
-    }
-    const body = this.isApiExisted
-      ? this.state
-      : { ...start, ...this.props.routerStore.koppsFreshData, ...this.state }
+  // handleSave = callback => {// TODO: REFACTOR TOGETHER WITH onSave
+  //   const { memoEndPoint } = this.state
+  //
 
-    console.log('Content is submited, preparing to save changes:', this.state)
-    return axios
-      .post(
-        '/kursinfoadmin/kurs-pm-data/internal-api/' + this.courseCode + '/' + this.semester,
-        body
-      ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
-      .then(() => this.props.routerStore.tempMemoData(body))
-      .then(() => callback())
-      .catch(error => callback(error))
-  }
+  //   console.log('Content of editor is submited, preparing to save changes:', this.state)
+  //   return axios
+  //     .post(
+  //       '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint,
+  //       body
+  //     ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
+  //     .then(() => this.props.routerStore.tempMemoData(body))
+  //     // .then(() => this.props.onChange({apiMemo: body}))
+  //     .then(() => callback())
+  //     .catch(error => callback(error))
+  // }
 
   handleAutoSave = () => {
     const { alerts } = i18n.messages[1]
-    this.handleSave(() => this.handleAlert(alerts.autoSaved))
-  }
-
-  handleAlert = alertText => {
-    this.props.onChange({ alertIsOpen: true, alertText })
-    setTimeout(() => {
-      this.props.onChange({ alertIsOpen: false, alertText: '' })
-    }, 2000)
+    const body = { ...this.props.routerStore.koppsFreshData, ...this.state }
+    this.props.onSave(body, alerts.autoSaved)
   }
 
   handleConfirm = () => {
