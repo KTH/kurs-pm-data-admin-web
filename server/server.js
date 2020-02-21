@@ -219,7 +219,7 @@ server.use('/', systemRoute.getRouter())
 // App routes
 const appRoute = AppRouter()
 
-appRoute.put(
+appRoute.post(
   'memo.api.updateCreatedDraft',
   config.proxyPrefixPath.uri + '/internal-api/draft-updates/:memoEndPoint',
   MemoContent.updateContentByEndpoint
