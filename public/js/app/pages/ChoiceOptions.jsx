@@ -18,7 +18,7 @@ class ChoiceOptions extends Component {
     semester: this.props.routerStore.semester,
     rounds: this.props.routerStore.rounds,
     memoEndPoint: this.props.routerStore.memoEndPoint,
-    memoStatus: 'new', // TODO: 'published', 'draft', 'new'
+    action: 'create', // 'copy', 'continue'
     hasSavedDraft: false
   }
 
@@ -68,17 +68,17 @@ class ChoiceOptions extends Component {
       courseCode,
       ladokRoundIds: rounds,
       memoEndPoint:
-        this.state.memoStatus === 'new'
+        this.state.action === 'create'
           ? courseCode + semester + '-' + rounds.join('-')
           : this.state.memoEndPoint,
       semester
     }
-    const body = this.state.memoStatus === 'new' ? { ...start } : {}
+    const body = this.state.action === 'create' ? { ...start } : {}
     const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${start.memoEndPoint}`
 
     console.log('Content is submited, preparing to save changes:', start)
     return axios.post(url, body).then(() => {
-      window.location = `${this.props.history.location.pathname}/${start.semester}/${start.memoEndPoint}`
+      window.location = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${start.memoEndPoint}` // fix correct path /
     })
     //   .then(() => this.props.routerStore.tempMemoData(body))
     //   .then(() => callback())
