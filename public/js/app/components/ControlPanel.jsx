@@ -9,7 +9,7 @@ import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 const ControlPanel = props => {
   const { actionModals, buttons } = i18n.messages[1]
   const { hasSavedDraft, onSubmit } = props // onSubmit = onForward
-  const { alertIsOpen, alertText, onBack } = props
+  const { alertIsOpen, alertText, onBack, onSave } = props
   const progress = Number(props.progress) || 1
 
   return (
@@ -43,6 +43,11 @@ const ControlPanel = props => {
         />
       </Col>
       <Col sm="4" className="step-forward">
+        {progress === 2 && (
+          <Button onClick={onSave} color="secondary">
+            {buttons.btn_save}
+          </Button>
+        )}
         <Button
           onClick={onSubmit}
           id="to-id"
