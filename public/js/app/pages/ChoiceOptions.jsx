@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Col, Container, Row } from 'reactstrap'
-import ControlPanel from '../components/ChoiceOptions/ControlPanel'
+import ControlPanel from '../components/ControlPanel'
 import DropdownSemesters from '../components/ChoiceOptions/DropdownSemesters'
 import CourseRoundsCheckboxes from '../components/ChoiceOptions/CourseRoundsCheckboxes'
 import i18n from '../../../../i18n'
@@ -27,12 +27,16 @@ class ChoiceOptions extends Component {
   usedRounds = []
 
   componentWillMount() {
-    this.getUsedRounds(this.courseCode, this.state.semester)
+    if (this.state.semester) this.getUsedRounds(this.courseCode, this.state.semester)
+  }
+
+  componentDidUpdate() {
+    console.log('Update hander')
+    if (this.state.semester) this.getUsedRounds(this.courseCode, this.state.semester)
   }
 
   updateSearchPath = () => {
     const semesterParam = `semester=${this.state.semester}` || ''
-    // const rounds = `rounds=${this.state.rounds.join(',')}`
     this.props.history.push({
       pathname: this.props.history.location.pathname,
       search: `?${semesterParam}` // &${rounds}
@@ -46,7 +50,7 @@ class ChoiceOptions extends Component {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
-        console.log('---------> component get getUsedRounds')
+        console.log('---------> component get getUsedRounds', result.data)
         this.usedRounds = result.data
       })
       .catch(err => {
@@ -74,10 +78,7 @@ class ChoiceOptions extends Component {
 
     console.log('Content is submited, preparing to save changes:', start)
     return axios.post(url, body).then(() => {
-      console.log('saaaaaveeeeedddddd apiResponse', start)
-      return this.props.history.push({
-        pathname: `${this.props.history.location.pathname}${start.semester}/${start.memoEndPoint}`
-      })
+      window.location = `${this.props.history.location.pathname}/${start.semester}/${start.memoEndPoint}`
     })
     //   .then(() => this.props.routerStore.tempMemoData(body))
     //   .then(() => callback())
@@ -86,10 +87,9 @@ class ChoiceOptions extends Component {
   }
 
   onUpdateSemester = oneState => {
-    this.setState(oneState)
-    this.setState({ rounds: [] })
+    this.setState({ ...oneState, rounds: [] }, this.updateSearchPath)
+    // .then(()=> this.setState())
     console.log('this state', this.state)
-    this.updateSearchPath()
   }
 
   onUpdateChosenRounds = roundsArr => {
@@ -153,12 +153,7 @@ class ChoiceOptions extends Component {
             </Col>
           </Row>
         </Container>
-        <ControlPanel
-          hasSavedDraft={this.state.hasSavedDraft}
-          semester={this.state.semester}
-          rounds={this.state.rounds}
-          onSubmit={this.onSubmitNew}
-        />
+        <ControlPanel hasSavedDraft={this.state.hasSavedDraft} onSubmit={this.onSubmitNew} />
       </Container>
     )
   }
