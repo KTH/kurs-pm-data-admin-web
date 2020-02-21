@@ -35,11 +35,17 @@ class MemoEdition extends Component {
     this.scrollIntoView()
   }
 
+  componentDidUpdate() {
+    console.log('Update parent state')
+    this.props.onChange({ apiMemo: this.state })
+  }
+
   handleEditorChange = (editorContent, contentHeader) => {
+    console.log('editorContent ', editorContent)
     this.setState({
       [contentHeader]: editorContent,
       dirtyEditor: contentHeader
-    })
+    }) // , () => this.props.onChange({apiMemo: this.state})
   }
 
   toggleVisibleInMemo = contentHeader => {
@@ -61,29 +67,13 @@ class MemoEdition extends Component {
           }
         }
       }
-    })
+    }) // , () => this.props.onChange({apiMemo: this.state})
   }
-
-  // handleSave = callback => {// TODO: REFACTOR TOGETHER WITH onSave
-  //   const { memoEndPoint } = this.state
-  //
-
-  //   console.log('Content of editor is submited, preparing to save changes:', this.state)
-  //   return axios
-  //     .post(
-  //       '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint,
-  //       body
-  //     ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
-  //     .then(() => this.props.routerStore.tempMemoData(body))
-  //     // .then(() => this.props.onChange({apiMemo: body}))
-  //     .then(() => callback())
-  //     .catch(error => callback(error))
-  // }
 
   handleAutoSave = () => {
     const { alerts } = i18n.messages[1]
     const body = { ...this.props.routerStore.koppsFreshData, ...this.state }
-    this.props.onSave(body, alerts.autoSaved)
+    this.props.onSave(body, alerts.autoSaved).then(() => this.props.onChange({ apiMemo: body }))
   }
 
   handleConfirm = () => {
