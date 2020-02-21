@@ -60,13 +60,12 @@ async function saveToMemoApi(postApiFn, uriParam, body) {
 //   }
 // }
 
-async function updateCreatedDraft(courseCode, semester, body) {
+async function updateCreatedDraft(memoEndPoint, body) {
   const { client, paths } = api.kursPmDataApi
-  const id = `${courseCode}${semester}`
-  const uri = client.resolve(paths.postCourseMemoData.uri, { id })
+  const uri = client.resolve(paths.updateCreatedDraft.uri, { memoEndPoint })
 
   try {
-    const res = await client.postAsync({ uri, body, useCache: false })
+    const res = await client.putAsync({ uri, body, useCache: false })
     return res.body
   } catch (err) {
     log.debug('updateCreatedDraft is not available', err)
