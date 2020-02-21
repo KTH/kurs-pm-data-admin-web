@@ -34,32 +34,6 @@ async function saveToMemoApi(postApiFn, uriParam, body) {
   }
 }
 
-// Creates copy of published memo and save it as a draft
-// async function createDraftCopyOfPublishedMemo (memoEndPoint) {
-//   const { client, paths } = api.kursPmDataApi
-//   const uri = client.resolve(paths.createDraftCopyOfPublishedMemo.uri, { memoEndPoint })
-//   try {
-//     const res = await client.postAsync({ uri, useCache: false })
-//     return res.body
-//   } catch (err) {
-//     log.debug('createDraftCopyOfPublishedMemo is not available', err)
-//     return err
-//   }
-// }
-
-// POST TOTALLY NEW DRAFT ONLY COURSE, SEMESTER, ROUNDS
-// async function postNewDrafttFromScratch(memoEndPoint, body) {
-//   const { client, paths } = api.kursPmDataApi
-//   const uri = client.resolve(paths.postNewDrafttFromScratch.uri, { memoEndPoint })
-//   try {
-//     const res = await client.postAsync({ uri, body, useCache: false })
-//     return res.body
-//   } catch (err) {
-//     log.debug('postNewDrafttFromScratch is not available', err)
-//     return err
-//   }
-// }
-
 async function updateCreatedDraft(memoEndPoint, body) {
   const { client, paths } = api.kursPmDataApi
   const uri = client.resolve(paths.updateCreatedDraft.uri, { memoEndPoint })
