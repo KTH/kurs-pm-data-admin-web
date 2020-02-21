@@ -22,9 +22,8 @@ class ControlButtons extends Component {
 
   backTo = event => {
     if (this.props.progress === 2)
-      window.location = `${ADMIN}${this.courseCode}?semester=${
-        this.semester
-      }&rounds=${this.rounds.join(',')}`
+      window.location = `${ADMIN}${this.courseCode}?semester=${this.semester}}`
+    // TODO: ADD MEMO POINT
     else this.props.onClick({ progress: this.props.progress - 1 })
   }
 
@@ -38,7 +37,7 @@ class ControlButtons extends Component {
 
   render() {
     const { actionModals, buttons } = i18n.messages[1]
-    const { alertIsOpen, alertText, progress } = this.props
+    const { alertIsOpen, alertText } = this.props
 
     return (
       // <Container className="fixed-bottom">
