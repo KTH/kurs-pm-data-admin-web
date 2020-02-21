@@ -10,24 +10,51 @@ import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 // import { Switch,Route } from 'react-router-dom'
 import MemoEdition from './MemoEdition'
 import PageHead from '../components/PageHead'
+import axios from 'axios'
 
 const ADMIN = '/kursinfoadmin/kurs-pm-data/'
 
 @inject(['routerStore'])
 @observer
 class MemoContainer extends Component {
-  state = { progress: this.props.progress ? Number(this.props.progress) : 2 }
+  state = {
+    progress: this.props.progress ? Number(this.props.progress) : 2,
+    apiMemo: this.props.routerStore.memoData
+  }
 
-  courseCode = this.props.routerStore.courseCode
+  componentDidMount() {
+    console.log('parent state', this.state.apiMemo.ladokRoundIds)
+  }
 
-  semester = this.props.routerStore.semester
-
-  memoEndPoint = this.props.routerStore.memoEndPoint
-
-  componentDidMount() {}
+  componentDidUpdate() {
+    console.log('parent state did update', this.state.apiMemo)
+  }
 
   doUpdateStates = states => {
     if (states) this.setState(states)
+  }
+
+  handleAlert = alertText => {
+    this.setState({ alertIsOpen: true, alertText })
+    setTimeout(() => {
+      this.setState({ alertIsOpen: false, alertText: '' })
+    }, 2000)
+  }
+
+  onSave = (body, alert) => {
+    const { memoEndPoint } = body
+    console.log('Content is submited to parent, preparing to save changes:', body)
+    return axios
+      .post('/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint, body)
+      .then(() => this.props.routerStore.tempMemoData(body))
+      .then(() => this.handleAlert(alert))
+      .catch(error => console.log(error))
+  }
+
+  handleBtnSave = () => {
+    const { alerts } = i18n.messages[1]
+    const body = { ...this.props.routerStore.koppsFreshData, ...this.state.apiMemo }
+    this.onSave(body, alerts.autoSaved)
   }
 
   onContinue = () => {
@@ -42,9 +69,10 @@ class MemoContainer extends Component {
   }
 
   onBack = () => {
+    const { courseCode, semester, memoEndPoint } = this.state.apiMemo
     switch (this.state.progress) {
       case 2:
-        window.location = `${ADMIN}${this.courseCode}?semester=${this.semester}&memoEndPoint=${this.memoEndPoint}`
+        window.location = `${ADMIN}${courseCode}?semester=${semester}&memoEndPoint=${memoEndPoint}`
         break
       default:
         this.setState({ progress: this.state.progress - 1 })
@@ -61,7 +89,7 @@ class MemoContainer extends Component {
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
             <span>
-              {this.courseCode +
+              {this.state.apiMemo.courseCode +
                 ' ' +
                 title +
                 ' ' +
@@ -72,16 +100,17 @@ class MemoContainer extends Component {
           </PageTitle>
         </Row>
         <ProgressBar active={this.state.progress} pages={pages} />
-        <PageHead semester={this.props.routerStore.semester} />
+        <PageHead semester={this.state.apiMemo.semester} />
         {
           {
-            2: <MemoEdition onChange={this.doUpdateStates} />,
+            2: <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />,
             3: <h2>Hej! Det är sista steg</h2>
           }[this.state.progress]
         }
         <Container className="fixed-bottom">
           <ControlPanel
             onSubmit={this.onContinue}
+            onSave={this.handleBtnSave}
             onBack={this.onBack}
             progress={this.state.progress}
             alertText={this.state.alertText}
