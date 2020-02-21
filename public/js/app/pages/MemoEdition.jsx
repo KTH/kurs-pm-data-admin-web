@@ -45,7 +45,7 @@ class MemoEdition extends Component {
     this.setState({
       [contentHeader]: editorContent,
       dirtyEditor: contentHeader
-    }) // , () => this.props.onChange({apiMemo: this.state})
+    })
   }
 
   toggleVisibleInMemo = contentHeader => {
@@ -67,7 +67,7 @@ class MemoEdition extends Component {
           }
         }
       }
-    }) // , () => this.props.onChange({apiMemo: this.state})
+    })
   }
 
   handleAutoSave = () => {

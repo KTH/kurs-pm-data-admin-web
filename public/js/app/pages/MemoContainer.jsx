@@ -51,12 +51,16 @@ class MemoContainer extends Component {
       .catch(error => console.log(error))
   }
 
+  /** * Conrol Panel ** */
+
+  /** * User clicked button to save a draft  ** */
   handleBtnSave = () => {
     const { alerts } = i18n.messages[1]
     const body = { ...this.props.routerStore.koppsFreshData, ...this.state.apiMemo }
     this.onSave(body, alerts.autoSaved)
   }
 
+  /** * User clicked button to go to next step  ** */
   onContinue = () => {
     switch (this.state.progress) {
       default:
@@ -68,6 +72,7 @@ class MemoContainer extends Component {
     }
   }
 
+  /** * User clicked button to go to one step back ** */
   onBack = () => {
     const { courseCode, semester, memoEndPoint } = this.state.apiMemo
     switch (this.state.progress) {
