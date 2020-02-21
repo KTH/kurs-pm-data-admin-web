@@ -55,6 +55,7 @@ async function renderMemoEditorPage(req, res, next) {
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
+    renderProps.props.children.props.routerStore.memoEndPoint = memoEndPoint
     renderProps.props.children.props.routerStore.koppsFreshData = {
       ...(await getSyllabus(courseCode, semester, lang)),
       ...(await getCourseEmployees(courseCode, semester, '1'))
@@ -89,13 +90,13 @@ async function updateContentByEndpoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
     const apiResponse = await updateCreatedDraft(memoEndPoint, req.body)
-    if (safeGet(() => apiResponse.body.message)) {
-      log.debug('Error from API: ', apiResponse.body.message)
+    if (safeGet(() => apiResponse.message)) {
+      log.debug('Error from API: ', apiResponse.message)
     }
     log.info('Memo contents was updated in kursinfo api for memo: ', memoEndPoint)
     return res.json(apiResponse)
   } catch (err) {
-    log.error('Error in updateDescription', { error: err })
+    log.error('Error in updateContentByEndpoint', { error: err })
     next(err)
   }
 }
