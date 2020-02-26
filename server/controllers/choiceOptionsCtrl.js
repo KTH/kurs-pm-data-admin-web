@@ -80,7 +80,7 @@ async function getUsedRounds(req, res, next) {
   const { courseCode, semester } = req.params
   try {
     log.debug(
-      'trying to fetch getUsedRounds with course code: ' + courseCode + 'and semester: ' + semester
+      'trying to fetch getUsedRounds with course code: ' + courseCode + ' and semester: ' + semester
     )
 
     const apiResponse = await getMemoApiData('getUsedRounds', { courseCode, semester })
