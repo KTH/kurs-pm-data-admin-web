@@ -187,7 +187,7 @@ class ChoiceOptions extends Component {
                             this.setState(
                               { semester: obj.term },
                               this.updateSearchPath,
-                              this.getUsedRounds(this.state.semester)
+                              this.getUsedRounds(obj.term)
                             )
                           }}
                         >
