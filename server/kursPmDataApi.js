@@ -13,7 +13,7 @@ async function getMemoApiData(apiFn, uriParam) {
     console.log('getMemoApi', apiFn, '======>', res.body)
     return res.body
   } catch (error) {
-    log.debug('getMemoApi path ', apiFn, ' is not available', error)
+    log.debug('getMemoApi path ', { apiFn }, ' is not available', { error })
     return error
   }
 }
