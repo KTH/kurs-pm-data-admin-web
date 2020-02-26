@@ -318,8 +318,9 @@ module.exports = {
        Kurstillfällen ska alltså grupperas ihop till en kursomgång. Kursomgången är ett praktiskt genomförande av en kurs. 
        Kursomgången har en gemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
        Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
-      shortInstructions:
-        'Följande kurstillfällen saknar ett publicerat kurs-pm eller har ett utkast. Markera en eller flera som ingår i kursomgången:'
+      availableRounds:
+        'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast. Markera en eller flera som ingår i kursomgången:',
+      existedDrafts: 'Följande kursomgångar har sparade utkast som ännu ej publicerats:'
     }
   },
   buttons: {
