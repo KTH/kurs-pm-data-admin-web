@@ -4,6 +4,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import {
+  Alert,
   Col,
   Container,
   Row,
@@ -23,23 +24,23 @@ class ChoiceOptions extends Component {
   state = {
     semester: this.props.routerStore.semester,
     dropdownOpen: false,
+    chosen: {
+      newRounds: this.props.routerStore.rounds || [],
+      oneMemo: this.props.routerStore.memoEndPoint || '',
+      action: this.props.routerStore.memoEndPoint ? 'copy' : 'create'
+    },
+    alert: {
+      type: '', // danger, success, warn
+      isOpen: false,
+      text: ''
+    },
+    firstLoad: true,
     apiMemosBySemester: {} // this.props.apiMemosBySemester.getUsedRounds(this.props.routerStore.semester)
-  }
-
-  chosen = {
-    newRounds: this.props.routerStore.rounds || [],
-    memo: this.props.routerStore.memoEndPoint || '',
-    action: this.props.routerStore.memoEndPoint ? 'copy' : 'create'
   }
 
   courseCode = this.props.routerStore.courseCode
 
   allSemesters = this.props.routerStore.allRoundsOfCourseFromKopps.termsWithCourseRounds
-
-  //   componentDidUpdate() {
-  //     console.log('Update hander')
-  //     if (this.state.semester ) this.getUsedRounds(this.state.semester)
-  //   }
 
   toggle = () => this.setState({ dropdownOpen: !this.state.dropdownOpen })
 
@@ -56,7 +57,7 @@ class ChoiceOptions extends Component {
     )
   }
 
-  getUsedRounds = semester => {
+  getDiffMemosBySemester = semester => {
     return axios
       .get(
         '/kursinfoadmin/kurs-pm-data/internal-api/used-rounds/' + this.courseCode + '/' + semester
@@ -65,18 +66,18 @@ class ChoiceOptions extends Component {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
-        console.log('---------> api getUsedRounds', result.data)
+        console.log('---------> api getDiffMemosBySemester', result.data)
         this.setState({
+          firstLoad: false,
           apiMemosBySemester: {
             // updates on semester change
             publishedMemos: result.data.publishedMemos,
             draftMemos: result.data.draftMemos,
             usedRounds: result.data.usedRounds,
-            availableRounds: this.filterOutUsedRounds(result.data.usedRounds),
+            availableKoppsRoundsObj: this.filterOutUsedRounds(result.data.usedRounds),
             hasSavedDraft: result.data.usedRounds.length > 0
           }
         })
-        console.log('After Get Used Rounds ', this.state.apiMemosBySemester)
       })
       .catch(err => {
         if (err.response) {
@@ -86,54 +87,80 @@ class ChoiceOptions extends Component {
       })
   }
 
+  setAlarm = (type, textIndex, isOpen = true) => {
+    const { alerts } = i18n.messages[1]
+    this.setState({
+      alert: {
+        type,
+        isOpen,
+        text: alerts[textIndex]
+      }
+    })
+  }
+
   onChoice = event => {
     const { checked, value, type } = event.target
-    console.log('type ', type)
-    const tmpRoundsArr = this.chosen.newRounds
+    this.setState({ alert: { isOpen: false } })
+
+    const tmpRoundsArr = this.state.chosen.newRounds
     if (type === 'checkbox') {
       if (checked) tmpRoundsArr.push(value)
       else tmpRoundsArr.splice(tmpRoundsArr.indexOf(value), 1)
-      this.chosen = {
-        newRounds: tmpRoundsArr.sort(),
-        memo: '',
-        action: 'create'
-      }
+      this.setState({
+        chosen: {
+          newRounds: tmpRoundsArr.sort(),
+          oneMemo: '',
+          action: 'create'
+        }
+      })
     } else {
-      this.chosen = {
-        newRounds: [],
-        memo: value,
-        action: 'copy'
-      }
+      this.setState(
+        {
+          chosen: {
+            newRounds: [],
+            oneMemo: value,
+            action: 'copy'
+          }
+        },
+        this.setAlarm('info', 'warnReplacePm')
+      )
     }
   }
 
   updateSearchPath = () => {
     const semesterParam = `semester=${this.state.semester}` || ''
+    const memoEndPoint = `memoEndPoint=${this.state.chosen.oneMemo}` || ''
     this.props.history.push({
       pathname: this.props.history.location.pathname,
-      search: `?${semesterParam}` // &${rounds}
+      search: `?${semesterParam}&${memoEndPoint}` // &${rounds}
     })
   }
 
   onSubmitNew = () => {
-    const { courseCode, chosen } = this
-    const { semester } = this.state
-    const body =
-      this.state.action === 'create'
-        ? {
-            courseCode,
-            ladokRoundIds: chosen.newRounds,
-            memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
-            semester
-          }
-        : { memoEndPoint: this.state.chosenMemo }
-    const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
-
-    console.log('Content is submited, preparing to save changes:', body)
-    return axios.post(url, body).then(() => {
-      // TO DO: CHECK IT NO ERROR AND THEN REDIRECT
-      window.location = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
-    })
+    //   const checkboxForm = new FormData(document.forms[1])
+    //   console.log('Form data Existed--Memos--Options', document.forms[1].elements)
+    //   console.log('Form data Not--Used--Rounds--Options', document.forms['Not--Used--Rounds--Options'])
+    // const { courseCode } = this
+    // const { semester, chosen } = this.state
+    // if ( chosen.newRounds.length > 0||chosen.memo) {
+    //     const body =
+    //     chosen.action === 'create' && chosen.newRounds.length > 0
+    //         ? {
+    //             courseCode,
+    //             ladokRoundIds: chosen.newRounds,
+    //             memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
+    //             semester
+    //         }
+    //         : { memoEndPoint: this.state.chosen.memo }
+    //     const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
+    //     console.log('Content is submited, preparing to save changes:', body)
+    //     axios.post(url, body).then(() => {
+    //     // TO DO: CHECK IT NO ERROR AND THEN REDIRECT
+    //     window.location = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
+    //     })
+    // } else {
+    //     this.setAlarm('danger', 'errNoChosen')
+    // }
     //   .then(() => callback())
     //   .catch(error => callback(error))
   }
@@ -141,6 +168,8 @@ class ChoiceOptions extends Component {
   render() {
     const { info, pages, pageTitles, buttons } = i18n.messages[1]
     const { course } = this.props.routerStore.allRoundsOfCourseFromKopps
+    if (this.state.firstLoad && this.state.semester)
+      this.getDiffMemosBySemester(this.state.semester)
     console.log('apiMemosBySemester ', this.state.apiMemosBySemester)
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -159,6 +188,11 @@ class ChoiceOptions extends Component {
         </Row>
 
         <ProgressBar active={1} pages={pages} />
+        <Row className="w-100 my-0 mx-auto">
+          <Alert color={this.state.alert.type} isOpen={!!this.state.alert.isOpen}>
+            {this.state.alert.text || ''}
+          </Alert>
+        </Row>
 
         <Container className="sticky-content-section">
           <Row>
@@ -187,7 +221,7 @@ class ChoiceOptions extends Component {
                             this.setState(
                               { semester: obj.term },
                               this.updateSearchPath,
-                              this.getUsedRounds(obj.term)
+                              this.getDiffMemosBySemester(obj.term)
                             )
                           }}
                         >
@@ -208,8 +242,8 @@ class ChoiceOptions extends Component {
                     <p>
                       <b>{info.chooseRound.existedDrafts}</b>
                     </p>
-                    <form className="Picture--Options input-label-row">
-                      <span role="radiogroup">
+                    <form className="Existed--Memos--Options">
+                      <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
                         {this.state.apiMemosBySemester.draftMemos.map(
                           ({ ladokRoundIds, memoEndPoint }) => (
                             <label htmlFor={'draft' + memoEndPoint} key={'draft' + memoEndPoint}>
@@ -220,7 +254,10 @@ class ChoiceOptions extends Component {
                                 key={'draft' + memoEndPoint}
                                 value={memoEndPoint}
                                 onClick={this.onChoice}
-                                defaultChecked={memoEndPoint === this.chosen.memo}
+                                defaultChecked={
+                                  this.state.chosen.action === 'copy' &&
+                                  memoEndPoint === this.state.chosen.oneMemo
+                                }
                               />{' '}
                               {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}
                             </label>
@@ -230,10 +267,39 @@ class ChoiceOptions extends Component {
                     </form>
                   </>
                 )}
-
-                <p>
-                  <b>{info.chooseRound.availableRounds}</b>
-                </p>
+                {this.state.apiMemosBySemester &&
+                  this.state.apiMemosBySemester.availableKoppsRoundsObj && (
+                    <>
+                      <p>
+                        <b>{info.chooseRound.availableRounds}</b>
+                      </p>
+                      <form className="Not--Used--Rounds--Options">
+                        <span style={{ display: 'flex', flexDirection: 'column' }}>
+                          {this.state.apiMemosBySemester.availableKoppsRoundsObj.map(roundObj => (
+                            <label
+                              htmlFor={'new' + roundObj.ladokRoundId}
+                              key={'new' + roundObj.ladokRoundId}
+                            >
+                              <input
+                                type="checkbox"
+                                id={'new' + roundObj.ladokRoundId}
+                                name="chooseNew"
+                                key={'new' + roundObj.ladokRoundId}
+                                value={roundObj.ladokRoundId}
+                                onClick={this.onChoice}
+                                //   onChange={this.onChoice}
+                                defaultChecked={false}
+                              />{' '}
+                              {'Kurstillfällesnamn' +
+                                roundObj.ladokRoundId +
+                                ' ' +
+                                roundObj.shortName}
+                            </label>
+                          ))}
+                        </span>
+                      </form>
+                    </>
+                  )}
               </span>
             </Col>
           </Row>

@@ -342,6 +342,10 @@ module.exports = {
     btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
   },
   alerts: {
-    autoSaved: 'Sparat utkast'
+    autoSaved: 'Sparat utkast',
+    errNoChosen:
+      'Du måste välja minst ett kurstillfälle eller en utkast om det finns (se markering i rött nedan????) för att kunna gå vidare till "Redigera"',
+    warnReplacePm:
+      'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)'
   }
 }
