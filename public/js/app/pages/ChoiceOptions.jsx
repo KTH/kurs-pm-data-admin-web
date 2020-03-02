@@ -196,6 +196,13 @@ class ChoiceOptions extends Component {
     const { course } = this.props.routerStore.allRoundsOfCourseFromKopps
     if (this.state.firstLoad && this.state.semester)
       this.getDiffMemosBySemester(this.state.semester)
+
+    const {
+      availableKoppsRoundsObj,
+      hasSavedDraft,
+      draftMemos,
+      publishedMemos
+    } = this.state.apiMemosBySemester
     console.log('apiMemosBySemester ', this.state.apiMemosBySemester)
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -263,75 +270,73 @@ class ChoiceOptions extends Component {
                   titleAndInfo={info.chooseRound}
                   btnClose={buttons.btnClose}
                 />
-                {this.state.apiMemosBySemester && this.state.apiMemosBySemester.hasSavedDraft && (
+                {hasSavedDraft && (
                   <>
                     <p>
                       <b>{info.chooseRound.existedDrafts}</b>
                     </p>
                     <form className="Existed--Memos--Options">
                       <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
-                        {[
-                          ...this.state.apiMemosBySemester.draftMemos,
-                          ...this.state.apiMemosBySemester.publishedMemos
-                        ].map(({ ladokRoundIds, memoEndPoint, status }) => (
-                          <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
+                        {[...draftMemos, ...publishedMemos].map(
+                          ({ ladokRoundIds, memoEndPoint, status }) => (
+                            <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
+                              <input
+                                type="radio"
+                                id={memoEndPoint}
+                                name="chooseDraft"
+                                key={'draft' + memoEndPoint}
+                                value={memoEndPoint}
+                                onClick={this.onChoice}
+                                defaultChecked={
+                                  this.state.chosen.action === 'copy' &&
+                                  memoEndPoint === this.state.chosen.oneMemo
+                                }
+                              />{' '}
+                              {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}{' '}
+                              {status === 'published' ? ' (Finns publicerat kurs-pm)' : ''}
+                            </label>
+                          )
+                        )}
+                      </span>
+                    </form>
+                  </>
+                )}
+                {availableKoppsRoundsObj && (
+                  <>
+                    <p>
+                      <b>{info.chooseRound.availableRounds}</b>
+                    </p>
+                    <form className="Not--Used--Rounds--Options">
+                      <span style={{ display: 'flex', flexDirection: 'column' }}>
+                        {availableKoppsRoundsObj.map(roundObj => (
+                          <label
+                            htmlFor={'new' + roundObj.ladokRoundId}
+                            key={'new' + roundObj.ladokRoundId}
+                          >
                             <input
-                              type="radio"
-                              id={memoEndPoint}
-                              name="chooseDraft"
-                              key={'draft' + memoEndPoint}
-                              value={memoEndPoint}
+                              type="checkbox"
+                              id={'new' + roundObj.ladokRoundId}
+                              name="chooseNew"
+                              key={'new' + roundObj.ladokRoundId}
+                              value={roundObj.ladokRoundId}
                               onClick={this.onChoice}
-                              defaultChecked={
-                                this.state.chosen.action === 'copy' &&
-                                memoEndPoint === this.state.chosen.oneMemo
-                              }
+                              defaultChecked={false}
                             />{' '}
-                            {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}{' '}
-                            {status === 'published' ? ' (Finns publicerat kurs-pm)' : ''}
+                            {'Kurstillfällesnamn' +
+                              roundObj.ladokRoundId +
+                              ' ' +
+                              roundObj.shortName}
                           </label>
                         ))}
                       </span>
                     </form>
                   </>
                 )}
-                {this.state.apiMemosBySemester &&
-                  this.state.apiMemosBySemester.availableKoppsRoundsObj && (
-                    <>
-                      <p>
-                        <b>{info.chooseRound.availableRounds}</b>
-                      </p>
-                      <form className="Not--Used--Rounds--Options">
-                        <span style={{ display: 'flex', flexDirection: 'column' }}>
-                          {this.state.apiMemosBySemester.availableKoppsRoundsObj.map(roundObj => (
-                            <label
-                              htmlFor={'new' + roundObj.ladokRoundId}
-                              key={'new' + roundObj.ladokRoundId}
-                            >
-                              <input
-                                type="checkbox"
-                                id={'new' + roundObj.ladokRoundId}
-                                name="chooseNew"
-                                key={'new' + roundObj.ladokRoundId}
-                                value={roundObj.ladokRoundId}
-                                onClick={this.onChoice}
-                                defaultChecked={false}
-                              />{' '}
-                              {'Kurstillfällesnamn' +
-                                roundObj.ladokRoundId +
-                                ' ' +
-                                roundObj.shortName}
-                            </label>
-                          ))}
-                        </span>
-                      </form>
-                    </>
-                  )}
               </span>
             </Col>
           </Row>
         </Container>
-        <ControlPanel hasSavedDraft={this.state.hasSavedDraft} onSubmit={this.onSubmitNew} />
+        <ControlPanel hasSavedDraft={hasSavedDraft} onSubmit={this.onSubmitNew} />
       </Container>
     )
   }

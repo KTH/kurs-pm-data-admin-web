@@ -23,7 +23,7 @@ const ControlPanel = props => {
             {buttons.btn_back}
           </Button>
         )}
-        {hasSavedDraft && ( // || progress > 1
+        {hasSavedDraft && (
           <ActionModalButton
             btnLabel={buttons.btnRemove}
             modalId="cancelStep2"
