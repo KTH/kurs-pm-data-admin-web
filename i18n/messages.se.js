@@ -345,6 +345,7 @@ module.exports = {
     autoSaved: 'Sparat utkast',
     errNoChosen:
       'Du måste välja minst ett kurstillfälle eller en utkast om det finns (se markering i rött nedan????) för att kunna gå vidare till "Redigera"',
+    errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)'
   }
