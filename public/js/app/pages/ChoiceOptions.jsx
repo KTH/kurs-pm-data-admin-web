@@ -49,7 +49,8 @@ class ChoiceOptions extends Component {
       (this.allSemesters && this.allSemesters.find(objCR => objCR.term === this.state.semester)) ||
       {}
     return (
-      (courseByChosenSemester.rounds &&
+      (courseByChosenSemester &&
+        courseByChosenSemester.rounds &&
         courseByChosenSemester.rounds
           .filter(r => !usedRounds.includes(r.ladokRoundId))
           .reverse()) ||
@@ -173,17 +174,21 @@ class ChoiceOptions extends Component {
             }
           : { memoEndPoint: this.state.chosen.oneMemo }
       const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
-      console.log('Content is submited, preparing to save changes:', body)
-      axios.post(url, body).then(result => {
-        // TO DO: CHECK IT NO ERROR AND THEN REDIRECT
-        console.log('Submitted', result)
-        window.location = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
-      })
+
+      axios
+        .post(url, body)
+        .then(result => {
+          console.log('Submitted', result)
+          const nextStepUrl = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
+          window.location = nextStepUrl
+        })
+        .catch(error => {
+          this.setAlarm('danger', 'errWhileSaving')
+        })
     } else {
       this.setAlarm('danger', 'errNoChosen')
     }
     //   .then(() => callback())
-    //   .catch(error => callback(error))
   }
 
   render() {
@@ -265,9 +270,10 @@ class ChoiceOptions extends Component {
                     </p>
                     <form className="Existed--Memos--Options">
                       <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
-                        {this.state.apiMemosBySemester.draftMemos.map((
-                          { ladokRoundIds, memoEndPoint } // status
-                        ) => (
+                        {[
+                          ...this.state.apiMemosBySemester.draftMemos,
+                          ...this.state.apiMemosBySemester.publishedMemos
+                        ].map(({ ladokRoundIds, memoEndPoint, status }) => (
                           <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
                             <input
                               type="radio"
@@ -282,7 +288,7 @@ class ChoiceOptions extends Component {
                               }
                             />{' '}
                             {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}{' '}
-                            {/* {status === 'published' ? 'Finns publicerat kurs-pm' : ''} */}
+                            {status === 'published' ? ' (Finns publicerat kurs-pm)' : ''}
                           </label>
                         ))}
                       </span>
