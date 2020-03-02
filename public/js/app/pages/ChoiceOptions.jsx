@@ -173,8 +173,9 @@ class ChoiceOptions extends Component {
           : { memoEndPoint: this.state.chosen.memo }
       const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
       console.log('Content is submited, preparing to save changes:', body)
-      axios.post(url, body).then(() => {
+      axios.post(url, body).then(result => {
         // TO DO: CHECK IT NO ERROR AND THEN REDIRECT
+        console.log('Submitted', result)
         window.location = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
       })
     } else {
@@ -264,7 +265,7 @@ class ChoiceOptions extends Component {
                     <form className="Existed--Memos--Options">
                       <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
                         {this.state.apiMemosBySemester.draftMemos.map(
-                          ({ ladokRoundIds, memoEndPoint }) => (
+                          ({ ladokRoundIds, memoEndPoint, status }) => (
                             <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
                               <input
                                 type="radio"
@@ -278,7 +279,8 @@ class ChoiceOptions extends Component {
                                   memoEndPoint === this.state.chosen.oneMemo
                                 }
                               />{' '}
-                              {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}
+                              {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}{' '}
+                              {status === 'published' ? 'Finns publicerat kurs-pm' : ''}
                             </label>
                           )
                         )}
