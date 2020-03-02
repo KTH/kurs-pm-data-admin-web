@@ -44,7 +44,7 @@ class ChoiceOptions extends Component {
 
   toggle = () => this.setState({ dropdownOpen: !this.state.dropdownOpen })
 
-  filterOutUsedRounds = usedRounds => {
+  _filterOutUsedRounds = usedRounds => {
     const courseByChosenSemester =
       (this.allSemesters && this.allSemesters.find(objCR => objCR.term === this.state.semester)) ||
       {}
@@ -74,7 +74,7 @@ class ChoiceOptions extends Component {
             publishedMemos: result.data.publishedMemos,
             draftMemos: result.data.draftMemos,
             usedRounds: result.data.usedRounds,
-            availableKoppsRoundsObj: this.filterOutUsedRounds(result.data.usedRounds),
+            availableKoppsRoundsObj: this._filterOutUsedRounds(result.data.usedRounds),
             hasSavedDraft: result.data.usedRounds.length > 0
           }
         })
@@ -98,22 +98,43 @@ class ChoiceOptions extends Component {
     })
   }
 
+  _uncheckRadio = () => {
+    const { oneMemo } = this.state.chosen
+    const memoElem = document.getElementById(oneMemo)
+    if (oneMemo && memoElem && memoElem.checked) document.getElementById(oneMemo).checked = false
+  }
+
+  _uncheckCheckboxes = () => {
+    const { newRounds } = this.state.chosen
+    newRounds.map(ladokRoundId => {
+      const checkboxId = 'new' + ladokRoundId
+      document.getElementById(checkboxId).checked = false
+    })
+  }
+
+  _sortedRoundsArray = (checked, value) => {
+    const tmpRoundsArr = this.state.chosen.newRounds
+    if (checked) tmpRoundsArr.push(value)
+    else tmpRoundsArr.splice(tmpRoundsArr.indexOf(value), 1)
+    return tmpRoundsArr.sort()
+  }
+
   onChoice = event => {
     const { checked, value, type } = event.target
     this.setState({ alert: { isOpen: false } })
 
-    const tmpRoundsArr = this.state.chosen.newRounds
     if (type === 'checkbox') {
-      if (checked) tmpRoundsArr.push(value)
-      else tmpRoundsArr.splice(tmpRoundsArr.indexOf(value), 1)
+      this._uncheckRadio()
+      const newRounds = this._sortedRoundsArray(checked, value)
       this.setState({
         chosen: {
-          newRounds: tmpRoundsArr.sort(),
+          newRounds,
           oneMemo: '',
           action: 'create'
         }
       })
     } else {
+      this._uncheckCheckboxes()
       this.setState(
         {
           chosen: {
@@ -128,8 +149,9 @@ class ChoiceOptions extends Component {
   }
 
   updateSearchPath = () => {
-    const semesterParam = `semester=${this.state.semester}` || ''
-    const memoEndPoint = `memoEndPoint=${this.state.chosen.oneMemo}` || ''
+    const semesterParam = (this.state.semester && `semester=${this.state.semester}`) || ''
+    const memoEndPoint =
+      (this.state.chosen.oneMemo && `memoEndPoint=${this.state.chosen.oneMemo}`) || ''
     this.props.history.push({
       pathname: this.props.history.location.pathname,
       search: `?${semesterParam}&${memoEndPoint}` // &${rounds}
@@ -137,30 +159,27 @@ class ChoiceOptions extends Component {
   }
 
   onSubmitNew = () => {
-    //   const checkboxForm = new FormData(document.forms[1])
-    //   console.log('Form data Existed--Memos--Options', document.forms[1].elements)
-    //   console.log('Form data Not--Used--Rounds--Options', document.forms['Not--Used--Rounds--Options'])
-    // const { courseCode } = this
-    // const { semester, chosen } = this.state
-    // if ( chosen.newRounds.length > 0||chosen.memo) {
-    //     const body =
-    //     chosen.action === 'create' && chosen.newRounds.length > 0
-    //         ? {
-    //             courseCode,
-    //             ladokRoundIds: chosen.newRounds,
-    //             memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
-    //             semester
-    //         }
-    //         : { memoEndPoint: this.state.chosen.memo }
-    //     const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
-    //     console.log('Content is submited, preparing to save changes:', body)
-    //     axios.post(url, body).then(() => {
-    //     // TO DO: CHECK IT NO ERROR AND THEN REDIRECT
-    //     window.location = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
-    //     })
-    // } else {
-    //     this.setAlarm('danger', 'errNoChosen')
-    // }
+    const { courseCode } = this
+    const { semester, chosen } = this.state
+    if (chosen.newRounds.length > 0 || chosen.memo) {
+      const body =
+        chosen.action === 'create' && chosen.newRounds.length > 0
+          ? {
+              courseCode,
+              ladokRoundIds: chosen.newRounds,
+              memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
+              semester
+            }
+          : { memoEndPoint: this.state.chosen.memo }
+      const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
+      console.log('Content is submited, preparing to save changes:', body)
+      axios.post(url, body).then(() => {
+        // TO DO: CHECK IT NO ERROR AND THEN REDIRECT
+        window.location = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
+      })
+    } else {
+      this.setAlarm('danger', 'errNoChosen')
+    }
     //   .then(() => callback())
     //   .catch(error => callback(error))
   }
@@ -246,10 +265,10 @@ class ChoiceOptions extends Component {
                       <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
                         {this.state.apiMemosBySemester.draftMemos.map(
                           ({ ladokRoundIds, memoEndPoint }) => (
-                            <label htmlFor={'draft' + memoEndPoint} key={'draft' + memoEndPoint}>
+                            <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
                               <input
                                 type="radio"
-                                id={'draft' + memoEndPoint}
+                                id={memoEndPoint}
                                 name="chooseDraft"
                                 key={'draft' + memoEndPoint}
                                 value={memoEndPoint}
@@ -287,7 +306,6 @@ class ChoiceOptions extends Component {
                                 key={'new' + roundObj.ladokRoundId}
                                 value={roundObj.ladokRoundId}
                                 onClick={this.onChoice}
-                                //   onChange={this.onChoice}
                                 defaultChecked={false}
                               />{' '}
                               {'Kurstillfällesnamn' +
