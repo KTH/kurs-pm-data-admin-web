@@ -161,7 +161,8 @@ class ChoiceOptions extends Component {
   onSubmitNew = () => {
     const { courseCode } = this
     const { semester, chosen } = this.state
-    if (chosen.newRounds.length > 0 || chosen.memo) {
+    console.log('on submit chosen ', this.state)
+    if (chosen.newRounds.length > 0 || chosen.oneMemo) {
       const body =
         chosen.action === 'create' && chosen.newRounds.length > 0
           ? {
@@ -170,7 +171,7 @@ class ChoiceOptions extends Component {
               memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
               semester
             }
-          : { memoEndPoint: this.state.chosen.memo }
+          : { memoEndPoint: this.state.chosen.oneMemo }
       const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
       console.log('Content is submited, preparing to save changes:', body)
       axios.post(url, body).then(result => {
@@ -264,26 +265,26 @@ class ChoiceOptions extends Component {
                     </p>
                     <form className="Existed--Memos--Options">
                       <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
-                        {this.state.apiMemosBySemester.draftMemos.map(
-                          ({ ladokRoundIds, memoEndPoint, status }) => (
-                            <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
-                              <input
-                                type="radio"
-                                id={memoEndPoint}
-                                name="chooseDraft"
-                                key={'draft' + memoEndPoint}
-                                value={memoEndPoint}
-                                onClick={this.onChoice}
-                                defaultChecked={
-                                  this.state.chosen.action === 'copy' &&
-                                  memoEndPoint === this.state.chosen.oneMemo
-                                }
-                              />{' '}
-                              {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}{' '}
-                              {status === 'published' ? 'Finns publicerat kurs-pm' : ''}
-                            </label>
-                          )
-                        )}
+                        {this.state.apiMemosBySemester.draftMemos.map((
+                          { ladokRoundIds, memoEndPoint } // status
+                        ) => (
+                          <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
+                            <input
+                              type="radio"
+                              id={memoEndPoint}
+                              name="chooseDraft"
+                              key={'draft' + memoEndPoint}
+                              value={memoEndPoint}
+                              onClick={this.onChoice}
+                              defaultChecked={
+                                this.state.chosen.action === 'copy' &&
+                                memoEndPoint === this.state.chosen.oneMemo
+                              }
+                            />{' '}
+                            {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}{' '}
+                            {/* {status === 'published' ? 'Finns publicerat kurs-pm' : ''} */}
+                          </label>
+                        ))}
                       </span>
                     </form>
                   </>
