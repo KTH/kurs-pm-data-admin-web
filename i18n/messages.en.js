@@ -270,7 +270,15 @@ module.exports = {
     btn_switch_view_single: 'Switch to “Single View”',
     btn_switch_view_scroll: 'Switch to “Scroll View”'
   },
+  extraInfo: {
+    hasSavedDraft: 'Has a published course memo'
+  },
   alerts: {
-    autoSaved: 'Draft saved'
+    autoSaved: 'Draft saved',
+    errNoChosen:
+      'Choose a course offering or administrative course instances below before you click on "Edit"....',
+    errWhileSaving: 'Smth went wrong on api side......',
+    warnReplacePm:
+      'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'
   }
 }

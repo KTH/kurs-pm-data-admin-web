@@ -341,6 +341,9 @@ module.exports = {
     btn_switch_view_single: 'Ändra till ”Fokus-vy”',
     btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
   },
+  extraInfo: {
+    hasSavedDraft: 'Finns publicerat kurs-pm'
+  },
   alerts: {
     autoSaved: 'Sparat utkast',
     errNoChosen:

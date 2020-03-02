@@ -192,7 +192,7 @@ class ChoiceOptions extends Component {
   }
 
   render() {
-    const { info, pages, pageTitles, buttons } = i18n.messages[1]
+    const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[1]
     const { course } = this.props.routerStore.allRoundsOfCourseFromKopps
     if (this.state.firstLoad && this.state.semester)
       this.getDiffMemosBySemester(this.state.semester)
@@ -293,7 +293,7 @@ class ChoiceOptions extends Component {
                                 }
                               />{' '}
                               {'Kurstillfällesnamn' + ladokRoundIds.join(', Kurstillfällesnamn')}{' '}
-                              {status === 'published' ? ' (Finns publicerat kurs-pm)' : ''}
+                              {status === 'published' ? ` (${extraInfo.hasSavedDraft})` : ''}
                             </label>
                           )
                         )}
