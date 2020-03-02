@@ -248,14 +248,48 @@ module.exports = {
     infoCancel: {
       header: 'To be aware of before cancelling!',
       body:
-        '<p>Unsaved changes will be lost if you cancel the publishing of ....... <br/>  <br/> Do you want to cancel?</p>',
+        '<p>Unsaved changes will be lost if you cancel the ....... <br/>  <br/> Do you want to cancel?</p>',
       btnClose: 'No, go back',
       btnConfirm: 'Yes, cancel'
+    },
+    infoPublish: {
+      header: 'To be aware of before publishing!',
+      body: `The information will be published on the page Course development and history
+        <br/> 
+        <br/> 
+        Do you want to publish?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt publicera'
+    },
+    infoRemove: {
+      header: 'To be aware of before deleting this draft!',
+      body: `Deleting the draft cannot be undone. The draft draft will be lost.
+      <br/>  
+      <br/> 
+            Do you want do delete this draft? `,
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, cancel'
+    }
+  },
+  info: {
+    chooseSemester: {
+      header: 'Choose semester',
+      body:
+        'Choose what semester the course offering started. If the course offering stretched over several semesters then choose the first semester.'
+    },
+    chooseRound: {
+      header: 'Choose course offering',
+      body:
+        'Choose all the administrative course instances that was included in the course offering. Students are admitted to an administrative course instance. Degree program students and non-programme students are admitted to different administrative course instances but may be educated in the same course offering. A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. Several administrative course instances are grouped to one course offering.',
+      availableRounds:
+        'The following administrative course instances have no course memo draft or published versions. Select the instances which makes the course offering that the course memo was made for:',
+      existedDrafts: 'The following course offerings have saved drafts that are not yet published:'
     }
   },
   buttons: {
     /** ************ BUTTONS ****************** */
     btnClose: 'Close',
+    btnRemove: 'Delete draft',
     btn_preview: 'Preview',
     btn_add_analysis: 'Edit',
     btn_cancel: 'Cancel',

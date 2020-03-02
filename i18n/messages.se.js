@@ -295,6 +295,15 @@ module.exports = {
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
     },
+    infoPublish: {
+      header: 'Att tänka på innan du publicerar!',
+      body: `Publicering kommer att ske på sidan Kursens utveckling och historik.
+        <br/>
+        <br/>
+        Vill du fortsätta att publicera?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt publicera'
+    },
     infoRemove: {
       header: 'Att tänka på innan du ta bort utkast!',
       body: `Ändringar för text och bild kommer att försvinna om du raderar utkast. 
