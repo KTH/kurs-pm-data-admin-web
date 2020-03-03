@@ -178,52 +178,56 @@ class MemoEdition extends Component {
   }
 
   render() {
-    const { pages, buttons } = i18n.messages[1]
-    console.log('Next ')
+    const { buttons, extraInfo, pages } = i18n.messages[1]
+
     return (
-      <Container className="memo-container">
-        <Row className="mb-4">
-          <Col lg="9">
+      <StickyContainer className="memo-container">
+        <Row className="sections-headers">
+          <Col lg="5">
             <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
           </Col>
           <Col lg="3" className="change-view">
-            <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="primary" size="sm">
+            <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="secondary" size="sm">
               {this.state.singleMode
                 ? buttons.btn_switch_view_scroll
                 : buttons.btn_switch_view_single}
             </Button>
           </Col>
+          <Col lg="4">
+            <h2 id="select-header">{extraInfo.contentHeaders}</h2>
+          </Col>
         </Row>
-        <StickyContainer className="sticky-content-section">
-          <Row>
-            <Col lg="4">
-              <Sticky topOffset={-31}>
-                {({ style, isSticky }) => (
-                  <SideMenu
-                    id="mainMenu"
-                    style={{
-                      ...style,
-                      ...{
-                        paddingRight: '0',
-                        paddingBottom: '115px',
-                        paddingTop: isSticky ? '30px' : '0'
-                      }
-                    }}
-                    visibleInMemo={this.state.visibleInMemo}
-                  />
-                )}
-              </Sticky>
-            </Col>
-            <Col lg="8" className="memo-content">
+        <hr className="header-content-separation" />
+        <Row className="mb-4">
+          <Col lg="8" className="memo-content">
+            <Container>
               {this.state.singleMode ? (
                 <Route render={this.renderSingleView} />
               ) : (
                 this.renderScrollView()
               )}
-            </Col>
-          </Row>
-        </StickyContainer>
-      </Container>
+            </Container>
+          </Col>
+          <Col lg="4">
+            <Sticky topOffset={-31}>
+              {({ style, isSticky }) => (
+                <SideMenu
+                  id="mainMenu"
+                  style={{
+                    ...style,
+                    ...{
+                      paddingRight: '0',
+                      paddingBottom: '115px',
+                      paddingTop: isSticky ? '30px' : '0'
+                    }
+                  }}
+                  visibleInMemo={this.state.visibleInMemo}
+                />
+              )}
+            </Sticky>
+          </Col>
+        </Row>
+      </StickyContainer>
     )
   }
 }
