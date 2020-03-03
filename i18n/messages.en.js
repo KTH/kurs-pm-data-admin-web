@@ -283,7 +283,8 @@ module.exports = {
         'Choose all the administrative course instances that was included in the course offering. Students are admitted to an administrative course instance. Degree program students and non-programme students are admitted to different administrative course instances but may be educated in the same course offering. A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. Several administrative course instances are grouped to one course offering.',
       availableRounds:
         'The following administrative course instances have no course memo draft or published versions. Select the instances which makes the course offering that the course memo was made for:',
-      existedDrafts: 'The following course offerings have saved drafts that are not yet published:'
+      existedDrafts:
+        'The following course offerings have saved drafts that are not yet published or have a last version as a published:'
     }
   },
   buttons: {
@@ -305,7 +306,8 @@ module.exports = {
     btn_switch_view_scroll: 'Switch to “Scroll View”'
   },
   extraInfo: {
-    hasSavedDraft: 'Has a published course memo'
+    hasSavedDraft: 'Has a published course memo',
+    contentHeaders: 'Headers'
   },
   alerts: {
     autoSaved: 'Draft saved',

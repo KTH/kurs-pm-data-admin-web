@@ -227,7 +227,7 @@ class ChoiceOptions extends Component {
           </Alert>
         </Row>
 
-        <Container className="sticky-content-section">
+        <Container>
           <Row>
             <Col>
               <span>

@@ -1,5 +1,9 @@
 // Scss code goes here!
-$light-grey: #d4d4d4;
+// Grey
+$grey: #65656c;
+$lightGrey: #f6f6f6;
+$borderGrey: #d4d4d4;
+
 %row {
   display: flex;
   flex-direction: row;
@@ -255,11 +259,21 @@ a.nav-link {
     margin-top: 0;
   }
 }
-
+/* Select course offerings checkboxes and radiooxes */
 form {
   label {
     font-weight: normal;
     padding: 0.5em 0;
   }
   padding-bottom: 2em;
+}
+
+/* Separation lines */
+.change-view {
+  border-right: 2px solid $borderGrey;
+}
+hr.header-content-separation {
+  border: 1px solid $borderGrey;
+  margin-top: 0;
+  padding: 0;
 }
