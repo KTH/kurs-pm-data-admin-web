@@ -305,7 +305,8 @@ module.exports = {
     btn_switch_view_scroll: 'Switch to “Scroll View”'
   },
   extraInfo: {
-    hasSavedDraft: 'Has a published course memo'
+    hasSavedDraft: 'Has a published course memo',
+    contentHeaders: 'Headers'
   },
   alerts: {
     autoSaved: 'Draft saved',

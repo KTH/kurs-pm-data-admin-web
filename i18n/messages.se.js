@@ -351,7 +351,8 @@ module.exports = {
     btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
   },
   extraInfo: {
-    hasSavedDraft: 'Finns publicerat kurs-pm'
+    hasSavedDraft: 'Finns publicerat kurs-pm',
+    contentHeaders: 'Rubriker'
   },
   alerts: {
     autoSaved: 'Sparat utkast',
