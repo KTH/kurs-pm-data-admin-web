@@ -41,8 +41,16 @@ class MemoContainer extends Component {
     }, 2000)
   }
 
-  onSave = (body, alert) => {
-    const { memoEndPoint } = body
+  onSave = (editorContent, alert) => {
+    const { memoEndPoint } = editorContent
+    const { examinationModules, scheduleDetails } = editorContent // because koppsFreshData contains them as well
+    const body = {
+      ...editorContent,
+      ...this.props.routerStore.koppsFreshData,
+      ...examinationModules,
+      ...scheduleDetails
+    }
+    this.doUpdateStates({ apiMemo: editorContent })
     console.log('Content is submited to parent, preparing to save changes:', body)
     return axios
       .post('/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint, body)
@@ -56,8 +64,7 @@ class MemoContainer extends Component {
   /** * User clicked button to save a draft  ** */
   handleBtnSave = () => {
     const { alerts } = i18n.messages[1]
-    const body = { ...this.props.routerStore.koppsFreshData, ...this.state.apiMemo }
-    this.onSave(body, alerts.autoSaved)
+    this.onSave(this.state.apiMemo, alerts.autoSaved)
   }
 
   /** * User clicked button to go to next step  ** */

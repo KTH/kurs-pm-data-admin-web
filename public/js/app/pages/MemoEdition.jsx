@@ -3,7 +3,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
 
@@ -72,8 +72,7 @@ class MemoEdition extends Component {
 
   handleAutoSave = () => {
     const { alerts } = i18n.messages[1]
-    const body = { ...this.props.routerStore.koppsFreshData, ...this.state }
-    this.props.onSave(body, alerts.autoSaved).then(() => this.props.onChange({ apiMemo: body }))
+    this.props.onSave(this.state, alerts.autoSaved) // .then(() => this.props.onChange({ apiMemo: body }))
   }
 
   handleConfirm = () => {
