@@ -187,7 +187,12 @@ class MemoEdition extends Component {
             <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
           </Col>
           <Col lg="3" className="change-view">
-            <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="secondary" size="sm">
+            <Button
+              className="mt-1 mb-0 mr-3"
+              onClick={this.toggleViewMode}
+              color="secondary"
+              size="sm"
+            >
               {this.state.singleMode
                 ? buttons.btn_switch_view_scroll
                 : buttons.btn_switch_view_single}
@@ -200,13 +205,11 @@ class MemoEdition extends Component {
         <hr className="header-content-separation" />
         <Row className="mb-4">
           <Col lg="8" className="memo-content">
-            <Container>
-              {this.state.singleMode ? (
-                <Route render={this.renderSingleView} />
-              ) : (
-                this.renderScrollView()
-              )}
-            </Container>
+            {this.state.singleMode ? (
+              <Route render={this.renderSingleView} />
+            ) : (
+              this.renderScrollView()
+            )}
           </Col>
           <Col lg="4">
             <Sticky topOffset={-31}>

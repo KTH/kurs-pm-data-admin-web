@@ -9,8 +9,7 @@ const styles = {
   },
   btnInfoModal: {
     // /specific for this project
-    verticalAlign: 'middle',
-    marginBottom: '0'
+    marginTop: '.7em'
   }
 }
 
