@@ -329,7 +329,8 @@ module.exports = {
        Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       availableRounds:
         'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast. Markera en eller flera som ingår i kursomgången:',
-      existedDrafts: 'Följande kursomgångar har sparade utkast som ännu ej publicerats:'
+      existedDrafts:
+        'Följande kursomgångar har sparade utkast som ännu ej publicerats eller sista version är den som publiserad på publika sidor:'
     }
   },
   buttons: {
