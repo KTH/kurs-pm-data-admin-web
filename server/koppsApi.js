@@ -130,6 +130,19 @@ function getScheduleLinks(language) {
   }
 }
 
+async function getKoppsCourseRoundTerms(courseCode) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
+  try {
+    const res = await client.getAsync({ uri, useCache: true })
+    // console.log('reeeeesbody ', res.body)
+    return res.body
+  } catch (err) {
+    log.debug('getKoppsCourseRoundTerms has an error:' + err)
+    return err
+  }
+}
+
 async function getDetailedInformation(courseCode, language) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
@@ -209,5 +222,6 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 module.exports = {
   koppsApi: api,
+  getKoppsCourseRoundTerms,
   getSyllabus
 }

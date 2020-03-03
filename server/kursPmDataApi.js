@@ -1,50 +1,54 @@
 'use strict'
 
 const log = require('kth-node-log')
-const config = require('./configuration').server
 const api = require('./api')
 
-async function getMemoDataById(courseCode, semester) {
-  const { client, paths } = api.kursPmDataApi
-  const id = `${courseCode}${semester}`
-  const uri = client.resolve(paths.getCourseMemoDataById.uri, { id })
-  // const uri = `${config.nodeApi.kursPmDataApi.basePath}/v1/courseMemoData/${courseCode}${semester}`
+// Gets a list of used round ids for a semester in a course
+async function getMemoApiData(apiFn, uriParam) {
+  // (apiFn, param)
   try {
-    const res = await client.getAsync({ uri })
-    console.log('getMemoDataById', res.body)
+    const { client, paths } = api.kursPmDataApi
+    const uri = client.resolve(paths[apiFn].uri, uriParam)
+    const res = await client.getAsync({ uri, useCache: false })
+    console.log('getMemoApi', apiFn, '======>', res.body)
     return res.body
-  } catch (err) {
-    log.debug('getMemoDataById is not available', err)
-    return err
+  } catch (error) {
+    log.debug('getMemoApi path ', { apiFn }, ' is not available', { error })
+    return error
   }
 }
 
-async function postMemoDataById(courseCode, semester, body) {
-  const { client, paths } = api.kursPmDataApi
-  const id = `${courseCode}${semester}`
-  const uri = client.resolve(paths.postCourseMemoData.uri, { id })
-  // const { obligatory, editable } = content
+// Gets a list of used round ids for a semester in a course
+async function saveToMemoApi(postApiFn, uriParam, body) {
+  // (apiFn, param)
+  try {
+    const { client, paths } = api.kursPmDataApi
+    const uri = client.resolve(paths[postApiFn].uri, uriParam)
 
-  // const body = {
-  //   _id: id,
-  //   courseCode,
-  //   semester,
-  //   koppsGoals: obligatory.goals,
-  //   ...editable
-  // }
-  console.log('Prepared whole object is', body)
+    const res = await client.postAsync({ uri, body, useCache: false })
+    console.log('saveToMemoApi path', postApiFn, '======>', res.body)
+    return res.body
+  } catch (error) {
+    log.debug('saveToMemoApi path ', postApiFn, ' is not available', error)
+    return error
+  }
+}
+
+async function updateCreatedDraft(memoEndPoint, body) {
+  const { client, paths } = api.kursPmDataApi
+  const uri = client.resolve(paths.updateCreatedDraft.uri, { memoEndPoint })
 
   try {
-    const res = await client.postAsync({ uri, body, useCache: false })
-    console.log('!After  postAsync postMemoDataById', res)
+    const res = await client.putAsync({ uri, body, useCache: false })
     return res.body
   } catch (err) {
-    log.debug('postMemoDataById is not available', err)
+    log.debug('updateCreatedDraft is not available', err)
     return err
   }
 }
 
 module.exports = {
-  getMemoDataById,
-  postMemoDataById
+  getMemoApiData,
+  saveToMemoApi,
+  updateCreatedDraft
 }

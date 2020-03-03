@@ -294,11 +294,48 @@ module.exports = {
             Vill du fortsätta att avbryta?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
+    },
+    infoPublish: {
+      header: 'Att tänka på innan du publicerar!',
+      body: `Publicering kommer att ske på sidan Kursens utveckling och historik.
+        <br/>
+        <br/>
+        Vill du fortsätta att publicera?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt publicera'
+    },
+    infoRemove: {
+      header: 'Att tänka på innan du ta bort utkast!',
+      body: `Ändringar för text och bild kommer att försvinna om du raderar utkast. 
+      <br/>  
+      <br/> 
+            Vill du fortsätta att radera?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt radera'
+    }
+  },
+  info: {
+    chooseSemester: {
+      header: 'Välj termin',
+      body:
+        '<p>Välj vilken termin kursomgången startade. Om kursomgången sträcker sig över flera terminer; välj kursomgångens starttermin.</p>'
+    },
+    chooseRound: {
+      header: 'Välj kursomgång',
+      body: `<p>Välj alla kurstillfällen som ingick i kursomgången. Studenter är antagna till ett kurstillfälle.
+       Programstudenter, betalande studenter och fristående studenter antas till olika kurstillfällen men kan utbildas i samma kursomgång. 
+       Kurstillfällen ska alltså grupperas ihop till en kursomgång. Kursomgången är ett praktiskt genomförande av en kurs. 
+       Kursomgången har en gemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
+       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
+      availableRounds:
+        'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast. Markera en eller flera som ingår i kursomgången:',
+      existedDrafts: 'Följande kursomgångar har sparade utkast som ännu ej publicerats:'
     }
   },
   buttons: {
     /** ************ BUTTONS ****************** */
     btnClose: 'Stäng',
+    btnRemove: 'Radera utkast',
     btn_preview: 'Granska',
     btn_edit: 'Redigera',
     btn_cancel: 'Avbryt',
@@ -313,7 +350,15 @@ module.exports = {
     btn_switch_view_single: 'Ändra till ”Fokus-vy”',
     btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
   },
+  extraInfo: {
+    hasSavedDraft: 'Finns publicerat kurs-pm'
+  },
   alerts: {
-    autoSaved: 'Sparat utkast'
+    autoSaved: 'Sparat utkast',
+    errNoChosen:
+      'Du måste välja minst ett kurstillfälle eller en utkast om det finns (se markering i rött nedan????) för att kunna gå vidare till "Redigera"',
+    errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
+    warnReplacePm:
+      'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)'
   }
 }

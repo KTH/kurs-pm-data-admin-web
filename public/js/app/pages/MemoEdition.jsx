@@ -3,24 +3,24 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Button, Alert } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
 import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
 
 import EditorPerTitle from '../components/Editor'
 import Section from '../components/Section'
-import PageHead from '../components/PageHead'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
-import axios from 'axios'
+// import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 import i18n from '../../../../i18n'
-import { PageTitle, ProgressBar, ActionModalButton } from '@kth/kth-kip-style-react-components'
+
+const PROGRESS = 2
 
 @inject(['routerStore'])
 @observer
-class Start extends Component {
-  state = this.props.routerStore.memoData ? this.props.routerStore.memoData : {}
+class MemoEdition extends Component {
+  state = this.props.routerStore.memoData || {}
 
   isApiExisted = !this.props.routerStore.memoData
 
@@ -31,10 +31,17 @@ class Start extends Component {
   semester = this.props.routerStore.semester
 
   componentDidMount() {
+    console.log('MemoEdition state', this.state)
     this.scrollIntoView()
   }
 
+  componentDidUpdate() {
+    console.log('Update parent state')
+    this.props.onChange({ apiMemo: this.state })
+  }
+
   handleEditorChange = (editorContent, contentHeader) => {
+    console.log('editorContent ', editorContent)
     this.setState({
       [contentHeader]: editorContent,
       dirtyEditor: contentHeader
@@ -63,39 +70,10 @@ class Start extends Component {
     })
   }
 
-  handleSave = callback => {
-    const { courseCode, semester } = this
-    const start = {
-      // It will be needed at the stage when we get 'fresh' data from Kopps
-      _id: courseCode + semester,
-      courseCode,
-      semester
-    }
-    const body = this.isApiExisted
-      ? this.state
-      : { ...start, ...this.props.routerStore.koppsFreshData, ...this.state }
-
-    console.log('Content is submited, preparing to save changes:', this.state)
-    return axios
-      .post(
-        '/kursinfoadmin/kurs-pm-data/internal-api/' + this.courseCode + '/' + this.semester,
-        body
-      ) // this.props.routerStore.doUpsertItem(body, 'SF1624', '20191')
-      .then(() => this.props.routerStore.tempMemoData(body))
-      .then(() => callback())
-      .catch(error => callback(error))
-  }
-
   handleAutoSave = () => {
     const { alerts } = i18n.messages[1]
-    this.handleSave(() => this.handleAlert(alerts.autoSaved))
-  }
-
-  handleAlert = alertText => {
-    this.setState({ alertIsOpen: true, alertText })
-    setTimeout(() => {
-      this.setState({ alertIsOpen: false, alertText: '' })
-    }, 2000)
+    const body = { ...this.props.routerStore.koppsFreshData, ...this.state }
+    this.props.onSave(body, alerts.autoSaved).then(() => this.props.onChange({ apiMemo: body }))
   }
 
   handleConfirm = () => {
@@ -200,38 +178,13 @@ class Start extends Component {
   }
 
   render() {
-    const { pages, pageTitles, actionModals, buttons } = i18n.messages[1]
-    const progress = 2 // TODO: Change progress as a state
-    const { title, credits, creditUnitAbbr } = this.koppsFreshData
-
+    const { pages, buttons } = i18n.messages[1]
+    console.log('Next ')
     return (
-      <Container className="kip-container" style={{ marginBottom: '115px' }}>
-        <Row>
-          <PageTitle id="mainHeading" className="step-2-title" pageTitle={pageTitles.new}>
-            <span>
-              {this.courseCode +
-                ' ' +
-                title +
-                ' ' +
-                credits +
-                ' ' +
-                (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
-            </span>
-          </PageTitle>
-        </Row>
-        <ProgressBar active={2} pages={pages} />
-        <PageHead semester={this.props.routerStore.semester} />
+      <Container className="memo-container">
         <Row className="mb-4">
           <Col lg="9">
-            <ProgressTitle
-              id="progress-title"
-              text={pages[progress - 1].title}
-              infoModalLabels={{
-                header: pages[progress - 1].title,
-                body: pages[progress - 1].intro,
-                btnClose: 'Close'
-              }}
-            />
+            <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
           </Col>
           <Col lg="3" className="change-view">
             <Button className="mt-0 mb-0" onClick={this.toggleViewMode} color="primary" size="sm">
@@ -270,48 +223,9 @@ class Start extends Component {
             </Col>
           </Row>
         </StickyContainer>
-        <Container className="fixed-bottom">
-          <Row className="control-buttons">
-            <Row className="w-100 my-0 mx-auto">
-              <Alert isOpen={!!this.state.alertIsOpen}>
-                {this.state.alertText ? this.state.alertText : ''}
-              </Alert>
-            </Row>
-            <Col sm="4" className="step-back">
-              <Button onClick={() => alert('back')} className="btn-back" id="back-to-.." alt="BACK">
-                {buttons.btn_back}
-              </Button>
-            </Col>
-            <Col sm="4" className="btn-cancel">
-              <ActionModalButton
-                btnLabel={buttons.btn_cancel}
-                modalId="cancelStep2"
-                type="cancel"
-                modalLabels={actionModals.infoCancel}
-                onConfirm={() => console.log('Cancelled')}
-              />
-            </Col>
-            <Col sm="4" className="step-forward">
-              <Button onClick={this.handleConfirm} color="secondary">
-                {buttons.btn_save}
-              </Button>
-              <Button
-                onClick={() => alert('Go to granska')}
-                id="to-peview"
-                className="btn-next"
-                style={{ marginLeft: '1.25em' }}
-                color="success"
-                alt={'Go to ' + buttons.btn_preview}
-                disabled={false /* this.state.isError */}
-              >
-                {buttons.btn_preview}
-              </Button>
-            </Col>
-          </Row>
-        </Container>
       </Container>
     )
   }
 }
 
-export default Start
+export default MemoEdition

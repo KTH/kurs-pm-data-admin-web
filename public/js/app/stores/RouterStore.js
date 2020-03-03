@@ -8,6 +8,10 @@ class RouterStore {
 
   @observable koppsFreshData = {}
 
+  @observable allRoundsOfCourseFromKopps = []
+
+  @observable memoEndPoint
+
   @observable memoData = {}
 
   @observable defaultValues = {
@@ -45,8 +49,8 @@ class RouterStore {
     }
   }
 
-  @action doSetLanguage(lang) {
-    this.language = lang
+  @action doSetLanguageIndex(lang) {
+    this.langIndex = lang === 'en' ? 0 : 1
   }
 
   initializeStore(storeName) {

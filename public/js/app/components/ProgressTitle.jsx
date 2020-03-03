@@ -14,13 +14,17 @@ const styles = {
   }
 }
 
-const ProgressTitle = ({ id, text, infoModalLabels }) => (
+const ProgressTitle = ({ id, text }) => (
   <span style={styles.span} className="progress-title">
-    <h2 id={id}>{text}</h2>
+    <h2 id={id}>{text.title}</h2>
     <InfoModalButton
       style={styles.btnInfoModal}
       modalId={id + '-infoModal'}
-      modalLabels={infoModalLabels}
+      modalLabels={{
+        header: text.title,
+        body: text.intro,
+        btnClose: 'Close'
+      }}
     />
   </span>
 )

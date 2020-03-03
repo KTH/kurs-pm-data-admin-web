@@ -205,7 +205,7 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { System, MemoContent } = require('./controllers')
+const { ChoiceOptions, System, MemoContent } = require('./controllers')
 const { requireRole } = require('./authentication')
 
 // System routes
@@ -218,23 +218,44 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
+
 appRoute.post(
-  'memo.updateContent',
-  config.proxyPrefixPath.uri + '/internal-api/:courseCode/:semester',
-  MemoContent.updateContent
+  'memo.api.updateCreatedDraft',
+  config.proxyPrefixPath.uri + '/internal-api/draft-updates/:memoEndPoint',
+  MemoContent.updateContentByEndpoint
+)
+
+appRoute.post(
+  'memo.api.createDraftByMemoEndPoint',
+  config.proxyPrefixPath.uri + '/internal-api/create-draft/:memoEndPoint', // updated
+  ChoiceOptions.createDraftByMemoEndPoint
+)
+
+// Gets a list of used round ids for a semester in a course
+appRoute.get(
+  'memo.api.getUsedRounds',
+  config.proxyPrefixPath.uri + '/internal-api/used-rounds/:courseCode/:semester',
+  ChoiceOptions.getUsedRounds
 )
 
 appRoute.get(
   'memo.getContent',
-  config.proxyPrefixPath.uri + '/:courseCode/:semester*',
-  MemoContent.getContent
+  config.proxyPrefixPath.uri + '/:courseCode/:semester/:memoEndPoint*', // /:courseCode/:semester/:memoEndPoint*
+  MemoContent.renderMemoEditorPage
 )
+
+appRoute.get(
+  'memo.chooseRounds',
+  config.proxyPrefixPath.uri + '/:courseCode/',
+  ChoiceOptions.getCourseOptionsPage
+)
+
 appRoute.get(
   'system.gateway',
   config.proxyPrefixPath.uri + '/gateway',
   getServerGatewayLogin('/'),
   requireRole('isAdmin'),
-  MemoContent.getContent
+  MemoContent.renderMemoEditorPage
 )
 
 server.use('/', appRoute.getRouter())
