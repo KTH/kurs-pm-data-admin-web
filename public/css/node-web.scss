@@ -199,7 +199,8 @@ span.section_info {
 }
 .section_info_visibility_icon {
   @extend %react-icon-basic;
-  margin-right: 0;
+  margin-right: 0.3em;
+  margin-left: -20px;
   margin-top: 0.3em;
 }
 .section_pencil {

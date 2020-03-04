@@ -132,15 +132,16 @@ const NavItemNode = ({ id, title, isExpandedId, setExpandedId, removeExpandedId,
 )
 
 const NavItemLeaf = ({ id, title, showEyeSlashIcon: showIcon }) => (
-  <li className="nav-item leaf">
+  <li className="nav-item leaf" style={{ padding: '0' }}>
     <Link
       smooth
       className="nav-link"
       to={'#' + id}
       scroll={el => el.scrollIntoView({ behavior: 'smooth' })}
+      style={{ justifyContent: 'flex-start' }}
     >
-      <span>{title}</span>
       {showIcon && <FaRegEyeSlash className="section_info_visibility_icon" />}
+      <span>{title}</span>
     </Link>
   </li>
 )
