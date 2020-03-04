@@ -227,7 +227,7 @@ class ChoiceOptions extends Component {
           </Alert>
         </Row>
 
-        <Container>
+        <Container className="First--Step--Choose--Parameters">
           <Row>
             <Col>
               <span>
