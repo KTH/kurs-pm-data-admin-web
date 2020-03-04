@@ -55,14 +55,14 @@ module.exports = {
     '(r)':
       '<p><b>(r)</b> Fetched from a course round related source which is used for course choice</p>',
     '(s)': '<p><b>(s)</b> Fetched from a course syllabus (2017 - tills idag)</p>',
-    mandatory: {
-      true: 'Mandatory information (can’t be hidden in course memo)',
-      false: 'Heading by choice'
-    },
+    mandatory: 'Mandatory information (can’t be hidden in course memo)',
     shown: {
+      // Remove
       true: 'shown in course memo',
       false: 'hidden in course memo'
-    }
+    },
+    includeInMemo: 'Include in memo',
+    noInfoYet: 'No information is added. Press "Edit" to add information'
   },
   memoHeadings: {
     additionalRegulations: {

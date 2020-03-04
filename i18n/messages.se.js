@@ -53,14 +53,14 @@ module.exports = {
     '(pm)': '(pm)',
     '(r)': 'Hämtad från Kursinformation (r)',
     '(s)': 'Hämtad från kursplan (s)',
-    mandatory: {
-      true: 'Obligatorisk rubrik',
-      false: 'Valbar'
-    },
+    mandatory: 'Obligatorisk rubrik',
     shown: {
+      // Remove or use for alt
       true: 'visas i kurs-pm',
       false: 'döljs i kurs-pm'
-    }
+    },
+    includeInMemo: 'Inkludera i kurs-pm',
+    noInfoYet: 'Ingen information finns inlagd. "Redigera" för att lägga in information'
   },
   memoHeadings: {
     publishMemo: {
