@@ -87,9 +87,13 @@ class EditorPerTitle extends Component {
             />
           </span>
         ) : (
-          <span>
-            <p>{sourceInfo.noInfoYet}</p>
-          </span>
+          <span
+            dangerouslySetInnerHTML={{
+              __html:
+                (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
+                `<p>${sourceInfo.noInfoYet}</p>`
+            }}
+          />
         )}
       </span>
     )
