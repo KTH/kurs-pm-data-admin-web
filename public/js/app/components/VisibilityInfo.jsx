@@ -13,32 +13,40 @@ const VisibilityInfo = ({
   contentId,
   isRequired = context[contentId].isRequired,
   visibleInMemo,
-  onToggleVisibleInMemo
+  isEditorOpen,
+  onToggleVisibleInMemo,
+  onToggleVisibleEditor
 }) => (
   <span className="section_info word-break">
     <span>
-      <span className={`section_info_visibility_label ${isRequired ? 'mandatory' : 'byChoice'}`}>
-        <b>{sourceInfo.mandatory[isRequired]}</b>
-        {isRequired ? '|' : ': '}
-        <i>
-          {isRequired ? sourceInfo[context[contentId].source] : sourceInfo.shown[visibleInMemo]}
-        </i>
-        {/* {isRequired
-          ? messages.section_info_visibility_mandatory
-          : (visibleInMemo && messages.section_info_visibility_label_shown) ||
-            messages.section_info_visibility_label_hidden} */}
+      <span className="section_info_visibility_label">
+        {isRequired ? (
+          <p className="mandatory">
+            <b>{sourceInfo.mandatory}</b>|<i>{sourceInfo[context[contentId].source]}</i>
+          </p>
+        ) : (
+          <form className="Show--Or--Not--inMemo">
+            <span>
+              <label htmlFor={'visibilityFor' + contentId} style={{ fontSize: '1rem' }}>
+                <input
+                  type="checkbox"
+                  id={'visibilityFor' + contentId}
+                  name="visibleInMemo"
+                  onClick={() => onToggleVisibleInMemo(contentId)}
+                  defaultChecked={visibleInMemo}
+                  style={{ marginRight: '.3em' }}
+                />
+                {sourceInfo.includeInMemo}
+              </label>
+            </span>
+          </form>
+        )}
       </span>
-      {visibleInMemo ? null : <FaRegEyeSlash className="section_info_visibility_icon_v" />}
-      {!isRequired && '|'}
-      {context[contentId].isEditable ? (
-        <FaPencilAlt className="section_pencil" />
-      ) : (
-        !isRequired && <i className="shortInfo">{sourceInfo[context[contentId].source]}</i>
-      )}
     </span>
-    {!isRequired && (
-      <Button className="mb-0 mt-0" onClick={() => onToggleVisibleInMemo(contentId)}>
-        {visibleInMemo ? buttons.btn_hide_in_memo : buttons.btn_show_in_memo}
+    {context[contentId].isEditable && (
+      <Button className="mb-0 mt-0" onClick={() => onToggleVisibleEditor()}>
+        <FaPencilAlt className="section_pencil" />
+        {isEditorOpen ? 'Stäng/Visa som text' : buttons.btn_edit}
       </Button>
     )}
   </span>
