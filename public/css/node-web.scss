@@ -205,7 +205,7 @@ span.section_info {
 }
 .section_pencil {
   @extend %react-icon-basic;
-  margin: 0 0 0 1.25em; //20.8px
+  margin-right: 0.3em;
 }
 
 .step-forward,
@@ -261,12 +261,14 @@ a.nav-link {
   }
 }
 /* Select course offerings checkboxes and radiooxes */
-form {
-  label {
-    font-weight: normal;
-    padding: 0.5em 0;
+.First--Step--Choose--Parameters {
+  form {
+    label {
+      font-weight: normal;
+      padding: 0.5em 0;
+    }
+    padding-bottom: 2em;
   }
-  padding-bottom: 2em;
 }
 
 /* Separation lines */
