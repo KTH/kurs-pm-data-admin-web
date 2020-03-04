@@ -45,10 +45,10 @@ class MemoContainer extends Component {
     const { memoEndPoint } = editorContent
     const { examinationModules, scheduleDetails } = editorContent // because koppsFreshData contains them as well
     const body = {
-      ...editorContent,
-      ...this.props.routerStore.koppsFreshData,
-      ...examinationModules,
-      ...scheduleDetails
+      ...editorContent, // containt kopps old data, or it is empty first time
+      ...this.props.routerStore.koppsFreshData, // update memo data with fresh kopps data or fill in empty data if it's first time
+      ...examinationModules, // update it again from editor content because it was overriden by koppsFreshData default values
+      ...scheduleDetails // update it again from editor content because it was overriden by koppsFreshData default values
     }
     this.doUpdateStates({ apiMemo: editorContent })
     console.log('Content is submited to parent, preparing to save changes:', body)

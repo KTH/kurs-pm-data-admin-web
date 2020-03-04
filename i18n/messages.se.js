@@ -353,7 +353,10 @@ module.exports = {
   },
   extraInfo: {
     hasSavedDraft: 'Finns publicerat kurs-pm',
-    contentHeaders: 'Rubriker'
+    contentHeaders: {
+      title: 'Rubriker',
+      intro: 'Rubriker....'
+    }
   },
   alerts: {
     autoSaved: 'Sparat utkast',

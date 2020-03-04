@@ -198,7 +198,7 @@ class MemoEdition extends Component {
             </Button>
           </Col>
           <Col lg="4">
-            <h2 id="select-header">{extraInfo.contentHeaders}</h2>
+            <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
           </Col>
         </Row>
         <hr className="header-content-separation" />
