@@ -108,9 +108,6 @@ module.exports = {
     },
     ugRedis: {
       redis: unpackRedisConfig('UG_REDIS_URI', devRedis)
-    },
-    cortinaBlock: {
-      redis: unpackRedisConfig('REDIS_URI', devRedis)
     }
   },
 
