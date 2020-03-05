@@ -77,9 +77,9 @@ function combineExamInfo(examModules, selectedSyllabus) {
 function getScheduleDetailsTemplate(language) {
   const english = language === 'en'
   const header = `<thead><tr>
-  <td style="width: 33.3333%">${english ? 'Learning activities' : 'Läraktivitet'}</td>
-  <td style="width: 33.3333%">${english ? 'Content' : 'Innehåll'}</td>
-  <td style="width: 33.3333%">${english ? 'Preparations' : 'Förberedelse'}</td>
+  <th style="width: 33.3333%">${english ? 'Learning activities' : 'Läraktivitet'}</td>
+  <th style="width: 33.3333%">${english ? 'Content' : 'Innehåll'}</td>
+  <th style="width: 33.3333%">${english ? 'Preparations' : 'Förberedelse'}</td>
   </tr></thead>`
 
   const emptyRow = `<tr>
