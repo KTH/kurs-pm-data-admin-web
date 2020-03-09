@@ -162,7 +162,7 @@ async function getDetailedInformation(courseCode, language) {
       res.body.roundInfos[1].round &&
       res.body.roundInfos[1].round.language
     ) {
-      languageOfInstructions = res.body.roundIroundInfos[1].round.language
+      languageOfInstructions = res.body.roundInfos[1].round.language
     } else {
       languageOfInstructions = language
     }
