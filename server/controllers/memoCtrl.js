@@ -45,7 +45,6 @@ async function renderMemoEditorPage(req, res, next) {
     const { courseCode, semester, memoEndPoint } = req.params
     const renderProps = _staticRender(context, req.url)
 
-    // renderProps.props.children.props.routerStore.getData(courseCode, semester)
     renderProps.props.children.props.routerStore.setBrowserConfig(
       browser,
       serverPaths,
@@ -53,18 +52,17 @@ async function renderMemoEditorPage(req, res, next) {
       server.hostUrl
     )
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
+    const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+    renderProps.props.children.props.routerStore.memoData = apiMemoData
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
     renderProps.props.children.props.routerStore.memoEndPoint = memoEndPoint
     renderProps.props.children.props.routerStore.koppsFreshData = {
       ...(await getSyllabus(courseCode, semester, lang)),
-      ...(await getCourseEmployees(courseCode, semester, '1'))
+      ...(await getCourseEmployees(apiMemoData))
     }
     console.log('fresh data', renderProps.props.children.props.routerStore.koppsFreshData)
-    renderProps.props.children.props.routerStore.memoData = await getMemoApiData(
-      'getDraftByEndPoint',
-      { memoEndPoint }
-    )
+
     await renderProps.props.children.props.routerStore.combineDefaultValues()
 
     const html = ReactDOMServer.renderToString(renderProps)

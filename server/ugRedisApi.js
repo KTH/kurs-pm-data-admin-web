@@ -3,13 +3,15 @@ const redis = require('kth-node-redis')
 // const i18n = require('../i18n')
 const log = require('kth-node-log')
 
-const redisKeys = (courseCode, semester, round) => {
+const redisKeys = (courseCode, semester, ladokRoundIds) => {
   // Used to get examiners and responsibles from UG Rdedis
   return {
-    teachers: [`${courseCode}.${semester}.${round}.teachers`],
+    teachers: ladokRoundIds.map(round => `${courseCode}.${semester}.${round}.teachers`),
     examiner: [`${courseCode}.examiner`],
-    responsibles: [`${courseCode}.${semester}.${round}.courseresponsible`],
-    assistants: [`${courseCode}.${semester}.${round}.assistants`] // edu.courses.SF.SF1624.20191.1.assistants
+    responsibles: ladokRoundIds.map(
+      round => `${courseCode}.${semester}.${round}.courseresponsible`
+    ),
+    assistants: ladokRoundIds.map(round => `${courseCode}.${semester}.${round}.assistants`) // edu.courses.SF.SF1624.20191.1.assistants
   }
 }
 
@@ -18,31 +20,31 @@ const createPersonHtml = personList => {
   personList &&
     personList.forEach(person => {
       personString += `<p class = "person">
-        <i class="fas fa-user-alt"></i>
-        <a href="/profile/${person.username}/" target="_blank" property="teach:teacher">
-            ${person.givenName} ${person.lastName} 
-        </a> 
-      </p>  `
+      <i class="fas fa-user-alt"></i>
+      <a href="/profile/${person.username}/" target="_blank" property="teach:teacher">
+          ${person.givenName} ${person.lastName} 
+      </a> 
+    </p>  `
     })
   return personString
 }
-// const minimizePesonalData = personList => {
-//   const personInfo = []
-//   personList &&
-//     personList.forEach(person => {
-//       personInfo.push({
-//         username: person.username,
-//         givenName: person.givenName,
-//         lastName: person.lastName
-//       })
-//     })
-//   return personInfo
-// }
+
 // ------- EXAMINATOR AND RESPONSIBLES FROM UG-REDIS: ------- /
-async function _getCourseEmployees(courseCode, semester, round = '1') {
+async function _getCourseEmployees(apiMemoData) {
+  const { courseCode, semester, ladokRoundIds } = apiMemoData
   try {
-    const { assistants, teachers, examiner, responsibles } = redisKeys(courseCode, semester, round)
-    log.info('_getCourseEmployees with keys: ' + teachers, examiner, responsibles, assistants)
+    const { assistants, teachers, examiner, responsibles } = redisKeys(
+      courseCode,
+      semester,
+      ladokRoundIds
+    )
+    log.info(
+      '-------------------=> _getCourseEmployees for all memos course rounds with keys: ',
+      assistants,
+      teachers,
+      examiner,
+      responsibles
+    )
     const ugClient = await redis('ugRedis', serverConfig.cache.ugRedis.redis)
     const arrWithStringifiedArray = await ugClient
       .multi()
@@ -52,9 +54,9 @@ async function _getCourseEmployees(courseCode, semester, round = '1') {
       .mget(assistants) // [3]
       .execAsync()
     log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArray[1])
-    const flatArrWithHtmlStr = arrWithStringifiedArray
-      // .flat() not implemented in some browsers
-      .map(arr => createPersonHtml(JSON.parse(arr[0])))
+    const flatArrWithHtmlStr = arrWithStringifiedArray.map(arr =>
+      createPersonHtml(JSON.parse(arr[0]))
+    )
     return {
       teacher: flatArrWithHtmlStr[0],
       examiner: flatArrWithHtmlStr[1],
