@@ -41,7 +41,7 @@ class EditorPerTitle extends Component {
           isEditorOpen={this.state.isOpen}
           onToggleVisibleEditor={this.onToggleVisibleEditor}
         />
-        {this.state.isOpen ? (
+        {this.state.isOpen && (
           <span>
             <Collapse
               alt="Expand this"
@@ -86,7 +86,8 @@ class EditorPerTitle extends Component {
               onBlur={this.props.onBlur}
             />
           </span>
-        ) : (
+        )}
+        {!this.state.isOpen && visibleInMemo && (
           <span
             dangerouslySetInnerHTML={{
               __html:
@@ -94,6 +95,11 @@ class EditorPerTitle extends Component {
                 `<p>${sourceInfo.noInfoYet}</p>`
             }}
           />
+        )}
+        {!this.state.isOpen && !visibleInMemo && memoData && memoData[contentId] !== '' && (
+          <span>
+            <p>{sourceInfo.notIncludedInMemoYet}</p>
+          </span>
         )}
       </span>
     )

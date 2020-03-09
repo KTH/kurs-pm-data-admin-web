@@ -60,7 +60,9 @@ module.exports = {
       false: 'döljs i kurs-pm'
     },
     includeInMemo: 'Inkludera i kurs-pm',
-    noInfoYet: 'Ingen information finns inlagd. "Redigera" för att lägga in information'
+    noInfoYet: 'Ingen information finns inlagd. "Redigera" för att lägga in information',
+    notIncludedInMemoYet:
+      'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.'
   },
   memoHeadings: {
     publishMemo: {

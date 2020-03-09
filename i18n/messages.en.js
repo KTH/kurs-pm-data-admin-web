@@ -62,7 +62,9 @@ module.exports = {
       false: 'hidden in course memo'
     },
     includeInMemo: 'Include in memo',
-    noInfoYet: 'No information is added. Press "Edit" to add information'
+    noInfoYet: 'No information is added. Press "Edit" to add information....',
+    notIncludedInMemoYet:
+      'Content is here. Choose "Include in memo" to show added content and header in memo...'
   },
   memoHeadings: {
     additionalRegulations: {
