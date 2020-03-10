@@ -3,6 +3,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
+import { SERVICE_URL } from '../util/constants'
 import {
   Alert,
   Col,
@@ -40,7 +41,7 @@ class ChoiceOptions extends Component {
 
   courseCode = this.props.routerStore.courseCode
 
-  allSemesters = this.props.routerStore.allRoundsOfCourseFromKopps.termsWithCourseRounds
+  allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList
 
   toggle = () => this.setState({ dropdownOpen: !this.state.dropdownOpen })
 
@@ -59,10 +60,12 @@ class ChoiceOptions extends Component {
   }
 
   getDiffMemosBySemester = semester => {
+    console.log(
+      '************>>>>>>>>>>*>>>>>>*>*>*>*>*>*>*><*<*<*<>*>*>******* SERVICE_URL ',
+      SERVICE_URL
+    )
     return axios
-      .get(
-        '/kursinfoadmin/kurs-pm-data/internal-api/used-rounds/' + this.courseCode + '/' + semester
-      )
+      .get(`${SERVICE_URL.API}used-rounds/${this.courseCode}/${semester}`)
       .then(result => {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
@@ -173,13 +176,13 @@ class ChoiceOptions extends Component {
               semester
             }
           : { memoEndPoint: this.state.chosen.oneMemo }
-      const url = `/kursinfoadmin/kurs-pm-data/internal-api/create-draft/${body.memoEndPoint}`
+      const url = `${SERVICE_URL.API}create-draft/${body.memoEndPoint}`
 
       axios
         .post(url, body)
         .then(result => {
           console.log('Submitted', result)
-          const nextStepUrl = `/kursinfoadmin/kurs-pm-data/${courseCode}/${semester}/${body.memoEndPoint}`
+          const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${semester}/${body.memoEndPoint}`
           window.location = nextStepUrl
         })
         .catch(error => {
@@ -193,7 +196,7 @@ class ChoiceOptions extends Component {
 
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[1]
-    const { course } = this.props.routerStore.allRoundsOfCourseFromKopps
+    const { course } = this.props.routerStore.slicedTermsByPrevYear
     if (this.state.firstLoad && this.state.semester)
       this.getDiffMemosBySemester(this.state.semester)
 
@@ -203,7 +206,7 @@ class ChoiceOptions extends Component {
       draftMemos,
       publishedMemos
     } = this.state.apiMemosBySemester
-    console.log('apiMemosBySemester ', this.state.apiMemosBySemester)
+    console.log('SERVICE_URL apiMemosBySemester ', SERVICE_URL.API, this.state.apiMemosBySemester)
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
