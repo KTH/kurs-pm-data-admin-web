@@ -8,7 +8,7 @@ class RouterStore {
 
   @observable koppsFreshData = {}
 
-  @observable allRoundsOfCourseFromKopps = []
+  @observable slicedTermsByPrevYear = {}
 
   @observable memoEndPoint
 

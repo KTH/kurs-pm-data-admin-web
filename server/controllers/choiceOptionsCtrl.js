@@ -54,7 +54,7 @@ async function getCourseOptionsPage(req, res, next) {
     renderProps.props.children.props.routerStore.courseCode = courseCode
     renderProps.props.children.props.routerStore.semester = semester
     renderProps.props.children.props.routerStore.memoEndPoint = req.query.memoEndPoint || ''
-    renderProps.props.children.props.routerStore.allRoundsOfCourseFromKopps = await getKoppsCourseRoundTerms(
+    renderProps.props.children.props.routerStore.slicedTermsByPrevYear = await getKoppsCourseRoundTerms(
       courseCode
     )
 
