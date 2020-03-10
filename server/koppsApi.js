@@ -130,13 +130,32 @@ function getScheduleLinks(language) {
   }
 }
 
+const _prevTermNumber = () => {
+  const SPRING = 1
+  const FALL = 2
+  const today = new Date()
+  const prevYear = today.getFullYear() - 1
+  const currentMonth = today.getMonth()
+  const currentSemester = currentMonth < 7 ? SPRING : FALL
+  return Number(`${prevYear}${currentSemester}`)
+}
+
+const _sliceTermsArrByPrevTerm = allTerms => {
+  const prevTerm = _prevTermNumber()
+  const indexForCut = allTerms.findIndex(obj => Number(obj.term) < prevTerm)
+  return allTerms.slice(0, indexForCut)
+}
+
 async function getKoppsCourseRoundTerms(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
   try {
     const res = await client.getAsync({ uri, useCache: true })
-    // console.log('reeeeesbody ', res.body)
-    return res.body
+    const shortSemesterList = _sliceTermsArrByPrevTerm(res.body.termsWithCourseRounds)
+    return {
+      course: res.body.course,
+      shortSemesterList
+    }
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
     return err
