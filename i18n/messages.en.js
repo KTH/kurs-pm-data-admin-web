@@ -216,11 +216,10 @@ module.exports = {
   pages: [
     {
       title: 'Choose course offering',
-      intro: `Choose a semester and a course offering for the course memo data to be published (step 1 of 3). 
-      In the next step (2 of 3), course data will be fetched automatically for the selected semester and course offering. 
-      It is there possible to edit some of the course data and course memo data. 
-      Preview the table with the course data and course memo data that are about to be published in the last step (3 of 3). 
-      The course data with the course memo data will then be published on the page ....
+      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
+      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
+      In the next step (2 of 3) you can edit the course memo. 
+      Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
       `
     },
     {
@@ -241,10 +240,10 @@ module.exports = {
     extra: ''
   },
   pageTitles: {
-    new: 'Publish course memo',
-    draft: 'Publish course memo draft',
-    published: 'Edit published course memo',
-    preview: 'Preview course memo draft'
+    new: 'Create and publish new course memo'
+    // draft: 'Publish course memo draft',
+    // published: 'Edit published course memo',
+    // preview: 'Preview course memo draft'
   },
   actionModals: {
     infoCancel: {

@@ -36,13 +36,6 @@ module.exports = {
     host_name: 'KTH',
 
     /**
-     * Labels
-     */
-    section_info_visibility_label_shown: 'visas i kurs-pm',
-    section_info_visibility_label_hidden: 'döljs i kurs-pm',
-    section_info_visibility_mandatory: 'Obligatorisk rubrik',
-
-    /**
      * Headings
      */
     page_header_heading_semester: 'Termin',
@@ -65,10 +58,6 @@ module.exports = {
       'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.'
   },
   memoHeadings: {
-    publishMemo: {
-      header: 'Publicera kurs-pm',
-      body: 'Det är viktigt för lärare att veta om det för att skriva sitt kurs-pm'
-    },
     additionalRegulations: {
       header: 'Övriga föreskrifter',
       body: `<p><b>Informationen syftar till: …</b></p>
@@ -260,9 +249,9 @@ module.exports = {
   pages: [
     {
       title: 'Välj kursomgång',
-      intro: `Börja med att välja termin och kursomgång för den kursanalys som ska publiceras (steg 1 av 3). 
-      I nästa steg (2 av 3) kommer viss kurs PM data för kursen att hämtas automatiskt från Kopps och UG för den termin och kursomgång som valts. Det finns sedan möjlighet att redigera viss kurs-PM data. 
-      I sista steget (3 av 3) ges möjlighet att först granska och sedan publicera kurs-PM på sidan ....`
+      intro: `Börja med att välja termin och kursomgång för det kurs-pm som ska publiceras (steg 1 av 3). 
+      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-pm för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-pm på denna kurs. 
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-pm. I sista steget (3 av 3) har du möjlighet att först granska kurs-pm och sedan publicera kurs-pm på kursplatsen “Om kursen“ för vald termin och kursomgång.`
     },
     {
       title: 'Redigera kurs-pm',
@@ -282,10 +271,10 @@ module.exports = {
     extra: 'Ytterligare Information'
   },
   pageTitles: {
-    new: 'Publicera kurs-pm',
-    draft: 'Publicera kurs-PM utkast',
-    published: 'Ändra publicerad kurs-PM',
-    preview: 'Förhandsgranska sparat utkast av kurs-PM'
+    new: 'Skapa och publicera nytt kurs-pm'
+    // draft: 'Publicera kurs-PM utkast',
+    // published: 'Ändra publicerad kurs-PM',
+    // preview: 'Förhandsgranska sparat utkast av kurs-PM'
   },
   actionModals: {
     infoCancel: {
