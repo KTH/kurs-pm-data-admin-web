@@ -276,14 +276,17 @@ module.exports = {
     chooseSemester: {
       header: 'Choose semester',
       body:
-        'Choose what semester the course offering started. If the course offering stretched over several semesters then choose the first semester.'
+        '<p>Choose what semester the course offering starts in. If the course offering stretches over several semesters then choose the first semester.</p>'
     },
     chooseRound: {
       header: 'Choose course offering',
-      body:
-        'Choose all the administrative course instances that was included in the course offering. Students are admitted to an administrative course instance. Degree program students and non-programme students are admitted to different administrative course instances but may be educated in the same course offering. A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. Several administrative course instances are grouped to one course offering.',
+      body: `<p>Choose all the administrative course instances that is included in the course offering. 
+      Students are admitted to an administrative course instance. 
+      Degree program students and non-programme students are admitted to different administrative course instances but may be educated in the same course offering. 
+      A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. 
+      Several administrative course instances are grouped to one course offering.</p>`,
       availableRounds:
-        'The following administrative course instances have no course memo draft or published versions. Select the instances which makes the course offering that the course memo was made for:',
+        'The following administrative course instances have no published course memo or draft. Select the instances that is included in the course offering:',
       existedDrafts:
         'The following course offerings have saved drafts that are not yet published or have a last version as a published:'
     }
@@ -307,13 +310,18 @@ module.exports = {
     btn_switch_view_scroll: 'Switch to “Scroll View”'
   },
   extraInfo: {
-    hasSavedDraft: 'Has a published course memo',
+    courseShortSemester: {
+      1: 'Spring ',
+      2: 'Autumn '
+    },
+    labelStartDate: 'Start date',
+    // hasSavedDraft: 'Has a published course memo',
     contentHeaders: 'Headers'
   },
   alerts: {
     autoSaved: 'Draft saved',
     errNoChosen:
-      'Choose a course offering or administrative course instances below before you click on "Edit"....',
+      'Du must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errWhileSaving: 'Smth went wrong on api side......',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'

@@ -41,6 +41,7 @@ module.exports = {
     page_header_heading_semester: 'Termin',
     page_header_heading_course_round: 'Kursomgång'
   },
+  /** Labels */
   sourceInfo: {
     '(c)': 'Hämtad från Kursinformation (c)',
     '(pm)': '(pm)',
@@ -309,19 +310,20 @@ module.exports = {
     chooseSemester: {
       header: 'Välj termin',
       body:
-        '<p>Välj vilken termin kursomgången startade. Om kursomgången sträcker sig över flera terminer; välj kursomgångens starttermin.</p>'
+        '<p>Välj vilken termin kursomgången startar. Om kursomgången sträcker sig över flera terminer; välj kursomgångens starttermin.</p>'
     },
     chooseRound: {
       header: 'Välj kursomgång',
-      body: `<p>Välj alla kurstillfällen som ingick i kursomgången. Studenter är antagna till ett kurstillfälle.
-       Programstudenter, betalande studenter och fristående studenter antas till olika kurstillfällen men kan utbildas i samma kursomgång. 
-       Kurstillfällen ska alltså grupperas ihop till en kursomgång. Kursomgången är ett praktiskt genomförande av en kurs. 
-       Kursomgången har en gemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
-       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
+      body: `<p>Välj alla kurstillfällen som ingår i kursomgången. 
+      Studenter är antagna till ett kurstillfälle. 
+      Programstudenter, betalande studenter och fristående studenter antas till olika kurstillfällen men kan utbildas i samma kursomgång. 
+      Kurstillfällen ska alltså grupperas ihop till en kursomgång. Kursomgången är ett praktiskt genomförande av en kurs. 
+      Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
+      Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       availableRounds:
-        'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast. Markera en eller flera som ingår i kursomgången:',
+        'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast. Markera ett eller flera kurstillfällen som ingår i kursomgången:',
       existedDrafts:
-        'Följande kursomgångar har sparade utkast som ännu ej publicerats eller sista version är den som publiserad på publika sidor:'
+        'Följande kursomgångar har sparade utkast som ännu ej publicerats. Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
     }
   },
   buttons: {
@@ -343,7 +345,12 @@ module.exports = {
     btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
   },
   extraInfo: {
-    hasSavedDraft: 'Finns publicerat kurs-pm',
+    courseShortSemester: {
+      1: 'VT ',
+      2: 'HT '
+    },
+    labelStartDate: 'Startdatum',
+    // hasSavedDraft: 'Finns utkast kurs-pm',
     contentHeaders: {
       title: 'Rubriker',
       intro: 'Rubriker....'
@@ -352,7 +359,7 @@ module.exports = {
   alerts: {
     autoSaved: 'Sparat utkast',
     errNoChosen:
-      'Du måste välja minst ett kurstillfälle eller en utkast om det finns (se markering i rött nedan????) för att kunna gå vidare till "Redigera"',
+      'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-pm.',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)'
