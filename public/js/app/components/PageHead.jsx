@@ -2,7 +2,7 @@ import React from 'react'
 
 import i18n from '../../../../i18n'
 
-const { messages } = i18n.messages[1]
+const { messages, extraInfo } = i18n.messages[1]
 
 // const testDataCourseRounds = [
 //   'Kurstillfällesnamn1 (finns publicerat kurs-PM )',
@@ -11,7 +11,7 @@ const { messages } = i18n.messages[1]
 // ]
 
 const parseSemester = semesterCode => {
-  const season = semesterCode.slice(-1) === '1' ? 'VT' : 'HT'
+  const season = extraInfo.courseShortSemester[semesterCode.slice(-1)]
   return season + ' ' + semesterCode.slice(0, -1)
 }
 
