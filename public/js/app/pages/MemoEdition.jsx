@@ -37,7 +37,7 @@ class MemoEdition extends Component {
 
   componentDidUpdate() {
     console.log('Update parent state')
-    this.props.onChange({ apiMemo: this.state })
+    this.props.onChange({ updatedMemo: this.state })
   }
 
   handleEditorChange = (editorContent, contentHeader) => {
@@ -72,7 +72,7 @@ class MemoEdition extends Component {
 
   handleAutoSave = () => {
     const { alerts } = i18n.messages[1]
-    this.props.onSave(this.state, alerts.autoSaved) // .then(() => this.props.onChange({ apiMemo: body }))
+    this.props.onSave(this.state, alerts.autoSaved) // .then(() => this.props.onChange({ updatedMemo: body }))
   }
 
   handleConfirm = () => {

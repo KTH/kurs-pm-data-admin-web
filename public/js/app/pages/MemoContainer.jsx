@@ -19,15 +19,15 @@ const ADMIN = '/kursinfoadmin/kurs-pm-data/'
 class MemoContainer extends Component {
   state = {
     progress: this.props.progress ? Number(this.props.progress) : 2,
-    apiMemo: this.props.routerStore.memoData
+    updatedMemo: this.props.routerStore.memoData
   }
 
   componentDidMount() {
-    console.log('parent state', this.state.apiMemo.ladokRoundIds)
+    console.log('parent state', this.state.updatedMemo.ladokRoundIds)
   }
 
   componentDidUpdate() {
-    console.log('parent state did update', this.state.apiMemo)
+    console.log('parent state did update', this.state.updatedMemo)
   }
 
   doUpdateStates = states => {
@@ -50,7 +50,7 @@ class MemoContainer extends Component {
       ...examinationModules, // update it again from editor content because it was overriden by koppsFreshData default values
       ...scheduleDetails // update it again from editor content because it was overriden by koppsFreshData default values
     }
-    this.doUpdateStates({ apiMemo: editorContent })
+    this.doUpdateStates({ updatedMemo: editorContent })
     console.log('Content is submited to parent, preparing to save changes:', body)
     return axios
       .post('/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint, body)
@@ -64,7 +64,7 @@ class MemoContainer extends Component {
   /** * User clicked button to save a draft  ** */
   handleBtnSave = () => {
     const { alerts } = i18n.messages[1]
-    this.onSave(this.state.apiMemo, alerts.autoSaved)
+    this.onSave(this.state.updatedMemo, alerts.autoSaved)
   }
 
   /** * User clicked button to go to next step  ** */
@@ -81,7 +81,7 @@ class MemoContainer extends Component {
 
   /** * User clicked button to go to one step back ** */
   onBack = () => {
-    const { courseCode, semester, memoEndPoint } = this.state.apiMemo
+    const { courseCode, semester, memoEndPoint } = this.state.updatedMemo
     switch (this.state.progress) {
       case 2:
         window.location = `${ADMIN}${courseCode}?semester=${semester}&memoEndPoint=${memoEndPoint}`
@@ -95,14 +95,14 @@ class MemoContainer extends Component {
   render() {
     const { pages, pageTitles } = i18n.messages[1]
     const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
-    const { memoName, semester } = this.state.apiMemo
+    const { memoName, semester } = this.state.updatedMemo
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
             <span>
-              {this.state.apiMemo.courseCode +
+              {this.state.updatedMemo.courseCode +
                 ' ' +
                 title +
                 ' ' +
