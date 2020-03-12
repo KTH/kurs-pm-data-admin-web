@@ -95,6 +95,7 @@ class MemoContainer extends Component {
   render() {
     const { pages, pageTitles } = i18n.messages[1]
     const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
+    const { memoName, semester } = this.state.apiMemo
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -112,7 +113,7 @@ class MemoContainer extends Component {
           </PageTitle>
         </Row>
         <ProgressBar active={this.state.progress} pages={pages} />
-        <PageHead semester={this.state.apiMemo.semester} />
+        <PageHead semester={semester} memoName={memoName} />
         {
           {
             2: <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />,
