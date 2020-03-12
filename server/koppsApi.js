@@ -143,7 +143,8 @@ const _prevTermNumber = () => {
 const _sliceTermsArrByPrevTerm = allTerms => {
   const prevTerm = _prevTermNumber()
   const indexForCut = allTerms.findIndex(obj => Number(obj.term) < prevTerm)
-  return allTerms.slice(0, indexForCut)
+  const finalTerms = indexForCut === -1 ? allTerms : allTerms.slice(0, indexForCut)
+  return finalTerms
 }
 
 async function getKoppsCourseRoundTerms(courseCode) {
