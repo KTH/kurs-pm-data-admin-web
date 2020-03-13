@@ -63,6 +63,7 @@ class ChoiceOptions extends Component {
   }
 
   existingMemosForThisSemester = semester => {
+    // move to helper steg 1
     console.log(
       '************>>>>>>>>>>*>>>>>>*>*>*>*>*>*>*><*<*<*<>*>*>******* SERVICE_URL ',
       SERVICE_URL
@@ -76,9 +77,9 @@ class ChoiceOptions extends Component {
         console.log('---------> api existingMemosForThisSemester', result.data)
         this.setState({
           firstLoad: false,
+          // updates on semester change
           infoBySemester: {
-            // updates on semester change
-            publishedMemos: result.data.publishedMemos,
+            // publishedMemos: result.data.publishedMemos, // it will be used in 'change published ones'
             draftMemos: result.data.draftMemos,
             usedRounds: result.data.usedRounds,
             availableKoppsRoundsObj: this._filterOutUsedRounds(result.data.usedRounds),
@@ -106,12 +107,14 @@ class ChoiceOptions extends Component {
   }
 
   _uncheckRadio = () => {
+    // move to helper
     const { apiMemo } = this.state.chosen
     const memoElem = document.getElementById(apiMemo)
     if (apiMemo && memoElem && memoElem.checked) document.getElementById(apiMemo).checked = false
   }
 
   _uncheckCheckboxes = () => {
+    // move to helper
     const { newRounds } = this.state.chosen
     newRounds.map(ladokRoundId => {
       const checkboxId = 'new' + ladokRoundId
@@ -120,6 +123,7 @@ class ChoiceOptions extends Component {
   }
 
   _sortedRoundsArray = (checked, value) => {
+    // move to helper
     const tmpRoundsArr = this.state.chosen.newRounds
     if (checked) tmpRoundsArr.push(value)
     else tmpRoundsArr.splice(tmpRoundsArr.indexOf(value), 1)
@@ -262,6 +266,45 @@ class ChoiceOptions extends Component {
           <Row>
             <Col>
               <span>
+                <h2>{info.chooseSavedDraft}</h2>
+                {(hasSavedDraft && (
+                  <>
+                    <p>
+                      <b>{info.chooseRound.existedDrafts}</b>
+                    </p>
+                    <form className="Existed--Memos--Options form-check">
+                      <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
+                        {draftMemos.map(
+                          // removed ...publishedMemos
+                          ({ memoName, memoEndPoint }) => (
+                            <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
+                              <input
+                                type="radio"
+                                id={memoEndPoint}
+                                name="chooseDraft"
+                                key={'draft' + memoEndPoint}
+                                value={memoEndPoint}
+                                onClick={this.onChoiceActions}
+                                defaultChecked={
+                                  this.state.chosen.action === 'copy' &&
+                                  memoEndPoint === this.state.chosen.apiMemo
+                                }
+                              />
+                              {memoName}
+                            </label>
+                          )
+                        )}
+                      </span>
+                    </form>
+                  </>
+                )) || (
+                  <p>
+                    <i>{info.noSavedDrafts}</i>
+                  </p>
+                )}
+              </span>
+              <span>
+                <h2>{info.createNew}</h2>
                 <TitleAndInfoModal
                   modalId="choose-semester"
                   titleAndInfo={info.chooseSemester}
@@ -270,7 +313,7 @@ class ChoiceOptions extends Component {
                 <Dropdown
                   isOpen={this.state.dropdownOpen}
                   toggle={this.toggle}
-                  className="select-semester"
+                  className="select-semester form-check"
                 >
                   <DropdownToggle caret>
                     {this.state.semester ? 'Vald termin: ' + this.state.semester : 'Välj termin'}
@@ -296,43 +339,12 @@ class ChoiceOptions extends Component {
                   titleAndInfo={info.chooseRound}
                   btnClose={buttons.btnClose}
                 />
-                {hasSavedDraft && (
-                  <>
-                    <p>
-                      <b>{info.chooseRound.existedDrafts}</b>
-                    </p>
-                    <form className="Existed--Memos--Options">
-                      <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
-                        {draftMemos.map(
-                          // removed ...publishedMemos
-                          ({ memoName, memoEndPoint }) => (
-                            <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
-                              <input
-                                type="radio"
-                                id={memoEndPoint}
-                                name="chooseDraft"
-                                key={'draft' + memoEndPoint}
-                                value={memoEndPoint}
-                                onClick={this.onChoiceActions}
-                                defaultChecked={
-                                  this.state.chosen.action === 'copy' &&
-                                  memoEndPoint === this.state.chosen.apiMemo
-                                }
-                              />
-                              {memoName}
-                            </label>
-                          )
-                        )}
-                      </span>
-                    </form>
-                  </>
-                )}
                 {availableKoppsRoundsObj && (
                   <>
                     <p>
                       <b>{info.chooseRound.availableRounds}</b>
                     </p>
-                    <form className="Not--Used--Rounds--Options">
+                    <form className="Not--Used--Rounds--Options form-check">
                       <span style={{ display: 'flex', flexDirection: 'column' }}>
                         {availableKoppsRoundsObj.map(
                           ({ firstTuitionDate, ladokRoundId, language, shortName }) => (

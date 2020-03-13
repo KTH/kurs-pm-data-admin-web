@@ -307,6 +307,8 @@ module.exports = {
     }
   },
   info: {
+    chooseSavedDraft: 'Fortsätt redigera ett sparat utkast',
+    createNew: 'Skapa nytt eller kopiera?',
     chooseSemester: {
       header: 'Välj termin',
       body:
@@ -324,7 +326,8 @@ module.exports = {
         'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast. Markera ett eller flera kurstillfällen som ingår i kursomgången:',
       existedDrafts:
         'Följande kursomgångar har sparade utkast som ännu ej publicerats. Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
-    }
+    },
+    noSavedDrafts: 'Det finns inga sparade utkaster att visa för de sista aktuella terminer ....'
   },
   buttons: {
     /** ************ BUTTONS ****************** */

@@ -273,6 +273,8 @@ module.exports = {
     }
   },
   info: {
+    chooseSavedDraft: 'Continue to edit a saved draft',
+    createNew: 'Create new or copy?',
     chooseSemester: {
       header: 'Choose semester',
       body:
@@ -289,7 +291,8 @@ module.exports = {
         'The following administrative course instances have no published course memo or draft. Select the instances that is included in the course offering:',
       existedDrafts:
         'The following course offerings have saved drafts that are not yet published or have a last version as a published:'
-    }
+    },
+    noSavedDrafts: 'No saved drafts was found for period starting from previous year...'
   },
   buttons: {
     /** ************ BUTTONS ****************** */
