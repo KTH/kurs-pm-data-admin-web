@@ -14,6 +14,8 @@ class RouterStore {
 
   @observable memoData = {}
 
+  @observable existingLatestMemos = {}
+
   @observable defaultValues = {
     // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
   }

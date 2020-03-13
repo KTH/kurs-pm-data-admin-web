@@ -37,10 +37,14 @@ class ChoiceOptions extends Component {
       text: ''
     },
     firstLoad: true,
-    infoBySemester: {} // this.props.infoBySemester.getUsedRounds(this.props.routerStore.semester)
+    availableSemesterRounds: [] // this.props.infoBySemester.getUsedRounds(this.props.routerStore.semester)
   }
 
   courseCode = this.props.routerStore.courseCode
+
+  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos.draftMemos
+
+  hasSavedDraft = this.existingDraftsByCourseCode.length > 0
 
   langIndex = this.props.routerStore.langIndex
 
@@ -50,24 +54,23 @@ class ChoiceOptions extends Component {
 
   toggle = () => this.setState({ dropdownOpen: !this.state.dropdownOpen })
 
-  _filterOutUsedRounds = usedRounds => {
+  _filterOutUsedRounds = usedRoundsThisSemester => {
+    console.log('use usedRoundsThisSemester', usedRoundsThisSemester)
     const thisSemester =
       (this.allSemesters && this.allSemesters.find(({ term }) => term === this.state.semester)) ||
       {}
     return (
       (thisSemester &&
         thisSemester.rounds &&
-        thisSemester.rounds.filter(r => !usedRounds.includes(r.ladokRoundId)).reverse()) ||
+        thisSemester.rounds
+          .filter(r => !usedRoundsThisSemester.includes(r.ladokRoundId))
+          .reverse()) ||
       []
     )
   }
 
   existingMemosForThisSemester = semester => {
     // move to helper steg 1
-    console.log(
-      '************>>>>>>>>>>*>>>>>>*>*>*>*>*>*>*><*<*<*<>*>*>******* SERVICE_URL ',
-      SERVICE_URL
-    )
     return axios
       .get(`${SERVICE_URL.API}used-rounds/${this.courseCode}/${semester}`)
       .then(result => {
@@ -75,16 +78,11 @@ class ChoiceOptions extends Component {
           return 'ERROR-' + result.status
         }
         console.log('---------> api existingMemosForThisSemester', result.data)
+        const { usedRoundsThisSemester } = result.data
         this.setState({
           firstLoad: false,
           // updates on semester change
-          infoBySemester: {
-            // publishedMemos: result.data.publishedMemos, // it will be used in 'change published ones'
-            draftMemos: result.data.draftMemos,
-            usedRounds: result.data.usedRounds,
-            availableKoppsRoundsObj: this._filterOutUsedRounds(result.data.usedRounds),
-            hasSavedDraft: result.data.usedRounds.length > 0
-          }
+          availableSemesterRounds: this._filterOutUsedRounds(usedRoundsThisSemester)
         })
       })
       .catch(err => {
@@ -237,8 +235,8 @@ class ChoiceOptions extends Component {
     if (this.state.firstLoad && this.state.semester)
       this.existingMemosForThisSemester(this.state.semester)
 
-    const { availableKoppsRoundsObj, hasSavedDraft, draftMemos } = this.state.infoBySemester
-    console.log('SERVICE_URL infoBySemester ', SERVICE_URL.API, this.state.infoBySemester)
+    const { availableSemesterRounds } = this.state
+    console.log('******availableSemesterRounds ', availableSemesterRounds)
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
@@ -268,14 +266,14 @@ class ChoiceOptions extends Component {
               {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
               <span>
                 <h2>{info.chooseSavedDraft}</h2>
-                {(hasSavedDraft && (
+                {(this.hasSavedDraft && (
                   <>
                     <p>
                       <b>{info.chooseRound.existedDrafts}</b>
                     </p>
-                    <form className="Existed--Memos--Options form-check">
+                    <form className="Existed--Memos--Options">
                       <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
-                        {draftMemos.map(({ memoName, memoEndPoint }) => (
+                        {this.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
                           <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
                             <input
                               type="radio"
@@ -289,7 +287,7 @@ class ChoiceOptions extends Component {
                                 memoEndPoint === this.state.chosen.apiMemo
                               }
                             />
-                            {memoName}
+                            {memoName || memoEndPoint + ' (old memo before namegiving)'}
                           </label>
                         ))}
                       </span>
@@ -350,14 +348,14 @@ class ChoiceOptions extends Component {
                   titleAndInfo={info.chooseRound}
                   btnClose={buttons.btnClose}
                 />
-                {(availableKoppsRoundsObj && (
+                {(availableSemesterRounds && (
                   <>
                     <p>
                       <b>{info.chooseRound.availableRounds}</b>
                     </p>
                     <form className="Not--Used--Rounds--Options">
                       <span style={{ display: 'flex', flexDirection: 'column' }}>
-                        {availableKoppsRoundsObj.map(
+                        {availableSemesterRounds.map(
                           ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
                             <label htmlFor={'new' + ladokRoundId} key={'new' + ladokRoundId}>
                               <input
@@ -399,7 +397,7 @@ class ChoiceOptions extends Component {
             </Col>
           </Row>
         </Container>
-        <ControlPanel hasSavedDraft={hasSavedDraft} onSubmit={this.onSubmitNew} />
+        <ControlPanel hasSavedDraft={this.hasSavedDraft} onSubmit={this.onSubmitNew} />
       </Container>
     )
   }

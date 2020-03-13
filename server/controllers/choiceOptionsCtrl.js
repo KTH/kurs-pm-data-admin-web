@@ -57,7 +57,12 @@ async function getCourseOptionsPage(req, res, next) {
     renderProps.props.children.props.routerStore.slicedTermsByPrevYear = await getKoppsCourseRoundTerms(
       courseCode
     )
+    renderProps.props.children.props.routerStore.existingLatestMemos = await getMemoApiData(
+      'getMemosStartingFromPrevYearSemester',
+      { courseCode, prevYearSemester: '20192' }
+    )
 
+    // TODO GET AWAIT COURSE
     const html = ReactDOMServer.renderToString(renderProps)
     res.render('memo/index', {
       html,
@@ -83,7 +88,10 @@ async function getUsedRounds(req, res, next) {
       'trying to fetch getUsedRounds with course code: ' + courseCode + ' and semester: ' + semester
     )
 
-    const apiResponse = await getMemoApiData('getUsedRounds', { courseCode, semester })
+    const apiResponse = await getMemoApiData('getCourseSemesterUsedRounds', {
+      courseCode,
+      semester
+    })
     log.debug('getUsedRounds response: ', apiResponse)
     return res.json(apiResponse)
   } catch (error) {
