@@ -126,6 +126,16 @@ class ChoiceOptions extends Component {
     return tmpRoundsArr.sort()
   }
 
+  onSemesterChoice = event => {
+    const semester = event.target.value
+    console.log(semester)
+    this.setState(
+      { semester },
+      this.updateSearchPath('semester', semester),
+      this.existingMemosForThisSemester(semester)
+    )
+  }
+
   onChoiceActions = event => {
     const { checked, value, type } = event.target
     this.setState({ alert: { isOpen: false } })
@@ -139,14 +149,17 @@ class ChoiceOptions extends Component {
         )
         .join(', ')
       console.log('newMemoName', newMemoName)
-      this.setState({
-        chosen: {
-          action: 'create',
-          apiMemo: '',
-          newMemoName,
-          newRounds
-        }
-      })
+      this.setState(
+        {
+          chosen: {
+            action: 'create',
+            apiMemo: '',
+            newMemoName,
+            newRounds
+          }
+        },
+        this.updateSearchPath('semester', this.state.semester)
+      )
     } else {
       this._uncheckCheckboxes()
       this.setState(
@@ -158,7 +171,8 @@ class ChoiceOptions extends Component {
             newRounds: []
           }
         },
-        this.setAlarm('info', 'warnReplacePm')
+        this.setAlarm('info', 'warnReplacePm'),
+        this.updateSearchPath('memoEndPoint', value)
       )
     }
   }
@@ -172,14 +186,11 @@ class ChoiceOptions extends Component {
     return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
   }
 
-  updateSearchPath = () => {
+  updateSearchPath = (parameter, value) => {
     // move to helpers functions
-    const semesterParam = (this.state.semester && `semester=${this.state.semester}`) || ''
-    const memoEndPoint =
-      (this.state.chosen.apiMemo && `&memoEndPoint=${this.state.chosen.apiMemo}`) || ''
     this.props.history.push({
       pathname: this.props.history.location.pathname,
-      search: `?${semesterParam}${memoEndPoint}` // &${rounds}
+      search: `?${parameter}=${value}` // &${rounds}
     })
   }
 
@@ -270,13 +281,8 @@ class ChoiceOptions extends Component {
                         <DropdownItem
                           id={`itemFor-${term}`}
                           key={term}
-                          onClick={() => {
-                            this.setState(
-                              { semester: term },
-                              this.updateSearchPath,
-                              this.existingMemosForThisSemester(term)
-                            )
-                          }}
+                          onClick={this.onSemesterChoice}
+                          value={term}
                         >
                           {term}
                         </DropdownItem>
