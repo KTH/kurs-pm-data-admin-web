@@ -265,6 +265,7 @@ class ChoiceOptions extends Component {
         <Container className="First--Step--Choose--Parameters">
           <Row>
             <Col>
+              {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
               <span>
                 <h2>{info.chooseSavedDraft}</h2>
                 {(hasSavedDraft && (
@@ -274,26 +275,23 @@ class ChoiceOptions extends Component {
                     </p>
                     <form className="Existed--Memos--Options form-check">
                       <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
-                        {draftMemos.map(
-                          // removed ...publishedMemos
-                          ({ memoName, memoEndPoint }) => (
-                            <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
-                              <input
-                                type="radio"
-                                id={memoEndPoint}
-                                name="chooseDraft"
-                                key={'draft' + memoEndPoint}
-                                value={memoEndPoint}
-                                onClick={this.onChoiceActions}
-                                defaultChecked={
-                                  this.state.chosen.action === 'copy' &&
-                                  memoEndPoint === this.state.chosen.apiMemo
-                                }
-                              />
-                              {memoName}
-                            </label>
-                          )
-                        )}
+                        {draftMemos.map(({ memoName, memoEndPoint }) => (
+                          <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
+                            <input
+                              type="radio"
+                              id={memoEndPoint}
+                              name="chooseDraft"
+                              key={'draft' + memoEndPoint}
+                              value={memoEndPoint}
+                              onClick={this.onChoiceActions}
+                              defaultChecked={
+                                this.state.chosen.action === 'copy' &&
+                                memoEndPoint === this.state.chosen.apiMemo
+                              }
+                            />
+                            {memoName}
+                          </label>
+                        ))}
                       </span>
                     </form>
                   </>
@@ -303,6 +301,7 @@ class ChoiceOptions extends Component {
                   </p>
                 )}
               </span>
+              {/* CHOOSE TO CREATE A NEW EMPTY DRAFT OR A NEW ONE COPIED FROM PREVIOUS MEMO */}
               <span>
                 <h2>{info.createNew}</h2>
                 <TitleAndInfoModal
@@ -310,17 +309,17 @@ class ChoiceOptions extends Component {
                   titleAndInfo={info.chooseSemester}
                   btnClose={buttons.btnClose}
                 />
-                <Dropdown
-                  isOpen={this.state.dropdownOpen}
-                  toggle={this.toggle}
-                  className="select-semester form-check"
-                >
-                  <DropdownToggle caret>
-                    {this.state.semester ? 'Vald termin: ' + this.state.semester : 'Välj termin'}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    {this.allSemesters &&
-                      this.allSemesters.map(({ term }) => (
+                {(this.allSemesters.length > 0 && (
+                  <Dropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={this.toggle}
+                    className="select-semester"
+                  >
+                    <DropdownToggle caret>
+                      {this.state.semester ? 'Vald termin: ' + this.state.semester : 'Välj termin'}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      {this.allSemesters.map(({ term }) => (
                         <DropdownItem
                           id={`itemFor-${term}`}
                           key={term}
@@ -330,21 +329,33 @@ class ChoiceOptions extends Component {
                           {term}
                         </DropdownItem>
                       ))}
-                  </DropdownMenu>
-                </Dropdown>
+                    </DropdownMenu>
+                  </Dropdown>
+                )) || (
+                  <p>
+                    <i>{info.noSemesterAvailable}</i>
+                  </p>
+                )}
               </span>
-              <span style={this.state.semester ? { marginTop: '50' } : { display: 'none' }}>
+              {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
+              <span
+                style={
+                  this.allSemesters.length > 0 && this.state.semester
+                    ? { marginTop: '50' }
+                    : { display: 'none' }
+                }
+              >
                 <TitleAndInfoModal
                   modalId="choose-course-round"
                   titleAndInfo={info.chooseRound}
                   btnClose={buttons.btnClose}
                 />
-                {availableKoppsRoundsObj && (
+                {(availableKoppsRoundsObj && (
                   <>
                     <p>
                       <b>{info.chooseRound.availableRounds}</b>
                     </p>
-                    <form className="Not--Used--Rounds--Options form-check">
+                    <form className="Not--Used--Rounds--Options">
                       <span style={{ display: 'flex', flexDirection: 'column' }}>
                         {availableKoppsRoundsObj.map(
                           ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
@@ -379,6 +390,10 @@ class ChoiceOptions extends Component {
                       </span>
                     </form>
                   </>
+                )) || (
+                  <p>
+                    <i>{info.noCourseRoundsAvailable}</i>
+                  </p>
                 )}
               </span>
             </Col>

@@ -292,7 +292,11 @@ module.exports = {
       existedDrafts:
         'The following course offerings have saved drafts that are not yet published or have a last version as a published:'
     },
-    noSavedDrafts: 'No saved drafts was found for period starting from previous year...'
+    noCourseRoundsAvailable:
+      'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
+    noSavedDrafts: 'No saved drafts was found for period starting from previous year...',
+    noSemesterAvailable:
+      'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.'
   },
   buttons: {
     /** ************ BUTTONS ****************** */

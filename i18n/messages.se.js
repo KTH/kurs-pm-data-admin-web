@@ -327,7 +327,11 @@ module.exports = {
       existedDrafts:
         'Följande kursomgångar har sparade utkast som ännu ej publicerats. Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
     },
-    noSavedDrafts: 'Det finns inga sparade utkaster att visa för de sista aktuella terminer ....'
+    noCourseRoundsAvailable:
+      'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-pm eller utkast.',
+    noSavedDrafts: 'Det finns inga sparade utkaster att visa för de sista aktuella terminer ....',
+    noSemesterAvailable:
+      'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-pm för.'
   },
   buttons: {
     /** ************ BUTTONS ****************** */
