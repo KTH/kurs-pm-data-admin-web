@@ -4,20 +4,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
-import {
-  Alert,
-  Col,
-  Container,
-  Row,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Form,
-  FormGroup,
-  Label,
-  Input
-} from 'reactstrap'
+import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
 import axios from 'axios'
@@ -28,7 +15,6 @@ import { PageTitle, ProgressBar, TitleAndInfoModal } from '@kth/kth-kip-style-re
 class ChoiceOptions extends Component {
   state = {
     semester: this.props.routerStore.semester,
-    dropdownOpen: false,
     chosen: {
       action: this.props.routerStore.memoEndPoint ? 'copy' : 'create',
       apiMemo: this.props.routerStore.memoEndPoint || '',
@@ -55,8 +41,6 @@ class ChoiceOptions extends Component {
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
 
   allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList
-
-  toggle = () => this.setState({ dropdownOpen: !this.state.dropdownOpen })
 
   _filterOutUsedRounds = usedRoundsThisSemester => {
     console.log('use usedRoundsThisSemester', usedRoundsThisSemester)
@@ -277,12 +261,11 @@ class ChoiceOptions extends Component {
                     </p>
                     <Form className="Existed--Memos">
                       {this.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
-                        <FormGroup>
+                        <FormGroup key={'draft' + memoEndPoint}>
                           <Input
                             type="radio"
                             id={memoEndPoint}
                             name="chooseDraft"
-                            key={'draft' + memoEndPoint}
                             value={memoEndPoint}
                             onClick={this.onChoiceActions}
                             defaultChecked={
@@ -290,7 +273,7 @@ class ChoiceOptions extends Component {
                               memoEndPoint === this.state.chosen.apiMemo
                             }
                           />
-                          <Label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
+                          <Label htmlFor={memoEndPoint}>
                             {memoName || memoEndPoint + ' (old memo before namegiving)'}
                           </Label>
                         </FormGroup>
@@ -312,27 +295,23 @@ class ChoiceOptions extends Component {
                   btnClose={buttons.btnClose}
                 />
                 {(this.allSemesters.length > 0 && (
-                  <Dropdown
-                    isOpen={this.state.dropdownOpen}
-                    toggle={this.toggle}
-                    className="select-semester"
-                  >
-                    <DropdownToggle caret>
-                      {this.state.semester ? 'Vald termin: ' + this.state.semester : 'Välj termin'}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      {this.allSemesters.map(({ term }) => (
-                        <DropdownItem
-                          id={`itemFor-${term}`}
-                          key={term}
-                          onClick={this.onSemesterChoice}
-                          value={term}
+                  <Form style={{ width: '20em' }}>
+                    <FormGroup className="form-select" key="select-semester">
+                      <div className="select-wrapper">
+                        <select
+                          className="custom-select"
+                          id="term-list"
+                          onChange={this.onSemesterChoice}
                         >
-                          {term}
-                        </DropdownItem>
-                      ))}
-                    </DropdownMenu>
-                  </Dropdown>
+                          {this.allSemesters.map(({ term }) => (
+                            <option id={`itemFor-${term}`} key={term} value={term}>
+                              {term}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </FormGroup>
+                  </Form>
                 )) || (
                   <p>
                     <i>{info.noSemesterAvailable}</i>
@@ -360,17 +339,16 @@ class ChoiceOptions extends Component {
                     <Form>
                       {availableSemesterRounds.map(
                         ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
-                          <FormGroup className="form-check">
+                          <FormGroup className="form-check" key={'new' + ladokRoundId}>
                             <Input
                               type="checkbox"
                               id={'new' + ladokRoundId}
                               name="chooseNew"
-                              key={'new' + ladokRoundId}
                               value={ladokRoundId}
                               onClick={this.onChoiceActions}
                               defaultChecked={false}
                             />
-                            <Label htmlFor={'new' + ladokRoundId} key={'new' + ladokRoundId}>
+                            <Label htmlFor={'new' + ladokRoundId}>
                               {/* Namegiving to new rounds which will be saved to api */}
                               {shortName
                                 ? shortName + ' '
