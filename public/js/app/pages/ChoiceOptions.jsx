@@ -303,8 +303,18 @@ class ChoiceOptions extends Component {
                           id="term-list"
                           onChange={this.onSemesterChoice}
                         >
+                          {!this.state.semester && (
+                            <option key="no-chosen" selected>
+                              Välj termin
+                            </option>
+                          )}
                           {this.allSemesters.map(({ term }) => (
-                            <option id={`itemFor-${term}`} key={term} value={term}>
+                            <option
+                              id={`itemFor-${term}`}
+                              key={term}
+                              value={term}
+                              selected={term === this.state.semester}
+                            >
                               {term}
                             </option>
                           ))}
