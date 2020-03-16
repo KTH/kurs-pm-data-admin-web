@@ -12,7 +12,11 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Form,
+  FormGroup,
+  Label,
+  Input
 } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
@@ -271,27 +275,27 @@ class ChoiceOptions extends Component {
                     <p>
                       <b>{info.chooseRound.existedDrafts}</b>
                     </p>
-                    <form className="Existed--Memos--Options">
-                      <span role="radiogroup" style={{ display: 'flex', flexDirection: 'column' }}>
-                        {this.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
-                          <label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
-                            <input
-                              type="radio"
-                              id={memoEndPoint}
-                              name="chooseDraft"
-                              key={'draft' + memoEndPoint}
-                              value={memoEndPoint}
-                              onClick={this.onChoiceActions}
-                              defaultChecked={
-                                this.state.chosen.action === 'copy' &&
-                                memoEndPoint === this.state.chosen.apiMemo
-                              }
-                            />
+                    <Form className="Existed--Memos">
+                      {this.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
+                        <FormGroup>
+                          <Input
+                            type="radio"
+                            id={memoEndPoint}
+                            name="chooseDraft"
+                            key={'draft' + memoEndPoint}
+                            value={memoEndPoint}
+                            onClick={this.onChoiceActions}
+                            defaultChecked={
+                              this.state.chosen.action === 'copy' &&
+                              memoEndPoint === this.state.chosen.apiMemo
+                            }
+                          />
+                          <Label htmlFor={memoEndPoint} key={'draft' + memoEndPoint}>
                             {memoName || memoEndPoint + ' (old memo before namegiving)'}
-                          </label>
-                        ))}
-                      </span>
-                    </form>
+                          </Label>
+                        </FormGroup>
+                      ))}
+                    </Form>
                   </>
                 )) || (
                   <p>
@@ -353,20 +357,20 @@ class ChoiceOptions extends Component {
                     <p>
                       <b>{info.chooseRound.availableRounds}</b>
                     </p>
-                    <form className="Not--Used--Rounds--Options">
-                      <span style={{ display: 'flex', flexDirection: 'column' }}>
-                        {availableSemesterRounds.map(
-                          ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
-                            <label htmlFor={'new' + ladokRoundId} key={'new' + ladokRoundId}>
-                              <input
-                                type="checkbox"
-                                id={'new' + ladokRoundId}
-                                name="chooseNew"
-                                key={'new' + ladokRoundId}
-                                value={ladokRoundId}
-                                onClick={this.onChoiceActions}
-                                defaultChecked={false}
-                              />
+                    <Form>
+                      {availableSemesterRounds.map(
+                        ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
+                          <FormGroup className="form-check">
+                            <Input
+                              type="checkbox"
+                              id={'new' + ladokRoundId}
+                              name="chooseNew"
+                              key={'new' + ladokRoundId}
+                              value={ladokRoundId}
+                              onClick={this.onChoiceActions}
+                              defaultChecked={false}
+                            />
+                            <Label htmlFor={'new' + ladokRoundId} key={'new' + ladokRoundId}>
                               {/* Namegiving to new rounds which will be saved to api */}
                               {shortName
                                 ? shortName + ' '
@@ -375,18 +379,18 @@ class ChoiceOptions extends Component {
                                       this.state.semester.toString().match(/.{1,4}/g)[1]
                                     ]
                                   } 
-                                ${
-                                  this.state.semester.toString().match(/.{1,4}/g)[0]
-                                }-${ladokRoundId} `}
+                                  ${
+                                    this.state.semester.toString().match(/.{1,4}/g)[0]
+                                  }-${ladokRoundId} `}
                               {`(${extraInfo.labelStartDate} ${this.getDateFormat(
                                 firstTuitionDate,
                                 language[this.langAbbr]
                               )}, ${language[this.langAbbr]})`}
-                            </label>
-                          )
-                        )}
-                      </span>
-                    </form>
+                            </Label>
+                          </FormGroup>
+                        )
+                      )}
+                    </Form>
                   </>
                 )) || (
                   <p>

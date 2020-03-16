@@ -263,9 +263,11 @@ a.nav-link {
 /* Select course offerings checkboxes and radiooxes */
 .First--Step--Choose--Parameters {
   form {
-    label {
-      font-weight: normal;
-      padding: 0.5em 0;
+    &.Existed--Memos {
+      margin-left: 1.3em;
+    }
+    input[type='radio'] ~ label {
+      padding: 0.2em 0;
     }
     padding-bottom: 2em;
   }
