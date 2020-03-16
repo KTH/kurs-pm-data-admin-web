@@ -348,7 +348,7 @@ class ChoiceOptions extends Component {
                   titleAndInfo={info.chooseRound}
                   btnClose={buttons.btnClose}
                 />
-                {(availableSemesterRounds && (
+                {(availableSemesterRounds.length > 0 && (
                   <>
                     <p>
                       <b>{info.chooseRound.availableRounds}</b>
