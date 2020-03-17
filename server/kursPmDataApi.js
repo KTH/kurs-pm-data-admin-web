@@ -3,6 +3,11 @@
 const log = require('kth-node-log')
 const api = require('./api')
 
+const clientActions = {
+  createDraftByMemoEndPoint: 'postAsync',
+  deleteDraftByMemoEndPoint: 'deleteAsync',
+  updateCreatedDraft: 'putAsync'
+}
 // Gets a list of used round ids for a semester in a course
 async function getMemoApiData(apiFnName, uriParam) {
   try {
@@ -17,18 +22,17 @@ async function getMemoApiData(apiFnName, uriParam) {
 }
 
 // Gets a list of used round ids for a semester in a course
-async function changeMemoApiData(action = 'putAsync', apiFnName, uriParam, body) {
+async function changeMemoApiData(apiFnName, uriParam, body) {
   try {
     const { client, paths } = api.kursPmDataApi
     const uri = client.resolve(paths[apiFnName].uri, uriParam)
+    const action = clientActions[apiFnName]
 
     const res = await client[action]({ uri, body, useCache: false })
     return res.body
   } catch (error) {
     log.debug(
       'Changing of data with ',
-      { action },
-      ' with ',
       { apiFnName },
       ' with parameter,',
       { uriParam },
