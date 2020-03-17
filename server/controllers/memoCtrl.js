@@ -54,14 +54,15 @@ async function renderMemoEditorPage(req, res, next) {
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
     renderProps.props.children.props.routerStore.memoData = apiMemoData
-    renderProps.props.children.props.routerStore.courseCode = courseCode
-    renderProps.props.children.props.routerStore.semester = apiMemoData.semester
-    renderProps.props.children.props.routerStore.memoEndPoint = memoEndPoint
+    renderProps.props.children.props.routerStore.setMemoBasicInfo({
+      courseCode,
+      memoEndPoint,
+      semester: apiMemoData.semester
+    })
     renderProps.props.children.props.routerStore.koppsFreshData = {
-      ...(await getSyllabus(courseCode, apiMemoData.semester, lang)),
+      ...(await getSyllabus(courseCode, apiMemoData.semester, lang)), // TODO: use apiMemoData instead
       ...(await getCourseEmployees(apiMemoData))
     }
-    console.log('fresh data', renderProps.props.children.props.routerStore.koppsFreshData)
 
     await renderProps.props.children.props.routerStore.combineDefaultValues()
 

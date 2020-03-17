@@ -39,8 +39,6 @@ async function getCourseOptionsPage(req, res, next) {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
     const { courseCode } = req.params
-    const semester =
-      req.query.semester && req.query.semester.match(/^[0-9]{5}$/) ? req.query.semester : ''
     const renderProps = _staticRender(context, req.url)
 
     // renderProps.props.children.props.routerStore.getData(courseCode, semester)
@@ -51,12 +49,14 @@ async function getCourseOptionsPage(req, res, next) {
       server.hostUrl
     )
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
-    renderProps.props.children.props.routerStore.courseCode = courseCode
-    renderProps.props.children.props.routerStore.semester = semester
-    renderProps.props.children.props.routerStore.memoEndPoint = req.query.memoEndPoint || ''
+    renderProps.props.children.props.routerStore.setMemoBasicInfo({
+      courseCode,
+      memoEndPoint: req.query.memoEndPoint || ''
+    })
     renderProps.props.children.props.routerStore.slicedTermsByPrevYear = await getKoppsCourseRoundTerms(
       courseCode
     )
+    // await renderProps.props.children.props.routerStore.fetchExistingMemos(courseCode)
     renderProps.props.children.props.routerStore.existingLatestMemos = await getMemoApiData(
       'getMemosStartingFromPrevYearSemester',
       { courseCode, prevYearSemester: '20192' }
@@ -100,6 +100,23 @@ async function getUsedRounds(req, res, next) {
   }
 }
 
+// eslint-disable-next-line consistent-return
+async function getUsedDrafts(req, res, next) {
+  const { courseCode } = req.params
+  try {
+    log.debug('trying to fetch getUsedDrafts with course code: ' + courseCode)
+
+    const apiResponse = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
+      courseCode,
+      prevYearSemester: '20192'
+    })
+    log.debug('getUsedDrafts response: ', apiResponse)
+    return res.json(apiResponse)
+  } catch (error) {
+    log.error('Exception from getUsedDrafts ', { error })
+    next(error)
+  }
+}
 // eslint-disable-next-line consistent-return
 async function createDraftByMemoEndPoint(req, res, next) {
   try {
@@ -149,5 +166,6 @@ module.exports = {
   createDraftByMemoEndPoint,
   getCourseOptionsPage,
   getUsedRounds,
+  getUsedDrafts,
   removeMemoDraft
 }

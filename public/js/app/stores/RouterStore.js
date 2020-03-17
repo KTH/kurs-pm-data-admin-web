@@ -1,5 +1,7 @@
 import { observable, action } from 'mobx'
 import { context } from '../util/fieldsByType'
+import axios from 'axios'
+import { SERVICE_URL } from '../util/constants'
 
 class RouterStore {
   @observable courseCode
@@ -19,6 +21,30 @@ class RouterStore {
   @observable defaultValues = {
     // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
   }
+
+  @action setMemoBasicInfo(props) {
+    this.semester = props.semester || ''
+    this.courseCode = props.courseCode
+    this.memoEndPoint = props.memoEndPoint
+  }
+
+  // @action fetchExistingMemos(courseCode) {
+  //   axios
+  //   .get(`${SERVICE_URL.API}existing-drafts/${courseCode}`)
+  //   .then(result => {
+  //     if (result.status >= 400) {
+  //       return 'ERROR-' + result.status
+  //     }
+  //     console.log('---------> existing draft', result.data)
+  //     this.existingLatestMemos = result.data
+  //   })
+  //   .catch(err => {
+  //     if (err.response) {
+  //       throw new Error(err.message)
+  //     }
+  //     throw err
+  //   })
+  // }
 
   @action combineDefaultValues() {
     this.defaultValues = {
