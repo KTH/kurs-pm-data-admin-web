@@ -168,8 +168,22 @@ class ChoiceOptions extends Component {
   }
 
   onRemoveDraft = () => {
-    // if (!this.state.chosen.memoEndPoint) this.setAlarm('danger', 'errNoChosenToDelete') //it is disabeld
+    if (!this.state.chosen.memoEndPoint) return this.setAlarm('danger', 'errNoChosenToDelete') // it is disabeld
     console.log('nnnnn, this.state.chosen.memoEndPoint', this.state.chosen.memoEndPoint)
+    return axios
+      .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
+      .then(result => {
+        if (result.status >= 400) {
+          return 'ERROR-' + result.status
+        }
+        console.log('---------> removed draft', result.data)
+      })
+      .catch(err => {
+        if (err.response) {
+          throw new Error(err.message)
+        }
+        throw err
+      })
   }
 
   onSubmitNew = () => {

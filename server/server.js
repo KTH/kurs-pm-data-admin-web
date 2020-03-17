@@ -224,6 +224,12 @@ appRoute.get(
   ChoiceOptions.getUsedRounds
 )
 
+appRoute.get(
+  'memo.api.getUsedRounds',
+  config.proxyPrefixPath.uri + '/internal-api/existing-drafts/:courseCode',
+  ChoiceOptions.getUsedDrafts
+)
+
 appRoute.delete(
   'memo.api.removeMemoDraft',
   config.proxyPrefixPath.uri + '/internal-api/draft-to-remove/:memoEndPoint',
