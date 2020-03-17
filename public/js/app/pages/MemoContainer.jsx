@@ -81,10 +81,10 @@ class MemoContainer extends Component {
 
   /** * User clicked button to go to one step back ** */
   onBack = () => {
-    const { courseCode, semester, memoEndPoint } = this.state.updatedMemo
+    const { courseCode, memoEndPoint } = this.state.updatedMemo
     switch (this.state.progress) {
       case 2:
-        window.location = `${ADMIN}${courseCode}?semester=${semester}&memoEndPoint=${memoEndPoint}`
+        window.location = `${ADMIN}${courseCode}?memoEndPoint=${memoEndPoint}`
         break
       default:
         this.setState({ progress: this.state.progress - 1 })
