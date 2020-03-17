@@ -27,7 +27,7 @@ class ChoiceOptions extends Component {
       text: ''
     },
     firstLoad: true,
-    availableSemesterRounds: [] // this.props.infoBySemester.getUsedRounds(this.props.routerStore.semester)
+    availableSemesterRounds: []
   }
 
   courseCode = this.props.routerStore.courseCode
@@ -209,7 +209,7 @@ class ChoiceOptions extends Component {
       axios
         .post(url, body)
         .then(result => {
-          const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${semester}/${body.memoEndPoint}`
+          const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}`
           console.log('Submitted result', result)
           console.log('Submitted nextStepUrl', nextStepUrl)
           window.location = nextStepUrl

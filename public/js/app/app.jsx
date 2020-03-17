@@ -27,7 +27,7 @@ function appFactory() {
         <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={ChoiceOptions} />
         <Route
           exact
-          path="/kursinfoadmin/kurs-pm-data/:courseCode/:semester/:memoEndPoint"
+          path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint"
           component={MemoContainer}
         />
       </Switch>
