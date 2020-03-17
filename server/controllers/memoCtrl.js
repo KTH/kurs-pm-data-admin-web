@@ -8,7 +8,7 @@ const language = require('kth-node-web-common/lib/language')
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
-const { getMemoApiData, updateCreatedDraft } = require('../kursPmDataApi')
+const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRedisApi')
 const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
@@ -87,7 +87,12 @@ async function renderMemoEditorPage(req, res, next) {
 async function updateContentByEndpoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
-    const apiResponse = await updateCreatedDraft(memoEndPoint, req.body)
+    const apiResponse = await changeMemoApiData(
+      'putAsync',
+      'updateCreatedDraft',
+      memoEndPoint,
+      req.body
+    )
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API: ', apiResponse.message)
     }
