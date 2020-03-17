@@ -120,10 +120,10 @@ class ChoiceOptions extends Component {
     const semester = event.target.value
     console.log(semester)
     this.setState(
-      { semester },
-      this.updateSearchPath('semester', semester),
-      this.existingMemosForThisSemester(semester)
+      { semester }
+      // this.updateSearchPath('semester', semester),
     )
+    this.existingMemosForThisSemester(semester)
   }
 
   onChoiceActions = event => {
@@ -147,8 +147,8 @@ class ChoiceOptions extends Component {
             newMemoName,
             newRounds
           }
-        },
-        this.updateSearchPath('semester', this.state.semester)
+        }
+        // this.updateSearchPath('semester', this.state.semester)
       )
     } else {
       this._uncheckCheckboxes()
@@ -160,9 +160,9 @@ class ChoiceOptions extends Component {
             newMemoName: '',
             newRounds: []
           }
-        },
-        this.setAlarm('info', 'warnReplacePm'),
-        this.updateSearchPath('memoEndPoint', value)
+        }
+        // this.setAlarm('info', 'warnReplacePm')
+        // this.updateSearchPath('memoEndPoint', value)
       )
     }
   }
@@ -176,13 +176,13 @@ class ChoiceOptions extends Component {
     return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
   }
 
-  updateSearchPath = (parameter, value) => {
-    // move to helpers functions
-    this.props.history.push({
-      pathname: this.props.history.location.pathname,
-      search: `?${parameter}=${value}` // &${rounds}
-    })
-  }
+  // updateSearchPath = (parameter, value) => {
+  //   // move to helpers functions
+  //   this.props.history.push({
+  //     pathname: this.props.history.location.pathname,
+  //     search: `?${parameter}=${value}` // &${rounds}
+  //   })
+  // }
 
   onSubmitNew = () => {
     const { courseCode } = this
