@@ -27,14 +27,11 @@ class ChoiceOptions extends Component {
       text: ''
     },
     firstLoad: true,
-    availableSemesterRounds: []
+    availableSemesterRounds: [],
+    existingDraftsByCourseCode: this.props.routerStore.existingLatestMemos.draftMemos
   }
 
   courseCode = this.props.routerStore.courseCode
-
-  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos.draftMemos
-
-  hasSavedDraft = this.existingDraftsByCourseCode.length > 0
 
   langIndex = this.props.routerStore.langIndex
 
@@ -57,7 +54,7 @@ class ChoiceOptions extends Component {
     )
   }
 
-  existingMemosForThisSemester = semester => {
+  showAvailableSemesterRounds = semester => {
     // move to helper steg 1
     return axios
       .get(`${SERVICE_URL.API}used-rounds/${this.courseCode}/${semester}`)
@@ -65,7 +62,7 @@ class ChoiceOptions extends Component {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
-        console.log('---------> api existingMemosForThisSemester', result.data)
+        console.log('---------> api showAvailableSemesterRounds', result.data)
         const { usedRoundsThisSemester } = result.data
         this.setState({
           firstLoad: false,
@@ -121,7 +118,7 @@ class ChoiceOptions extends Component {
     const semester = event.target.value
     console.log(semester)
     this.setState({ semester })
-    this.existingMemosForThisSemester(semester)
+    this.showAvailableSemesterRounds(semester)
   }
 
   onChoiceActions = event => {
@@ -172,11 +169,13 @@ class ChoiceOptions extends Component {
     console.log('nnnnn, this.state.chosen.memoEndPoint', this.state.chosen.memoEndPoint)
     return axios
       .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
-      .then(result => {
-        if (result.status >= 400) {
-          return 'ERROR-' + result.status
+      .then(() => axios.get(`${SERVICE_URL.API}existing-drafts/${this.courseCode}`))
+      .then(resLatestMemos => {
+        if (resLatestMemos.status >= 400) {
+          return 'ERROR-' + resLatestMemos.status
         }
-        console.log('---------> removed draft', result.data)
+        console.log('---------> removed draft', resLatestMemos.data)
+        this.setState({ existingDraftsByCourseCode: resLatestMemos.data.draftMemos })
       })
       .catch(err => {
         if (err.response) {
@@ -223,8 +222,11 @@ class ChoiceOptions extends Component {
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
+    const hasSavedDraft = this.state.existingDraftsByCourseCode.length > 0
+    console.log('this.state.existingDraftsByCourseCode', this.state.existingDraftsByCourseCode)
+
     if (this.state.firstLoad && this.state.semester)
-      this.existingMemosForThisSemester(this.state.semester)
+      this.showAvailableSemesterRounds(this.state.semester)
 
     const { availableSemesterRounds } = this.state
     console.log('******availableSemesterRounds ', availableSemesterRounds)
@@ -257,13 +259,13 @@ class ChoiceOptions extends Component {
               {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
               <span>
                 <h2>{info.chooseSavedDraft}</h2>
-                {(this.hasSavedDraft && (
+                {(hasSavedDraft && (
                   <>
                     <p>
                       <b>{info.chooseRound.existedDrafts}</b>
                     </p>
                     <Form className="Existed--Memos">
-                      {this.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
+                      {this.state.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
                         <FormGroup key={'draft' + memoEndPoint}>
                           <Input
                             type="radio"
@@ -390,7 +392,7 @@ class ChoiceOptions extends Component {
         </Container>
         <ControlPanel
           canContinue={this.state.chosen.memoEndPoint || this.state.chosen.newRounds.length > 0}
-          hasSavedDraft={this.hasSavedDraft}
+          hasSavedDraft={hasSavedDraft}
           hasChosenMemo={this.state.chosen.memoEndPoint}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
