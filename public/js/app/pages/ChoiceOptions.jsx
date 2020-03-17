@@ -120,10 +120,7 @@ class ChoiceOptions extends Component {
   onSemesterChoice = event => {
     const semester = event.target.value
     console.log(semester)
-    this.setState(
-      { semester }
-      // this.updateSearchPath('semester', semester),
-    )
+    this.setState({ semester })
     this.existingMemosForThisSemester(semester)
   }
 
@@ -140,31 +137,24 @@ class ChoiceOptions extends Component {
         )
         .join(', ')
       console.log('newMemoName', newMemoName)
-      this.setState(
-        {
-          chosen: {
-            action: 'create',
-            memoEndPoint: '',
-            newMemoName,
-            newRounds
-          }
+      this.setState({
+        chosen: {
+          action: 'create',
+          memoEndPoint: '',
+          newMemoName,
+          newRounds
         }
-        // this.updateSearchPath('semester', this.state.semester)
-      )
+      })
     } else {
       this._uncheckCheckboxes()
-      this.setState(
-        {
-          chosen: {
-            action: 'copy',
-            memoEndPoint: value,
-            newMemoName: '',
-            newRounds: []
-          }
+      this.setState({
+        chosen: {
+          action: 'copy',
+          memoEndPoint: value,
+          newMemoName: '',
+          newRounds: []
         }
-        // this.setAlarm('info', 'warnReplacePm')
-        // this.updateSearchPath('memoEndPoint', value)
-      )
+      })
     }
   }
 
@@ -177,13 +167,6 @@ class ChoiceOptions extends Component {
     return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
   }
 
-  // updateSearchPath = (parameter, value) => {
-  //   // move to helpers functions
-  //   this.props.history.push({
-  //     pathname: this.props.history.location.pathname,
-  //     search: `?${parameter}=${value}` // &${rounds}
-  //   })
-  // }
   onRemoveDraft = () => {
     // if (!this.state.chosen.memoEndPoint) this.setAlarm('danger', 'errNoChosenToDelete') //it is disabeld
     console.log('nnnnn, this.state.chosen.memoEndPoint', this.state.chosen.memoEndPoint)
