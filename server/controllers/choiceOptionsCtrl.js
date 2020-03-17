@@ -9,7 +9,7 @@ const ReactDOMServer = require('react-dom/server')
 const { getKoppsCourseRoundTerms } = require('../koppsApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
-const { getMemoApiData, saveToMemoApi } = require('../kursPmDataApi')
+const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -104,9 +104,13 @@ async function getUsedRounds(req, res, next) {
 async function createDraftByMemoEndPoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
-    const apiResponse = await saveToMemoApi('createDraftByMemoEndPoint', { memoEndPoint }, req.body)
+    const apiResponse = await changeMemoApiData(
+      'createDraftByMemoEndPoint',
+      { memoEndPoint },
+      req.body
+    )
     if (safeGet(() => apiResponse.message)) {
-      log.debug('Error from API: ', apiResponse.message)
+      log.debug('Error from API trying to create a new draft: ', apiResponse.message)
     }
     log.info(
       'Memo contents was updated in kursinfo api for course memo with memoEndPoint:',
@@ -119,8 +123,31 @@ async function createDraftByMemoEndPoint(req, res, next) {
   }
 }
 
+async function removeMemoDraft(req, res, next) {
+  try {
+    const { memoEndPoint } = req.params
+    const apiResponse = await changeMemoApiData(
+      'deleteDraftByMemoEndPoint',
+      { memoEndPoint },
+      req.body
+    )
+    if (safeGet(() => apiResponse.message)) {
+      log.debug('Error from API trying to delete a draft: ', apiResponse.message)
+    }
+    log.info(
+      'Memo contents was updated in kursinfo api for course memo with memoEndPoint:',
+      memoEndPoint
+    )
+    return res.json(apiResponse)
+  } catch (err) {
+    log.error('Error in deleting of a draft', { err })
+    next(err)
+  }
+}
+
 module.exports = {
   createDraftByMemoEndPoint,
   getCourseOptionsPage,
-  getUsedRounds
+  getUsedRounds,
+  removeMemoDraft
 }
