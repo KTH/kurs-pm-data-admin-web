@@ -225,8 +225,20 @@ appRoute.get(
 )
 
 appRoute.get(
+  'memo.api.getUsedRounds',
+  config.proxyPrefixPath.uri + '/internal-api/existing-drafts/:courseCode',
+  ChoiceOptions.getUsedDrafts
+)
+
+appRoute.delete(
+  'memo.api.removeMemoDraft',
+  config.proxyPrefixPath.uri + '/internal-api/draft-to-remove/:memoEndPoint',
+  ChoiceOptions.removeMemoDraft
+)
+
+appRoute.get(
   'memo.getContent',
-  config.proxyPrefixPath.uri + '/:courseCode/:semester/:memoEndPoint*', // /:courseCode/:semester/:memoEndPoint*
+  config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint*', // /:courseCode/:semester/:memoEndPoint*
   MemoContent.renderMemoEditorPage
 )
 

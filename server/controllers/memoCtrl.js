@@ -8,7 +8,7 @@ const language = require('kth-node-web-common/lib/language')
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
-const { getMemoApiData, updateCreatedDraft } = require('../kursPmDataApi')
+const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRedisApi')
 const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
@@ -42,7 +42,7 @@ async function renderMemoEditorPage(req, res, next) {
   try {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
-    const { courseCode, semester, memoEndPoint } = req.params
+    const { courseCode, memoEndPoint } = req.params
     const renderProps = _staticRender(context, req.url)
 
     renderProps.props.children.props.routerStore.setBrowserConfig(
@@ -54,14 +54,15 @@ async function renderMemoEditorPage(req, res, next) {
     renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
     renderProps.props.children.props.routerStore.memoData = apiMemoData
-    renderProps.props.children.props.routerStore.courseCode = courseCode
-    renderProps.props.children.props.routerStore.semester = semester
-    renderProps.props.children.props.routerStore.memoEndPoint = memoEndPoint
+    renderProps.props.children.props.routerStore.setMemoBasicInfo({
+      courseCode,
+      memoEndPoint,
+      semester: apiMemoData.semester
+    })
     renderProps.props.children.props.routerStore.koppsFreshData = {
-      ...(await getSyllabus(courseCode, semester, lang)),
+      ...(await getSyllabus(courseCode, apiMemoData.semester, lang)), // TODO: use apiMemoData instead
       ...(await getCourseEmployees(apiMemoData))
     }
-    console.log('fresh data', renderProps.props.children.props.routerStore.koppsFreshData)
 
     await renderProps.props.children.props.routerStore.combineDefaultValues()
 
@@ -87,7 +88,7 @@ async function renderMemoEditorPage(req, res, next) {
 async function updateContentByEndpoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
-    const apiResponse = await updateCreatedDraft(memoEndPoint, req.body)
+    const apiResponse = await changeMemoApiData('updateCreatedDraft', memoEndPoint, req.body)
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API: ', apiResponse.message)
     }

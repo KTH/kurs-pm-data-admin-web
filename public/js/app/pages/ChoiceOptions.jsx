@@ -17,7 +17,7 @@ class ChoiceOptions extends Component {
     semester: this.props.routerStore.semester,
     chosen: {
       action: this.props.routerStore.memoEndPoint ? 'copy' : 'create',
-      apiMemo: this.props.routerStore.memoEndPoint || '',
+      memoEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
       newRounds: this.props.routerStore.rounds || []
     },
@@ -27,14 +27,11 @@ class ChoiceOptions extends Component {
       text: ''
     },
     firstLoad: true,
-    availableSemesterRounds: [] // this.props.infoBySemester.getUsedRounds(this.props.routerStore.semester)
+    availableSemesterRounds: [],
+    existingDraftsByCourseCode: this.props.routerStore.existingLatestMemos.draftMemos
   }
 
   courseCode = this.props.routerStore.courseCode
-
-  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos.draftMemos
-
-  hasSavedDraft = this.existingDraftsByCourseCode.length > 0
 
   langIndex = this.props.routerStore.langIndex
 
@@ -57,7 +54,7 @@ class ChoiceOptions extends Component {
     )
   }
 
-  existingMemosForThisSemester = semester => {
+  showAvailableSemesterRounds = semester => {
     // move to helper steg 1
     return axios
       .get(`${SERVICE_URL.API}used-rounds/${this.courseCode}/${semester}`)
@@ -65,7 +62,7 @@ class ChoiceOptions extends Component {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
-        console.log('---------> api existingMemosForThisSemester', result.data)
+        console.log('---------> api showAvailableSemesterRounds', result.data)
         const { usedRoundsThisSemester } = result.data
         this.setState({
           firstLoad: false,
@@ -94,9 +91,10 @@ class ChoiceOptions extends Component {
 
   _uncheckRadio = () => {
     // move to helper
-    const { apiMemo } = this.state.chosen
-    const memoElem = document.getElementById(apiMemo)
-    if (apiMemo && memoElem && memoElem.checked) document.getElementById(apiMemo).checked = false
+    const { memoEndPoint } = this.state.chosen
+    const memoElem = document.getElementById(memoEndPoint)
+    if (memoEndPoint && memoElem && memoElem.checked)
+      document.getElementById(memoEndPoint).checked = false
   }
 
   _uncheckCheckboxes = () => {
@@ -119,11 +117,8 @@ class ChoiceOptions extends Component {
   onSemesterChoice = event => {
     const semester = event.target.value
     console.log(semester)
-    this.setState(
-      { semester },
-      this.updateSearchPath('semester', semester),
-      this.existingMemosForThisSemester(semester)
-    )
+    this.setState({ semester })
+    this.showAvailableSemesterRounds(semester)
   }
 
   onChoiceActions = event => {
@@ -139,31 +134,24 @@ class ChoiceOptions extends Component {
         )
         .join(', ')
       console.log('newMemoName', newMemoName)
-      this.setState(
-        {
-          chosen: {
-            action: 'create',
-            apiMemo: '',
-            newMemoName,
-            newRounds
-          }
-        },
-        this.updateSearchPath('semester', this.state.semester)
-      )
+      this.setState({
+        chosen: {
+          action: 'create',
+          memoEndPoint: '',
+          newMemoName,
+          newRounds
+        }
+      })
     } else {
       this._uncheckCheckboxes()
-      this.setState(
-        {
-          chosen: {
-            action: 'copy',
-            apiMemo: value,
-            newMemoName: '',
-            newRounds: []
-          }
-        },
-        this.setAlarm('info', 'warnReplacePm'),
-        this.updateSearchPath('memoEndPoint', value)
-      )
+      this.setState({
+        chosen: {
+          action: 'copy',
+          memoEndPoint: value,
+          newMemoName: '',
+          newRounds: []
+        }
+      })
     }
   }
 
@@ -176,19 +164,31 @@ class ChoiceOptions extends Component {
     return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
   }
 
-  updateSearchPath = (parameter, value) => {
-    // move to helpers functions
-    this.props.history.push({
-      pathname: this.props.history.location.pathname,
-      search: `?${parameter}=${value}` // &${rounds}
-    })
+  onRemoveDraft = () => {
+    return axios
+      .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
+      .then(() => axios.get(`${SERVICE_URL.API}existing-drafts/${this.courseCode}`))
+      .then(resLatestMemos => {
+        if (resLatestMemos.status >= 400) {
+          return 'ERROR-' + resLatestMemos.status
+        }
+        console.log('---------> removed draft', resLatestMemos.data)
+        this.setState({ existingDraftsByCourseCode: resLatestMemos.data.draftMemos })
+        this.props.history.push({ search: '' })
+      })
+      .catch(err => {
+        if (err.response) {
+          throw new Error(err.message)
+        }
+        throw err
+      })
   }
 
   onSubmitNew = () => {
     const { courseCode } = this
     const { semester, chosen } = this.state
     console.log('on submit chosen ', this.state)
-    if (chosen.newRounds.length > 0 || chosen.apiMemo) {
+    if (chosen.newRounds.length > 0 || chosen.memoEndPoint) {
       const body =
         chosen.action === 'create'
           ? {
@@ -198,14 +198,15 @@ class ChoiceOptions extends Component {
               memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
               semester
             }
-          : { memoEndPoint: this.state.chosen.apiMemo }
+          : { memoEndPoint: this.state.chosen.memoEndPoint }
       const url = `${SERVICE_URL.API}create-draft/${body.memoEndPoint}`
 
       axios
         .post(url, body)
         .then(result => {
-          console.log('Submitted', result)
-          const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${semester}/${body.memoEndPoint}`
+          const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}`
+          console.log('Submitted result', result)
+          console.log('Submitted nextStepUrl', nextStepUrl)
           window.location = nextStepUrl
         })
         .catch(error => {
@@ -220,8 +221,11 @@ class ChoiceOptions extends Component {
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
+    const hasSavedDraft = this.state.existingDraftsByCourseCode.length > 0
+    console.log('this.state.existingDraftsByCourseCode', this.state.existingDraftsByCourseCode)
+
     if (this.state.firstLoad && this.state.semester)
-      this.existingMemosForThisSemester(this.state.semester)
+      this.showAvailableSemesterRounds(this.state.semester)
 
     const { availableSemesterRounds } = this.state
     console.log('******availableSemesterRounds ', availableSemesterRounds)
@@ -254,13 +258,13 @@ class ChoiceOptions extends Component {
               {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
               <span>
                 <h2>{info.chooseSavedDraft}</h2>
-                {(this.hasSavedDraft && (
+                {(hasSavedDraft && (
                   <>
                     <p>
                       <b>{info.chooseRound.existedDrafts}</b>
                     </p>
                     <Form className="Existed--Memos">
-                      {this.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
+                      {this.state.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
                         <FormGroup key={'draft' + memoEndPoint}>
                           <Input
                             type="radio"
@@ -270,7 +274,7 @@ class ChoiceOptions extends Component {
                             onClick={this.onChoiceActions}
                             defaultChecked={
                               this.state.chosen.action === 'copy' &&
-                              memoEndPoint === this.state.chosen.apiMemo
+                              memoEndPoint === this.state.chosen.memoEndPoint
                             }
                           />
                           <Label htmlFor={memoEndPoint}>
@@ -302,19 +306,15 @@ class ChoiceOptions extends Component {
                           className="custom-select"
                           id="term-list"
                           onChange={this.onSemesterChoice}
+                          defaultValue="DEFAULT"
                         >
                           {!this.state.semester && (
-                            <option key="no-chosen" selected>
+                            <option key="no-chosen" defaultValue="DEFAULT">
                               Välj termin
                             </option>
                           )}
                           {this.allSemesters.map(({ term }) => (
-                            <option
-                              id={`itemFor-${term}`}
-                              key={term}
-                              value={term}
-                              selected={term === this.state.semester}
-                            >
+                            <option id={`itemFor-${term}`} key={term} value={term}>
                               {term}
                             </option>
                           ))}
@@ -389,7 +389,13 @@ class ChoiceOptions extends Component {
             </Col>
           </Row>
         </Container>
-        <ControlPanel hasSavedDraft={this.hasSavedDraft} onSubmit={this.onSubmitNew} />
+        <ControlPanel
+          canContinue={this.state.chosen.memoEndPoint || this.state.chosen.newRounds.length > 0}
+          hasSavedDraft={hasSavedDraft}
+          hasChosenMemo={this.state.chosen.memoEndPoint}
+          onRemove={this.onRemoveDraft}
+          onSubmit={this.onSubmitNew}
+        />
       </Container>
     )
   }
