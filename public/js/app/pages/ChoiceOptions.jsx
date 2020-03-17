@@ -165,8 +165,6 @@ class ChoiceOptions extends Component {
   }
 
   onRemoveDraft = () => {
-    if (!this.state.chosen.memoEndPoint) return this.setAlarm('danger', 'errNoChosenToDelete') // it is disabeld
-    console.log('nnnnn, this.state.chosen.memoEndPoint', this.state.chosen.memoEndPoint)
     return axios
       .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
       .then(() => axios.get(`${SERVICE_URL.API}existing-drafts/${this.courseCode}`))
@@ -176,6 +174,7 @@ class ChoiceOptions extends Component {
         }
         console.log('---------> removed draft', resLatestMemos.data)
         this.setState({ existingDraftsByCourseCode: resLatestMemos.data.draftMemos })
+        this.props.history.push({ search: '' })
       })
       .catch(err => {
         if (err.response) {
