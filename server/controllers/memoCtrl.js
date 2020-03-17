@@ -42,7 +42,7 @@ async function renderMemoEditorPage(req, res, next) {
   try {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
-    const { courseCode, semester, memoEndPoint } = req.params
+    const { courseCode, memoEndPoint } = req.params
     const renderProps = _staticRender(context, req.url)
 
     renderProps.props.children.props.routerStore.setBrowserConfig(
@@ -55,10 +55,10 @@ async function renderMemoEditorPage(req, res, next) {
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
     renderProps.props.children.props.routerStore.memoData = apiMemoData
     renderProps.props.children.props.routerStore.courseCode = courseCode
-    renderProps.props.children.props.routerStore.semester = semester
+    renderProps.props.children.props.routerStore.semester = apiMemoData.semester
     renderProps.props.children.props.routerStore.memoEndPoint = memoEndPoint
     renderProps.props.children.props.routerStore.koppsFreshData = {
-      ...(await getSyllabus(courseCode, semester, lang)),
+      ...(await getSyllabus(courseCode, apiMemoData.semester, lang)),
       ...(await getCourseEmployees(apiMemoData))
     }
     console.log('fresh data', renderProps.props.children.props.routerStore.koppsFreshData)
@@ -87,12 +87,7 @@ async function renderMemoEditorPage(req, res, next) {
 async function updateContentByEndpoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
-    const apiResponse = await changeMemoApiData(
-      'putAsync',
-      'updateCreatedDraft',
-      memoEndPoint,
-      req.body
-    )
+    const apiResponse = await changeMemoApiData('updateCreatedDraft', memoEndPoint, req.body)
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API: ', apiResponse.message)
     }
