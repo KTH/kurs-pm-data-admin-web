@@ -26,12 +26,14 @@ class ChoiceOptions extends Component {
       isOpen: false,
       text: ''
     },
-    firstLoad: true,
-    availableSemesterRounds: [],
-    existingDraftsByCourseCode: this.props.routerStore.existingLatestMemos.draftMemos
+    availableSemesterRounds: []
   }
 
   courseCode = this.props.routerStore.courseCode
+
+  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos.draftMemos
+
+  hasSavedDraft = this.existingDraftsByCourseCode.length > 0
 
   langIndex = this.props.routerStore.langIndex
 
@@ -65,7 +67,6 @@ class ChoiceOptions extends Component {
         console.log('---------> api showAvailableSemesterRounds', result.data)
         const { usedRoundsThisSemester } = result.data
         this.setState({
-          firstLoad: false,
           // updates on semester change
           availableSemesterRounds: this._filterOutUsedRounds(usedRoundsThisSemester)
         })
@@ -165,31 +166,21 @@ class ChoiceOptions extends Component {
   }
 
   onRemoveDraft = () => {
-    return (
-      axios
-        .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
-        .then(result => {
-          if (result.status >= 400) {
-            return 'ERROR-' + result.status
-          }
-          window.location.reload()
-        })
-        // .then(() => axios.get(`${SERVICE_URL.API}existing-drafts/${this.courseCode}`))
-        // .then(resLatestMemos => {
-        //   if (resLatestMemos.status >= 400) {
-        //     return 'ERROR-' + resLatestMemos.status
-        //   }
-        //   console.log('---------> removed draft', resLatestMemos.data)
-        //   this.setState({ existingDraftsByCourseCode: resLatestMemos.data.draftMemos })
-        //   this.props.history.push({ search: '' })
-        // })
-        .catch(err => {
-          if (err.response) {
-            throw new Error(err.message)
-          }
-          throw err
-        })
-    )
+    return axios
+      .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
+      .then(result => {
+        if (result.status >= 400) {
+          return 'ERROR-' + result.status
+        }
+        this.props.history.push({ search: '' })
+        window.location.reload()
+      })
+      .catch(err => {
+        if (err.response) {
+          throw new Error(err.message)
+        }
+        throw err
+      })
   }
 
   onSubmitNew = () => {
@@ -229,11 +220,7 @@ class ChoiceOptions extends Component {
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
-    const hasSavedDraft = this.state.existingDraftsByCourseCode.length > 0
-    console.log('this.state.existingDraftsByCourseCode', this.state.existingDraftsByCourseCode)
-
-    if (this.state.firstLoad && this.state.semester)
-      this.showAvailableSemesterRounds(this.state.semester)
+    const { existingDraftsByCourseCode, hasSavedDraft } = this
 
     const { availableSemesterRounds } = this.state
     console.log('******availableSemesterRounds ', availableSemesterRounds)
@@ -272,7 +259,7 @@ class ChoiceOptions extends Component {
                       <b>{info.chooseRound.existedDrafts}</b>
                     </p>
                     <Form className="Existed--Memos">
-                      {this.state.existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
+                      {existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
                         <FormGroup key={'draft' + memoEndPoint}>
                           <Input
                             type="radio"
