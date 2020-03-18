@@ -24,6 +24,23 @@ function hydrateStores(renderProps) {
 
   return outp
 }
+
+// eslint-disable-next-line consistent-return
+async function getUsedDrafts(req, res, next) {
+  const { courseCode } = req.params
+  try {
+    log.debug('trying to fetch getUsedDrafts with course code: ' + courseCode)
+
+    const apiResponse = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
+      courseCode
+    })
+    log.debug('getUsedDrafts response: ', apiResponse)
+    return res.json(apiResponse)
+  } catch (error) {
+    log.error('Exception from getUsedDrafts ', { error })
+    next(error)
+  }
+}
 function _staticRender(context, location) {
   if (process.env.NODE_ENV === 'development') {
     delete require.cache[require.resolve('../../dist/app.js')]
@@ -59,7 +76,9 @@ async function getCourseOptionsPage(req, res, next) {
     // await renderProps.props.children.props.routerStore.fetchExistingMemos(courseCode)
     renderProps.props.children.props.routerStore.existingLatestMemos = await getMemoApiData(
       'getMemosStartingFromPrevYearSemester',
-      { courseCode, prevYearSemester: '20192' }
+      {
+        courseCode
+      }
     )
 
     // TODO GET AWAIT COURSE
@@ -101,23 +120,6 @@ async function getUsedRounds(req, res, next) {
 }
 
 // eslint-disable-next-line consistent-return
-async function getUsedDrafts(req, res, next) {
-  const { courseCode } = req.params
-  try {
-    log.debug('trying to fetch getUsedDrafts with course code: ' + courseCode)
-
-    const apiResponse = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
-      courseCode,
-      prevYearSemester: '20192'
-    })
-    log.debug('getUsedDrafts response: ', apiResponse)
-    return res.json(apiResponse)
-  } catch (error) {
-    log.error('Exception from getUsedDrafts ', { error })
-    next(error)
-  }
-}
-// eslint-disable-next-line consistent-return
 async function createDraftByMemoEndPoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
@@ -130,7 +132,7 @@ async function createDraftByMemoEndPoint(req, res, next) {
       log.debug('Error from API trying to create a new draft: ', apiResponse.message)
     }
     log.info(
-      'Memo contents was updated in kursinfo api for course memo with memoEndPoint:',
+      'New memo draft was created in kursinfo api for course memo with memoEndPoint:',
       memoEndPoint
     )
     return res.json(apiResponse)
@@ -152,7 +154,7 @@ async function removeMemoDraft(req, res, next) {
       log.debug('Error from API trying to delete a draft: ', apiResponse.message)
     }
     log.info(
-      'Memo contents was updated in kursinfo api for course memo with memoEndPoint:',
+      'Memo contents was deleted in kursinfo api for course memo with memoEndPoint:',
       memoEndPoint
     )
     return res.json(apiResponse)

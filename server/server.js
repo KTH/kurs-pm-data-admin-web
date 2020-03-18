@@ -225,7 +225,7 @@ appRoute.get(
 )
 
 appRoute.get(
-  'memo.api.getUsedRounds',
+  'memo.api.getUsedDrafts',
   config.proxyPrefixPath.uri + '/internal-api/existing-drafts/:courseCode',
   ChoiceOptions.getUsedDrafts
 )
