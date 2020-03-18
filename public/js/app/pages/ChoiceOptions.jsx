@@ -64,7 +64,6 @@ class ChoiceOptions extends Component {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
-        console.log('---------> api showAvailableSemesterRounds', result.data)
         const { usedRoundsThisSemester } = result.data
         this.setState({
           // updates on semester change
@@ -94,6 +93,7 @@ class ChoiceOptions extends Component {
     // move to helper
     const { memoEndPoint } = this.state.chosen
     const memoElem = document.getElementById(memoEndPoint)
+    this.props.history.push({ search: '' })
     if (memoEndPoint && memoElem && memoElem.checked)
       document.getElementById(memoEndPoint).checked = false
   }
@@ -109,10 +109,10 @@ class ChoiceOptions extends Component {
 
   _sortedRoundsArray = (checked, value) => {
     // move to helper
-    const tmpRoundsArr = this.state.chosen.newRounds
-    if (checked) tmpRoundsArr.push(value)
-    else tmpRoundsArr.splice(tmpRoundsArr.indexOf(value), 1)
-    return tmpRoundsArr.sort()
+    const { newRounds } = this.state.chosen
+    if (checked) newRounds.push(value)
+    else newRounds.splice(newRounds.indexOf(value), 1)
+    return newRounds.sort()
   }
 
   onSemesterChoice = event => {
@@ -134,7 +134,6 @@ class ChoiceOptions extends Component {
           document.getElementById('new' + ladokRoundId).parentElement.textContent.trim()
         )
         .join(', ')
-      console.log('newMemoName', newMemoName)
       this.setState({
         chosen: {
           action: 'create',
@@ -197,10 +196,10 @@ class ChoiceOptions extends Component {
               memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
               semester
             }
-          : { memoEndPoint: this.state.chosen.memoEndPoint }
+          : { memoEndPoint: chosen.memoEndPoint }
       const url = `${SERVICE_URL.API}create-draft/${body.memoEndPoint}`
 
-      axios
+      return axios
         .post(url, body)
         .then(result => {
           const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}`
@@ -211,18 +210,16 @@ class ChoiceOptions extends Component {
         .catch(error => {
           this.setAlarm('danger', 'errWhileSaving')
         })
-    } else {
-      this.setAlarm('danger', 'errNoChosen')
     }
-    //   .then(() => callback())
+    this.setAlarm('danger', 'errNoChosen')
   }
 
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
     const { existingDraftsByCourseCode, hasSavedDraft } = this
+    const { alert, availableSemesterRounds, chosen, semester } = this.state
 
-    const { availableSemesterRounds } = this.state
     console.log('******availableSemesterRounds ', availableSemesterRounds)
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -242,8 +239,8 @@ class ChoiceOptions extends Component {
 
         <ProgressBar active={1} pages={pages} />
         <Row className="w-100 my-0 mx-auto">
-          <Alert color={this.state.alert.type} isOpen={!!this.state.alert.isOpen}>
-            {this.state.alert.text || ''}
+          <Alert color={alert.type} isOpen={!!alert.isOpen}>
+            {alert.text || ''}
           </Alert>
         </Row>
 
@@ -268,8 +265,7 @@ class ChoiceOptions extends Component {
                             value={memoEndPoint}
                             onClick={this.onChoiceActions}
                             defaultChecked={
-                              this.state.chosen.action === 'copy' &&
-                              memoEndPoint === this.state.chosen.memoEndPoint
+                              chosen.action === 'copy' && memoEndPoint === chosen.memoEndPoint
                             }
                           />
                           <Label htmlFor={memoEndPoint}>
@@ -303,9 +299,9 @@ class ChoiceOptions extends Component {
                           onChange={this.onSemesterChoice}
                           defaultValue="DEFAULT"
                         >
-                          {!this.state.semester && (
+                          {!semester && (
                             <option key="no-chosen" defaultValue="DEFAULT">
-                              Välj termin
+                              {info.chooseSemester.header}
                             </option>
                           )}
                           {this.allSemesters.map(({ term }) => (
@@ -326,7 +322,7 @@ class ChoiceOptions extends Component {
               {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
               <span
                 style={
-                  this.allSemesters.length > 0 && this.state.semester
+                  this.allSemesters.length > 0 && semester
                     ? { marginTop: '50' }
                     : { display: 'none' }
                 }
@@ -359,12 +355,10 @@ class ChoiceOptions extends Component {
                                 ? shortName + ' '
                                 : `${
                                     extraInfo.courseShortSemester[
-                                      this.state.semester.toString().match(/.{1,4}/g)[1]
+                                      semester.toString().match(/.{1,4}/g)[1]
                                     ]
                                   } 
-                                  ${
-                                    this.state.semester.toString().match(/.{1,4}/g)[0]
-                                  }-${ladokRoundId} `}
+                                  ${semester.toString().match(/.{1,4}/g)[0]}-${ladokRoundId} `}
                               {`(${extraInfo.labelStartDate} ${this.getDateFormat(
                                 firstTuitionDate,
                                 language[this.langAbbr]
@@ -385,9 +379,9 @@ class ChoiceOptions extends Component {
           </Row>
         </Container>
         <ControlPanel
-          canContinue={this.state.chosen.memoEndPoint || this.state.chosen.newRounds.length > 0}
+          canContinue={chosen.memoEndPoint || chosen.newRounds.length > 0}
           hasSavedDraft={hasSavedDraft}
-          hasChosenMemo={this.state.chosen.memoEndPoint}
+          hasChosenMemo={chosen.memoEndPoint}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
         />
