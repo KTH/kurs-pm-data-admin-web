@@ -165,23 +165,31 @@ class ChoiceOptions extends Component {
   }
 
   onRemoveDraft = () => {
-    return axios
-      .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
-      .then(() => axios.get(`${SERVICE_URL.API}existing-drafts/${this.courseCode}`))
-      .then(resLatestMemos => {
-        if (resLatestMemos.status >= 400) {
-          return 'ERROR-' + resLatestMemos.status
-        }
-        console.log('---------> removed draft', resLatestMemos.data)
-        this.setState({ existingDraftsByCourseCode: resLatestMemos.data.draftMemos })
-        this.props.history.push({ search: '' })
-      })
-      .catch(err => {
-        if (err.response) {
-          throw new Error(err.message)
-        }
-        throw err
-      })
+    return (
+      axios
+        .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
+        .then(result => {
+          if (result.status >= 400) {
+            return 'ERROR-' + result.status
+          }
+          window.location.reload()
+        })
+        // .then(() => axios.get(`${SERVICE_URL.API}existing-drafts/${this.courseCode}`))
+        // .then(resLatestMemos => {
+        //   if (resLatestMemos.status >= 400) {
+        //     return 'ERROR-' + resLatestMemos.status
+        //   }
+        //   console.log('---------> removed draft', resLatestMemos.data)
+        //   this.setState({ existingDraftsByCourseCode: resLatestMemos.data.draftMemos })
+        //   this.props.history.push({ search: '' })
+        // })
+        .catch(err => {
+          if (err.response) {
+            throw new Error(err.message)
+          }
+          throw err
+        })
+    )
   }
 
   onSubmitNew = () => {
