@@ -263,7 +263,8 @@ a.nav-link {
   }
 }
 /* Select course offerings checkboxes and radiooxes */
-.First--Step--Choose--Parameters {
+div.container.First--Step--Choose--Parameters {
+  padding: 0;
   form {
     &.Existed--Memos {
       margin-left: 1.3em;
