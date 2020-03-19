@@ -294,6 +294,8 @@ module.exports = {
         action: 'Select a draft click on the button Edit to continue edit the draft.'
       }
     },
+    errKoppsRounds:
+      'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
     noSavedDrafts: 'There are no saved drafts.',
@@ -329,8 +331,10 @@ module.exports = {
   },
   alerts: {
     autoSaved: 'Draft saved',
+    errKoppsRounds:
+      'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     errNoChosen:
-      'Du must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
+      'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errWhileSaving: 'Smth went wrong on api side......',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'

@@ -332,6 +332,7 @@ module.exports = {
           'Välj ett utkast och klicka på knappen Redigera för att fortsätta redigera utkastet.'
       }
     },
+    errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     noCourseRoundsAvailable:
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-pm eller utkast.',
     noSavedDrafts: 'Det finns inga sparade utkast.',
@@ -367,6 +368,7 @@ module.exports = {
   },
   alerts: {
     autoSaved: 'Sparat utkast',
+    errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-pm.',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',

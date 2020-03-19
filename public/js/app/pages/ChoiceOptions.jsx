@@ -40,7 +40,18 @@ class ChoiceOptions extends Component {
 
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
 
-  allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList
+  allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList || null // need to define if kopps in error
+
+  setAlarm = (type, textIndex, isOpen = true) => {
+    const { alerts } = i18n.messages[this.langIndex]
+    this.setState({
+      alert: {
+        type,
+        isOpen,
+        text: alerts[textIndex]
+      }
+    })
+  }
 
   _filterOutUsedRounds = usedRoundsThisSemester => {
     const thisSemester =
@@ -75,17 +86,6 @@ class ChoiceOptions extends Component {
         }
         throw err
       })
-  }
-
-  setAlarm = (type, textIndex, isOpen = true) => {
-    const { alerts } = i18n.messages[this.langIndex]
-    this.setState({
-      alert: {
-        type,
-        isOpen,
-        text: alerts[textIndex]
-      }
-    })
   }
 
   _uncheckRadio = () => {
@@ -206,7 +206,7 @@ class ChoiceOptions extends Component {
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
-    const { existingDraftsByCourseCode, hasSavedDraft } = this
+    const { allSemesters, existingDraftsByCourseCode, hasSavedDraft } = this
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 
     return (
@@ -280,7 +280,7 @@ class ChoiceOptions extends Component {
                   titleAndInfo={info.chooseSemester}
                   btnClose={buttons.btnClose}
                 />
-                {(this.allSemesters.length > 0 && (
+                {(allSemesters && allSemesters.length > 0 && (
                   <Form style={{ width: '20em' }}>
                     <FormGroup className="form-select" key="select-semester">
                       <div className="select-wrapper">
@@ -299,7 +299,7 @@ class ChoiceOptions extends Component {
                               {info.chooseSemester.header}
                             </option>
                           )}
-                          {this.allSemesters.map(({ term }) => (
+                          {allSemesters.map(({ term }) => (
                             <option id={`itemFor-${term}`} key={term} value={term}>
                               {seasonStr(extraInfo, term)}
                             </option>
@@ -310,14 +310,14 @@ class ChoiceOptions extends Component {
                   </Form>
                 )) || (
                   <p>
-                    <i>{info.noSemesterAvailable}</i>
+                    <i>{(allSemesters && info.noSemesterAvailable) || info.errKoppsRounds}</i>
                   </p>
                 )}
               </span>
               {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
               <span
                 style={
-                  this.allSemesters.length > 0 && semester
+                  allSemesters && allSemesters.length > 0 && semester
                     ? { marginTop: '50' }
                     : { display: 'none' }
                 }
