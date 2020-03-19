@@ -107,7 +107,7 @@ class ChoiceOptions extends Component {
     })
   }
 
-  _sortedRoundsArray = (checked, value) => {
+  _addRoundAndSort = (checked, value) => {
     // move to helper
     const { newRounds } = this.state.chosen
     if (checked) newRounds.push(value)
@@ -117,7 +117,6 @@ class ChoiceOptions extends Component {
 
   onSemesterChoice = event => {
     const semester = event.target.value
-    console.log(semester)
     this.setState({ semester })
     this.showAvailableSemesterRounds(semester)
   }
@@ -128,7 +127,7 @@ class ChoiceOptions extends Component {
 
     if (type === 'checkbox') {
       this._uncheckRadio()
-      const newRounds = this._sortedRoundsArray(checked, value)
+      const newRounds = this._addRoundAndSort(checked, value)
       const newMemoName = newRounds
         .map(ladokRoundId =>
           document.getElementById('new' + ladokRoundId).parentElement.textContent.trim()
@@ -193,6 +192,7 @@ class ChoiceOptions extends Component {
               courseCode,
               memoName: chosen.newMemoName,
               ladokRoundIds: chosen.newRounds,
+              languageOfInstructions: chosen.languageOfInstructions,
               memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
               semester
             }
@@ -219,6 +219,7 @@ class ChoiceOptions extends Component {
     const { course } = this.props.routerStore.slicedTermsByPrevYear
     const { existingDraftsByCourseCode, hasSavedDraft } = this
     const { alert, availableSemesterRounds, chosen, semester } = this.state
+    console.log('i18n.isSwedish()', Number(i18n.isSwedish()))
 
     console.log('******availableSemesterRounds ', availableSemesterRounds)
     return (
@@ -252,9 +253,7 @@ class ChoiceOptions extends Component {
                 <h2>{info.chooseSavedDraft}</h2>
                 {(hasSavedDraft && (
                   <>
-                    <p>
-                      <b>{info.chooseRound.existedDrafts}</b>
-                    </p>
+                    <p>{info.chooseRound.existedDrafts}</p>
                     <Form className="Existed--Memos">
                       {existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
                         <FormGroup key={'draft' + memoEndPoint}>
@@ -334,9 +333,7 @@ class ChoiceOptions extends Component {
                 />
                 {(availableSemesterRounds.length > 0 && (
                   <>
-                    <p>
-                      <b>{info.chooseRound.availableRounds}</b>
-                    </p>
+                    <p>{info.chooseRound.availableRounds}</p>
                     <Form>
                       {availableSemesterRounds.map(
                         ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
@@ -379,6 +376,7 @@ class ChoiceOptions extends Component {
           </Row>
         </Container>
         <ControlPanel
+          langIndex={this.langIndex}
           canContinue={chosen.memoEndPoint || chosen.newRounds.length > 0}
           hasSavedDraft={hasSavedDraft}
           hasChosenMemo={chosen.memoEndPoint}

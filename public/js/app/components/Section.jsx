@@ -3,10 +3,11 @@
 import React from 'react'
 import ContentHead from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
+import i18n from '../../../../i18n'
 
-const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html }) => (
+const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html, langIndex }) => (
   <span id={menuId} key={contentId}>
-    <ContentHead contentId={contentId} />
+    <ContentHead contentId={contentId} langIndex={langIndex} />
     <VisibilityInfo
       contentId={contentId}
       visibleInMemo={visibleInMemo}
@@ -15,7 +16,9 @@ const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html
 
     <span
       style={visibleInMemo ? {} : { display: 'none' }}
-      dangerouslySetInnerHTML={{ __html: html || '<p>Ingen information fanns att hämta</p>' }}
+      dangerouslySetInnerHTML={{
+        __html: html || `<p>${i18n.messages[langIndex].sourceInfo.nothingFetched}</p>`
+      }}
     />
   </span>
 )

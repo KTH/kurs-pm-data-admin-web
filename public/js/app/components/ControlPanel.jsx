@@ -7,9 +7,9 @@ import { Alert, Row, Col, Button } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
-  const { actionModals, buttons } = i18n.messages[1]
-  const { canContinue, hasChosenMemo, hasSavedDraft, onRemove, onSubmit } = props // onSubmit = onForward
+  const { canContinue, hasChosenMemo, hasSavedDraft, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
   const { alertIsOpen, alertText, onBack, onSave } = props
+  const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
 
   return (

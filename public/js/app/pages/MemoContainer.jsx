@@ -22,6 +22,8 @@ class MemoContainer extends Component {
     updatedMemo: this.props.routerStore.memoData
   }
 
+  langIndex = this.props.routerStore.langIndex
+
   componentDidMount() {
     console.log('parent state', this.state.updatedMemo.ladokRoundIds)
   }
@@ -63,7 +65,7 @@ class MemoContainer extends Component {
 
   /** * User clicked button to save a draft  ** */
   handleBtnSave = () => {
-    const { alerts } = i18n.messages[1]
+    const { alerts } = i18n.messages[this.langIndex]
     this.onSave(this.state.updatedMemo, alerts.autoSaved)
   }
 
@@ -93,7 +95,7 @@ class MemoContainer extends Component {
   }
 
   render() {
-    const { pages, pageTitles } = i18n.messages[1]
+    const { pages, pageTitles } = i18n.messages[this.langIndex]
     const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
     const { memoName, semester } = this.state.updatedMemo
 
@@ -122,6 +124,7 @@ class MemoContainer extends Component {
         }
         <Container className="fixed-bottom">
           <ControlPanel
+            langIndex={this.langIndex}
             onSubmit={this.onContinue}
             onSave={this.handleBtnSave}
             onBack={this.onBack}

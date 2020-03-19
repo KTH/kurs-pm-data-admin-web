@@ -30,6 +30,8 @@ class MemoEdition extends Component {
 
   semester = this.props.routerStore.semester
 
+  langIndex = this.props.routerStore.langIndex
+
   componentDidMount() {
     console.log('MemoEdition state', this.state)
     this.scrollIntoView()
@@ -71,7 +73,7 @@ class MemoEdition extends Component {
   }
 
   handleAutoSave = () => {
-    const { alerts } = i18n.messages[1]
+    const { alerts } = i18n.messages[this.langIndex]
     this.props.onSave(this.state, alerts.autoSaved) // .then(() => this.props.onChange({ updatedMemo: body }))
   }
 
@@ -122,6 +124,7 @@ class MemoEdition extends Component {
       />
     ) : (
       <Section
+        langIndex={this.langIndex}
         menuId={menuId}
         contentId={contentId}
         visibleInMemo={visibleInMemo}
@@ -162,6 +165,7 @@ class MemoEdition extends Component {
             />
           ) : (
             <Section
+              langIndex={this.langIndex}
               contentId={contentId}
               menuId={menuId}
               key={contentId}
@@ -177,7 +181,7 @@ class MemoEdition extends Component {
   }
 
   render() {
-    const { buttons, extraInfo, pages } = i18n.messages[1]
+    const { buttons, extraInfo, pages } = i18n.messages[this.langIndex]
 
     return (
       <StickyContainer className="memo-container">
