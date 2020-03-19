@@ -303,7 +303,11 @@ class ChoiceOptions extends Component {
                           defaultValue="DEFAULT"
                         >
                           {!semester && (
-                            <option key="no-chosen" defaultValue="DEFAULT">
+                            <option
+                              key="no-chosen"
+                              defaultValue="DEFAULT"
+                              style={{ display: 'none' }}
+                            >
                               {info.chooseSemester.header}
                             </option>
                           )}
