@@ -286,8 +286,9 @@ module.exports = {
       A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. 
       Several administrative course instances are grouped to one course offering.</p>`,
       availableRounds: {
-        label: 'The following course offerings have drafts that are not yet published.',
-        action: 'Select a draft and click on the button Edit to continue edit the draft.'
+        label:
+          'The following administrative course instances have no published course memo or draft.',
+        action: 'Select the instances that is included in the course offering:'
       },
       existedDrafts: {
         label: 'The following course offerings have drafts that are not yet published.',

@@ -322,9 +322,8 @@ module.exports = {
       Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       availableRounds: {
-        label: 'Följande kursomgångar har sparade utkast som ännu ej publicerats.',
-        action:
-          'Välj ett utkast och klicka på knappen Redigera för att fortsätta redigera utkastet.'
+        label: 'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast.',
+        action: 'Markera ett eller flera kurstillfällen som ingår i kursomgången:'
       },
       existedDrafts: {
         label: 'Följande kursomgångar har sparade utkast som ännu ej publicerats.',
