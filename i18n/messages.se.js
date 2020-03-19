@@ -54,9 +54,10 @@ module.exports = {
       false: 'döljs i kurs-pm'
     },
     includeInMemo: 'Inkludera i kurs-pm',
-    noInfoYet: 'Ingen information finns inlagd. "Redigera" för att lägga in information',
+    noInfoYet: 'Ingen information finns inlagd. Redigera för att lägga in information',
     notIncludedInMemoYet:
-      'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.'
+      'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.',
+    nothingFetched: 'Ingen information finns att hämta'
   },
   memoHeadings: {
     additionalRegulations: {
@@ -329,7 +330,7 @@ module.exports = {
     },
     noCourseRoundsAvailable:
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-pm eller utkast.',
-    noSavedDrafts: 'Det finns inga sparade utkaster att visa för de sista aktuella terminer ....',
+    noSavedDrafts: 'Det finns inga sparade utkast.',
     noSemesterAvailable:
       'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-pm för.'
   },

@@ -64,7 +64,8 @@ module.exports = {
     includeInMemo: 'Include in memo',
     noInfoYet: 'No information is added. Press "Edit" to add information....',
     notIncludedInMemoYet:
-      'Content is here. Choose "Include in memo" to show added content and header in memo...'
+      'Content is here. Choose "Include in memo" to show added content and header in memo...',
+    nothingFetched: 'No information was available to fetch....'
   },
   memoHeadings: {
     additionalRegulations: {
@@ -290,11 +291,11 @@ module.exports = {
       availableRounds:
         'The following administrative course instances have no published course memo or draft. Select the instances that is included in the course offering:',
       existedDrafts:
-        'The following course offerings have saved drafts that are not yet published or have a last version as a published:'
+        'The following course offerings have drafts that are not yet published. Select a draft click on the button Edit to continue edit the draft.'
     },
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
-    noSavedDrafts: 'No saved drafts was found for period starting from previous year...',
+    noSavedDrafts: 'There are no saved drafts.',
     noSemesterAvailable:
       'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.'
   },
@@ -303,6 +304,7 @@ module.exports = {
     btnClose: 'Close',
     btnRemove: 'Delete draft',
     btn_preview: 'Preview',
+    btn_edit: 'Edit',
     btn_add_analysis: 'Edit',
     btn_cancel: 'Cancel',
     btn_save: 'Save draft',
