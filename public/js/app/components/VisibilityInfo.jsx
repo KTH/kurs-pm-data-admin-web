@@ -7,7 +7,7 @@ import { context } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 
-const { sourceInfo, buttons } = i18n.messages[1]
+const { sourceInfo, buttons } = i18n.messages[Number(i18n.isSwedish())]
 
 const VisibilityInfo = ({
   contentId,
@@ -46,7 +46,7 @@ const VisibilityInfo = ({
     {context[contentId].isEditable && (
       <Button className="mb-0 mt-0" onClick={() => onToggleVisibleEditor()}>
         <FaPencilAlt className="section_pencil" />
-        {isEditorOpen ? 'Stäng/Visa som text' : buttons.btn_edit}
+        {isEditorOpen ? 'Stäng/Visa som text' : buttons.edit}
       </Button>
     )}
   </span>

@@ -20,7 +20,7 @@ const ControlPanel = props => {
       <Col sm="4" className="step-back">
         {progress > 1 && (
           <Button onClick={onBack} className="btn-back" alt="BACK">
-            {buttons.btn_back}
+            {buttons.goToRounds}
           </Button>
         )}
         {hasSavedDraft && (
@@ -36,7 +36,7 @@ const ControlPanel = props => {
       </Col>
       <Col sm="4" className="btn-cancel">
         <ActionModalButton
-          btnLabel={buttons.btn_cancel}
+          btnLabel={buttons.cancel}
           modalId="cancelStep2"
           type="cancel"
           modalLabels={actionModals.infoCancel}
@@ -46,7 +46,7 @@ const ControlPanel = props => {
       <Col sm="4" className="step-forward">
         {progress === 2 && (
           <Button onClick={onSave} color="secondary">
-            {buttons.btn_save}
+            {buttons.save}
           </Button>
         )}
         <Button
@@ -60,9 +60,9 @@ const ControlPanel = props => {
         >
           {
             {
-              1: buttons.btn_edit,
-              2: buttons.btn_preview,
-              3: buttons.btn_publish
+              1: buttons.edit,
+              2: buttons.preview,
+              3: buttons.publish
             }[progress]
           }
         </Button>

@@ -52,7 +52,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { memoHeadings } = i18n.messages[1]
+    const { memoHeadings } = i18n.messages[Number(i18n.isSwedish())]
     return (
       <MainMenu
         extraClasses={['pl-0', 'h-100']}

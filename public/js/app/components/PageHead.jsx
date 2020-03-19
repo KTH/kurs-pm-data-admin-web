@@ -2,7 +2,7 @@ import React from 'react'
 
 import i18n from '../../../../i18n'
 
-const { messages, extraInfo } = i18n.messages[1]
+const { messages, extraInfo } = i18n.messages[Number(i18n.isSwedish())]
 
 // const testDataCourseRounds = [
 //   'Kurstillfällesnamn1 (finns publicerat kurs-PM )',
