@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
-import { seasonStr } from '../util/helpers'
+import { seasonStr, getDateFormat } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
@@ -43,7 +43,6 @@ class ChoiceOptions extends Component {
   allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList
 
   _filterOutUsedRounds = usedRoundsThisSemester => {
-    console.log('use usedRoundsThisSemester', usedRoundsThisSemester)
     const thisSemester =
       (this.allSemesters && this.allSemesters.find(({ term }) => term === this.state.semester)) ||
       {}
@@ -58,7 +57,6 @@ class ChoiceOptions extends Component {
   }
 
   showAvailableSemesterRounds = semester => {
-    // move to helper steg 1
     return axios
       .get(`${SERVICE_URL.API}used-rounds/${this.courseCode}/${semester}`)
       .then(result => {
@@ -155,15 +153,6 @@ class ChoiceOptions extends Component {
     }
   }
 
-  getDateFormat = (date, language) => {
-    // move to helpers functions
-    if (language === 'Svenska' || language === 'Engelska' || language === 1 || language === 'sv') {
-      return date
-    }
-    const splitDate = date.split('-')
-    return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
-  }
-
   onRemoveDraft = () => {
     return axios
       .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
@@ -203,9 +192,8 @@ class ChoiceOptions extends Component {
       return axios
         .post(url, body)
         .then(result => {
+          // ADDD ERROR HANTERING
           const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}`
-          console.log('Submitted result', result)
-          console.log('Submitted nextStepUrl', nextStepUrl)
           window.location = nextStepUrl
         })
         .catch(error => {
@@ -215,17 +203,12 @@ class ChoiceOptions extends Component {
     this.setAlarm('danger', 'errNoChosen')
   }
 
-  // move to helper?
-  // seasonStr = (translate, semesterCode) => `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0,4)}`
-  // '20181' -> VT 2018 | Spring 2018
-
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
     const { existingDraftsByCourseCode, hasSavedDraft } = this
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 
-    console.log('******availableSemesterRounds ', availableSemesterRounds)
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
@@ -373,7 +356,7 @@ class ChoiceOptions extends Component {
                               {shortName
                                 ? shortName + ' '
                                 : `${seasonStr(extraInfo, semester)}-${ladokRoundId} `}
-                              {`(${extraInfo.labelStartDate} ${this.getDateFormat(
+                              {`(${extraInfo.labelStartDate} ${getDateFormat(
                                 firstTuitionDate,
                                 language[this.langAbbr]
                               )}, ${language[this.langAbbr]})`}
