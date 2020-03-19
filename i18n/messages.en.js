@@ -49,13 +49,11 @@ module.exports = {
     page_header_heading_course_round: 'Course round'
   },
   sourceInfo: {
-    '(c)': '<p><b>(c)</b> Fetched from a general course source</p>',
-    '(pm)':
-      '<p><b>(pm)</b> Fetched from a course round related source which is used to complete a course</p>',
-    '(r)':
-      '<p><b>(r)</b> Fetched from a course round related source which is used for course choice</p>',
-    '(s)': '<p><b>(s)</b> Fetched from a course syllabus (2017 - tills idag)</p>',
-    mandatory: 'Mandatory information (can’t be hidden in course memo)',
+    '(c)': 'Fetched from a general course source (c)',
+    '(pm)': '(pm)',
+    '(r)': 'Fetched from a course round related source which is used for course choice (r)',
+    '(s)': 'Fetched from a course syllabus (s)',
+    mandatory: 'Mandatory information',
     shown: {
       // Remove
       true: 'shown in course memo',
@@ -303,18 +301,14 @@ module.exports = {
     /** ************ BUTTONS ****************** */
     btnClose: 'Close',
     btnRemove: 'Delete draft',
-    btn_preview: 'Preview',
-    btn_edit: 'Edit',
-    btn_add_analysis: 'Edit',
-    btn_cancel: 'Cancel',
-    btn_save: 'Save draft',
-    btn_publish: 'Publish',
-    btn_back: 'Choose course offering',
-    btn_delete: 'Delete',
-    btn_save_and_cancel: 'Save draft and cancel',
+    preview: 'Preview',
+    edit: 'Edit',
+    cancel: 'Cancel',
+    save: 'Save draft',
+    publish: 'Publish',
+    goToRounds: 'Choose course offering',
+    save_and_cancel: 'Save draft and cancel',
     btn_copy: 'Copy link to preview',
-    btn_show_in_memo: 'Show in course memo',
-    btn_hide_in_memo: 'Hide in course memo',
     btn_switch_view_single: 'Switch to “Single View”',
     btn_switch_view_scroll: 'Switch to “Scroll View”'
   },
@@ -325,7 +319,10 @@ module.exports = {
     },
     labelStartDate: 'Start date',
     // hasSavedDraft: 'Has a published course memo',
-    contentHeaders: 'Headers'
+    contentHeaders: {
+      title: 'Headers',
+      intro: 'Headers....'
+    }
   },
   alerts: {
     autoSaved: 'Draft saved',
