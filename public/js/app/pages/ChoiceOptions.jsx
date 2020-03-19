@@ -300,12 +300,12 @@ class ChoiceOptions extends Component {
                           className="custom-select"
                           id="term-list"
                           onChange={this.onSemesterChoice}
-                          defaultValue="DEFAULT"
+                          defaultValue="PLACEHOLDER"
                         >
                           {!semester && (
                             <option
                               key="no-chosen"
-                              defaultValue="DEFAULT"
+                              defaultValue="PLACEHOLDER"
                               style={{ display: 'none' }}
                             >
                               {info.chooseSemester.header}
