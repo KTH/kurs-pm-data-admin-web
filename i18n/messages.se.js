@@ -281,9 +281,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
-      body: `Ändringar för text och bild kommer att försvinna om du avbryter. 
-      <br/>  
-      <br/> 
+      body: `
             Vill du fortsätta att avbryta?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
@@ -323,10 +321,16 @@ module.exports = {
       Kurstillfällen ska alltså grupperas ihop till en kursomgång. Kursomgången är ett praktiskt genomförande av en kurs. 
       Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
-      availableRounds:
-        'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast. Markera ett eller flera kurstillfällen som ingår i kursomgången:',
-      existedDrafts:
-        'Följande kursomgångar har sparade utkast som ännu ej publicerats. Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
+      availableRounds: {
+        label: 'Följande kursomgångar har sparade utkast som ännu ej publicerats.',
+        action:
+          'Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
+      },
+      existedDrafts: {
+        label: 'Följande kursomgångar har sparade utkast som ännu ej publicerats.',
+        action:
+          'Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
+      }
     },
     noCourseRoundsAvailable:
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-pm eller utkast.',

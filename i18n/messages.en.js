@@ -247,8 +247,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'To be aware of before cancelling!',
-      body:
-        '<p>Unsaved changes will be lost if you cancel the ....... <br/>  <br/> Do you want to cancel?</p>',
+      body: '<p>Do you want to cancel?</p>',
       btnClose: 'No, go back',
       btnConfirm: 'Yes, cancel'
     },
@@ -286,10 +285,14 @@ module.exports = {
       Degree program students and non-programme students are admitted to different administrative course instances but may be educated in the same course offering. 
       A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. 
       Several administrative course instances are grouped to one course offering.</p>`,
-      availableRounds:
-        'The following administrative course instances have no published course memo or draft. Select the instances that is included in the course offering:',
-      existedDrafts:
-        'The following course offerings have drafts that are not yet published. Select a draft click on the button Edit to continue edit the draft.'
+      availableRounds: {
+        label: 'The following course offerings have drafts that are not yet published.',
+        action: 'Select a draft and click on the button Edit to continue edit the draft.'
+      },
+      existedDrafts: {
+        label: 'The following course offerings have drafts that are not yet published.',
+        action: 'Select a draft click on the button Edit to continue edit the draft.'
+      }
     },
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
