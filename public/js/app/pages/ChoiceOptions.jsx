@@ -4,6 +4,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
+import { seasonStr } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
@@ -214,6 +215,10 @@ class ChoiceOptions extends Component {
     this.setAlarm('danger', 'errNoChosen')
   }
 
+  // move to helper?
+  // seasonStr = (translate, semesterCode) => `${translate.season[semesterCode.toString()[4]]}${semesterCode.toString().slice(0,4)}`
+  // '20181' -> VT 2018 | Spring 2018
+
   render() {
     const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
@@ -313,7 +318,7 @@ class ChoiceOptions extends Component {
                           )}
                           {this.allSemesters.map(({ term }) => (
                             <option id={`itemFor-${term}`} key={term} value={term}>
-                              {term}
+                              {seasonStr(extraInfo, term)}
                             </option>
                           ))}
                         </select>
@@ -367,12 +372,7 @@ class ChoiceOptions extends Component {
                               {/* Namegiving to new rounds which will be saved to api */}
                               {shortName
                                 ? shortName + ' '
-                                : `${
-                                    extraInfo.courseShortSemester[
-                                      semester.toString().match(/.{1,4}/g)[1]
-                                    ]
-                                  } 
-                                  ${semester.toString().match(/.{1,4}/g)[0]}-${ladokRoundId} `}
+                                : `${seasonStr(extraInfo, semester)}-${ladokRoundId} `}
                               {`(${extraInfo.labelStartDate} ${this.getDateFormat(
                                 firstTuitionDate,
                                 language[this.langAbbr]

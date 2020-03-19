@@ -316,7 +316,7 @@ module.exports = {
     btn_switch_view_scroll: 'Switch to “Scroll View”'
   },
   extraInfo: {
-    courseShortSemester: {
+    season: {
       1: 'Spring ',
       2: 'Autumn '
     },

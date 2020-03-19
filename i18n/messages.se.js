@@ -354,7 +354,7 @@ module.exports = {
     btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
   },
   extraInfo: {
-    courseShortSemester: {
+    season: {
       1: 'VT ',
       2: 'HT '
     },
