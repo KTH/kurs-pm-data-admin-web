@@ -274,6 +274,10 @@ div.container.First--Step--Choose--Parameters {
     }
     padding-bottom: 2em;
   }
+  label + label {
+    font-weight: normal;
+    padding-bottom: 1em;
+  }
 }
 
 /* Separation lines */

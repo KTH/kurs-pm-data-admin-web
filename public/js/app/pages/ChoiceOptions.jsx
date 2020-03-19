@@ -219,7 +219,6 @@ class ChoiceOptions extends Component {
     const { course } = this.props.routerStore.slicedTermsByPrevYear
     const { existingDraftsByCourseCode, hasSavedDraft } = this
     const { alert, availableSemesterRounds, chosen, semester } = this.state
-    console.log('i18n.isSwedish()', Number(i18n.isSwedish()))
 
     console.log('******availableSemesterRounds ', availableSemesterRounds)
     return (
@@ -253,10 +252,15 @@ class ChoiceOptions extends Component {
                 <h2>{info.chooseSavedDraft}</h2>
                 {(hasSavedDraft && (
                   <>
-                    <p>{info.chooseRound.existedDrafts}</p>
-                    <Form className="Existed--Memos">
+                    <Label htmlFor="choose-existed-memo">
+                      {info.chooseRound.existedDrafts.label}
+                    </Label>
+                    <Label htmlFor="choose-existed-memo">
+                      {info.chooseRound.existedDrafts.action}
+                    </Label>
+                    <Form className="Existed--Memos" id="choose-existed-memo">
                       {existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
-                        <FormGroup key={'draft' + memoEndPoint}>
+                        <FormGroup className="form-select" key={'draft' + memoEndPoint}>
                           <Input
                             type="radio"
                             id={memoEndPoint}
@@ -333,11 +337,20 @@ class ChoiceOptions extends Component {
                 />
                 {(availableSemesterRounds.length > 0 && (
                   <>
-                    <p>{info.chooseRound.availableRounds}</p>
+                    <Label htmlFor="choose-from-rounds-list">
+                      {info.chooseRound.availableRounds.label}
+                    </Label>
+                    <Label htmlFor="choose-from-rounds-list">
+                      {info.chooseRound.availableRounds.action}
+                    </Label>
                     <Form>
                       {availableSemesterRounds.map(
                         ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
-                          <FormGroup className="form-check" key={'new' + ladokRoundId}>
+                          <FormGroup
+                            className="form-check"
+                            id="choose-from-rounds-list"
+                            key={'new' + ladokRoundId}
+                          >
                             <Input
                               type="checkbox"
                               id={'new' + ladokRoundId}
