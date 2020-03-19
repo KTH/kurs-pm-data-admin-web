@@ -324,12 +324,12 @@ module.exports = {
       availableRounds: {
         label: 'Följande kursomgångar har sparade utkast som ännu ej publicerats.',
         action:
-          'Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
+          'Välj ett utkast och klicka på knappen Redigera för att fortsätta redigera utkastet.'
       },
       existedDrafts: {
         label: 'Följande kursomgångar har sparade utkast som ännu ej publicerats.',
         action:
-          'Välj ett utkast och klicka på knappen redigera för att fortsätta redigera utkastet.'
+          'Välj ett utkast och klicka på knappen Redigera för att fortsätta redigera utkastet.'
       }
     },
     noCourseRoundsAvailable:
