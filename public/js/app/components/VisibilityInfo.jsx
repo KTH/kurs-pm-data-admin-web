@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { FaPencilAlt, FaRegEyeSlash } from 'react-icons/fa'
+// import { FaPencilAlt, FaRegEyeSlash } from 'react-icons/fa'
 import { Button } from 'reactstrap'
 import { context } from '../util/fieldsByType'
 
@@ -45,8 +45,8 @@ const VisibilityInfo = ({
     </span>
     {context[contentId].isEditable && (
       <Button className="mb-0 mt-0" onClick={() => onToggleVisibleEditor()}>
-        <FaPencilAlt className="section_pencil" />
-        {isEditorOpen ? 'Stäng/Visa som text' : buttons.edit}
+        {/* <FaPencilAlt className="section_pencil" /> */}
+        {isEditorOpen ? buttons.closeEditor : buttons.edit}
       </Button>
     )}
   </span>
