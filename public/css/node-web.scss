@@ -5,6 +5,7 @@ $light-grey-dropdown: #969696;
 $lightGrey: #f6f6f6;
 $borderGrey: #d4d4d4;
 $kth-blue: #007fae;
+$red: #e01f28;
 
 %row {
   display: flex;
@@ -266,8 +267,17 @@ a.nav-link {
 div.container.First--Step--Choose--Parameters {
   padding: 0;
   form {
+    //adapting for error red border
+    padding-top: 0.3em;
+    margin-left: -0.3em;
+    .form-group {
+      margin-left: 0.3em;
+    }
     &.Existed--Memos {
-      margin-left: 1.3em;
+      margin-left: -0.3em;
+      .form-group {
+        margin-left: 1.6em;
+      }
     }
     input[type='radio'] ~ label {
       font-weight: normal;
@@ -281,6 +291,13 @@ div.container.First--Step--Choose--Parameters {
   }
 }
 
+.error-area {
+  border: solid 1px $red !important;
+  border-radius: 0.25rem;
+}
+.error-label {
+  color: $red;
+}
 /* Separation lines */
 .change-view {
   border-right: 2px solid $borderGrey;

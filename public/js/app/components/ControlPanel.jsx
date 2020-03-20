@@ -7,7 +7,7 @@ import { Alert, Row, Col, Button } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
-  const { canContinue, hasChosenMemo, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
+  const { hasChosenMemo, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
   const { alertIsOpen, alertText, onBack, onSave } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
@@ -55,7 +55,6 @@ const ControlPanel = props => {
           style={{ marginLeft: '1.25em' }}
           color="success"
           alt="Go to ..."
-          disabled={!canContinue}
         >
           {
             {

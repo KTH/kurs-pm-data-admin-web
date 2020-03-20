@@ -25,7 +25,7 @@ class ChoiceOptions extends Component {
     alert: {
       type: '', // danger, success, warn
       isOpen: false,
-      text: ''
+      textName: ''
     },
     availableSemesterRounds: []
   }
@@ -42,13 +42,12 @@ class ChoiceOptions extends Component {
 
   allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList || null // need to define if kopps in error
 
-  setAlarm = (type, textIndex, isOpen = true) => {
-    const { alerts } = i18n.messages[this.langIndex]
+  setAlarm = (type, textName, isOpen = true) => {
     this.setState({
       alert: {
         type,
         isOpen,
-        text: alerts[textIndex]
+        textName
       }
     })
   }
@@ -204,7 +203,7 @@ class ChoiceOptions extends Component {
   }
 
   render() {
-    const { info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
+    const { alerts, info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
     const { allSemesters, existingDraftsByCourseCode, hasSavedDraft } = this
     const { alert, availableSemesterRounds, chosen, semester } = this.state
@@ -228,7 +227,7 @@ class ChoiceOptions extends Component {
         <ProgressBar active={1} pages={pages} />
         <Row className="w-100 my-0 mx-auto">
           <Alert color={alert.type} isOpen={!!alert.isOpen}>
-            {alert.text || ''}
+            {alerts[alert.textName] || ''}
           </Alert>
         </Row>
 
@@ -246,7 +245,12 @@ class ChoiceOptions extends Component {
                     <Label htmlFor="choose-existed-memo">
                       {info.chooseRound.existedDrafts.action}
                     </Label>
-                    <Form className="Existed--Memos" id="choose-existed-memo">
+                    <Form
+                      className={`Existed--Memos ${
+                        alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''
+                      }`}
+                      id="choose-existed-memo"
+                    >
                       {existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
                         <FormGroup className="form-select" key={'draft' + memoEndPoint}>
                           <Input
@@ -335,7 +339,11 @@ class ChoiceOptions extends Component {
                     <Label htmlFor="choose-from-rounds-list">
                       {info.chooseRound.availableRounds.action}
                     </Label>
-                    <Form>
+                    <Form
+                      className={
+                        alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''
+                      }
+                    >
                       {availableSemesterRounds.map(
                         ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
                           <FormGroup
@@ -377,7 +385,6 @@ class ChoiceOptions extends Component {
         </Container>
         <ControlPanel
           langIndex={this.langIndex}
-          canContinue={chosen.memoEndPoint || chosen.newRounds.length > 0}
           hasChosenMemo={chosen.memoEndPoint}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
