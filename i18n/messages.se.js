@@ -281,8 +281,10 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
-      body: `
-            Vill du fortsätta att avbryta?`,
+      body: `Utkast sparas automatiskt direkt efter att du har påbörjat steg 2 “Redigera kurs-pm”. Vill du inte behålla utkastet kan du gå tillbaka till steg 1 ”Välj kursomgång” och radera utkastet.
+        <br/>
+        <br/>
+        Vill du fortsätta att avbryta?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
     },
@@ -341,6 +343,7 @@ module.exports = {
     /** ************ BUTTONS ****************** */
     btnClose: 'Stäng',
     btnRemove: 'Radera utkast',
+    closeEditor: 'Stäng redigeringsläge',
     preview: 'Granska',
     edit: 'Redigera',
     cancel: 'Avbryt',

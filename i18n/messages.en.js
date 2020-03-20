@@ -247,7 +247,10 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'To be aware of before cancelling!',
-      body: '<p>Do you want to cancel?</p>',
+      body: `A draft is automatically saved immediately after you started editing the course memo in step 2 “Edit course memo”. If you don´t want to keep the draft, return to step 1 “Choose course offering” and delete the draft.
+        <br/>
+        <br/>
+        Do you want to cancel?`,
       btnClose: 'No, go back',
       btnConfirm: 'Yes, cancel'
     },
@@ -261,7 +264,7 @@ module.exports = {
       btnConfirm: 'Ja, fortsätt publicera'
     },
     infoRemove: {
-      header: 'To be aware of before deleting this draft!"',
+      header: 'To be aware of before deleting this draft!',
       body: `Deleting the draft cannot be undone. The draft draft will be lost.
       <br/>
       <br/>
@@ -307,6 +310,7 @@ module.exports = {
     /** ************ BUTTONS ****************** */
     btnClose: 'Close',
     btnRemove: 'Delete draft',
+    closeEditor: 'Close edit mode',
     preview: 'Preview',
     edit: 'Edit',
     cancel: 'Cancel',
