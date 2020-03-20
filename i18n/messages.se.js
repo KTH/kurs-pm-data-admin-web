@@ -296,11 +296,10 @@ module.exports = {
       btnConfirm: 'Ja, fortsätt publicera'
     },
     infoRemove: {
-      header: 'Att tänka på innan du ta bort utkast!',
-      body: `Ändringar för text och bild kommer att försvinna om du raderar utkast. 
-      <br/>  
-      <br/> 
-            Vill du fortsätta att radera?`,
+      header: 'Att tänka på innan du raderar utkastet!',
+      body: `Radera utkast kan inte ångras. Utkastet kommer att försvinna.
+      <br/><br/>
+      Vill du fortsätta radera utkastet?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt radera'
     }

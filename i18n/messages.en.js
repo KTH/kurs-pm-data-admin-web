@@ -261,11 +261,11 @@ module.exports = {
       btnConfirm: 'Ja, fortsätt publicera'
     },
     infoRemove: {
-      header: 'To be aware of before deleting this draft!',
+      header: 'To be aware of before deleting this draft!"',
       body: `Deleting the draft cannot be undone. The draft draft will be lost.
-      <br/>  
-      <br/> 
-            Do you want do delete this draft? `,
+      <br/>
+      <br/>
+      Do you want do delete this draft?`,
       btnClose: 'No, go back',
       btnConfirm: 'Yes, cancel'
     }

@@ -378,7 +378,6 @@ class ChoiceOptions extends Component {
         <ControlPanel
           langIndex={this.langIndex}
           canContinue={chosen.memoEndPoint || chosen.newRounds.length > 0}
-          hasSavedDraft={hasSavedDraft}
           hasChosenMemo={chosen.memoEndPoint}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}

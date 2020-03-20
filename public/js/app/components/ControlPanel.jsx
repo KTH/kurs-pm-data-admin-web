@@ -7,7 +7,7 @@ import { Alert, Row, Col, Button } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
-  const { canContinue, hasChosenMemo, hasSavedDraft, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
+  const { canContinue, hasChosenMemo, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
   const { alertIsOpen, alertText, onBack, onSave } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
@@ -23,14 +23,13 @@ const ControlPanel = props => {
             {buttons.goToRounds}
           </Button>
         )}
-        {hasSavedDraft && (
+        {hasChosenMemo && (
           <ActionModalButton
             btnLabel={buttons.btnRemove}
             modalId="cancelStep2"
             type="remove"
             modalLabels={actionModals.infoRemove} // TODO: CHANGE
             onConfirm={onRemove}
-            disabled={!hasChosenMemo}
           />
         )}
       </Col>
