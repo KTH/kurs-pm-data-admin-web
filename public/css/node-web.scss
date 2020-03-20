@@ -269,6 +269,9 @@ div.container.First--Step--Choose--Parameters {
     &.Existed--Memos {
       margin-left: 1.3em;
     }
+    input[type='radio'] ~ label {
+      font-weight: normal;
+    }
     padding-bottom: 2em;
   }
   label + label {
