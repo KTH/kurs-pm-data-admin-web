@@ -50,6 +50,10 @@ class ChoiceOptions extends Component {
         textName
       }
     })
+    if (isOpen) {
+      const alertElement = document.getElementById('scroll-here-if-alert')
+      alertElement.scrollIntoView()
+    }
   }
 
   _filterOutUsedRounds = usedRoundsThisSemester => {
@@ -224,7 +228,7 @@ class ChoiceOptions extends Component {
           </PageTitle>
         </Row>
 
-        <ProgressBar active={1} pages={pages} />
+        <ProgressBar active={1} pages={pages} id="scroll-here-if-alert" />
         <Row className="w-100 my-0 mx-auto">
           <Alert color={alert.type} isOpen={!!alert.isOpen}>
             {alerts[alert.textName] || ''}
