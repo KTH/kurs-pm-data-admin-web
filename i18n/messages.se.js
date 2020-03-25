@@ -273,7 +273,7 @@ module.exports = {
     extra: 'Ytterligare Information'
   },
   pageTitles: {
-    new: 'Skapa och publicera nytt kurs-pm'
+    new: 'Skapa och publicera kurs-pm'
     // draft: 'Publicera kurs-PM utkast',
     // published: 'Ändra publicerad kurs-PM',
     // preview: 'Förhandsgranska sparat utkast av kurs-PM'
@@ -281,7 +281,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
-      body: `Utkast sparas automatiskt direkt efter att du har påbörjat steg 2 “Redigera kurs-pm”. Vill du inte behålla utkastet kan du gå tillbaka till steg 1 ”Välj kursomgång” och radera utkastet.
+      body: `Utkast sparas automatiskt från det att du påbörjat steg 2, Redigera kurs-pm. Vill du inte behålla utkastet kan du välja Radera utkast i steg 1, Välj kursomgång,nästa gång du använder tjänsten Skapa och publicera kurs-pm.
         <br/>
         <br/>
         Vill du fortsätta att avbryta?`,
@@ -323,13 +323,12 @@ module.exports = {
       Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       availableRounds: {
-        label: 'Följande kurstillfällen saknar ett publicerat kurs-pm eller utkast.',
-        action: 'Markera ett eller flera kurstillfällen som ingår i kursomgången:'
+        label: 'Markera ett eller flera kurstillfällen som ingår i kursomgången',
+        infoText: 'Listade kurstillfällen saknar ett publicerat kurs-pm eller utkast'
       },
       existedDrafts: {
-        label: 'Följande kursomgångar har sparade utkast som ännu ej publicerats.',
-        action:
-          'Välj ett utkast och klicka på knappen Redigera för att fortsätta redigera utkastet.'
+        label: 'Välj det utkast du vill fortsätta att redigera',
+        infoText: 'Listade utkast är sparade men ej publicerade'
       }
     },
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',

@@ -249,7 +249,7 @@ class ChoiceOptions extends Component {
                       {info.chooseRound.existedDrafts.label}
                     </Label>
                     <Label htmlFor="choose-existed-memo">
-                      {info.chooseRound.existedDrafts.action}
+                      {info.chooseRound.existedDrafts.infoText}
                     </Label>
                     <Form
                       className={`Existed--Memos ${
@@ -344,7 +344,7 @@ class ChoiceOptions extends Component {
                       {info.chooseRound.availableRounds.label}
                     </Label>
                     <Label htmlFor="choose-from-rounds-list">
-                      {info.chooseRound.availableRounds.action}
+                      {info.chooseRound.availableRounds.infoText}
                     </Label>
                     <Form
                       className={

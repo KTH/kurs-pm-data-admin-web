@@ -239,7 +239,7 @@ module.exports = {
     extra: ''
   },
   pageTitles: {
-    new: 'Create and publish new course memo'
+    new: 'Create and publish course memo'
     // draft: 'Publish course memo draft',
     // published: 'Edit published course memo',
     // preview: 'Preview course memo draft'
@@ -247,7 +247,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'To be aware of before cancelling!',
-      body: `A draft is automatically saved immediately after you started editing the course memo in step 2 “Edit course memo”. If you don´t want to keep the draft, return to step 1 “Choose course offering” and delete the draft.
+      body: `A draft is automatically saved immediately after you started editing the course memo in step 2, Edit course memo. If you don ́t want to keep the draft, you can choose Delete draft in step 1, Choose course offering, the next time you use the service Create and publish course memo.
         <br/>
         <br/>
         Do you want to cancel?`,
@@ -289,13 +289,13 @@ module.exports = {
       A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. 
       Several administrative course instances are grouped to one course offering.</p>`,
       availableRounds: {
-        label:
-          'The following administrative course instances have no published course memo or draft.',
-        action: 'Select the instances that is included in the course offering:'
+        label: 'Select the instances that is included in the course offerings',
+        infoText:
+          'The following administrative course instances have no published course memo or draft'
       },
       existedDrafts: {
-        label: 'The following course offerings have drafts that are not yet published.',
-        action: 'Select a draft click on the button Edit to continue edit the draft.'
+        label: 'Select a draft and click on the button Edit to continue edit the draft',
+        infoText: 'The following course offerings have drafts that are not yet published'
       }
     },
     errKoppsRounds:
