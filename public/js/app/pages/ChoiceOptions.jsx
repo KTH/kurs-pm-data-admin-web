@@ -229,17 +229,19 @@ class ChoiceOptions extends Component {
         </Row>
 
         <ProgressBar active={1} pages={pages} id="scroll-here-if-alert" />
-        <Row className="w-100 my-0 mx-auto">
-          <Alert color={alert.type} isOpen={!!alert.isOpen}>
-            {alerts[alert.textName] || ''}
-          </Alert>
-        </Row>
+        {alert.isOpen && (
+          <Row className="w-100 my-0 mx-auto section-50">
+            <Alert color={alert.type} isOpen={!!alert.isOpen}>
+              {alerts[alert.textName] || ''}
+            </Alert>
+          </Row>
+        )}
 
         <Container className="First--Step--Choose--Parameters">
           <Row>
             <Col>
               {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
-              <span>
+              <div className="section-50">
                 <h2>{info.chooseSavedDraft}</h2>
                 {(hasSavedDraft && (
                   <>
@@ -279,9 +281,9 @@ class ChoiceOptions extends Component {
                     <i>{info.noSavedDrafts}</i>
                   </p>
                 )}
-              </span>
+              </div>
               {/* CHOOSE TO CREATE A NEW EMPTY DRAFT OR A NEW ONE COPIED FROM PREVIOUS MEMO */}
-              <span>
+              <div className="section-50">
                 <h2>{info.createNew}</h2>
                 <TitleAndInfoModal
                   modalId="choose-semester"
@@ -290,7 +292,7 @@ class ChoiceOptions extends Component {
                 />
                 {(allSemesters && allSemesters.length > 0 && (
                   <Form style={{ width: '20em' }}>
-                    <FormGroup className="form-select" key="select-semester">
+                    <FormGroup className="form-select first-15" key="select-semester">
                       <div className="select-wrapper">
                         <select
                           className="custom-select"
@@ -321,12 +323,13 @@ class ChoiceOptions extends Component {
                     <i>{(allSemesters && info.noSemesterAvailable) || info.errKoppsRounds}</i>
                   </p>
                 )}
-              </span>
+              </div>
               {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
-              <span
+              <div
+                className="subsection-30"
                 style={
                   allSemesters && allSemesters.length > 0 && semester
-                    ? { marginTop: '50' }
+                    ? { marginTop: '0' }
                     : { display: 'none' }
                 }
               >
@@ -337,7 +340,7 @@ class ChoiceOptions extends Component {
                 />
                 {(availableSemesterRounds.length > 0 && (
                   <>
-                    <Label htmlFor="choose-from-rounds-list">
+                    <Label className="first-15" htmlFor="choose-from-rounds-list">
                       {info.chooseRound.availableRounds.label}
                     </Label>
                     <Label htmlFor="choose-from-rounds-list">
@@ -383,7 +386,7 @@ class ChoiceOptions extends Component {
                     <i>{info.noCourseRoundsAvailable}</i>
                   </p>
                 )}
-              </span>
+              </div>
             </Col>
           </Row>
         </Container>

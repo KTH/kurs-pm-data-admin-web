@@ -13,7 +13,7 @@ const ControlPanel = props => {
   const progress = Number(props.progress) || 1
 
   return (
-    <Row className="control-buttons">
+    <Row className="control-buttons subsection-30">
       <Row className="w-100 my-0 mx-auto">
         <Alert isOpen={!!alertIsOpen}>{alertText || ''}</Alert>
       </Row>

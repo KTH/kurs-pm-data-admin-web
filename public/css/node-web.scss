@@ -20,18 +20,10 @@ $red: #e01f28;
   min-width: 1em;
   min-height: 1em;
 }
-#kth-node {
-  background: pink;
-}
+
 #app {
   width: 100%;
 }
-
-//remove all this later when i will connect kth-kip-styles
-// h3 {
-//   margin-top: 0;
-//   margin-bottom: 15px;
-// }
 
 .word-break {
   p {
@@ -87,33 +79,78 @@ div.tox.tox-tinymce {
 //   margin-bottom: 15px;
 // }
 
-.kip-container,
-.kursinfo-main-page {
-  // .kursinfo-main-page
-  padding-bottom: 20px;
+.kip-container {
   padding-top: 2em;
   width: 100%;
-
-  .btn-primary,
-  .btn-success,
-  .btn-secondary,
-  .btn-danger {
-    ///changed
-    margin-top: 1em;
-    margin-bottom: 1em;
+  .progress-bar-container.row {
+    margin: 0;
   }
+  .container.First--Step--Choose--Parameters {
+    padding: 0 0 50px 0;
+  }
+  .title-and-info > h3 {
+    margin-top: 15px;
+  }
+  .alert {
+    margin-bottom: 0;
+  }
+  .section-50 {
+    //row
+    //
+    // &>:last-child {
+    margin-bottom: 0;
+    padding-top: 50px;
+    //} // 44px {}
+    & > h2:first-child {
+      margin-top: 0;
+    }
+    .col {
+      margin-bottom: 0;
+    }
+  }
+  .form-group:last-of-type {
+    margin-bottom: 0;
+  }
+  .error-area {
+    .form-group:last-of-type {
+      margin-bottom: 0.3em;
+    }
+  }
+  .subsection-30 {
+    padding-top: 30px;
+
+    .title-and-info > h3 {
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+  .first-15 {
+    padding-top: 15px;
+  }
+  // .section-50 + .subsection-30 {
+  //   padding-top: -30px;
+  // }
+
+  // .btn-primary,
+  // .btn-success,
+  // .btn-secondary,
+  // .btn-danger {
+  //   ///changed
+  //   margin-top: 30px;
+  //   // margin-bottom: 1em;
+  // }
 }
 
-.control-buttons {
-  margin-top: 50px;
-  padding: 0.5em 0;
-}
+// .control-buttons {
+//   margin-top: 50px;
+//   padding: 0.5em 0;
+// }
 
 //BUTTONS STYLES
 .control-buttons {
   @extend %column;
   border-top: 1px solid #dee2e6;
-  padding-top: 1.5em;
+  // padding-top: 1.5em;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -265,11 +302,11 @@ a.nav-link {
 }
 /* Select course offerings checkboxes and radiooxes */
 div.container.First--Step--Choose--Parameters {
-  padding: 0;
+  // padding: 0;
   form {
     //adapting for error red border
-    padding-top: 0.3em;
     margin-left: -0.3em;
+
     .form-group {
       margin-left: 0.3em;
     }
@@ -282,7 +319,7 @@ div.container.First--Step--Choose--Parameters {
     input ~ label {
       font-weight: normal;
     }
-    padding-bottom: 2em;
+    // padding-bottom: 2em;
   }
   label + label {
     font-weight: normal;
