@@ -21,7 +21,7 @@
     "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\""
   },
   "dependencies": {
-    "@kth/kth-kip-style-react-components": "0.0.14",
+    "@kth/kth-kip-style-react-components": "0.0.16",
     "@tinymce/tinymce-react": "^3.3.2",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
@@ -44,7 +44,7 @@
     "kth-node-server": "^3.1.1",
     "kth-node-session": "^1.0.3",
     "kth-node-web-common": "^3.0.6",
-    "kth-style": "^4.2.19",
+    "kth-style": "^4.2.27",
     "locale": "^0.1.0",
     "mobx": "^5.13.0",
     "mobx-react": "^5.4.4",
