@@ -260,8 +260,8 @@ module.exports = {
         <br/> 
         <br/> 
         Do you want to publish?`,
-      btnClose: 'Nej, gå tillbaka',
-      btnConfirm: 'Ja, fortsätt publicera'
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, publish'
     },
     infoRemove: {
       header: 'To be aware of before deleting this draft!',
@@ -270,7 +270,7 @@ module.exports = {
       <br/>
       Do you want do delete this draft?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, cancel'
+      btnConfirm: 'Yes, delete'
     }
   },
   info: {
