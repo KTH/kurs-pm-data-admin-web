@@ -123,6 +123,26 @@ class ChoiceOptions extends Component {
     this.showAvailableSemesterRounds(semester)
   }
 
+  onCheckboxChange = (event, firstTuitionDate, ladokRoundId, language, shortName) => {
+    const { checked, value } = event
+    this.setState({ alert: { isOpen: false } })
+    this._uncheckRadio()
+    const newRounds = this._addRoundAndSort(checked, value)
+    const newMemoName = newRounds
+      .map(ladokRoundId =>
+        document.getElementById('new' + ladokRoundId).parentElement.textContent.trim()
+      )
+      .join(', ')
+    this.setState({
+      chosen: {
+        action: 'create',
+        memoEndPoint: '',
+        newMemoName,
+        newRounds
+      }
+    })
+  }
+
   onChoiceActions = event => {
     const { checked, value, type } = event.target
     this.setState({ alert: { isOpen: false } })
@@ -207,9 +227,9 @@ class ChoiceOptions extends Component {
   }
 
   render() {
-    const { alerts, info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
+    const { allSemesters, existingDraftsByCourseCode, hasSavedDraft, langIndex } = this
+    const { alerts, info, extraInfo, pages, pageTitles, buttons } = i18n.messages[langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
-    const { allSemesters, existingDraftsByCourseCode, hasSavedDraft } = this
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 
     return (
@@ -363,7 +383,15 @@ class ChoiceOptions extends Component {
                               id={'new' + ladokRoundId}
                               name="chooseNew"
                               value={ladokRoundId}
-                              onClick={this.onChoiceActions}
+                              onClick={event =>
+                                this.onCheckboxChange(
+                                  event,
+                                  firstTuitionDate,
+                                  ladokRoundId,
+                                  language,
+                                  shortName
+                                )
+                              }
                               defaultChecked={false}
                             />
                             <Label htmlFor={'new' + ladokRoundId}>
@@ -373,7 +401,7 @@ class ChoiceOptions extends Component {
                                 : `${seasonStr(extraInfo, semester)}-${ladokRoundId} `}
                               {`(${extraInfo.labelStartDate} ${getDateFormat(
                                 firstTuitionDate,
-                                language[this.langAbbr]
+                                langIndex
                               )}, ${language[this.langAbbr]})`}
                             </Label>
                           </FormGroup>
@@ -391,7 +419,7 @@ class ChoiceOptions extends Component {
           </Row>
         </Container>
         <ControlPanel
-          langIndex={this.langIndex}
+          langIndex={langIndex}
           hasChosenMemo={chosen.memoEndPoint}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
