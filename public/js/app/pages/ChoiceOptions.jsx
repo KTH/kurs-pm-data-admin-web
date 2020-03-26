@@ -20,7 +20,8 @@ class ChoiceOptions extends Component {
       action: this.props.routerStore.memoEndPoint ? 'copy' : 'create',
       memoEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
-      newRounds: this.props.routerStore.rounds || []
+      sortedRoundIds: this.props.routerStore.rounds || [],
+      sortedKoppsInfo: []
     },
     alert: {
       type: '', // danger, success, warn
@@ -102,19 +103,31 @@ class ChoiceOptions extends Component {
 
   _uncheckCheckboxes = () => {
     // move to helper
-    const { newRounds } = this.state.chosen
-    newRounds.map(ladokRoundId => {
+    const { sortedRoundIds } = this.state.chosen
+    sortedRoundIds.map(ladokRoundId => {
       const checkboxId = 'new' + ladokRoundId
       document.getElementById(checkboxId).checked = false
     })
   }
 
-  _addRoundAndSort = (checked, value) => {
+  _addRoundAndInfo = chosenRoundObj => {
     // move to helper
-    const { newRounds } = this.state.chosen
-    if (checked) newRounds.push(value)
-    else newRounds.splice(newRounds.indexOf(value), 1)
-    return newRounds.sort()
+    // const { firstTuitionDate, ladokRoundId, language, shortName } = chosenRoundObj
+    const { ladokRoundId } = chosenRoundObj
+    const { sortedRoundIds, sortedKoppsInfo } = this.state.chosen
+    sortedRoundIds.push(ladokRoundId)
+    const sortedRounds = sortedRoundIds.sort()
+    const addIndex = sortedRounds.indexOf(ladokRoundId)
+    sortedKoppsInfo.splice(addIndex, 0, chosenRoundObj)
+    return { sortedRoundIds, sortedKoppsInfo }
+  }
+
+  _removeRoundAndInfo = ladokRoundId => {
+    const { sortedRoundIds, sortedKoppsInfo } = this.state.chosen
+    const removeIndex = sortedRoundIds.indexOf(ladokRoundId)
+    sortedRoundIds.splice(removeIndex, 1)
+    sortedKoppsInfo.splice(removeIndex, 1)
+    // svMemoNames.splice(removeIndex, 1)
   }
 
   onSemesterChoice = event => {
@@ -124,13 +137,13 @@ class ChoiceOptions extends Component {
   }
 
   onCheckboxChange = (event, chosenRoundObj) => {
-    const { firstTuitionDate, ladokRoundId, language, shortName } = chosenRoundObj
-
     const { checked, value } = event.target
     this.setState({ alert: { isOpen: false } })
     this._uncheckRadio()
-    const newRounds = this._addRoundAndSort(checked, value)
-    const newMemoName = newRounds
+    const sortedRoundIds = checked
+      ? this._addRoundAndInfo(chosenRoundObj)
+      : this._removeRoundAndInfo(value)
+    const newMemoName = sortedRoundIds // remove
       .map(round => document.getElementById('new' + round).parentElement.textContent.trim())
       .join(', ')
     this.setState({
@@ -138,13 +151,13 @@ class ChoiceOptions extends Component {
         action: 'create',
         memoEndPoint: '',
         newMemoName,
-        newRounds
+        sortedRoundIds
       }
     })
   }
 
   onRadioChange = event => {
-    const { checked, value } = event.target
+    const { value } = event.target
     this.setState({ alert: { isOpen: false } })
     this._uncheckCheckboxes()
     this.setState({
@@ -152,7 +165,7 @@ class ChoiceOptions extends Component {
         action: 'copy',
         memoEndPoint: value,
         newMemoName: '',
-        newRounds: []
+        sortedRoundIds: []
       }
     })
   }
@@ -179,15 +192,15 @@ class ChoiceOptions extends Component {
     const { courseCode } = this
     const { semester, chosen } = this.state
     console.log('on submit chosen ', this.state)
-    if (chosen.newRounds.length > 0 || chosen.memoEndPoint) {
+    if (chosen.sortedRoundIds.length > 0 || chosen.memoEndPoint) {
       const body =
         chosen.action === 'create'
           ? {
               courseCode,
               memoName: chosen.newMemoName,
-              ladokRoundIds: chosen.newRounds,
+              ladokRoundIds: chosen.sortedRoundIds,
               languageOfInstructions: chosen.languageOfInstructions,
-              memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
+              memoEndPoint: courseCode + semester + '-' + chosen.sortedRoundIds.join('-'),
               semester
             }
           : { memoEndPoint: chosen.memoEndPoint }
