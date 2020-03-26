@@ -21,7 +21,7 @@ class ChoiceOptions extends Component {
       memoEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
       sortedRoundIds: this.props.routerStore.rounds || [],
-      sortedKoppsInfo: []
+      sortedKoppsInfo: [] // use it for next step
     },
     alert: {
       type: '', // danger, success, warn
@@ -127,7 +127,7 @@ class ChoiceOptions extends Component {
     const removeIndex = sortedRoundIds.indexOf(ladokRoundId)
     sortedRoundIds.splice(removeIndex, 1)
     sortedKoppsInfo.splice(removeIndex, 1)
-    // svMemoNames.splice(removeIndex, 1)
+    return { sortedRoundIds, sortedKoppsInfo }
   }
 
   onSemesterChoice = event => {
@@ -140,18 +140,19 @@ class ChoiceOptions extends Component {
     const { checked, value } = event.target
     this.setState({ alert: { isOpen: false } })
     this._uncheckRadio()
-    const sortedRoundIds = checked
+    const { sortedRoundIds, sortedKoppsInfo } = checked
       ? this._addRoundAndInfo(chosenRoundObj)
       : this._removeRoundAndInfo(value)
-    const newMemoName = sortedRoundIds // remove
-      .map(round => document.getElementById('new' + round).parentElement.textContent.trim())
+    const newMemoName = sortedKoppsInfo // remove
+      .map(round => combineMemoName(round, 'sv')) // document.getElementById('new' + round).parentElement.textContent.trim()
       .join(', ')
     this.setState({
       chosen: {
         action: 'create',
         memoEndPoint: '',
         newMemoName,
-        sortedRoundIds
+        sortedRoundIds,
+        sortedKoppsInfo
       }
     })
   }
@@ -165,7 +166,8 @@ class ChoiceOptions extends Component {
         action: 'copy',
         memoEndPoint: value,
         newMemoName: '',
-        sortedRoundIds: []
+        sortedRoundIds: [],
+        sortedKoppsInfo: []
       }
     })
   }
