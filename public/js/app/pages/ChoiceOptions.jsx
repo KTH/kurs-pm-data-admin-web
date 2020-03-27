@@ -130,6 +130,22 @@ class ChoiceOptions extends Component {
     return { sortedRoundIds, sortedKoppsInfo }
   }
 
+  _memoNameAndCommonLanguages = sortedKoppsInfo => {
+    // const { sortedKoppsInfo } = this.state
+    const languagesArr = sortedKoppsInfo.map(round => round.language)
+    const uniqueLanguages = Array.from(new Set(languagesArr))
+    const memoLanguageInEnglish = uniqueLanguages.length === 1 ? uniqueLanguages[0].en : 'English'
+    const memoLangAbbr = memoLanguageInEnglish === 'Swedish' ? 'sv' : 'en'
+    const languagesByMemoLang = uniqueLanguages.map(language => language[memoLangAbbr])
+    const languageOfInstructions = languagesByMemoLang.join('/')
+    console.log('languageOfInstructions', languageOfInstructions)
+    const newMemoName = sortedKoppsInfo // remove
+      .map(round => combineMemoName(round, memoLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
+      .join(', ')
+    console.log('languageOfInstructions', newMemoName)
+    return { newMemoName, languageOfInstructions }
+  }
+
   onSemesterChoice = event => {
     const semester = event.target.value
     this.setState({ semester })
@@ -138,17 +154,18 @@ class ChoiceOptions extends Component {
 
   onCheckboxChange = (event, chosenRoundObj) => {
     const { checked, value } = event.target
-    this.setState({ alert: { isOpen: false } })
     this._uncheckRadio()
     const { sortedRoundIds, sortedKoppsInfo } = checked
       ? this._addRoundAndInfo(chosenRoundObj)
       : this._removeRoundAndInfo(value)
-    const newMemoName = sortedKoppsInfo // remove
-      .map(round => combineMemoName(round, 'sv')) // document.getElementById('new' + round).parentElement.textContent.trim()
-      .join(', ')
+    const { newMemoName, languageOfInstructions } = this._memoNameAndCommonLanguages(
+      sortedKoppsInfo
+    )
     this.setState({
+      alert: { isOpen: false },
       chosen: {
         action: 'create',
+        languageOfInstructions,
         memoEndPoint: '',
         newMemoName,
         sortedRoundIds,

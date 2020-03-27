@@ -23,7 +23,7 @@ export const combineMemoName = (roundInfo, langAbbr = 'sv') => {
 
   const startDateAndLanguage = `(${extraInfo.labelStartDate} ${getDateFormat(
     firstTuitionDate,
-    language[langAbbr]
+    langAbbr
   )}, ${language[langAbbr]})`
 
   return `${seasonOrShortName} ${startDateAndLanguage}`
