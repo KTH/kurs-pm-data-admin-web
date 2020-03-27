@@ -5,9 +5,17 @@ import ContentHead from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import i18n from '../../../../i18n'
 
-const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html, langIndex }) => (
+const Section = ({
+  contentId,
+  menuId,
+  visibleInMemo,
+  onToggleVisibleInMemo,
+  html,
+  memoLangIndex,
+  userLangIndex
+}) => (
   <span id={menuId} key={contentId}>
-    <ContentHead contentId={contentId} langIndex={langIndex} />
+    <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} />
     <VisibilityInfo
       contentId={contentId}
       visibleInMemo={visibleInMemo}
@@ -17,7 +25,7 @@ const Section = ({ contentId, menuId, visibleInMemo, onToggleVisibleInMemo, html
     <span
       style={visibleInMemo ? {} : { display: 'none' }}
       dangerouslySetInnerHTML={{
-        __html: html || `<p>${i18n.messages[langIndex].sourceInfo.nothingFetched}</p>`
+        __html: html || `<p>${i18n.messages[userLangIndex].sourceInfo.nothingFetched}</p>`
       }}
     />
   </span>

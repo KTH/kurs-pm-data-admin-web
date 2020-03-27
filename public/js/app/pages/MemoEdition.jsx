@@ -22,15 +22,15 @@ const PROGRESS = 2
 class MemoEdition extends Component {
   state = this.props.routerStore.memoData || {}
 
-  isApiExisted = !this.props.routerStore.memoData
-
   koppsFreshData = this.props.routerStore.koppsFreshData
 
   courseCode = this.props.routerStore.courseCode
 
   semester = this.props.routerStore.semester
 
-  langIndex = this.props.routerStore.langIndex
+  userLangIndex = this.props.routerStore.langIndex
+
+  memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   componentDidMount() {
     console.log('MemoEdition state', this.state)
@@ -73,7 +73,7 @@ class MemoEdition extends Component {
   }
 
   handleAutoSave = () => {
-    const { alerts } = i18n.messages[this.langIndex]
+    const { alerts } = i18n.messages[this.userLangIndex]
     this.props.onSave(this.state, alerts.autoSaved) // .then(() => this.props.onChange({ updatedMemo: body }))
   }
 
@@ -124,7 +124,8 @@ class MemoEdition extends Component {
       />
     ) : (
       <Section
-        langIndex={this.langIndex}
+        userLangIndex={this.userLangIndex}
+        memoLangIndex={this.memoLangIndex}
         menuId={menuId}
         contentId={contentId}
         visibleInMemo={visibleInMemo}
@@ -165,7 +166,8 @@ class MemoEdition extends Component {
             />
           ) : (
             <Section
-              langIndex={this.langIndex}
+              userLangIndex={this.userLangIndex}
+              memoLangIndex={this.memoLangIndex}
               contentId={contentId}
               menuId={menuId}
               key={contentId}
@@ -181,7 +183,7 @@ class MemoEdition extends Component {
   }
 
   render() {
-    const { buttons, extraInfo, pages } = i18n.messages[this.langIndex]
+    const { buttons, extraInfo, pages } = i18n.messages[this.userLangIndex]
 
     return (
       <StickyContainer className="memo-container">

@@ -14,7 +14,9 @@ class EditorPerTitle extends Component {
     isOpen: false
   }
 
-  langIndex = this.props.routerStore.langIndex
+  userLangIndex = this.props.routerStore.langIndex
+
+  memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   updateMemoContent = editorContent => {
     this.props.onEditorChange(editorContent, this.props.contentId)
@@ -31,11 +33,12 @@ class EditorPerTitle extends Component {
   render() {
     const { memoData, defaultValues } = this.props.routerStore
     const { contentId, menuId, visibleInMemo } = this.props
-    const { memoHeadings, sourceInfo } = i18n.messages[this.langIndex]
+    const { memoHeadings } = i18n.messages[this.memoLangIndex]
+    const { sourceInfo } = i18n.messages[this.userLangIndex]
 
     return (
       <span id={menuId}>
-        <ContentHead contentId={contentId} langIndex={this.langIndex} />
+        <ContentHead contentId={contentId} memoLangIndex={this.memoLangIndex} />
         <VisibilityInfo
           contentId={contentId}
           visibleInMemo={visibleInMemo}

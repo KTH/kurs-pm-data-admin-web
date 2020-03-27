@@ -41,7 +41,7 @@ function _staticRender(context, location) {
 async function renderMemoEditorPage(req, res, next) {
   try {
     const context = {}
-    const lang = language.getLanguage(res) || 'sv'
+    const userLang = language.getLanguage(res) || 'sv'
     const { courseCode, memoEndPoint } = req.params
     const renderProps = _staticRender(context, req.url)
 
@@ -51,16 +51,21 @@ async function renderMemoEditorPage(req, res, next) {
       apis,
       server.hostUrl
     )
-    renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
+    renderProps.props.children.props.routerStore.doSetLanguageIndex(userLang)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
     renderProps.props.children.props.routerStore.memoData = apiMemoData
     renderProps.props.children.props.routerStore.setMemoBasicInfo({
       courseCode,
       memoEndPoint,
-      semester: apiMemoData.semester
+      semester: apiMemoData.semester,
+      memoLangAbbr: apiMemoData.memoCommonLangAbbr || userLang
     })
     renderProps.props.children.props.routerStore.koppsFreshData = {
-      ...(await getSyllabus(courseCode, apiMemoData.semester, lang)), // TODO: use apiMemoData instead
+      ...(await getSyllabus(
+        courseCode,
+        apiMemoData.semester,
+        apiMemoData.memoCommonLangAbbr || userLang
+      )), // TODO: use apiMemoData instead
       ...(await getCourseEmployees(apiMemoData))
     }
 
@@ -70,11 +75,11 @@ async function renderMemoEditorPage(req, res, next) {
 
     res.render('memo/index', {
       html,
-      title: lang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',
+      title: userLang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',
       initialState: JSON.stringify(hydrateStores(renderProps)),
-      lang,
+      userLang,
       description:
-        lang === 'sv'
+        userLang === 'sv'
           ? '[NY] Kursinformation – Administration av kurs-PM'
           : '[NEW] Course Information – Administration of course memos'
     })

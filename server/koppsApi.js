@@ -163,9 +163,9 @@ async function getKoppsCourseRoundTerms(courseCode) {
   }
 }
 
-async function getDetailedInformation(courseCode, language) {
+async function getDetailedInformation(courseCode, language = 'sv') {
   const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation`
+  const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const {
@@ -176,23 +176,12 @@ async function getDetailedInformation(courseCode, language) {
       prerequisites,
       requiredEquipment
     } = res.body.course
-    let languageOfInstructions
-    if (
-      res.body.roundInfos[1] &&
-      res.body.roundInfos[1].round &&
-      res.body.roundInfos[1].round.language
-    ) {
-      languageOfInstructions = res.body.roundInfos[1].round.language
-    } else {
-      languageOfInstructions = language
-    }
     const schemaUrl = []
     res.body.roundInfos.forEach(roundInfo => {
       schemaUrl.push(roundInfo.schemaUrl)
     })
     return {
       infoContactName,
-      languageOfInstructions,
       possibilityToCompletion,
       possibilityToAddition,
       schemaUrl,
