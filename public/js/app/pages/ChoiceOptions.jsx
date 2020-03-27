@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
-import { seasonStr, getDateFormat } from '../util/helpers'
+import { combineMemoName, seasonStr } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
@@ -20,7 +20,8 @@ class ChoiceOptions extends Component {
       action: this.props.routerStore.memoEndPoint ? 'copy' : 'create',
       memoEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
-      newRounds: this.props.routerStore.rounds || []
+      sortedRoundIds: this.props.routerStore.rounds || [],
+      sortedKoppsInfo: [] // use it for next step
     },
     alert: {
       type: '', // danger, success, warn
@@ -52,7 +53,7 @@ class ChoiceOptions extends Component {
     })
     if (isOpen) {
       const alertElement = document.getElementById('scroll-here-if-alert')
-      alertElement.scrollIntoView()
+      alertElement.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -102,19 +103,44 @@ class ChoiceOptions extends Component {
 
   _uncheckCheckboxes = () => {
     // move to helper
-    const { newRounds } = this.state.chosen
-    newRounds.map(ladokRoundId => {
+    const { sortedRoundIds } = this.state.chosen
+    sortedRoundIds.map(ladokRoundId => {
       const checkboxId = 'new' + ladokRoundId
       document.getElementById(checkboxId).checked = false
     })
   }
 
-  _addRoundAndSort = (checked, value) => {
+  _addRoundAndInfo = chosenRoundObj => {
     // move to helper
-    const { newRounds } = this.state.chosen
-    if (checked) newRounds.push(value)
-    else newRounds.splice(newRounds.indexOf(value), 1)
-    return newRounds.sort()
+    // const { firstTuitionDate, ladokRoundId, language, shortName } = chosenRoundObj
+    const { ladokRoundId } = chosenRoundObj
+    const { sortedRoundIds, sortedKoppsInfo } = this.state.chosen
+    sortedRoundIds.push(ladokRoundId)
+    const sortedRounds = sortedRoundIds.sort()
+    const addIndex = sortedRounds.indexOf(ladokRoundId)
+    sortedKoppsInfo.splice(addIndex, 0, chosenRoundObj)
+    return { sortedRoundIds, sortedKoppsInfo }
+  }
+
+  _removeRoundAndInfo = ladokRoundId => {
+    const { sortedRoundIds, sortedKoppsInfo } = this.state.chosen
+    const removeIndex = sortedRoundIds.indexOf(ladokRoundId)
+    sortedRoundIds.splice(removeIndex, 1)
+    sortedKoppsInfo.splice(removeIndex, 1)
+    return { sortedRoundIds, sortedKoppsInfo }
+  }
+
+  _roundsCommonLanguages = sortedKoppsInfo => {
+    const allRoundsLanguages = sortedKoppsInfo.map(round => round.language.en)
+    const uniqueLanguages = Array.from(new Set(allRoundsLanguages))
+    const memoLanguageInEnglish = uniqueLanguages.length === 1 ? uniqueLanguages[0] : 'English'
+    const memoCommonLangAbbr = memoLanguageInEnglish === 'Swedish' ? 'sv' : 'en'
+
+    const uniqueCourseLanguages = Array.from(
+      new Set(sortedKoppsInfo.map(round => round.language[memoCommonLangAbbr]))
+    )
+    const languageOfInstructions = uniqueCourseLanguages.join('/')
+    return { memoCommonLangAbbr, languageOfInstructions }
   }
 
   onSemesterChoice = event => {
@@ -123,37 +149,45 @@ class ChoiceOptions extends Component {
     this.showAvailableSemesterRounds(semester)
   }
 
-  onChoiceActions = event => {
-    const { checked, value, type } = event.target
-    this.setState({ alert: { isOpen: false } })
+  onCheckboxChange = (event, chosenRoundObj) => {
+    const { checked, value } = event.target
+    this._uncheckRadio()
+    const { sortedRoundIds, sortedKoppsInfo } = checked
+      ? this._addRoundAndInfo(chosenRoundObj)
+      : this._removeRoundAndInfo(value)
+    const { memoCommonLangAbbr, languageOfInstructions } = this._roundsCommonLanguages(
+      sortedKoppsInfo
+    )
+    const newMemoName = sortedKoppsInfo // remove
+      .map(round => combineMemoName(round, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
+      .join(', ')
+    this.setState({
+      alert: { isOpen: false },
+      chosen: {
+        action: 'create',
+        languageOfInstructions,
+        memoCommonLangAbbr,
+        memoEndPoint: '',
+        newMemoName,
+        sortedRoundIds,
+        sortedKoppsInfo
+      }
+    })
+  }
 
-    if (type === 'checkbox') {
-      this._uncheckRadio()
-      const newRounds = this._addRoundAndSort(checked, value)
-      const newMemoName = newRounds
-        .map(ladokRoundId =>
-          document.getElementById('new' + ladokRoundId).parentElement.textContent.trim()
-        )
-        .join(', ')
-      this.setState({
-        chosen: {
-          action: 'create',
-          memoEndPoint: '',
-          newMemoName,
-          newRounds
-        }
-      })
-    } else {
-      this._uncheckCheckboxes()
-      this.setState({
-        chosen: {
-          action: 'copy',
-          memoEndPoint: value,
-          newMemoName: '',
-          newRounds: []
-        }
-      })
-    }
+  onRadioChange = event => {
+    const { value } = event.target
+    this.setState({ alert: { isOpen: false } })
+    this._uncheckCheckboxes()
+    this.setState({
+      chosen: {
+        action: 'copy',
+        memoEndPoint: value,
+        newMemoName: '',
+        sortedRoundIds: [],
+        sortedKoppsInfo: []
+      }
+    })
   }
 
   onRemoveDraft = () => {
@@ -178,18 +212,21 @@ class ChoiceOptions extends Component {
     const { courseCode } = this
     const { semester, chosen } = this.state
     console.log('on submit chosen ', this.state)
-    if (chosen.newRounds.length > 0 || chosen.memoEndPoint) {
+    console.log('body', chosen.languageOfInstructions)
+    if (chosen.sortedRoundIds.length > 0 || chosen.memoEndPoint) {
       const body =
         chosen.action === 'create'
           ? {
               courseCode,
               memoName: chosen.newMemoName,
-              ladokRoundIds: chosen.newRounds,
+              memoCommonLangAbbr: chosen.memoCommonLangAbbr,
+              ladokRoundIds: chosen.sortedRoundIds,
               languageOfInstructions: chosen.languageOfInstructions,
-              memoEndPoint: courseCode + semester + '-' + chosen.newRounds.join('-'),
+              memoEndPoint: courseCode + semester + '-' + chosen.sortedRoundIds.join('-'),
               semester
             }
           : { memoEndPoint: chosen.memoEndPoint }
+
       const url = `${SERVICE_URL.API}create-draft/${body.memoEndPoint}`
 
       return axios
@@ -207,28 +244,28 @@ class ChoiceOptions extends Component {
   }
 
   render() {
-    const { alerts, info, extraInfo, pages, pageTitles, buttons } = i18n.messages[this.langIndex]
+    const { allSemesters, existingDraftsByCourseCode, hasSavedDraft, langAbbr, langIndex } = this
+    const { alerts, info, extraInfo, pages, pageTitles, buttons } = i18n.messages[langIndex]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
-    const { allSemesters, existingDraftsByCourseCode, hasSavedDraft } = this
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
-        <Row>
+        <Row id="scroll-here-if-alert">
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
             <span>
               {this.courseCode +
                 ' ' +
-                course.title[this.langAbbr] +
+                course.title[langAbbr] +
                 ' ' +
                 course.credits +
                 ' ' +
-                (this.langAbbr === 'sv' ? course.creditUnitAbbr.sv : 'credits')}
+                (langAbbr === 'sv' ? course.creditUnitAbbr.sv : 'credits')}
             </span>
           </PageTitle>
         </Row>
 
-        <ProgressBar active={1} pages={pages} id="scroll-here-if-alert" />
+        <ProgressBar active={1} pages={pages} />
         {alert.isOpen && (
           <Row className="w-100 my-0 mx-auto section-50">
             <Alert color={alert.type} isOpen={!!alert.isOpen}>
@@ -264,7 +301,7 @@ class ChoiceOptions extends Component {
                             id={memoEndPoint}
                             name="chooseDraft"
                             value={memoEndPoint}
-                            onClick={this.onChoiceActions}
+                            onClick={this.onRadioChange}
                             defaultChecked={
                               chosen.action === 'copy' && memoEndPoint === chosen.memoEndPoint
                             }
@@ -351,34 +388,26 @@ class ChoiceOptions extends Component {
                         alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''
                       }
                     >
-                      {availableSemesterRounds.map(
-                        ({ firstTuitionDate, ladokRoundId, language, shortName }) => (
-                          <FormGroup
-                            className="form-check"
-                            id="choose-from-rounds-list"
-                            key={'new' + ladokRoundId}
-                          >
-                            <Input
-                              type="checkbox"
-                              id={'new' + ladokRoundId}
-                              name="chooseNew"
-                              value={ladokRoundId}
-                              onClick={this.onChoiceActions}
-                              defaultChecked={false}
-                            />
-                            <Label htmlFor={'new' + ladokRoundId}>
-                              {/* Namegiving to new rounds which will be saved to api */}
-                              {shortName
-                                ? shortName + ' '
-                                : `${seasonStr(extraInfo, semester)}-${ladokRoundId} `}
-                              {`(${extraInfo.labelStartDate} ${getDateFormat(
-                                firstTuitionDate,
-                                language[this.langAbbr]
-                              )}, ${language[this.langAbbr]})`}
-                            </Label>
-                          </FormGroup>
-                        )
-                      )}
+                      {availableSemesterRounds.map(round => (
+                        <FormGroup
+                          className="form-check"
+                          id="choose-from-rounds-list"
+                          key={'new' + round.ladokRoundId}
+                        >
+                          <Input
+                            type="checkbox"
+                            id={'new' + round.ladokRoundId}
+                            name="chooseNew"
+                            value={round.ladokRoundId}
+                            onClick={event => this.onCheckboxChange(event, round)}
+                            defaultChecked={false}
+                          />
+                          <Label htmlFor={'new' + round.ladokRoundId}>
+                            {/* Namegiving according to user interface language */}
+                            {combineMemoName(round, langAbbr)}
+                          </Label>
+                        </FormGroup>
+                      ))}
                     </Form>
                   </>
                 )) || (
@@ -391,7 +420,7 @@ class ChoiceOptions extends Component {
           </Row>
         </Container>
         <ControlPanel
-          langIndex={this.langIndex}
+          langIndex={langIndex}
           hasChosenMemo={chosen.memoEndPoint}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
