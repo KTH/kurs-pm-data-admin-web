@@ -26,7 +26,7 @@ class RouterStore {
     this.semester = props.semester || ''
     this.courseCode = props.courseCode
     this.memoEndPoint = props.memoEndPoint
-    this.memoLangAbbr = props.memoCommonLangAbbr || 'sv'
+    this.memoLangAbbr = props.memoLangAbbr || 'sv'
   }
 
   // @action fetchExistingMemos(courseCode) {
