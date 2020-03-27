@@ -53,7 +53,7 @@ class ChoiceOptions extends Component {
     })
     if (isOpen) {
       const alertElement = document.getElementById('scroll-here-if-alert')
-      alertElement.scrollIntoView()
+      alertElement.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -130,20 +130,17 @@ class ChoiceOptions extends Component {
     return { sortedRoundIds, sortedKoppsInfo }
   }
 
-  _memoNameAndCommonLanguages = sortedKoppsInfo => {
-    // const { sortedKoppsInfo } = this.state
-    const languagesArr = sortedKoppsInfo.map(round => round.language)
-    const uniqueLanguages = Array.from(new Set(languagesArr))
-    const memoLanguageInEnglish = uniqueLanguages.length === 1 ? uniqueLanguages[0].en : 'English'
-    const memoLangAbbr = memoLanguageInEnglish === 'Swedish' ? 'sv' : 'en'
-    const languagesByMemoLang = uniqueLanguages.map(language => language[memoLangAbbr])
-    const languageOfInstructions = languagesByMemoLang.join('/')
-    console.log('languageOfInstructions', languageOfInstructions)
-    const newMemoName = sortedKoppsInfo // remove
-      .map(round => combineMemoName(round, memoLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
-      .join(', ')
-    console.log('languageOfInstructions', newMemoName)
-    return { newMemoName, languageOfInstructions }
+  _roundsCommonLanguages = sortedKoppsInfo => {
+    const allRoundsLanguages = sortedKoppsInfo.map(round => round.language.en)
+    const uniqueLanguages = Array.from(new Set(allRoundsLanguages))
+    const memoLanguageInEnglish = uniqueLanguages.length === 1 ? uniqueLanguages[0] : 'English'
+    const memoCommonLangAbbr = memoLanguageInEnglish === 'Swedish' ? 'sv' : 'en'
+
+    const uniqueCourseLanguages = Array.from(
+      new Set(sortedKoppsInfo.map(round => round.language[memoCommonLangAbbr]))
+    )
+    const languageOfInstructions = uniqueCourseLanguages.join('/')
+    return { memoCommonLangAbbr, languageOfInstructions }
   }
 
   onSemesterChoice = event => {
@@ -158,14 +155,18 @@ class ChoiceOptions extends Component {
     const { sortedRoundIds, sortedKoppsInfo } = checked
       ? this._addRoundAndInfo(chosenRoundObj)
       : this._removeRoundAndInfo(value)
-    const { newMemoName, languageOfInstructions } = this._memoNameAndCommonLanguages(
+    const { memoCommonLangAbbr, languageOfInstructions } = this._roundsCommonLanguages(
       sortedKoppsInfo
     )
+    const newMemoName = sortedKoppsInfo // remove
+      .map(round => combineMemoName(round, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
+      .join(', ')
     this.setState({
       alert: { isOpen: false },
       chosen: {
         action: 'create',
         languageOfInstructions,
+        memoCommonLangAbbr,
         memoEndPoint: '',
         newMemoName,
         sortedRoundIds,
@@ -211,18 +212,21 @@ class ChoiceOptions extends Component {
     const { courseCode } = this
     const { semester, chosen } = this.state
     console.log('on submit chosen ', this.state)
+    console.log('body', chosen.languageOfInstructions)
     if (chosen.sortedRoundIds.length > 0 || chosen.memoEndPoint) {
       const body =
         chosen.action === 'create'
           ? {
               courseCode,
               memoName: chosen.newMemoName,
+              memoCommonLangAbbr: chosen.memoCommonLangAbbr,
               ladokRoundIds: chosen.sortedRoundIds,
               languageOfInstructions: chosen.languageOfInstructions,
               memoEndPoint: courseCode + semester + '-' + chosen.sortedRoundIds.join('-'),
               semester
             }
           : { memoEndPoint: chosen.memoEndPoint }
+
       const url = `${SERVICE_URL.API}create-draft/${body.memoEndPoint}`
 
       return axios
@@ -247,7 +251,7 @@ class ChoiceOptions extends Component {
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
-        <Row>
+        <Row id="scroll-here-if-alert">
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
             <span>
               {this.courseCode +
@@ -261,7 +265,7 @@ class ChoiceOptions extends Component {
           </PageTitle>
         </Row>
 
-        <ProgressBar active={1} pages={pages} id="scroll-here-if-alert" />
+        <ProgressBar active={1} pages={pages} />
         {alert.isOpen && (
           <Row className="w-100 my-0 mx-auto section-50">
             <Alert color={alert.type} isOpen={!!alert.isOpen}>
