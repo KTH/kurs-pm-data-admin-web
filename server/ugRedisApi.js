@@ -46,17 +46,20 @@ async function _getCourseEmployees(apiMemoData) {
       responsibles
     )
     const ugClient = await redis('ugRedis', serverConfig.cache.ugRedis.redis)
-    const arrWithStringifiedArray = await ugClient
+    const arrWithStringifiedArrays = await ugClient
       .multi()
       .mget(teachers) // [0]
       .mget(examiner) // [1]
       .mget(responsibles) // [2]
       .mget(assistants) // [3]
       .execAsync()
-    log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArray[1])
-    const flatArrWithHtmlStr = arrWithStringifiedArray.map(arr =>
-      createPersonHtml(JSON.parse(arr[0]))
-    )
+    log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArrays[1])
+    const flatArrWithHtmlStr = arrWithStringifiedArrays.map(oneRoundStringifiedArr => {
+      const personsHtmlArr = oneRoundStringifiedArr.map(perRoundStr =>
+        createPersonHtml(JSON.parse(perRoundStr))
+      )
+      return personsHtmlArr.join('')
+    })
     return {
       teacher: flatArrWithHtmlStr[0],
       examiner: flatArrWithHtmlStr[1],
