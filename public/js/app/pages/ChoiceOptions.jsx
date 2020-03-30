@@ -151,6 +151,7 @@ class ChoiceOptions extends Component {
 
   onCheckboxChange = (event, chosenRoundObj) => {
     const { checked, value } = event.target
+    const { semester } = this.state
     this._uncheckRadio()
     const { sortedRoundIds, sortedKoppsInfo } = checked
       ? this._addRoundAndInfo(chosenRoundObj)
@@ -159,7 +160,7 @@ class ChoiceOptions extends Component {
       sortedKoppsInfo
     )
     const newMemoName = sortedKoppsInfo // remove
-      .map(round => combineMemoName(round, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
+      .map(round => combineMemoName(round, semester, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
       .join(', ')
     this.setState({
       alert: { isOpen: false },
@@ -404,7 +405,7 @@ class ChoiceOptions extends Component {
                           />
                           <Label htmlFor={'new' + round.ladokRoundId}>
                             {/* Namegiving according to user interface language */}
-                            {combineMemoName(round, langAbbr)}
+                            {combineMemoName(round, semester, langAbbr)}
                           </Label>
                         </FormGroup>
                       ))}

@@ -12,8 +12,8 @@ export const getDateFormat = (date, language) => {
   return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
 }
 
-export const combineMemoName = (roundInfo, langAbbr = 'sv') => {
-  const { firstTuitionDate, shortName, semester, ladokRoundId, language } = roundInfo
+export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
+  const { firstTuitionDate, shortName, ladokRoundId, language } = roundInfo
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { extraInfo } = i18n.messages[langIndex]
 
