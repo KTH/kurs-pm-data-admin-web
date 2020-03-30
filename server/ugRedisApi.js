@@ -54,10 +54,13 @@ async function _getCourseEmployees(apiMemoData) {
       .mget(assistants) // [3]
       .execAsync()
     log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArrays[1])
-    const flatArrWithHtmlStr = arrWithStringifiedArrays.map(oneRoundStringifiedArr => {
-      const personsHtmlArr = oneRoundStringifiedArr.map(perRoundStr =>
-        createPersonHtml(JSON.parse(perRoundStr))
-      ) // todo remove dublicates
+    /* Remove duplicates */
+    const setPerTypePerRound = arrWithStringifiedArrays.map(perTypeStringifiedArr =>
+      perTypeStringifiedArr.map(perRoundStr => Array.from(new Set(JSON.parse(perRoundStr))))
+    )
+    /* Combine html component for each person */
+    const flatArrWithHtmlStr = setPerTypePerRound.map(perTypeArr => {
+      const personsHtmlArr = perTypeArr.map(perRoundStr => createPersonHtml(perRoundStr))
       return personsHtmlArr.join('')
     })
     return {
