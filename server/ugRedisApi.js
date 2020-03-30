@@ -57,7 +57,7 @@ async function _getCourseEmployees(apiMemoData) {
     const flatArrWithHtmlStr = arrWithStringifiedArrays.map(oneRoundStringifiedArr => {
       const personsHtmlArr = oneRoundStringifiedArr.map(perRoundStr =>
         createPersonHtml(JSON.parse(perRoundStr))
-      )
+      ) // todo remove dublicates
       return personsHtmlArr.join('')
     })
     return {
