@@ -266,11 +266,12 @@ module.exports = {
       Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
     }
   ],
-  sections: {
+  sectionsLabels: {
     contentAndOutcomes: 'Innehåll och lärandemål',
-    prep: 'Kurslitteratur och förberedelser',
+    prep: 'Förbereda inför kursstart',
     reqToFinal: 'Examination och slutförande',
-    extra: 'Ytterligare Information'
+    extra: 'Ytterligare Information',
+    contacts: 'Kontakter'
   },
   pageTitles: {
     new: 'Skapa och publicera kurs-pm'

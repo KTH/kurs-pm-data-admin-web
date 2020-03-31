@@ -52,7 +52,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { memoHeadings } = i18n.messages[Number(i18n.isSwedish())]
+    const { memoHeadings, sectionsLabels } = i18n.messages[this.props.memoLangIndex]
     return (
       <MainMenu
         extraClasses={['pl-0', 'h-100']}
@@ -67,20 +67,20 @@ class SideMenu extends Component {
       >
         <NavBarCollapse>
           <NavListExpandable>
-            {sections.map(section => (
+            {sections.map(({ id, content }) => (
               <NavItemNode
-                key={'nav-item-node-' + section.id}
-                id={section.id}
-                title={section.title}
+                key={'nav-item-node-' + id}
+                id={id}
+                title={sectionsLabels[id]}
                 isExpandedId={this.isExpandedId}
                 setExpandedId={this.setExpandedId}
                 removeExpandedId={this.removeExpandedId}
               >
                 <ul id="leftmenu-div-1" className="nav nav-list">
-                  {section.content.map(contentId => (
+                  {content.map(contentId => (
                     <NavItemLeaf
                       key={'nav-litem-leaf-' + contentId}
-                      id={section.id + '-' + contentId}
+                      id={id + '-' + contentId}
                       title={memoHeadings[contentId].header}
                       showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visibleInMemo)}
                     />

@@ -138,14 +138,15 @@ class MemoEdition extends Component {
 
   renderScrollView = () => {
     const { koppsFreshData } = this.props.routerStore
+    const { sectionsLabels } = i18n.messages[this.memoLangIndex]
 
-    return sections.map(section => (
-      <span key={section.id}>
-        <h2 id={section.id} key={'header-' + section.id}>
-          {section.title}
+    return sections.map(({ id, content }) => (
+      <span key={id}>
+        <h2 id={id} key={'header-' + id}>
+          {sectionsLabels[id]}
         </h2>
-        {section.content.map(contentId => {
-          const menuId = section.id + '-' + contentId
+        {content.map(contentId => {
+          const menuId = id + '-' + contentId
           const { isEditable, isRequired } = context[contentId]
           const visibleInMemo = this.checkVisibility(isRequired, contentId)
 
@@ -230,6 +231,7 @@ class MemoEdition extends Component {
                     }
                   }}
                   visibleInMemo={this.state.visibleInMemo}
+                  memoLangIndex={this.memoLangIndex}
                 />
               )}
             </Sticky>

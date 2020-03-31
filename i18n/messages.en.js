@@ -232,11 +232,12 @@ module.exports = {
       It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
   ],
-  sections: {
-    contentAndOutcomes: '',
-    prep: '',
-    reqToFinal: '',
-    extra: ''
+  sectionsLabels: {
+    contentAndOutcomes: 'Content and learning outcomes',
+    prep: 'Preparations before course start',
+    reqToFinal: 'Examination and completion',
+    extra: 'Further information',
+    contacts: 'Contact'
   },
   pageTitles: {
     new: 'Create and publish course memo'
