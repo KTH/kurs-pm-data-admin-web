@@ -15,16 +15,24 @@ const redisKeys = (courseCode, semester, ladokRoundIds) => {
   }
 }
 
+const _removeDublicates = personListWithDublicates =>
+  personListWithDublicates
+    .map(person => JSON.stringify(person))
+    .filter((person, index, self) => self.indexOf(person) === index)
+    .map(personStr => JSON.parse(personStr))
+
 const createPersonHtml = personList => {
   let personString = ''
   personList &&
     personList.forEach(person => {
-      personString += `<p class = "person">
+      if (person) {
+        personString += `<p class = "person">
       <img src="https://www.kth.se/files/thumbnail/${person.username}" alt="Profile picture" width="31" height="31">
       <a href="/profile/${person.username}/" target="_blank" property="teach:teacher">
           ${person.givenName} ${person.lastName} 
       </a> 
     </p>  `
+      }
     })
   return personString
 }
@@ -54,14 +62,13 @@ async function _getCourseEmployees(apiMemoData) {
       .mget(assistants) // [3]
       .execAsync()
     log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArrays[1])
-    /* Remove duplicates */
-    const setPerTypePerRound = arrWithStringifiedArrays.map(perTypeStringifiedArr =>
-      perTypeStringifiedArr.map(perRoundStr => Array.from(new Set(JSON.parse(perRoundStr))))
-    )
-    /* Combine html component for each person */
-    const flatArrWithHtmlStr = setPerTypePerRound.map(perTypeArr => {
-      const personsHtmlArr = perTypeArr.map(perRoundStr => createPersonHtml(perRoundStr))
-      return personsHtmlArr.join('')
+    const flatArrWithHtmlStr = arrWithStringifiedArrays.map(perTypeStringifiedArr => {
+      const thisTypeAllRoundsEmployees = perTypeStringifiedArr.flatMap(perRoundStr =>
+        JSON.parse(perRoundStr)
+      )
+      /* Remove duplicates */
+      const deepDistinctEmpoyeesNoDublicates = _removeDublicates(thisTypeAllRoundsEmployees)
+      return createPersonHtml(deepDistinctEmpoyeesNoDublicates)
     })
     return {
       teacher: flatArrWithHtmlStr[0],
