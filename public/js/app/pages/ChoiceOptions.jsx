@@ -131,15 +131,18 @@ class ChoiceOptions extends Component {
   }
 
   _roundsCommonLanguages = sortedKoppsInfo => {
+    /* Get memo language, if at least one round has 'English' as a languageOfInstructions then memo language is English,
+    otherwise, if all f.e., have swedish then Swedish. Saved as 'sv', en', used to extract syllabus by this lang */
     const allRoundsLanguages = sortedKoppsInfo.map(round => round.language.en)
     const uniqueLanguages = Array.from(new Set(allRoundsLanguages))
     const memoLanguageInEnglish = uniqueLanguages.length === 1 ? uniqueLanguages[0] : 'English'
     const memoCommonLangAbbr = memoLanguageInEnglish === 'Swedish' ? 'sv' : 'en'
-
-    const uniqueCourseLanguages = Array.from(
+    /* After we get a language of memo, we need to extract string for a student view by chosen above memo language,
+    if rounds have different lang, then join those languages ex, Swedish/English */
+    const uniqueCourseLanguagesByMemoLang = Array.from(
       new Set(sortedKoppsInfo.map(round => round.language[memoCommonLangAbbr]))
     )
-    const languageOfInstructions = uniqueCourseLanguages.join('/')
+    const languageOfInstructions = uniqueCourseLanguagesByMemoLang.join('/')
     return { memoCommonLangAbbr, languageOfInstructions }
   }
 
