@@ -43,7 +43,8 @@ class MemoContainer extends Component {
     }, 2000)
   }
 
-  onSave = (editorContent, alert) => {
+  onSave = (editorContent, alertType) => {
+    const { alerts } = i18n.messages[this.langIndex]
     const { memoEndPoint } = editorContent
     const { examinationModules, scheduleDetails } = editorContent // because koppsFreshData contains them as well
     const body = {
@@ -57,16 +58,25 @@ class MemoContainer extends Component {
     return axios
       .post('/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint, body)
       .then(() => this.props.routerStore.tempMemoData(body))
-      .then(() => this.handleAlert(alert))
-      .catch(error => console.log(error))
+      .then(() => this.handleAlert(alerts[alertType]))
+      .catch(error => console.log(error)) // alert error
   }
 
   /** * Conrol Panel ** */
 
   /** * User clicked button to save a draft  ** */
   handleBtnSave = () => {
-    const { alerts } = i18n.messages[this.langIndex]
-    this.onSave(this.state.updatedMemo, alerts.autoSaved)
+    const res = this.onSave(this.state.updatedMemo, 'autoSaved')
+    return res
+  }
+
+  handleBackSave = () => {
+    const { courseCode, memoEndPoint } = this.state.updatedMemo
+    this.handleBtnSave().then(
+      setTimeout(() => {
+        window.location = `${ADMIN}${courseCode}?memoEndPoint=${memoEndPoint}`
+      }, 500)
+    )
   }
 
   /** * User clicked button to go to next step  ** */
@@ -83,10 +93,10 @@ class MemoContainer extends Component {
 
   /** * User clicked button to go to one step back ** */
   onBack = () => {
-    const { courseCode, memoEndPoint } = this.state.updatedMemo
     switch (this.state.progress) {
       case 2:
-        window.location = `${ADMIN}${courseCode}?memoEndPoint=${memoEndPoint}`
+        // TODO: ERROR HANTERING
+        this.handleBackSave()
         break
       default:
         this.setState({ progress: this.state.progress - 1 })

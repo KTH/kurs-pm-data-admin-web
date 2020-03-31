@@ -73,8 +73,7 @@ class MemoEdition extends Component {
   }
 
   handleAutoSave = () => {
-    const { alerts } = i18n.messages[this.userLangIndex]
-    this.props.onSave(this.state, alerts.autoSaved) // .then(() => this.props.onChange({ updatedMemo: body }))
+    this.props.onSave(this.state, 'autoSaved') // .then(() => this.props.onChange({ updatedMemo: body }))
   }
 
   handleConfirm = () => {
