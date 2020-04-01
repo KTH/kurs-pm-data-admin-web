@@ -1,7 +1,8 @@
 import { observable, action } from 'mobx'
 import { context } from '../util/fieldsByType'
-import axios from 'axios'
-import { SERVICE_URL } from '../util/constants'
+// import axios from 'axios'
+import /* SERVICE_URL */ '../util/constants'
+import { combineScheduleValues } from '../util/defaultValues'
 
 class RouterStore {
   @observable courseCode
@@ -49,15 +50,9 @@ class RouterStore {
 
   @action combineDefaultValues() {
     this.defaultValues = {
-      examinationModules: this[context.examinationModules.defaultSource].examinationModules, // koppsFreshData.examinationModules
+      examinationModules: this.koppsFreshData.examinationModules, // koppsFreshData.examinationModules
       // eslint-disable-next-line no-use-before-define
-      scheduleDetails: combineScheduleValues(
-        this[context.scheduleDetails.defaultSource].scheduleDetailsTemplate,
-        this[context.scheduleDetails.defaultSource].scheduleLinks(
-          this[context.scheduleDetails.defaultSource].schemaUrl
-        )
-      )
-      // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
+      scheduleDetails: combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr)
     }
   }
 
@@ -114,12 +109,6 @@ class RouterStore {
       }
     }
   }
-}
-
-const combineScheduleValues = (scheduleDetailsTemplate, scheduleLinks) => {
-  return scheduleLinks
-    ? `${scheduleDetailsTemplate}<p>${scheduleLinks}</p>`
-    : `${scheduleDetailsTemplate}`
 }
 
 export default RouterStore
