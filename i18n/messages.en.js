@@ -79,7 +79,7 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     courseCoordinator: {
-      header: 'Course coordinator ',
+      header: 'Course coordinator',
       body: 'It is important for students because they can plan their studies....'
     },
     ethicalApproachThisCourse: {
@@ -127,7 +127,7 @@ module.exports = {
       body: 'Here you can add owh headers to H3'
     },
     gradingCriteria: {
-      header: 'Grading Criteria',
+      header: 'Grading criteria',
       body: 'It is important for students because they can plan their studies....'
     },
     gradingScale: {
@@ -139,7 +139,7 @@ module.exports = {
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     infoForReregisteredStudents: {
-      header: 'Information for re-registered students',
+      header: 'Changes of the course before this course offering',
       body: 'It is important for students because they can plan their studies....'
     },
     // languageOfInstructions: {
@@ -147,7 +147,7 @@ module.exports = {
     //   body: 'It is important for students because they can plan their studies....'
     // },
     learningActivities: {
-      header: 'Learning Activities',
+      header: 'Learning activities',
       body: 'It is important for students because they can plan their studies....'
     },
     learningOutcomes: {
@@ -168,7 +168,7 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     permanentDisability: {
-      header: 'Permanent Disability',
+      header: 'Support for students with disabilities',
       body: 'It is important for students because they can plan their studies....'
     },
     possibilityToAddition: {
@@ -180,23 +180,23 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     possibilityToCompensate: {
-      header: 'Opportunity to compensate a task via another one',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      header: 'Alternatives to missed activities or tasks',
+      body: 'It is important because'
     },
     preparations: {
-      header: 'Specific Preparations',
+      header: 'Specific preparations',
       body: 'It is important for students because they can plan their studies....'
     },
     prerequisites: {
-      header: 'Prerequisites',
+      header: 'Recommended prerequisites',
       body: 'It is important for students because they can plan their studies....'
     },
     reportingResults: {
-      header: 'Results reporting',
+      header: 'Reporting of exam results',
       body: '...'
     },
     scheduleDetails: {
-      header: 'Schedule Details',
+      header: 'Schedule details',
       body: 'It is important for students because they can plan their studies....'
     },
     software: {
