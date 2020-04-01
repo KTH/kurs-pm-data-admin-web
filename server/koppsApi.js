@@ -25,112 +25,9 @@ const koppsConfig = {
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
-function getSelectedSyllabus(syllabusObject) {
-  // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
-  const lastSyllabus = syllabusObject.publicSyllabusVersions[0].courseSyllabus
-  const literatureComment = lastSyllabus.literatureComment ? lastSyllabus.literatureComment : ''
-  const selectedFields = {
-    // TODO: Adapt keys to kurs-pm API instead of kopps naming
-    learningOutcomes: lastSyllabus.goals,
-    courseContent: lastSyllabus.content,
-    additionalRegulations: lastSyllabus.additionalRegulations,
-    ethicalApproach: lastSyllabus.ethicalApproach,
-    examComments: lastSyllabus.examComments,
-    literature: lastSyllabus.literature
-      ? lastSyllabus.literature + literatureComment
-      : '<p>Information saknas</p>',
-    otherRequirementsForFinalGrade: lastSyllabus.reqsForFinalGrade
-  }
-  return selectedFields
-}
-
-function getCommonInfo(resBody) {
-  const { credits, creditUnitAbbr, gradeScaleCode, title, prerequisites } = resBody.course
-  const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
-  return { credits, creditUnitAbbr, gradingScale, title, prerequisites }
-}
-
-function getExamModules(examinationSets, grades, roundLang, creditUnitAbbr) {
-  const language = roundLang === 'en' ? 0 : 1
-  let titles = ''
-  let liStrs = ''
-  examinationSets.map(exam => {
-    const credits =
-      exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
-    titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`
-    liStrs += `<li>${exam.examCode} - ${exam.title}, ${
-      language === 0 ? credits : credits.toString().replace('.', ',')
-    } ${language === 0 ? 'credits' : creditUnitAbbr}, ${
-      language === 0 ? 'Grading scale' : 'Betygsskala'
-    }: ${grades[exam.gradeScaleCode]}</li>`
-  })
-  return { titles, liStrs }
-}
-
-function combineExamInfo(examModules, selectedSyllabus) {
-  const examModulesHtmlList = `<p><ul>${examModules.liStrs}</ul></p>`
-  const examination = `${examModulesHtmlList}<p>${selectedSyllabus.examComments}</p>`
-  const examinationModules = examModules.titles
-  return { examination, examinationModules }
-}
-
-function getScheduleDetailsTemplate(language) {
-  const english = language === 'en'
-  const header = `<thead><tr>
-  <th style="width: 33.3333%">${english ? 'Learning activities' : 'Läraktivitet'}</th>
-  <th style="width: 33.3333%">${english ? 'Content' : 'Innehåll'}</th>
-  <th style="width: 33.3333%">${english ? 'Preparations' : 'Förberedelse'}</th>
-  </tr></thead>`
-
-  const emptyRow = `<tr>
-  <td style="width: 33.3333%;">&nbsp;</td>
-  <td style="width: 33.3333%;">&nbsp;</td>
-  <td style="width: 33.3333%;">&nbsp;</td>
-  </tr>`
-
-  const scheduleDetailsTemplate = `<table style="border-collapse: collapse; width: 100%;" border="1">
-  ${header}
-  <tbody>
-  ${emptyRow.repeat(3)}
-  </tbody>
-  </table>
-  `
-
-  return { scheduleDetailsTemplate }
-}
-
-function getPermanentDisabilityTemplate(language) {
-  const english = language === 'en'
-  return english
-    ? `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
-    <p><a href="https://www.kth.se/en/student/studentliv/funktionsnedsattning">https://www.kth.se/en/student/studentliv/funktionsnedsattning</a></p>
-    <p>Please inform the course coordinator if you need compensatory support during the course. Present a certificate from Funka.</p>`
-    : `<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-  <p><a href="https://www.kth.se/student/studentliv/funktionsnedsattning">https://www.kth.se/student/studentliv/funktionsnedsattning</a></p>
-  <p>Informera dessutom kursledaren om du har särskilda behov. Visa då upp intyg från Funka.</p>`
-}
-
-function getScheduleLinks(language) {
-  const english = language === 'en'
-  const scheduleName = english ? 'Schedule' : 'Schema'
-
-  return function scheduleLinks(url) {
-    if (!url) return ''
-    const urls = Array.isArray(url) ? url : [url]
-    const uniqueUrls = urls.filter(function onlyUnique(value, index, self) {
-      return self.indexOf(value) === index
-    })
-    return uniqueUrls
-      .map(function urlRow(uniqueUrl) {
-        return uniqueUrl
-          ? `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName}</a>`
-          : ''
-      })
-      .join('')
-  }
-}
-
+/** STEP 1: CHOOSE COURSE ROUNDS TO CREATE A NEW ONE * */
 const _prevTermNumber = () => {
+  // step 1
   const SPRING = 1
   const FALL = 2
   const today = new Date()
@@ -141,6 +38,7 @@ const _prevTermNumber = () => {
 }
 
 const _sliceTermsArrByPrevTerm = allTerms => {
+  // step 1
   const prevTerm = _prevTermNumber()
   const indexForCut = allTerms.findIndex(obj => Number(obj.term) < prevTerm)
   const finalTerms = indexForCut === -1 ? allTerms : allTerms.slice(0, indexForCut)
@@ -148,6 +46,7 @@ const _sliceTermsArrByPrevTerm = allTerms => {
 }
 
 async function getKoppsCourseRoundTerms(courseCode) {
+  // step 1
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
   try {
@@ -163,32 +62,114 @@ async function getKoppsCourseRoundTerms(courseCode) {
   }
 }
 
-async function getDetailedInformation(courseCode, language = 'sv') {
+/** STEP 2: CONTENT FOR COURSE SYLLLABUS INFO AND OTHER COURES INFO WHEN USER EDIT A MEMO * */
+
+function _getSelectedSyllabus(body, semester) {
+  // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
+  const { publicSyllabusVersions } = body
+  const semesterSyllabus = publicSyllabusVersions.find(
+    syllabus => syllabus.validFromTerm.term <= Number(semester)
+  )
+  const { courseSyllabus, validFromTerm } = semesterSyllabus
+  const literatureComment = courseSyllabus.literatureComment
+    ? semesterSyllabus.literatureComment
+    : ''
+  const selectedFields = {
+    learningOutcomes: courseSyllabus.goals,
+    courseContent: courseSyllabus.content,
+    additionalRegulations: courseSyllabus.additionalRegulations,
+    ethicalApproach: courseSyllabus.ethicalApproach,
+    examComments: courseSyllabus.examComments,
+    literature: courseSyllabus.literature
+      ? courseSyllabus.literature + literatureComment
+      : '<p>Information saknas</p>',
+    otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade,
+    validFromTerm: validFromTerm.term
+  }
+  return selectedFields
+}
+
+function _getExamModules(body, semester, roundLang) {
+  const { examinationSets, formattedGradeScales } = body
+  const { creditUnitAbbr } = body.course
+  // const { validFromTerm } = selectedSyllabus
+  // const examinationSet = Object.keys(examinationSets).find(examTerm => (Number(validFromTerm) >= Number(examTerm)))
+  const matchingExamSetKey = Object.keys(examinationSets).find(
+    examTerm => Number(semester) >= Number(examTerm)
+  )
+  const language = roundLang === 'en' ? 0 : 1
+  let titles = ''
+  let liStrs = ''
+  if (
+    examinationSets[matchingExamSetKey] &&
+    examinationSets[matchingExamSetKey].examinationRounds.length > 0
+  ) {
+    examinationSets[matchingExamSetKey].examinationRounds.map(exam => {
+      const credits =
+        exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
+      titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`
+      liStrs += `<li>${exam.examCode} - ${exam.title}, ${
+        language === 0 ? credits : credits.toString().replace('.', ',')
+      } ${language === 0 ? 'credits' : creditUnitAbbr}, ${
+        language === 0 ? 'Grading scale' : 'Betygsskala'
+      }: ${formattedGradeScales[exam.gradeScaleCode]}</li>`
+    })
+  }
+  return { titles, liStrs }
+}
+
+function _combineExamInfo(examModules, selectedSyllabus) {
+  const examModulesHtmlList = `<p><ul>${examModules.liStrs}</ul></p>`
+  const examination = `${examModulesHtmlList}<p>${selectedSyllabus.examComments}</p>`
+  const examinationModules = examModules.titles
+  return { examination, examinationModules }
+}
+
+function _getPermanentDisabilityTemplate(language) {
+  const english = language === 'en'
+  return english
+    ? `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
+    <p><a href="https://www.kth.se/en/student/studentliv/funktionsnedsattning">https://www.kth.se/en/student/studentliv/funktionsnedsattning</a></p>
+    <p>Please inform the course coordinator if you need compensatory support during the course. Present a certificate from Funka.</p>`
+    : `<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
+  <p><a href="https://www.kth.se/student/studentliv/funktionsnedsattning">https://www.kth.se/student/studentliv/funktionsnedsattning</a></p>
+  <p>Informera dessutom kursledaren om du har särskilda behov. Visa då upp intyg från Funka.</p>`
+}
+
+function _getCommonInfo(resBody) {
+  // step 2
+  const { credits, creditUnitAbbr, gradeScaleCode, title, prerequisites } = resBody.course
+  const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
+  const {
+    infoContactName,
+    possibilityToCompletion,
+    possibilityToAddition,
+    courseLiterature,
+    requiredEquipment
+  } = resBody.course
+  const schemaUrl = resBody.roundInfos.filter(roundInfo => roundInfo.schemaUrl !== undefined)
+  return {
+    credits,
+    creditUnitAbbr,
+    gradingScale,
+    title,
+    prerequisites,
+    infoContactName,
+    possibilityToCompletion,
+    possibilityToAddition,
+    schemaUrl,
+    literature: courseLiterature,
+    equipment: requiredEquipment
+  }
+}
+
+async function _getDetailedInformation(courseCode, language = 'sv') {
+  // step 2
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${courseCode}/detailedinformation?l=${language}`
   try {
-    const res = await client.getAsync({ uri, useCache: true })
-    const {
-      infoContactName,
-      possibilityToCompletion,
-      possibilityToAddition,
-      courseLiterature,
-      prerequisites,
-      requiredEquipment
-    } = res.body.course
-    const schemaUrl = []
-    res.body.roundInfos.forEach(roundInfo => {
-      schemaUrl.push(roundInfo.schemaUrl)
-    })
-    return {
-      infoContactName,
-      possibilityToCompletion,
-      possibilityToAddition,
-      schemaUrl,
-      literature: courseLiterature,
-      prerequisites,
-      equipment: requiredEquipment
-    }
+    const res = await client.getAsync({ uri, useCache: false })
+    return res
   } catch (err) {
     log.debug('Kopps is not available', err)
     return err
@@ -196,30 +177,24 @@ async function getDetailedInformation(courseCode, language = 'sv') {
 }
 
 async function getSyllabus(courseCode, semester, language = 'sv') {
-  const { client } = api.koppsApi
-
-  const uri = `${config.koppsApi.basePath}syllabuses/${courseCode}/${semester}?l=${language}`
   try {
-    const res = await client.getAsync({ uri, useCache: false })
-    const selectedSyllabus = getSelectedSyllabus(res.body)
-    const commonInfo = getCommonInfo(res.body)
-    const examModules = getExamModules(
-      res.body.examinationSets[semester].examinationRounds,
-      res.body.formattedGradeScales,
-      language,
-      commonInfo.creditUnitAbbr
-    )
-    const combinedExamInfo = combineExamInfo(examModules, selectedSyllabus)
-    const scheduleDetails = getScheduleDetailsTemplate(language)
-    const scheduleLinks = getScheduleLinks(language)
-    const permanentDisability = getPermanentDisabilityTemplate(language)
-    const detailedInformation = await getDetailedInformation(courseCode, language)
+    const detailedInformation = await _getDetailedInformation(courseCode, language)
+    const { body } = detailedInformation
+    const selectedSyllabus = _getSelectedSyllabus(body, semester)
+    const commonInfo = _getCommonInfo(body)
+    const examModules = _getExamModules(body, semester, language)
+    const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
+    const permanentDisability = _getPermanentDisabilityTemplate(language)
+    console.log('everything', {
+      ...commonInfo,
+      ...combinedExamInfo,
+      ...selectedSyllabus,
+      ...detailedInformation
+    })
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
-      ...scheduleDetails,
-      scheduleLinks,
       permanentDisability,
       ...detailedInformation
     }
