@@ -226,8 +226,10 @@ span.section_info {
   margin-right: 0.63em; //10.08px
   .mandatory {
     b {
-      margin-right: 1.25em;
-      & + i {
+      &:first-of-type {
+        margin-right: 1.25em;
+      }
+      & + b {
         margin-left: 1.25em;
       }
     }
