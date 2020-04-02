@@ -196,7 +196,9 @@ class ChoiceOptions extends Component {
 
   onRemoveDraft = () => {
     return axios
-      .delete(`${SERVICE_URL.API}draft-to-remove/${this.state.chosen.memoEndPoint}`)
+      .delete(
+        `${SERVICE_URL.API}draft-to-remove/${this.courseCode}/${this.state.chosen.memoEndPoint}`
+      )
       .then(result => {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
@@ -231,7 +233,7 @@ class ChoiceOptions extends Component {
             }
           : { memoEndPoint: chosen.memoEndPoint }
 
-      const url = `${SERVICE_URL.API}create-draft/${body.memoEndPoint}`
+      const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}`
 
       return axios
         .post(url, body)

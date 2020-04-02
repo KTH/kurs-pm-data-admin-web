@@ -74,7 +74,7 @@ passport.use(
 // redirects to appropriate place when returning from CAS login
 // The unpackLdapUser function transforms an ldap user to a user object that is stored as
 const ldapClient = require('./adldapClient')
-const { hasGroup } = require('kth-node-ldap').utils
+const { hasGroup, getGroups } = require('kth-node-ldap').utils
 module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas').routeHandlers.getRedirectAuthenticatedUser(
   {
     ldapConfig: config.ldap,
@@ -87,7 +87,8 @@ module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas
         email: ldapUser.mail,
         pgtIou,
         // This is where you can set custom roles
-        isAdmin: hasGroup(config.auth.adminGroup, ldapUser)
+        memberOf: getGroups(ldapUser), // memberOf important for requireRole
+        isSuperUser: hasGroup(config.auth.superuserGroup, ldapUser)
       }
     }
   }
@@ -100,23 +101,48 @@ module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas
 
   requireRole('isAdmin', 'isEditor')
 */
+function _hasCourseResponsibleGroup(courseCode, courseInitials, ldapUser) {
+  // 'edu.courses.SF.SF1624.20192.1.courseresponsible'
+  const groups = ldapUser.memberOf
+  const startWith = `edu.courses.${courseInitials}.${courseCode}.` // TODO: What to do with years 20192. ?
+  const endWith = '.courseresponsible'
+  if (groups && groups.length > 0) {
+    for (let i = 0; i < groups.length; i++) {
+      if (groups[i].indexOf(startWith) >= 0 && groups[i].indexOf(endWith) >= 0) {
+        return true
+      }
+    }
+  }
+  return false
+}
 
-function requireRole() {
+module.exports.requireRole = function() {
+  // TODO:Different roles for selling text and course development
   const roles = Array.prototype.slice.call(arguments)
 
-  return function _hasNoneOfAcceptedRoles(req, res, next) {
+  return async function _hasCourseAcceptedRoles(req, res, next) {
     const ldapUser = req.session.authUser || {}
+    const courseCode = req.params.courseCode.toUpperCase()
+    const courseInitials = req.params.courseCode.slice(0, 2).toUpperCase()
+    // TODO: Add date for courseresponsible
+    const userCourseRoles = {
+      isExaminator: hasGroup(`edu.courses.${courseInitials}.${courseCode}.examiner`, ldapUser),
+      isCourseResponsible: _hasCourseResponsibleGroup(courseCode, courseInitials, ldapUser),
+      isSuperUser: ldapUser.isSuperUser
+    }
 
-    // Check if we have any of the roles passed
-    const hasAuthorizedRole = roles.reduce((prev, curr) => prev || ldapUser[curr], false)
     // If we don't have one of these then access is forbidden
+    const hasAuthorizedRole = roles.reduce((prev, curr) => prev || userCourseRoles[curr], false)
+
     if (!hasAuthorizedRole) {
-      const error = new Error('Forbidden')
+      const error = new Error(
+        'Du har inte behörighet att redigera Kursinformationssidan eftersom du inte är inlagd i KOPPS som examinator eller kursansvarig för kursen. \
+        Se förteckning över KOPPS-administratörer som kan hjälpa dig att lägga in dig på rätt roll för din kurs. \
+        https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459'
+      )
       error.status = 403
       return next(error)
     }
     return next()
   }
 }
-
-module.exports.requireRole = requireRole

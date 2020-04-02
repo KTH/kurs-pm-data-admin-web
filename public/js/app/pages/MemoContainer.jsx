@@ -22,6 +22,8 @@ class MemoContainer extends Component {
     updatedMemo: this.props.routerStore.memoData
   }
 
+  courseCode = this.props.routerStore.courseCode
+
   langIndex = this.props.routerStore.langIndex
 
   componentDidMount() {
@@ -56,7 +58,13 @@ class MemoContainer extends Component {
     this.doUpdateStates({ updatedMemo: editorContent })
     console.log('Content is submited to parent, preparing to save changes:', body)
     return axios
-      .post('/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint, body)
+      .post(
+        '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' +
+          this.courseCode +
+          '/' +
+          memoEndPoint,
+        body
+      )
       .then(() => this.props.routerStore.tempMemoData(body))
       .then(() => this.handleAlert(alerts[alertType]))
       .catch(error => console.log(error)) // alert error
