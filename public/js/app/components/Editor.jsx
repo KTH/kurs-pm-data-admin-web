@@ -6,12 +6,13 @@ import i18n from '../../../../i18n'
 import { Collapse } from '@kth/kth-kip-style-react-components'
 import ContentHead from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
+import { context } from '../util/fieldsByType'
 
 @inject(['routerStore'])
 @observer
 class EditorPerTitle extends Component {
   state = {
-    isOpen: false
+    isOpen: this.props.isOpen || false
   }
 
   userLangIndex = this.props.routerStore.langIndex
@@ -35,6 +36,7 @@ class EditorPerTitle extends Component {
     const { contentId, menuId, visibleInMemo } = this.props
     const { memoHeadings } = i18n.messages[this.memoLangIndex]
     const { sourceInfo } = i18n.messages[this.userLangIndex]
+    const { type } = context[contentId]
 
     return (
       <span id={menuId}>
@@ -92,22 +94,34 @@ class EditorPerTitle extends Component {
             />
           </span>
         )}
-        {!this.state.isOpen && visibleInMemo && (
-          <span
-            dangerouslySetInnerHTML={{
-              __html:
-                (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
-                `<p><i>${sourceInfo.noInfoYet}</i></p>`
-            }}
-          />
-        )}
-        {!this.state.isOpen && !visibleInMemo && memoData && memoData[contentId] !== '' && (
-          <span>
-            <p>
-              <i>{sourceInfo.notIncludedInMemoYet}</i>
-            </p>
-          </span>
-        )}
+
+        {!this.state.isOpen &&
+          /* isEditable && isRequired && empty */
+          ((type && type === '1-edit' && (
+            <span>
+              <p>
+                <i>{sourceInfo.nothingFetched[type]}</i>
+              </p>
+            </span>
+          )) ||
+            /* is included in memo, preview text without editor */
+            (visibleInMemo && (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html:
+                    (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
+                    `<p><i>${sourceInfo.noInfoYet}</i></p>`
+                }}
+              />
+            )) ||
+            /* editor has content but is not yet included in pm */
+            (memoData && memoData[contentId] !== '' && (
+              <span>
+                <p>
+                  <i>{sourceInfo.notIncludedInMemoYet}</i>
+                </p>
+              </span>
+            )))}
       </span>
     )
   }
