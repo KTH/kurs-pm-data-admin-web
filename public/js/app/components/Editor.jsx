@@ -39,7 +39,11 @@ class EditorPerTitle extends Component {
     const { sourceInfo } = i18n.messages[this.userLangIndex]
     const { type, openIfContent } = context[contentId]
     const contentForEditor = (memoData && memoData[contentId]) || ''
-    if (this.state.firstLoad && openIfContent && contentForEditor !== '')
+    if (
+      this.state.firstLoad &&
+      openIfContent &&
+      (contentForEditor !== '' || defaultValues[contentId] !== '')
+    )
       this.setState({ isOpen: true, firstLoad: false })
 
     return (
