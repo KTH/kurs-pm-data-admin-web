@@ -130,7 +130,6 @@ class MemoEdition extends Component {
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={this.toggleVisibleInMemo}
         html={koppsFreshData[contentId]}
-        isRequired={sectionConfig.isRequired}
       />
     )
   }
@@ -174,7 +173,6 @@ class MemoEdition extends Component {
               visibleInMemo={visibleInMemo}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
               html={koppsFreshData[contentId]}
-              isRequired={isRequired}
             />
           )
         })}

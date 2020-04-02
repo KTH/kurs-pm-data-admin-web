@@ -12,7 +12,8 @@ import { context } from '../util/fieldsByType'
 @observer
 class EditorPerTitle extends Component {
   state = {
-    isOpen: this.props.isOpen || false
+    isOpen: false,
+    firstLoad: true
   }
 
   userLangIndex = this.props.routerStore.langIndex
@@ -36,7 +37,10 @@ class EditorPerTitle extends Component {
     const { contentId, menuId, visibleInMemo } = this.props
     const { memoHeadings } = i18n.messages[this.memoLangIndex]
     const { sourceInfo } = i18n.messages[this.userLangIndex]
-    const { type } = context[contentId]
+    const { type, openIfContent } = context[contentId]
+    const contentForEditor = (memoData && memoData[contentId]) || ''
+    if (this.state.firstLoad && openIfContent && contentForEditor !== '')
+      this.setState({ isOpen: true, firstLoad: false })
 
     return (
       <span id={menuId}>
@@ -65,9 +69,7 @@ class EditorPerTitle extends Component {
             <Editor
               id={'editorFor' + contentId}
               initialValue={
-                (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
-                defaultValues[contentId] ||
-                ''
+                (contentForEditor !== '' && contentForEditor) || defaultValues[contentId] || ''
               }
               init={{
                 // min_height: 100,
@@ -109,13 +111,13 @@ class EditorPerTitle extends Component {
               <span
                 dangerouslySetInnerHTML={{
                   __html:
-                    (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
+                    (contentForEditor !== '' && contentForEditor) ||
                     `<p><i>${sourceInfo.noInfoYet}</i></p>`
                 }}
               />
             )) ||
             /* editor has content but is not yet included in pm */
-            (memoData && memoData[contentId] !== '' && (
+            (contentForEditor !== '' && (
               <span>
                 <p>
                   <i>{sourceInfo.notIncludedInMemoYet}</i>

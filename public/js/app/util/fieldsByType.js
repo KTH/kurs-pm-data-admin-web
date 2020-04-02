@@ -12,17 +12,22 @@
   (r)-course round related info
   (pm)-pm information
  */
+
 const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: '(s)' },
-  courseContent: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(s)' },
+  courseContent: {
+    type: '1-noEdit',
+    openIfContent: true,
+    isEditable: false,
+    isRequired: true,
+    source: '(s)'
+  },
   communicationDuringCourse: { isEditable: true, isRequired: false, source: '(pm)' }, // Kommunikation med lärare
   courseCoordinator: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
   ethicalApproach: {
     type: '1-noEdit',
     isEditable: false,
     isRequired: true,
-    hasDefault: true,
-    defaultSource: 'koppsFreshData',
     source: '(s)'
   },
   ethicalApproachThisCourse: {
@@ -34,9 +39,7 @@ const context = {
   examinationModules: {
     isEditable: true,
     isRequired: false,
-    source: '(pm)',
-    hasDefault: true,
-    defaultSource: 'koppsFreshData'
+    source: '(pm)'
   },
   examiner: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(c)' },
   extraHeaders1: { isEditable: true, isRequired: false, source: '(pm)' },
@@ -53,9 +56,9 @@ const context = {
   learningOutcomes: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
     type: '1-edit',
+    openIfContent: true,
     isEditable: true,
     isRequired: true,
-    hasDefault: true,
     source: '(c)'
   }, // TODO, EDITABLE TRUE, HAS DEFAULT TRUE
   otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
@@ -75,8 +78,7 @@ const context = {
   scheduleDetails: {
     isEditable: true,
     isRequired: false,
-    source: '(pm)',
-    defaultSource: 'koppsFreshData'
+    source: '(pm)'
   },
   software: { isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
   teacherAssistants: { isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
