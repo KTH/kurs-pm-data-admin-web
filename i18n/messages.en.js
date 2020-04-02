@@ -63,7 +63,11 @@ module.exports = {
     noInfoYet: 'No information is added. Press "Edit" to add information....',
     notIncludedInMemoYet:
       'Content is here. Choose "Include in memo" to show added content and header in memo...',
-    nothingFetched: 'No information was available to fetch....'
+    nothingFetched: {
+      '1-edit': 'No information was available to fetch....',
+      '1-noEdit': 'No information was available to fetch....',
+      '2': 'No information was available to fetch....'
+    }
   },
   memoHeadings: {
     additionalRegulations: {

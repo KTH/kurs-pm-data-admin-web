@@ -57,8 +57,13 @@ module.exports = {
     noInfoYet: 'Ingen information finns inlagd. Redigera för att lägga in information',
     notIncludedInMemoYet:
       'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.',
-    nothingFetched: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
-    Instruktioner om hur man ändrar hämtad information ges i informationsikonenovan.`
+    nothingFetched: {
+      '1-edit': `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
+      Välj Redigera för att lägga in innehåll.`,
+      '1-noEdit': `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
+      pm.Instruktioner om hur man ändrar hämtad information ges i informationsikonenovan.`,
+      '2': 'No information was available to fetch....'
+    }
   },
   memoHeadings: {
     additionalRegulations: {
