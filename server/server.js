@@ -191,7 +191,7 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { ChoiceOptions, System, MemoContent } = require('./controllers')
+const { ChoiceOptions, System, MemoContent, PreviewContent } = require('./controllers')
 const { requireRole } = require('./authentication')
 
 // System routes
@@ -243,10 +243,16 @@ appRoute.delete(
 
 appRoute.get(
   'memo.getContent',
-  config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint*', // /:courseCode/:semester/:memoEndPoint*
+  config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint', // /:courseCode/:semester/:memoEndPoint*
   serverLogin,
   requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
   MemoContent.renderMemoEditorPage
+)
+
+appRoute.get(
+  'memo.getPreviewContent',
+  config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint/preview',
+  PreviewContent.renderMemoPreviewPage
 )
 
 appRoute.get(
