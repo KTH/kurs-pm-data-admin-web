@@ -43,10 +43,10 @@ module.exports = {
   },
   /** Labels */
   sourceInfo: {
-    '(c)': 'Hämtad från Kursinformation (c)',
-    '(pm)': '(pm)',
-    '(r)': 'Hämtad från Kursinformation (r)',
-    '(s)': 'Hämtad från kursplan (s)',
+    fetched: 'Hämtats',
+    '(c)': 'från Kursinformation (c)',
+    '(r)': 'från Kursinformation (r)',
+    '(s)': 'från kursplan (s)',
     mandatory: 'Obligatorisk rubrik',
     shown: {
       // Remove or use for alt
@@ -57,7 +57,8 @@ module.exports = {
     noInfoYet: 'Ingen information finns inlagd. Redigera för att lägga in information',
     notIncludedInMemoYet:
       'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.',
-    nothingFetched: 'Ingen information finns att hämta'
+    nothingFetched: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
+    Instruktioner om hur man ändrar hämtad information ges i informationsikonenovan.`
   },
   memoHeadings: {
     additionalRegulations: {

@@ -49,10 +49,10 @@ module.exports = {
     page_header_heading_course_round: 'Course round'
   },
   sourceInfo: {
-    '(c)': 'Fetched from a general course source (c)',
-    '(pm)': '(pm)',
-    '(r)': 'Fetched from a course round related source which is used for course choice (r)',
-    '(s)': 'Fetched from a course syllabus (s)',
+    fetched: 'Fetched',
+    '(c)': 'from a general course source (c)',
+    '(r)': 'from a course round related source which is used for course choice (r)',
+    '(s)': 'from a course syllabus (s)',
     mandatory: 'Mandatory information',
     shown: {
       // Remove
