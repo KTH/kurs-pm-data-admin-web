@@ -71,9 +71,7 @@ function _getSelectedSyllabus(body, semester) {
     syllabus => syllabus.validFromTerm.term <= Number(semester)
   )
   const { courseSyllabus, validFromTerm } = semesterSyllabus
-  const literatureComment = courseSyllabus.literatureComment
-    ? semesterSyllabus.literatureComment
-    : ''
+  const literatureComment = courseSyllabus.literatureComment ? courseSyllabus.literatureComment : ''
   const selectedFields = {
     learningOutcomes: courseSyllabus.goals,
     courseContent: courseSyllabus.content,
@@ -82,7 +80,7 @@ function _getSelectedSyllabus(body, semester) {
     examComments: courseSyllabus.examComments,
     literature: courseSyllabus.literature
       ? courseSyllabus.literature + literatureComment
-      : '<p>Information saknas</p>',
+      : literatureComment,
     otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade,
     validFromTerm: validFromTerm.term
   }
@@ -138,15 +136,19 @@ function _getPermanentDisabilityTemplate(language) {
 
 function _getCommonInfo(resBody) {
   // step 2
-  const { credits, creditUnitAbbr, gradeScaleCode, title, prerequisites } = resBody.course
-  const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
   const {
+    credits,
+    creditUnitAbbr,
+    gradeScaleCode,
+    title,
+    prerequisites,
     infoContactName,
     possibilityToCompletion,
     possibilityToAddition,
     courseLiterature,
     requiredEquipment
   } = resBody.course
+  const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
   const schemaUrl = resBody.roundInfos.filter(roundInfo => roundInfo.schemaUrl !== undefined)
   return {
     credits,
@@ -185,12 +187,6 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const examModules = _getExamModules(body, semester, language)
     const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
     const permanentDisability = _getPermanentDisabilityTemplate(language)
-    console.log('everything', {
-      ...commonInfo,
-      ...combinedExamInfo,
-      ...selectedSyllabus,
-      ...detailedInformation
-    })
     return {
       ...commonInfo,
       ...combinedExamInfo,
