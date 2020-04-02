@@ -97,13 +97,15 @@ class EditorPerTitle extends Component {
             dangerouslySetInnerHTML={{
               __html:
                 (memoData && memoData[contentId] !== '' && memoData[contentId]) ||
-                `<p>${sourceInfo.noInfoYet}</p>`
+                `<p><i>${sourceInfo.noInfoYet}</i></p>`
             }}
           />
         )}
         {!this.state.isOpen && !visibleInMemo && memoData && memoData[contentId] !== '' && (
           <span>
-            <p>{sourceInfo.notIncludedInMemoYet}</p>
+            <p>
+              <i>{sourceInfo.notIncludedInMemoYet}</i>
+            </p>
           </span>
         )}
       </span>
