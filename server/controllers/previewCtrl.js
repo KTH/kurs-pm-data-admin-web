@@ -9,6 +9,8 @@ const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
+const { getMemoApiData } = require('../kursPmDataApi')
+const { getSyllabus } = require('../koppsApi')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -48,12 +50,19 @@ async function renderMemoPreviewPage(req, res, next) {
       server.hostUrl
     )
     renderProps.props.children.props.routerStore.doSetLanguageIndex(userLang)
+    const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+    renderProps.props.children.props.routerStore.memoData = apiMemoData
     renderProps.props.children.props.routerStore.setMemoBasicInfo({
       courseCode,
       memoEndPoint,
       semester: '',
       memoLangAbbr: userLang
     })
+    renderProps.props.children.props.routerStore.koppsFreshData = await getSyllabus(
+      courseCode,
+      apiMemoData.semester,
+      apiMemoData.memoCommonLangAbbr || userLang
+    ) // TODO: use apiMemoData instead
 
     const html = ReactDOMServer.renderToString(renderProps)
 

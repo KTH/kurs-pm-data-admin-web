@@ -7,29 +7,31 @@ import { Container, Row } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import ProgressTitle from '../components/ProgressTitle'
 // import { Switch,Route } from 'react-router-dom'
 import MemoEdition from './MemoEdition'
 import PageHead from '../components/PageHead'
 import axios from 'axios'
 
 const ADMIN = '/kursinfoadmin/kurs-pm-data/'
+const PROGRESS = 3
 
 @inject(['routerStore'])
 @observer
 class PreviewContainer extends Component {
   state = {
     progress: this.props.progress ? Number(this.props.progress) : 3,
-    updatedMemo: this.props.routerStore.memoData
+    previewMemo: this.props.routerStore.memoData
   }
 
   langIndex = this.props.routerStore.langIndex
 
   componentDidMount() {
-    console.log('parent state', this.state.updatedMemo.ladokRoundIds)
+    console.log('parent state', this.state.previewMemo.ladokRoundIds)
   }
 
   componentDidUpdate() {
-    console.log('parent state did update', this.state.updatedMemo)
+    console.log('parent state did update', this.state.previewMemo)
   }
 
   doUpdateStates = states => {
@@ -66,12 +68,12 @@ class PreviewContainer extends Component {
 
   /** * User clicked button to save a draft  ** */
   handleBtnSave = () => {
-    const res = this.onSave(this.state.updatedMemo, 'autoSaved')
+    const res = this.onSave(this.state.previewMemo, 'autoSaved')
     return res
   }
 
   handleBackSave = () => {
-    const { courseCode, memoEndPoint } = this.state.updatedMemo
+    const { courseCode, memoEndPoint } = this.state.previewMemo
     this.handleBtnSave().then(
       setTimeout(() => {
         window.location = `${ADMIN}${courseCode}?memoEndPoint=${memoEndPoint}`
@@ -105,16 +107,16 @@ class PreviewContainer extends Component {
   }
 
   render() {
-    const { pages, pageTitles } = i18n.messages[this.langIndex]
+    const { pages, progressHeaders, pageTitles } = i18n.messages[this.langIndex]
     const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
-    const { memoName, semester = '' } = this.state.updatedMemo
+    const { memoName, semester = '' } = this.state.previewMemo
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
-          <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
+          <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
             <span>
-              {this.state.updatedMemo.courseCode +
+              {this.state.previewMemo.courseCode +
                 ' ' +
                 title +
                 ' ' +
@@ -124,19 +126,16 @@ class PreviewContainer extends Component {
             </span>
           </PageTitle>
         </Row>
-        <ProgressBar active={this.state.progress} pages={pages} />
+        <ProgressBar active={this.state.progress} pages={progressHeaders} />
+        <Row />
         <PageHead semester={semester} memoName={memoName} />
         {
           {
             2: <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />,
-            3: (
-              <>
-                <h2>Hej! Det är sista steg</h2>
-                <p>Lorem ipsum</p>
-              </>
-            )
+            3: <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
           }[this.state.progress]
         }
+        <Row style={{ borderTop: '2px solid rgb(212,212,212)' }} />
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}
