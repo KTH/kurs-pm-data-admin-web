@@ -25,7 +25,9 @@ const Section = ({
     <span
       style={visibleInMemo ? {} : { display: 'none' }}
       dangerouslySetInnerHTML={{
-        __html: html || `<p><i>${i18n.messages[userLangIndex].sourceInfo.nothingFetched}</i></p>`
+        __html:
+          html ||
+          `<p><i>${i18n.messages[userLangIndex].sourceInfo.nothingFetched['1-noEdit']}</i></p>`
       }}
     />
   </span>

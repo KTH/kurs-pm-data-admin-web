@@ -52,7 +52,8 @@ class RouterStore {
     this.defaultValues = {
       examinationModules: this.koppsFreshData.examinationModules, // koppsFreshData.examinationModules
       // eslint-disable-next-line no-use-before-define
-      scheduleDetails: combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr)
+      scheduleDetails: combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr),
+      literature: this.koppsFreshData.literature
     }
   }
 

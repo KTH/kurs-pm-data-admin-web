@@ -53,14 +53,14 @@ const context = {
   learningOutcomes: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
     type: '1-edit',
-    isEditable: false,
+    isEditable: true,
     isRequired: true,
     hasDefault: true,
     source: '(c)'
   }, // TODO, EDITABLE TRUE, HAS DEFAULT TRUE
   otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
   otherRequirementsForFinalGrade: {
-    type: '1-forSome',
+    type: '2',
     isEditable: false,
     isRequired: true,
     source: '(s)'
