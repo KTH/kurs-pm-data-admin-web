@@ -13,7 +13,8 @@ import { context } from '../util/fieldsByType'
 class EditorPerTitle extends Component {
   state = {
     isOpen: false,
-    firstLoad: true
+    firstLoad: true,
+    contentForEditor: ''
   }
 
   userLangIndex = this.props.routerStore.langIndex
@@ -21,6 +22,7 @@ class EditorPerTitle extends Component {
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   updateMemoContent = editorContent => {
+    this.setState({ contentForEditor: editorContent })
     this.props.onEditorChange(editorContent, this.props.contentId)
   }
 
@@ -35,16 +37,18 @@ class EditorPerTitle extends Component {
   render() {
     const { memoData, defaultValues } = this.props.routerStore
     const { contentId, menuId, visibleInMemo } = this.props
+    const { type, openIfContent } = context[contentId]
+    const initialValue = memoData[contentId] || defaultValues[contentId] || ''
+    if (this.state.firstLoad)
+      this.setState({
+        contentForEditor: initialValue,
+        isOpen: openIfContent && initialValue !== '',
+        firstLoad: false
+      })
+    const { contentForEditor } = this.state
+
     const { memoHeadings } = i18n.messages[this.memoLangIndex]
     const { sourceInfo } = i18n.messages[this.userLangIndex]
-    const { type, openIfContent } = context[contentId]
-    const contentForEditor = (memoData && memoData[contentId]) || ''
-    if (
-      this.state.firstLoad &&
-      openIfContent &&
-      (contentForEditor !== '' || defaultValues[contentId] !== '')
-    )
-      this.setState({ isOpen: true, firstLoad: false })
 
     return (
       <span id={menuId}>
@@ -59,7 +63,7 @@ class EditorPerTitle extends Component {
         {this.state.isOpen && (
           <span>
             <Collapse
-              alt="Expand this"
+              alt="Expand this to see a helping text"
               uLabel={contentId}
               color="white"
               buttonText="Visa vägledning"
@@ -72,9 +76,7 @@ class EditorPerTitle extends Component {
             </Collapse>
             <Editor
               id={'editorFor' + contentId}
-              initialValue={
-                (contentForEditor !== '' && contentForEditor) || defaultValues[contentId] || ''
-              }
+              initialValue={contentForEditor}
               init={{
                 // min_height: 100,
                 menubar: false,
@@ -104,11 +106,13 @@ class EditorPerTitle extends Component {
         {!this.state.isOpen &&
           /* isEditable && isRequired && empty */
           ((type && type === '1-edit' && (
-            <span>
-              <p>
-                <i>{sourceInfo.nothingFetched[type]}</i>
-              </p>
-            </span>
+            <span
+              dangerouslySetInnerHTML={{
+                __html:
+                  (contentForEditor !== '' && contentForEditor) ||
+                  `<p><i>${sourceInfo.nothingFetched[type]}</i></p>`
+              }}
+            />
           )) ||
             /* is included in memo, preview text without editor */
             (visibleInMemo && (
@@ -121,7 +125,7 @@ class EditorPerTitle extends Component {
               />
             )) ||
             /* editor has content but is not yet included in pm */
-            (contentForEditor !== '' && (
+            (contentForEditor !== '' && ( // TODO: add DEFAULT TEXT
               <span>
                 <p>
                   <i>{sourceInfo.notIncludedInMemoYet}</i>
