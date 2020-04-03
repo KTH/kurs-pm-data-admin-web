@@ -22,7 +22,7 @@ const VisibilityInfo = ({
       <span className="section_info_visibility_label">
         {isRequired ? (
           <p className="mandatory">
-            <b>{sourceInfo.mandatory}</b>|<b>{sourceInfo.fetched}</b>{' '}
+            <b>{sourceInfo[context[contentId].type]}</b>|<b>{sourceInfo.fetched}</b>{' '}
             {sourceInfo[context[contentId].source]}
           </p>
         ) : (

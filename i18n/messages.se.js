@@ -48,6 +48,7 @@ module.exports = {
     '(r)': 'från Kursinformation (r)',
     '(s)': 'från kursplan (s)',
     mandatory: 'Obligatorisk rubrik',
+    mandatoryAndEditable: 'Obligatorisk rubrik',
     mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
     includeInMemo: 'Inkludera i kurs-pm',
     noInfoYet: 'Ingen information finns inlagd. Redigera för att lägga in information',

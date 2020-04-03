@@ -54,6 +54,7 @@ module.exports = {
     '(r)': 'from a course round related source which is used for course choice (r)',
     '(s)': 'from a course syllabus (s)',
     mandatory: 'Mandatory information',
+    mandatoryAndEditable: 'Mandatory information',
     mandatoryForSome: 'Mandatory information for some courses?',
     includeInMemo: 'Include in memo',
     noInfoYet: 'No information is added. Press "Edit" to add information....',
