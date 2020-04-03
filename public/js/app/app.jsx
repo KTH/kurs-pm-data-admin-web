@@ -13,6 +13,7 @@ import RouterStore from './stores/RouterStore'
 // Pages
 import ChoiceOptions from './pages/ChoiceOptions'
 import MemoContainer from './pages/MemoContainer'
+import PreviewContainer from './pages/PreviewContainer'
 
 function appFactory() {
   const routerStore = new RouterStore()
@@ -29,6 +30,11 @@ function appFactory() {
           exact
           path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint"
           component={MemoContainer}
+        />
+        <Route
+          exact
+          path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint/preview"
+          component={PreviewContainer}
         />
       </Switch>
     </Provider>
