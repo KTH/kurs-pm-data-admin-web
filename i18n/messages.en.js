@@ -69,7 +69,45 @@ module.exports = {
       '2': 'No information was available to fetch....'
     }
   },
-  memoHeadings: {
+  memoTitlesByMemoLang: {
+    additionalRegulations: 'Additional regulations',
+    communicationDuringCourse: 'Communication during course',
+    courseContent: 'Course contents',
+    courseCoordinator: 'Course coordinator',
+    ethicalApproachThisCourse: 'Course specific regulations for ethical approach',
+    ethicalApproach: 'Ethical approach',
+    equipment: 'Equipment',
+    examiner: 'Examiner',
+    examination: 'Examination',
+    examinationModules: 'Examination set',
+    extraHeaders1: 'Extra header 1',
+    extraHeaders2: 'Extra header 2',
+    extraHeaders3: 'Extra header 3',
+    extraHeaders4: 'Extra header 4',
+    extraHeaders5: 'Extra header 5',
+    gradingCriteria: 'Grading criteria',
+    gradingScale: 'Grading scale',
+    infoContactName: 'Info contact name',
+    infoForReregisteredStudents: 'Changes of the course before this course offering',
+    learningActivities: 'Learning activities',
+    learningOutcomes: 'Intended learning outcomes',
+    literature: 'Literature',
+    otherContacts: 'Other contacts',
+    otherRequirementsForFinalGrade: 'Other requirements for final grade',
+    permanentDisability: 'Support for students with disabilities',
+    possibilityToAddition: 'Opportunity to raise an approved grade via renewed examination',
+    possibilityToCompletion:
+      'Opportunity to complete the requirements via supplementary examination',
+    possibilityToCompensate: 'Alternatives to missed activities or tasks',
+    preparations: 'Specific preparations',
+    prerequisites: 'Recommended prerequisites',
+    reportingResults: 'Reporting of exam results',
+    scheduleDetails: 'Schedule details',
+    software: 'Software',
+    teacher: 'Teacher',
+    teacherAssistants: 'Teacher assistants'
+  },
+  memoInfoByUserLang: {
     additionalRegulations: {
       header: 'Additional regulations',
       body: 'It is important for students because they can plan their studies....'
@@ -160,7 +198,8 @@ module.exports = {
     },
     literature: {
       header: 'Literature',
-      body: 'It is important for students because they can plan their studies....'
+      body: 'It is important for students because they can plan their studies....',
+      help: 'Itttssss impoortant!'
     },
     otherContacts: {
       header: 'Other contacts',

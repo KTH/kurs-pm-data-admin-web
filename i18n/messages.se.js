@@ -65,7 +65,44 @@ module.exports = {
       '2': 'No information was available to fetch....'
     }
   },
-  memoHeadings: {
+  memoTitlesByMemoLang: {
+    additionalRegulations: 'Övriga föreskrifter',
+    communicationDuringCourse: 'Kommunikation i kursen',
+    courseContent: 'Kursinnehåll',
+    courseCoordinator: 'Kursansvarig',
+    ethicalApproach: 'Etiskt förhållningssätt',
+    ethicalApproachThisCourse: 'Kursspecifika regler för etiskt förhållningssätt',
+    equipment: 'Utrustning',
+    examination: 'Examination',
+    examinationModules: 'Examinationsmoduler',
+    examiner: 'Examinator',
+    extraHeaders1: 'Egen rubrik 1',
+    extraHeaders2: 'Egen rubrik 2',
+    extraHeaders3: 'Egen rubrik 3',
+    extraHeaders4: 'Egen rubrik 4',
+    extraHeaders5: 'Egen rubrik 5',
+    gradingCriteria: 'Målrelaterade betygskriterier',
+    gradingScale: 'Betygsskala',
+    infoContactName: 'Kontaktperson',
+    infoForReregisteredStudents: 'Information till omregistrerade studenter',
+    learningActivities: 'Läraktiviteter',
+    learningOutcomes: 'Lärandemål',
+    literature: 'Kurslitteratur',
+    otherContacts: 'Övriga kontakter',
+    otherRequirementsForFinalGrade: 'Övriga krav för slutbetyg',
+    permanentDisability: 'Funktionsnedsättning',
+    possibilityToAddition: 'Möjlighet till plussning',
+    possibilityToCompletion: 'Möjlighet till komplettering',
+    possibilityToCompensate: 'Möjlighet till ersättningsuppgifter',
+    preparations: 'Särskilda förberedelser',
+    prerequisites: 'Rekommenderade förkunskaper',
+    reportingResults: 'Resultatrapportering',
+    scheduleDetails: 'Detaljschema',
+    software: 'Programvara',
+    teacher: 'Lärare',
+    teacherAssistants: 'Lärarassistenter'
+  },
+  memoInfoByUserLang: {
     additionalRegulations: {
       header: 'Övriga föreskrifter',
       body: `<p><b>Informationen syftar till: …</b></p>
@@ -184,8 +221,25 @@ module.exports = {
     },
     literature: {
       header: 'Kurslitteratur',
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      body: `<p><b>Kurslitteratur</b> beskriver vilken litteratur som används i kursomgången.</p>
+      <p><b>Informationen hjälper studenten</b> att införskaffa rätt kurslitteratur inför kursomgångens start. 
+      För studenter med funktionsnedsättning är det viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst. 
+      Därför bör uppgifterna finnas tillgängliga minst 8 veckor före kursstart.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om kurslitteratur i inmatningsfältet. 
+      Om det finns kursgemensamma uppgifter om kurslitteratur i Kopps kommer den informationen hämtas automatiskt till nya kurs-pm. 
+      Du kan välja att behålla den informationen i detta kurs-pm eller skriva ny information som endast gäller den kursomgång som detta kurs-pm skrivs för. 
+      Du kan välja ”Hjälptext” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Under rubriken "Kurslitteratur" beskriver du vilken kurslitteratur som används i denna kursomgång. 
+      Om du valt att skapa ett nytt kurs-pm kommer information att hämtas automatiskt från den kursgemensamma informationen om kurslitteratur i Kopps. 
+      Du kan välja att behålla den hämtade informationen eller skriva kurslitteratur specifikt för kursomgången som detta kurs-pm gäller för. 
+      Du kan då ersätta den hämtade texten med text som anges i inmatningsfältet.</p>
+      <p>Lista kurslitteraturen tydligt. Ange författare, utgivningsår, titel och förlag. 
+      Hänvisa även till platser där litteraturen finns tillgänglig i digital form, exempelvis om den finns tillgänglig i Canvas.</p>
+      <p>Många studenter vill förbereda sig inför kursstart med att skaffa kurslitteraturen. 
+      För studenter med funktionsnedsättning är det viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst eller liknande. 
+      Ny kurslitteratur bör därför finnas tillgänglig minst 8 veckor före kursstart.</p>
+      <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det explicit för att studenterna inte ska behöva ställa frågan. 
+      Rubriken kurslitteratur är obligatorisk i kurs-pm och kommer alltid visas i kurs-pm oavsett om det finns relevant kurslitteratur eller inte på kursomgången.</p>`
     },
     otherContacts: {
       header: 'Övriga kontakter',

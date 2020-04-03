@@ -47,8 +47,7 @@ class EditorPerTitle extends Component {
       })
     const { contentForEditor } = this.state
 
-    const { memoHeadings } = i18n.messages[this.memoLangIndex]
-    const { sourceInfo } = i18n.messages[this.userLangIndex]
+    const { sourceInfo, memoInfoByUserLang } = i18n.messages[this.userLangIndex]
 
     return (
       <span id={menuId}>
@@ -70,7 +69,9 @@ class EditorPerTitle extends Component {
             >
               <span
                 dangerouslySetInnerHTML={{
-                  __html: memoHeadings[contentId].help || '<p>Hjälptext som hjälper</p>'
+                  __html:
+                    memoInfoByUserLang[contentId].help ||
+                    '<p>Hjälptext som vägledar och hjälper</p>'
                 }}
               />
             </Collapse>
