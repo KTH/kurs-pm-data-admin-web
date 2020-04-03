@@ -1,10 +1,13 @@
 // Mallen innehåller fyra olika varianter av rubrikersom finns flödenför:
-// 1.obligatoriska rubriker(från KTH-mallen)
-// 2.obligatoriska rubriker för vissa kurser(från KTH-mallen)
+// mandatory 1.obligatoriska rubriker(från KTH-mallen) ej redigerbara
+// mandatoryAndEditable 1.obligatoriska rubriker(från KTH-mallen) som är redigerbara
+// mandatoryForSome = 2.obligatoriska rubriker för vissa kurser(från KTH-mallen) ej redigerbara
 // 3.valbara rubriker/avsnitt(från KTH-mallen)
 // 4.egna tillagda rubriker
-/* 1-noEdit: Obligatoriska, ejredigerbara, rubriker
-   1-edit: Obligatoriska, redigerbara, rubriker (flöde 1)
+/* mandatory: Obligatoriska, ejredigerbara, rubriker
+   mandatoryAndEditable: Obligatoriska, redigerbara, rubriker (flöde 1)
+   2: obligatoriska rubriker för vissa kurser(från KTH-mallen)
+   3: valbara rubriker/avsnitt(från KTH-mallen)
 */
 /*
   (s)-syllabus
@@ -16,16 +19,16 @@
 const context = {
   additionalRegulations: { isEditable: false, isRequired: false, source: '(s)' },
   courseContent: {
-    type: '1-noEdit',
+    type: 'mandatory',
     openIfContent: true,
     isEditable: false,
     isRequired: true,
     source: '(s)'
   },
   communicationDuringCourse: { isEditable: true, isRequired: false, source: '(pm)' }, // Kommunikation med lärare
-  courseCoordinator: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
+  courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
   ethicalApproach: {
-    type: '1-noEdit',
+    type: 'mandatory',
     isEditable: false,
     isRequired: true,
     source: '(s)'
@@ -35,13 +38,13 @@ const context = {
     isRequired: false,
     source: '(pm)'
   },
-  examination: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(s)' },
+  examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   examinationModules: {
     isEditable: true,
     isRequired: false,
     source: '(pm)'
   },
-  examiner: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(c)' },
+  examiner: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' },
   extraHeaders1: { isEditable: true, isRequired: false, source: '(pm)' },
   extraHeaders2: { isEditable: true, isRequired: false, source: '(pm)' },
   extraHeaders3: { isEditable: true, isRequired: false, source: '(pm)' },
@@ -49,13 +52,13 @@ const context = {
   extraHeaders5: { isEditable: true, isRequired: false, source: '(pm)' },
   equipment: { isEditable: false, isRequired: false, source: '(c)' },
   gradingCriteria: { isEditable: true, isRequired: false, source: '(pm)' },
-  gradingScale: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
+  gradingScale: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
   infoContactName: { isEditable: false, isRequired: false, source: '(c)' },
   infoForReregisteredStudents: { isEditable: true, isRequired: false, source: '(pm)' },
   learningActivities: { isEditable: true, isRequired: false, source: '(pm)' }, // Läraktiviteter
-  learningOutcomes: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(s)' },
+  learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
-    type: '1-edit',
+    type: 'mandatoryAndEditable',
     openIfContent: true,
     isEditable: true,
     isRequired: true,
@@ -63,12 +66,12 @@ const context = {
   }, // TODO, EDITABLE TRUE, HAS DEFAULT TRUE
   otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
   otherRequirementsForFinalGrade: {
-    type: '2',
+    type: 'mandatoryForSome',
     isEditable: false,
     isRequired: true,
     source: '(s)'
   },
-  permanentDisability: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(c)' }, // Funktionsnedsättning
+  permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Funktionsnedsättning
   possibilityToCompletion: { isEditable: false, isRequired: false, source: '(c)' },
   possibilityToAddition: { isEditable: false, isRequired: false, source: '(c)' },
   possibilityToCompensate: { isEditable: true, isRequired: false, source: '(pm)' },
@@ -82,7 +85,7 @@ const context = {
   },
   software: { isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
   teacherAssistants: { isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
-  teacher: { type: '1-noEdit', isEditable: false, isRequired: true, source: '(r)' } // Lärare
+  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' } // Lärare
 }
 
 const sections = [

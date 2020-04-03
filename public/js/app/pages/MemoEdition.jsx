@@ -123,7 +123,6 @@ class MemoEdition extends Component {
       />
     ) : (
       <Section
-        userLangIndex={this.userLangIndex}
         memoLangIndex={this.memoLangIndex}
         menuId={menuId}
         contentId={contentId}
@@ -165,7 +164,6 @@ class MemoEdition extends Component {
             />
           ) : (
             <Section
-              userLangIndex={this.userLangIndex}
               memoLangIndex={this.memoLangIndex}
               contentId={contentId}
               menuId={menuId}

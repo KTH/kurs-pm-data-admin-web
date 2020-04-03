@@ -4,6 +4,9 @@ import React from 'react'
 import ContentHead from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import i18n from '../../../../i18n'
+import { context } from '../util/fieldsByType'
+
+const { nothingFetched } = i18n.messages[Number(i18n.isSwedish())].sourceInfo
 
 const Section = ({
   contentId,
@@ -11,8 +14,7 @@ const Section = ({
   visibleInMemo,
   onToggleVisibleInMemo,
   html,
-  memoLangIndex,
-  userLangIndex
+  memoLangIndex
 }) => (
   <span id={menuId} key={contentId}>
     <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} />
@@ -25,9 +27,7 @@ const Section = ({
     <span
       style={visibleInMemo ? {} : { display: 'none' }}
       dangerouslySetInnerHTML={{
-        __html:
-          html ||
-          `<p><i>${i18n.messages[userLangIndex].sourceInfo.nothingFetched['1-noEdit']}</i></p>`
+        __html: html || `<p><i>${nothingFetched[context[contentId].type]}</i></p>`
       }}
     />
   </span>
