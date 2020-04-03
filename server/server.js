@@ -252,6 +252,8 @@ appRoute.get(
 appRoute.get(
   'memo.getPreviewContent',
   config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint/preview',
+  serverLogin,
+  requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
   PreviewContent.renderMemoPreviewPage
 )
 
