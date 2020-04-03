@@ -52,7 +52,7 @@ class SideMenu extends Component {
   }
 
   render() {
-    const { memoHeadings, sectionsLabels } = i18n.messages[this.props.memoLangIndex]
+    const { memoTitlesByMemoLang, sectionsLabels } = i18n.messages[this.props.memoLangIndex]
     return (
       <MainMenu
         extraClasses={['pl-0', 'h-100']}
@@ -81,7 +81,7 @@ class SideMenu extends Component {
                     <NavItemLeaf
                       key={'nav-litem-leaf-' + contentId}
                       id={id + '-' + contentId}
-                      title={memoHeadings[contentId].header}
+                      title={memoTitlesByMemoLang[contentId]}
                       showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visibleInMemo)}
                     />
                   ))}
