@@ -107,7 +107,7 @@ class PreviewContainer extends Component {
   }
 
   render() {
-    const { pages, progressHeaders, pageTitles } = i18n.messages[this.langIndex]
+    const { progressTitleHeaders, progressBarHeaders, pageTitles } = i18n.messages[this.langIndex]
     const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
     const { memoName, semester = '' } = this.state.previewMemo
 
@@ -126,13 +126,13 @@ class PreviewContainer extends Component {
             </span>
           </PageTitle>
         </Row>
-        <ProgressBar active={this.state.progress} pages={progressHeaders} />
+        <ProgressBar active={this.state.progress} pages={progressBarHeaders} />
         <Row />
         <PageHead semester={semester} memoName={memoName} />
         {
           {
             2: <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />,
-            3: <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
+            3: <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
           }[this.state.progress]
         }
         <Row style={{ borderTop: '2px solid rgb(212,212,212)' }} />
