@@ -54,19 +54,16 @@ module.exports = {
     '(r)': 'from a course round related source which is used for course choice (r)',
     '(s)': 'from a course syllabus (s)',
     mandatory: 'Mandatory information',
-    shown: {
-      // Remove
-      true: 'shown in course memo',
-      false: 'hidden in course memo'
-    },
+    mandatoryForSome: 'Mandatory information for some courses?',
     includeInMemo: 'Include in memo',
     noInfoYet: 'No information is added. Press "Edit" to add information....',
     notIncludedInMemoYet:
       'Content is here. Choose "Include in memo" to show added content and header in memo...',
     nothingFetched: {
-      '1-edit': 'No information was available to fetch....',
-      '1-noEdit': 'No information was available to fetch....',
-      '2': 'No information was available to fetch....'
+      mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
+      mandatory: 'No information was available to fetch, edit in kopps....',
+      mandatoryForSome:
+        'No information was available to fetch because it is not intended for this course....'
     }
   },
   memoTitlesByMemoLang: {

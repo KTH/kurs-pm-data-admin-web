@@ -106,7 +106,7 @@ class EditorPerTitle extends Component {
 
         {!this.state.isOpen &&
           /* isEditable && isRequired && empty */
-          ((type && type === '1-edit' && (
+          ((type && type === 'mandatoryAndEditable' && (
             <span
               dangerouslySetInnerHTML={{
                 __html:

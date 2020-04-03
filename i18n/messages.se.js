@@ -48,21 +48,18 @@ module.exports = {
     '(r)': 'från Kursinformation (r)',
     '(s)': 'från kursplan (s)',
     mandatory: 'Obligatorisk rubrik',
-    shown: {
-      // Remove or use for alt
-      true: 'visas i kurs-pm',
-      false: 'döljs i kurs-pm'
-    },
+    mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
     includeInMemo: 'Inkludera i kurs-pm',
     noInfoYet: 'Ingen information finns inlagd. Redigera för att lägga in information',
     notIncludedInMemoYet:
       'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.',
     nothingFetched: {
-      '1-edit': `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
+      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
       Välj Redigera för att lägga in innehåll.`,
-      '1-noEdit': `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
-      pm.Instruktioner om hur man ändrar hämtad information ges i informationsikonenovan.`,
-      '2': 'No information was available to fetch....'
+      mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
+      pm. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
+      mandatoryForSome: `Inget innehåll fanns att hämta. 
+      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-pm.`
     }
   },
   memoTitlesByMemoLang: {
