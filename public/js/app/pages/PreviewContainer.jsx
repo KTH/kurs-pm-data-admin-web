@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row } from 'reactstrap'
-import ControlPanel from '../components/ControlPanel'
-import i18n from '../../../../i18n'
+import { Container, Row, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+
+import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
 import PageHead from '../components/PageHead'
+
+import i18n from '../../../../i18n'
 
 const PROGRESS = 3
 
@@ -28,9 +30,10 @@ class PreviewContainer extends Component {
 
   courseSubHeader = () => {
     const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
+    const { courseCode } = this.state.previewMemo
     return (
       <span>
-        {this.state.previewMemo.courseCode +
+        {courseCode +
           ' ' +
           title +
           ' ' +
@@ -38,6 +41,29 @@ class PreviewContainer extends Component {
           ' ' +
           (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
       </span>
+    )
+  }
+
+  breadcrumbs = () => {
+    const { breadCrumbLabels } = i18n.messages[this.langIndex]
+    const { courseCode } = this.state.previewMemo
+    return (
+      <nav>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Button color="link">{breadCrumbLabels.university}</Button>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Button color="link">{breadCrumbLabels.student}</Button>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Button color="link">{breadCrumbLabels.directory}</Button>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Button color="link">{`${breadCrumbLabels.aboutCourse} ${courseCode}`}</Button>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </nav>
     )
   }
 
@@ -57,6 +83,7 @@ class PreviewContainer extends Component {
         <PageHead semester={semester} memoName={memoName} />
         <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
         <Row style={{ borderTop: '2px solid rgb(212,212,212)' }} />
+        <Row>{this.breadcrumbs()}</Row>
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}

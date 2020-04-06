@@ -468,5 +468,11 @@ module.exports = {
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)'
+  },
+  breadCrumbLabels: {
+    university: 'KTH',
+    student: 'Student på KTH',
+    directory: 'Kurs- och programkatalogen',
+    aboutCourse: 'Om kursen'
   }
 }

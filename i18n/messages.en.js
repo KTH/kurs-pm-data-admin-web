@@ -424,5 +424,11 @@ module.exports = {
     errWhileSaving: 'Smth went wrong on api side......',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'
+  },
+  breadCrumbLabels: {
+    university: 'KTH',
+    student: 'Student at KTH',
+    directory: 'Course and programme directory',
+    aboutCourse: 'About course'
   }
 }
