@@ -78,7 +78,7 @@ function _getSelectedSyllabus(body, semester) {
     additionalRegulations: courseSyllabus.additionalRegulations,
     ethicalApproach: courseSyllabus.ethicalApproach,
     examComments: courseSyllabus.examComments,
-    literature: courseSyllabus.literature
+    literatureTemplate: courseSyllabus.literature
       ? courseSyllabus.literature + literatureComment
       : literatureComment,
     otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade,
@@ -145,7 +145,7 @@ function _getCommonInfo(resBody) {
     infoContactName,
     possibilityToCompletion,
     possibilityToAddition,
-    courseLiterature,
+    // courseLiterature,
     requiredEquipment
   } = resBody.course
   const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
@@ -157,10 +157,10 @@ function _getCommonInfo(resBody) {
     title,
     prerequisites,
     infoContactName,
-    possibilityToCompletion,
-    possibilityToAddition,
+    possibilityToCompletionTemplate: possibilityToCompletion,
+    possibilityToAdditionTemplate: possibilityToAddition,
     schemaUrl,
-    literature: courseLiterature,
+    // courseLiterature,
     equipment: requiredEquipment
   }
 }

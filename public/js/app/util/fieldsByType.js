@@ -3,6 +3,7 @@
 // mandatoryAndEditable 1.obligatoriska rubriker(från KTH-mallen) som är redigerbara
 // mandatoryForSome = 2.obligatoriska rubriker för vissa kurser(från KTH-mallen) ej redigerbara
 // optional - valbara rubriker, ej redigerbara
+// optionalEditable - valbara rubriker och redigerbara
 // 3.valbara rubriker/avsnitt(från KTH-mallen)
 // 4.egna tillagda rubriker
 /*
@@ -21,7 +22,12 @@ const context = {
     isRequired: true,
     source: '(s)'
   },
-  communicationDuringCourse: { isEditable: true, isRequired: false, source: '(pm)' }, // Kommunikation med lärare
+  communicationDuringCourse: {
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  }, // Kommunikation med lärare
   courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
   ethicalApproach: {
     type: 'mandatory',
@@ -30,6 +36,7 @@ const context = {
     source: '(s)'
   },
   ethicalApproachThisCourse: {
+    // ????avsnit
     isEditable: true,
     isRequired: false,
     source: '(pm)'
@@ -46,21 +53,43 @@ const context = {
   extraHeaders3: { isEditable: true, isRequired: false, source: '(pm)' },
   extraHeaders4: { isEditable: true, isRequired: false, source: '(pm)' },
   extraHeaders5: { isEditable: true, isRequired: false, source: '(pm)' },
-  equipment: { isEditable: false, isRequired: false, source: '(pm)' },
-  gradingCriteria: { isEditable: true, isRequired: false, source: '(pm)' },
+  equipment: {
+    // hasDefault???
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  },
+  gradingCriteria: {
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  },
   gradingScale: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
   infoContactName: { isEditable: false, isRequired: false, source: '(c)' }, // check!
-  infoForReregisteredStudents: { isEditable: true, isRequired: false, source: '(pm)' },
-  learningActivities: { isEditable: true, isRequired: false, source: '(pm)' }, // Läraktiviteter
+  infoForReregisteredStudents: {
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  },
+  learningActivities: {
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
+    // has default value
     type: 'mandatoryAndEditable',
     openIfContent: true,
     isEditable: true,
     isRequired: true,
     source: '(pm)'
-  }, // TODO, EDITABLE TRUE, HAS DEFAULT TRUE
-  otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
+  },
+  otherContacts: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' },
   otherRequirementsForFinalGrade: {
     type: 'mandatoryForSome',
     isEditable: false,
@@ -68,18 +97,34 @@ const context = {
     source: '(s)'
   },
   permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Funktionsnedsättning
-  possibilityToCompletion: { isEditable: false, isRequired: false, source: '(pm)' },
-  possibilityToAddition: { isEditable: false, isRequired: false, source: '(pm)' },
-  possibilityToCompensate: { isEditable: true, isRequired: false, source: '(pm)' },
-  preparations: { isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
-  prerequisites: { type: 'optional', isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
-  reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
-  scheduleDetails: {
+  possibilityToCompletion: {
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  }, // default
+  possibilityToAddition: {
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  }, // default
+  possibilityToCompensate: {
+    type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
     source: '(pm)'
   },
-  software: { isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
+  preparations: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
+  prerequisites: { type: 'optional', isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
+  reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
+  scheduleDetails: {
+    type: 'optionalEditable',
+    isEditable: true,
+    isRequired: false,
+    source: '(pm)'
+  },
+  software: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
   teacherAssistants: { type: 'optional', isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
   teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' } // Lärare
 }

@@ -53,8 +53,12 @@ module.exports = {
     includeInMemo: 'Inkludera i kurs-pm',
     noInfoYet:
       'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera rubriken.',
+    // includera rubrik
     notIncludedInMemoYet:
-      'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.',
+      'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-pm',
+    // includera avsnitt
+    notIncludedInMemoYetOfAddition:
+      'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-pm',
     nothingFetched: {
       mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
       Välj Redigera för att lägga in innehåll.`,

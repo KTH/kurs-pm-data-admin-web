@@ -129,6 +129,7 @@ class EditorPerTitle extends Component {
             (contentForEditor !== '' && ( // TODO: add DEFAULT TEXT
               <span>
                 <p>
+                  {/* <i>{type === 'optionalEditable' ? sourceInfo.notIncludedInMemoYet : sourceInfo.notIncludedInMemoYetOfAddition}</i> */}
                   <i>{sourceInfo.notIncludedInMemoYet}</i>
                 </p>
               </span>
