@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap'
+import {
+  Container,
+  Row,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  UncontrolledPopover,
+  PopoverHeader,
+  PopoverBody
+} from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 
 import ControlPanel from '../components/ControlPanel'
@@ -51,16 +60,56 @@ class PreviewContainer extends Component {
       <nav>
         <Breadcrumb>
           <BreadcrumbItem>
-            <Button color="link">{breadCrumbLabels.university}</Button>
+            <Button id="breadcrumb-university" color="link">
+              {breadCrumbLabels.university}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-university"
+            >
+              <PopoverHeader>{breadCrumbLabels.university}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <Button color="link">{breadCrumbLabels.student}</Button>
+            <Button id="breadcrumb-student" color="link">
+              {breadCrumbLabels.student}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-student"
+            >
+              <PopoverHeader>{breadCrumbLabels.student}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <Button color="link">{breadCrumbLabels.directory}</Button>
+            <Button id="breadcrumb-directory" color="link">
+              {breadCrumbLabels.directory}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-directory"
+            >
+              <PopoverHeader>{breadCrumbLabels.directory}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <Button color="link">{`${breadCrumbLabels.aboutCourse} ${courseCode}`}</Button>
+            <Button id="breadcrumb-about" color="link">
+              {`${breadCrumbLabels.aboutCourse} ${courseCode}`}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-about"
+            >
+              <PopoverHeader>{breadCrumbLabels.aboutCourse}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
           </BreadcrumbItem>
         </Breadcrumb>
       </nav>
