@@ -1,19 +1,23 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-/* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row } from 'reactstrap'
-import ControlPanel from '../components/ControlPanel'
-import i18n from '../../../../i18n'
+import {
+  Container,
+  Row,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  UncontrolledPopover,
+  PopoverHeader,
+  PopoverBody
+} from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
-import ProgressTitle from '../components/ProgressTitle'
-// import { Switch,Route } from 'react-router-dom'
-import MemoEdition from './MemoEdition'
-import PageHead from '../components/PageHead'
-import axios from 'axios'
 
-const ADMIN = '/kursinfoadmin/kurs-pm-data/'
+import ControlPanel from '../components/ControlPanel'
+import ProgressTitle from '../components/ProgressTitle'
+import PageHead from '../components/PageHead'
+
+import i18n from '../../../../i18n'
+
 const PROGRESS = 3
 
 @inject(['routerStore'])
@@ -26,18 +30,6 @@ class PreviewContainer extends Component {
 
   langIndex = this.props.routerStore.langIndex
 
-  componentDidMount() {
-    console.log('parent state', this.state.previewMemo.ladokRoundIds)
-  }
-
-  componentDidUpdate() {
-    console.log('parent state did update', this.state.previewMemo)
-  }
-
-  doUpdateStates = states => {
-    if (states) this.setState(states)
-  }
-
   handleAlert = alertText => {
     this.setState({ alertIsOpen: true, alertText })
     setTimeout(() => {
@@ -45,103 +37,107 @@ class PreviewContainer extends Component {
     }, 2000)
   }
 
-  onSave = (editorContent, alertType) => {
-    const { alerts } = i18n.messages[this.langIndex]
-    const { memoEndPoint } = editorContent
-    const { examinationModules, scheduleDetails } = editorContent // because koppsFreshData contains them as well
-    const body = {
-      ...editorContent, // containt kopps old data, or it is empty first time
-      ...this.props.routerStore.koppsFreshData, // update memo data with fresh kopps data or fill in empty data if it's first time
-      ...examinationModules, // update it again from editor content because it was overriden by koppsFreshData default values
-      ...scheduleDetails // update it again from editor content because it was overriden by koppsFreshData default values
-    }
-    this.doUpdateStates({ updatedMemo: editorContent })
-    console.log('Content is submited to parent, preparing to save changes:', body)
-    return axios
-      .post('/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + memoEndPoint, body)
-      .then(() => this.props.routerStore.tempMemoData(body))
-      .then(() => this.handleAlert(alerts[alertType]))
-      .catch(error => console.log(error)) // alert error
-  }
-
-  /** * Conrol Panel ** */
-
-  /** * User clicked button to save a draft  ** */
-  handleBtnSave = () => {
-    const res = this.onSave(this.state.previewMemo, 'autoSaved')
-    return res
-  }
-
-  handleBackSave = () => {
-    const { courseCode, memoEndPoint } = this.state.previewMemo
-    this.handleBtnSave().then(
-      setTimeout(() => {
-        window.location = `${ADMIN}${courseCode}?memoEndPoint=${memoEndPoint}`
-      }, 500)
+  courseSubHeader = () => {
+    const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
+    const { courseCode } = this.state.previewMemo
+    return (
+      <span>
+        {courseCode +
+          ' ' +
+          title +
+          ' ' +
+          credits +
+          ' ' +
+          (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
+      </span>
     )
   }
 
-  /** * User clicked button to go to next step  ** */
-  onContinue = () => {
-    switch (this.state.progress) {
-      default:
-        this.setState({ progress: this.state.progress + 1 })
-        break
-      case 3:
-        alert('PUBLISHED')
-        break
-    }
-  }
-
-  /** * User clicked button to go to one step back ** */
-  onBack = () => {
-    switch (this.state.progress) {
-      case 2:
-        // TODO: ERROR HANTERING
-        this.handleBackSave()
-        break
-      default:
-        this.setState({ progress: this.state.progress - 1 })
-        break
-    }
+  breadcrumbs = () => {
+    const { breadCrumbLabels } = i18n.messages[this.langIndex]
+    const { courseCode } = this.state.previewMemo
+    return (
+      <nav>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Button id="breadcrumb-university" color="link">
+              {breadCrumbLabels.university}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-university"
+            >
+              <PopoverHeader>{breadCrumbLabels.university}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Button id="breadcrumb-student" color="link">
+              {breadCrumbLabels.student}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-student"
+            >
+              <PopoverHeader>{breadCrumbLabels.student}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Button id="breadcrumb-directory" color="link">
+              {breadCrumbLabels.directory}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-directory"
+            >
+              <PopoverHeader>{breadCrumbLabels.directory}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <Button id="breadcrumb-about" color="link">
+              {`${breadCrumbLabels.aboutCourse} ${courseCode}`}
+            </Button>
+            <UncontrolledPopover
+              trigger="hover legacy"
+              placement="bottom"
+              target="breadcrumb-about"
+            >
+              <PopoverHeader>{breadCrumbLabels.aboutCourse}</PopoverHeader>
+              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+            </UncontrolledPopover>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </nav>
+    )
   }
 
   render() {
-    const { pages, progressHeaders, pageTitles } = i18n.messages[this.langIndex]
-    const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
+    const { progressTitleHeaders, progressBarHeaders, pageTitles } = i18n.messages[this.langIndex]
     const { memoName, semester = '' } = this.state.previewMemo
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
-            <span>
-              {this.state.previewMemo.courseCode +
-                ' ' +
-                title +
-                ' ' +
-                credits +
-                ' ' +
-                (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
-            </span>
+            {this.courseSubHeader()}
           </PageTitle>
         </Row>
-        <ProgressBar active={this.state.progress} pages={progressHeaders} />
+        <ProgressBar active={this.state.progress} pages={progressBarHeaders} />
         <Row />
         <PageHead semester={semester} memoName={memoName} />
-        {
-          {
-            2: <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />,
-            3: <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
-          }[this.state.progress]
-        }
+        <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
         <Row style={{ borderTop: '2px solid rgb(212,212,212)' }} />
+        <Row>{this.breadcrumbs()}</Row>
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}
-            onSubmit={this.onContinue}
-            onSave={this.handleBtnSave}
-            onBack={this.onBack}
+            onSubmit={() => this.handleAlert('Publish option is not yet implemented!')}
+            onBack={() => this.handleAlert('Back option is not yet implemented!')}
             progress={this.state.progress}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}

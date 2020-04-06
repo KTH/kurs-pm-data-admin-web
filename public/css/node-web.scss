@@ -346,3 +346,14 @@ hr.header-content-separation {
   margin-top: 0;
   padding: 0;
 }
+
+/* Breadcrumbs in preview */
+
+.breadcrumb {
+  background-color: transparent;
+}
+
+.breadcrumb-item button {
+  padding: 0;
+  vertical-align: baseline;
+}

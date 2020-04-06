@@ -273,9 +273,9 @@ module.exports = {
       It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
   ],
-  progressHeaders: [
+  progressBarHeaders: [
     {
-      title: '1.Choose course offering',
+      title: '1. Choose course offering',
       intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
       In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
       In the next step (2 of 3) you can edit the course memo. 
@@ -283,13 +283,33 @@ module.exports = {
       `
     },
     {
-      title: '2.Edit course memo',
+      title: '2. Edit course memo',
       intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
       changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
     },
     {
-      title: 'Review and publish',
+      title: '3. Review and publish',
       intro: ''
+    }
+  ],
+  progressTitleHeaders: [
+    {
+      title: '1. Choose course offering',
+      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
+      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
+      In the next step (2 of 3) you can edit the course memo. 
+      Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
+      `
+    },
+    {
+      title: '2. Edit course memo',
+      intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
+      changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
+    },
+    {
+      title: 'Review and publish course memo',
+      intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
+      It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
   ],
   sectionsLabels: {
@@ -404,5 +424,11 @@ module.exports = {
     errWhileSaving: 'Smth went wrong on api side......',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'
+  },
+  breadCrumbLabels: {
+    university: 'KTH',
+    student: 'Student at KTH',
+    directory: 'Course and programme directory',
+    aboutCourse: 'About course'
   }
 }
