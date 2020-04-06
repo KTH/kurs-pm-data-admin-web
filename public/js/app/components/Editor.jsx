@@ -37,12 +37,13 @@ class EditorPerTitle extends Component {
   render() {
     const { memoData, defaultValues } = this.props.routerStore
     const { contentId, menuId, visibleInMemo } = this.props
-    const { type, openIfContent } = context[contentId]
+    const { isRequired } = context[contentId]
+    // const { type } = context[contentId] // isRequired
     const initialValue = memoData[contentId] || defaultValues[contentId] || ''
     if (this.state.firstLoad)
       this.setState({
         contentForEditor: initialValue,
-        isOpen: openIfContent && initialValue !== '',
+        isOpen: isRequired && initialValue !== '',
         firstLoad: false
       })
     const { contentForEditor } = this.state
@@ -105,13 +106,13 @@ class EditorPerTitle extends Component {
         )}
 
         {!this.state.isOpen &&
-          /* isEditable && isRequired && empty */
-          ((type && type === 'mandatoryAndEditable' && (
+          /* isRequired && empty // type && type === 'mandatoryAndEditable' */
+          ((isRequired && (
             <span
               dangerouslySetInnerHTML={{
                 __html:
                   (contentForEditor !== '' && contentForEditor) ||
-                  `<p><i>${sourceInfo.nothingFetched[type]}</i></p>`
+                  `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`
               }}
             />
           )) ||
