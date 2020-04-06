@@ -88,7 +88,7 @@ module.exports = {
     literature: 'Kurslitteratur',
     otherContacts: 'Övriga kontakter',
     otherRequirementsForFinalGrade: 'Övriga krav för slutbetyg',
-    permanentDisability: 'Funktionsnedsättning',
+    permanentDisability: 'Stöd för studenter med funktionshinder',
     possibilityToAddition: 'Möjlighet till plussning',
     possibilityToCompletion: 'Möjlighet till komplettering',
     possibilityToCompensate: 'Möjlighet till ersättningsuppgifter',
