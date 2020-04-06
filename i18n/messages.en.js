@@ -49,14 +49,14 @@ module.exports = {
     page_header_heading_course_round: 'Course round'
   },
   sourceInfo: {
-    fetched: 'Fetched',
+    fetched: 'Fetched', // IF NOT EDITABLE
     '(c)': 'from common course information',
     '(r)': 'from course round information',
     '(s)': 'from course syllabus (s)',
     mandatory: 'Mandatory information',
     mandatoryAndEditable: 'Mandatory information',
     mandatoryForSome: 'Mandatory information for some courses?',
-    includeInMemo: 'Include in memo',
+    includeInMemo: 'Include header...*?', // RUBRIK/ADDITION
     noInfoYet: 'No information is added. Press "Edit" to add information....',
     notIncludedInMemoYet:
       'Content is here. Choose "Include in memo" to show added content and header in memo...',

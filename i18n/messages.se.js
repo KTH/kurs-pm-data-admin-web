@@ -50,7 +50,7 @@ module.exports = {
     mandatory: 'Obligatorisk rubrik',
     mandatoryAndEditable: 'Obligatorisk rubrik',
     mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
-    includeInMemo: 'Inkludera i kurs-pm',
+    includeInMemo: 'Inkludera rubrik',
     noInfoYet:
       'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera rubriken.',
     // includera rubrik
