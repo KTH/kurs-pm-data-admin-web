@@ -50,10 +50,10 @@ const context = {
   extraHeaders3: { isEditable: true, isRequired: false, source: '(pm)' },
   extraHeaders4: { isEditable: true, isRequired: false, source: '(pm)' },
   extraHeaders5: { isEditable: true, isRequired: false, source: '(pm)' },
-  equipment: { isEditable: false, isRequired: false, source: '(c)' },
+  equipment: { isEditable: false, isRequired: false, source: '(pm)' },
   gradingCriteria: { isEditable: true, isRequired: false, source: '(pm)' },
   gradingScale: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
-  infoContactName: { isEditable: false, isRequired: false, source: '(c)' },
+  infoContactName: { isEditable: false, isRequired: false, source: '(c)' }, // check!
   infoForReregisteredStudents: { isEditable: true, isRequired: false, source: '(pm)' },
   learningActivities: { isEditable: true, isRequired: false, source: '(pm)' }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
@@ -62,7 +62,7 @@ const context = {
     openIfContent: true,
     isEditable: true,
     isRequired: true,
-    source: '(c)'
+    source: '(pm)'
   }, // TODO, EDITABLE TRUE, HAS DEFAULT TRUE
   otherContacts: { isEditable: true, isRequired: false, source: '(pm)' },
   otherRequirementsForFinalGrade: {
@@ -72,8 +72,8 @@ const context = {
     source: '(s)'
   },
   permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Funktionsnedsättning
-  possibilityToCompletion: { isEditable: false, isRequired: false, source: '(c)' },
-  possibilityToAddition: { isEditable: false, isRequired: false, source: '(c)' },
+  possibilityToCompletion: { isEditable: false, isRequired: false, source: '(pm)' },
+  possibilityToAddition: { isEditable: false, isRequired: false, source: '(pm)' },
   possibilityToCompensate: { isEditable: true, isRequired: false, source: '(pm)' },
   preparations: { isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
   prerequisites: { isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper

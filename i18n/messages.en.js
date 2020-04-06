@@ -50,9 +50,9 @@ module.exports = {
   },
   sourceInfo: {
     fetched: 'Fetched',
-    '(c)': 'from a general course source (c)',
-    '(r)': 'from a course round related source which is used for course choice (r)',
-    '(s)': 'from a course syllabus (s)',
+    '(c)': 'from common course information',
+    '(r)': 'from course round information',
+    '(s)': 'from course syllabus (s)',
     mandatory: 'Mandatory information',
     mandatoryAndEditable: 'Mandatory information',
     mandatoryForSome: 'Mandatory information for some courses?',

@@ -44,8 +44,8 @@ module.exports = {
   /** Labels */
   sourceInfo: {
     fetched: 'Hämtats',
-    '(c)': 'från Kursinformation (c)',
-    '(r)': 'från Kursinformation (r)',
+    '(c)': 'från från kursgemensam information',
+    '(r)': 'från från kurstillfällesinformation',
     '(s)': 'från kursplan (s)',
     mandatory: 'Obligatorisk rubrik',
     mandatoryAndEditable: 'Obligatorisk rubrik',
