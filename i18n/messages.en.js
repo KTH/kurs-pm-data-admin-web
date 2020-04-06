@@ -64,7 +64,9 @@ module.exports = {
       mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
       mandatory: 'No information was available to fetch, edit in kopps....',
       mandatoryForSome:
-        'No information was available to fetch because it is not intended for this course....'
+        'No information was available to fetch because it is not intended for this course....',
+      optional:
+        'No information was available to fetch. How to change it you can find in information icon above. Header is optional therefore you can choose to include or not....'
     }
   },
   memoTitlesByMemoLang: {

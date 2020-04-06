@@ -2,13 +2,9 @@
 // mandatory 1.obligatoriska rubriker(från KTH-mallen) ej redigerbara
 // mandatoryAndEditable 1.obligatoriska rubriker(från KTH-mallen) som är redigerbara
 // mandatoryForSome = 2.obligatoriska rubriker för vissa kurser(från KTH-mallen) ej redigerbara
+// optional - valbara rubriker, ej redigerbara
 // 3.valbara rubriker/avsnitt(från KTH-mallen)
 // 4.egna tillagda rubriker
-/* mandatory: Obligatoriska, ejredigerbara, rubriker
-   mandatoryAndEditable: Obligatoriska, redigerbara, rubriker (flöde 1)
-   2: obligatoriska rubriker för vissa kurser(från KTH-mallen)
-   3: valbara rubriker/avsnitt(från KTH-mallen)
-*/
 /*
   (s)-syllabus
   (c)-course general information
@@ -17,7 +13,7 @@
  */
 
 const context = {
-  additionalRegulations: { isEditable: false, isRequired: false, source: '(s)' },
+  additionalRegulations: { type: 'optional', isEditable: false, isRequired: false, source: '(s)' },
   courseContent: {
     type: 'mandatory',
     openIfContent: true,
@@ -76,7 +72,7 @@ const context = {
   possibilityToAddition: { isEditable: false, isRequired: false, source: '(pm)' },
   possibilityToCompensate: { isEditable: true, isRequired: false, source: '(pm)' },
   preparations: { isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
-  prerequisites: { isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
+  prerequisites: { type: 'optional', isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
   scheduleDetails: {
     isEditable: true,
@@ -84,7 +80,7 @@ const context = {
     source: '(pm)'
   },
   software: { isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
-  teacherAssistants: { isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
+  teacherAssistants: { type: 'optional', isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
   teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' } // Lärare
 }
 

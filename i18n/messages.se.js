@@ -51,7 +51,8 @@ module.exports = {
     mandatoryAndEditable: 'Obligatorisk rubrik',
     mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
     includeInMemo: 'Inkludera i kurs-pm',
-    noInfoYet: 'Ingen information finns inlagd. Redigera för att lägga in information',
+    noInfoYet:
+      'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera rubriken.',
     notIncludedInMemoYet:
       'Innehåll finns inlagt. Välj "Inkludera i kurs-pm" för att få med rubrik och innehåll i kurs-pm.',
     nothingFetched: {
@@ -60,7 +61,9 @@ module.exports = {
       mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
       pm. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
       mandatoryForSome: `Inget innehåll fanns att hämta. 
-      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-pm.`
+      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-pm.`,
+      optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
+      Du kan också välja att inte inkludera rubriken.`
     }
   },
   memoTitlesByMemoLang: {
