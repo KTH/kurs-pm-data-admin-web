@@ -87,7 +87,6 @@ module.exports = {
     extraHeaders5: 'Extra header 5',
     gradingCriteria: 'Grading criteria',
     gradingScale: 'Grading scale',
-    infoContactName: 'Info contact name',
     infoForReregisteredStudents: 'Changes of the course before this course offering',
     learningActivities: 'Learning activities',
     learningOutcomes: 'Intended learning outcomes',
@@ -175,10 +174,6 @@ module.exports = {
     gradingScale: {
       header: 'Grading scale',
       body: 'It is important for students because they can plan their studies....'
-    },
-    infoContactName: {
-      header: 'Info contact name',
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     infoForReregisteredStudents: {
       header: 'Changes of the course before this course offering',

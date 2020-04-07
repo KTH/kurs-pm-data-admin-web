@@ -88,7 +88,6 @@ module.exports = {
     extraHeaders5: 'Egen rubrik 5',
     gradingCriteria: 'Målrelaterade betygskriterier',
     gradingScale: 'Betygsskala',
-    infoContactName: 'Kontaktperson',
     infoForReregisteredStudents: 'Information till omregistrerade studenter',
     learningActivities: 'Läraktiviteter',
     learningOutcomes: 'Lärandemål',
@@ -197,11 +196,6 @@ module.exports = {
     },
     gradingScale: {
       header: 'Betygsskala',
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
-    },
-    infoContactName: {
-      header: 'Kontaktperson',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },

@@ -67,7 +67,6 @@ const context = {
     source: '(pm)'
   },
   gradingScale: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
-  infoContactName: { isEditable: false, isRequired: false, source: '(c)' }, // check!
   infoForReregisteredStudents: {
     type: 'optionalEditable',
     isEditable: true,
@@ -183,7 +182,6 @@ const sections = [
     title: 'Kontakter',
     content: [
       'communicationDuringCourse',
-      'infoContactName', // Kontaktperson
       'courseCoordinator',
       'teacher',
       'teacherAssistants',
