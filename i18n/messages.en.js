@@ -427,5 +427,13 @@ module.exports = {
     student: 'Student at KTH',
     directory: 'Course and programme directory',
     aboutCourse: 'About course'
+  },
+  sideMenuLabels: {
+    directory: 'Course and programme directory',
+    aboutCourse: 'About course',
+    beforeChoosingCourse: 'Before choosing course',
+    courseMemo: 'Prepare, attend (course memo)',
+    finishCourse: 'Finish course',
+    courseDevelopmentAndHistory: 'Course development and history'
   }
 }

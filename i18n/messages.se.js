@@ -475,5 +475,13 @@ module.exports = {
     student: 'Student på KTH',
     directory: 'Kurs- och programkatalogen',
     aboutCourse: 'Om kursen'
+  },
+  sideMenuLabels: {
+    directory: 'Kurs- och programkatalogen',
+    aboutCourse: 'Om kursen',
+    beforeChoosingCourse: 'Inför kursval',
+    courseMemo: 'Förbereda, gå (kurs-pm)',
+    finishCourse: 'Slutföra ej avklarad kurs',
+    courseDevelopmentAndHistory: 'Kursens utveckling och historik'
   }
 }

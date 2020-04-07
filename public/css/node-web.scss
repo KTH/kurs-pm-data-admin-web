@@ -357,3 +357,22 @@ hr.header-content-separation {
   padding: 0;
   vertical-align: baseline;
 }
+
+/* Side menu in preview */
+
+.menu-memos {
+  margin-left: 1rem;
+}
+
+.menu-memos button {
+  color: #000000;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  &:hover {
+    color: #000000;
+  }
+}
+
+.menu-memos .active {
+  font-weight: 700;
+}

@@ -51,6 +51,11 @@ async function renderMemoPreviewPage(req, res, next) {
     )
     renderProps.props.children.props.routerStore.doSetLanguageIndex(userLang)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+    const allApiMemoData = await getMemoApiData('getAllMemosByCourseCodeAndType', {
+      courseCode,
+      type: 'published'
+    })
+    renderProps.props.children.props.routerStore.memoDatas = allApiMemoData
     renderProps.props.children.props.routerStore.memoData = apiMemoData
     renderProps.props.children.props.routerStore.setMemoBasicInfo({
       courseCode,
