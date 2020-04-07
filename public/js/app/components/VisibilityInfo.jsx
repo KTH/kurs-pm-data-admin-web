@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-danger */
 import React from 'react'
-// import { FaPencilAlt, FaRegEyeSlash } from 'react-icons/fa'
 import { Button } from 'reactstrap'
 import { context } from '../util/fieldsByType'
 
@@ -21,10 +20,16 @@ const VisibilityInfo = ({
     <span>
       <span className="section_info_visibility_label">
         {isRequired ? (
-          <p className="mandatory">
-            <b>{sourceInfo[context[contentId].type]}</b>|<b>{sourceInfo.fetched}</b>{' '}
-            {sourceInfo[context[contentId].source]}
-          </p>
+          (context[contentId].isEditable && (
+            <p className="mandatory">
+              <b>{sourceInfo[context[contentId].type]}</b>
+            </p>
+          )) || (
+            <p className="mandatory">
+              <b>{sourceInfo[context[contentId].type]}</b>|<b>{sourceInfo.fetched}</b>{' '}
+              {sourceInfo[context[contentId].source]}
+            </p>
+          )
         ) : (
           <form className="Show--Or--Not--inMemo">
             <span>
@@ -46,7 +51,6 @@ const VisibilityInfo = ({
     </span>
     {context[contentId].isEditable && (
       <Button className="mb-0 mt-0" onClick={() => onToggleVisibleEditor()}>
-        {/* <FaPencilAlt className="section_pencil" /> */}
         {isEditorOpen ? buttons.closeEditor : buttons.edit}
       </Button>
     )}
