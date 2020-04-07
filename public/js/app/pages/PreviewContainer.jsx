@@ -1,15 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import {
-  Container,
-  Row,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  UncontrolledPopover,
-  PopoverHeader,
-  PopoverBody
-} from 'reactstrap'
+import { Container, Row } from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 
 import ControlPanel from '../components/ControlPanel'
@@ -17,6 +8,7 @@ import ProgressTitle from '../components/ProgressTitle'
 import PageHead from '../components/PageHead'
 
 import i18n from '../../../../i18n'
+import BreadCrumbs from '../components/preview/BreadCrumbs'
 
 const PROGRESS = 3
 
@@ -53,72 +45,14 @@ class PreviewContainer extends Component {
     )
   }
 
-  breadcrumbs = () => {
-    const { breadCrumbLabels } = i18n.messages[this.langIndex]
-    const { courseCode } = this.state.previewMemo
-    return (
-      <nav>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Button id="breadcrumb-university" color="link">
-              {breadCrumbLabels.university}
-            </Button>
-            <UncontrolledPopover
-              trigger="hover legacy"
-              placement="bottom"
-              target="breadcrumb-university"
-            >
-              <PopoverHeader>{breadCrumbLabels.university}</PopoverHeader>
-              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-            </UncontrolledPopover>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <Button id="breadcrumb-student" color="link">
-              {breadCrumbLabels.student}
-            </Button>
-            <UncontrolledPopover
-              trigger="hover legacy"
-              placement="bottom"
-              target="breadcrumb-student"
-            >
-              <PopoverHeader>{breadCrumbLabels.student}</PopoverHeader>
-              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-            </UncontrolledPopover>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <Button id="breadcrumb-directory" color="link">
-              {breadCrumbLabels.directory}
-            </Button>
-            <UncontrolledPopover
-              trigger="hover legacy"
-              placement="bottom"
-              target="breadcrumb-directory"
-            >
-              <PopoverHeader>{breadCrumbLabels.directory}</PopoverHeader>
-              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-            </UncontrolledPopover>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <Button id="breadcrumb-about" color="link">
-              {`${breadCrumbLabels.aboutCourse} ${courseCode}`}
-            </Button>
-            <UncontrolledPopover
-              trigger="hover legacy"
-              placement="bottom"
-              target="breadcrumb-about"
-            >
-              <PopoverHeader>{breadCrumbLabels.aboutCourse}</PopoverHeader>
-              <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-            </UncontrolledPopover>
-          </BreadcrumbItem>
-        </Breadcrumb>
-      </nav>
-    )
-  }
-
   render() {
-    const { progressTitleHeaders, progressBarHeaders, pageTitles } = i18n.messages[this.langIndex]
-    const { memoName, semester = '' } = this.state.previewMemo
+    const {
+      progressTitleHeaders,
+      progressBarHeaders,
+      pageTitles,
+      breadCrumbLabels
+    } = i18n.messages[this.langIndex]
+    const { memoName, semester = '', courseCode } = this.state.previewMemo
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -132,7 +66,9 @@ class PreviewContainer extends Component {
         <PageHead semester={semester} memoName={memoName} />
         <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
         <Row style={{ borderTop: '2px solid rgb(212,212,212)' }} />
-        <Row>{this.breadcrumbs()}</Row>
+        <Row>
+          <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
+        </Row>
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}
