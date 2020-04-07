@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 
 import ControlPanel from '../components/ControlPanel'
@@ -68,6 +68,68 @@ class PreviewContainer extends Component {
         <Row style={{ borderTop: '2px solid rgb(212,212,212)' }} />
         <Row>
           <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
+        </Row>
+        <Row>
+          <Col lg="3">
+            <h2>SideMenu</h2>
+            {/* <SideMenu
+              courseCode={this.courseCode}
+              courseMemoItems={routerStore.memoDatas.map(m => {
+                const label = m.memoEndPoint
+                return {
+                  label,
+                  active: routerStore.activeMemoEndPoint(label),
+                  url: `/kurs-pm/${routerStore.courseCode}/${label}`
+                }
+              })}
+              backLink={sideMenuBackLink[routerStore.language]}
+              labels={
+                routerStore.language === 'en'
+                  ? englishTranslations.sideMenuLabels
+                  : swedishTranslations.sideMenuLabels
+              }
+            /> */}
+          </Col>
+          <Col>
+            <Row>
+              <h2>Course Header</h2>
+              {/* <CourseHeader
+                courseMemo={routerStore.memoEndPoint}
+                courseCode={this.courseCode}
+                title={this.title}
+                credits={this.credits}
+                creditUnitAbbr={this.creditUnitAbbr}
+                language={routerStore.language}
+              /> */}
+            </Row>
+            <Row>
+              <Col>
+                <h3>Course Presentation</h3>
+                {/* <CoursePresentation
+                  introText={this.introText}
+                  courseImageUrl={courseImageUrl}
+                  semester={this.semester}
+                /> */}
+                <p>All sections…</p>
+                {/* {allSections} */}
+              </Col>
+              <Col lg="3">
+                <h2>Course Facts</h2>
+                {/* <CourseFacts
+                  language={routerStore.memoLanguage}
+                  department={this.department}
+                  memoData={routerStore.memoData}
+                /> */}
+                <h2>Course Links</h2>
+                {/* <CourseLinks language={routerStore.memoLanguage} /> */}
+                <h2>Course Contacts</h2>
+                {/* <CourseContacts
+                  language={routerStore.memoLanguage}
+                  memoData={routerStore.memoData}
+                /> */}
+              </Col>
+            </Row>
+          </Col>
         </Row>
         <Container className="fixed-bottom">
           <ControlPanel
