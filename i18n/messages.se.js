@@ -259,7 +259,7 @@ module.exports = {
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     permanentDisability: {
-      header: 'Funktionsnedsättning',
+      header: 'Stöd för studenter med funktionshinder',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
