@@ -44,6 +44,7 @@ async function renderMemoEditorPage(req, res, next) {
     const userLang = language.getLanguage(res) || 'sv'
     const { courseCode, memoEndPoint } = req.params
     const renderProps = _staticRender(context, req.url)
+    const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
 
     renderProps.props.children.props.routerStore.setBrowserConfig(
       browser,
@@ -52,7 +53,7 @@ async function renderMemoEditorPage(req, res, next) {
       server.hostUrl
     )
     renderProps.props.children.props.routerStore.doSetLanguageIndex(userLang)
-    const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+
     renderProps.props.children.props.routerStore.memoData = apiMemoData
     renderProps.props.children.props.routerStore.setMemoBasicInfo({
       courseCode,
@@ -70,6 +71,7 @@ async function renderMemoEditorPage(req, res, next) {
     }
 
     await renderProps.props.children.props.routerStore.combineDefaultValues()
+    await renderProps.props.children.props.routerStore.removeTemplatesFromKoppsFreshData()
 
     const html = ReactDOMServer.renderToString(renderProps)
 

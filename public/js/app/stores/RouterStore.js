@@ -60,6 +60,15 @@ class RouterStore {
     }
   }
 
+  @action removeTemplatesFromKoppsFreshData() {
+    ;[
+      'equipmentTemplate',
+      'literatureTemplate',
+      'possibilityToCompletionTemplate',
+      'possibilityToAdditionTemplate'
+    ].map(property => delete this.koppsFreshData[property])
+  }
+
   @action tempMemoData(memoData) {
     this.memoData = memoData
   }
