@@ -48,12 +48,11 @@ class MemoContainer extends Component {
   onSave = (editorContent, alertType) => {
     const { alerts } = i18n.messages[this.langIndex]
     const { memoEndPoint } = editorContent
-    const { examinationModules, scheduleDetails } = editorContent // because koppsFreshData contains them as well
+    const { examinationModules } = editorContent // because koppsFreshData contains them as well
     const body = {
       ...editorContent, // containt kopps old data, or it is empty first time
       ...this.props.routerStore.koppsFreshData, // update memo data with fresh kopps data or fill in empty data if it's first time
-      ...examinationModules, // update it again from editor content because it was overriden by koppsFreshData default values
-      ...scheduleDetails // update it again from editor content because it was overriden by koppsFreshData default values
+      ...examinationModules // update it again from editor content because it was overriden by koppsFreshData default values
     }
     this.doUpdateStates({ updatedMemo: editorContent })
     console.log('Content is submited to parent, preparing to save changes:', body)

@@ -159,7 +159,7 @@ function _getCommonInfo(resBody) {
     possibilityToAdditionTemplate: possibilityToAddition,
     schemaUrl,
     // courseLiterature,
-    equipment: requiredEquipment
+    equipmentTemplate: requiredEquipment
   }
 }
 
