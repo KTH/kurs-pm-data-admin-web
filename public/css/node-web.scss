@@ -364,8 +364,13 @@ hr.header-content-separation {
   margin-left: 1rem;
 }
 
-.menu-memos a {
+.menu-memos button {
   color: #000000;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  &:hover {
+    color: #000000;
+  }
 }
 
 .menu-memos .active {

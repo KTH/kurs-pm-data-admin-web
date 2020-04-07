@@ -87,7 +87,6 @@ class PreviewContainer extends Component {
         </Row>
         <Row>
           <Col lg="3">
-            <h2>SideMenu</h2>
             <SideMenu
               courseCode={courseCode}
               courseMemoItems={courseMemoItems}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { UncontrolledPopover, PopoverHeader, PopoverBody, Button } from 'reactstrap'
 
 const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
   return (
@@ -17,15 +18,21 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
       </p>
       <hr />
       <div className="menu-memos">
-        {courseMemoItems.map(({ label, url, active }) => {
+        {courseMemoItems.map(({ label, active }) => {
           return active ? (
-            <p key={label} className="active">
+            <p id={label} key={label} className="active">
               {label}
             </p>
           ) : (
-            <p key={label}>
-              <a href={url}>{label}</a>
-            </p>
+            <span key={label}>
+              <Button id={label} color="link">
+                {label}
+              </Button>
+              <UncontrolledPopover trigger="hover legacy" placement="bottom" target={label}>
+                <PopoverHeader>{label}</PopoverHeader>
+                <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+              </UncontrolledPopover>
+            </span>
           )
         })}
       </div>
