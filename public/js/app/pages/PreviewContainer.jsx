@@ -9,6 +9,7 @@ import PageHead from '../components/PageHead'
 
 import i18n from '../../../../i18n'
 import BreadCrumbs from '../components/preview/BreadCrumbs'
+import SideMenu from '../components/preview/SideMenu'
 
 const PROGRESS = 3
 
@@ -50,9 +51,24 @@ class PreviewContainer extends Component {
       progressTitleHeaders,
       progressBarHeaders,
       pageTitles,
-      breadCrumbLabels
+      breadCrumbLabels,
+      sideMenuLabels
     } = i18n.messages[this.langIndex]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
+
+    const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
+      const label = m.memoEndPoint
+      return {
+        label,
+        active: false,
+        url: `/kurs-pm/${courseCode}/${label}`
+      }
+    })
+    courseMemoItems.push({
+      label: this.props.routerStore.memoEndPoint,
+      active: true,
+      url: `/kurs-pm/${courseCode}/${this.props.routerStore.memoEndPoint}`
+    })
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -72,23 +88,12 @@ class PreviewContainer extends Component {
         <Row>
           <Col lg="3">
             <h2>SideMenu</h2>
-            {/* <SideMenu
-              courseCode={this.courseCode}
-              courseMemoItems={routerStore.memoDatas.map(m => {
-                const label = m.memoEndPoint
-                return {
-                  label,
-                  active: routerStore.activeMemoEndPoint(label),
-                  url: `/kurs-pm/${routerStore.courseCode}/${label}`
-                }
-              })}
-              backLink={sideMenuBackLink[routerStore.language]}
-              labels={
-                routerStore.language === 'en'
-                  ? englishTranslations.sideMenuLabels
-                  : swedishTranslations.sideMenuLabels
-              }
-            /> */}
+            <SideMenu
+              courseCode={courseCode}
+              courseMemoItems={courseMemoItems}
+              backLink="https://www.kth.se"
+              labels={sideMenuLabels}
+            />
           </Col>
           <Col>
             <Row>
