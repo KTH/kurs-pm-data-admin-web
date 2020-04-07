@@ -165,7 +165,6 @@ const sections = [
       'possibilityToCompletion',
       'possibilityToAddition',
       'possibilityToCompensate',
-      'examiner',
       'reportingResults',
       'ethicalApproach',
       'ethicalApproachThisCourse',
