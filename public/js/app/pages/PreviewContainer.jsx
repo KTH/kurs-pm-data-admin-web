@@ -10,6 +10,7 @@ import PageHead from '../components/PageHead'
 import i18n from '../../../../i18n'
 import BreadCrumbs from '../components/preview/BreadCrumbs'
 import SideMenu from '../components/preview/SideMenu'
+import CourseFacts from '../components/preview/CourseFacts'
 
 const PROGRESS = 3
 
@@ -54,6 +55,9 @@ class PreviewContainer extends Component {
       breadCrumbLabels,
       sideMenuLabels
     } = i18n.messages[this.langIndex]
+    const { courseFactsLabels } = i18n.messages[
+      this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1
+    ]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
 
     const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
@@ -118,12 +122,12 @@ class PreviewContainer extends Component {
                 {/* {allSections} */}
               </Col>
               <Col lg="3">
-                <h2>Course Facts</h2>
-                {/* <CourseFacts
-                  language={routerStore.memoLanguage}
-                  department={this.department}
-                  memoData={routerStore.memoData}
-                /> */}
+                <CourseFacts
+                  department={this.props.routerStore.koppsFreshData.department}
+                  memoData={this.props.routerStore.memoData}
+                  labels={courseFactsLabels}
+                  language={this.state.previewMemo.memoCommonLangAbbr}
+                />
                 <h2>Course Links</h2>
                 {/* <CourseLinks language={routerStore.memoLanguage} /> */}
                 <h2>Course Contacts</h2>
