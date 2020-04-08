@@ -435,5 +435,11 @@ module.exports = {
     courseMemo: 'Prepare, attend (course memo)',
     finishCourse: 'Finish course',
     courseDevelopmentAndHistory: 'Course development and history'
+  },
+  courseFactsLabels: {
+    versionTitle: 'Version',
+    languageOfInstructionTitle: 'Language Of Instruction',
+    offeredByTitle: 'Offered By',
+    mandatoryFieldMissing: 'Missing mandatory information'
   }
 }

@@ -483,5 +483,11 @@ module.exports = {
     courseMemo: 'Förbereda, gå (kurs-pm)',
     finishCourse: 'Slutföra ej avklarad kurs',
     courseDevelopmentAndHistory: 'Kursens utveckling och historik'
+  },
+  courseFactsLabels: {
+    versionTitle: 'Version',
+    languageOfInstructionTitle: 'Undervisningsspråk',
+    offeredByTitle: 'Kursen ges av',
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   }
 }

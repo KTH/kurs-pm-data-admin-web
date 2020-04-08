@@ -134,6 +134,11 @@ function _getPermanentDisabilityTemplate(language) {
   <p>Informera dessutom kursledaren om du har särskilda behov. Visa då upp intyg från Funka.</p>`
 }
 
+function _getDepartment(body) {
+  const { course } = body
+  return course && course.department ? course.department : {}
+}
+
 function _getCommonInfo(resBody) {
   // step 2
   const {
@@ -185,12 +190,14 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const examModules = _getExamModules(body, semester, language)
     const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
     const permanentDisability = _getPermanentDisabilityTemplate(language)
+    const department = _getDepartment(body)
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
       permanentDisability,
-      ...detailedInformation
+      ...detailedInformation,
+      department
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
