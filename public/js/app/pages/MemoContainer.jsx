@@ -17,25 +17,28 @@ const ADMIN = '/kursinfoadmin/kurs-pm-data/'
 @inject(['routerStore'])
 @observer
 class MemoContainer extends Component {
-  state = {
-    progress: this.props.progress ? Number(this.props.progress) : 2,
-    updatedMemo: this.props.routerStore.memoData
-  }
+  state = this.props.routerStore.memoData || {}
 
   courseCode = this.props.routerStore.courseCode
+
+  memoEndPoint = this.props.routerStore.memoEndPoint
+
+  semester = this.props.routerStore.semester
 
   langIndex = this.props.routerStore.langIndex
 
   componentDidMount() {
-    console.log('parent state', this.state.updatedMemo.ladokRoundIds)
+    // console.log('parent state', this.state.ladokRoundIds)
   }
 
   componentDidUpdate() {
-    console.log('parent state did update', this.state.updatedMemo)
+    // console.log('parent state did update', this.state)
   }
 
   doUpdateStates = states => {
-    if (states) this.setState(states)
+    // console.log('on change update', states)
+    if (states)
+      this.setState(states, console.log('after on change update', this.state.visibleInMemo))
   }
 
   handleAlert = alertText => {
@@ -47,21 +50,12 @@ class MemoContainer extends Component {
 
   onSave = (editorContent, alertType) => {
     const { alerts } = i18n.messages[this.langIndex]
-    const { memoEndPoint } = editorContent
-    const { examinationModules } = editorContent // because koppsFreshData contains them as well
-    const body = {
-      ...editorContent, // containt kopps old data, or it is empty first time
-      ...this.props.routerStore.koppsFreshData, // update memo data with fresh kopps data or fill in empty data if it's first time
-      ...examinationModules // update it again from editor content because it was overriden by koppsFreshData default values
-    }
-    this.doUpdateStates({ updatedMemo: editorContent })
-    console.log('Content is submited to parent, preparing to save changes:', body)
+    const { courseCode, memoEndPoint } = this
+    const body = { courseCode, memoEndPoint, ...editorContent } // containt kopps old data, or it is empty first time
+    this.doUpdateStates(editorContent)
     return axios
       .post(
-        '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' +
-          this.courseCode +
-          '/' +
-          memoEndPoint,
+        '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + courseCode + '/' + memoEndPoint,
         body
       )
       .then(() => this.props.routerStore.tempMemoData(body))
@@ -73,12 +67,13 @@ class MemoContainer extends Component {
 
   /** * User clicked button to save a draft  ** */
   handleBtnSave = () => {
-    const res = this.onSave(this.state.updatedMemo, 'autoSaved')
-    return res
+    const resAfterSavingMemoData = this.onSave(this.state, 'autoSaved')
+    return resAfterSavingMemoData
   }
 
-  handleBackSave = () => {
-    const { courseCode, memoEndPoint } = this.state.updatedMemo
+  /** * User clicked button to go to one step back ** */
+  onBack = () => {
+    const { courseCode, memoEndPoint } = this
     this.handleBtnSave().then(
       setTimeout(() => {
         window.location = `${ADMIN}${courseCode}?memoEndPoint=${memoEndPoint}`
@@ -88,40 +83,21 @@ class MemoContainer extends Component {
 
   /** * User clicked button to go to next step  ** */
   onContinue = () => {
-    switch (this.state.progress) {
-      default:
-        this.setState({ progress: this.state.progress + 1 })
-        break
-      case 3:
-        alert('PUBLISHED')
-        break
-    }
-  }
-
-  /** * User clicked button to go to one step back ** */
-  onBack = () => {
-    switch (this.state.progress) {
-      case 2:
-        // TODO: ERROR HANTERING
-        this.handleBackSave()
-        break
-      default:
-        this.setState({ progress: this.state.progress - 1 })
-        break
-    }
+    const { courseCode, memoEndPoint } = this
+    // SAVE BEFORE GOT TO NEXT?
+    window.location = `${ADMIN}${courseCode}/${memoEndPoint}/preview`
   }
 
   render() {
     const { pages, pageTitles } = i18n.messages[this.langIndex]
-    const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
-    const { memoName, semester } = this.state.updatedMemo
+    const { memoName, title, credits, creditUnitAbbr } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
             <span>
-              {this.state.updatedMemo.courseCode +
+              {this.courseCode +
                 ' ' +
                 title +
                 ' ' +
@@ -131,21 +107,16 @@ class MemoContainer extends Component {
             </span>
           </PageTitle>
         </Row>
-        <ProgressBar active={this.state.progress} pages={pages} />
-        <PageHead semester={semester} memoName={memoName} />
-        {
-          {
-            2: <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />,
-            3: <h2>Hej! Det är sista steg</h2>
-          }[this.state.progress]
-        }
+        <ProgressBar active={2} pages={pages} />
+        <PageHead semester={this.semester} memoName={memoName} />
+        <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}
             onSubmit={this.onContinue}
             onSave={this.handleBtnSave}
             onBack={this.onBack}
-            progress={this.state.progress}
+            progress={2}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}
           />

@@ -42,6 +42,7 @@ const context = {
   },
   examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   examinationModules: {
+    openIfContent: true,
     isEditable: true,
     isRequired: false,
     source: '(pm)'
@@ -53,7 +54,7 @@ const context = {
   extraHeaders4: { isEditable: true, isRequired: false, source: '(pm)' },
   extraHeaders5: { isEditable: true, isRequired: false, source: '(pm)' },
   equipment: {
-    // hasDefault???
+    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
@@ -80,9 +81,8 @@ const context = {
   }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
-    // has default value
-    type: 'mandatoryAndEditable',
     openIfContent: true,
+    type: 'mandatoryAndEditable',
     isEditable: true,
     isRequired: true,
     source: '(pm)'
@@ -96,12 +96,14 @@ const context = {
   },
   permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Funktionsnedsättning
   possibilityToCompletion: {
+    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
     source: '(pm)'
   }, // default
   possibilityToAddition: {
+    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,
@@ -117,6 +119,7 @@ const context = {
   prerequisites: { type: 'optional', isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
   scheduleDetails: {
+    openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
     isRequired: false,

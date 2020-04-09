@@ -14,7 +14,7 @@ class EditorPerTitle extends Component {
   state = {
     isOpen: false,
     firstLoad: true,
-    contentForEditor: ''
+    contentForEditor: this.props.initialValue || ''
   }
 
   userLangIndex = this.props.routerStore.langIndex
@@ -27,6 +27,7 @@ class EditorPerTitle extends Component {
   }
 
   toggleVisibleInMemo = () => {
+    console.log('1. toggle from editor', this.props.contentId)
     this.props.onToggleVisibleInMemo(this.props.contentId)
   }
 
@@ -35,17 +36,15 @@ class EditorPerTitle extends Component {
   }
 
   render() {
-    const { memoData, defaultValues } = this.props.routerStore
-    const { contentId, menuId, visibleInMemo } = this.props
-    const { isRequired } = context[contentId]
-    // const { type } = context[contentId] // isRequired
-    const initialValue = memoData[contentId] || defaultValues[contentId] || ''
-    if (this.state.firstLoad)
+    const { contentId, initialValue, menuId, visibleInMemo } = this.props
+    const { isRequired, openIfContent } = context[contentId]
+    if (this.state.firstLoad && openIfContent) {
       this.setState({
-        contentForEditor: initialValue,
-        isOpen: isRequired && initialValue !== '',
+        isOpen: (openIfContent && initialValue !== '') || false,
         firstLoad: false
       })
+    }
+
     const { contentForEditor } = this.state
 
     const { sourceInfo, memoInfoByUserLang } = i18n.messages[this.userLangIndex]

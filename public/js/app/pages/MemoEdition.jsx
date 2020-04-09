@@ -22,7 +22,7 @@ const PROGRESS = 2
 class MemoEdition extends Component {
   state = this.props.routerStore.memoData || {}
 
-  koppsFreshData = this.props.routerStore.koppsFreshData
+  // koppsFreshData = this.props.routerStore.koppsFreshData
 
   courseCode = this.props.routerStore.courseCode
 
@@ -33,17 +33,16 @@ class MemoEdition extends Component {
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   componentDidMount() {
-    console.log('MemoEdition state', this.state)
+    // console.log('MemoEdition state', this.state)
     this.scrollIntoView()
   }
 
   componentDidUpdate() {
     console.log('Update parent state')
-    this.props.onChange({ updatedMemo: this.state })
+    this.props.onChange(this.state)
   }
 
   handleEditorChange = (editorContent, contentHeader) => {
-    console.log('editorContent ', editorContent)
     this.setState({
       [contentHeader]: editorContent,
       dirtyEditor: contentHeader
@@ -73,18 +72,7 @@ class MemoEdition extends Component {
   }
 
   handleAutoSave = () => {
-    this.props.onSave(this.state, 'autoSaved') // .then(() => this.props.onChange({ updatedMemo: body }))
-  }
-
-  handleConfirm = () => {
-    // TODO: Refactor and change name of handleAutoSave when handleConfirm is further developed.
-    // It will be used probably when we develop version handling draft or published
-    this.handleAutoSave()
-  }
-
-  toggleViewMode = () => {
-    this.handleAutoSave()
-    this.setState(state => ({ singleMode: !state.singleMode }), this.scrollIntoView)
+    this.props.onSave(this.state, 'autoSaved') // save precisily this editor content by contentId
   }
 
   scrollIntoView = () => {
@@ -97,44 +85,31 @@ class MemoEdition extends Component {
     }
   }
 
-  checkVisibility = (isRequired, contentId) => {
-    return isRequired
-      ? true
-      : (this.state.visibleInMemo && this.state.visibleInMemo[contentId]) || false // todo: check what happening with state if it came felaktig
-  }
-
-  renderSingleView = ({ location }) => {
-    const { koppsFreshData } = this.props.routerStore
-    const menuId = location.hash.substr(1)
-    const contentId = menuId.split('-')[1]
-    const sectionConfig = context[contentId]
-    if (!sectionConfig) return null
-    const { isEditable, isRequired } = context[contentId]
-    const visibleInMemo = this.checkVisibility(isRequired, contentId)
-
-    return isEditable ? (
-      <EditorPerTitle
-        contentId={contentId}
-        key={contentId}
-        menuId={menuId}
-        onEditorChange={this.handleEditorChange}
-        onToggleVisibleInMemo={this.toggleVisibleInMemo}
-        visibleInMemo={visibleInMemo}
-      />
-    ) : (
-      <Section
-        memoLangIndex={this.memoLangIndex}
-        menuId={menuId}
-        contentId={contentId}
-        visibleInMemo={visibleInMemo}
-        onToggleVisibleInMemo={this.toggleVisibleInMemo}
-        html={koppsFreshData[contentId]}
-      />
-    )
+  checkVisibility = (contentId, initialValue) => {
+    // first time isInVisibleMemo for those header which have openIfContent=true will be true as well
+    const { openIfContent } = context[contentId]
+    const isInVisibleMemo =
+      (this.state.visibleInMemo && this.state.visibleInMemo[contentId]) || false
+    if (openIfContent && isInVisibleMemo === 'defaultTrue') {
+      // openIfContent is not required
+      const isDefaultAndHasContent = initialValue !== '' || false // for some headers: if it has a (default) value it must be opened and included(when created from a scratch)
+      this.setState(previousState => {
+        return {
+          visibleInMemo: {
+            ...previousState.visibleInMemo,
+            ...{
+              [contentId]: isDefaultAndHasContent
+            }
+          }
+        }
+      })
+      return isDefaultAndHasContent
+    }
+    return isInVisibleMemo
   }
 
   renderScrollView = () => {
-    const { koppsFreshData } = this.props.routerStore
+    const { memoData, defaultValues } = this.props.routerStore
     const { sectionsLabels } = i18n.messages[this.memoLangIndex]
 
     return sections.map(({ id, content }) => (
@@ -145,12 +120,14 @@ class MemoEdition extends Component {
         {content.map(contentId => {
           const menuId = id + '-' + contentId
           const { isEditable, isRequired } = context[contentId]
-          const visibleInMemo = this.checkVisibility(isRequired, contentId)
+          const initialValue = memoData[contentId] || defaultValues[contentId] || ''
+          const visibleInMemo = isRequired ? true : this.checkVisibility(contentId, initialValue)
 
           return isEditable ? (
             <EditorPerTitle
               contentId={contentId}
-              menuId={menuId}
+              menuId={menuId} // remove
+              initialValue={initialValue}
               key={contentId}
               onEditorChange={this.handleEditorChange}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
@@ -170,7 +147,7 @@ class MemoEdition extends Component {
               key={contentId}
               visibleInMemo={visibleInMemo}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
-              html={koppsFreshData[contentId]}
+              html={initialValue}
             />
           )
         })}
@@ -179,25 +156,13 @@ class MemoEdition extends Component {
   }
 
   render() {
-    const { buttons, extraInfo, pages } = i18n.messages[this.userLangIndex]
+    const { extraInfo, pages } = i18n.messages[this.userLangIndex]
 
     return (
       <StickyContainer className="memo-container">
         <Row className="sections-headers">
-          <Col lg="5">
+          <Col lg="8">
             <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
-          </Col>
-          <Col lg="3" className="change-view">
-            <Button
-              className="mt-1 mb-0 mr-3"
-              onClick={this.toggleViewMode}
-              color="secondary"
-              size="sm"
-            >
-              {this.state.singleMode
-                ? buttons.btn_switch_view_scroll
-                : buttons.btn_switch_view_single}
-            </Button>
           </Col>
           <Col lg="4">
             <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
@@ -206,11 +171,7 @@ class MemoEdition extends Component {
         <hr className="header-content-separation" />
         <Row className="mb-4">
           <Col lg="8" className="memo-content">
-            {this.state.singleMode ? (
-              <Route render={this.renderSingleView} />
-            ) : (
-              this.renderScrollView()
-            )}
+            {this.renderScrollView()}
           </Col>
           <Col lg="4">
             <Sticky topOffset={-31}>
