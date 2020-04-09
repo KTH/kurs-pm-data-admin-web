@@ -14,7 +14,13 @@
  */
 
 const context = {
-  additionalRegulations: { type: 'optional', isEditable: false, isRequired: false, source: '(s)' },
+  additionalRegulations: {
+    openIfContent: true,
+    type: 'optional',
+    isEditable: false,
+    isRequired: false,
+    source: '(s)'
+  },
   courseContent: {
     type: 'mandatory',
     isEditable: false,
@@ -116,7 +122,13 @@ const context = {
     source: '(pm)'
   },
   preparations: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
-  prerequisites: { type: 'optional', isEditable: false, isRequired: false, source: '(c)' }, // Rekommenderade förkunskaper
+  prerequisites: {
+    openIfContent: true,
+    type: 'optional',
+    isEditable: false,
+    isRequired: false,
+    source: '(c)'
+  }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
   scheduleDetails: {
     openIfContent: true,
@@ -126,7 +138,13 @@ const context = {
     source: '(pm)'
   },
   software: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
-  teacherAssistants: { type: 'optional', isEditable: false, isRequired: false, source: '(r)' }, // Lärarassistenter
+  teacherAssistants: {
+    openIfContent: true,
+    type: 'optional',
+    isEditable: false,
+    isRequired: false,
+    source: '(r)'
+  }, // Lärarassistenter
   teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' } // Lärare
 }
 

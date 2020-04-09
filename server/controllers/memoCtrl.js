@@ -72,6 +72,7 @@ async function renderMemoEditorPage(req, res, next) {
 
     await renderProps.props.children.props.routerStore.combineDefaultValues()
     await renderProps.props.children.props.routerStore.removeTemplatesFromKoppsFreshData()
+    await renderProps.props.children.props.routerStore.updateMemoDataWithFreshKoppsData()
 
     const html = ReactDOMServer.renderToString(renderProps)
 

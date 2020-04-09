@@ -69,6 +69,10 @@ class RouterStore {
     ].map(property => delete this.koppsFreshData[property])
   }
 
+  @action updateMemoDataWithFreshKoppsData() {
+    this.memoData = { ...this.memoData, ...this.koppsFreshData }
+  }
+
   @action tempMemoData(memoData) {
     this.memoData = memoData
   }
