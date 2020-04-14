@@ -27,8 +27,8 @@ const VisibilityInfo = ({
           )) || (
             <p className="mandatory">
               <b>{sourceInfo[context[contentId].type]}</b>
-              <b className="source">{sourceInfo.fetched} </b>
-              {sourceInfo[context[contentId].source]}
+              {context[contentId].source && <b className="source">{sourceInfo.fetched} </b>}
+              {context[contentId].source && sourceInfo[context[contentId].source]}
             </p>
           )
         ) : (

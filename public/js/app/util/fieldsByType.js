@@ -92,7 +92,7 @@ const context = {
     isRequired: true,
     source: '(s)'
   },
-  permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Funktionsnedsättning
+  permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true }, // Funktionsnedsättning
   possibilityToCompletion: {
     openIfContent: true,
     type: 'optionalEditable',
