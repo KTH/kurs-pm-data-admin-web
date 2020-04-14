@@ -71,16 +71,16 @@ function _getSelectedSyllabus(body, semester) {
     syllabus => syllabus.validFromTerm.term <= Number(semester)
   )
   const { courseSyllabus, validFromTerm } = semesterSyllabus
-  const literatureComment = courseSyllabus.literatureComment ? courseSyllabus.literatureComment : ''
+  // const literatureComment = courseSyllabus.literatureComment ? courseSyllabus.literatureComment : ''
   const selectedFields = {
     learningOutcomes: courseSyllabus.goals,
     courseContent: courseSyllabus.content,
     additionalRegulations: courseSyllabus.additionalRegulations,
     ethicalApproach: courseSyllabus.ethicalApproach,
     examComments: courseSyllabus.examComments,
-    literatureTemplate: courseSyllabus.literature
-      ? courseSyllabus.literature + literatureComment
-      : literatureComment,
+    // literatureTemplate: courseSyllabus.literature
+    //   ? courseSyllabus.literature + literatureComment
+    //   : literatureComment,
     otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade,
     validFromTerm: validFromTerm.term
   }
@@ -139,7 +139,9 @@ function _getDepartment(body) {
   return course && course.department ? course.department : {}
 }
 
-function _getCommonInfo(resBody) {
+function _getCommonInfo(resBody, language) {
+  const literatureSource =
+    language === 'en' ? '<p>Course literature from Kopps</p>' : '<p>Kurslitteratur från Kopps</p>'
   // step 2
   const {
     credits,
@@ -149,7 +151,7 @@ function _getCommonInfo(resBody) {
     prerequisites,
     possibilityToCompletion,
     possibilityToAddition,
-    // courseLiterature,
+    courseLiterature,
     requiredEquipment
   } = resBody.course
   const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
@@ -163,7 +165,7 @@ function _getCommonInfo(resBody) {
     possibilityToCompletionTemplate: possibilityToCompletion,
     possibilityToAdditionTemplate: possibilityToAddition,
     schemaUrl,
-    // courseLiterature,
+    literatureTemplate: courseLiterature ? `${literatureSource}${courseLiterature}` : '',
     equipmentTemplate: requiredEquipment
   }
 }
@@ -186,7 +188,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const detailedInformation = await _getDetailedInformation(courseCode, language)
     const { body } = detailedInformation
     const selectedSyllabus = _getSelectedSyllabus(body, semester)
-    const commonInfo = _getCommonInfo(body)
+    const commonInfo = _getCommonInfo(body, language)
     const examModules = _getExamModules(body, semester, language)
     const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
     const permanentDisability = _getPermanentDisabilityTemplate(language)
