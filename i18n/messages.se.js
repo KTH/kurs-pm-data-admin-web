@@ -88,13 +88,13 @@ module.exports = {
     extraHeaders5: 'Egen rubrik 5',
     gradingCriteria: 'Målrelaterade betygskriterier',
     gradingScale: 'Betygsskala',
-    infoForReregisteredStudents: 'Information till omregistrerade studenter',
+    infoForReregisteredStudents: 'Ändringar inför denna kursomgång',
     learningActivities: 'Läraktiviteter',
     learningOutcomes: 'Lärandemål',
     literature: 'Kurslitteratur',
     otherContacts: 'Övriga kontakter',
     otherRequirementsForFinalGrade: 'Övriga krav för slutbetyg',
-    permanentDisability: 'Stöd för studenter med funktionshinder',
+    permanentDisability: 'Stöd för studenter med funktionsnedsättning',
     possibilityToAddition: 'Möjlighet till plussning',
     possibilityToCompletion: 'Möjlighet till komplettering',
     possibilityToCompensate: 'Möjlighet till ersättningsuppgifter',
@@ -108,19 +108,16 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      header: 'Övriga föreskrifter',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     communicationDuringCourse: {
-      header: 'Kommunikation i kursen',
       body: `<p>Används till: att beskriva vem studenten kontakter för vad och hur det görs samt och när studenten kan förvanta sig svar.</p>
       <p>Varför: Om det finns beskrivet hur kommunikationen mellan studenter och lärare ska se ut så besparar det tid och arbete ...</p>
       <p>För att editera innehållet så väljer du: "Visa i kurs-pm”. </p>
       <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras</p>`
     },
     courseContent: {
-      header: 'Kursinnehåll',
       body: `<p><b>Kursinnehåll</b> beskriver ämnesinnehållet och de generella färdigheter som behandlas eller tränas i kursen.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilka begrepp, ämnen, färdigheter m.m. som den behöver läsa in sig på inför och under kursen. 
       Kursinnehållet hjälper på så sätt studenten att förbereda sig inför och under kursen.</p>
@@ -128,64 +125,51 @@ module.exports = {
       <a href="https://intra.kth.se/utbildning/utbi/forbereda-utbildning/andra-i-en-kursplan-andra-kursuppgifter-i-ladok-ej-forskarniva" target="_blank">Ändra i en kursplan, ändra kursuppgifter i Ladok (ej forskarnivå)</a> (öppnas i ny flik).</p>`
     },
     courseCoordinator: {
-      header: 'Kursansvarig',
       body: `<p>Innehållet hämtas från den kursgemensamma informationen</p>
       <p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p>
       <p>Vad är examiner ....</p>`
     },
     ethicalApproach: {
-      header: 'Etiskt förhållningssätt',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     ethicalApproachThisCourse: {
-      header: 'Kursspecifika regler för etiskt förhållningssätt',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     equipment: {
-      header: 'Utrustning',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     examination: {
-      header: 'Examination',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     examinationModules: {
-      header: 'Examinationsmoduler',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     examiner: {
-      header: 'Examinator',
       body: `<p>Innehållet hämtas från den kursgemensamma informationen</p>
       <p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p>
       <p>Vad är examiner ....</p>`
     },
     extraHeaders1: {
-      header: 'Egen rubrik 1',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders2: {
-      header: 'Egen rubrik 2',
       body: 'Lägg till egna rubriker H3'
     },
     extraHeaders3: {
-      header: 'Egen rubrik 3',
       body: 'Lägg till egna rubriker H3'
     },
     extraHeaders4: {
-      header: 'Egen rubrik 4',
       body: 'Lägg till egna rubriker H3'
     },
     extraHeaders5: {
-      header: 'Egen rubrik 5',
       body: 'Lägg till egna rubriker H3'
     },
     gradingCriteria: {
-      header: 'Målrelaterade betygskriterier',
       body: `<p><b>Målrelaterade betygskriterier</b> ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål.</p>
       <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna relaterar till lärandemålen och med det vad den behöver göra och kunna för att uppnå respektive betyg på kursen. Att tydligt beskriva betygskriterierna bidrar även till att motivera studenten.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Visa i kurs-pm”. Ange information om målrelaterade betygskriterier i inmatningsfältet. Du kan välja ”Hjälptext” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
@@ -195,22 +179,18 @@ module.exports = {
       <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Målrelaterade betygskriterier</a> (öppnas i ny flik).</p>`
     },
     gradingScale: {
-      header: 'Betygsskala',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     infoForReregisteredStudents: {
-      header: 'Information till omregistrerade studenter',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     learningActivities: {
-      header: 'Läraktiviteter',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     learningOutcomes: {
-      header: 'Lärandemål',
       body: `<p><b>Lärandemål</b> ska tydliggöra vilka kunskaper, färdigheter, värderingsförmågor och förhållningssätt som studenten ska visa efter genomgången kurs.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vad studenten behöver uppnå för att få ett godkänt betyg. 
       Lärandemålen hjälper med det studenten att lägga en plan för kursens genomförande. 
@@ -219,7 +199,6 @@ module.exports = {
       Läs mer om riktlinjer för att ändra Lärandemål på sidan <a href="https://intra.kth.se/utbildning/utbi/forbereda-utbildning/andra-i-en-kursplan-andra-kursuppgifter-i-ladok-ej-forskarniva" target="_blank">Ändra i en kursplan, ändra kursuppgifter i Ladok (ej forskarnivå)</a> (öppnas i ny flik).</p>`
     },
     literature: {
-      header: 'Kurslitteratur',
       body: `<p><b>Kurslitteratur</b> beskriver vilken litteratur som används i kursomgången.</p>
       <p><b>Informationen hjälper studenten</b> att införskaffa rätt kurslitteratur inför kursomgångens start. 
       För studenter med funktionsnedsättning är det viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst. 
@@ -241,68 +220,55 @@ module.exports = {
       Rubriken kurslitteratur är obligatorisk i kurs-pm och kommer alltid visas i kurs-pm oavsett om det finns relevant kurslitteratur eller inte på kursomgången.</p>`
     },
     otherContacts: {
-      header: 'Övriga kontakter',
       body: `<p>Används till: att lägga in andra kontakter än de som är obligatoriska. </p>
       <p>Varför: Det är viktigt för studenter att ha alla kontakter som de behöver för kursen samlade här.</p> 
       <p>För att editera innehållet så väljer du: "Visa i kurs-pm”.</p> 
       <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras.</p> `
     },
     otherRequirementsForFinalGrade: {
-      header: 'Övriga krav för slutbetyg',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     permanentDisability: {
-      header: 'Stöd för studenter med funktionshinder',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     possibilityToAddition: {
-      header: 'Möjlighet till plussning',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     possibilityToCompletion: {
-      header: 'Möjlighet till komplettering',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     possibilityToCompensate: {
-      header: 'Möjlighet till ersättningsuppgifter',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     preparations: {
-      header: 'Särskilda förberedelser',
       body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
     },
     prerequisites: {
-      header: 'Rekommenderade förkunskaper',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     reportingResults: {
-      header: 'Resultatrapportering',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     scheduleDetails: {
-      header: 'Detaljschema',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     software: {
-      header: 'Programvara',
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
     teacher: {
-      header: 'Lärare',
       body:
         '<p>Innehållet hämtas från den kursgemensamma informationen</p><p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p><p>Vad är Lärare ....</p>'
     },
     teacherAssistants: {
-      header: 'Lärarassistenter',
       body:
         '<p>Innehållet hämtas från den kursgemensamma informationen</p><p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p><p>Vad är Lärassistenter ....</p>'
     }

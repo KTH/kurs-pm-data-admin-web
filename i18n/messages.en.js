@@ -108,75 +108,57 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      header: 'Additional regulations',
       body: 'It is important for students because they can plan their studies....'
     },
     communicationDuringCourse: {
-      header: 'Communication during course',
       body: 'It is important for students because they can plan their studies....'
     },
     courseContent: {
-      header: 'Course contents',
       body: 'It is important for students because they can plan their studies....'
     },
     courseCoordinator: {
-      header: 'Course coordinator',
       body: 'It is important for students because they can plan their studies....'
     },
     ethicalApproachThisCourse: {
-      header: 'Course specific regulations for ethical approach',
       body: 'It is important for students because they can plan their studies....'
     },
     ethicalApproach: {
-      header: 'Ethical approach',
       body: 'It is important for students because they can plan their studies....'
     },
     equipment: {
-      header: 'Equipment',
       body: 'It is important for students because they can plan their studies....'
     },
     examiner: {
-      header: 'Examiner',
       body: 'It is important for students because they can plan their studies....'
     },
     examination: {
-      header: 'Examination',
       body: 'It is important for students because they can plan their studies....'
     },
     examinationModules: {
-      header: 'Examination set',
       body: 'It is important for students because they can plan their studies....'
     },
     extraHeaders1: {
-      header: 'Extra header 1',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders2: {
-      header: 'Extra header 2',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders3: {
-      header: 'Extra header 3',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders4: {
-      header: 'Extra header 4',
       body: 'Here you can add owh headers to H3'
     },
     extraHeaders5: {
-      header: 'Extra header 5',
       body: 'Here you can add owh headers to H3'
     },
     gradingCriteria: {
-      header: 'Grading criteria',
       body: 'It is important for students because they can plan their studies....'
     },
     gradingScale: {
-      header: 'Grading scale',
       body: 'It is important for students because they can plan their studies....'
     },
     infoForReregisteredStudents: {
-      header: 'Changes of the course before this course offering',
       body: 'It is important for students because they can plan their studies....'
     },
     // languageOfInstructions: {
@@ -184,69 +166,53 @@ module.exports = {
     //   body: 'It is important for students because they can plan their studies....'
     // },
     learningActivities: {
-      header: 'Learning activities',
       body: 'It is important for students because they can plan their studies....'
     },
     learningOutcomes: {
-      header: 'Intended learning outcomes',
       body: 'It is important for students because they can plan their studies....'
     },
     literature: {
-      header: 'Literature',
       body: 'It is important for students because they can plan their studies....',
       help: 'Itttssss impoortant!'
     },
     otherContacts: {
-      header: 'Other contacts',
       body:
         'It is important to know Lab supervisors for students because they can plan their studies....'
     },
     otherRequirementsForFinalGrade: {
-      header: 'Other requirements for final grade',
       body: 'It is important for students because they can plan their studies....'
     },
     permanentDisability: {
-      header: 'Support for students with disabilities',
       body: 'It is important for students because they can plan their studies....'
     },
     possibilityToAddition: {
-      header: 'Opportunity to raise an approved grade via renewed examination',
       body: 'It is important for students because they can plan their studies....'
     },
     possibilityToCompletion: {
-      header: 'Opportunity to complete the requirements via supplementary examination',
       body: 'It is important for students because they can plan their studies....'
     },
     possibilityToCompensate: {
-      header: 'Alternatives to missed activities or tasks',
       body: 'It is important because'
     },
     preparations: {
-      header: 'Specific preparations',
       body: 'It is important for students because they can plan their studies....'
     },
     prerequisites: {
-      header: 'Recommended prerequisites',
       body: 'It is important for students because they can plan their studies....'
     },
     reportingResults: {
-      header: 'Reporting of exam results',
       body: '...'
     },
     scheduleDetails: {
-      header: 'Schedule details',
       body: 'It is important for students because they can plan their studies....'
     },
     software: {
-      header: 'Software',
       body: 'It is important for students because they can plan their studies....'
     },
     teacher: {
-      header: 'Teacher',
       body: 'It is important for students because they can plan their studies....'
     },
     teacherAssistants: {
-      header: 'Teacher assistants',
       body: 'It is important for students because they can plan their studies....'
     }
   },
