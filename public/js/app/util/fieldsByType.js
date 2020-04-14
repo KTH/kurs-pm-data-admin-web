@@ -30,8 +30,7 @@ const context = {
   communicationDuringCourse: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   }, // Kommunikation med lärare
   courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
   ethicalApproach: {
@@ -43,57 +42,50 @@ const context = {
   ethicalApproachThisCourse: {
     // ????avsnit
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   },
   examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   examinationModules: {
     openIfContent: true,
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   },
   examiner: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' },
-  extraHeaders1: { isEditable: true, isRequired: false, source: '(pm)' },
-  extraHeaders2: { isEditable: true, isRequired: false, source: '(pm)' },
-  extraHeaders3: { isEditable: true, isRequired: false, source: '(pm)' },
-  extraHeaders4: { isEditable: true, isRequired: false, source: '(pm)' },
-  extraHeaders5: { isEditable: true, isRequired: false, source: '(pm)' },
+  extraHeaders1: { isEditable: true, isRequired: false },
+  extraHeaders2: { isEditable: true, isRequired: false },
+  extraHeaders3: { isEditable: true, isRequired: false },
+  extraHeaders4: { isEditable: true, isRequired: false },
+  extraHeaders5: { isEditable: true, isRequired: false },
   equipment: {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   },
   gradingCriteria: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   },
   gradingScale: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
   infoForReregisteredStudents: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   },
   learningActivities: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
     openIfContent: true,
     type: 'mandatoryAndEditable',
     isEditable: true,
-    isRequired: true,
-    source: '(pm)'
+    isRequired: true
   },
-  otherContacts: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' },
+  otherContacts: { type: 'optionalEditable', isEditable: true, isRequired: false },
   otherRequirementsForFinalGrade: {
     type: 'mandatoryForSome',
     isEditable: false,
@@ -105,23 +97,20 @@ const context = {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   }, // default
   possibilityToAddition: {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   }, // default
   possibilityToCompensate: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   },
-  preparations: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' }, // Förbereda inför kursstart
+  preparations: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Förbereda inför kursstart
   prerequisites: {
     openIfContent: true,
     type: 'optional',
@@ -129,15 +118,14 @@ const context = {
     isRequired: false,
     source: '(c)'
   }, // Rekommenderade förkunskaper
-  reportingResults: { isEditable: true, isRequired: false, source: '(pm)' },
+  reportingResults: { isEditable: true, isRequired: false },
   scheduleDetails: {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false,
-    source: '(pm)'
+    isRequired: false
   },
-  software: { type: 'optionalEditable', isEditable: true, isRequired: false, source: '(pm)' }, // Programvara
+  software: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Programvara
   teacherAssistants: {
     openIfContent: true,
     type: 'optional',
