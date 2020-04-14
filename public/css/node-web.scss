@@ -224,15 +224,11 @@ span.section_info {
 .section_info_visibility_label {
   @extend %react-icon-basic;
   margin-right: 0.63em; //10.08px
-  .mandatory {
-    b {
-      &:first-of-type {
-        margin-right: 1.25em;
-      }
-      & + b {
-        margin-left: 1.25em;
-      }
-    }
+  .source::before {
+    content: '|';
+    font-weight: normal;
+    margin-right: 1.25em;
+    margin-left: 1.25em;
   }
 }
 .section_info_visibility_icon_v {

@@ -26,7 +26,8 @@ const VisibilityInfo = ({
             </p>
           )) || (
             <p className="mandatory">
-              <b>{sourceInfo[context[contentId].type]}</b>|<b>{sourceInfo.fetched}</b>{' '}
+              <b>{sourceInfo[context[contentId].type]}</b>
+              <b className="source">{sourceInfo.fetched} </b>
               {sourceInfo[context[contentId].source]}
             </p>
           )
@@ -44,6 +45,8 @@ const VisibilityInfo = ({
                 />
                 {sourceInfo.includeInMemo}
               </label>
+              {context[contentId].source && <b className="source">{sourceInfo.fetched} </b>}
+              {context[contentId].source && sourceInfo[context[contentId].source]}
             </span>
           </form>
         )}
