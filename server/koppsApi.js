@@ -139,9 +139,7 @@ function _getDepartment(body) {
   return course && course.department ? course.department : {}
 }
 
-function _getCommonInfo(resBody, language) {
-  const literatureSource =
-    language === 'en' ? '<p>Course literature from Kopps</p>' : '<p>Kurslitteratur från Kopps</p>'
+function _getCommonInfo(resBody) {
   // step 2
   const {
     credits,
@@ -165,7 +163,7 @@ function _getCommonInfo(resBody, language) {
     possibilityToCompletionTemplate: possibilityToCompletion,
     possibilityToAdditionTemplate: possibilityToAddition,
     schemaUrl,
-    literatureTemplate: courseLiterature ? `${literatureSource}${courseLiterature}` : '',
+    literatureTemplate: courseLiterature || '',
     equipmentTemplate: requiredEquipment
   }
 }
@@ -188,7 +186,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const detailedInformation = await _getDetailedInformation(courseCode, language)
     const { body } = detailedInformation
     const selectedSyllabus = _getSelectedSyllabus(body, semester)
-    const commonInfo = _getCommonInfo(body, language)
+    const commonInfo = _getCommonInfo(body)
     const examModules = _getExamModules(body, semester, language)
     const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
     const permanentDisability = _getPermanentDisabilityTemplate(language)
