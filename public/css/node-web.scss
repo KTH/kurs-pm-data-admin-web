@@ -94,6 +94,10 @@ div.tox.tox-tinymce {
   .alert {
     margin-bottom: 0;
   }
+  .element-50 {
+    margin-bottom: 0;
+    margin-top: 50px;
+  }
   .section-50 {
     //row
     //
@@ -145,6 +149,19 @@ div.tox.tox-tinymce {
 //   margin-top: 50px;
 //   padding: 0.5em 0;
 // }
+.Add--New--Title--And--Info {
+  & > .section_info {
+    margin-top: 50px;
+    margin-bottom: 0; //editor is open
+  }
+  .title-and-info + .section_info {
+    margin-top: 0;
+  }
+  .form-group.title {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+}
 
 //BUTTONS STYLES
 .control-buttons {
