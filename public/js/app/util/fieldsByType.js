@@ -140,13 +140,8 @@ const sections = [
   {
     id: 'contentAndOutcomes',
     title: 'Innehåll och lärandemål', // TODO: Later, to use i18n messages.sections for en/Sv somehow
-    content: [
-      'courseContent',
-      'learningOutcomes',
-      'learningActivities',
-      'scheduleDetails' /* , 'languageOfInstructions' */,
-      'extraHeaders1'
-    ]
+    content: ['courseContent', 'learningOutcomes', 'learningActivities', 'scheduleDetails'],
+    extraHeaderTitle: 'extraHeaders1'
   },
   {
     id: 'prep',
@@ -157,9 +152,9 @@ const sections = [
       'literature',
       'equipment',
       'software',
-      'permanentDisability',
-      'extraHeaders2'
-    ]
+      'permanentDisability'
+    ],
+    extraHeaderTitle: 'extraHeaders2'
   },
   {
     id: 'reqToFinal',
@@ -175,9 +170,9 @@ const sections = [
       'possibilityToCompensate',
       'reportingResults',
       'ethicalApproach',
-      'ethicalApproachThisCourse',
-      'extraHeaders3'
-    ]
+      'ethicalApproachThisCourse'
+    ],
+    extraHeaderTitle: 'extraHeaders3'
   },
   {
     id: 'extra',
@@ -194,7 +189,8 @@ const sections = [
       'teacherAssistants',
       'examiner',
       'otherContacts'
-    ]
+    ],
+    extraHeaderTitle: null
   }
 ]
 
