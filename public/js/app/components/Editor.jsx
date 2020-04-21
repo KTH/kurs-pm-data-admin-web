@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../i18n'
 import { Collapse } from '@kth/kth-kip-style-react-components'
-import ContentHead from './ContentHead'
+import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import { context } from '../util/fieldsByType'
 
@@ -27,7 +27,6 @@ class EditorPerTitle extends Component {
   }
 
   toggleVisibleInMemo = () => {
-    console.log('1. toggle from editor', this.props.contentId)
     this.props.onToggleVisibleInMemo(this.props.contentId)
   }
 
