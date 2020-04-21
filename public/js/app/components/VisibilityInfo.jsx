@@ -10,7 +10,7 @@ const { sourceInfo, buttons } = i18n.messages[Number(i18n.isSwedish())]
 
 const VisibilityInfo = ({
   contentId,
-  isRequired = context[contentId].isRequired,
+  isRequired = (context[contentId] && context[contentId].isRequired) || false,
   visibleInMemo,
   isEditorOpen,
   onToggleVisibleInMemo,
@@ -33,20 +33,24 @@ const VisibilityInfo = ({
                   type="checkbox"
                   id={'visibilityFor' + contentId}
                   name="visibleInMemo"
-                  onClick={() => onToggleVisibleInMemo(contentId)}
+                  onClick={() => onToggleVisibleInMemo(contentId)} // TODO: ADAPT TO EXTRA HEADERS
                   defaultChecked={visibleInMemo}
                   style={{ marginRight: '.3em' }}
                 />
                 {sourceInfo.includeInMemo}
               </label>
-              {context[contentId].source && <b className="source">{sourceInfo.fetched} </b>}
-              {context[contentId].source && sourceInfo[context[contentId].source]}
+              {context[contentId] && context[contentId].source && (
+                <b className="source">{sourceInfo.fetched} </b>
+              )}
+              {context[contentId] &&
+                context[contentId].source &&
+                sourceInfo[context[contentId].source]}
             </span>
           </form>
         )}
       </span>
     </span>
-    {context[contentId].isEditable && (
+    {(!context[contentId] || context[contentId].isEditable) && (
       <Button className="mb-0 mt-0" onClick={() => onToggleVisibleEditor()}>
         {isEditorOpen ? buttons.closeEditor : buttons.edit}
       </Button>
