@@ -4,9 +4,8 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Row, Col, Button } from 'reactstrap'
-import { Route } from 'react-router-dom'
 import { StickyContainer, Sticky } from 'react-sticky'
-
+import NewSectionEditor from '../components/newSectionEditor'
 import EditorPerTitle from '../components/Editor'
 import Section from '../components/Section'
 import ProgressTitle from '../components/ProgressTitle'
@@ -42,11 +41,41 @@ class MemoEdition extends Component {
     this.props.onChange(this.state)
   }
 
-  handleEditorChange = (editorContent, contentHeader) => {
+  onStandardEditorChange = (editorContent, contentHeader) => {
     this.setState({
       [contentHeader]: editorContent,
       dirtyEditor: contentHeader
     })
+  }
+
+  onExtraSectionEditorChange = (extraContent, contentHeader, uKey) => {
+    const prevArrayOfExtraHeaders = [...this.state[contentHeader]]
+
+    const currentIndex = prevArrayOfExtraHeaders.findIndex(item => item.uKey === uKey)
+    prevArrayOfExtraHeaders[currentIndex] = {
+      ...prevArrayOfExtraHeaders[currentIndex],
+      ...extraContent
+    }
+    this.setState({
+      [contentHeader]: prevArrayOfExtraHeaders, // maaybe better to use object?
+      dirtyEditor: uKey
+    })
+  }
+
+  onBlur = contentId => {
+    if (this.state.dirtyEditor === contentId) {
+      this.handleAutoSave()
+    }
+    this.setState({ dirtyEditor: '' })
+  }
+
+  onRemoveNewSection = (contentHeader, uKey) => {
+    const { memoData } = this.props.routerStore
+    const currentIndex = memoData[contentHeader].findIndex(item => item.uKey === uKey)
+
+    console.log('current index, uKey', uKey)
+    /* Remove direct from routerStore to keep state and initialValue for editor but still update both of them after removal */
+    memoData[contentHeader].splice(currentIndex, 1)
   }
 
   toggleVisibleInMemo = contentHeader => {
@@ -110,9 +139,9 @@ class MemoEdition extends Component {
 
   renderScrollView = () => {
     const { memoData, defaultValues } = this.props.routerStore
-    const { sectionsLabels } = i18n.messages[this.memoLangIndex]
+    const { sectionsLabels, buttons } = i18n.messages[this.memoLangIndex]
 
-    return sections.map(({ id, content }) => (
+    return sections.map(({ id, content, extraHeaderTitle }) => (
       <span key={id}>
         <h2 id={id} key={'header-' + id}>
           {sectionsLabels[id]}
@@ -129,15 +158,10 @@ class MemoEdition extends Component {
               menuId={menuId} // remove
               initialValue={initialValue}
               key={contentId}
-              onEditorChange={this.handleEditorChange}
+              onEditorChange={this.onStandardEditorChange}
               onToggleVisibleInMemo={this.toggleVisibleInMemo}
               visibleInMemo={visibleInMemo}
-              onBlur={() => {
-                if (this.state.dirtyEditor === contentId) {
-                  this.handleAutoSave()
-                }
-                this.setState({ dirtyEditor: '' })
-              }}
+              onBlur={() => this.onBlur(contentId)}
             />
           ) : (
             <Section
@@ -151,6 +175,43 @@ class MemoEdition extends Component {
             />
           )
         })}
+        {extraHeaderTitle &&
+          memoData[extraHeaderTitle].map(
+            ({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+              return (
+                <NewSectionEditor
+                  contentId={extraHeaderTitle}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={uKey}
+                  initialTitle={title}
+                  initialValue={htmlContent}
+                  visibleInMemo={visibleInMemo}
+                  isEmptyNew={isEmptyNew}
+                  uKey={uKey}
+                  onEditorChange={this.onExtraSectionEditorChange}
+                  onBlur={() => this.onBlur(uKey)}
+                  onRemove={() => this.onRemoveNewSection(extraHeaderTitle, uKey)}
+                />
+              )
+            }
+          )}
+        <Button
+          className="element-50"
+          color="secondary"
+          block
+          onClick={() =>
+            memoData[extraHeaderTitle].push({
+              uKey: Math.random().toString(),
+              title: '',
+              htmlContent: '',
+              visibleInMemo: true,
+              isEmptyNew: true
+            })
+          }
+        >
+          {buttons.btnAddExtra}
+          {sectionsLabels[id]}
+        </Button>
       </span>
     ))
   }
