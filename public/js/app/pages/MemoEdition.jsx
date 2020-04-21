@@ -195,23 +195,25 @@ class MemoEdition extends Component {
               )
             }
           )}
-        <Button
-          className="element-50"
-          color="secondary"
-          block
-          onClick={() =>
-            memoData[extraHeaderTitle].push({
-              uKey: Math.random().toString(),
-              title: '',
-              htmlContent: '',
-              visibleInMemo: true,
-              isEmptyNew: true
-            })
-          }
-        >
-          {buttons.btnAddExtra}
-          {sectionsLabels[id]}
-        </Button>
+        {extraHeaderTitle && (
+          <Button
+            className="element-50"
+            color="secondary"
+            block
+            onClick={() =>
+              memoData[extraHeaderTitle].push({
+                uKey: Math.random().toString(),
+                title: '',
+                htmlContent: '',
+                visibleInMemo: true,
+                isEmptyNew: true
+              })
+            }
+          >
+            {buttons.btnAddExtra}
+            {sectionsLabels[id]}
+          </Button>
+        )}
       </span>
     ))
   }
