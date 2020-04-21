@@ -4,7 +4,7 @@ import i18n from '../../../../i18n'
 
 const { memoInfoByUserLang } = i18n.messages[Number(i18n.isSwedish())]
 
-const ContentHead = ({ contentId, memoLangIndex }) => {
+export const ContentHead = ({ contentId, memoLangIndex }) => {
   const { memoTitlesByMemoLang, buttons } = i18n.messages[memoLangIndex]
   const titleAndInfo = {
     header: memoTitlesByMemoLang[contentId],
@@ -19,4 +19,19 @@ const ContentHead = ({ contentId, memoLangIndex }) => {
   )
 }
 
-export default ContentHead
+export const ExtraHeaderHead = ({ header, contentId, memoLangIndex }) => {
+  const { buttons } = i18n.messages[memoLangIndex]
+  const titleAndInfo = {
+    header,
+    body: memoInfoByUserLang[contentId].body
+  }
+  return (
+    <TitleAndInfoModal
+      modalId={contentId}
+      titleAndInfo={titleAndInfo}
+      btnClose={buttons.btnClose}
+    />
+  )
+}
+
+// export default ContentHead
