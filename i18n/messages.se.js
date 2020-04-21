@@ -43,6 +43,7 @@ module.exports = {
   },
   /** Labels */
   sourceInfo: {
+    addNewTitle: 'Ange rubrik',
     fetched: 'Hämtats',
     '(c)': 'från kursgemensam information',
     '(r)': 'från kurstillfällesinformation',
@@ -155,7 +156,7 @@ module.exports = {
       <p>Vad är examiner ....</p>`
     },
     extraHeaders1: {
-      body: 'Here you can add owh headers to H3'
+      body: '<p>Here you can add owh headers to H3</p>'
     },
     extraHeaders2: {
       body: 'Lägg till egna rubriker H3'
@@ -365,6 +366,14 @@ module.exports = {
       Vill du fortsätta radera utkastet?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt radera'
+    },
+    newSectionRemove: {
+      header: 'Att tänka på innan du ta bort en tillagd rubrik!',
+      body: `Rubriken med innehåll kommer att raderas och kan inte återskapas.
+      <br/><br/>
+      Vill du fortsätta radera den tillagd rubriken?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt radera'
     }
   },
   info: {
@@ -401,8 +410,10 @@ module.exports = {
   },
   buttons: {
     /** ************ BUTTONS ****************** */
+    btnAddExtra: 'Lägg till rubrik till ',
     btnClose: 'Stäng',
     btnRemove: 'Radera utkast',
+    btnRemoveHeader: 'Ta bort tillagd rubrik',
     closeEditor: 'Stäng redigeringsläge',
     preview: 'Granska',
     edit: 'Redigera',

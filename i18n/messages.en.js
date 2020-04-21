@@ -49,6 +49,7 @@ module.exports = {
     page_header_heading_course_round: 'Course round'
   },
   sourceInfo: {
+    addNewTitle: 'Name new section',
     fetched: 'Fetched', // IF NOT EDITABLE
     '(c)': 'from common course information',
     '(r)': 'from course round information',
@@ -309,10 +310,19 @@ module.exports = {
     },
     infoRemove: {
       header: 'To be aware of before deleting this draft!',
-      body: `Deleting the draft cannot be undone. The draft draft will be lost.
+      body: `Deleting the draft cannot be undone. The draft will be lost.
       <br/>
       <br/>
       Do you want do delete this draft?`,
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, delete'
+    },
+    newSectionRemove: {
+      header: 'To be aware of before deleting this header!',
+      body: `Deleting the header cannot be undone. The new section will be lost.
+      <br/>
+      <br/>
+      Do you want do delete this header and its content?`,
       btnClose: 'No, go back',
       btnConfirm: 'Yes, delete'
     }
