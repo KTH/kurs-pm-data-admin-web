@@ -10,7 +10,7 @@ import { Form, FormGroup, Label, Input } from 'reactstrap'
 
 @inject(['routerStore'])
 @observer
-class newSectionEditor extends Component {
+class NewSectionEditor extends Component {
   state = {
     isOpen: this.props.isEmptyNew || false,
     contentForEditor: this.props.initialValue || '', // this.props.routerStore???
@@ -67,7 +67,6 @@ class newSectionEditor extends Component {
 
   render() {
     const { uKey, contentId } = this.props // menuId, visibleInMemo
-    console.log('uKey', uKey)
 
     const { contentForEditor, contentForTitle, isEmptyNew, visibleInMemo } = this.state
 
@@ -168,7 +167,7 @@ class newSectionEditor extends Component {
               dangerouslySetInnerHTML={{
                 __html:
                   (contentForEditor !== '' && contentForEditor) ||
-                  `<p><i>${sourceInfo.noInfoYet}</i></p>`
+                  `<p><i>${sourceInfo.noInfoYet.section}</i></p>`
               }}
             />
           )) ||
@@ -176,8 +175,7 @@ class newSectionEditor extends Component {
             (contentForEditor !== '' && ( // TODO: add DEFAULT TEXT
               <span>
                 <p>
-                  {/* <i>{type === 'optionalEditable' ? sourceInfo.notIncludedInMemoYet : sourceInfo.notIncludedInMemoYetOfAddition}</i> */}
-                  <i>{sourceInfo.notIncludedInMemoYet}</i>
+                  <i>{sourceInfo.notIncludedInMemoYet.section}</i>
                 </p>
               </span>
             )))}
@@ -185,4 +183,4 @@ class newSectionEditor extends Component {
     )
   }
 }
-export default newSectionEditor
+export default NewSectionEditor

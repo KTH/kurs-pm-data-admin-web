@@ -16,7 +16,7 @@ const Section = ({
   html,
   memoLangIndex
 }) => (
-  <span id={menuId} key={contentId}>
+  <span id={menuId} key={contentId} className="main-text-session">
     <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} />
     <VisibilityInfo
       contentId={contentId}

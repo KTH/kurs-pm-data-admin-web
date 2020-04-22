@@ -5,8 +5,8 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
-import NewSectionEditor from '../components/newSectionEditor'
-import EditorPerTitle from '../components/Editor'
+import NewSectionEditor from '../components/NewSectionEditor'
+import StandardEditorPerTitle from '../components/StandardEditorPerTitle'
 import Section from '../components/Section'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
@@ -160,9 +160,10 @@ class MemoEdition extends Component {
           const { isEditable, isRequired } = context[contentId]
           const initialValue = memoData[contentId] || defaultValues[contentId] || ''
           const visibleInMemo = isRequired ? true : this.checkVisibility(contentId, initialValue)
+          console.log('------____----______isEditable', isEditable, ' contentId ', contentId)
 
           return isEditable ? (
-            <EditorPerTitle
+            <StandardEditorPerTitle
               contentId={contentId}
               menuId={menuId} // remove
               initialValue={initialValue}

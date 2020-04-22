@@ -14,7 +14,8 @@ const VisibilityInfo = ({
   visibleInMemo,
   isEditorOpen,
   onToggleVisibleInMemo,
-  onToggleVisibleEditor
+  onToggleVisibleEditor,
+  contentType = (context[contentId].hasParentTitle && 'subSection') || 'section'
 }) => (
   <span className="section_info word-break">
     <span>
@@ -37,7 +38,7 @@ const VisibilityInfo = ({
                   defaultChecked={visibleInMemo}
                   style={{ marginRight: '.3em' }}
                 />
-                {sourceInfo.includeInMemo}
+                {sourceInfo.includeInMemo[contentType]}
               </label>
               {context[contentId] && context[contentId].source && (
                 <b className="source">{sourceInfo.fetched} </b>
