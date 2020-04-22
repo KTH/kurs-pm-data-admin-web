@@ -39,16 +39,18 @@ const context = {
     isRequired: true,
     source: '(s)'
   },
-  ethicalApproachThisCourse: {
-    // ????avsnit
-    isEditable: true,
-    isRequired: false
-  },
-  examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
-  examinationModules: {
+  ethicalApproachSubSection: {
     openIfContent: true,
     isEditable: true,
-    isRequired: false
+    isRequired: false,
+    hasParentTitle: true
+  },
+  examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
+  examinationSubSection: {
+    openIfContent: true,
+    isEditable: true,
+    isRequired: false,
+    hasParentTitle: true
   },
   examiner: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' },
   extraHeaders1: { isEditable: true, isRequired: false },
@@ -93,6 +95,12 @@ const context = {
     source: '(s)'
   },
   permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true }, // Funktionsnedsättning
+  permanentDisabilitySubSection: {
+    openIfContent: true,
+    isEditable: true,
+    isRequired: false,
+    hasParentTitle: true
+  },
   possibilityToCompletion: {
     openIfContent: true,
     type: 'optionalEditable',
@@ -152,7 +160,8 @@ const sections = [
       'literature',
       'equipment',
       'software',
-      'permanentDisability'
+      'permanentDisability',
+      'permanentDisabilitySubSection'
     ],
     extraHeaderTitle: 'extraHeaders2'
   },
@@ -162,15 +171,16 @@ const sections = [
     content: [
       'gradingScale',
       'examination',
+      'examinationSubSection',
       'otherRequirementsForFinalGrade',
-      'examinationModules',
+      // 'examinationModules',
       'gradingCriteria',
       'possibilityToCompletion',
       'possibilityToAddition',
       'possibilityToCompensate',
       'reportingResults',
       'ethicalApproach',
-      'ethicalApproachThisCourse'
+      'ethicalApproachSubSection'
     ],
     extraHeaderTitle: 'extraHeaders3'
   },

@@ -50,7 +50,7 @@ class RouterStore {
 
   @action combineDefaultValues() {
     this.defaultValues = {
-      examinationModules: this.koppsFreshData.examinationModules, // koppsFreshData.examinationModules
+      examinationSubSection: this.koppsFreshData.examinationModules, // koppsFreshData.examinationModules
       // eslint-disable-next-line no-use-before-define
       equipment: this.koppsFreshData.equipmentTemplate,
       scheduleDetails: combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr),
