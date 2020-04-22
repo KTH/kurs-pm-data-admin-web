@@ -10,7 +10,7 @@ import { context } from '../util/fieldsByType'
 
 @inject(['routerStore'])
 @observer
-class EditorPerTitle extends Component {
+class StandardEditorPerTitle extends Component {
   state = {
     isOpen: false,
     firstLoad: true,
@@ -36,7 +36,8 @@ class EditorPerTitle extends Component {
 
   render() {
     const { contentId, initialValue, menuId, visibleInMemo } = this.props
-    const { isRequired, openIfContent } = context[contentId]
+    const { isRequired, openIfContent, hasParentTitle } = context[contentId]
+    const contentType = hasParentTitle ? 'subSection' : 'section'
     if (this.state.firstLoad && openIfContent) {
       this.setState({
         isOpen: (openIfContent && initialValue !== '') || false,
@@ -49,8 +50,10 @@ class EditorPerTitle extends Component {
     const { sourceInfo, memoInfoByUserLang } = i18n.messages[this.userLangIndex]
 
     return (
-      <span id={menuId}>
-        <ContentHead contentId={contentId} memoLangIndex={this.memoLangIndex} />
+      <span id={menuId} className={contentType}>
+        {contentType === 'section' && (
+          <ContentHead contentId={contentId} memoLangIndex={this.memoLangIndex} />
+        )}
         <VisibilityInfo
           contentId={contentId}
           visibleInMemo={visibleInMemo}
@@ -120,16 +123,15 @@ class EditorPerTitle extends Component {
                 dangerouslySetInnerHTML={{
                   __html:
                     (contentForEditor !== '' && contentForEditor) ||
-                    `<p><i>${sourceInfo.noInfoYet}</i></p>`
+                    `<p><i>${sourceInfo.noInfoYet[contentType]}</i></p>`
                 }}
               />
             )) ||
             /* editor has content but is not yet included in pm */
-            (contentForEditor !== '' && ( // TODO: add DEFAULT TEXT
+            (contentForEditor !== '' && (
               <span>
                 <p>
-                  {/* <i>{type === 'optionalEditable' ? sourceInfo.notIncludedInMemoYet : sourceInfo.notIncludedInMemoYetOfAddition}</i> */}
-                  <i>{sourceInfo.notIncludedInMemoYet}</i>
+                  <i>{sourceInfo.notIncludedInMemoYet[contentType]}</i>
                 </p>
               </span>
             )))}
@@ -137,4 +139,4 @@ class EditorPerTitle extends Component {
     )
   }
 }
-export default EditorPerTitle
+export default StandardEditorPerTitle
