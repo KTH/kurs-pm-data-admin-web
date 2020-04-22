@@ -58,10 +58,20 @@ module.exports = {
     mandatory: 'Mandatory information',
     mandatoryAndEditable: 'Mandatory information',
     mandatoryForSome: 'Mandatory information for some courses?',
-    includeInMemo: 'Include header...*?', // RUBRIK/ADDITION
-    noInfoYet: 'No information is added. Press "Edit" to add information....',
-    notIncludedInMemoYet:
-      'Content is here. Choose "Include in memo" to show added content and header in memo...',
+    includeInMemo: {
+      section: 'Include header...*?',
+      subSection: 'Include paragraph...*?'
+    }, // RUBRIK/ADDITION
+    noInfoYet: {
+      section: 'No information is added. Press "Edit" to add information....',
+      subSection: 'No information is added. Press "Edit" to add information....'
+    },
+    notIncludedInMemoYet: {
+      section:
+        'Content is here. Choose "Include in memo" to show added content and header in memo...',
+      subSection:
+        'Content is here. Choose "Include in memo" to show added content and header in memo...'
+    },
     nothingFetched: {
       mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
       mandatory: 'No information was available to fetch, edit in kopps....',
@@ -76,12 +86,10 @@ module.exports = {
     communicationDuringCourse: 'Communication during course',
     courseContent: 'Course contents',
     courseCoordinator: 'Course coordinator',
-    ethicalApproachThisCourse: 'Course specific regulations for ethical approach',
     ethicalApproach: 'Ethical approach',
     equipment: 'Equipment',
     examiner: 'Examiner',
     examination: 'Examination',
-    examinationModules: 'Examination set',
     extraHeaders1: 'Extra header 1',
     extraHeaders2: 'Extra header 2',
     extraHeaders3: 'Extra header 3',
@@ -121,7 +129,7 @@ module.exports = {
     courseCoordinator: {
       body: 'It is important for students because they can plan their studies....'
     },
-    ethicalApproachThisCourse: {
+    ethicalApproachSubSection: {
       body: 'It is important for students because they can plan their studies....'
     },
     ethicalApproach: {
@@ -136,7 +144,7 @@ module.exports = {
     examination: {
       body: 'It is important for students because they can plan their studies....'
     },
-    examinationModules: {
+    examinationSubSection: {
       body: 'It is important for students because they can plan their studies....'
     },
     extraHeaders1: {

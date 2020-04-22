@@ -52,15 +52,22 @@ module.exports = {
     mandatory: 'Obligatorisk rubrik',
     mandatoryAndEditable: 'Obligatorisk rubrik',
     mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
-    includeInMemo: 'Inkludera rubrik',
-    noInfoYet:
-      'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera rubriken.',
+    includeInMemo: {
+      section: 'Inkludera rubrik',
+      subSection: 'Inkludera avsnitt'
+    },
+    noInfoYet: {
+      section:
+        'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera rubriken.',
+      subSection:
+        'Inget innehåll är inlagt. Välj Redigera för att lägga in innehåll eller välj att inte inkludera avsnittet.'
+    },
     // includera rubrik
-    notIncludedInMemoYet:
-      'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-pm',
-    // includera avsnitt
-    notIncludedInMemoYetOfAddition:
-      'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-pm',
+    notIncludedInMemoYet: {
+      section:
+        'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-pm',
+      subSection: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-pm'
+    },
     nothingFetched: {
       mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
       Välj Redigera för att lägga in innehåll.`,
@@ -78,10 +85,8 @@ module.exports = {
     courseContent: 'Kursinnehåll',
     courseCoordinator: 'Kursansvarig',
     ethicalApproach: 'Etiskt förhållningssätt',
-    ethicalApproachThisCourse: 'Kursspecifika regler för etiskt förhållningssätt',
     equipment: 'Utrustning',
     examination: 'Examination',
-    examinationModules: 'Examinationsmoduler',
     examiner: 'Examinator',
     extraHeaders1: 'Egen rubrik 1',
     extraHeaders2: 'Egen rubrik 2',
@@ -135,7 +140,7 @@ module.exports = {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
-    ethicalApproachThisCourse: {
+    ethicalApproachSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
@@ -147,7 +152,7 @@ module.exports = {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
-    examinationModules: {
+    examinationSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
