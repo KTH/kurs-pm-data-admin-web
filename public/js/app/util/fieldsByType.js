@@ -177,7 +177,8 @@ const sections = [
   {
     id: 'extra',
     title: 'Ytterligare Information',
-    content: ['additionalRegulations', 'infoForReregisteredStudents', 'extraHeaders4']
+    content: ['additionalRegulations', 'infoForReregisteredStudents'],
+    extraHeaderTitle: 'extraHeaders4'
   },
   {
     id: 'contacts',
