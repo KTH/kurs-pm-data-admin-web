@@ -48,6 +48,7 @@ module.exports = {
     '(c)': 'från kursgemensam information',
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan (s)',
+    errorEmptyTitle: 'Du måste ange en rubrik',
     mandatory: 'Obligatorisk rubrik',
     mandatoryAndEditable: 'Obligatorisk rubrik',
     mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
@@ -445,7 +446,9 @@ module.exports = {
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-pm.',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     warnReplacePm:
-      'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)'
+      'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)',
+    warnNameNewSection:
+      'Du behöver ange ett namn på den tillagda rubriken (se markering i rött övan)'
   },
   breadCrumbLabels: {
     university: 'KTH',

@@ -16,7 +16,8 @@ class newSectionEditor extends Component {
     contentForEditor: this.props.initialValue || '', // this.props.routerStore???
     contentForTitle: this.props.initialTitle || '', // Default value needed
     visibleInMemo: this.props.visibleInMemo,
-    isEmptyNew: this.props.isEmptyNew || false
+    isEmptyNew: this.props.isEmptyNew || false,
+    hasEmptyTitle: false
   }
 
   userLangIndex = this.props.routerStore.langIndex
@@ -54,11 +55,14 @@ class newSectionEditor extends Component {
 
   onToggleVisibleEditor = () => {
     const { uKey, contentId } = this.props
+    const { contentForTitle, isOpen } = this.state
     const extraContent = {
+      title: contentForTitle,
       isEmptyNew: false
     }
-    this.props.onEditorChange(extraContent, contentId, uKey)
-    this.setState({ isEmptyNew: false, isOpen: !this.state.isOpen })
+    const isUpdated = isOpen ? this.props.onEditorChange(extraContent, contentId, uKey) : true
+    if (isUpdated) this.setState({ isEmptyNew: false, isOpen: !isOpen, hasEmptyTitle: false })
+    else this.setState({ hasEmptyTitle: true })
   }
 
   render() {
@@ -99,6 +103,11 @@ class newSectionEditor extends Component {
                   onChange={this.setNewTitle}
                   defaultValue={contentForTitle}
                 />
+                {this.state.hasEmptyTitle && (
+                  <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
+                    {sourceInfo.errorEmptyTitle}
+                  </Label>
+                )}
               </FormGroup>
             </Form>
             <Collapse

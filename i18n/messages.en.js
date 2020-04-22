@@ -54,6 +54,7 @@ module.exports = {
     '(c)': 'from common course information',
     '(r)': 'from course round information',
     '(s)': 'from course syllabus (s)',
+    errorEmptyTitle: 'You need to name the content',
     mandatory: 'Mandatory information',
     mandatoryAndEditable: 'Mandatory information',
     mandatoryForSome: 'Mandatory information for some courses?',
@@ -396,7 +397,8 @@ module.exports = {
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errWhileSaving: 'Smth went wrong on api side......',
     warnReplacePm:
-      'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'
+      'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
+    warnNameNewSection: 'You need to give a name to a new section'
   },
   breadCrumbLabels: {
     university: 'KTH',

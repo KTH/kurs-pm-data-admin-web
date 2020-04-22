@@ -8,14 +8,16 @@ import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
   const { hasChosenMemo, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
-  const { alertIsOpen, alertText, onBack, onSave } = props
+  const { alertIsOpen, alertText, alertColor, onBack, onSave } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
 
   return (
     <Row className="control-buttons subsection-30">
       <Row className="w-100 my-0 mx-auto">
-        <Alert isOpen={!!alertIsOpen}>{alertText || ''}</Alert>
+        <Alert color={alertColor || 'success'} isOpen={!!alertIsOpen}>
+          {alertText || ''}
+        </Alert>
       </Row>
       <Col sm="4" className="step-back">
         {progress > 1 && (

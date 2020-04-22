@@ -41,15 +41,15 @@ class MemoContainer extends Component {
       this.setState(states, console.log('after on change update', this.state.visibleInMemo))
   }
 
-  handleAlert = alertText => {
-    this.setState({ alertIsOpen: true, alertText })
+  handleAlert = (alertTranslationId, alertColor = 'success') => {
+    const { alerts } = i18n.messages[this.langIndex]
+    this.setState({ alertIsOpen: true, alertText: alerts[alertTranslationId], alertColor })
     setTimeout(() => {
-      this.setState({ alertIsOpen: false, alertText: '' })
+      this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
     }, 2000)
   }
 
-  onSave = (editorContent, alertType) => {
-    const { alerts } = i18n.messages[this.langIndex]
+  onSave = (editorContent, alertTranslationId) => {
     const { courseCode, memoEndPoint } = this
     const body = { courseCode, memoEndPoint, ...editorContent } // containt kopps old data, or it is empty first time
     this.doUpdateStates(editorContent)
@@ -59,7 +59,7 @@ class MemoContainer extends Component {
         body
       )
       .then(() => this.props.routerStore.tempMemoData(body))
-      .then(() => this.handleAlert(alerts[alertType]))
+      .then(() => this.handleAlert(alertTranslationId))
       .catch(error => console.log(error)) // alert error
   }
 
@@ -109,7 +109,11 @@ class MemoContainer extends Component {
         </Row>
         <ProgressBar active={2} pages={pages} />
         <PageHead semester={this.semester} memoName={memoName} />
-        <MemoEdition onSave={this.onSave} onChange={this.doUpdateStates} />
+        <MemoEdition
+          onSave={this.onSave}
+          onChange={this.doUpdateStates}
+          onAlert={this.handleAlert}
+        />
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}
@@ -119,6 +123,7 @@ class MemoContainer extends Component {
             progress={2}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}
+            alertColor={this.state.alertColor || 'success'}
           />
         </Container>
       </Container>

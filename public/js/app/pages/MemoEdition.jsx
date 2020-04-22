@@ -50,6 +50,14 @@ class MemoEdition extends Component {
 
   onExtraSectionEditorChange = (extraContent, contentHeader, uKey) => {
     const prevArrayOfExtraHeaders = [...this.state[contentHeader]]
+    if (
+      Object.prototype.hasOwnProperty.call(extraContent, 'isEmptyNew') &&
+      Object.prototype.hasOwnProperty.call(extraContent, 'title') &&
+      extraContent.title.trim().length === 0
+    ) {
+      this.props.onAlert('warnNameNewSection', 'danger')
+      return false
+    }
 
     const currentIndex = prevArrayOfExtraHeaders.findIndex(item => item.uKey === uKey)
     prevArrayOfExtraHeaders[currentIndex] = {
@@ -60,6 +68,7 @@ class MemoEdition extends Component {
       [contentHeader]: prevArrayOfExtraHeaders, // maaybe better to use object?
       dirtyEditor: uKey
     })
+    return true
   }
 
   onBlur = contentId => {
