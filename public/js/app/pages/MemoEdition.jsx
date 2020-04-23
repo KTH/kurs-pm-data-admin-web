@@ -37,7 +37,6 @@ class MemoEdition extends Component {
   }
 
   componentDidUpdate() {
-    console.log('Update parent state')
     this.props.onChange(this.state)
   }
 
@@ -71,6 +70,23 @@ class MemoEdition extends Component {
     return true
   }
 
+  onAddNewSection = (memoData, extraHeaderTitle) => {
+    const prevArrayOfExtraHeaders = [...this.state[extraHeaderTitle]]
+    const newSection = {
+      uKey: Math.random().toString(),
+      title: '',
+      htmlContent: '',
+      visibleInMemo: true,
+      isEmptyNew: true
+    }
+    memoData[extraHeaderTitle].push(newSection)
+    prevArrayOfExtraHeaders.push(newSection)
+    this.setState({
+      [extraHeaderTitle]: prevArrayOfExtraHeaders, // maaybe better to use object?
+      dirtyEditor: newSection.uKey
+    })
+  }
+
   onBlur = contentId => {
     if (this.state.dirtyEditor === contentId) {
       this.handleAutoSave()
@@ -85,6 +101,7 @@ class MemoEdition extends Component {
     console.log('current index, uKey', uKey)
     /* Remove direct from routerStore to keep state and initialValue for editor but still update both of them after removal */
     memoData[contentHeader].splice(currentIndex, 1)
+    this.handleAutoSave()
   }
 
   toggleVisibleInMemo = contentHeader => {
@@ -188,7 +205,6 @@ class MemoEdition extends Component {
           memoData[extraHeaderTitle] &&
           memoData[extraHeaderTitle].map(
             ({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
-              console.log('FINE')
               return (
                 <NewSectionEditor
                   contentId={extraHeaderTitle}
@@ -210,15 +226,7 @@ class MemoEdition extends Component {
             className="element-50"
             color="secondary"
             block
-            onClick={() =>
-              memoData[extraHeaderTitle].push({
-                uKey: Math.random().toString(),
-                title: '',
-                htmlContent: '',
-                visibleInMemo: true,
-                isEmptyNew: true
-              })
-            }
+            onClick={() => this.onAddNewSection(memoData, extraHeaderTitle)}
           >
             {buttons.btnAddExtra}
             {sectionsLabels[id]}
