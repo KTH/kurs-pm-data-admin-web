@@ -49,9 +49,9 @@ module.exports = {
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan (s)',
     errorEmptyTitle: 'Du måste ange en rubrik',
-    mandatory: 'Obligatorisk rubrik',
-    mandatoryAndEditable: 'Obligatorisk rubrik',
-    mandatoryForSome: 'Obligatorisk rubrik för vissa kurser',
+    mandatory: 'Fast rubrik',
+    mandatoryAndEditable: 'Fast rubrik',
+    mandatoryForSome: 'Fast rubrik för vissa kurser',
     includeInMemo: {
       section: 'Inkludera rubrik',
       subSection: 'Inkludera avsnitt'
