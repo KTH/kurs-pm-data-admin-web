@@ -242,19 +242,21 @@ class MemoEdition extends Component {
     return (
       <StickyContainer className="memo-container">
         <Row className="sections-headers">
-          <Col lg="8">
+          <Col lg="7">
             <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
           </Col>
-          <Col lg="4">
+          <Col className="separator" />
+          <Col lg="3">
             <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
           </Col>
         </Row>
         <hr className="header-content-separation" />
         <Row className="mb-4">
-          <Col lg="8" className="memo-content">
+          <Col lg="7" className="memo-content">
             {this.renderScrollView()}
           </Col>
-          <Col lg="4">
+          <Col className="separator" />
+          <Col lg="3">
             <Sticky topOffset={-31}>
               {({ style, isSticky }) => (
                 <SideMenu
