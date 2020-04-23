@@ -240,6 +240,10 @@ module.exports = {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
+    permanentDisabilitySubSection: {
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
+    },
     possibilityToAddition: {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`

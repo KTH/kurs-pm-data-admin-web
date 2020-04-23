@@ -195,6 +195,9 @@ module.exports = {
     permanentDisability: {
       body: 'It is important for students because they can plan their studies....'
     },
+    permanentDisabilitySubSection: {
+      body: 'It is important for students because they can plan their studies....'
+    },
     possibilityToAddition: {
       body: 'It is important for students because they can plan their studies....'
     },
