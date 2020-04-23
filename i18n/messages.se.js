@@ -293,8 +293,7 @@ module.exports = {
     },
     {
       title: '2.Redigera kurs-pm',
-      intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
-      I nästa steg granskas all kurs-PM data innan publicering.`
+      intro: ''
     },
     {
       title: 'Granska och publicera',

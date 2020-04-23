@@ -240,8 +240,7 @@ module.exports = {
     },
     {
       title: '2.Edit course memo',
-      intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
-      changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
+      intro: ''
     },
     {
       title: 'Review and publish',
