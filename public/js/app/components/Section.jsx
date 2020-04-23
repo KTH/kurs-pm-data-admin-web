@@ -20,6 +20,7 @@ const Section = ({
     <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} />
     <VisibilityInfo
       contentId={contentId}
+      contentType="section"
       visibleInMemo={visibleInMemo}
       onToggleVisibleInMemo={onToggleVisibleInMemo}
     />

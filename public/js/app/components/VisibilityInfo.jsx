@@ -15,7 +15,7 @@ const VisibilityInfo = ({
   isEditorOpen,
   onToggleVisibleInMemo,
   onToggleVisibleEditor,
-  contentType = (context[contentId].hasParentTitle && 'subSection') || 'section'
+  contentType
 }) => (
   <span className="section_info word-break">
     <span>

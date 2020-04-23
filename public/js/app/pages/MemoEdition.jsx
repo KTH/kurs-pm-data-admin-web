@@ -160,7 +160,6 @@ class MemoEdition extends Component {
           const { isEditable, isRequired } = context[contentId]
           const initialValue = memoData[contentId] || defaultValues[contentId] || ''
           const visibleInMemo = isRequired ? true : this.checkVisibility(contentId, initialValue)
-          console.log('------____----______isEditable', isEditable, ' contentId ', contentId)
 
           return isEditable ? (
             <StandardEditorPerTitle
@@ -186,12 +185,13 @@ class MemoEdition extends Component {
           )
         })}
         {extraHeaderTitle &&
+          memoData[extraHeaderTitle] &&
           memoData[extraHeaderTitle].map(
             ({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+              console.log('FINE')
               return (
                 <NewSectionEditor
                   contentId={extraHeaderTitle}
-                  // eslint-disable-next-line react/no-array-index-key
                   key={uKey}
                   initialTitle={title}
                   initialValue={htmlContent}

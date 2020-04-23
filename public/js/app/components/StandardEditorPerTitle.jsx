@@ -56,6 +56,7 @@ class StandardEditorPerTitle extends Component {
         )}
         <VisibilityInfo
           contentId={contentId}
+          contentType={contentType}
           visibleInMemo={visibleInMemo}
           onToggleVisibleInMemo={this.toggleVisibleInMemo}
           isEditorOpen={this.state.isOpen}
