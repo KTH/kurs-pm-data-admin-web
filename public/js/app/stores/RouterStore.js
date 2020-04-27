@@ -7,6 +7,8 @@ import { combineScheduleValues } from '../util/defaultValues'
 class RouterStore {
   @observable courseCode
 
+  @observable dirtyEditor = ''
+
   @observable semester
 
   @observable koppsFreshData = {}
