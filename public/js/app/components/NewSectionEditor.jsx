@@ -53,10 +53,11 @@ class NewSectionEditor extends Component {
 
   onRemoveNewSection = () => {
     // const { memoData } = this.props.routerStore
-    const { contentId } = this.props
+    const { contentId, uKey } = this.props
     const { currentIndex } = this.state
     const arrayToReduce = [...this.props.routerStore.memoData[contentId]]
     arrayToReduce.splice(currentIndex, 1)
+    this.props.routerStore.dirtyEditor = uKey
     /* Remove direct from routerStore to keep state and initialValue for editor but still update both of them after removal */
     this.props.routerStore.memoData[contentId] = arrayToReduce
   }
