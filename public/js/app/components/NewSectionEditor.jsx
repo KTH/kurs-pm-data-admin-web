@@ -31,7 +31,7 @@ class NewSectionEditor extends Component {
   }
 
   componentWillUnmount() {
-    this.props.onSaveByThisContentId()
+    this.onSaveByThisContentId()
   }
 
   updateMemoContent = editorContent => {
