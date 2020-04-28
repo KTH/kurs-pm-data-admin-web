@@ -98,7 +98,7 @@ class NewSectionEditor extends Component {
   }
 
   render() {
-    const { uKey, contentId } = this.props
+    const { uKey, contentId, menuId } = this.props
 
     const { htmlContent, title, isEmptyNew, visibleInMemo } = this.state.memoData[contentId][
       this.state.currentIndex
@@ -109,7 +109,7 @@ class NewSectionEditor extends Component {
     ]
 
     return (
-      <span className="Add--New--Title--And--Info">
+      <span id={menuId} className="Add--New--Title--And--Info">
         {!this.state.isOpen && !isEmptyNew && (
           <ExtraHeaderHead
             header={title}

@@ -226,6 +226,7 @@ class MemoContainer extends Component {
               <NewSectionEditor
                 contentId={extraHeaderTitle}
                 key={uKey}
+                menuId={id + '-' + extraHeaderTitle + uKey}
                 uKey={uKey}
                 onAlert={this.onAlert}
                 // onBlur={() => this.onBlur(uKey)}
