@@ -108,15 +108,6 @@ class MemoContainer extends Component {
     return isInVisibleMemo
   }
 
-  // Functions for standard editor with existing title and for subsection editor (avsnitt)
-
-  onStandardEditorChange = (editorContent, contentHeader) => {
-    this.setState({
-      [contentHeader]: editorContent
-    })
-    this.props.routerStore.dirtyEditor = contentHeader
-  }
-
   // Functions for adding new titles with a content
   onAddNewSection = extraHeaderTitle => {
     const newSection = {
@@ -134,7 +125,7 @@ class MemoContainer extends Component {
     )
   }
 
-  toggleVisibleInMemo = contentHeader => {
+  toggleStandardVisibleInMemo = contentHeader => {
     this.setState(previousState => {
       let visible
       if (previousState.visibleInMemo) {
@@ -202,8 +193,7 @@ class MemoContainer extends Component {
               menuId={menuId} // remove
               initialValue={initialValue}
               key={contentId}
-              onEditorChange={this.onStandardEditorChange}
-              onToggleVisibleInMemo={this.toggleVisibleInMemo}
+              onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
               visibleInMemo={visibleInMemo}
               onBlur={() => this.onBlur(contentId)}
             />
@@ -214,7 +204,7 @@ class MemoContainer extends Component {
               menuId={menuId}
               key={contentId}
               visibleInMemo={visibleInMemo}
-              onToggleVisibleInMemo={this.toggleVisibleInMemo}
+              onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
               html={initialValue}
             />
           )

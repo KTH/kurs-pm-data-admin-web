@@ -22,8 +22,11 @@ class StandardEditorPerTitle extends Component {
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   updateMemoContent = editorContent => {
-    this.setState({ contentForEditor: editorContent })
-    this.props.onEditorChange(editorContent, this.props.contentId)
+    const { contentId } = this.props
+    this.props.routerStore.memoData[contentId] = editorContent
+    this.props.routerStore.dirtyEditor = contentId
+    // this.setState({ contentForEditor: editorContent })
+    // this.props.onEditorChange(editorContent, this.props.contentId)
   }
 
   toggleVisibleInMemo = () => {
