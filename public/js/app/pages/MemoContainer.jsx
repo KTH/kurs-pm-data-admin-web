@@ -221,16 +221,15 @@ class MemoContainer extends Component {
         })}
         {extraHeaderTitle &&
           memoData[extraHeaderTitle] &&
-          memoData[extraHeaderTitle].map(({ uKey }, index, array) => {
-            console.log('title,title', index, array)
+          memoData[extraHeaderTitle].map(({ uKey }) => {
             return (
               <NewSectionEditor
                 contentId={extraHeaderTitle}
                 key={uKey}
                 uKey={uKey}
                 onAlert={this.onAlert}
-                onBlur={() => this.onBlur(uKey)}
-                onAutoSave={this.onAutoSave}
+                // onBlur={() => this.onBlur(uKey)}
+                onSave={this.onSave}
               />
             )
           })}

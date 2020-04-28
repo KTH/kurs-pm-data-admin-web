@@ -32,24 +32,6 @@ class RouterStore {
     this.memoLangAbbr = props.memoLangAbbr || 'sv'
   }
 
-  // @action fetchExistingMemos(courseCode) {
-  //   axios
-  //   .get(`${SERVICE_URL.API}existing-drafts/${courseCode}`)
-  //   .then(result => {
-  //     if (result.status >= 400) {
-  //       return 'ERROR-' + result.status
-  //     }
-  //     console.log('---------> existing draft', result.data)
-  //     this.existingLatestMemos = result.data
-  //   })
-  //   .catch(err => {
-  //     if (err.response) {
-  //       throw new Error(err.message)
-  //     }
-  //     throw err
-  //   })
-  // }
-
   @action combineDefaultValues() {
     this.defaultValues = {
       examinationSubSection: this.koppsFreshData.examinationModules, // koppsFreshData.examinationModules

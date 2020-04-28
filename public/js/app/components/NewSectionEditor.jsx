@@ -30,10 +30,13 @@ class NewSectionEditor extends Component {
     this.setState({ isOpen: this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew })
   }
 
+  componentWillUnmount() {
+    this.props.onSaveByThisContentId()
+  }
+
   updateMemoContent = editorContent => {
     const { contentId, uKey } = this.props
     const { currentIndex } = this.state
-    // const { memoData } = this.props.routerStore
     this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.memoData[contentId][currentIndex].htmlContent = editorContent
   }
@@ -44,7 +47,7 @@ class NewSectionEditor extends Component {
     const { currentIndex } = this.state
     const { memoData } = this.props.routerStore
     this.props.routerStore.dirtyEditor = uKey
-    this.props.onBlur(uKey)
+    // this.props.onBlur(uKey) //TODO: DECIDE! TO USE ONBLUR OR ONCHANGE SAVE
     memoData[contentId][currentIndex].title = event.target.value
   }
 
@@ -56,7 +59,6 @@ class NewSectionEditor extends Component {
     arrayToReduce.splice(currentIndex, 1)
     /* Remove direct from routerStore to keep state and initialValue for editor but still update both of them after removal */
     this.props.routerStore.memoData[contentId] = arrayToReduce
-    // this.props.onAutoSave()
   }
 
   toggleVisibleInMemo = () => {
@@ -66,7 +68,15 @@ class NewSectionEditor extends Component {
     const { visibleInMemo } = memoData[contentId][currentIndex]
     this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.memoData[contentId][currentIndex].visibleInMemo = !visibleInMemo
-    // this.props.onSave({[contentId]: memoData[contentId]}, 'autoSaved')
+    this.onSaveByThisContentId()
+  }
+
+  onSaveByThisContentId = () => {
+    const { contentId, uKey } = this.props
+    if (this.props.routerStore.dirtyEditor === uKey) {
+      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
+    }
+    this.props.routerStore.dirtyEditor = ''
   }
 
   onToggleVisibleEditor = () => {
@@ -84,7 +94,6 @@ class NewSectionEditor extends Component {
     if (!isOpen) this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
     this.setState({ isOpen: !isOpen, hasEmptyTitle: false })
-    // this.props.onSave({[contentId]: memoData[contentId]}, 'autoSaved')
     return true
   }
 
@@ -126,6 +135,7 @@ class NewSectionEditor extends Component {
                   type="text"
                   id={`headerFor${contentId}-${uKey}`}
                   onChange={this.setNewTitle}
+                  onBlur={this.onSaveByThisContentId}
                   defaultValue={title}
                 />
                 {this.state.hasEmptyTitle && (
@@ -173,7 +183,7 @@ class NewSectionEditor extends Component {
                 block_formats: 'Paragraph=p; Header 4=h4'
               }}
               onEditorChange={this.updateMemoContent}
-              onBlur={this.props.onBlur}
+              onBlur={this.onSaveByThisContentId}
             />
             <ActionModalButton
               btnLabel={buttons.btnRemoveHeader}
