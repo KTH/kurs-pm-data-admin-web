@@ -173,7 +173,6 @@ const sections = [
       'examination',
       'examinationSubSection',
       'otherRequirementsForFinalGrade',
-      // 'examinationModules',
       'gradingCriteria',
       'possibilityToCompletion',
       'possibilityToAddition',
