@@ -39,7 +39,7 @@ class MemoContainer extends Component {
 
   componentDidMount() {
     this.scrollIntoView()
-    this.onSave(this.props.routerStore.memoData, 'autoSaved')
+    // this.onAutoSave() - leak of memory???
   }
 
   /* General functions */
@@ -51,9 +51,10 @@ class MemoContainer extends Component {
     }, 2000)
   }
 
-  onBlur = contentId => {
+  onStandardEitorBlur = contentId => {
     if (this.props.routerStore.dirtyEditor === contentId) {
-      this.onAutoSave()
+      this.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
+      // this.onAutoSave()
     }
     this.props.routerStore.dirtyEditor = ''
   }
@@ -85,30 +86,7 @@ class MemoContainer extends Component {
     }
   }
 
-  checkVisibility = (contentId, initialValue) => {
-    // first time isInVisibleMemo for those header which have openIfContent=true will be true as well
-    const { openIfContent } = context[contentId]
-    const isInVisibleMemo =
-      (this.state.visibleInMemo && this.state.visibleInMemo[contentId]) || false
-    if (openIfContent && isInVisibleMemo === 'defaultTrue') {
-      // openIfContent is not required
-      const isDefaultAndHasContent = initialValue !== '' || false // for some headers: if it has a (default) value it must be opened and included(when created from a scratch)
-      this.setState(previousState => {
-        return {
-          visibleInMemo: {
-            ...previousState.visibleInMemo,
-            ...{
-              [contentId]: isDefaultAndHasContent
-            }
-          }
-        }
-      })
-      return isDefaultAndHasContent
-    }
-    return isInVisibleMemo
-  }
-
-  // Functions for adding new titles with a content
+  // Function for adding new titles with a content
   onAddNewSection = extraHeaderTitle => {
     const newSection = {
       uKey: Math.random().toString(),
@@ -119,32 +97,33 @@ class MemoContainer extends Component {
     }
     this.props.routerStore.dirtyEditor = newSection.uKey
     this.props.routerStore.memoData[extraHeaderTitle].push(newSection)
-    console.log(
-      '-START-this state after memoData before state update',
-      JSON.stringify(this.state.extraHeaders1)
-    )
+  }
+
+  // Check visibility for standard headers
+  checkVisibility = (contentId, initialValue) => {
+    // first time isInVisibleMemo for those header which have openIfContent=true will be true as well
+    const { openIfContent } = context[contentId]
+    const isInVisibleMemo =
+      (this.state.visibleInMemo && this.state.visibleInMemo[contentId]) || false
+    if (openIfContent && isInVisibleMemo === 'defaultTrue') {
+      // openIfContent is not required
+      const isDefaultAndHasContent = initialValue !== '' || false // for some headers: if it has a (default) value it must be opened and included(when created from a scratch)
+      this.props.routerStore.memoData.visibleInMemo[contentId] = isDefaultAndHasContent
+      return isDefaultAndHasContent
+    }
+    return isInVisibleMemo
   }
 
   toggleStandardVisibleInMemo = contentHeader => {
-    this.setState(previousState => {
-      let visible
-      if (previousState.visibleInMemo) {
-        visible =
-          contentHeader in previousState.visibleInMemo
-            ? previousState.visibleInMemo[contentHeader]
-            : false
-      } else {
-        visible = false
-      }
-      return {
-        visibleInMemo: {
-          ...previousState.visibleInMemo,
-          ...{
-            [contentHeader]: !visible
-          }
-        }
-      }
-    })
+    const prevVisibleInMemo = { ...this.props.routerStore.memoData.visibleInMemo }
+    let visible
+    if (prevVisibleInMemo) {
+      visible = contentHeader in prevVisibleInMemo ? prevVisibleInMemo[contentHeader] : false
+    } else {
+      visible = false
+    }
+    this.props.routerStore.memoData.visibleInMemo[contentHeader] = !visible
+    this.onSave({ visibleInMemo: this.props.routerStore.memoData.visibleInMemo }, 'autoSaved')
   }
 
   /** * Conrol Panel ** */
@@ -173,7 +152,7 @@ class MemoContainer extends Component {
   }
 
   renderScrollView = () => {
-    const { memoData, defaultValues } = this.props.routerStore
+    const { memoData } = this.props.routerStore
     const { sectionsLabels, buttons } = i18n.messages[this.memoLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
@@ -184,18 +163,18 @@ class MemoContainer extends Component {
         {content.map(contentId => {
           const menuId = id + '-' + contentId
           const { isEditable, isRequired } = context[contentId]
-          const initialValue = memoData[contentId] || defaultValues[contentId] || ''
+          const initialValue = memoData[contentId]
           const visibleInMemo = isRequired ? true : this.checkVisibility(contentId, initialValue)
 
           return isEditable ? (
             <StandardEditorPerTitle
               contentId={contentId}
               menuId={menuId} // remove
-              initialValue={initialValue}
+              // initialValue={initialValue}
               key={contentId}
               onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
               visibleInMemo={visibleInMemo}
-              onBlur={() => this.onBlur(contentId)}
+              onBlur={() => this.onStandardEitorBlur(contentId)}
             />
           ) : (
             <Section
@@ -219,7 +198,6 @@ class MemoContainer extends Component {
                 menuId={id + '-' + extraHeaderTitle + uKey}
                 uKey={uKey}
                 onAlert={this.onAlert}
-                // onBlur={() => this.onBlur(uKey)}
                 onSave={this.onSave}
               />
             )
@@ -297,11 +275,6 @@ class MemoContainer extends Component {
             </Col>
           </Row>
         </StickyContainer>
-        {/* <MemoEdition
-          onSave={this.onSave}
-          onChange={this.doUpdateStates}
-          onAlert={this.handleAlert}
-        /> */}
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.userLangIndex}

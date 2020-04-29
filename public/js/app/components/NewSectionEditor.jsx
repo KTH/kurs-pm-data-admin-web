@@ -12,7 +12,7 @@ import { Form, FormGroup, Label, Input } from 'reactstrap'
 @observer
 class NewSectionEditor extends Component {
   state = {
-    memoData: this.props.routerStore.memoData || {},
+    extraContentArr: this.props.routerStore.memoData[this.props.contentId] || [],
     isOpen: false,
     currentIndex: this.props.routerStore.memoData[this.props.contentId].findIndex(
       item => item.uKey === this.props.uKey
@@ -30,25 +30,28 @@ class NewSectionEditor extends Component {
     this.setState({ isOpen: this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew })
   }
 
+  componentDidUpdate() {
+    const { uKey } = this.props
+    this.props.routerStore.dirtyEditor = uKey
+  }
+
   componentWillUnmount() {
     this.onSaveByThisContentId()
   }
 
   updateMemoContent = editorContent => {
-    const { contentId, uKey } = this.props
+    const { contentId } = this.props
     const { currentIndex } = this.state
-    this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.memoData[contentId][currentIndex].htmlContent = editorContent
   }
 
   setNewTitle = event => {
     event.preventDefault()
-    const { contentId, uKey } = this.props
+    const { contentId } = this.props
     const { currentIndex } = this.state
     const { memoData } = this.props.routerStore
-    this.props.routerStore.dirtyEditor = uKey
     // this.props.onBlur(uKey) //TODO: DECIDE! TO USE ONBLUR OR ONCHANGE SAVE
-    memoData[contentId][currentIndex].title = event.target.value
+    memoData[contentId][currentIndex].title = event.target.value.trim()
   }
 
   onRemoveNewSection = () => {
@@ -63,18 +66,20 @@ class NewSectionEditor extends Component {
   }
 
   toggleVisibleInMemo = () => {
-    const { contentId, uKey } = this.props
+    const { contentId } = this.props
     const { currentIndex } = this.state
     const { memoData } = this.props.routerStore
     const { visibleInMemo } = memoData[contentId][currentIndex]
-    this.props.routerStore.dirtyEditor = uKey
+    // this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.memoData[contentId][currentIndex].visibleInMemo = !visibleInMemo
     this.onSaveByThisContentId()
   }
 
   onSaveByThisContentId = () => {
     const { contentId, uKey } = this.props
-    if (this.props.routerStore.dirtyEditor === uKey) {
+    const { dirtyEditor } = this.props.routerStore.memoData[contentId]
+    // if (!title || title === '') this.props.onAlert('warnNameNewSection', 'danger') // TODO: Add condition if not removing IMPROVE ALERT MAYBE MOVE ALERT TEXT TO ROUTER STORE
+    if (dirtyEditor === uKey) {
       this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
     }
     this.props.routerStore.dirtyEditor = ''
@@ -101,7 +106,7 @@ class NewSectionEditor extends Component {
   render() {
     const { uKey, contentId, menuId } = this.props
 
-    const { htmlContent, title, isEmptyNew, visibleInMemo } = this.state.memoData[contentId][
+    const { htmlContent, title, isEmptyNew, visibleInMemo } = this.state.extraContentArr[
       this.state.currentIndex
     ]
 

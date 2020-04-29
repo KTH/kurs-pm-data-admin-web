@@ -14,19 +14,21 @@ class StandardEditorPerTitle extends Component {
   state = {
     isOpen: false,
     firstLoad: true,
-    contentForEditor: this.props.initialValue || ''
+    htmlContent: this.props.routerStore.memoData[this.props.contentId] || ''
   }
 
   userLangIndex = this.props.routerStore.langIndex
 
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
+  componentDidUpdate() {
+    const { contentId } = this.props
+    this.props.routerStore.dirtyEditor = contentId
+  }
+
   updateMemoContent = editorContent => {
     const { contentId } = this.props
     this.props.routerStore.memoData[contentId] = editorContent
-    this.props.routerStore.dirtyEditor = contentId
-    // this.setState({ contentForEditor: editorContent })
-    // this.props.onEditorChange(editorContent, this.props.contentId)
   }
 
   toggleVisibleInMemo = () => {
@@ -38,17 +40,16 @@ class StandardEditorPerTitle extends Component {
   }
 
   render() {
-    const { contentId, initialValue, menuId, visibleInMemo } = this.props
+    const { htmlContent } = this.state
+    const { contentId, menuId, visibleInMemo } = this.props
     const { isRequired, openIfContent, hasParentTitle } = context[contentId]
     const contentType = hasParentTitle ? 'subSection' : 'section'
     if (this.state.firstLoad && openIfContent) {
       this.setState({
-        isOpen: (openIfContent && initialValue !== '') || false,
+        isOpen: (openIfContent && htmlContent !== '') || false,
         firstLoad: false
       })
     }
-
-    const { contentForEditor } = this.state
 
     const { sourceInfo, memoInfoByUserLang } = i18n.messages[this.userLangIndex]
 
@@ -83,7 +84,7 @@ class StandardEditorPerTitle extends Component {
             </Collapse>
             <Editor
               id={'editorFor' + contentId}
-              initialValue={contentForEditor}
+              initialValue={htmlContent}
               init={{
                 // min_height: 100,
                 menubar: false,
@@ -116,7 +117,7 @@ class StandardEditorPerTitle extends Component {
             <span
               dangerouslySetInnerHTML={{
                 __html:
-                  (contentForEditor !== '' && contentForEditor) ||
+                  (htmlContent !== '' && htmlContent) ||
                   `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`
               }}
             />
@@ -126,13 +127,13 @@ class StandardEditorPerTitle extends Component {
               <span
                 dangerouslySetInnerHTML={{
                   __html:
-                    (contentForEditor !== '' && contentForEditor) ||
+                    (htmlContent !== '' && htmlContent) ||
                     `<p><i>${sourceInfo.noInfoYet[contentType]}</i></p>`
                 }}
               />
             )) ||
             /* editor has content but is not yet included in pm */
-            (contentForEditor !== '' && (
+            (htmlContent !== '' && (
               <span>
                 <p>
                   <i>{sourceInfo.notIncludedInMemoYet[contentType]}</i>

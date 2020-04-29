@@ -21,10 +21,6 @@ class RouterStore {
 
   @observable existingLatestMemos = {}
 
-  @observable defaultValues = {
-    // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
-  }
-
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
     this.courseCode = props.courseCode
@@ -33,14 +29,28 @@ class RouterStore {
   }
 
   @action combineDefaultValues() {
-    this.defaultValues = {
-      examinationSubSection: this.koppsFreshData.examinationModules, // koppsFreshData.examinationModules
+    const {
+      examinationSubSection,
+      equipment,
+      scheduleDetails,
+      literature,
+      possibilityToCompletion,
+      possibilityToAddition
+    } = this.memoData
+    this.memoData = {
+      ...this.memoData,
+      examinationSubSection: examinationSubSection || this.koppsFreshData.examinationModules || '', // koppsFreshData.examinationModules
       // eslint-disable-next-line no-use-before-define
-      equipment: this.koppsFreshData.equipmentTemplate,
-      scheduleDetails: combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr),
-      literature: this.koppsFreshData.literatureTemplate,
-      possibilityToCompletion: this.koppsFreshData.possibilityToCompletionTemplate,
-      possibilityToAddition: this.koppsFreshData.possibilityToAdditionTemplate
+      equipment: equipment || this.koppsFreshData.equipmentTemplate || '',
+      scheduleDetails:
+        scheduleDetails ||
+        combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr) ||
+        '',
+      literature: literature || this.koppsFreshData.literatureTemplate || '',
+      possibilityToCompletion:
+        possibilityToCompletion || this.koppsFreshData.possibilityToCompletionTemplate || '',
+      possibilityToAddition:
+        possibilityToAddition || this.koppsFreshData.possibilityToAdditionTemplate || ''
     }
   }
 
