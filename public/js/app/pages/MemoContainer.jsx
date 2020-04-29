@@ -139,7 +139,11 @@ class MemoContainer extends Component {
   onContinue = () => {
     const { courseCode, memoEndPoint } = this
     // SAVE BEFORE GOT TO NEXT?
-    window.location = `${ADMIN}${courseCode}/${memoEndPoint}/preview`
+    this.handleBtnSave().then(
+      setTimeout(() => {
+        window.location = `${ADMIN}${courseCode}/${memoEndPoint}/preview`
+      }, 500)
+    )
   }
 
   renderScrollView = () => {
