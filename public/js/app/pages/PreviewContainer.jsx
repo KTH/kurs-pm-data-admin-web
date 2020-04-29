@@ -60,19 +60,26 @@ class PreviewContainer extends Component {
     ]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
 
+    // Assumes that API only gave one memoData per memoEndPoint
+    let active = true
     const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
       const label = m.memoEndPoint
+      // memoEndPoint is currently displayed
+      active = m.memoEndPoint === this.props.routerStore.memoEndPoint
       return {
         label,
-        active: false,
+        active,
         url: `/kurs-pm/${courseCode}/${label}`
       }
     })
-    courseMemoItems.push({
-      label: this.props.routerStore.memoEndPoint,
-      active: true,
-      url: `/kurs-pm/${courseCode}/${this.props.routerStore.memoEndPoint}`
-    })
+    // memoEndPoint has not been published before, and wasn’t in memoData
+    if (!active) {
+      courseMemoItems.push({
+        label: this.props.routerStore.memoEndPoint,
+        active: true,
+        url: `/kurs-pm/${courseCode}/${this.props.routerStore.memoEndPoint}`
+      })
+    }
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
