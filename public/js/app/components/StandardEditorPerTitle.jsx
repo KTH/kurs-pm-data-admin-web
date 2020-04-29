@@ -13,8 +13,7 @@ import { context } from '../util/fieldsByType'
 class StandardEditorPerTitle extends Component {
   state = {
     isOpen: false,
-    firstLoad: true,
-    htmlContent: this.props.routerStore.memoData[this.props.contentId] || ''
+    firstLoad: true
   }
 
   userLangIndex = this.props.routerStore.langIndex
@@ -22,6 +21,7 @@ class StandardEditorPerTitle extends Component {
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   componentDidUpdate() {
+    // used when visibleInMemo changes or open/close editor (but not when editor content changed, done in updateMemoContent)
     const { contentId } = this.props
     this.props.routerStore.dirtyEditor = contentId
   }
@@ -29,6 +29,17 @@ class StandardEditorPerTitle extends Component {
   updateMemoContent = editorContent => {
     const { contentId } = this.props
     this.props.routerStore.memoData[contentId] = editorContent
+    // if content changed then update dirtyEditor with contentId
+    this.props.routerStore.dirtyEditor = contentId
+  }
+
+  onBlur = () => {
+    const { contentId } = this.props
+    const { dirtyEditor } = this.props.routerStore
+    if (dirtyEditor === contentId) {
+      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
+    }
+    this.props.routerStore.dirtyEditor = ''
   }
 
   toggleVisibleInMemo = () => {
@@ -40,8 +51,7 @@ class StandardEditorPerTitle extends Component {
   }
 
   render() {
-    const { htmlContent } = this.state
-    const { contentId, menuId, visibleInMemo } = this.props
+    const { contentId, htmlContent, menuId, visibleInMemo } = this.props
     const { isRequired, openIfContent, hasParentTitle } = context[contentId]
     const contentType = hasParentTitle ? 'subSection' : 'section'
     if (this.state.firstLoad && openIfContent) {
@@ -106,7 +116,7 @@ class StandardEditorPerTitle extends Component {
                 block_formats: 'Paragraph=p; Header 4=h4'
               }}
               onEditorChange={this.updateMemoContent}
-              onBlur={this.props.onBlur}
+              onBlur={this.onBlur}
             />
           </span>
         )}

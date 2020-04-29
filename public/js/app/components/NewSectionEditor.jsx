@@ -55,7 +55,6 @@ class NewSectionEditor extends Component {
   }
 
   onRemoveNewSection = () => {
-    // const { memoData } = this.props.routerStore
     const { contentId, uKey } = this.props
     const { currentIndex } = this.state
     const arrayToReduce = [...this.props.routerStore.memoData[contentId]]
@@ -77,7 +76,8 @@ class NewSectionEditor extends Component {
 
   onSaveByThisContentId = () => {
     const { contentId, uKey } = this.props
-    const { dirtyEditor } = this.props.routerStore.memoData[contentId]
+    const { dirtyEditor } = this.props.routerStore
+    // const { title } = this.props.routerStore.memoData[contentId]
     // if (!title || title === '') this.props.onAlert('warnNameNewSection', 'danger') // TODO: Add condition if not removing IMPROVE ALERT MAYBE MOVE ALERT TEXT TO ROUTER STORE
     if (dirtyEditor === uKey) {
       this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
@@ -166,7 +166,7 @@ class NewSectionEditor extends Component {
               />
             </Collapse>
             <Editor
-              id={`editorFor${contentId}-${uKey}`} // addMoreUNIQUE
+              id={`editorFor${contentId}-${uKey}`}
               initialValue={htmlContent}
               init={{
                 // min_height: 100,

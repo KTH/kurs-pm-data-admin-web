@@ -39,7 +39,6 @@ class MemoContainer extends Component {
 
   componentDidMount() {
     this.scrollIntoView()
-    // this.onAutoSave() - leak of memory???
   }
 
   /* General functions */
@@ -49,14 +48,6 @@ class MemoContainer extends Component {
     setTimeout(() => {
       this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
     }, 2000)
-  }
-
-  onStandardEitorBlur = contentId => {
-    if (this.props.routerStore.dirtyEditor === contentId) {
-      this.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
-      // this.onAutoSave()
-    }
-    this.props.routerStore.dirtyEditor = ''
   }
 
   onSave = (editorContent, alertTranslationId) => {
@@ -169,12 +160,12 @@ class MemoContainer extends Component {
           return isEditable ? (
             <StandardEditorPerTitle
               contentId={contentId}
-              menuId={menuId} // remove
-              // initialValue={initialValue}
+              menuId={menuId}
               key={contentId}
+              htmlContent={initialValue}
               onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
               visibleInMemo={visibleInMemo}
-              onBlur={() => this.onStandardEitorBlur(contentId)}
+              onSave={this.onSave}
             />
           ) : (
             <Section
