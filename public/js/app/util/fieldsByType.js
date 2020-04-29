@@ -15,10 +15,9 @@
 
 const context = {
   additionalRegulations: {
-    openIfContent: true,
-    type: 'optional',
+    type: 'mandatoryForSome',
     isEditable: false,
-    isRequired: false,
+    isRequired: true,
     source: '(s)'
   },
   courseContent: {
