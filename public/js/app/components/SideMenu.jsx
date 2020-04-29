@@ -83,14 +83,17 @@ class SideMenu extends Component {
                 removeExpandedId={this.removeExpandedId}
               >
                 <ul id="leftmenu-div-1" className="nav nav-list">
-                  {content.map(contentId => (
-                    <NavItemLeaf
-                      key={'nav-litem-leaf-' + contentId}
-                      id={id + '-' + contentId}
-                      title={memoTitlesByMemoLang[contentId] || 'Avsnitt??????'} // TODO: DECIDE WHAT TO SHOW IN MENU WHEN AVSNITT
-                      showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visibleInMemo)}
-                    />
-                  ))}
+                  {content.map(
+                    contentId =>
+                      memoTitlesByMemoLang[contentId] && ( // to skip avsnitt
+                        <NavItemLeaf
+                          key={'nav-litem-leaf-' + contentId}
+                          id={id + '-' + contentId}
+                          title={memoTitlesByMemoLang[contentId]}
+                          showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visibleInMemo)}
+                        />
+                      )
+                  )}
                   {extraHeaderTitle &&
                     memoData[extraHeaderTitle] &&
                     memoData[extraHeaderTitle].map(({ uKey, title, visibleInMemo }) => (
