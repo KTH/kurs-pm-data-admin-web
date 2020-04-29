@@ -7,6 +7,8 @@ import { combineScheduleValues } from '../util/defaultValues'
 class RouterStore {
   @observable courseCode
 
+  @observable dirtyEditor = ''
+
   @observable semester
 
   @observable koppsFreshData = {}
@@ -19,10 +21,6 @@ class RouterStore {
 
   @observable existingLatestMemos = {}
 
-  @observable defaultValues = {
-    // LATER: added teachers from UG, PLANERING AS HTML so it will be developed further
-  }
-
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
     this.courseCode = props.courseCode
@@ -30,33 +28,29 @@ class RouterStore {
     this.memoLangAbbr = props.memoLangAbbr || 'sv'
   }
 
-  // @action fetchExistingMemos(courseCode) {
-  //   axios
-  //   .get(`${SERVICE_URL.API}existing-drafts/${courseCode}`)
-  //   .then(result => {
-  //     if (result.status >= 400) {
-  //       return 'ERROR-' + result.status
-  //     }
-  //     console.log('---------> existing draft', result.data)
-  //     this.existingLatestMemos = result.data
-  //   })
-  //   .catch(err => {
-  //     if (err.response) {
-  //       throw new Error(err.message)
-  //     }
-  //     throw err
-  //   })
-  // }
-
   @action combineDefaultValues() {
-    this.defaultValues = {
-      examinationSubSection: this.koppsFreshData.examinationModules, // koppsFreshData.examinationModules
+    const {
+      examinationSubSection,
+      equipment,
+      scheduleDetails,
+      literature,
+      possibilityToCompletion,
+      possibilityToAddition
+    } = this.memoData
+    this.memoData = {
+      ...this.memoData,
+      examinationSubSection: examinationSubSection || this.koppsFreshData.examinationModules || '', // koppsFreshData.examinationModules
       // eslint-disable-next-line no-use-before-define
-      equipment: this.koppsFreshData.equipmentTemplate,
-      scheduleDetails: combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr),
-      literature: this.koppsFreshData.literatureTemplate,
-      possibilityToCompletion: this.koppsFreshData.possibilityToCompletionTemplate,
-      possibilityToAddition: this.koppsFreshData.possibilityToAdditionTemplate
+      equipment: equipment || this.koppsFreshData.equipmentTemplate || '',
+      scheduleDetails:
+        scheduleDetails ||
+        combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr) ||
+        '',
+      literature: literature || this.koppsFreshData.literatureTemplate || '',
+      possibilityToCompletion:
+        possibilityToCompletion || this.koppsFreshData.possibilityToCompletionTemplate || '',
+      possibilityToAddition:
+        possibilityToAddition || this.koppsFreshData.possibilityToAdditionTemplate || ''
     }
   }
 

@@ -13,17 +13,33 @@ import { context } from '../util/fieldsByType'
 class StandardEditorPerTitle extends Component {
   state = {
     isOpen: false,
-    firstLoad: true,
-    contentForEditor: this.props.initialValue || ''
+    firstLoad: true
   }
 
   userLangIndex = this.props.routerStore.langIndex
 
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
+  componentDidUpdate() {
+    // used when visibleInMemo changes or open/close editor (but not when editor content changed, done in updateMemoContent)
+    const { contentId } = this.props
+    this.props.routerStore.dirtyEditor = contentId
+  }
+
   updateMemoContent = editorContent => {
-    this.setState({ contentForEditor: editorContent })
-    this.props.onEditorChange(editorContent, this.props.contentId)
+    const { contentId } = this.props
+    this.props.routerStore.memoData[contentId] = editorContent
+    // if content changed then update dirtyEditor with contentId
+    this.props.routerStore.dirtyEditor = contentId
+  }
+
+  onBlur = () => {
+    const { contentId } = this.props
+    const { dirtyEditor } = this.props.routerStore
+    if (dirtyEditor === contentId) {
+      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
+    }
+    this.props.routerStore.dirtyEditor = ''
   }
 
   toggleVisibleInMemo = () => {
@@ -35,17 +51,15 @@ class StandardEditorPerTitle extends Component {
   }
 
   render() {
-    const { contentId, initialValue, menuId, visibleInMemo } = this.props
+    const { contentId, htmlContent, menuId, visibleInMemo } = this.props
     const { isRequired, openIfContent, hasParentTitle } = context[contentId]
     const contentType = hasParentTitle ? 'subSection' : 'section'
     if (this.state.firstLoad && openIfContent) {
       this.setState({
-        isOpen: (openIfContent && initialValue !== '') || false,
+        isOpen: (openIfContent && htmlContent !== '') || false,
         firstLoad: false
       })
     }
-
-    const { contentForEditor } = this.state
 
     const { sourceInfo, memoInfoByUserLang } = i18n.messages[this.userLangIndex]
 
@@ -80,7 +94,7 @@ class StandardEditorPerTitle extends Component {
             </Collapse>
             <Editor
               id={'editorFor' + contentId}
-              initialValue={contentForEditor}
+              initialValue={htmlContent}
               init={{
                 // min_height: 100,
                 menubar: false,
@@ -102,7 +116,7 @@ class StandardEditorPerTitle extends Component {
                 block_formats: 'Paragraph=p; Header 4=h4'
               }}
               onEditorChange={this.updateMemoContent}
-              onBlur={this.props.onBlur}
+              onBlur={this.onBlur}
             />
           </span>
         )}
@@ -113,7 +127,7 @@ class StandardEditorPerTitle extends Component {
             <span
               dangerouslySetInnerHTML={{
                 __html:
-                  (contentForEditor !== '' && contentForEditor) ||
+                  (htmlContent !== '' && htmlContent) ||
                   `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`
               }}
             />
@@ -123,13 +137,13 @@ class StandardEditorPerTitle extends Component {
               <span
                 dangerouslySetInnerHTML={{
                   __html:
-                    (contentForEditor !== '' && contentForEditor) ||
+                    (htmlContent !== '' && htmlContent) ||
                     `<p><i>${sourceInfo.noInfoYet[contentType]}</i></p>`
                 }}
               />
             )) ||
             /* editor has content but is not yet included in pm */
-            (contentForEditor !== '' && (
+            (htmlContent !== '' && (
               <span>
                 <p>
                   <i>{sourceInfo.notIncludedInMemoYet[contentType]}</i>

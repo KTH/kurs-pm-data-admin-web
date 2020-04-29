@@ -2,27 +2,31 @@ import React, { Component } from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
 import Collapsible from 'react-collapsible'
-
+import { inject, observer } from 'mobx-react'
 import { sections, context } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 
 const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
-  if (context[contentId].isRequired) {
+  if (context[contentId] && context[contentId].isRequired) {
     // Required headers are always visible, don’t show an eye slash icon
     return false
   }
 
-  if (visibleInMemoProp && visibleInMemoProp[contentId]) {
+  if (visibleInMemoProp && typeof visibleInMemoProp === 'object' && visibleInMemoProp[contentId]) {
     // Header isn’t required and there’s a display mode saved
     // Display mode is inverted from whether or not an eye slash icon should be shown
     return !visibleInMemoProp[contentId]
   }
+  // console.log()
+  if (typeof visibleInMemoProp === 'boolean') return !visibleInMemoProp
 
   // Header isn’t required and there’s no display mode saved
   // Default is to hide header and therefor to show an eye slash icon
   return true
 }
 
+@inject(['routerStore'])
+@observer
 class SideMenu extends Component {
   constructor(props) {
     super(props)
@@ -53,6 +57,8 @@ class SideMenu extends Component {
 
   render() {
     const { memoTitlesByMemoLang, sectionsLabels } = i18n.messages[this.props.memoLangIndex]
+    const { memoData } = this.props.routerStore
+
     return (
       <MainMenu
         extraClasses={['pl-0', 'h-100']}
@@ -67,7 +73,7 @@ class SideMenu extends Component {
       >
         <NavBarCollapse>
           <NavListExpandable>
-            {sections.map(({ id, content }) => (
+            {sections.map(({ id, content, extraHeaderTitle }) => (
               <NavItemNode
                 key={'nav-item-node-' + id}
                 id={id}
@@ -77,14 +83,27 @@ class SideMenu extends Component {
                 removeExpandedId={this.removeExpandedId}
               >
                 <ul id="leftmenu-div-1" className="nav nav-list">
-                  {content.map(contentId => (
-                    <NavItemLeaf
-                      key={'nav-litem-leaf-' + contentId}
-                      id={id + '-' + contentId}
-                      title={memoTitlesByMemoLang[contentId]}
-                      showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visibleInMemo)}
-                    />
-                  ))}
+                  {content.map(
+                    contentId =>
+                      memoTitlesByMemoLang[contentId] && ( // to skip avsnitt
+                        <NavItemLeaf
+                          key={'nav-litem-leaf-' + contentId}
+                          id={id + '-' + contentId}
+                          title={memoTitlesByMemoLang[contentId]}
+                          showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visibleInMemo)}
+                        />
+                      )
+                  )}
+                  {extraHeaderTitle &&
+                    memoData[extraHeaderTitle] &&
+                    memoData[extraHeaderTitle].map(({ uKey, title, visibleInMemo }) => (
+                      <NavItemLeaf
+                        key={'nav-litem-leaf-' + uKey}
+                        id={id + '-' + extraHeaderTitle + uKey}
+                        title={title}
+                        showEyeSlashIcon={showEyeSlashIcon(uKey, visibleInMemo)}
+                      />
+                    ))}
                 </ul>
               </NavItemNode>
             ))}

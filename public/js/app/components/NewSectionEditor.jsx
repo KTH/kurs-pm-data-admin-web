@@ -12,11 +12,11 @@ import { Form, FormGroup, Label, Input } from 'reactstrap'
 @observer
 class NewSectionEditor extends Component {
   state = {
-    isOpen: this.props.isEmptyNew || false,
-    contentForEditor: this.props.initialValue || '', // this.props.routerStore???
-    contentForTitle: this.props.initialTitle || '', // Default value needed
-    visibleInMemo: this.props.visibleInMemo,
-    isEmptyNew: this.props.isEmptyNew || false,
+    extraContentArr: this.props.routerStore.memoData[this.props.contentId] || [],
+    isOpen: false,
+    currentIndex: this.props.routerStore.memoData[this.props.contentId].findIndex(
+      item => item.uKey === this.props.uKey
+    ),
     hasEmptyTitle: false
   }
 
@@ -24,61 +24,101 @@ class NewSectionEditor extends Component {
 
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
+  componentDidMount() {
+    const { contentId } = this.props
+    const { currentIndex } = this.state
+    this.setState({ isOpen: this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew })
+  }
+
+  componentDidUpdate() {
+    const { uKey } = this.props
+    this.props.routerStore.dirtyEditor = uKey
+  }
+
+  componentWillUnmount() {
+    this.onSaveByThisContentId()
+  }
+
   updateMemoContent = editorContent => {
-    const { uKey, contentId } = this.props
-    const extraContent = {
-      htmlContent: editorContent
-    }
-    this.setState({ contentForEditor: editorContent })
-    this.props.onEditorChange(extraContent, contentId, uKey)
+    const { contentId } = this.props
+    const { currentIndex } = this.state
+    this.props.routerStore.memoData[contentId][currentIndex].htmlContent = editorContent
   }
 
   setNewTitle = event => {
     event.preventDefault()
-    const { uKey, contentId } = this.props
-    const extraContent = {
-      title: event.target.value
-    }
-    this.setState({ contentForTitle: event.target.value })
-    this.props.onEditorChange(extraContent, contentId, uKey)
+    const { contentId } = this.props
+    const { currentIndex } = this.state
+    const { memoData } = this.props.routerStore
+    // this.props.onBlur(uKey) //TODO: DECIDE! TO USE ONBLUR OR ONCHANGE SAVE
+    memoData[contentId][currentIndex].title = event.target.value.trim()
+  }
+
+  onRemoveNewSection = () => {
+    const { contentId, uKey } = this.props
+    const { currentIndex } = this.state
+    const arrayToReduce = [...this.props.routerStore.memoData[contentId]]
+    arrayToReduce.splice(currentIndex, 1)
+    this.props.routerStore.dirtyEditor = uKey
+    /* Remove direct from routerStore to keep state and initialValue for editor but still update both of them after removal */
+    this.props.routerStore.memoData[contentId] = arrayToReduce
   }
 
   toggleVisibleInMemo = () => {
-    // this.props.onToggleVisibleInMemo(this.props.contentId)
-    const { uKey, contentId } = this.props
-    const visibleInMemo = {
-      visibleInMemo: !this.state.visibleInMemo
+    const { contentId } = this.props
+    const { currentIndex } = this.state
+    const { memoData } = this.props.routerStore
+    const { visibleInMemo } = memoData[contentId][currentIndex]
+    // this.props.routerStore.dirtyEditor = uKey
+    this.props.routerStore.memoData[contentId][currentIndex].visibleInMemo = !visibleInMemo
+    this.onSaveByThisContentId()
+  }
+
+  onSaveByThisContentId = () => {
+    const { contentId, uKey } = this.props
+    const { dirtyEditor } = this.props.routerStore
+    // const { title } = this.props.routerStore.memoData[contentId]
+    // if (!title || title === '') this.props.onAlert('warnNameNewSection', 'danger') // TODO: Add condition if not removing IMPROVE ALERT MAYBE MOVE ALERT TEXT TO ROUTER STORE
+    if (dirtyEditor === uKey) {
+      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
     }
-    this.setState(visibleInMemo)
-    this.props.onEditorChange(visibleInMemo, contentId, uKey)
+    this.props.routerStore.dirtyEditor = ''
   }
 
   onToggleVisibleEditor = () => {
-    const { uKey, contentId } = this.props
-    const { contentForTitle, isOpen } = this.state
-    const extraContent = {
-      title: contentForTitle,
-      isEmptyNew: false
+    const { contentId, uKey } = this.props
+    const { currentIndex, isOpen } = this.state
+    const { memoData } = this.props.routerStore
+    if (
+      Object.prototype.hasOwnProperty.call(memoData[contentId][currentIndex], 'title') &&
+      memoData[contentId][currentIndex].title.trim().length === 0
+    ) {
+      this.setState({ hasEmptyTitle: true })
+      this.props.onAlert('warnNameNewSection', 'danger')
+      return false
     }
-    const isUpdated = isOpen ? this.props.onEditorChange(extraContent, contentId, uKey) : true
-    if (isUpdated) this.setState({ isEmptyNew: false, isOpen: !isOpen, hasEmptyTitle: false })
-    else this.setState({ hasEmptyTitle: true })
+    if (!isOpen) this.props.routerStore.dirtyEditor = uKey
+    this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+    this.setState({ isOpen: !isOpen, hasEmptyTitle: false })
+    return true
   }
 
   render() {
-    const { uKey, contentId } = this.props // menuId, visibleInMemo
+    const { uKey, contentId, menuId } = this.props
 
-    const { contentForEditor, contentForTitle, isEmptyNew, visibleInMemo } = this.state
+    const { htmlContent, title, isEmptyNew, visibleInMemo } = this.state.extraContentArr[
+      this.state.currentIndex
+    ]
 
     const { actionModals, buttons, sourceInfo, memoInfoByUserLang } = i18n.messages[
       this.userLangIndex
     ]
 
     return (
-      <span className="Add--New--Title--And--Info">
+      <span id={menuId} className="Add--New--Title--And--Info">
         {!this.state.isOpen && !isEmptyNew && (
           <ExtraHeaderHead
-            header={contentForTitle}
+            header={title}
             contentId={contentId}
             memoLangIndex={this.memoLangIndex}
           />
@@ -101,7 +141,8 @@ class NewSectionEditor extends Component {
                   type="text"
                   id={`headerFor${contentId}-${uKey}`}
                   onChange={this.setNewTitle}
-                  defaultValue={contentForTitle}
+                  onBlur={this.onSaveByThisContentId}
+                  defaultValue={title}
                 />
                 {this.state.hasEmptyTitle && (
                   <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
@@ -125,8 +166,8 @@ class NewSectionEditor extends Component {
               />
             </Collapse>
             <Editor
-              id={`editorFor${contentId}-${uKey}`} // addMoreUNIQUE
-              initialValue={contentForEditor}
+              id={`editorFor${contentId}-${uKey}`}
+              initialValue={htmlContent}
               init={{
                 // min_height: 100,
                 menubar: false,
@@ -148,14 +189,14 @@ class NewSectionEditor extends Component {
                 block_formats: 'Paragraph=p; Header 4=h4'
               }}
               onEditorChange={this.updateMemoContent}
-              onBlur={this.props.onBlur}
+              onBlur={this.onSaveByThisContentId}
             />
             <ActionModalButton
               btnLabel={buttons.btnRemoveHeader}
               modalId={`beforeRemoving-${contentId}-${uKey}`}
               type="remove"
               modalLabels={actionModals.newSectionRemove}
-              onConfirm={this.props.onRemove}
+              onConfirm={this.onRemoveNewSection}
             />
           </span>
         )}
@@ -167,13 +208,13 @@ class NewSectionEditor extends Component {
             <span
               dangerouslySetInnerHTML={{
                 __html:
-                  (contentForEditor !== '' && contentForEditor) ||
+                  (htmlContent !== '' && htmlContent) ||
                   `<p><i>${sourceInfo.noInfoYet.section}</i></p>`
               }}
             />
           )) ||
             /* editor has content but is not yet included in pm */
-            (contentForEditor !== '' && ( // TODO: add DEFAULT TEXT
+            (htmlContent !== '' && ( // TODO: add DEFAULT TEXT
               <span>
                 <p>
                   <i>{sourceInfo.notIncludedInMemoYet.section}</i>
