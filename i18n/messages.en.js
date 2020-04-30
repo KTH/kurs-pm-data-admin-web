@@ -446,5 +446,14 @@ module.exports = {
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
     rightsAndResponsibilities: 'Rights and responsibilities'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Contacts',
+    communicationWithTeachersTitle: 'Communication With Teachers',
+    courseCoordinatorTitle: 'Course Coordinator',
+    teacherTitle: 'Teacher',
+    teacherAssistantsTitle: 'Teacher Assistants',
+    examinerTitle: 'Examiner',
+    otherContactsTitle: 'Other Contacts'
   }
 }

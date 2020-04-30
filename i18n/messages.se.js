@@ -494,5 +494,14 @@ module.exports = {
     beforeAndDuringACourse: 'Inför och under en kurs',
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
     rightsAndResponsibilities: 'Rättigheter och skyldigheter'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Kontakter',
+    communicationWithTeachersTitle: 'Kommunikation i kursen',
+    courseCoordinatorTitle: 'Kursansvarig',
+    teacherTitle: 'Lärare',
+    teacherAssistantsTitle: 'Lärarassistenter',
+    examinerTitle: 'Examinator',
+    otherContactsTitle: 'Övriga kontakter'
   }
 }

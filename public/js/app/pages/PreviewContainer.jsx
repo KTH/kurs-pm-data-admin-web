@@ -13,6 +13,7 @@ import SideMenu from '../components/preview/SideMenu'
 import CourseFacts from '../components/preview/CourseFacts'
 import CourseMemoLinks from '../components/preview/CourseMemoLinks'
 import CourseLinks from '../components/preview/CourseLinks'
+import CourseContacts from '../components/preview/CourseContacts'
 
 const PROGRESS = 3
 
@@ -61,7 +62,8 @@ class PreviewContainer extends Component {
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
-      courseLinksLabels
+      courseLinksLabels,
+      courseContactsLabels
     } = i18n.messages[this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
 
@@ -151,11 +153,11 @@ class PreviewContainer extends Component {
                   language={this.props.routerStore.memoLangAbbr}
                   labels={courseLinksLabels}
                 />
-                <h2>Course Contacts</h2>
-                {/* <CourseContacts
-                  language={routerStore.memoLanguage}
-                  memoData={routerStore.memoData}
-                /> */}
+                <CourseContacts
+                  language={this.props.routerStore.memoLangAbbr}
+                  memoData={this.props.routerStore.memoData}
+                  labels={courseContactsLabels}
+                />
               </Col>
             </Row>
           </Col>
