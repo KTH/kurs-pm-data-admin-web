@@ -477,5 +477,16 @@ module.exports = {
     languageOfInstructionTitle: 'Undervisningsspråk',
     offeredByTitle: 'Kursen ges av',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+  },
+  courseMemoLinksLabels: {
+    versionTitle: 'Version kurs-pm',
+    latest: 'Senaste:',
+    courseMemoArchiveLabel: 'Arkiv för kurs-pm',
+    courseMemoPdf: 'Kurs-pm som pdf',
+    syllabus: 'Kursplan',
+    syllabusInformation: '(s) information hämtas från',
+    syllabusLinkStart: 'Kursplan (',
+    syllabusLinkEnd: '– )',
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
   }
 }

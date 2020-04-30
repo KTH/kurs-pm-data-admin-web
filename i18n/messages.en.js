@@ -429,5 +429,16 @@ module.exports = {
     languageOfInstructionTitle: 'Language Of Instruction',
     offeredByTitle: 'Offered By',
     mandatoryFieldMissing: 'Missing mandatory information'
+  },
+  courseMemoLinksLabels: {
+    versionTitle: 'Course memo version',
+    latest: 'Latest:',
+    courseMemoArchiveLabel: 'Course memo archive',
+    courseMemoPdf: 'Course memo pdf',
+    syllabus: 'Syllabus',
+    syllabusInformation: '(s) fetched from',
+    syllabusLinkStart: 'Syllabus (',
+    syllabusLinkEnd: '– )',
+    mandatoryFieldMissing: 'Missing mandatory information'
   }
 }
