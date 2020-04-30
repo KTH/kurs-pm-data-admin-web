@@ -3,6 +3,7 @@ import React from 'react'
 
 import { linkToSchool } from '../../util/links'
 import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
+import { FaExternalLinkAlt } from 'react-icons/fa'
 
 const offeredBy = (language, labels, department) =>
   department.name ? (
@@ -18,6 +19,8 @@ const offeredBy = (language, labels, department) =>
         >
           {department.name}
         </a>
+        &nbsp; &nbsp;
+        <FaExternalLinkAlt />
         <UncontrolledPopover
           trigger="hover legacy"
           placement="bottom"
