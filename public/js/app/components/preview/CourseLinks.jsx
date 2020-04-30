@@ -1,14 +1,16 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 
-import i18n from '../../../../../i18n'
 import { courseLinks } from '../../util/links'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
 
 const CourseLinks = ({ language, labels }) => (
   <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
     <h3>{labels.linkHeaderTitle}</h3>
     <p>
       <a
+        id="link-before-and-during-course"
         title={labels.beforeAndDuringACourse}
         href={courseLinks.beforeAndDuringACourse}
         target="_blank"
@@ -16,9 +18,20 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.beforeAndDuringACourse}
       </a>
+      &nbsp;
+      <FaExternalLinkAlt />
+      <UncontrolledPopover
+        trigger="hover legacy"
+        placement="bottom"
+        target="link-before-and-during-course"
+      >
+        <PopoverHeader>{labels.beforeAndDuringACourse}</PopoverHeader>
+        <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
+      </UncontrolledPopover>
     </p>
     <p>
       <a
+        id="link-contact-persons-and-student-counceling"
         title={labels.contactPersonsAndStudentCounselling}
         href={courseLinks.contactPersonsAndStudentCounselling}
         target="_blank"
@@ -26,9 +39,20 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.contactPersonsAndStudentCounselling}
       </a>
+      &nbsp;
+      <FaExternalLinkAlt />
+      <UncontrolledPopover
+        trigger="hover legacy"
+        placement="bottom"
+        target="link-contact-persons-and-student-counceling"
+      >
+        <PopoverHeader>{labels.contactPersonsAndStudentCounselling}</PopoverHeader>
+        <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
+      </UncontrolledPopover>
     </p>
     <p>
       <a
+        id="link-rights-and-responsibilities"
         title={labels.rightsAndResponsibilities}
         href={courseLinks.rightsAndResponsibilities[language]}
         target="_blank"
@@ -36,6 +60,16 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.rightsAndResponsibilities}
       </a>
+      &nbsp;
+      <FaExternalLinkAlt />
+      <UncontrolledPopover
+        trigger="hover legacy"
+        placement="bottom"
+        target="link-rights-and-responsibilities"
+      >
+        <PopoverHeader>{labels.rightsAndResponsibilities}</PopoverHeader>
+        <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
+      </UncontrolledPopover>
     </p>
   </div>
 )
