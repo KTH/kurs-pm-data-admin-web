@@ -110,6 +110,7 @@ class PreviewContainer extends Component {
               courseMemoItems={courseMemoItems}
               backLink="https://www.kth.se"
               labels={sideMenuLabels}
+              language={this.props.routerStore.memoData.memoCommonLangAbbr}
             />
           </Col>
           <Col>
@@ -137,24 +138,24 @@ class PreviewContainer extends Component {
               </Col>
               <Col lg="3">
                 <CourseFacts
-                  language={this.props.routerStore.memoLangAbbr}
+                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseFactsLabels}
                   department={this.props.routerStore.koppsFreshData.department}
                   memoData={this.props.routerStore.memoData}
                 />
                 <CourseMemoLinks
-                  language={this.props.routerStore.memoLangAbbr}
+                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseMemoLinksLabels}
                   extraInfo={extraInfo}
                   memoData={this.props.routerStore.memoData}
                   validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
                 />
                 <CourseLinks
-                  language={this.props.routerStore.memoLangAbbr}
+                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseLinksLabels}
                 />
                 <CourseContacts
-                  language={this.props.routerStore.memoLangAbbr}
+                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   memoData={this.props.routerStore.memoData}
                   labels={courseContactsLabels}
                 />
