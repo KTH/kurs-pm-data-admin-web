@@ -213,7 +213,7 @@ class MemoContainer extends Component {
   }
 
   render() {
-    const { extraInfo, pages, pageTitles } = i18n.messages[this.userLangIndex]
+    const { extraInfo, pagesCreateNewPm, pageTitles } = i18n.messages[this.userLangIndex]
     const { memoName, title, credits, creditUnitAbbr } = this.state
 
     return (
@@ -231,12 +231,12 @@ class MemoContainer extends Component {
             </span>
           </PageTitle>
         </Row>
-        <ProgressBar active={2} pages={pages} />
+        <ProgressBar active={2} pages={pagesCreateNewPm} />
         <PageHead semester={this.semester} memoName={memoName} />
         <StickyContainer className="memo-container">
           <Row className="sections-headers">
             <Col lg="7">
-              <ProgressTitle id="progress-title" text={pages[PROGRESS - 1]} />
+              <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
             </Col>
             <Col className="separator" />
             <Col lg="3">

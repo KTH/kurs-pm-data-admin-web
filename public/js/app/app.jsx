@@ -11,6 +11,7 @@ import '../../css/node-web.scss'
 import RouterStore from './stores/RouterStore'
 
 // Pages
+import ChangePublished from './pages/ChangePublished'
 import ChoiceOptions from './pages/ChoiceOptions'
 import MemoContainer from './pages/MemoContainer'
 import PreviewContainer from './pages/PreviewContainer'
@@ -25,6 +26,11 @@ function appFactory() {
   return (
     <Provider routerStore={routerStore}>
       <Switch>
+        <Route
+          exact
+          path="/kursinfoadmin/kurs-pm-data/published/:courseCode/"
+          component={ChangePublished}
+        />
         <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={ChoiceOptions} />
         <Route
           exact

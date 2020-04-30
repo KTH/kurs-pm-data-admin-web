@@ -229,7 +229,7 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     }
   },
-  pages: [
+  pagesCreateNewPm: [
     {
       title: '1.Choose course offering',
       intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
@@ -297,7 +297,7 @@ module.exports = {
   pageTitles: {
     new: 'Create and publish course memo',
     // draft: 'Publish course memo draft',
-    // published: 'Edit published course memo',
+    published: 'Edit published course memo',
     preview: 'Create and publish course memo'
   },
   actionModals: {
@@ -369,7 +369,12 @@ module.exports = {
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
     noSavedDrafts: 'There are no saved drafts.',
     noSemesterAvailable:
-      'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.'
+      'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
+    noPublishedMemos:
+      'Det finns inga publicerade kursomgångar för denna termin, föregående eller kommande.'
+  },
+  changePublishedInfo: {
+    choosePublishedMemo: 'Choose course memo'
   },
   buttons: {
     /** ************ BUTTONS ****************** */

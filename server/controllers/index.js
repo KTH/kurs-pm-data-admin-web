@@ -8,6 +8,7 @@
 module.exports = {
   System: require('./systemCtrl'),
   MemoContent: require('./memoCtrl'),
+  ChangePublished: require('./changePublishedCtrl'),
   ChoiceOptions: require('./choiceOptionsCtrl'),
   PreviewContent: require('./previewCtrl')
 }
