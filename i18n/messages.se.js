@@ -284,7 +284,7 @@ module.exports = {
         '<p>Innehållet hämtas från den kursgemensamma informationen</p><p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p><p>Vad är Lärassistenter ....</p>'
     }
   },
-  pages: [
+  pagesCreateNewPm: [
     {
       title: '1.Välj kursomgång',
       intro: `Börja med att välja termin och kursomgång för det kurs-pm som ska publiceras (steg 1 av 3). 
@@ -293,6 +293,23 @@ module.exports = {
     },
     {
       title: '2.Redigera kurs-pm',
+      intro: ''
+    },
+    {
+      title: 'Granska och publicera',
+      intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
+      Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
+    }
+  ],
+  pagesChangePublishedPm: [
+    {
+      title: '1. Välj kurs-PM',
+      intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
+      och sedan publicera en ny version av kurs-pm på sidan: Om kursen / Förbereda och gå (kurs-PM)`
+    },
+    {
+      title: '2. Redigera kurs-pm',
       intro: ''
     },
     {
@@ -340,13 +357,13 @@ module.exports = {
     contentAndOutcomes: 'Innehåll och lärandemål',
     prep: 'Förbereda inför kursstart',
     reqToFinal: 'Examination och slutförande',
-    extra: 'Ytterligare Information',
+    extra: 'Ytterligare information',
     contacts: 'Kontakter'
   },
   pageTitles: {
     new: 'Skapa och publicera kurs-pm',
     // draft: 'Publicera kurs-PM utkast',
-    // published: 'Ändra publicerad kurs-PM',
+    published: 'Ändra publicerat kurs-PM',
     preview: 'Skapa och publicera kurs-pm'
   },
   actionModals: {
@@ -388,6 +405,7 @@ module.exports = {
   info: {
     chooseSavedDraft: 'Fortsätt redigera ett sparat utkast',
     createNew: 'Skapa nytt eller kopiera?',
+    choosePublishedMemo: 'Välj kurs-pm',
     chooseSemester: {
       header: 'Välj termin',
       body:
@@ -408,6 +426,10 @@ module.exports = {
       existedDrafts: {
         label: 'Välj det utkast du vill fortsätta att redigera',
         infoText: 'Listade utkast är sparade men ej publicerade'
+      },
+      publishedMemos: {
+        label: 'Välj det kurs-pm du vill redigera: ',
+        infoText: 'Kurs-pm listade är publicerade'
       }
     },
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
@@ -415,7 +437,9 @@ module.exports = {
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-pm eller utkast.',
     noSavedDrafts: 'Det finns inga sparade utkast.',
     noSemesterAvailable:
-      'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-pm för.'
+      'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-pm för.',
+    noPublishedMemos:
+      'Det finns inga publicerade kursomgångar för denna termin, föregående eller kommande.'
   },
   buttons: {
     /** ************ BUTTONS ****************** */

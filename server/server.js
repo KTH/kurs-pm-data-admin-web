@@ -191,7 +191,13 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { ChoiceOptions, System, MemoContent, PreviewContent } = require('./controllers')
+const {
+  ChangePublished,
+  ChoiceOptions,
+  System,
+  MemoContent,
+  PreviewContent
+} = require('./controllers')
 const { requireRole } = require('./authentication')
 
 // System routes
@@ -239,6 +245,14 @@ appRoute.delete(
   config.proxyPrefixPath.uri + '/internal-api/draft-to-remove/:courseCode/:memoEndPoint',
   requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
   ChoiceOptions.removeMemoDraft
+)
+
+appRoute.get(
+  'memo.getContent',
+  config.proxyPrefixPath.uri + '/published/:courseCode', // /:courseCode/:semester/:memoEndPoint*
+  serverLogin,
+  requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  ChangePublished.getChangePublishedStartPage
 )
 
 appRoute.get(
