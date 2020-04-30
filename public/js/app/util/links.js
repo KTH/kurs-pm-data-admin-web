@@ -16,13 +16,18 @@ function linkToSyllabus(courseCode, validFromTerm, language) {
   return `https://www.kth.se/student/kurser/kurs/kursplan/${courseCode}-${validFromTerm}.pdf${languageParameter}`
 }
 
-const courseLinks = {
-  beforeAndDuringACourse: 'https://www.kth.se/student/kurs/infor-och-under-en-kurs',
-  contactPersonsAndStudentCounselling: 'https://www.kth.se/student/studievagledning-kontakt',
-  rightsAndResponsibilities: {
-    en: 'https://www.kth.se/en/student/studentliv/studentratt',
-    sv: 'https://www.kth.se/student/studentliv/studentratt'
+function courseLinks(language) {
+  const languagePath = language === 'en' ? 'en/' : ''
+  return {
+    beforeAndDuringACourse: `https://www.kth.se/${languagePath}student/kurs/infor-och-under-en-kurs`,
+    contactPersonsAndStudentCounselling: `https://www.kth.se/${languagePath}student/studievagledning-kontakt`,
+    rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studentliv/studentratt`
   }
+}
+
+function aboutCourseLink(courseCode, language) {
+  const languageParameter = language === 'en' ? '?l=en' : ''
+  return `https://www.kth.se/student/kurser/kurs/${courseCode}${languageParameter}`
 }
 
 module.exports = {
@@ -30,5 +35,6 @@ module.exports = {
   linkToArchive,
   linkToMemoPdf,
   linkToSyllabus,
-  courseLinks
+  courseLinks,
+  aboutCourseLink
 }

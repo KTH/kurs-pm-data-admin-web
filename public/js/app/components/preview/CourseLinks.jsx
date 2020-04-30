@@ -12,7 +12,7 @@ const CourseLinks = ({ language, labels }) => (
       <a
         id="link-before-and-during-course"
         title={labels.beforeAndDuringACourse}
-        href={courseLinks.beforeAndDuringACourse}
+        href={courseLinks(language).beforeAndDuringACourse}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -33,7 +33,7 @@ const CourseLinks = ({ language, labels }) => (
       <a
         id="link-contact-persons-and-student-counceling"
         title={labels.contactPersonsAndStudentCounselling}
-        href={courseLinks.contactPersonsAndStudentCounselling}
+        href={courseLinks(language).contactPersonsAndStudentCounselling}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -54,7 +54,7 @@ const CourseLinks = ({ language, labels }) => (
       <a
         id="link-rights-and-responsibilities"
         title={labels.rightsAndResponsibilities}
-        href={courseLinks.rightsAndResponsibilities[language]}
+        href={courseLinks(language).rightsAndResponsibilities}
         target="_blank"
         rel="noopener noreferrer"
       >
