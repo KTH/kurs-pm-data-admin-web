@@ -488,5 +488,11 @@ module.exports = {
     syllabusLinkStart: 'Kursplan (',
     syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+  },
+  courseLinksLabels: {
+    linkHeaderTitle: 'Student på KTH',
+    beforeAndDuringACourse: 'Inför och under en kurs',
+    contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
+    rightsAndResponsibilities: 'Rättigheter och skyldigheter'
   }
 }

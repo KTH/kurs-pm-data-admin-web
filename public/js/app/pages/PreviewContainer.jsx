@@ -12,6 +12,7 @@ import BreadCrumbs from '../components/preview/BreadCrumbs'
 import SideMenu from '../components/preview/SideMenu'
 import CourseFacts from '../components/preview/CourseFacts'
 import CourseMemoLinks from '../components/preview/CourseMemoLinks'
+import CourseLinks from '../components/preview/CourseLinks'
 
 const PROGRESS = 3
 
@@ -56,9 +57,12 @@ class PreviewContainer extends Component {
       breadCrumbLabels,
       sideMenuLabels
     } = i18n.messages[this.langIndex]
-    const { courseFactsLabels, courseMemoLinksLabels, extraInfo } = i18n.messages[
-      this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1
-    ]
+    const {
+      courseFactsLabels,
+      courseMemoLinksLabels,
+      extraInfo,
+      courseLinksLabels
+    } = i18n.messages[this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
 
     // Assumes that API only gave one memoData per memoEndPoint
@@ -143,9 +147,10 @@ class PreviewContainer extends Component {
                   memoData={this.props.routerStore.memoData}
                   validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
                 />
-
-                <h2>Course Links</h2>
-                {/* <CourseLinks language={routerStore.memoLanguage} /> */}
+                <CourseLinks
+                  language={this.props.routerStore.memoLangAbbr}
+                  labels={courseLinksLabels}
+                />
                 <h2>Course Contacts</h2>
                 {/* <CourseContacts
                   language={routerStore.memoLanguage}

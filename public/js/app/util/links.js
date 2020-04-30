@@ -16,9 +16,19 @@ function linkToSyllabus(courseCode, validFromTerm, language) {
   return `https://www.kth.se/student/kurser/kurs/kursplan/${courseCode}-${validFromTerm}.pdf${languageParameter}`
 }
 
+const courseLinks = {
+  beforeAndDuringACourse: 'https://www.kth.se/student/kurs/infor-och-under-en-kurs',
+  contactPersonsAndStudentCounselling: 'https://www.kth.se/student/studievagledning-kontakt',
+  rightsAndResponsibilities: {
+    en: 'https://www.kth.se/en/student/studentliv/studentratt',
+    sv: 'https://www.kth.se/student/studentliv/studentratt'
+  }
+}
+
 module.exports = {
   linkToSchool,
   linkToArchive,
   linkToMemoPdf,
-  linkToSyllabus
+  linkToSyllabus,
+  courseLinks
 }
