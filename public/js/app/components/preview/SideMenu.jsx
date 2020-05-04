@@ -1,9 +1,9 @@
 import React from 'react'
 import { UncontrolledPopover, PopoverHeader, PopoverBody, Button } from 'reactstrap'
 
-const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
+const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) => {
   return (
-    <div>
+    <div className="menu-memos">
       <p>
         &lsaquo;&nbsp;
         <a href={backLink}>{labels.directory}</a>
@@ -12,7 +12,19 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
         <b>{`${labels.aboutCourse} ${courseCode}`}</b>
       </p>
       <hr />
-      <p>{labels.beforeChoosingCourse}</p>
+      <p>
+        <Button id="menu-link-before-choosing-course" color="link">
+          {labels.beforeChoosingCourse}
+        </Button>
+        <UncontrolledPopover
+          trigger="hover legacy"
+          placement="bottom"
+          target="menu-link-before-choosing-course"
+        >
+          <PopoverHeader>{labels.beforeChoosingCourse}</PopoverHeader>
+          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+        </UncontrolledPopover>
+      </p>
       <p>
         <b>{labels.courseMemo}</b>
       </p>
