@@ -14,6 +14,7 @@ import CourseFacts from '../components/preview/CourseFacts'
 import CourseMemoLinks from '../components/preview/CourseMemoLinks'
 import CourseLinks from '../components/preview/CourseLinks'
 import CourseContacts from '../components/preview/CourseContacts'
+import CourseHeader from '../components/preview/CourseHeader'
 
 const PROGRESS = 3
 
@@ -63,7 +64,8 @@ class PreviewContainer extends Component {
       courseMemoLinksLabels,
       extraInfo,
       courseLinksLabels,
-      courseContactsLabels
+      courseContactsLabels,
+      courseHeaderLabels
     } = i18n.messages[this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
 
@@ -115,15 +117,15 @@ class PreviewContainer extends Component {
           </Col>
           <Col>
             <Row>
-              <h2>Course Header</h2>
-              {/* <CourseHeader
-                courseMemo={routerStore.memoEndPoint}
-                courseCode={this.courseCode}
-                title={this.title}
-                credits={this.credits}
-                creditUnitAbbr={this.creditUnitAbbr}
-                language={routerStore.language}
-              /> */}
+              <CourseHeader
+                courseMemo={this.props.routerStore.memoEndPoint}
+                courseCode={courseCode}
+                title={this.props.routerStore.koppsFreshData.title}
+                credits={this.props.routerStore.koppsFreshData.credits}
+                creditUnitAbbr={this.props.routerStore.koppsFreshData.creditUnitAbbr}
+                labels={courseHeaderLabels}
+                language={this.props.routerStore.memoData.memoCommonLangAbbr}
+              />
             </Row>
             <Row>
               <Col>

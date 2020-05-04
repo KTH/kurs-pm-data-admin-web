@@ -503,5 +503,9 @@ module.exports = {
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter'
+  },
+  courseHeaderLabels: {
+    courseHeaderTitle: 'Kurs-pm',
+    adminLinkLabel: 'Administrera Om kursen'
   }
 }

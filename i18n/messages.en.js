@@ -455,5 +455,9 @@ module.exports = {
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts'
+  },
+  courseHeaderLabels: {
+    courseHeaderTitle: 'Course Memo',
+    adminLinkLabel: 'Administrate About course information'
   }
 }
