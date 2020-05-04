@@ -15,8 +15,35 @@ import CourseMemoLinks from '../components/preview/CourseMemoLinks'
 import CourseLinks from '../components/preview/CourseLinks'
 import CourseContacts from '../components/preview/CourseContacts'
 import CourseHeader from '../components/preview/CourseHeader'
+import CoursePresentation from '../components/preview/CoursePresentation'
 
 const PROGRESS = 3
+
+// Logic copied from kursinfo-web
+export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
+  let courseImage = ''
+  // If course administrator has set own picture, use that
+  if (imageFromAdmin && imageFromAdmin.length > 4) {
+    courseImage = imageFromAdmin
+    // Course administrator has not set own picture, get one based on course’s main subjects
+  } else {
+    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
+
+    // If main subjects exist, and the language is English, get Swedish translations of main subjects
+    if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
+      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
+    }
+    // Get picture according to Swedish translation of first main subject
+    courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
+    // If no picture is available for first main subject, use default picture for language
+    courseImage =
+      courseImage ||
+      (language === 'en'
+        ? englishTranslations.courseImage.default
+        : swedishTranslations.courseImage.default)
+  }
+  return courseImage
+}
 
 @inject(['routerStore'])
 @observer
@@ -68,6 +95,12 @@ class PreviewContainer extends Component {
       courseHeaderLabels
     } = i18n.messages[this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
+    const courseImage = resolveCourseImage(
+      this.props.routerStore.imageFromAdmin,
+      this.props.routerStore.courseMainSubjects,
+      this.props.routerStore.memoLanguage
+    )
+    const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     // Assumes that API only gave one memoData per memoEndPoint
     let active = true
@@ -129,12 +162,11 @@ class PreviewContainer extends Component {
             </Row>
             <Row>
               <Col>
-                <h3>Course Presentation</h3>
-                {/* <CoursePresentation
-                  introText={this.introText}
-                  courseImageUrl={courseImageUrl}
+                <CoursePresentation
+                  introText={this.props.routerStore.sellingText}
+                  courseImageUrl={courseImageUrl || ''}
                   semester={this.semester}
-                /> */}
+                />
                 <p>All sections…</p>
                 {/* {allSections} */}
               </Col>
