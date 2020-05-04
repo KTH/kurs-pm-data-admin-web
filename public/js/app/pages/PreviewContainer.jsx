@@ -167,7 +167,6 @@ class PreviewContainer extends Component {
                   courseImageUrl={courseImageUrl || ''}
                   semester={this.semester}
                 />
-                <p>All sections…</p>
                 {/* {allSections} */}
               </Col>
               <Col lg="3">
