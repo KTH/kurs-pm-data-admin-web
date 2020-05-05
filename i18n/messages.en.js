@@ -229,9 +229,9 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     }
   },
-  pages: [
+  pagesCreateNewPm: [
     {
-      title: '1.Choose course offering',
+      title: '1. Choose course offering',
       intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
       In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
       In the next step (2 of 3) you can edit the course memo. 
@@ -239,11 +239,28 @@ module.exports = {
       `
     },
     {
-      title: '2.Edit course memo',
+      title: '2. Edit course memo',
       intro: ''
     },
     {
-      title: 'Review and publish',
+      title: '3. Review and publish',
+      intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
+      It is possible to go back to make adjustments, to save a draft or publish the information.`
+    }
+  ],
+  pagesChangePublishedPm: [
+    {
+      title: '1. Choose a course memo',
+      intro: `SHOULD BE TRANSLATED SOON TO ENGLISH ---> Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
+      och sedan publicera en ny version av kurs-pm på sidan: Om kursen / Förbereda och gå (kurs-PM)`
+    },
+    {
+      title: '2. Edit course memo',
+      intro: ''
+    },
+    {
+      title: '3. Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
       It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
@@ -297,7 +314,7 @@ module.exports = {
   pageTitles: {
     new: 'Create and publish course memo',
     // draft: 'Publish course memo draft',
-    // published: 'Edit published course memo',
+    published: 'Edit published course memo',
     preview: 'Create and publish course memo'
   },
   actionModals: {
@@ -341,6 +358,7 @@ module.exports = {
   info: {
     chooseSavedDraft: 'Continue to edit a saved draft',
     createNew: 'Create new or copy?',
+    choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
       header: 'Choose semester',
       body:
@@ -361,15 +379,25 @@ module.exports = {
       existedDrafts: {
         label: 'Select a draft and click on the button Edit to continue edit the draft',
         infoText: 'The following course offerings have drafts that are not yet published'
+      },
+      publishedMemos: {
+        label: 'Select a course memo you want to edit: ',
+        infoText: 'Course memos which are published'
       }
     },
+    publishedHasDraft: ' (has unpublished alterations)',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
     noSavedDrafts: 'There are no saved drafts.',
     noSemesterAvailable:
-      'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.'
+      'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
+    noPublishedMemos:
+      'Det finns inga publicerade kursomgångar för denna termin, föregående eller kommande.'
+  },
+  changePublishedInfo: {
+    choosePublishedMemo: 'Choose course memo'
   },
   buttons: {
     /** ************ BUTTONS ****************** */
@@ -405,6 +433,7 @@ module.exports = {
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     errNoChosen:
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
+    errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Smth went wrong on api side......',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',

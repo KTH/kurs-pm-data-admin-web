@@ -33,7 +33,8 @@ class ChoiceOptions extends Component {
 
   courseCode = this.props.routerStore.courseCode
 
-  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos.draftMemos
+  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos
+    .draftsWithNoActivePublishedVer
 
   hasSavedDraft = this.existingDraftsByCourseCode.length > 0
 
@@ -251,7 +252,9 @@ class ChoiceOptions extends Component {
 
   render() {
     const { allSemesters, existingDraftsByCourseCode, hasSavedDraft, langAbbr, langIndex } = this
-    const { alerts, info, extraInfo, pages, pageTitles, buttons } = i18n.messages[langIndex]
+    const { alerts, info, extraInfo, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[
+      langIndex
+    ]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 
@@ -271,7 +274,7 @@ class ChoiceOptions extends Component {
           </PageTitle>
         </Row>
 
-        <ProgressBar active={1} pages={pages} />
+        <ProgressBar active={1} pages={pagesCreateNewPm} />
         {alert.isOpen && (
           <Row className="w-100 my-0 mx-auto section-50">
             <Alert color={alert.type} isOpen={!!alert.isOpen}>
