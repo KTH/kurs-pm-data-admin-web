@@ -21,8 +21,9 @@ const PROGRESS = 3
 
 // Logic copied from kursinfo-web
 export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
-  const englishTranslations = i18n.messages[0].messages
-  const swedishTranslations = i18n.messages[1].messages
+  // TODO Cleanup translations
+  const englishTranslations = i18n.messages[0]
+  const swedishTranslations = i18n.messages[1]
 
   let courseImage = ''
   // If course administrator has set own picture, use that
