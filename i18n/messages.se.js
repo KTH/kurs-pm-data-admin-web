@@ -432,6 +432,7 @@ module.exports = {
         infoText: 'Kurs-pm listade är publicerade'
       }
     },
+    publishedHasDraft: ' (finns opublicerade ändringar)',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     noCourseRoundsAvailable:
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-pm eller utkast.',
@@ -476,6 +477,7 @@ module.exports = {
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-pm.',
+    errNoInPublishedChosen: 'Du måste välja ett kurs-pm för att kunna gå vidare till Redigera',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)',

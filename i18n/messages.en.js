@@ -363,6 +363,7 @@ module.exports = {
         infoText: 'The following course offerings have drafts that are not yet published'
       }
     },
+    publishedHasDraft: ' (has unpublished alterations)',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     noCourseRoundsAvailable:
@@ -410,6 +411,7 @@ module.exports = {
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     errNoChosen:
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
+    errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Smth went wrong on api side......',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
