@@ -313,7 +313,7 @@ module.exports = {
       intro: ''
     },
     {
-      title: 'Granska och publicera',
+      title: '3. Granska och publicera',
       intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
       Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
     }

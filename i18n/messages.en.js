@@ -231,7 +231,7 @@ module.exports = {
   },
   pagesCreateNewPm: [
     {
-      title: '1.Choose course offering',
+      title: '1. Choose course offering',
       intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
       In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
       In the next step (2 of 3) you can edit the course memo. 
@@ -239,11 +239,28 @@ module.exports = {
       `
     },
     {
-      title: '2.Edit course memo',
+      title: '2. Edit course memo',
       intro: ''
     },
     {
-      title: 'Review and publish',
+      title: '3. Review and publish',
+      intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
+      It is possible to go back to make adjustments, to save a draft or publish the information.`
+    }
+  ],
+  pagesChangePublishedPm: [
+    {
+      title: '1. Choose a course memo',
+      intro: `SHOULD BE TRANSLATED SOON TO ENGLISH ---> Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
+      och sedan publicera en ny version av kurs-pm på sidan: Om kursen / Förbereda och gå (kurs-PM)`
+    },
+    {
+      title: '2. Edit course memo',
+      intro: ''
+    },
+    {
+      title: '3. Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
       It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
@@ -341,6 +358,7 @@ module.exports = {
   info: {
     chooseSavedDraft: 'Continue to edit a saved draft',
     createNew: 'Create new or copy?',
+    choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
       header: 'Choose semester',
       body:
@@ -361,6 +379,10 @@ module.exports = {
       existedDrafts: {
         label: 'Select a draft and click on the button Edit to continue edit the draft',
         infoText: 'The following course offerings have drafts that are not yet published'
+      },
+      publishedMemos: {
+        label: 'Select a course memo you want to edit: ',
+        infoText: 'Course memos which are published'
       }
     },
     publishedHasDraft: ' (has unpublished alterations)',
