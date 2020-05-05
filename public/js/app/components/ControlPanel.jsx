@@ -25,7 +25,7 @@ const ControlPanel = props => {
             {buttons.goToRounds}
           </Button>
         )}
-        {hasChosenMemo && (
+        {hasChosenMemo && onRemove && (
           <ActionModalButton
             btnLabel={buttons.btnRemove}
             modalId="cancelStep2"
