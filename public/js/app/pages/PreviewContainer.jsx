@@ -134,10 +134,10 @@ class PreviewContainer extends Component {
         <Row />
         <PageHead semester={semester} memoName={memoName} />
         <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
-        <Row style={{ borderTop: '2px solid rgb(212,212,212)' }} />
         <Row>
           <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
         </Row>
+        <hr className="header-content-separation" />
         <Row>
           <Col lg="3">
             <SideMenu
