@@ -30,11 +30,16 @@ function aboutCourseLink(courseCode, language) {
   return `https://www.kth.se/student/kurser/kurs/${courseCode}${languageParameter}`
 }
 
+function adminLink(courseCode, language) {
+  return `/kursinfoadmin/kurser/kurs/${courseCode}?l=${language}`
+}
+
 module.exports = {
   linkToSchool,
   linkToArchive,
   linkToMemoPdf,
   linkToSyllabus,
   courseLinks,
-  aboutCourseLink
+  aboutCourseLink,
+  adminLink
 }
