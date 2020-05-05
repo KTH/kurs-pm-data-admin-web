@@ -421,7 +421,8 @@ module.exports = {
     university: 'KTH',
     student: 'Student at KTH',
     directory: 'Course and programme directory',
-    aboutCourse: 'About course'
+    aboutCourse: 'About course',
+    noLinksInPreview: 'Menu links doesn’t work in review mode'
   },
   sideMenuLabels: {
     directory: 'Course and programme directory',
@@ -429,12 +430,77 @@ module.exports = {
     beforeChoosingCourse: 'Before choosing course',
     courseMemo: 'Prepare, attend (course memo)',
     finishCourse: 'Finish course',
-    courseDevelopmentAndHistory: 'Course development and history'
+    courseDevelopmentAndHistory: 'Course development and history',
+    noLinksInPreview: 'Menu links doesn’t work in review mode'
   },
   courseFactsLabels: {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Language Of Instruction',
     offeredByTitle: 'Offered By',
-    mandatoryFieldMissing: 'Missing mandatory information'
+    mandatoryFieldMissing: 'Missing mandatory information',
+    linkOpensInNewTab: 'Link will open in new tab'
+  },
+  courseMemoLinksLabels: {
+    versionTitle: 'Course memo version',
+    latest: 'Latest:',
+    courseMemoArchiveLabel: 'Course memo archive',
+    courseMemoPdf: 'Course memo pdf',
+    syllabus: 'Syllabus',
+    syllabusInformation: '(s) fetched from',
+    syllabusLinkStart: 'Syllabus (',
+    syllabusLinkEnd: '– )',
+    mandatoryFieldMissing: 'Missing mandatory information',
+    linkOpensInNewTab: 'Link will open in new tab'
+  },
+  courseLinksLabels: {
+    linkHeaderTitle: 'Student at KTH',
+    beforeAndDuringACourse: 'Before and during a course',
+    contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
+    rightsAndResponsibilities: 'Rights and responsibilities',
+    linkOpensInNewTab: 'Link will open in new tab'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Contacts',
+    communicationWithTeachersTitle: 'Communication With Teachers',
+    courseCoordinatorTitle: 'Course Coordinator',
+    teacherTitle: 'Teacher',
+    teacherAssistantsTitle: 'Teacher Assistants',
+    examinerTitle: 'Examiner',
+    otherContactsTitle: 'Other Contacts',
+    linkOpensInNewTab: 'Link will open in new tab'
+  },
+  courseHeaderLabels: {
+    courseHeaderTitle: 'Course Memo',
+    adminLinkLabel: 'Administrate About course information',
+    linkOpensInNewTab: 'Link will open in new tab'
+  },
+  courseImage: {
+    Architecture: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
+    Biotechnology: 'Picture_by_MainFieldOfStudy_02_Biotechnology.jpg',
+    'Computer Science and Engineering': 'Picture_by_MainFieldOfStudy_03_Computer_Science.jpg',
+    'Electrical Engineering': 'Picture_by_MainFieldOfStudy_04_Electrical_Engineering.jpg',
+    Physics: 'Picture_by_MainFieldOfStudy_05_Physics.jpg',
+    'Industrial Management': 'Picture_by_MainFieldOfStudy_06_Industrial_Management.jpg',
+    'Information Technology': 'Picture_by_MainFieldOfStudy_07_Information_Technology.jpg',
+    'Information and Communication Technology':
+      'Picture_by_MainFieldOfStudy_08_Information_Communication.jpg',
+    'Chemical Science and Engineering': 'Picture_by_MainFieldOfStudy_09_Chemical_Science.jpg',
+    'Chemistry and Chemical Engineering': 'Picture_by_MainFieldOfStudy_10_Chemistry_Chemical.jpg',
+    Mathematics: 'Picture_by_MainFieldOfStudy_11_Mathematics.jpg',
+    'Environmental Engineering': 'Picture_by_MainFieldOfStudy_12_Environmental_Engineering.jpg',
+    'Molecular Life Science': 'Picture_by_MainFieldOfStudy_13_Molecular_Life_Science.jpg',
+    'Mechanical Engineering': 'Picture_by_MainFieldOfStudy_14_Mechanical_Engineering.jpg',
+    'Materials Science': 'Picture_by_MainFieldOfStudy_15_Materials_Science.jpg',
+    'Medical Engineering': 'Picture_by_MainFieldOfStudy_16_Medical_Engineering.jpg',
+    'Materials Science and Engineering': 'Picture_by_MainFieldOfStudy_17_Materials_Engineering.jpg',
+    'Built Environment': 'Picture_by_MainFieldOfStudy_18_Built_Environment.jpg',
+    'Engineering Physics': 'Picture_by_MainFieldOfStudy_19_Engineering_Physics.jpg',
+    'Technology and Economics': 'Picture_by_MainFieldOfStudy_20_Technology_Economics.jpg',
+    'Technology and Health': 'Picture_by_MainFieldOfStudy_21_Technology_Health.jpg',
+    'Technology and Management': 'Picture_by_MainFieldOfStudy_22_Technology_Management.jpg',
+    Technology: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
+    'Engineering and Management': 'Picture_by_MainFieldOfStudy_24_Engineering_Management.jpg',
+    'Technology and Learning': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
+    default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
   }
 }

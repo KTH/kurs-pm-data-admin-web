@@ -1,41 +1,36 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 
-const linkToSchool = (name = '') => `https://www.kth.se/${name.toLowerCase().split('/')[0]}`
+import { linkToSchool } from '../../util/links'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+import Popup from './Popup'
 
-const formatVersion = (language = 'sv', version) => {
-  const unixTime = Date.parse(version)
-  if (unixTime) {
-    const locale = language === 'sv' ? 'sv-SE' : 'en-US'
-    return new Date(unixTime).toLocaleString(locale)
-  }
-  return null
-}
-
-const version = (language, labels, memoVersion) =>
-  memoVersion ? (
-    <div>
-      <h3>{labels.versionTitle}</h3>
-      <p>{formatVersion(language, memoVersion)}</p>
-    </div>
-  ) : (
-    <div>
-      <h3>{labels.versionTitle}</h3>
-      <p>{labels.mandatoryFieldMissing}</p>
-    </div>
-  )
-
-const offeredBy = (labels, department) =>
+const offeredBy = (language, labels, department) =>
   department.name ? (
     <div>
-      <h3>{labels.offeredByTitle}</h3>
+      <h4>{labels.offeredByTitle}</h4>
       <p>
-        <a href={linkToSchool(department.name)}>{department.name}</a>
+        <a
+          id="link-department-name"
+          title={department.name}
+          href={linkToSchool(department.name)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {department.name}
+        </a>
+        &nbsp;
+        <FaExternalLinkAlt />
+        <Popup
+          header={department.name}
+          body={labels.linkOpensInNewTab}
+          targetId="link-department-name"
+        />
       </p>
     </div>
   ) : (
     <div>
-      <h3>{labels.offeredByTitle}</h3>
+      <h4>{labels.offeredByTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
     </div>
   )
@@ -43,20 +38,19 @@ const offeredBy = (labels, department) =>
 const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
   memoLanguageOfInstructions ? (
     <div>
-      <h3>{labels.languageOfInstructionTitle}</h3>
+      <h4>{labels.languageOfInstructionTitle}</h4>
       <p>{memoLanguageOfInstructions}</p>
     </div>
   ) : (
     <div>
-      <h3>{labels.languageOfInstructionTitle}</h3>
+      <h4>{labels.languageOfInstructionTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
     </div>
   )
 
-const CourseFacts = ({ language = 'sv', labels, department, memoData = {} }) => (
+const CourseFacts = ({ language = 'sv', labels = {}, department = {}, memoData = {} }) => (
   <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
-    {version(language, labels, memoData.lastChangeDate)}
-    {offeredBy(labels, department)}
+    {offeredBy(language, labels, department)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
   </div>
 )

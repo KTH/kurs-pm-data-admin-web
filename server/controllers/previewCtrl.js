@@ -10,6 +10,8 @@ const ReactDOMServer = require('react-dom/server')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData } = require('../kursPmDataApi')
+const { getCourseInfo } = require('../kursInfoApi')
+
 const { getSyllabus } = require('../koppsApi')
 
 function hydrateStores(renderProps) {
@@ -34,6 +36,10 @@ function _staticRender(context, location) {
   const { staticRender } = require('../../dist/app.js')
 
   return staticRender(context, location)
+}
+
+function resolveSellingText(sellingText, recruitmentText, lang) {
+  return sellingText[lang] ? sellingText[lang] : recruitmentText
 }
 
 async function renderMemoPreviewPage(req, res, next) {
@@ -68,6 +74,15 @@ async function renderMemoPreviewPage(req, res, next) {
       apiMemoData.semester,
       apiMemoData.memoCommonLangAbbr || userLang
     ) // TODO: use apiMemoData instead
+
+    const { sellingText, imageInfo } = await getCourseInfo(courseCode)
+    const { recruitmentText } = renderProps.props.children.props.routerStore.koppsFreshData
+    renderProps.props.children.props.routerStore.sellingText = resolveSellingText(
+      sellingText,
+      recruitmentText,
+      renderProps.props.children.props.routerStore.memoLanguage
+    )
+    renderProps.props.children.props.routerStore.imageFromAdmin = imageInfo
 
     const html = ReactDOMServer.renderToString(renderProps)
 

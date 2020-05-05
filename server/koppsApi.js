@@ -139,6 +139,16 @@ function _getDepartment(body) {
   return course && course.department ? course.department : {}
 }
 
+function _getRecruitmentText(body) {
+  const { course } = body
+  return course && course.recruitmentText ? course.recruitmentText : ''
+}
+
+function _getCourseMainSubjects(body) {
+  const { mainSubjects } = body
+  return mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : ''
+}
+
 function _getCommonInfo(resBody) {
   // step 2
   const {
@@ -191,13 +201,17 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
     const permanentDisability = _getPermanentDisabilityTemplate(language)
     const department = _getDepartment(body)
+    const recruitmentText = _getRecruitmentText(body)
+    const courseMainSubjects = _getCourseMainSubjects(body)
     return {
       ...commonInfo,
       ...combinedExamInfo,
       ...selectedSyllabus,
       permanentDisability,
       ...detailedInformation,
-      department
+      department,
+      recruitmentText,
+      courseMainSubjects
     }
   } catch (err) {
     log.debug('Kopps is not available', err)

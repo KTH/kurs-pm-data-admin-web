@@ -488,7 +488,8 @@ module.exports = {
     university: 'KTH',
     student: 'Student på KTH',
     directory: 'Kurs- och programkatalogen',
-    aboutCourse: 'Om kursen'
+    aboutCourse: 'Om kursen',
+    noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge'
   },
   sideMenuLabels: {
     directory: 'Kurs- och programkatalogen',
@@ -496,12 +497,76 @@ module.exports = {
     beforeChoosingCourse: 'Inför kursval',
     courseMemo: 'Förbereda, gå (kurs-pm)',
     finishCourse: 'Slutföra ej avklarad kurs',
-    courseDevelopmentAndHistory: 'Kursens utveckling och historik'
+    courseDevelopmentAndHistory: 'Kursens utveckling och historik',
+    noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge'
   },
   courseFactsLabels: {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Undervisningsspråk',
     offeredByTitle: 'Kursen ges av',
-    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  courseMemoLinksLabels: {
+    versionTitle: 'Version kurs-pm',
+    latest: 'Senaste:',
+    courseMemoArchiveLabel: 'Arkiv för kurs-pm',
+    courseMemoPdf: 'Kurs-pm som pdf',
+    syllabus: 'Kursplan',
+    syllabusInformation: '(s) information hämtas från',
+    syllabusLinkStart: 'Kursplan (',
+    syllabusLinkEnd: '– )',
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  courseLinksLabels: {
+    linkHeaderTitle: 'Student på KTH',
+    beforeAndDuringACourse: 'Inför och under en kurs',
+    contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
+    rightsAndResponsibilities: 'Rättigheter och skyldigheter',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  courseContactsLabels: {
+    courseContactsTitle: 'Kontakter',
+    communicationWithTeachersTitle: 'Kommunikation i kursen',
+    courseCoordinatorTitle: 'Kursansvarig',
+    teacherTitle: 'Lärare',
+    teacherAssistantsTitle: 'Lärarassistenter',
+    examinerTitle: 'Examinator',
+    otherContactsTitle: 'Övriga kontakter',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  courseHeaderLabels: {
+    courseHeaderTitle: 'Kurs-pm',
+    adminLinkLabel: 'Administrera Om kursen',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
+  },
+  courseImage: {
+    Arkitektur: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
+    Bioteknik: 'Picture_by_MainFieldOfStudy_02_Biotechnology.jpg',
+    'Datalogi och datateknik': 'Picture_by_MainFieldOfStudy_03_Computer_Science.jpg',
+    Elektroteknik: 'Picture_by_MainFieldOfStudy_04_Electrical_Engineering.jpg',
+    Fysik: 'Picture_by_MainFieldOfStudy_05_Physics.jpg',
+    'Industriell ekonomi': 'Picture_by_MainFieldOfStudy_06_Industrial_Management.jpg',
+    Informationsteknik: 'Picture_by_MainFieldOfStudy_07_Information_Technology.jpg',
+    'Informations- och kommunikationsteknik':
+      'Picture_by_MainFieldOfStudy_08_Information_Communication.jpg',
+    Kemiteknik: 'Picture_by_MainFieldOfStudy_09_Chemical_Science.jpg',
+    'Kemi och kemiteknik': 'Picture_by_MainFieldOfStudy_10_Chemistry_Chemical.jpg',
+    Matematik: 'Picture_by_MainFieldOfStudy_11_Mathematics.jpg',
+    Miljöteknik: 'Picture_by_MainFieldOfStudy_12_Environmental_Engineering.jpg',
+    'Molekylära livsvetenskaper': 'Picture_by_MainFieldOfStudy_13_Molecular_Life_Science.jpg',
+    Maskinteknik: 'Picture_by_MainFieldOfStudy_14_Mechanical_Engineering.jpg',
+    Materialvetenskap: 'Picture_by_MainFieldOfStudy_15_Materials_Science.jpg',
+    'Medicinsk teknik': 'Picture_by_MainFieldOfStudy_16_Medical_Engineering.jpg',
+    Materialteknik: 'Picture_by_MainFieldOfStudy_17_Materials_Engineering.jpg',
+    Samhällsbyggnad: 'Picture_by_MainFieldOfStudy_18_Built_Environment.jpg',
+    'Teknisk fysik': 'Picture_by_MainFieldOfStudy_19_Engineering_Physics.jpg',
+    'Teknik och ekonomi': 'Picture_by_MainFieldOfStudy_20_Technology_Economics.jpg',
+    'Teknik och hälsa': 'Picture_by_MainFieldOfStudy_21_Technology_Health.jpg',
+    'Teknik och management': 'Picture_by_MainFieldOfStudy_22_Technology_Management.jpg',
+    Teknik: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
+    'Teknik och lärande': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
+    default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
   }
 }

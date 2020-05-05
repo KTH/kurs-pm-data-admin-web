@@ -1,18 +1,35 @@
 import React from 'react'
-import { UncontrolledPopover, PopoverHeader, PopoverBody, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 
-const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
+import Popup from './Popup'
+
+const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
   return (
-    <div>
+    <div className="menu-memos">
       <p>
-        &lsaquo;&nbsp;
-        <a href={backLink}>{labels.directory}</a>
+        <Button id="menu-link-directory" color="link">
+          {`‹ ${labels.directory}`}
+        </Button>
+        <Popup
+          header={labels.directory}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-directory"
+        />
       </p>
       <p>
         <b>{`${labels.aboutCourse} ${courseCode}`}</b>
       </p>
       <hr />
-      <p>{labels.beforeChoosingCourse}</p>
+      <p>
+        <Button id="menu-link-before-choosing-course" color="link">
+          {labels.beforeChoosingCourse}
+        </Button>
+        <Popup
+          header={labels.beforeChoosingCourse}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-before-choosing-course"
+        />
+      </p>
       <p>
         <b>{labels.courseMemo}</b>
       </p>
@@ -28,16 +45,31 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels }) => {
               <Button id={label} color="link">
                 {label}
               </Button>
-              <UncontrolledPopover trigger="hover legacy" placement="bottom" target={label}>
-                <PopoverHeader>{label}</PopoverHeader>
-                <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-              </UncontrolledPopover>
+              <Popup header={label} body={labels.noLinksInPreview} targetId={label} />
             </span>
           )
         })}
       </div>
-      <p>{labels.finishCourse}</p>
-      <p>{labels.courseDevelopmentAndHistory}</p>
+      <p>
+        <Button id="menu-link-finish-course" color="link">
+          {labels.finishCourse}
+        </Button>
+        <Popup
+          header={labels.finishCourse}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-finish-course"
+        />
+      </p>
+      <p>
+        <Button id="menu-link-course-development-and-history" color="link">
+          {labels.courseDevelopmentAndHistory}
+        </Button>
+        <Popup
+          header={labels.courseDevelopmentAndHistory}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-course-development-and-history"
+        />
+      </p>
     </div>
   )
 }
