@@ -414,7 +414,8 @@ module.exports = {
     university: 'KTH',
     student: 'Student at KTH',
     directory: 'Course and programme directory',
-    aboutCourse: 'About course'
+    aboutCourse: 'About course',
+    noLinksInPreview: 'Menu links doesn’t work in review mode'
   },
   sideMenuLabels: {
     directory: 'Course and programme directory',
@@ -422,13 +423,15 @@ module.exports = {
     beforeChoosingCourse: 'Before choosing course',
     courseMemo: 'Prepare, attend (course memo)',
     finishCourse: 'Finish course',
-    courseDevelopmentAndHistory: 'Course development and history'
+    courseDevelopmentAndHistory: 'Course development and history',
+    noLinksInPreview: 'Menu links doesn’t work in review mode'
   },
   courseFactsLabels: {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Language Of Instruction',
     offeredByTitle: 'Offered By',
-    mandatoryFieldMissing: 'Missing mandatory information'
+    mandatoryFieldMissing: 'Missing mandatory information',
+    linkOpensInNewTab: 'Link will open in new tab'
   },
   courseMemoLinksLabels: {
     versionTitle: 'Course memo version',
@@ -439,13 +442,15 @@ module.exports = {
     syllabusInformation: '(s) fetched from',
     syllabusLinkStart: 'Syllabus (',
     syllabusLinkEnd: '– )',
-    mandatoryFieldMissing: 'Missing mandatory information'
+    mandatoryFieldMissing: 'Missing mandatory information',
+    linkOpensInNewTab: 'Link will open in new tab'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
-    rightsAndResponsibilities: 'Rights and responsibilities'
+    rightsAndResponsibilities: 'Rights and responsibilities',
+    linkOpensInNewTab: 'Link will open in new tab'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',
@@ -454,11 +459,13 @@ module.exports = {
     teacherTitle: 'Teacher',
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
-    otherContactsTitle: 'Other Contacts'
+    otherContactsTitle: 'Other Contacts',
+    linkOpensInNewTab: 'Link will open in new tab'
   },
   courseHeaderLabels: {
     courseHeaderTitle: 'Course Memo',
-    adminLinkLabel: 'Administrate About course information'
+    adminLinkLabel: 'Administrate About course information',
+    linkOpensInNewTab: 'Link will open in new tab'
   },
   courseImage: {
     Architecture: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',

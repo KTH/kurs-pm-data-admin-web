@@ -462,7 +462,8 @@ module.exports = {
     university: 'KTH',
     student: 'Student på KTH',
     directory: 'Kurs- och programkatalogen',
-    aboutCourse: 'Om kursen'
+    aboutCourse: 'Om kursen',
+    noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge'
   },
   sideMenuLabels: {
     directory: 'Kurs- och programkatalogen',
@@ -470,13 +471,15 @@ module.exports = {
     beforeChoosingCourse: 'Inför kursval',
     courseMemo: 'Förbereda, gå (kurs-pm)',
     finishCourse: 'Slutföra ej avklarad kurs',
-    courseDevelopmentAndHistory: 'Kursens utveckling och historik'
+    courseDevelopmentAndHistory: 'Kursens utveckling och historik',
+    noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge'
   },
   courseFactsLabels: {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Undervisningsspråk',
     offeredByTitle: 'Kursen ges av',
-    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseMemoLinksLabels: {
     versionTitle: 'Version kurs-pm',
@@ -487,13 +490,15 @@ module.exports = {
     syllabusInformation: '(s) information hämtas från',
     syllabusLinkStart: 'Kursplan (',
     syllabusLinkEnd: '– )',
-    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas'
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student på KTH',
     beforeAndDuringACourse: 'Inför och under en kurs',
     contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
-    rightsAndResponsibilities: 'Rättigheter och skyldigheter'
+    rightsAndResponsibilities: 'Rättigheter och skyldigheter',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseContactsLabels: {
     courseContactsTitle: 'Kontakter',
@@ -502,11 +507,13 @@ module.exports = {
     teacherTitle: 'Lärare',
     teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
-    otherContactsTitle: 'Övriga kontakter'
+    otherContactsTitle: 'Övriga kontakter',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseHeaderLabels: {
     courseHeaderTitle: 'Kurs-pm',
-    adminLinkLabel: 'Administrera Om kursen'
+    adminLinkLabel: 'Administrera Om kursen',
+    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseImage: {
     Arkitektur: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',

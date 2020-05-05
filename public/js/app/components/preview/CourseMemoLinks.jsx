@@ -4,7 +4,8 @@ import { FaRegFilePdf, FaExternalLinkAlt } from 'react-icons/fa'
 
 import { seasonStr } from '../../util/helpers'
 import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../../util/links'
-import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
+
+import Popup from './Popup'
 
 const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
@@ -41,10 +42,11 @@ const archiveLink = (language, labels, courseCode) => (
     </a>
     &nbsp;
     <FaExternalLinkAlt />
-    <UncontrolledPopover trigger="hover legacy" placement="bottom" target="archive-link">
-      <PopoverHeader>{labels.courseMemoArchiveLabel}</PopoverHeader>
-      <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-    </UncontrolledPopover>
+    <Popup
+      header={labels.courseMemoArchiveLabel}
+      body={labels.linkOpensInNewTab}
+      targetId="archive-link"
+    />
   </p>
 )
 
@@ -63,10 +65,7 @@ const pdfLink = (labels, courseCode, memoEndPoint) => (
       </a>
       &nbsp;
       <FaRegFilePdf />
-      <UncontrolledPopover trigger="hover legacy" placement="bottom" target="pdf-link">
-        <PopoverHeader>{labels.courseMemoPdf}</PopoverHeader>
-        <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-      </UncontrolledPopover>
+      <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" />
     </p>
   </div>
 )
@@ -92,10 +91,7 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
         </a>
         &nbsp;
         <FaRegFilePdf />
-        <UncontrolledPopover trigger="hover legacy" placement="bottom" target="syllabus-link">
-          <PopoverHeader>{labels.syllabus}</PopoverHeader>
-          <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-        </UncontrolledPopover>
+        <Popup header={labels.syllabus} body={labels.linkOpensInNewTab} targetId="syllabus-link" />
       </p>
     </div>
   )

@@ -3,6 +3,8 @@
 import React from 'react'
 import i18n from '../../../../../i18n'
 
+import Popup from './Popup'
+
 // Volontary information
 const communicationWithTeachers = (language, memoData, labels) =>
   !memoData.communicationDuringCourse || (
@@ -17,7 +19,15 @@ const courseCoordinator = (language, memoData, labels) =>
   memoData.courseCoordinator ? (
     <div>
       <h3>{labels.courseCoordinatorTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
+      <div
+        id="links-course-coordinator"
+        dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }}
+      />
+      <Popup
+        header={labels.courseCoordinatorTitle}
+        body={labels.linkOpensInNewTab}
+        targetId="links-course-coordinator"
+      />
     </div>
   ) : (
     <div>
@@ -31,7 +41,12 @@ const teacher = (language, memoData, labels) =>
   memoData.teacher ? (
     <div>
       <h3>{labels.teacherTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
+      <div id="links-teacher" dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
+      <Popup
+        header={labels.teacherTitle}
+        body={labels.linkOpensInNewTab}
+        targetId="links-teacher"
+      />
     </div>
   ) : (
     <div>
@@ -45,7 +60,15 @@ const teacherAssistants = (language, memoData, labels) =>
   !memoData.teacherAssistants || (
     <div>
       <h3>{labels.teacherAssistantsTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
+      <div
+        id="links-teacher-assistants"
+        dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }}
+      />
+      <Popup
+        header={labels.teacherAssistantsTitle}
+        body={labels.linkOpensInNewTab}
+        targetId="links-teacher-assistants"
+      />
     </div>
   )
 
@@ -54,7 +77,12 @@ const examiner = (language, memoData, labels) =>
   memoData.examiner ? (
     <div>
       <h3>{labels.examinerTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
+      <div id="links-examiner" dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
+      <Popup
+        header={labels.examinerTitle}
+        body={labels.linkOpensInNewTab}
+        targetId="links-examiner"
+      />
     </div>
   ) : (
     <div>
@@ -68,7 +96,12 @@ const otherContacts = (language, memoData, labels) =>
   !memoData.otherContacts || (
     <div>
       <h3>{labels.otherContactsTitle}</h3>
-      <div dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
+      <div id="links-other-contacts" dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
+      <Popup
+        header={labels.otherContactsTitle}
+        body={labels.linkOpensInNewTab}
+        targetId="links-other-contacts"
+      />
     </div>
   )
 
