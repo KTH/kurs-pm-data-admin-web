@@ -33,7 +33,8 @@ class ChoiceOptions extends Component {
 
   courseCode = this.props.routerStore.courseCode
 
-  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos.draftMemos
+  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos
+    .draftsWithNoActivePublishedVer
 
   hasSavedDraft = this.existingDraftsByCourseCode.length > 0
 
