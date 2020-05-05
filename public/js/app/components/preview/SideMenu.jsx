@@ -1,5 +1,7 @@
 import React from 'react'
-import { UncontrolledPopover, PopoverHeader, PopoverBody, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
+
+import Popup from './Popup'
 
 const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
   return (
@@ -8,10 +10,11 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
         <Button id="menu-link-directory" color="link">
           {`‹ ${labels.directory}`}
         </Button>
-        <UncontrolledPopover trigger="hover legacy" placement="bottom" target="menu-link-directory">
-          <PopoverHeader>{labels.directory}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.directory}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-directory"
+        />
       </p>
       <p>
         <b>{`${labels.aboutCourse} ${courseCode}`}</b>
@@ -21,14 +24,11 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
         <Button id="menu-link-before-choosing-course" color="link">
           {labels.beforeChoosingCourse}
         </Button>
-        <UncontrolledPopover
-          trigger="hover legacy"
-          placement="bottom"
-          target="menu-link-before-choosing-course"
-        >
-          <PopoverHeader>{labels.beforeChoosingCourse}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.beforeChoosingCourse}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-before-choosing-course"
+        />
       </p>
       <p>
         <b>{labels.courseMemo}</b>
@@ -45,41 +45,30 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
               <Button id={label} color="link">
                 {label}
               </Button>
-              <UncontrolledPopover trigger="hover legacy" placement="bottom" target={label}>
-                <PopoverHeader>{label}</PopoverHeader>
-                <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-              </UncontrolledPopover>
+              <Popup header={label} body={labels.noLinksInPreview} targetId={label} />
             </span>
           )
         })}
       </div>
       <p>
-        {' '}
         <Button id="menu-link-finish-course" color="link">
           {labels.finishCourse}
         </Button>
-        <UncontrolledPopover
-          trigger="hover legacy"
-          placement="bottom"
-          target="menu-link-finish-course"
-        >
-          <PopoverHeader>{labels.finishCourse}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.finishCourse}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-finish-course"
+        />
       </p>
       <p>
-        {' '}
         <Button id="menu-link-course-development-and-history" color="link">
           {labels.courseDevelopmentAndHistory}
         </Button>
-        <UncontrolledPopover
-          trigger="hover legacy"
-          placement="bottom"
-          target="menu-link-course-development-and-history"
-        >
-          <PopoverHeader>{labels.courseDevelopmentAndHistory}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.courseDevelopmentAndHistory}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-course-development-and-history"
+        />
       </p>
     </div>
   )

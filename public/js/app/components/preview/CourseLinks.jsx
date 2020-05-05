@@ -3,7 +3,8 @@ import React from 'react'
 
 import { courseLinks } from '../../util/links'
 import { FaExternalLinkAlt } from 'react-icons/fa'
-import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
+
+import Popup from './Popup'
 
 const CourseLinks = ({ language, labels }) => (
   <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
@@ -20,14 +21,11 @@ const CourseLinks = ({ language, labels }) => (
       </a>
       &nbsp;
       <FaExternalLinkAlt />
-      <UncontrolledPopover
-        trigger="hover legacy"
-        placement="bottom"
-        target="link-before-and-during-course"
-      >
-        <PopoverHeader>{labels.beforeAndDuringACourse}</PopoverHeader>
-        <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-      </UncontrolledPopover>
+      <Popup
+        header={labels.beforeAndDuringACourse}
+        body={labels.linkOpensInNewTab}
+        targetId="link-before-and-during-course"
+      />
     </p>
     <p>
       <a
@@ -41,14 +39,11 @@ const CourseLinks = ({ language, labels }) => (
       </a>
       &nbsp;
       <FaExternalLinkAlt />
-      <UncontrolledPopover
-        trigger="hover legacy"
-        placement="bottom"
-        target="link-contact-persons-and-student-counceling"
-      >
-        <PopoverHeader>{labels.contactPersonsAndStudentCounselling}</PopoverHeader>
-        <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-      </UncontrolledPopover>
+      <Popup
+        header={labels.contactPersonsAndStudentCounselling}
+        body={labels.linkOpensInNewTab}
+        targetId="link-contact-persons-and-student-counceling"
+      />
     </p>
     <p>
       <a
@@ -62,14 +57,11 @@ const CourseLinks = ({ language, labels }) => (
       </a>
       &nbsp;
       <FaExternalLinkAlt />
-      <UncontrolledPopover
-        trigger="hover legacy"
-        placement="bottom"
-        target="link-rights-and-responsibilities"
-      >
-        <PopoverHeader>{labels.rightsAndResponsibilities}</PopoverHeader>
-        <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-      </UncontrolledPopover>
+      <Popup
+        header={labels.rightsAndResponsibilities}
+        body={labels.linkOpensInNewTab}
+        targetId="link-rights-and-responsibilities"
+      />
     </p>
   </div>
 )

@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { Row, Col, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
+
+import Popup from './Popup'
 
 import { adminLink } from '../../util/links'
+import { Row, Col } from 'reactstrap'
 
 const formatCredits = (credits, creditUnitAbbr, language) => {
   const localeCredits =
@@ -21,7 +23,7 @@ const CourseHeader = ({
   labels = {},
   language = 'sv'
 }) => {
-  const { courseHeaderTitle, adminLinkLabel } = labels
+  const { courseHeaderTitle, adminLinkLabel, linkOpensInNewTab } = labels
   return (
     <>
       <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
@@ -45,10 +47,7 @@ const CourseHeader = ({
           >
             {adminLinkLabel}
           </a>
-          <UncontrolledPopover trigger="hover legacy" placement="bottom" target="admin-link">
-            <PopoverHeader>{adminLinkLabel}</PopoverHeader>
-            <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-          </UncontrolledPopover>
+          <Popup header={adminLinkLabel} body={linkOpensInNewTab} targetId="admin-link" />
         </Col>
       </Row>
     </>

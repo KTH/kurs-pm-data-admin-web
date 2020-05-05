@@ -2,8 +2,8 @@
 import React from 'react'
 
 import { linkToSchool } from '../../util/links'
-import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap'
 import { FaExternalLinkAlt } from 'react-icons/fa'
+import Popup from './Popup'
 
 const offeredBy = (language, labels, department) =>
   department.name ? (
@@ -19,16 +19,13 @@ const offeredBy = (language, labels, department) =>
         >
           {department.name}
         </a>
-        &nbsp; &nbsp;
+        &nbsp;
         <FaExternalLinkAlt />
-        <UncontrolledPopover
-          trigger="hover legacy"
-          placement="bottom"
-          target="link-department-name"
-        >
-          <PopoverHeader>{department.name}</PopoverHeader>
-          <PopoverBody>Länken kommer att öppnas i ny flik</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={department.name}
+          body={labels.linkOpensInNewTab}
+          targetId="link-department-name"
+        />
       </p>
     </div>
   ) : (

@@ -1,12 +1,6 @@
 import React from 'react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  UncontrolledPopover,
-  PopoverHeader,
-  PopoverBody,
-  Button
-} from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem, Button } from 'reactstrap'
+import Popup from './Popup'
 
 const BreadCrumbs = ({ labels, courseCode }) => (
   <nav>
@@ -15,45 +9,41 @@ const BreadCrumbs = ({ labels, courseCode }) => (
         <Button id="breadcrumb-university" color="link">
           {labels.university}
         </Button>
-        <UncontrolledPopover
-          trigger="hover legacy"
-          placement="bottom"
-          target="breadcrumb-university"
-        >
-          <PopoverHeader>{labels.university}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.university}
+          body={labels.noLinksInPreview}
+          targetId="breadcrumb-university"
+        />
       </BreadcrumbItem>
       <BreadcrumbItem>
         <Button id="breadcrumb-student" color="link">
           {labels.student}
         </Button>
-        <UncontrolledPopover trigger="hover legacy" placement="bottom" target="breadcrumb-student">
-          <PopoverHeader>{labels.student}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.student}
+          body={labels.noLinksInPreview}
+          targetId="breadcrumb-student"
+        />
       </BreadcrumbItem>
       <BreadcrumbItem>
         <Button id="breadcrumb-directory" color="link">
           {labels.directory}
         </Button>
-        <UncontrolledPopover
-          trigger="hover legacy"
-          placement="bottom"
-          target="breadcrumb-directory"
-        >
-          <PopoverHeader>{labels.directory}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.directory}
+          body={labels.noLinksInPreview}
+          targetId="breadcrumb-directory"
+        />
       </BreadcrumbItem>
       <BreadcrumbItem>
         <Button id="breadcrumb-about" color="link">
           {`${labels.aboutCourse} ${courseCode}`}
         </Button>
-        <UncontrolledPopover trigger="hover legacy" placement="bottom" target="breadcrumb-about">
-          <PopoverHeader>{labels.aboutCourse}</PopoverHeader>
-          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
-        </UncontrolledPopover>
+        <Popup
+          header={labels.aboutCourse}
+          body={labels.noLinksInPreview}
+          targetId="breadcrumb-about"
+        />
       </BreadcrumbItem>
     </Breadcrumb>
   </nav>

@@ -417,3 +417,12 @@ hr.header-content-separation {
 .menu-memos .active {
   font-weight: 700;
 }
+
+#menu-link-directory {
+  color: #006cb7;
+  margin: 0;
+  padding: 0;
+  &:hover {
+    color: #006cb7;
+  }
+}
