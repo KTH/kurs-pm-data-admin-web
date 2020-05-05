@@ -1,12 +1,17 @@
 import React from 'react'
 import { UncontrolledPopover, PopoverHeader, PopoverBody, Button } from 'reactstrap'
 
-const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) => {
+const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
   return (
     <div className="menu-memos">
       <p>
-        &lsaquo;&nbsp;
-        <a href={backLink}>{labels.directory}</a>
+        <Button id="menu-link-directory" color="link">
+          {`‹ ${labels.directory}`}
+        </Button>
+        <UncontrolledPopover trigger="hover legacy" placement="bottom" target="menu-link-directory">
+          <PopoverHeader>{labels.directory}</PopoverHeader>
+          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+        </UncontrolledPopover>
       </p>
       <p>
         <b>{`${labels.aboutCourse} ${courseCode}`}</b>
@@ -48,8 +53,34 @@ const SideMenu = ({ courseCode, courseMemoItems, backLink, labels, language }) =
           )
         })}
       </div>
-      <p>{labels.finishCourse}</p>
-      <p>{labels.courseDevelopmentAndHistory}</p>
+      <p>
+        {' '}
+        <Button id="menu-link-finish-course" color="link">
+          {labels.finishCourse}
+        </Button>
+        <UncontrolledPopover
+          trigger="hover legacy"
+          placement="bottom"
+          target="menu-link-finish-course"
+        >
+          <PopoverHeader>{labels.finishCourse}</PopoverHeader>
+          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+        </UncontrolledPopover>
+      </p>
+      <p>
+        {' '}
+        <Button id="menu-link-course-development-and-history" color="link">
+          {labels.courseDevelopmentAndHistory}
+        </Button>
+        <UncontrolledPopover
+          trigger="hover legacy"
+          placement="bottom"
+          target="menu-link-course-development-and-history"
+        >
+          <PopoverHeader>{labels.courseDevelopmentAndHistory}</PopoverHeader>
+          <PopoverBody>Länkar i menyn fungerar inte i granska-läge</PopoverBody>
+        </UncontrolledPopover>
+      </p>
     </div>
   )
 }

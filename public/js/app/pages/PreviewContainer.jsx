@@ -143,9 +143,7 @@ class PreviewContainer extends Component {
             <SideMenu
               courseCode={courseCode}
               courseMemoItems={courseMemoItems}
-              backLink="https://www.kth.se"
               labels={sideMenuLabels}
-              language={this.props.routerStore.memoData.memoCommonLangAbbr}
             />
           </Col>
           <Col>
