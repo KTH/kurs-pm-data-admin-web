@@ -128,9 +128,13 @@ class MemoContainer extends Component {
   /** * User clicked button to go to one step back ** */
   onBack = () => {
     const { courseCode, memoEndPoint } = this
+    const { version } = this.state
+    const nextUrl = `${ADMIN}${
+      Number(version) > 1 ? 'published/' : ''
+    }${courseCode}?memoEndPoint=${memoEndPoint}`
     this.handleBtnSave().then(
       setTimeout(() => {
-        window.location = `${ADMIN}${courseCode}?memoEndPoint=${memoEndPoint}`
+        window.location = nextUrl
       }, 500)
     )
   }
