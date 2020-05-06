@@ -8,7 +8,7 @@ import Popup from './Popup'
 const offeredBy = (language, labels, department) =>
   department.name ? (
     <div>
-      <h4>{labels.offeredByTitle}</h4>
+      <h4 style={{ marginTop: '0' }}>{labels.offeredByTitle}</h4>
       <p>
         <a
           id="link-department-name"
@@ -30,7 +30,7 @@ const offeredBy = (language, labels, department) =>
     </div>
   ) : (
     <div>
-      <h4>{labels.offeredByTitle}</h4>
+      <h4 style={{ marginTop: '0' }}>{labels.offeredByTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
     </div>
   )
@@ -39,17 +39,20 @@ const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
   memoLanguageOfInstructions ? (
     <div>
       <h4>{labels.languageOfInstructionTitle}</h4>
-      <p>{memoLanguageOfInstructions}</p>
+      <p style={{ marginBottom: '0' }}>{memoLanguageOfInstructions}</p>
     </div>
   ) : (
     <div>
       <h4>{labels.languageOfInstructionTitle}</h4>
-      <p>{labels.mandatoryFieldMissing}</p>
+      <p style={{ marginBottom: '0' }}>{labels.mandatoryFieldMissing}</p>
     </div>
   )
 
 const CourseFacts = ({ language = 'sv', labels = {}, department = {}, memoData = {} }) => (
-  <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
+  <div
+    className="text-break"
+    style={{ backgroundColor: '#f4f4f4', padding: '20px 10px 20px 20px' }}
+  >
     {offeredBy(language, labels, department)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
   </div>

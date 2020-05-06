@@ -19,12 +19,12 @@ const formatVersion = (language = 'sv', version) => {
 const version = (language, labels, memoVersion) =>
   memoVersion ? (
     <div>
-      <h4>{labels.versionTitle}</h4>
+      <h4 style={{ marginTop: '0' }}>{labels.versionTitle}</h4>
       <p>{`${labels.latest} ${formatVersion(language, memoVersion)}`}</p>
     </div>
   ) : (
     <div>
-      <h4>{labels.versionTitle}</h4>
+      <h4 style={{ marginTop: '0' }}>{labels.versionTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
     </div>
   )
@@ -77,7 +77,7 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
   return (
     <div>
       <h4>{labels.syllabus}</h4>
-      <p>
+      <p style={{ marginBottom: '0' }}>
         {labels.syllabusInformation}
         <br />
         <a
@@ -104,7 +104,10 @@ const CourseMemoLinks = ({
   memoData = {},
   validFromTerm = ''
 }) => (
-  <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
+  <div
+    className="text-break"
+    style={{ backgroundColor: '#f4f4f4', padding: '20px 10px 20px 20px' }}
+  >
     {version(language, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}

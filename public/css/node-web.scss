@@ -393,7 +393,7 @@ hr.header-content-separation {
   }
 }
 
-.menu-memos {
+.menu-memos-sub {
   margin-left: 1rem;
 }
 
@@ -425,4 +425,25 @@ hr.header-content-separation {
   &:hover {
     color: #006cb7;
   }
+}
+
+.preview-content-separation {
+  margin: 20px 0;
+  height: 6px;
+  background-image: linear-gradient(to left, #005ea4, #5c98c4);
+}
+
+.preview-content {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.preview-content-center {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.preview-content-right {
+  margin-right: 0;
+  padding-right: 0;
 }

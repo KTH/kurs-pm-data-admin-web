@@ -7,8 +7,11 @@ import { FaExternalLinkAlt } from 'react-icons/fa'
 import Popup from './Popup'
 
 const CourseLinks = ({ language, labels }) => (
-  <div className="text-break" style={{ backgroundColor: '#f4f4f4' }}>
-    <h3>{labels.linkHeaderTitle}</h3>
+  <div
+    className="text-break"
+    style={{ backgroundColor: '#f4f4f4', padding: '20px 10px 20px 20px' }}
+  >
+    <h4 style={{ marginTop: '0' }}>{labels.linkHeaderTitle}</h4>
     <p>
       <a
         id="link-before-and-during-course"
@@ -45,7 +48,7 @@ const CourseLinks = ({ language, labels }) => (
         targetId="link-contact-persons-and-student-counceling"
       />
     </p>
-    <p>
+    <p style={{ marginBottom: '0' }}>
       <a
         id="link-rights-and-responsibilities"
         title={labels.rightsAndResponsibilities}
