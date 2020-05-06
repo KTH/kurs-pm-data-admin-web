@@ -6,8 +6,6 @@ import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
 import PageHead from '../components/PageHead'
-
-import i18n from '../../../../i18n'
 import BreadCrumbs from '../components/preview/BreadCrumbs'
 import SideMenu from '../components/preview/SideMenu'
 import CourseFacts from '../components/preview/CourseFacts'
@@ -16,6 +14,11 @@ import CourseLinks from '../components/preview/CourseLinks'
 import CourseContacts from '../components/preview/CourseContacts'
 import CourseHeader from '../components/preview/CourseHeader'
 import CoursePresentation from '../components/preview/CoursePresentation'
+import Section from '../components/preview/Section'
+
+import i18n from '../../../../i18n'
+import { context, sections } from '../util/fieldsByType'
+import ExtraSection from '../components/preview/ExtraSection'
 
 const PROGRESS = 3
 
@@ -47,6 +50,66 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
         : swedishTranslations.courseImage.default)
   }
   return courseImage
+}
+
+const renderAllSections = ({ memoData, memoCommonLangAbbr }) => {
+  // TODO Use resolved labels instead
+  const memoLanguageIndex = memoCommonLangAbbr === 'en' ? 0 : 1
+  const { sectionsLabels } = i18n.messages[memoLanguageIndex]
+
+  return sections.map(({ id, content, extraHeaderTitle }) => {
+    // Contacts are displayed in the right column
+    return (
+      id !== 'contacts' && (
+        <span key={id}>
+          <h2 id={id} key={'header-' + id}>
+            {sectionsLabels[id]}
+          </h2>
+          {content.map(contentId => {
+            const menuId = id + '-' + contentId
+            const { isRequired } = context[contentId]
+            const initialValue = memoData[contentId]
+            const visibleInMemo = isRequired ? true : !!initialValue
+
+            return (
+              visibleInMemo && (
+                <Section
+                  memoLangIndex={memoLanguageIndex}
+                  contentId={contentId}
+                  menuId={menuId}
+                  key={contentId}
+                  visibleInMemo={visibleInMemo}
+                  html={initialValue}
+                />
+              )
+            )
+          })}
+          {extraHeaderTitle &&
+            Array.isArray(memoData[extraHeaderTitle]) &&
+            memoData[extraHeaderTitle].map(
+              ({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+                return (
+                  <ExtraSection
+                    contentId={extraHeaderTitle}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={uKey}
+                    initialTitle={title}
+                    initialValue={htmlContent}
+                    visibleInMemo={visibleInMemo}
+                    isEmptyNew={isEmptyNew}
+                    uKey={uKey}
+                    onEditorChange={() => {}}
+                    onBlur={() => {}}
+                    onRemove={() => {}}
+                    memoLanguageIndex={memoLanguageIndex}
+                  />
+                )
+              }
+            )}
+        </span>
+      )
+    )
+  })
 }
 
 @inject(['routerStore'])
@@ -104,6 +167,7 @@ class PreviewContainer extends Component {
       this.props.routerStore.courseMainSubjects,
       this.props.routerStore.memoLanguage
     )
+    const allSections = renderAllSections(this.props.routerStore)
     const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     // Assumes that API only gave one memoData per memoEndPoint
@@ -169,7 +233,7 @@ class PreviewContainer extends Component {
                   courseImageUrl={courseImageUrl || ''}
                   semester={this.semester}
                 />
-                {/* {allSections} */}
+                {allSections}
               </Col>
               <Col lg="4" className="preview-content-right">
                 <CourseFacts
