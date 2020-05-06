@@ -128,7 +128,7 @@ class PreviewContainer extends Component {
     }
 
     return (
-      <Container className="kip-container" style={{ marginBottom: '115px' }}>
+      <Container className="kip-container" style={{ marginBottom: '115px', padding: '0' }}>
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
             {this.courseSubHeader()}
@@ -150,8 +150,8 @@ class PreviewContainer extends Component {
               labels={sideMenuLabels}
             />
           </Col>
-          <Col>
-            <Row>
+          <Col lg="9">
+            <Row className="preview-content">
               <CourseHeader
                 courseMemo={this.props.routerStore.memoEndPoint}
                 courseCode={courseCode}
@@ -162,8 +162,8 @@ class PreviewContainer extends Component {
                 language={this.props.routerStore.memoData.memoCommonLangAbbr}
               />
             </Row>
-            <Row>
-              <Col>
+            <Row className="preview-content">
+              <Col lg="8" className="preview-content-center">
                 <CoursePresentation
                   introText={this.props.routerStore.sellingText}
                   courseImageUrl={courseImageUrl || ''}
@@ -171,13 +171,14 @@ class PreviewContainer extends Component {
                 />
                 {/* {allSections} */}
               </Col>
-              <Col lg="3">
+              <Col lg="4" className="preview-content-right">
                 <CourseFacts
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseFactsLabels}
                   department={this.props.routerStore.koppsFreshData.department}
                   memoData={this.props.routerStore.memoData}
                 />
+                <div style={{ height: '30px' }} />
                 <CourseMemoLinks
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseMemoLinksLabels}
@@ -185,10 +186,12 @@ class PreviewContainer extends Component {
                   memoData={this.props.routerStore.memoData}
                   validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
                 />
+                <div style={{ height: '30px' }} />
                 <CourseLinks
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseLinksLabels}
                 />
+                <div style={{ height: '30px' }} />
                 <CourseContacts
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   memoData={this.props.routerStore.memoData}

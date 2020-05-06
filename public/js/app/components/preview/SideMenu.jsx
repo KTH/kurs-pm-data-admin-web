@@ -34,19 +34,19 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
         <b>{labels.courseMemo}</b>
       </p>
       <hr />
-      <div className="menu-memos">
+      <div className="menu-memos-sub">
         {courseMemoItems.map(({ label, active }) => {
           return active ? (
             <p id={label} key={label} className="active">
               {label}
             </p>
           ) : (
-            <span key={label}>
+            <p key={label}>
               <Button id={label} color="link">
                 {label}
               </Button>
               <Popup header={label} body={labels.noLinksInPreview} targetId={label} />
-            </span>
+            </p>
           )
         })}
       </div>
