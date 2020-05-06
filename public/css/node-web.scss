@@ -427,6 +427,12 @@ hr.header-content-separation {
   }
 }
 
+.preview-content-separation {
+  margin: 20px 0;
+  height: 6px;
+  background-image: linear-gradient(to left, #005ea4, #5c98c4);
+}
+
 .preview-content {
   margin-right: 0;
   margin-left: 0;

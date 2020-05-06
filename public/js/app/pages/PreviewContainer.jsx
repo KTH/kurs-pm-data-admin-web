@@ -138,10 +138,10 @@ class PreviewContainer extends Component {
         <Row />
         <PageHead semester={semester} memoName={memoName} />
         <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
+        <div className="preview-content-separation" />
         <Row>
           <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
         </Row>
-        <hr className="header-content-separation" />
         <Row>
           <Col lg="3">
             <SideMenu
