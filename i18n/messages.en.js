@@ -251,9 +251,8 @@ module.exports = {
   pagesChangePublishedPm: [
     {
       title: '1. Choose a course memo',
-      intro: `SHOULD BE TRANSLATED SOON TO ENGLISH ---> Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
-      och sedan publicera en ny version av kurs-PM på sidan: Om kursen / Förbereda och gå (kurs-PM)`
+      intro: `Start by choosing the course memo you want to change (step 1 of 3). Edit the chosen course memo in the next step (2 of 3). 
+      Review the new version of the course memo in the last step (3 of 3) and then publish it on the page About the course / Prepare and take course.`
     },
     {
       title: '2. Edit course memo',
