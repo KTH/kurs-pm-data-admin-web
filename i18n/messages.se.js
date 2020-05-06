@@ -65,16 +65,16 @@ module.exports = {
     // includera rubrik
     notIncludedInMemoYet: {
       section:
-        'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-pm',
-      subSection: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-pm'
+        'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-PM',
+      subSection: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-PM'
     },
     nothingFetched: {
-      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-pm. 
+      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
       Välj Redigera för att lägga in innehåll.`,
       mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
       pm. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
       mandatoryForSome: `Inget innehåll fanns att hämta. 
-      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-pm.`,
+      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
       Du kan också välja att inte inkludera rubriken.`
     }
@@ -121,7 +121,7 @@ module.exports = {
     communicationDuringCourse: {
       body: `<p>Används till: att beskriva vem studenten kontakter för vad och hur det görs samt och när studenten kan förvanta sig svar.</p>
       <p>Varför: Om det finns beskrivet hur kommunikationen mellan studenter och lärare ska se ut så besparar det tid och arbete ...</p>
-      <p>För att editera innehållet så väljer du: "Visa i kurs-pm”. </p>
+      <p>För att editera innehållet så väljer du: "Visa i kurs-PM”. </p>
       <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras</p>`
     },
     courseContent: {
@@ -179,7 +179,7 @@ module.exports = {
     gradingCriteria: {
       body: `<p><b>Målrelaterade betygskriterier</b> ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål.</p>
       <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna relaterar till lärandemålen och med det vad den behöver göra och kunna för att uppnå respektive betyg på kursen. Att tydligt beskriva betygskriterierna bidrar även till att motivera studenten.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Visa i kurs-pm”. Ange information om målrelaterade betygskriterier i inmatningsfältet. Du kan välja ”Hjälptext” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Visa i kurs-PM”. Ange information om målrelaterade betygskriterier i inmatningsfältet. Du kan välja ”Hjälptext” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Betygskriterierna ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål, där godkänt betyg ska innebära en grundläggande uppfyllelse av målen. Betygskriterier för högre nivåer kan exempelvis gälla kvaliteten på utförandet, svårighetsgraden, hur olika delar av kursinnehållet kombineras och nivå i Blooms taxonomi.</p>
       <p>Examinationen ska vara tydligt kopplad till betygskriterierna. Om det finns flera examinationsmoment i kursen ska det i anslutning till betygskriterierna framgå vilka lärandemål som examineras i vilket examinationsmoment, hur slutbetyget vägs ihop av delbetyg och hur delbetyg vägs ihop av delbedömningar efter betygskriterierna.</p>
       <p>Läs mer om betygskriterier och hitta konkreta exempel på 
@@ -201,7 +201,7 @@ module.exports = {
       body: `<p><b>Lärandemål</b> ska tydliggöra vilka kunskaper, färdigheter, värderingsförmågor och förhållningssätt som studenten ska visa efter genomgången kurs.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vad studenten behöver uppnå för att få ett godkänt betyg. 
       Lärandemålen hjälper med det studenten att lägga en plan för kursens genomförande. 
-      Efterföljande information i detta kurs-pm relaterar till kursens lärandemål varför det är viktigt att informationen är väl formulerad.</p>
+      Efterföljande information i detta kurs-PM relaterar till kursens lärandemål varför det är viktigt att informationen är väl formulerad.</p>
       <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Lärandemål kan ändras eftersom informationen är en del av kursplanen. 
       Läs mer om riktlinjer för att ändra Lärandemål på sidan <a href="https://intra.kth.se/utbildning/utbi/forbereda-utbildning/andra-i-en-kursplan-andra-kursuppgifter-i-ladok-ej-forskarniva" target="_blank">Ändra i en kursplan, ändra kursuppgifter i Ladok (ej forskarnivå)</a> (öppnas i ny flik).</p>`
     },
@@ -211,12 +211,12 @@ module.exports = {
       För studenter med funktionsnedsättning är det viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst. 
       Därför bör uppgifterna finnas tillgängliga minst 8 veckor före kursstart.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om kurslitteratur i inmatningsfältet. 
-      Om det finns kursgemensamma uppgifter om kurslitteratur i Kopps kommer den informationen hämtas automatiskt till nya kurs-pm. 
-      Du kan välja att behålla den informationen i detta kurs-pm eller skriva ny information som endast gäller den kursomgång som detta kurs-pm skrivs för. 
+      Om det finns kursgemensamma uppgifter om kurslitteratur i Kopps kommer den informationen hämtas automatiskt till nya kurs-PM. 
+      Du kan välja att behålla den informationen i detta kurs-PM eller skriva ny information som endast gäller den kursomgång som detta kurs-PM skrivs för. 
       Du kan välja ”Hjälptext” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Kurslitteratur" beskriver du vilken kurslitteratur som används i denna kursomgång. 
-      Om du valt att skapa ett nytt kurs-pm kommer information att hämtas automatiskt från den kursgemensamma informationen om kurslitteratur i Kopps. 
-      Du kan välja att behålla den hämtade informationen eller skriva kurslitteratur specifikt för kursomgången som detta kurs-pm gäller för. 
+      Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om kurslitteratur i Kopps. 
+      Du kan välja att behålla den hämtade informationen eller skriva kurslitteratur specifikt för kursomgången som detta kurs-PM gäller för. 
       Du kan då ersätta den hämtade texten med text som anges i inmatningsfältet.</p>
       <p>Lista kurslitteraturen tydligt. Ange författare, utgivningsår, titel och förlag. 
       Hänvisa även till platser där litteraturen finns tillgänglig i digital form, exempelvis om den finns tillgänglig i Canvas.</p>
@@ -224,12 +224,12 @@ module.exports = {
       För studenter med funktionsnedsättning är det viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst eller liknande. 
       Ny kurslitteratur bör därför finnas tillgänglig minst 8 veckor före kursstart.</p>
       <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det explicit för att studenterna inte ska behöva ställa frågan. 
-      Rubriken kurslitteratur är obligatorisk i kurs-pm och kommer alltid visas i kurs-pm oavsett om det finns relevant kurslitteratur eller inte på kursomgången.</p>`
+      Rubriken kurslitteratur är obligatorisk i kurs-PM och kommer alltid visas i kurs-PM oavsett om det finns relevant kurslitteratur eller inte på kursomgången.</p>`
     },
     otherContacts: {
       body: `<p>Används till: att lägga in andra kontakter än de som är obligatoriska. </p>
       <p>Varför: Det är viktigt för studenter att ha alla kontakter som de behöver för kursen samlade här.</p> 
-      <p>För att editera innehållet så väljer du: "Visa i kurs-pm”.</p> 
+      <p>För att editera innehållet så väljer du: "Visa i kurs-PM”.</p> 
       <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras.</p> `
     },
     otherRequirementsForFinalGrade: {
@@ -287,12 +287,12 @@ module.exports = {
   pagesCreateNewPm: [
     {
       title: '1.Välj kursomgång',
-      intro: `Börja med att välja termin och kursomgång för det kurs-pm som ska publiceras (steg 1 av 3). 
-      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-pm för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-pm på denna kurs. 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-pm. I sista steget (3 av 3) har du möjlighet att först granska kurs-pm och sedan publicera kurs-pm på kursplatsen “Om kursen“ för vald termin och kursomgång.`
+      intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
+      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
     },
     {
-      title: '2.Redigera kurs-pm',
+      title: '2.Redigera kurs-PM',
       intro: ''
     },
     {
@@ -306,10 +306,10 @@ module.exports = {
       title: '1. Välj kurs-PM',
       intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
       I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
-      och sedan publicera en ny version av kurs-pm på sidan: Om kursen / Förbereda och gå (kurs-PM)`
+      och sedan publicera en ny version av kurs-PM på sidan: Om kursen / Förbereda och gå (kurs-PM)`
     },
     {
-      title: '2. Redigera kurs-pm',
+      title: '2. Redigera kurs-PM',
       intro: ''
     },
     {
@@ -321,12 +321,12 @@ module.exports = {
   progressBarHeaders: [
     {
       title: '1. Välj kursomgång',
-      intro: `Börja med att välja termin och kursomgång för det kurs-pm som ska publiceras (steg 1 av 3). 
-      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-pm för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-pm på denna kurs. 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-pm. I sista steget (3 av 3) har du möjlighet att först granska kurs-pm och sedan publicera kurs-pm på kursplatsen “Om kursen“ för vald termin och kursomgång.`
+      intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
+      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
     },
     {
-      title: '2. Redigera kurs-pm',
+      title: '2. Redigera kurs-PM',
       intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
       I nästa steg granskas all kurs-PM data innan publicering.`
     },
@@ -338,17 +338,17 @@ module.exports = {
   progressTitleHeaders: [
     {
       title: '1. Välj kursomgång',
-      intro: `Börja med att välja termin och kursomgång för det kurs-pm som ska publiceras (steg 1 av 3). 
-      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-pm för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-pm på denna kurs. 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-pm. I sista steget (3 av 3) har du möjlighet att först granska kurs-pm och sedan publicera kurs-pm på kursplatsen “Om kursen“ för vald termin och kursomgång.`
+      intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
+      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
     },
     {
-      title: '2. Redigera kurs-pm',
+      title: '2. Redigera kurs-PM',
       intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
       I nästa steg granskas all kurs-PM data innan publicering.`
     },
     {
-      title: 'Granska kurs-pm som sida',
+      title: 'Granska kurs-PM som sida',
       intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
       Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
     }
@@ -361,15 +361,15 @@ module.exports = {
     contacts: 'Kontakter'
   },
   pageTitles: {
-    new: 'Skapa och publicera kurs-pm',
+    new: 'Skapa och publicera kurs-PM',
     // draft: 'Publicera kurs-PM utkast',
     published: 'Ändra publicerat kurs-PM',
-    preview: 'Skapa och publicera kurs-pm'
+    preview: 'Skapa och publicera kurs-PM'
   },
   actionModals: {
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
-      body: `Utkast sparas automatiskt från det att du påbörjat steg 2, Redigera kurs-pm. Vill du inte behålla utkastet kan du välja Radera utkast i steg 1, Välj kursomgång,nästa gång du använder tjänsten Skapa och publicera kurs-pm.
+      body: `Utkast sparas automatiskt från det att du påbörjat steg 2, Redigera kurs-PM. Vill du inte behålla utkastet kan du välja Radera utkast i steg 1, Välj kursomgång,nästa gång du använder tjänsten Skapa och publicera kurs-PM.
         <br/>
         <br/>
         Vill du fortsätta att avbryta?`,
@@ -405,7 +405,7 @@ module.exports = {
   info: {
     chooseSavedDraft: 'Fortsätt redigera ett sparat utkast',
     createNew: 'Skapa nytt eller kopiera?',
-    choosePublishedMemo: 'Välj kurs-pm',
+    choosePublishedMemo: 'Välj kurs-PM',
     chooseSemester: {
       header: 'Välj termin',
       body:
@@ -421,24 +421,24 @@ module.exports = {
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       availableRounds: {
         label: 'Markera ett eller flera kurstillfällen som ingår i kursomgången',
-        infoText: 'Listade kurstillfällen saknar ett publicerat kurs-pm eller utkast'
+        infoText: 'Listade kurstillfällen saknar ett publicerat kurs-PM eller utkast'
       },
       existedDrafts: {
         label: 'Välj det utkast du vill fortsätta att redigera',
         infoText: 'Listade utkast är sparade men ej publicerade'
       },
       publishedMemos: {
-        label: 'Välj det kurs-pm du vill redigera: ',
-        infoText: 'Kurs-pm listade är publicerade'
+        label: 'Välj det kurs-PM du vill redigera: ',
+        infoText: 'Kurs-PM listade är publicerade'
       }
     },
     publishedHasDraft: ' (finns opublicerade ändringar)',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     noCourseRoundsAvailable:
-      'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-pm eller utkast.',
+      'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-PM eller utkast.',
     noSavedDrafts: 'Det finns inga sparade utkast.',
     noSemesterAvailable:
-      'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-pm för.',
+      'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-PM för.',
     noPublishedMemos:
       'Det finns inga publicerade kursomgångar för denna termin, föregående eller kommande.'
   },
@@ -466,7 +466,7 @@ module.exports = {
       2: 'HT '
     },
     labelStartDate: 'Startdatum',
-    // hasSavedDraft: 'Finns utkast kurs-pm',
+    // hasSavedDraft: 'Finns utkast kurs-PM',
     contentHeaders: {
       title: 'Rubriker',
       intro: 'Rubriker....'
@@ -476,8 +476,8 @@ module.exports = {
     autoSaved: 'Sparat utkast',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     errNoChosen:
-      'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-pm.',
-    errNoInPublishedChosen: 'Du måste välja ett kurs-pm för att kunna gå vidare till Redigera',
+      'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
+    errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)',
@@ -495,7 +495,7 @@ module.exports = {
     directory: 'Kurs- och programkatalogen',
     aboutCourse: 'Om kursen',
     beforeChoosingCourse: 'Inför kursval',
-    courseMemo: 'Förbereda, gå (kurs-pm)',
+    courseMemo: 'Förbereda, gå (kurs-PM)',
     finishCourse: 'Slutföra ej avklarad kurs',
     courseDevelopmentAndHistory: 'Kursens utveckling och historik',
     noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge'
@@ -508,10 +508,10 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseMemoLinksLabels: {
-    versionTitle: 'Version kurs-pm',
+    versionTitle: 'Version kurs-PM',
     latest: 'Senaste:',
-    courseMemoArchiveLabel: 'Arkiv för kurs-pm',
-    courseMemoPdf: 'Kurs-pm som pdf',
+    courseMemoArchiveLabel: 'Arkiv för kurs-PM',
+    courseMemoPdf: 'Kurs-PM som pdf',
     syllabus: 'Kursplan',
     syllabusInformation: '(s) information hämtas från',
     syllabusLinkStart: 'Kursplan (',
@@ -537,7 +537,7 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseHeaderLabels: {
-    courseHeaderTitle: 'Kurs-pm',
+    courseHeaderTitle: 'Kurs-PM',
     adminLinkLabel: 'Administrera Om kursen',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
