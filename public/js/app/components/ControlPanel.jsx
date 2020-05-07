@@ -33,7 +33,7 @@ const ControlPanel = props => {
         {hasChosenMemo && onRemove && (
           <ActionModalButton
             btnLabel={buttons.btnRemove}
-            modalId="cancelStep2"
+            modalId="removeCourseRound"
             type="remove"
             modalLabels={actionModals.infoRemove} // TODO: CHANGE
             onConfirm={onRemove}
@@ -43,7 +43,7 @@ const ControlPanel = props => {
       <Col sm="4" className="btn-cancel">
         <ActionModalButton
           btnLabel={buttons.cancel}
-          modalId="cancelStep2"
+          modalId="cancelThisAction"
           type="cancel"
           modalLabels={actionModals.infoCancel}
           onConfirm={() => console.log('Cancelled')}
