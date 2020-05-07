@@ -8,7 +8,7 @@ import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
   const { hasChosenMemo, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
-  const { alertIsOpen, alertText, alertColor, onBack, onSave } = props
+  const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
 
@@ -47,7 +47,7 @@ const ControlPanel = props => {
       <Col sm="4" className="step-forward">
         {progress === 2 && (
           <Button onClick={onSave} color="secondary">
-            {buttons.save}
+            {isDraftOfPublished ? buttons.save : buttons.saveDraft}
           </Button>
         )}
         <Button
