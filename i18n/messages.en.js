@@ -406,7 +406,8 @@ module.exports = {
     preview: 'Preview',
     edit: 'Edit',
     cancel: 'Cancel',
-    save: 'Save draft',
+    save: 'Save',
+    saveDraft: 'Save draft',
     publish: 'Publish',
     goToRounds: 'Choose course offering',
     save_and_cancel: 'Save draft and cancel',
@@ -434,6 +435,11 @@ module.exports = {
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Smth went wrong on api side......',
+    infoAboutFreshData:
+      'should be in EN --> Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
+    infoStartAgain:
+      'should be in EN --> Det finns ändringar som ej publicerats! Nedan visas kurs-PM med ändringar. Du kan i stället välja att: ',
+    linkToRefreshData: 'should be in EN -->  utgå från senaste publicerade kurs-PM',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
     warnNameNewSection: 'You need to give a name to a new section'

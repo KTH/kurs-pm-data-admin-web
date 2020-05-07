@@ -452,7 +452,8 @@ module.exports = {
     preview: 'Granska',
     edit: 'Redigera',
     cancel: 'Avbryt',
-    save: 'Spara utkast',
+    save: 'Spara',
+    saveDraft: 'Spara utkast',
     publish: 'Publicera',
     goToRounds: 'Välj kursomgång',
     save_and_cancel: 'Spara utkast och avsluta',
@@ -479,6 +480,11 @@ module.exports = {
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
+    infoAboutFreshData:
+      'Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-PM publicerades. Den uppdaterad informationen visas nedan.',
+    infoStartAgain:
+      'Det finns ändringar som ej publicerats! Nedan visas kurs-PM med ändringar. Du kan i stället välja att: ',
+    linkToRefreshData: 'utgå från senaste publicerade kurs-PM',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)',
     warnNameNewSection:
