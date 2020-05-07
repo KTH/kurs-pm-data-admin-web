@@ -441,6 +441,10 @@ hr.header-content-separation {
 .preview-content-center {
   margin-left: 0;
   padding-left: 0;
+  padding-right: 7.5px;
+  .btn-info-modal {
+    margin-left: 10px;
+  }
 }
 
 .preview-content-right {

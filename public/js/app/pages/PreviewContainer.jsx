@@ -19,6 +19,7 @@ import Section from '../components/preview/Section'
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import ExtraSection from '../components/preview/ExtraSection'
+import { simplifyMemoName } from '../util/helpers'
 
 const PROGRESS = 3
 
@@ -91,8 +92,7 @@ const renderAllSections = ({ memoData, memoCommonLangAbbr }) => {
                 return (
                   <ExtraSection
                     contentId={extraHeaderTitle}
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={uKey}
+                    key={uKey || extraHeaderTitle}
                     initialTitle={title}
                     initialValue={htmlContent}
                     visibleInMemo={visibleInMemo}
@@ -171,12 +171,15 @@ class PreviewContainer extends Component {
     const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     // Assumes that API only gave one memoData per memoEndPoint
-    let active = true
+    let active = false
     const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
-      const label = m.memoEndPoint
+      console.log('m', m)
+      const id = m.memoEndPoint
+      const label = simplifyMemoName(m.memoName || m.memoEndPoint)
       // memoEndPoint is currently displayed
-      active = m.memoEndPoint === this.props.routerStore.memoEndPoint
+      active = m.memoEndPoint === this.state.previewMemo.memoEndPoint
       return {
+        id,
         label,
         active,
         url: `/kurs-pm/${courseCode}/${label}`
@@ -185,9 +188,12 @@ class PreviewContainer extends Component {
     // memoEndPoint has not been published before, and wasn’t in memoData
     if (!active) {
       courseMemoItems.push({
-        label: this.props.routerStore.memoEndPoint,
+        id: this.props.routerStore.memoEndPoint,
+        label: simplifyMemoName(
+          this.state.previewMemo.memoName || this.state.previewMemo.memoEndPoint
+        ),
         active: true,
-        url: `/kurs-pm/${courseCode}/${this.props.routerStore.memoEndPoint}`
+        url: `/kurs-pm/${courseCode}/${this.state.previewMemo.memoEndPoint}`
       })
     }
 
@@ -217,7 +223,9 @@ class PreviewContainer extends Component {
           <Col lg="9">
             <Row className="preview-content">
               <CourseHeader
-                courseMemo={this.props.routerStore.memoEndPoint}
+                courseMemo={simplifyMemoName(
+                  this.state.previewMemo.memoName || this.state.previewMemo.memoEndPoint
+                )}
                 courseCode={courseCode}
                 title={this.props.routerStore.koppsFreshData.title}
                 credits={this.props.routerStore.koppsFreshData.credits}
@@ -242,6 +250,7 @@ class PreviewContainer extends Component {
                   department={this.props.routerStore.koppsFreshData.department}
                   memoData={this.props.routerStore.memoData}
                 />
+                {/* TODO: Use better spacing method */}
                 <div style={{ height: '30px' }} />
                 <CourseMemoLinks
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
@@ -250,11 +259,13 @@ class PreviewContainer extends Component {
                   memoData={this.props.routerStore.memoData}
                   validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
                 />
+                {/* TODO: Use better spacing method */}
                 <div style={{ height: '30px' }} />
                 <CourseLinks
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseLinksLabels}
                 />
+                {/* TODO: Use better spacing method */}
                 <div style={{ height: '30px' }} />
                 <CourseContacts
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}

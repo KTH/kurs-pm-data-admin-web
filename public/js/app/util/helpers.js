@@ -28,3 +28,5 @@ export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
 
   return `${seasonOrShortName} ${startDateAndLanguage}`
 }
+
+export const simplifyMemoName = memoName => memoName.split('(')[0]
