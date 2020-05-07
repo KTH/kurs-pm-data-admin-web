@@ -140,6 +140,15 @@ div.tox.tox-tinymce {
   .separator {
     max-width: 15%;
   }
+
+  .upper-alert {
+    .alert {
+      margin-bottom: 5px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
   // .section-50 + .subsection-30 {
   //   padding-top: -30px;
   // }
