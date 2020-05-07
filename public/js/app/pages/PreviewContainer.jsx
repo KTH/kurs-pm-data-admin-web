@@ -15,10 +15,10 @@ import CourseContacts from '../components/preview/CourseContacts'
 import CourseHeader from '../components/preview/CourseHeader'
 import CoursePresentation from '../components/preview/CoursePresentation'
 import Section from '../components/preview/Section'
+import ExtraSection from '../components/preview/ExtraSection'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
-import ExtraSection from '../components/preview/ExtraSection'
 import { simplifyMemoName } from '../util/helpers'
 
 const PROGRESS = 3
@@ -122,11 +122,13 @@ class PreviewContainer extends Component {
 
   langIndex = this.props.routerStore.langIndex
 
-  handleAlert = alertText => {
-    this.setState({ alertIsOpen: true, alertText })
-    setTimeout(() => {
-      this.setState({ alertIsOpen: false, alertText: '' })
-    }, 2000)
+  onBack = () => {
+    const editLocation = window.location.href.replace(/\/preview/, '')
+    window.location = editLocation
+  }
+
+  publish = () => {
+    console.log('Publish')
   }
 
   courseSubHeader = () => {
@@ -278,8 +280,8 @@ class PreviewContainer extends Component {
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}
-            onSubmit={() => this.handleAlert('Publish option is not yet implemented!')}
-            onBack={() => this.handleAlert('Back option is not yet implemented!')}
+            onSubmit={this.publish}
+            onBack={this.onBack}
             progress={this.state.progress}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}
