@@ -8,7 +8,7 @@ import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
   const { hasChosenMemo, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
-  const { alertIsOpen, alertText, alertColor, onBack, onSave } = props
+  const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
 
@@ -33,7 +33,7 @@ const ControlPanel = props => {
         {hasChosenMemo && onRemove && (
           <ActionModalButton
             btnLabel={buttons.btnRemove}
-            modalId="cancelStep2"
+            modalId="removeCourseRound"
             type="remove"
             modalLabels={actionModals.infoRemove} // TODO: CHANGE
             onConfirm={onRemove}
@@ -43,7 +43,7 @@ const ControlPanel = props => {
       <Col sm="4" className="btn-cancel">
         <ActionModalButton
           btnLabel={buttons.cancel}
-          modalId="cancelStep2"
+          modalId="cancelThisAction"
           type="cancel"
           modalLabels={actionModals.infoCancel}
           onConfirm={() => console.log('Cancelled')}
@@ -52,7 +52,7 @@ const ControlPanel = props => {
       <Col sm="4" className="step-forward">
         {progress === 2 && (
           <Button onClick={onSave} color="secondary">
-            {buttons.save}
+            {isDraftOfPublished ? buttons.save : buttons.saveDraft}
           </Button>
         )}
         <Button

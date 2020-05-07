@@ -43,8 +43,12 @@ async function renderMemoEditorPage(req, res, next) {
     const context = {}
     const userLang = language.getLanguage(res) || 'sv'
     const { courseCode, memoEndPoint } = req.params
+    const { action } = req.query
+
     const renderProps = _staticRender(context, req.url)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+
+    if (action) renderProps.props.children.props.routerStore.rebuilDraftFromPublishedVer = true
 
     renderProps.props.children.props.routerStore.setBrowserConfig(
       browser,
@@ -52,6 +56,7 @@ async function renderMemoEditorPage(req, res, next) {
       apis,
       server.hostUrl
     )
+
     renderProps.props.children.props.routerStore.doSetLanguageIndex(userLang)
 
     renderProps.props.children.props.routerStore.memoData = apiMemoData

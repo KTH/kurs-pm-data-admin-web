@@ -3,11 +3,12 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Alert, Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { SERVICE_URL } from '../util/constants'
 // import { Switch,Route } from 'react-router-dom'
 import PageHead from '../components/PageHead'
 import ControlPanel from '../components/ControlPanel'
@@ -25,7 +26,12 @@ const PROGRESS = 2
 @inject(['routerStore'])
 @observer
 class MemoContainer extends Component {
-  state = this.props.routerStore.memoData || {}
+  state = {
+    ...(this.props.routerStore.memoData || {}),
+    textAboutChanges: ''
+  }
+
+  isDraftOfPublished = Number(this.props.routerStore.memoData.version > 1)
 
   courseCode = this.props.routerStore.courseCode
 
@@ -37,7 +43,12 @@ class MemoContainer extends Component {
 
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
+  rebuilDraftFromPublishedVer = this.props.routerStore.rebuilDraftFromPublishedVer
+
   componentDidMount() {
+    this.props.history.push({
+      search: ''
+    })
     this.scrollIntoView()
   }
 
@@ -60,6 +71,9 @@ class MemoContainer extends Component {
         body
       )
       .then(() => this.onAlert(alertTranslationId))
+      .then(() => {
+        this.rebuilDraftFromPublishedVer = false
+      })
       .catch(error => console.log(error)) // alert error
   }
 
@@ -127,10 +141,9 @@ class MemoContainer extends Component {
 
   /** * User clicked button to go to one step back ** */
   onBack = () => {
-    const { courseCode, memoEndPoint } = this
-    const { version } = this.state
+    const { courseCode, memoEndPoint, isDraftOfPublished } = this
     const nextUrl = `${ADMIN}${
-      Number(version) > 1 ? 'published/' : ''
+      isDraftOfPublished ? 'published/' : ''
     }${courseCode}?memoEndPoint=${memoEndPoint}`
     this.handleBtnSave().then(
       setTimeout(() => {
@@ -148,6 +161,43 @@ class MemoContainer extends Component {
         window.location = `${ADMIN}${courseCode}/${memoEndPoint}/preview`
       }, 500)
     )
+  }
+
+  rebuildDraft = event => {
+    event.preventDefault()
+    const { courseCode, memoEndPoint } = this
+    return axios
+      .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
+      .then(result => {
+        if (result.status >= 400) {
+          this.setAlarm('danger', 'errNoInPublishedChosen')
+          return 'ERROR-' + result.status
+        }
+        const body = { memoEndPoint }
+        const newDraftUrl = `${SERVICE_URL.API}create-draft/${courseCode}/${memoEndPoint}`
+        return axios
+          .post(newDraftUrl, body)
+          .then(newResult => {
+            if (newResult.status >= 400) {
+              return 'ERROR-' + result.status
+            }
+            console.log('newResult', newResult.data[0])
+            // this.props.history.push({ reload: true })
+            // ADDD ERROR HANTERING
+            const thisUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}?action=rebuild`
+            window.location = thisUrl
+          })
+          .catch(error => {
+            // this.setAlarm('danger', 'errWhileSaving')
+          })
+        // this.setAlarm('danger', 'errNoInPublishedChosen')
+      })
+      .catch(err => {
+        if (err.response) {
+          throw new Error(err.message)
+        }
+        throw err
+      })
   }
 
   renderScrollView = () => {
@@ -217,13 +267,22 @@ class MemoContainer extends Component {
   }
 
   render() {
-    const { extraInfo, pagesCreateNewPm, pageTitles } = i18n.messages[this.userLangIndex]
+    const {
+      alerts,
+      extraInfo,
+      pagesCreateNewPm,
+      pagesChangePublishedPm,
+      pageTitles
+    } = i18n.messages[this.userLangIndex]
     const { memoName, title, credits, creditUnitAbbr } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
-        <Row>
-          <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
+        <Row key="pageHeader">
+          <PageTitle
+            id="mainHeading"
+            pageTitle={this.isDraftOfPublished ? pageTitles.published : pageTitles.new}
+          >
             <span>
               {this.courseCode +
                 ' ' +
@@ -235,10 +294,30 @@ class MemoContainer extends Component {
             </span>
           </PageTitle>
         </Row>
-        <ProgressBar active={2} pages={pagesCreateNewPm} />
+        <ProgressBar
+          active={2}
+          pages={this.isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
+        />
         <PageHead semester={this.semester} memoName={memoName} />
+        {(this.isDraftOfPublished && !this.rebuilDraftFromPublishedVer && (
+          <Row key="upper-alert" className="w-100 my-0 mx-auto upper-alert">
+            <Alert key="infoAboutNewData" color="info">
+              {alerts.infoAboutFreshData || ''}
+            </Alert>
+            <Alert key="infoAboutStartingAgain" color="info">
+              {alerts.infoStartAgain}{' '}
+              <a href="#new" onClick={this.rebuildDraft}>
+                {alerts.linkToRefreshData}
+              </a>
+            </Alert>
+          </Row>
+        )) || (
+          <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
+            <Alert color="success">SIDAN ÅTERSTÄLLT TILL SISTA PUBLICERADE VERSION???</Alert>
+          </Row>
+        )}
         <StickyContainer className="memo-container">
-          <Row className="sections-headers">
+          <Row key="section-of-header" className="sections-headers">
             <Col lg="7">
               <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
             </Col>
@@ -284,6 +363,7 @@ class MemoContainer extends Component {
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}
             alertColor={this.state.alertColor || 'success'}
+            isDraftOfPublished={this.isDraftOfPublished}
           />
         </Container>
       </Container>
