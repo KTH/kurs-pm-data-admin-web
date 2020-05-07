@@ -21,6 +21,8 @@ class RouterStore {
 
   @observable existingLatestMemos = {}
 
+  @observable rebuilDraftFromPublishedVer = false
+
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
     this.courseCode = props.courseCode
