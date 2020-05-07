@@ -20,9 +20,14 @@ const ControlPanel = props => {
         </Alert>
       </Row>
       <Col sm="4" className="step-back">
-        {progress > 1 && (
+        {progress === 2 && (
           <Button onClick={onBack} className="btn-back" alt="BACK">
             {buttons.goToRounds}
+          </Button>
+        )}
+        {progress === 3 && (
+          <Button onClick={onBack} className="btn-back" alt="BACK">
+            {buttons.edit}
           </Button>
         )}
         {hasChosenMemo && onRemove && (

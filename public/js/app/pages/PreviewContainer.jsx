@@ -6,8 +6,6 @@ import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
 import PageHead from '../components/PageHead'
-
-import i18n from '../../../../i18n'
 import BreadCrumbs from '../components/preview/BreadCrumbs'
 import SideMenu from '../components/preview/SideMenu'
 import CourseFacts from '../components/preview/CourseFacts'
@@ -16,6 +14,12 @@ import CourseLinks from '../components/preview/CourseLinks'
 import CourseContacts from '../components/preview/CourseContacts'
 import CourseHeader from '../components/preview/CourseHeader'
 import CoursePresentation from '../components/preview/CoursePresentation'
+import Section from '../components/preview/Section'
+import ExtraSection from '../components/preview/ExtraSection'
+
+import i18n from '../../../../i18n'
+import { context, sections } from '../util/fieldsByType'
+import { simplifyMemoName } from '../util/helpers'
 
 const PROGRESS = 3
 
@@ -49,6 +53,65 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
   return courseImage
 }
 
+const renderAllSections = ({ memoData, memoCommonLangAbbr }) => {
+  // TODO Use resolved labels instead
+  const memoLanguageIndex = memoCommonLangAbbr === 'en' ? 0 : 1
+  const { sectionsLabels } = i18n.messages[memoLanguageIndex]
+
+  return sections.map(({ id, content, extraHeaderTitle }) => {
+    // Contacts are displayed in the right column
+    return (
+      id !== 'contacts' && (
+        <span key={id}>
+          <h2 id={id} key={'header-' + id}>
+            {sectionsLabels[id]}
+          </h2>
+          {content.map(contentId => {
+            const menuId = id + '-' + contentId
+            const { isRequired } = context[contentId]
+            const initialValue = memoData[contentId]
+            const visibleInMemo = isRequired ? true : !!initialValue
+
+            return (
+              visibleInMemo && (
+                <Section
+                  memoLangIndex={memoLanguageIndex}
+                  contentId={contentId}
+                  menuId={menuId}
+                  key={contentId}
+                  visibleInMemo={visibleInMemo}
+                  html={initialValue}
+                />
+              )
+            )
+          })}
+          {extraHeaderTitle &&
+            Array.isArray(memoData[extraHeaderTitle]) &&
+            memoData[extraHeaderTitle].map(
+              ({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+                return (
+                  <ExtraSection
+                    contentId={extraHeaderTitle}
+                    key={uKey || extraHeaderTitle}
+                    initialTitle={title}
+                    initialValue={htmlContent}
+                    visibleInMemo={visibleInMemo}
+                    isEmptyNew={isEmptyNew}
+                    uKey={uKey}
+                    onEditorChange={() => {}}
+                    onBlur={() => {}}
+                    onRemove={() => {}}
+                    memoLanguageIndex={memoLanguageIndex}
+                  />
+                )
+              }
+            )}
+        </span>
+      )
+    )
+  })
+}
+
 @inject(['routerStore'])
 @observer
 class PreviewContainer extends Component {
@@ -59,11 +122,13 @@ class PreviewContainer extends Component {
 
   langIndex = this.props.routerStore.langIndex
 
-  handleAlert = alertText => {
-    this.setState({ alertIsOpen: true, alertText })
-    setTimeout(() => {
-      this.setState({ alertIsOpen: false, alertText: '' })
-    }, 2000)
+  onBack = () => {
+    const editLocation = window.location.href.replace(/\/preview/, '')
+    window.location = editLocation
+  }
+
+  publish = () => {
+    console.log('Publish')
   }
 
   courseSubHeader = () => {
@@ -104,15 +169,18 @@ class PreviewContainer extends Component {
       this.props.routerStore.courseMainSubjects,
       this.props.routerStore.memoLanguage
     )
+    const allSections = renderAllSections(this.props.routerStore)
     const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     // Assumes that API only gave one memoData per memoEndPoint
-    let active = true
+    let active = false
     const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
-      const label = m.memoEndPoint
+      const id = m.memoEndPoint
+      const label = simplifyMemoName(m.memoName || m.memoEndPoint)
       // memoEndPoint is currently displayed
-      active = m.memoEndPoint === this.props.routerStore.memoEndPoint
+      active = m.memoEndPoint === this.state.previewMemo.memoEndPoint
       return {
+        id,
         label,
         active,
         url: `/kurs-pm/${courseCode}/${label}`
@@ -121,9 +189,12 @@ class PreviewContainer extends Component {
     // memoEndPoint has not been published before, and wasn’t in memoData
     if (!active) {
       courseMemoItems.push({
-        label: this.props.routerStore.memoEndPoint,
+        id: this.props.routerStore.memoEndPoint,
+        label: simplifyMemoName(
+          this.state.previewMemo.memoName || this.state.previewMemo.memoEndPoint
+        ),
         active: true,
-        url: `/kurs-pm/${courseCode}/${this.props.routerStore.memoEndPoint}`
+        url: `/kurs-pm/${courseCode}/${this.state.previewMemo.memoEndPoint}`
       })
     }
 
@@ -153,7 +224,9 @@ class PreviewContainer extends Component {
           <Col lg="9">
             <Row className="preview-content">
               <CourseHeader
-                courseMemo={this.props.routerStore.memoEndPoint}
+                courseMemo={simplifyMemoName(
+                  this.state.previewMemo.memoName || this.state.previewMemo.memoEndPoint
+                )}
                 courseCode={courseCode}
                 title={this.props.routerStore.koppsFreshData.title}
                 credits={this.props.routerStore.koppsFreshData.credits}
@@ -169,7 +242,7 @@ class PreviewContainer extends Component {
                   courseImageUrl={courseImageUrl || ''}
                   semester={this.semester}
                 />
-                {/* {allSections} */}
+                {allSections}
               </Col>
               <Col lg="4" className="preview-content-right">
                 <CourseFacts
@@ -178,6 +251,7 @@ class PreviewContainer extends Component {
                   department={this.props.routerStore.koppsFreshData.department}
                   memoData={this.props.routerStore.memoData}
                 />
+                {/* TODO: Use better spacing method */}
                 <div style={{ height: '30px' }} />
                 <CourseMemoLinks
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
@@ -186,11 +260,13 @@ class PreviewContainer extends Component {
                   memoData={this.props.routerStore.memoData}
                   validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
                 />
+                {/* TODO: Use better spacing method */}
                 <div style={{ height: '30px' }} />
                 <CourseLinks
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
                   labels={courseLinksLabels}
                 />
+                {/* TODO: Use better spacing method */}
                 <div style={{ height: '30px' }} />
                 <CourseContacts
                   language={this.props.routerStore.memoData.memoCommonLangAbbr}
@@ -204,8 +280,8 @@ class PreviewContainer extends Component {
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.langIndex}
-            onSubmit={() => this.handleAlert('Publish option is not yet implemented!')}
-            onBack={() => this.handleAlert('Back option is not yet implemented!')}
+            onSubmit={this.publish}
+            onBack={this.onBack}
             progress={this.state.progress}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}
