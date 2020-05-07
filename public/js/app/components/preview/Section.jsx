@@ -2,7 +2,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { ContentHead } from '../ContentHead'
+import { ContentHead } from './ContentHead'
 import i18n from '../../../../../i18n'
 import { context } from '../../util/fieldsByType'
 
