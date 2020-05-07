@@ -65,27 +65,6 @@ class ChangePublished extends Component {
     })
   }
 
-  onRemoveDraft = () => {
-    // ADD RULE THAT ONLY DRAFTS CAN BE DELETED
-    return axios
-      .delete(
-        `${SERVICE_URL.API}draft-to-remove/${this.courseCode}/${this.state.chosen.memoEndPoint}`
-      )
-      .then(result => {
-        if (result.status >= 400) {
-          return 'ERROR-' + result.status
-        }
-        this.props.history.push({ search: '' })
-        window.location.reload()
-      })
-      .catch(err => {
-        if (err.response) {
-          throw new Error(err.message)
-        }
-        throw err
-      })
-  }
-
   onSubmit = () => {
     const { courseCode } = this
     const { chosen } = this.state
@@ -191,7 +170,6 @@ class ChangePublished extends Component {
         <ControlPanel
           langIndex={langIndex}
           hasChosenMemo={chosen.memoEndPoint}
-          // onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmit}
         />
       </Container>
