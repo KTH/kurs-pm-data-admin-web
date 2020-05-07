@@ -173,7 +173,6 @@ class PreviewContainer extends Component {
     // Assumes that API only gave one memoData per memoEndPoint
     let active = false
     const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
-      console.log('m', m)
       const id = m.memoEndPoint
       const label = simplifyMemoName(m.memoName || m.memoEndPoint)
       // memoEndPoint is currently displayed
