@@ -83,6 +83,7 @@ module.exports = {
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Additional regulations',
+    commentAboutMadeChanges: 'Made changes',
     communicationDuringCourse: 'Communication during course',
     courseContent: 'Course contents',
     courseCoordinator: 'Course coordinator',
@@ -118,6 +119,9 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
+      body: 'It is important for students because they can plan their studies....'
+    },
+    commentAboutMadeChanges: {
       body: 'It is important for students because they can plan their studies....'
     },
     communicationDuringCourse: {
@@ -425,7 +429,9 @@ module.exports = {
     contentHeaders: {
       title: 'Headers',
       intro: 'Headers....'
-    }
+    },
+    commentChanges: 'Describe changes made in this version:',
+    mandatory: 'Mandatory'
   },
   alerts: {
     autoSaved: 'Draft saved',
@@ -437,12 +443,15 @@ module.exports = {
     errWhileSaving: 'Smth went wrong on api side......',
     infoAboutFreshData:
       'should be in EN --> Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
+    infoRebuildDraft: 'Rebuild draft to last published version....???',
     infoStartAgain:
       'should be in EN --> Det finns ändringar som ej publicerats! Nedan visas kurs-PM med ändringar. Du kan i stället välja att: ',
     linkToRefreshData: 'should be in EN -->  utgå från senaste publicerade kurs-PM',
+    warnFillInCommentAboutChanges:
+      'should be in EN --> Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
+    warnNameNewSection: 'You need to give a name to a new section',
     warnReplacePm:
-      'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
-    warnNameNewSection: 'You need to give a name to a new section'
+      'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'
   },
   breadCrumbLabels: {
     university: 'KTH',

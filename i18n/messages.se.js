@@ -81,6 +81,7 @@ module.exports = {
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Övriga föreskrifter',
+    commentAboutMadeChanges: 'Gjorda ändringar',
     communicationDuringCourse: 'Kommunikation i kursen',
     courseContent: 'Kursinnehåll',
     courseCoordinator: 'Kursansvarig',
@@ -115,6 +116,10 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
+      body: `<p><b>Informationen syftar till: …</b></p>
+      <p><b>Rubriken hjälper studenter:</b> </p>`
+    },
+    commentAboutMadeChanges: {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`
     },
@@ -471,7 +476,9 @@ module.exports = {
     contentHeaders: {
       title: 'Rubriker',
       intro: 'Rubriker....'
-    }
+    },
+    commentChanges: 'Ange alla ändringar i denna version:',
+    mandatory: 'Obligatorisk'
   },
   alerts: {
     autoSaved: 'Sparat utkast',
@@ -482,13 +489,16 @@ module.exports = {
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     infoAboutFreshData:
       'Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-PM publicerades. Den uppdaterad informationen visas nedan.',
+    infoRebuildDraft: 'Återgick till sist publicerade version????????',
     infoStartAgain:
       'Det finns ändringar som ej publicerats! Nedan visas kurs-PM med ändringar. Du kan i stället välja att: ',
     linkToRefreshData: 'utgå från senaste publicerade kurs-PM',
-    warnReplacePm:
-      'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)',
+    warnFillInCommentAboutChanges:
+      'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
     warnNameNewSection:
-      'Du behöver ange ett namn på den tillagda rubriken (se markering i rött övan)'
+      'Du behöver ange ett namn på den tillagda rubriken (se markering i rött övan)',
+    warnReplacePm:
+      'Observera: publicering av nytt uppladdat kurs-PM kommer att ersättas befintligt kurs-PM (se "Välj kursomgång" nedan)'
   },
   breadCrumbLabels: {
     university: 'KTH',
