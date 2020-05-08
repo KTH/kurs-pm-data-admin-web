@@ -235,7 +235,7 @@ module.exports = {
   },
   pagesCreateNewPm: [
     {
-      title: '1. Choose course offering',
+      title: 'Choose course offering',
       intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
       In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
       In the next step (2 of 3) you can edit the course memo. 
@@ -243,27 +243,27 @@ module.exports = {
       `
     },
     {
-      title: '2. Edit course memo',
+      title: 'Edit course memo',
       intro: ''
     },
     {
-      title: '3. Review and publish',
+      title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
       It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
   ],
   pagesChangePublishedPm: [
     {
-      title: '1. Choose a course memo',
+      title: 'Choose a course memo',
       intro: `Start by choosing the course memo you want to change (step 1 of 3). Edit the chosen course memo in the next step (2 of 3). 
       Review the new version of the course memo in the last step (3 of 3) and then publish it on the page About the course / Prepare and take course.`
     },
     {
-      title: '2. Edit course memo',
+      title: 'Edit course memo',
       intro: ''
     },
     {
-      title: '3. Review and publish',
+      title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
       It is possible to go back to make adjustments, to save a draft or publish the information.`
     }
@@ -441,6 +441,7 @@ module.exports = {
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Smth went wrong on api side......',
+    errWhileDeleting: 'Cannot delete draft, smth wrong... try later',
     infoAboutFreshData:
       'should be in EN --> Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
     infoRebuildDraft: 'Rebuild draft to last published version....???',

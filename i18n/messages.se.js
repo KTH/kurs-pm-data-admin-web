@@ -291,13 +291,13 @@ module.exports = {
   },
   pagesCreateNewPm: [
     {
-      title: '1.Välj kursomgång',
+      title: 'Välj kursomgång',
       intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
       Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
       I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
     },
     {
-      title: '2.Redigera kurs-PM',
+      title: 'Redigera kurs-PM',
       intro: ''
     },
     {
@@ -308,17 +308,17 @@ module.exports = {
   ],
   pagesChangePublishedPm: [
     {
-      title: '1. Välj kurs-PM',
+      title: 'Välj kurs-PM',
       intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
       I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
       och sedan publicera en ny version av kurs-PM på sidan: Om kursen / Förbereda och gå (kurs-PM)`
     },
     {
-      title: '2. Redigera kurs-PM',
+      title: 'Redigera kurs-PM',
       intro: ''
     },
     {
-      title: '3. Granska och publicera',
+      title: 'Granska och publicera',
       intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
       Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
     }
@@ -405,6 +405,14 @@ module.exports = {
       Vill du fortsätta radera den tillagd rubriken?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt radera'
+    },
+    rebuildDraftOfPublished: {
+      header: 'Att tänka på innan du återgår till senast publicerad version!',
+      body: `Om du återgår till den senaste publicerade versionen kommmer dina  ändringar att försvinna.
+      <br/><br/>
+      Vill du återgå till den senaste publicerade versionen?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, återgå till senast publicerad version'
     }
   },
   info: {
@@ -486,6 +494,7 @@ module.exports = {
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
+    errWhileDeleting: 'Det gick inte att ta bort utkasten på grund av bakgrund system fel......',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     infoAboutFreshData:
       'Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-PM publicerades. Den uppdaterad informationen visas nedan.',
