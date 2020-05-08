@@ -332,11 +332,12 @@ class MemoContainer extends Component {
               </a>
             </Alert>
           </Row>
-        )) || (
-          <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
-            <Alert color="success">{alerts.infoRebuildDraft}</Alert>
-          </Row>
-        )}
+        )) ||
+          (this.rebuilDraftFromPublishedVer && (
+            <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
+              <Alert color="success">{alerts.infoRebuildDraft}</Alert>
+            </Row>
+          ))}
         {isError && (
           <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
             <Alert color="danger">{alerts.warnFillInCommentAboutChanges}</Alert>
