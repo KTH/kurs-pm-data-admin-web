@@ -80,11 +80,24 @@ class MemoContainer extends Component {
         '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + courseCode + '/' + memoEndPoint,
         body
       )
-      .then(() => this.onAlert(alertTranslationId))
+      .then(newResult => {
+        if (newResult.status >= 400) {
+          this.setAlarm('danger', 'errWhileSaving')
+          return 'ERROR-' + newResult.status
+        }
+        this.onAlert(alertTranslationId)
+      })
       .then(() => {
         this.rebuilDraftFromPublishedVer = false
       })
-      .catch(error => console.log(error)) // alert error
+      .catch(error => {
+        this.onAlert('errWhileSaving', 'danger')
+        if (error.response) {
+          // test it
+          throw new Error(error.message)
+        }
+        throw error
+      }) // alert error
   }
 
   onAutoSave = () => {
@@ -189,7 +202,7 @@ class MemoContainer extends Component {
       .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
       .then(result => {
         if (result.status >= 400) {
-          this.setAlarm('danger', 'errNoInPublishedChosen')
+          this.onAlert('errWhileDeleting', 'danger')
           return 'ERROR-' + result.status
         }
         const body = { memoEndPoint }
@@ -198,18 +211,19 @@ class MemoContainer extends Component {
           .post(newDraftUrl, body)
           .then(newResult => {
             if (newResult.status >= 400) {
-              return 'ERROR-' + result.status
+              this.onAlert('errWhileSaving', 'danger')
+              return 'ERROR-' + newResult.status
             }
-            console.log('newResult', newResult.data[0])
-            // this.props.history.push({ reload: true })
             // ADDD ERROR HANTERING
             const thisUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}?action=rebuild`
             window.location = thisUrl
           })
           .catch(error => {
-            // this.setAlarm('danger', 'errWhileSaving')
+            if (error.response) {
+              throw new Error(error.message)
+            }
+            throw error
           })
-        // this.setAlarm('danger', 'errNoInPublishedChosen')
       })
       .catch(err => {
         if (err.response) {
@@ -393,9 +407,12 @@ class MemoContainer extends Component {
                         </FormGroup>
                       </Form>
                     )}
-                    {isError && (
-                      <span data-testid="error-text" className="error-label">
-                        <p>{extraInfo.mandatory}</p>
+                    {this.isDraftOfPublished && (
+                      <span className={isError ? 'error-label' : ''}>
+                        <p>
+                          <sup>*</sup>
+                          {extraInfo.mandatory}
+                        </p>
                       </span>
                     )}
                   </SideMenu>
