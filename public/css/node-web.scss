@@ -74,11 +74,6 @@ div.tox.tox-tinymce {
   font-weight: 900;
 }
 
-// h4 { // not for modal
-//   margin-top: 30px;
-//   margin-bottom: 15px;
-// }
-
 .kip-container {
   padding-top: 2em;
   width: 100%;
@@ -100,11 +95,8 @@ div.tox.tox-tinymce {
   }
   .section-50 {
     //row
-    //
-    // &>:last-child {
     margin-bottom: 0;
     padding-top: 50px;
-    //} // 44px {}
     & > h2:first-child {
       margin-top: 0;
     }
@@ -144,29 +136,16 @@ div.tox.tox-tinymce {
   .upper-alert {
     .alert {
       margin-bottom: 5px;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
     }
     &:last-child {
       margin-bottom: 0;
     }
   }
-  // .section-50 + .subsection-30 {
-  //   padding-top: -30px;
-  // }
-
-  // .btn-primary,
-  // .btn-success,
-  // .btn-secondary,
-  // .btn-danger {
-  //   ///changed
-  //   margin-top: 30px;
-  //   // margin-bottom: 1em;
-  // }
 }
 
-// .control-buttons {
-//   margin-top: 50px;
-//   padding: 0.5em 0;
-// }
 .Add--New--Title--And--Info {
   & > .section_info {
     margin-top: 50px;
@@ -339,7 +318,6 @@ a.nav-link {
 }
 /* Select course offerings checkboxes and radiooxes */
 div.container.First--Step--Choose--Parameters {
-  // padding: 0;
   form {
     //adapting for error red border
     margin-left: -0.3em;
@@ -356,7 +334,6 @@ div.container.First--Step--Choose--Parameters {
     input ~ label {
       font-weight: normal;
     }
-    // padding-bottom: 2em;
   }
   label + label {
     font-weight: normal;
