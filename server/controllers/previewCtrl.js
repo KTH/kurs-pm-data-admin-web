@@ -4,12 +4,13 @@ const apis = require('../api')
 // const kursPmDataApi = require('../kursPmDataApi')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
-
 const { toJS } = require('mobx')
+const { safeGet } = require('safe-utils')
+
 const ReactDOMServer = require('react-dom/server')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
-const { getMemoApiData } = require('../kursPmDataApi')
+const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 
 const { getSyllabus } = require('../koppsApi')
@@ -40,6 +41,25 @@ function _staticRender(context, location) {
 
 function resolveSellingText(sellingText, recruitmentText, lang) {
   return sellingText[lang] ? sellingText[lang] : recruitmentText
+}
+
+// eslint-disable-next-line consistent-return
+async function publishMemoByEndPoint(req, res, next) {
+  try {
+    const { memoEndPoint } = req.params
+    const apiResponse = await changeMemoApiData('publishMemoByEndPoint', { memoEndPoint }, req.body)
+    if (safeGet(() => apiResponse.message)) {
+      log.debug('Error from API trying to publish a new memo: ', apiResponse.message)
+    }
+    log.info(
+      'New memo was published in kursinfo api for course memo with memoEndPoint:',
+      memoEndPoint
+    )
+    return res.json(apiResponse)
+  } catch (err) {
+    log.error('Error in publishMemoByEndPoint', { error: err })
+    next(err)
+  }
 }
 
 async function renderMemoPreviewPage(req, res, next) {
@@ -103,5 +123,6 @@ async function renderMemoPreviewPage(req, res, next) {
 }
 
 module.exports = {
+  publishMemoByEndPoint,
   renderMemoPreviewPage
 }

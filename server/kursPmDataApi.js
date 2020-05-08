@@ -5,6 +5,7 @@ const api = require('./api')
 
 const clientActions = {
   createDraftByMemoEndPoint: 'postAsync',
+  publishMemoByEndPoint: 'postAsync',
   deleteDraftByMemoEndPoint: 'delAsync',
   updateCreatedDraft: 'putAsync'
 }

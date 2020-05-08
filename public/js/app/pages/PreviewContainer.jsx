@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Container, Row, Col } from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import axios from 'axios'
 
 import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
@@ -128,7 +129,22 @@ class PreviewContainer extends Component {
   }
 
   publish = () => {
-    console.log('Publish')
+    const { memoEndPoint, courseCode } = this.state.previewMemo
+    return (
+      axios
+        .post(
+          '/kursinfoadmin/kurs-pm-data/internal-api/publish-memo/' +
+            courseCode +
+            '/' +
+            memoEndPoint,
+          { courseCode, memoEndPoint }
+        )
+        .then(() => {
+          window.location = '/kursinfoadmin/kurs-pm-data/' + courseCode
+        })
+        // eslint-disable-next-line no-console
+        .catch(error => console.log(error))
+    )
   }
 
   courseSubHeader = () => {
