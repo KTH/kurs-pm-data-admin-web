@@ -109,6 +109,7 @@ class SideMenu extends Component {
             ))}
           </NavListExpandable>
         </NavBarCollapse>
+        {this.props.children}
       </MainMenu>
     )
   }

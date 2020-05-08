@@ -3,7 +3,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Alert, Container, Row, Col, Button } from 'reactstrap'
+import { Alert, Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 import i18n from '../../../../i18n'
 import axios from 'axios'
@@ -15,6 +15,7 @@ import ControlPanel from '../components/ControlPanel'
 import NewSectionEditor from '../components/NewSectionEditor'
 import StandardEditorPerTitle from '../components/StandardEditorPerTitle'
 import Section from '../components/Section'
+import { ContentHead } from '../components/ContentHead'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
 // import axios from 'axios'
@@ -28,10 +29,10 @@ const PROGRESS = 2
 class MemoContainer extends Component {
   state = {
     ...(this.props.routerStore.memoData || {}),
-    textAboutChanges: ''
+    isError: false
   }
 
-  isDraftOfPublished = Number(this.props.routerStore.memoData.version > 1)
+  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > 1
 
   courseCode = this.props.routerStore.courseCode
 
@@ -52,6 +53,15 @@ class MemoContainer extends Component {
     this.scrollIntoView()
   }
 
+  setUpperAlarm = () => {
+    this.setState({ isError: true })
+    const alertElement = document.getElementById('scroll-here-if-alert')
+    alertElement.scrollIntoView({ behavior: 'smooth' })
+    // setTimeout(() => {
+    //   this.setState({ isError: false })
+    // }, 2000)
+  }
+
   /* General functions */
   onAlert = (alertTranslationId, alertColor = 'success') => {
     const { alerts } = i18n.messages[this.userLangIndex]
@@ -64,7 +74,7 @@ class MemoContainer extends Component {
   onSave = (editorContent, alertTranslationId) => {
     const { courseCode, memoEndPoint } = this
     const body = { courseCode, memoEndPoint, ...editorContent } // containt kopps old data, or it is empty first time
-    console.log('Hey saving', JSON.stringify(body))
+
     return axios
       .post(
         '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + courseCode + '/' + memoEndPoint,
@@ -153,17 +163,26 @@ class MemoContainer extends Component {
   }
 
   /** * User clicked button to go to next step  ** */
-  onContinue = () => {
-    const { courseCode, memoEndPoint } = this
+  onContinueToPreview = () => {
+    const { courseCode, memoEndPoint, isDraftOfPublished } = this
+    const { commentAboutMadeChanges } = this.state
+    if (isDraftOfPublished && commentAboutMadeChanges.length === 0) this.setUpperAlarm()
     // SAVE BEFORE GOT TO NEXT?
-    this.handleBtnSave().then(
-      setTimeout(() => {
-        window.location = `${ADMIN}${courseCode}/${memoEndPoint}/preview`
-      }, 500)
-    )
+    else
+      this.handleBtnSave().then(
+        setTimeout(() => {
+          window.location = `${ADMIN}${courseCode}/${memoEndPoint}/preview`
+        }, 500)
+      )
   }
 
-  rebuildDraft = event => {
+  setChangesAboutDraftOfPublished = event => {
+    event.preventDefault()
+    this.setState({ isError: false, commentAboutMadeChanges: event.target.value.trim() })
+    this.props.routerStore.memoData.commentAboutMadeChanges = event.target.value.trim()
+  }
+
+  rebuildDraftOfPublished = event => {
     event.preventDefault()
     const { courseCode, memoEndPoint } = this
     return axios
@@ -274,11 +293,13 @@ class MemoContainer extends Component {
       pagesChangePublishedPm,
       pageTitles
     } = i18n.messages[this.userLangIndex]
-    const { memoName, title, credits, creditUnitAbbr } = this.state
+    const { isError, memoName, title, credits, creditUnitAbbr } = this.state
+
+    console.log('commentAboutMadeChanges', this.state.commentAboutMadeChanges)
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
-        <Row key="pageHeader">
+        <Row key="pageHeader" id="scroll-here-if-alert">
           <PageTitle
             id="mainHeading"
             pageTitle={this.isDraftOfPublished ? pageTitles.published : pageTitles.new}
@@ -306,14 +327,19 @@ class MemoContainer extends Component {
             </Alert>
             <Alert key="infoAboutStartingAgain" color="info">
               {alerts.infoStartAgain}{' '}
-              <a href="#new" onClick={this.rebuildDraft}>
+              <a href="#new" onClick={this.rebuildDraftOfPublished}>
                 {alerts.linkToRefreshData}
               </a>
             </Alert>
           </Row>
         )) || (
           <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
-            <Alert color="success">SIDAN ÅTERSTÄLLT TILL SISTA PUBLICERADE VERSION???</Alert>
+            <Alert color="success">{alerts.infoRebuildDraft}</Alert>
+          </Row>
+        )}
+        {isError && (
+          <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
+            <Alert color="danger">{alerts.warnFillInCommentAboutChanges}</Alert>
           </Row>
         )}
         <StickyContainer className="memo-container">
@@ -347,7 +373,31 @@ class MemoContainer extends Component {
                     }}
                     visibleInMemo={this.state.visibleInMemo}
                     memoLangIndex={this.memoLangIndex}
-                  />
+                  >
+                    {this.isDraftOfPublished && (
+                      <Form className={isError ? 'error-area' : ''}>
+                        <FormGroup className="title">
+                          <ContentHead
+                            contentId="commentAboutMadeChanges"
+                            memoLangIndex={this.memoLangIndex}
+                          />
+                          <Label htmlFor="commentChanges">{extraInfo.commentChanges}</Label>
+                          <Input
+                            type="textarea"
+                            name="text"
+                            id="commentChanges"
+                            onChange={this.setChangesAboutDraftOfPublished}
+                            defaultValue={this.state.commentAboutMadeChanges}
+                          />
+                        </FormGroup>
+                      </Form>
+                    )}
+                    {isError && (
+                      <span data-testid="error-text" className="error-label">
+                        <p>{extraInfo.mandatory}</p>
+                      </span>
+                    )}
+                  </SideMenu>
                 )}
               </Sticky>
             </Col>
@@ -356,7 +406,7 @@ class MemoContainer extends Component {
         <Container className="fixed-bottom">
           <ControlPanel
             langIndex={this.userLangIndex}
-            onSubmit={this.onContinue}
+            onSubmit={this.onContinueToPreview}
             onSave={this.handleBtnSave}
             onBack={this.onBack}
             progress={2}
