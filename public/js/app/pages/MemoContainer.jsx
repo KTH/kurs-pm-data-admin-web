@@ -7,7 +7,7 @@ import { Alert, Container, Row, Col, Button, Form, FormGroup, Label, Input } fro
 import { StickyContainer, Sticky } from 'react-sticky'
 import i18n from '../../../../i18n'
 import axios from 'axios'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { ActionModalButton, PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import { SERVICE_URL } from '../util/constants'
 // import { Switch,Route } from 'react-router-dom'
 import PageHead from '../components/PageHead'
@@ -80,11 +80,24 @@ class MemoContainer extends Component {
         '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + courseCode + '/' + memoEndPoint,
         body
       )
-      .then(() => this.onAlert(alertTranslationId))
+      .then(newResult => {
+        if (newResult.status >= 400) {
+          this.setAlarm('danger', 'errWhileSaving')
+          return 'ERROR-' + newResult.status
+        }
+        this.onAlert(alertTranslationId)
+      })
       .then(() => {
         this.rebuilDraftFromPublishedVer = false
       })
-      .catch(error => console.log(error)) // alert error
+      .catch(error => {
+        this.onAlert('errWhileSaving', 'danger')
+        if (error.response) {
+          // test it
+          throw new Error(error.message)
+        }
+        throw error
+      }) // alert error
   }
 
   onAutoSave = () => {
@@ -176,20 +189,21 @@ class MemoContainer extends Component {
       )
   }
 
+  /* Functions for editing/controlling published memos */
+
   setChangesAboutDraftOfPublished = event => {
     event.preventDefault()
     this.setState({ isError: false, commentAboutMadeChanges: event.target.value.trim() })
     this.props.routerStore.memoData.commentAboutMadeChanges = event.target.value.trim()
   }
 
-  rebuildDraftOfPublished = event => {
-    event.preventDefault()
+  rebuildDraftOfPublished = () => {
     const { courseCode, memoEndPoint } = this
     return axios
       .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
       .then(result => {
         if (result.status >= 400) {
-          this.setAlarm('danger', 'errNoInPublishedChosen')
+          this.onAlert('errWhileDeleting', 'danger')
           return 'ERROR-' + result.status
         }
         const body = { memoEndPoint }
@@ -198,18 +212,19 @@ class MemoContainer extends Component {
           .post(newDraftUrl, body)
           .then(newResult => {
             if (newResult.status >= 400) {
-              return 'ERROR-' + result.status
+              this.onAlert('errWhileSaving', 'danger')
+              return 'ERROR-' + newResult.status
             }
-            console.log('newResult', newResult.data[0])
-            // this.props.history.push({ reload: true })
             // ADDD ERROR HANTERING
             const thisUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}?action=rebuild`
             window.location = thisUrl
           })
           .catch(error => {
-            // this.setAlarm('danger', 'errWhileSaving')
+            if (error.response) {
+              throw new Error(error.message)
+            }
+            throw error
           })
-        // this.setAlarm('danger', 'errNoInPublishedChosen')
       })
       .catch(err => {
         if (err.response) {
@@ -218,6 +233,8 @@ class MemoContainer extends Component {
         throw err
       })
   }
+
+  /* GENERAL VIEW OF ALL MEMO HEADERS WITH TEXT OR EDITOR */
 
   renderScrollView = () => {
     const { memoData } = this.props.routerStore
@@ -287,15 +304,22 @@ class MemoContainer extends Component {
 
   render() {
     const {
+      actionModals,
       alerts,
       extraInfo,
       pagesCreateNewPm,
       pagesChangePublishedPm,
       pageTitles
     } = i18n.messages[this.userLangIndex]
-    const { isError, memoName, title, credits, creditUnitAbbr } = this.state
-
-    console.log('commentAboutMadeChanges', this.state.commentAboutMadeChanges)
+    const {
+      isError,
+      memoName,
+      title,
+      credits,
+      creditUnitAbbr,
+      lastPublishedVersionPublishDate,
+      version
+    } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -327,16 +351,22 @@ class MemoContainer extends Component {
             </Alert>
             <Alert key="infoAboutStartingAgain" color="info">
               {alerts.infoStartAgain}{' '}
-              <a href="#new" onClick={this.rebuildDraftOfPublished}>
-                {alerts.linkToRefreshData}
-              </a>
+              <ActionModalButton
+                btnLabel={`${alerts.linkToRefreshData} (${lastPublishedVersionPublishDate ||
+                  'version:' + version})`}
+                modalId="cancelThisAction"
+                type="actionLink"
+                modalLabels={actionModals.rebuildDraftOfPublished}
+                onConfirm={this.rebuildDraftOfPublished}
+              />
             </Alert>
           </Row>
-        )) || (
-          <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
-            <Alert color="success">{alerts.infoRebuildDraft}</Alert>
-          </Row>
-        )}
+        )) ||
+          (this.rebuilDraftFromPublishedVer && (
+            <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
+              <Alert color="success">{alerts.infoRebuildDraft}</Alert>
+            </Row>
+          ))}
         {isError && (
           <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
             <Alert color="danger">{alerts.warnFillInCommentAboutChanges}</Alert>
@@ -392,9 +422,12 @@ class MemoContainer extends Component {
                         </FormGroup>
                       </Form>
                     )}
-                    {isError && (
-                      <span data-testid="error-text" className="error-label">
-                        <p>{extraInfo.mandatory}</p>
+                    {this.isDraftOfPublished && (
+                      <span className={isError ? 'error-label' : ''}>
+                        <p>
+                          <sup>*</sup>
+                          {extraInfo.mandatory}
+                        </p>
                       </span>
                     )}
                   </SideMenu>
