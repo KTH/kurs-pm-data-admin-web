@@ -352,7 +352,9 @@ class MemoContainer extends Component {
             <Alert key="infoAboutStartingAgain" color="info">
               {alerts.infoStartAgain}{' '}
               <ActionModalButton
-                btnLabel={`${alerts.linkToRefreshData} (${lastPublishedVersionPublishDate ||
+                btnLabel={`${alerts.linkToRefreshData} (${new Date(
+                  lastPublishedVersionPublishDate
+                ).toLocaleString(this.userLangIndex === 0 ? 'en-US' : 'sv-SE') ||
                   'version:' + version})`}
                 modalId="cancelThisAction"
                 type="actionLink"
