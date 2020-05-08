@@ -225,6 +225,13 @@ appRoute.post(
   ChoiceOptions.createDraftByMemoEndPoint
 )
 
+appRoute.post(
+  'memo.api.publishMemoByEndPoint',
+  config.proxyPrefixPath.uri + '/internal-api/publish-memo/:courseCode/:memoEndPoint',
+  requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  PreviewContent.publishMemoByEndPoint
+)
+
 // Gets a list of used round ids for a semester in a course
 appRoute.get(
   'memo.api.getUsedRounds',

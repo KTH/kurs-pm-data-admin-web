@@ -55,22 +55,32 @@ const ControlPanel = props => {
             {isDraftOfPublished ? buttons.save : buttons.saveDraft}
           </Button>
         )}
-        <Button
-          onClick={onSubmit}
-          id="to-id"
-          className="btn-next"
-          style={{ marginLeft: '1.25em' }}
-          color="success"
-          alt="Go to ..."
-        >
-          {
+        {progress < 3 && (
+          <Button
+            onClick={onSubmit}
+            id="to-id"
+            className="btn-next"
+            style={{ marginLeft: '1.25em' }}
+            color="success"
+            alt="Go to ..."
+          >
             {
-              1: buttons.edit,
-              2: buttons.preview,
-              3: buttons.publish
-            }[progress]
-          }
-        </Button>
+              {
+                1: buttons.edit,
+                2: buttons.preview
+              }[progress]
+            }
+          </Button>
+        )}
+        {progress === 3 && (
+          <ActionModalButton
+            btnLabel={buttons.publish}
+            modalId="publish"
+            type="submit"
+            modalLabels={actionModals.infoPublish}
+            onConfirm={onSubmit}
+          />
+        )}
       </Col>
     </Row>
   )
