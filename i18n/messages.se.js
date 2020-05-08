@@ -497,11 +497,10 @@ module.exports = {
     errWhileDeleting: 'Det gick inte att ta bort utkasten på grund av bakgrund system fel......',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
     infoAboutFreshData:
-      'Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-PM publicerades. Den uppdaterad informationen visas nedan.',
-    infoRebuildDraft: 'Återgick till sist publicerade version????????',
-    infoStartAgain:
-      'Det finns ändringar som ej publicerats! Nedan visas kurs-PM med ändringar. Du kan i stället välja att: ',
-    linkToRefreshData: 'utgå från senaste publicerade kurs-PM',
+      'Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
+    infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
+    infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
+    linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',
     warnFillInCommentAboutChanges:
       'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
     warnNameNewSection:

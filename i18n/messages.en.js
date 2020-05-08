@@ -444,10 +444,10 @@ module.exports = {
     errWhileDeleting: 'Cannot delete draft, smth wrong... try later',
     infoAboutFreshData:
       'should be in EN --> Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
-    infoRebuildDraft: 'Rebuild draft to last published version....???',
-    infoStartAgain:
-      'should be in EN --> Det finns ändringar som ej publicerats! Nedan visas kurs-PM med ändringar. Du kan i stället välja att: ',
-    linkToRefreshData: 'should be in EN -->  utgå från senaste publicerade kurs-PM',
+    infoRebuildDraft:
+      'should be in EN --> Kurs-PM nedan har återställts till den senaste publicerade versionen.',
+    infoStartAgain: 'should be in EN --> Det finns ändringar som ej publicerats. Du kan',
+    linkToRefreshData: 'should be in EN -->  återgå till senaste publicerade versionen av kurs-PM',
     warnFillInCommentAboutChanges:
       'should be in EN --> Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
     warnNameNewSection: 'You need to give a name to a new section',
