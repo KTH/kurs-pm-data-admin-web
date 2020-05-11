@@ -476,6 +476,7 @@ module.exports = {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Language Of Instruction',
     offeredByTitle: 'Offered By',
+    roundsTitle: 'Rounds',
     mandatoryFieldMissing: 'Missing mandatory information',
     linkOpensInNewTab: 'Link will open in new tab'
   },

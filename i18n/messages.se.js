@@ -530,6 +530,7 @@ module.exports = {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Undervisningsspråk',
     offeredByTitle: 'Kursen ges av',
+    roundsTitle: 'Kursomgång',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
