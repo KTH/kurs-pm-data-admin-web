@@ -5,6 +5,21 @@ import { linkToSchool } from '../../util/links'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import Popup from './Popup'
 
+const formatRounds = rounds => {
+  // Split rounds with look behind, so only comma after end parentheses matches
+  const splitRounds = rounds.split(/(?<=\)), /g)
+  return (
+    <>
+      {splitRounds.map(round => (
+        <>
+          {round}
+          <br />
+        </>
+      ))}
+    </>
+  )
+}
+
 const offeredBy = (language, labels, department) =>
   department.name ? (
     <div>
@@ -48,6 +63,19 @@ const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
     </div>
   )
 
+const rounds = (labels, memoName) =>
+  memoName ? (
+    <div>
+      <h4>{labels.roundsTitle}</h4>
+      <p style={{ marginBottom: '0' }}>{formatRounds(memoName)}</p>
+    </div>
+  ) : (
+    <div>
+      <h4>{labels.roundsTitle}</h4>
+      <p style={{ marginBottom: '0' }}>{labels.mandatoryFieldMissing}</p>
+    </div>
+  )
+
 const CourseFacts = ({ language = 'sv', labels = {}, department = {}, memoData = {} }) => (
   <div
     className="text-break"
@@ -55,6 +83,7 @@ const CourseFacts = ({ language = 'sv', labels = {}, department = {}, memoData =
   >
     {offeredBy(language, labels, department)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
+    {rounds(labels, memoData.memoName)}
   </div>
 )
 

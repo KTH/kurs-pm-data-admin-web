@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'Administration of Course Memos',
     host_name: 'KTH',
 
+    memoLabel: 'Course memo',
+
     /**
      * Labels
      */
@@ -474,6 +476,7 @@ module.exports = {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Language Of Instruction',
     offeredByTitle: 'Offered By',
+    roundsTitle: 'Rounds',
     mandatoryFieldMissing: 'Missing mandatory information',
     linkOpensInNewTab: 'Link will open in new tab'
   },
@@ -507,7 +510,6 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab'
   },
   courseHeaderLabels: {
-    courseHeaderTitle: 'Course Memo',
     adminLinkLabel: 'Administrate About course information',
     linkOpensInNewTab: 'Link will open in new tab'
   },
