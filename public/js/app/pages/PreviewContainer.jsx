@@ -54,9 +54,9 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
   return courseImage
 }
 
-const renderAllSections = ({ memoData, memoCommonLangAbbr }) => {
+const renderAllSections = ({ memoData }) => {
   // TODO Use resolved labels instead
-  const memoLanguageIndex = memoCommonLangAbbr === 'en' ? 0 : 1
+  const memoLanguageIndex = memoData.memoCommonLangAbbr === 'en' ? 0 : 1
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
   return sections.map(({ id, content, extraHeaderTitle }) => {
