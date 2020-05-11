@@ -11,10 +11,10 @@ const formatRounds = rounds => {
   return (
     <>
       {splitRounds.map(round => (
-        <>
+        <span key={round}>
           {round}
           <br />
-        </>
+        </span>
       ))}
     </>
   )
