@@ -20,7 +20,7 @@ import ExtraSection from '../components/preview/ExtraSection'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
-import { simplifyMemoName } from '../util/helpers'
+import { concatMemoName } from '../util/helpers'
 
 const PROGRESS = 3
 
@@ -192,7 +192,11 @@ class PreviewContainer extends Component {
     let active = false
     const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
       const id = m.memoEndPoint
-      const label = simplifyMemoName(m.memoName || m.memoEndPoint)
+      const label = concatMemoName(
+        m.semester,
+        m.ladokRoundIds,
+        this.props.routerStore.memoData.memoCommonLangAbbr
+      )
       // memoEndPoint is currently displayed
       active = m.memoEndPoint === this.state.previewMemo.memoEndPoint
       return {
@@ -206,8 +210,10 @@ class PreviewContainer extends Component {
     if (!active) {
       courseMemoItems.push({
         id: this.props.routerStore.memoEndPoint,
-        label: simplifyMemoName(
-          this.state.previewMemo.memoName || this.state.previewMemo.memoEndPoint
+        label: concatMemoName(
+          this.props.routerStore.memoData.semester,
+          this.props.routerStore.memoData.ladokRoundIds,
+          this.props.routerStore.memoData.memoCommonLangAbbr
         ),
         active: true,
         url: `/kurs-pm/${courseCode}/${this.state.previewMemo.memoEndPoint}`
@@ -240,8 +246,10 @@ class PreviewContainer extends Component {
           <Col lg="9">
             <Row className="preview-content">
               <CourseHeader
-                courseMemo={simplifyMemoName(
-                  this.state.previewMemo.memoName || this.state.previewMemo.memoEndPoint
+                courseMemo={concatMemoName(
+                  this.props.routerStore.memoData.semester,
+                  this.props.routerStore.memoData.ladokRoundIds,
+                  this.props.routerStore.memoData.memoCommonLangAbbr
                 )}
                 courseCode={courseCode}
                 title={this.props.routerStore.koppsFreshData.title}

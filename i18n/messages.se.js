@@ -35,6 +35,8 @@ module.exports = {
     site_name: 'Administration av kurs-PM',
     host_name: 'KTH',
 
+    memoLabel: 'Kurs-PM',
+
     /**
      * Headings
      */
@@ -561,7 +563,6 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseHeaderLabels: {
-    courseHeaderTitle: 'Kurs-PM',
     adminLinkLabel: 'Administrera Om kursen',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },

@@ -23,12 +23,12 @@ const CourseHeader = ({
   labels = {},
   language = 'sv'
 }) => {
-  const { courseHeaderTitle, adminLinkLabel, linkOpensInNewTab } = labels
+  const { adminLinkLabel, linkOpensInNewTab } = labels
   return (
     <>
       <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
         <Col style={{ paddingLeft: '0' }}>
-          <h1 className="course-header-title">{`${courseHeaderTitle} ${courseMemo}`}</h1>
+          <h1 className="course-header-title">{courseMemo}</h1>
         </Col>
       </Row>
       <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
