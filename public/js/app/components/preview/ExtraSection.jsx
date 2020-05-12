@@ -5,7 +5,6 @@ import { inject, observer } from 'mobx-react'
 import { ExtraHeaderHead } from '../ContentHead'
 
 import i18n from '../../../../../i18n'
-import { EMPTY } from '../../util/constants'
 
 @inject(['routerStore'])
 @observer
@@ -32,7 +31,7 @@ class ExtraSection extends Component {
       <span className="Add--New--Title--And--Info">
         {!this.state.isOpen && !isEmptyNew && (
           <ExtraHeaderHead
-            header={contentForTitle || EMPTY[this.userLangIndex]}
+            header={contentForTitle}
             contentId={contentId}
             memoLangIndex={this.props.memoLanguageIndex}
           />

@@ -21,6 +21,7 @@ import ExtraSection from '../components/preview/ExtraSection'
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { concatMemoName } from '../util/helpers'
+import { EMPTY } from '../util/constants'
 
 const PROGRESS = 3
 
@@ -69,10 +70,23 @@ const renderAllSections = ({ memoData }) => {
           </h2>
           {content.map(contentId => {
             const menuId = id + '-' + contentId
-            const { isRequired } = context[contentId]
-            const initialValue = memoData[contentId]
-            const visibleInMemo = isRequired ? true : !!initialValue
 
+            const { isRequired, type } = context[contentId]
+            let contentHtml = memoData[contentId]
+            let visibleInMemo = memoData.visibleInMemo[contentId]
+            if (typeof visibleInMemo === 'undefined') {
+              visibleInMemo = true
+            }
+
+            if (isRequired && type === 'mandatory' && !contentHtml) {
+              contentHtml = EMPTY[memoLanguageIndex]
+            } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
+              visibleInMemo = false
+            } else if (!contentHtml) {
+              visibleInMemo = false
+            }
+
+            // TODO: Rethink use of visibleInMemo
             return (
               visibleInMemo && (
                 <Section
@@ -81,7 +95,7 @@ const renderAllSections = ({ memoData }) => {
                   menuId={menuId}
                   key={contentId}
                   visibleInMemo={visibleInMemo}
-                  html={initialValue}
+                  html={contentHtml}
                 />
               )
             )
