@@ -28,14 +28,14 @@ const CourseHeader = ({
     <>
       <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
         <Col style={{ paddingLeft: '0' }}>
-          <h1 className="course-header-title">{courseMemo}</h1>
+          <h1 className="preview-course-header-title">{courseMemo}</h1>
         </Col>
       </Row>
       <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
         <Col className="text-left pb-4" style={{ paddingLeft: '0' }}>
-          <b>
+          <h4 className="secondTitle">
             {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
-          </b>
+          </h4>
         </Col>
         <Col className="text-right pb-4" style={{ paddingRight: '0' }}>
           <a
