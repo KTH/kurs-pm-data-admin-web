@@ -111,7 +111,7 @@ module.exports = {
     preparations: 'Särskilda förberedelser',
     prerequisites: 'Rekommenderade förkunskaper',
     reportingResults: 'Resultatrapportering',
-    scheduleDetails: 'Detaljschema',
+    scheduleDetails: 'Detaljplanering',
     software: 'Programvara',
     teacher: 'Lärare',
     teacherAssistants: 'Lärarassistenter'
