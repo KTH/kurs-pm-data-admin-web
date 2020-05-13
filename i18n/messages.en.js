@@ -463,6 +463,10 @@ module.exports = {
     aboutCourse: 'About course',
     noLinksInPreview: 'Menu links doesn’t work in review mode'
   },
+  coursePresentationLabels: {
+    imageAltText: 'Inspiring image for course',
+    imageTitleText: ''
+  },
   sideMenuLabels: {
     directory: 'Course and programme directory',
     aboutCourse: 'About course',

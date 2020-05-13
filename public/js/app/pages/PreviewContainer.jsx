@@ -186,6 +186,7 @@ class PreviewContainer extends Component {
       sideMenuLabels
     } = i18n.messages[this.langIndex]
     const {
+      coursePresentationLabels,
       courseFactsLabels,
       courseMemoLinksLabels,
       extraInfo,
@@ -196,7 +197,7 @@ class PreviewContainer extends Component {
     const { memoName, semester = '', courseCode } = this.state.previewMemo
     const courseImage = resolveCourseImage(
       this.props.routerStore.imageFromAdmin,
-      this.props.routerStore.courseMainSubjects,
+      this.props.routerStore.koppsFreshData.courseMainSubjects,
       this.props.routerStore.memoLanguage
     )
     const allSections = renderAllSections(this.props.routerStore)
@@ -276,9 +277,9 @@ class PreviewContainer extends Component {
             <Row className="preview-content">
               <Col lg="8" className="preview-content-center">
                 <CoursePresentation
+                  courseImageUrl={courseImageUrl}
                   introText={this.props.routerStore.sellingText}
-                  courseImageUrl={courseImageUrl || ''}
-                  semester={this.semester}
+                  labels={coursePresentationLabels}
                 />
                 {allSections}
               </Col>

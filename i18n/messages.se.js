@@ -517,6 +517,10 @@ module.exports = {
     aboutCourse: 'Om kursen',
     noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge'
   },
+  coursePresentationLabels: {
+    imageAltText: 'Inspirerande bild för kursen',
+    imageTitleText: ''
+  },
   sideMenuLabels: {
     directory: 'Kurs- och programkatalogen',
     aboutCourse: 'Om kursen',

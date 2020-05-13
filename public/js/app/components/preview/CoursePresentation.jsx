@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 
-const CoursePresentation = ({ courseImageUrl = '', introText = '', title = '' }) => {
+const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => {
   return (
     <div style={{ minHeight: '160px' }}>
       <img
@@ -11,8 +11,8 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', title = '' })
         height="120px"
         width="160px"
         src={courseImageUrl}
-        alt={title}
-        title={title}
+        alt={labels.imageAltText}
+        title={labels.imageTitleText}
       />
       <div dangerouslySetInnerHTML={{ __html: introText }} />
     </div>
