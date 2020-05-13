@@ -11,7 +11,7 @@ import { ActionModalButton, PageTitle, ProgressBar } from '@kth/kth-kip-style-re
 import {
   SERVICE_URL,
   ADMIN_COURSE_PM_DATA,
-  SAVED_PUBLISHED_PARAM,
+  REMOVE_PUBLISHED_PARAM,
   SAVED_NEW_PARAM
 } from '../util/constants'
 // import { Switch,Route } from 'react-router-dom'
@@ -188,12 +188,30 @@ class MemoContainer extends Component {
     const { courseCode, semester, isDraftOfPublished, memoEndPoint } = this
     const { memoName } = this.state
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
-      isDraftOfPublished ? SAVED_PUBLISHED_PARAM : SAVED_NEW_PARAM
+      isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
     }&term=${semester}&name=${memoName || memoEndPoint}`
 
-    // if (isDraftOfPublished) DELETE THIS DRAFT
+    // ADD ERROR IF IT WAS NOT SAVED THEN STOP
 
-    this.handleBtnSave().then(
+    if (isDraftOfPublished)
+      return axios
+        .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
+        .then(result => {
+          if (result.status >= 400) {
+            this.onAlert('errWhileDeleting', 'danger')
+            return 'ERROR-' + result.status
+          }
+          setTimeout(() => {
+            window.location = startAdminPageUrl
+          }, 500)
+        })
+        .catch(err => {
+          if (err.response) {
+            throw new Error(err.message)
+          }
+          throw err
+        })
+    return this.handleBtnSave().then(
       setTimeout(() => {
         window.location = startAdminPageUrl
       }, 500)
@@ -205,7 +223,6 @@ class MemoContainer extends Component {
     const { courseCode, memoEndPoint, isDraftOfPublished } = this
     const { commentAboutMadeChanges } = this.state
     if (isDraftOfPublished && commentAboutMadeChanges.length === 0) this.setUpperAlarm()
-    // SAVE BEFORE GOT TO NEXT?
     else
       this.handleBtnSave().then(
         setTimeout(() => {

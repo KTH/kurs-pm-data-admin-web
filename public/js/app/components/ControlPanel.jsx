@@ -51,10 +51,10 @@ const ControlPanel = props => {
           />
         )) || (
           <ActionModalButton
-            btnLabel={progress === 2 ? buttons.btnSaveAndFinish : buttons.btnFinish}
+            btnLabel={progress === 1 ? buttons.btnFinish : buttons.btnSaveAndFinish}
             modalId="cancelThisAction"
             type="cancel"
-            modalLabels={actionModals.infoSaveAndFinish}
+            modalLabels={progress === 1 ? actionModals.infoFinish : actionModals.infoSaveAndFinish}
             onConfirm={onCancel}
           />
         )}
