@@ -185,10 +185,11 @@ class MemoContainer extends Component {
   }
 
   onFinish = () => {
-    const { courseCode, isDraftOfPublished } = this
+    const { courseCode, semester, isDraftOfPublished, memoEndPoint } = this
+    const { memoName } = this.state
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
       isDraftOfPublished ? SAVED_PUBLISHED_PARAM : SAVED_NEW_PARAM
-    }`
+    }&term=${semester}&name=${memoName || memoEndPoint}`
 
     // if (isDraftOfPublished) DELETE THIS DRAFT
 
