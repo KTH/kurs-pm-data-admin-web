@@ -272,7 +272,7 @@ module.exports = {
   ],
   progressBarHeaders: [
     {
-      title: '1. Choose course offering',
+      title: 'Choose course offering',
       intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
       In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
       In the next step (2 of 3) you can edit the course memo. 
@@ -280,12 +280,12 @@ module.exports = {
       `
     },
     {
-      title: '2. Edit course memo',
+      title: 'Edit course memo',
       intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
       changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
     },
     {
-      title: '3. Review and publish',
+      title: 'Review and publish',
       intro: ''
     }
   ],
