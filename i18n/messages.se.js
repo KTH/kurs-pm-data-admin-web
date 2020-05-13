@@ -383,16 +383,27 @@ module.exports = {
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
     },
+    infoFinish: {
+      header: 'Avsluta',
+      body: `Utkast sparas först i steg 2: Redigera kurs-PM.
+        <br/>
+        <br/>
+        I detta steg, steg 1, visas sparade utkast under rubriken: Sparade utkast. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
+        <br/>
+        <br/>
+        Vill du fortsätta att avsluta?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt avsluta'
+    },
     infoSaveAndFinish: {
       header: 'Avsluta med utkast',
       body: `Utkast är sparat.
         <br/>
         <br/>
-        I steg 1 (Välj kursomgång) visas sparade utkast under rubriken: Fortsätt med ett sparat utkast. 
-        Utkast kan tas bort genom att välja ett utkast och sedan: Radera utkast.
+        I steg 1: Välj kursomgång, visas sparade utkast under rubriken: Sparade utkast. I detta steg kan du sedan välja att radera utkastet eller att fortsätta redigera.
         <br/>
         <br/>
-        Vill du fortsätta att avbryta?`,
+        Vill du fortsätta att avsluta?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avsluta'
     },
