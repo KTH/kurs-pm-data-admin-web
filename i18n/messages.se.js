@@ -514,8 +514,8 @@ module.exports = {
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileDeleting: 'Det gick inte att ta bort utkasten på grund av bakgrund system fel......',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
-    infoAboutFreshData:
-      'Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
+    infoAboutFreshData: 'Information som hämtas har automatiskt uppdateras.',
+    // Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
     linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',

@@ -462,8 +462,7 @@ module.exports = {
     errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Smth went wrong on api side......',
     errWhileDeleting: 'Cannot delete draft, smth wrong... try later',
-    infoAboutFreshData:
-      'should be in EN --> Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
+    infoAboutFreshData: 'should be in EN --> Information som hämtas har automatiskt uppdateras..',
     infoRebuildDraft:
       'should be in EN --> Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'should be in EN --> Det finns ändringar som ej publicerats. Du kan',
