@@ -383,6 +383,19 @@ module.exports = {
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
     },
+    infoSaveAndFinish: {
+      header: 'Avsluta med utkast',
+      body: `Utkast är sparat.
+        <br/>
+        <br/>
+        I steg 1 (Välj kursomgång) visas sparade utkast under rubriken: Fortsätt med ett sparat utkast. 
+        Utkast kan tas bort genom att välja ett utkast och sedan: Radera utkast.
+        <br/>
+        <br/>
+        Vill du fortsätta att avbryta?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt avsluta'
+    },
     infoPublish: {
       header: 'Att tänka på innan du publicerar!',
       body: `Publicering kommer att ske på sidan Kursens utveckling och historik.
@@ -463,6 +476,8 @@ module.exports = {
     btnClose: 'Stäng',
     btnRemove: 'Radera utkast',
     btnRemoveHeader: 'Ta bort tillagd rubrik',
+    btnFinish: 'Avsluta',
+    btnSaveAndFinish: 'Avsluta med utkast',
     closeEditor: 'Stäng redigeringsläge',
     preview: 'Granska',
     edit: 'Redigera',
@@ -492,6 +507,7 @@ module.exports = {
   },
   alerts: {
     autoSaved: 'Sparat utkast',
+    autoSavedTemporary: 'Ändringar sparade temporärt inför publicering.',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',

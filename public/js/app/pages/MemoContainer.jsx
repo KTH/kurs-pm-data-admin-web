@@ -8,7 +8,12 @@ import { StickyContainer, Sticky } from 'react-sticky'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 import { ActionModalButton, PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
-import { SERVICE_URL } from '../util/constants'
+import {
+  SERVICE_URL,
+  ADMIN_COURSE_PM_DATA,
+  SAVED_PUBLISHED_PARAM,
+  SAVED_NEW_PARAM
+} from '../util/constants'
 // import { Switch,Route } from 'react-router-dom'
 import PageHead from '../components/PageHead'
 import ControlPanel from '../components/ControlPanel'
@@ -21,7 +26,6 @@ import { context, sections } from '../util/fieldsByType'
 // import axios from 'axios'
 import SideMenu from '../components/SideMenu'
 
-const ADMIN = '/kursinfoadmin/kurs-pm-data/'
 const PROGRESS = 2
 
 @inject(['routerStore'])
@@ -64,8 +68,13 @@ class MemoContainer extends Component {
 
   /* General functions */
   onAlert = (alertTranslationId, alertColor = 'success') => {
+    const translationId =
+      this.isDraftOfPublished && alertTranslationId === 'autoSaved'
+        ? 'autoSavedTemporary'
+        : alertTranslationId
+
     const { alerts } = i18n.messages[this.userLangIndex]
-    this.setState({ alertIsOpen: true, alertText: alerts[alertTranslationId], alertColor })
+    this.setState({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
     setTimeout(() => {
       this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
     }, 2000)
@@ -165,12 +174,28 @@ class MemoContainer extends Component {
   /** * User clicked button to go to one step back ** */
   onBack = () => {
     const { courseCode, memoEndPoint, isDraftOfPublished } = this
-    const nextUrl = `${ADMIN}${
+    const nextUrl = `${ADMIN_COURSE_PM_DATA}${
       isDraftOfPublished ? 'published/' : ''
     }${courseCode}?memoEndPoint=${memoEndPoint}`
     this.handleBtnSave().then(
       setTimeout(() => {
         window.location = nextUrl
+      }, 500)
+    )
+  }
+
+  onFinish = () => {
+    const { courseCode, semester, isDraftOfPublished, memoEndPoint } = this
+    const { memoName } = this.state
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
+      isDraftOfPublished ? SAVED_PUBLISHED_PARAM : SAVED_NEW_PARAM
+    }&term=${semester}&name=${memoName || memoEndPoint}`
+
+    // if (isDraftOfPublished) DELETE THIS DRAFT
+
+    this.handleBtnSave().then(
+      setTimeout(() => {
+        window.location = startAdminPageUrl
       }, 500)
     )
   }
@@ -184,7 +209,7 @@ class MemoContainer extends Component {
     else
       this.handleBtnSave().then(
         setTimeout(() => {
-          window.location = `${ADMIN}${courseCode}/${memoEndPoint}/preview`
+          window.location = `${ADMIN_COURSE_PM_DATA}${courseCode}/${memoEndPoint}/preview`
         }, 500)
       )
   }
@@ -444,6 +469,7 @@ class MemoContainer extends Component {
             onSubmit={this.onContinueToPreview}
             onSave={this.handleBtnSave}
             onBack={this.onBack}
+            onCancel={this.onFinish}
             progress={2}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}

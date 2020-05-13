@@ -332,6 +332,19 @@ module.exports = {
       btnClose: 'No, go back',
       btnConfirm: 'Yes, cancel'
     },
+    infoSaveAndFinish: {
+      header: 'EN -> Avsluta med utkast',
+      body: `EN -> Utkast är sparat.
+        <br/>
+        <br/>
+        I steg 1 (Välj kursomgång) visas sparade utkast under rubriken: Fortsätt med ett sparat utkast. 
+        Utkast kan tas bort genom att välja ett utkast och sedan: Radera utkast.
+        <br/>
+        <br/>
+        EN -> Vill du fortsätta att avbryta?`,
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, finish'
+    },
     infoPublish: {
       header: 'To be aware of before publishing!',
       body: `The information will be published on the page Course development and history
@@ -406,8 +419,12 @@ module.exports = {
   },
   buttons: {
     /** ************ BUTTONS ****************** */
+    btnAddExtra: 'Add a new header to ',
     btnClose: 'Close',
     btnRemove: 'Delete draft',
+    btnRemoveHeader: 'Remove added header',
+    btnFinish: 'Finish',
+    btnSaveAndFinish: 'Finish (save draft)',
     closeEditor: 'Close edit mode',
     preview: 'Preview',
     edit: 'Edit',
@@ -437,6 +454,7 @@ module.exports = {
   },
   alerts: {
     autoSaved: 'Draft saved',
+    autoSavedTemporary: 'Changes save temporarily before publishing.',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     errNoChosen:

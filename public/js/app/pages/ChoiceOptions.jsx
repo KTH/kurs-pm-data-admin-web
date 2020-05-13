@@ -3,7 +3,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { SERVICE_URL } from '../util/constants'
+import { SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
 import { combineMemoName, seasonStr } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
@@ -250,6 +250,15 @@ class ChoiceOptions extends Component {
     this.setAlarm('danger', 'errNoChosen')
   }
 
+  onFinish = () => {
+    const { courseCode } = this
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${SAVED_NEW_PARAM}`
+
+    setTimeout(() => {
+      window.location = startAdminPageUrl
+    }, 500)
+  }
+
   render() {
     const { allSemesters, existingDraftsByCourseCode, hasSavedDraft, langAbbr, langIndex } = this
     const { alerts, info, extraInfo, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[
@@ -431,6 +440,7 @@ class ChoiceOptions extends Component {
         <ControlPanel
           langIndex={langIndex}
           hasChosenMemo={chosen.memoEndPoint}
+          onCancel={this.onFinish}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
         />
