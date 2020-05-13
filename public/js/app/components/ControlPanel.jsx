@@ -7,7 +7,7 @@ import { Alert, Row, Col, Button } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
-  const { hasChosenMemo, langIndex, onRemove, onSubmit } = props // onSubmit = onForward
+  const { hasChosenMemo, langIndex, onCancel, onCancelAndRemove, onRemove, onSubmit } = props // onSubmit = onForward
   const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
@@ -41,13 +41,23 @@ const ControlPanel = props => {
         )}
       </Col>
       <Col sm="4" className="btn-cancel">
-        <ActionModalButton
-          btnLabel={buttons.cancel}
-          modalId="cancelThisAction"
-          type="cancel"
-          modalLabels={actionModals.infoCancel}
-          onConfirm={() => console.log('Cancelled')}
-        />
+        {((isDraftOfPublished || onCancelAndRemove) && (
+          <ActionModalButton
+            btnLabel={buttons.cancel}
+            modalId="cancelThisActionAndRemoveChanges"
+            type="cancel"
+            modalLabels={actionModals.infoCancel}
+            onConfirm={onCancelAndRemove || onCancel}
+          />
+        )) || (
+          <ActionModalButton
+            btnLabel={progress === 2 ? buttons.btnSaveAndFinish : buttons.btnFinish}
+            modalId="cancelThisAction"
+            type="cancel"
+            modalLabels={actionModals.infoSaveAndFinish}
+            onConfirm={onCancel}
+          />
+        )}
       </Col>
       <Col sm="4" className="step-forward">
         {progress === 2 && (
