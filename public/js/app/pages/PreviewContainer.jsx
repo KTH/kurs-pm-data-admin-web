@@ -357,6 +357,7 @@ class PreviewContainer extends Component {
             progress={this.state.progress}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}
+            isDraftOfPublished={this.isDraftOfPublished}
           />
         </Container>
       </Container>
