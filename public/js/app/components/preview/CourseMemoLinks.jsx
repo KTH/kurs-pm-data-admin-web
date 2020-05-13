@@ -40,8 +40,7 @@ const archiveLink = (language, labels, courseCode) => (
     >
       {labels.courseMemoArchiveLabel}
     </a>
-    &nbsp;
-    <FaExternalLinkAlt />
+    <FaExternalLinkAlt className="external-link-icon" />
     <Popup
       header={labels.courseMemoArchiveLabel}
       body={labels.linkOpensInNewTab}
@@ -63,8 +62,7 @@ const pdfLink = (labels, courseCode, memoEndPoint) => (
       >
         {memoEndPoint}
       </a>
-      &nbsp;
-      <FaRegFilePdf />
+      <FaRegFilePdf className="pdf-icon" />
       <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" />
     </p>
   </div>
@@ -89,8 +87,7 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
         >
           {syllabusLinkLabel}
         </a>
-        &nbsp;
-        <FaRegFilePdf />
+        <FaRegFilePdf className="pdf-icon" />
         <Popup header={labels.syllabus} body={labels.linkOpensInNewTab} targetId="syllabus-link" />
       </p>
     </div>
