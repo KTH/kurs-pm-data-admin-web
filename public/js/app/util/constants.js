@@ -11,6 +11,6 @@ export const ADMIN_COURSE_PM_DATA = '/kursinfoadmin/kurs-pm-data/'
 
 // PARAM FOR START ADMIN PAGE
 export const SAVED_NEW_PARAM = '?serv=pmdata&event=save' // 'Avsluta'
-export const SAVED_PUBLISHED_PARAM = '?serv=pmdata&event=savedPublished'
+export const REMOVE_PUBLISHED_PARAM = '?serv=pmdata&event=removedPublished'
 export const publishParam = '?serv=pmdata&event=pub'
 // export const cancelPram = '?serv=pmdata&event=cancel'

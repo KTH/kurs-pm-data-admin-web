@@ -252,7 +252,7 @@ class ChoiceOptions extends Component {
 
   onFinish = () => {
     const { courseCode } = this
-    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${SAVED_NEW_PARAM}`
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}`
 
     setTimeout(() => {
       window.location = startAdminPageUrl

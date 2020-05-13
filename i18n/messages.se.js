@@ -111,7 +111,7 @@ module.exports = {
     preparations: 'Särskilda förberedelser',
     prerequisites: 'Rekommenderade förkunskaper',
     reportingResults: 'Resultatrapportering',
-    scheduleDetails: 'Detaljschema',
+    scheduleDetails: 'Detaljplanering',
     software: 'Programvara',
     teacher: 'Lärare',
     teacherAssistants: 'Lärarassistenter'
@@ -383,16 +383,27 @@ module.exports = {
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avbryta'
     },
+    infoFinish: {
+      header: 'Avsluta',
+      body: `Utkast sparas först i steg 2: Redigera kurs-PM.
+        <br/>
+        <br/>
+        I detta steg, steg 1, visas sparade utkast under rubriken: Sparade utkast. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
+        <br/>
+        <br/>
+        Vill du fortsätta att avsluta?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt avsluta'
+    },
     infoSaveAndFinish: {
       header: 'Avsluta med utkast',
       body: `Utkast är sparat.
         <br/>
         <br/>
-        I steg 1 (Välj kursomgång) visas sparade utkast under rubriken: Fortsätt med ett sparat utkast. 
-        Utkast kan tas bort genom att välja ett utkast och sedan: Radera utkast.
+        I steg 1: Välj kursomgång, visas sparade utkast under rubriken: Sparade utkast. I detta steg kan du sedan välja att radera utkastet eller att fortsätta redigera.
         <br/>
         <br/>
-        Vill du fortsätta att avbryta?`,
+        Vill du fortsätta att avsluta?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt avsluta'
     },
@@ -514,8 +525,8 @@ module.exports = {
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileDeleting: 'Det gick inte att ta bort utkasten på grund av bakgrund system fel......',
     errWhileSaving: 'Det gick inte att skapa utkasten på grund av bakgrund system fel......',
-    infoAboutFreshData:
-      'Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
+    infoAboutFreshData: 'Information som hämtas har automatiskt uppdateras.',
+    // Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
     linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',

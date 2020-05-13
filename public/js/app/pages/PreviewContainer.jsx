@@ -21,7 +21,7 @@ import ExtraSection from '../components/preview/ExtraSection'
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { concatMemoName } from '../util/helpers'
-import { EMPTY } from '../util/constants'
+import { EMPTY, REMOVE_PUBLISHED_PARAM, SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
 
 const PROGRESS = 3
 
@@ -135,6 +135,8 @@ class PreviewContainer extends Component {
     previewMemo: this.props.routerStore.memoData
   }
 
+  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > 1
+
   langIndex = this.props.routerStore.langIndex
 
   onBack = () => {
@@ -175,6 +177,36 @@ class PreviewContainer extends Component {
           (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
       </span>
     )
+  }
+
+  onFinish = () => {
+    const { isDraftOfPublished } = this
+    const { courseCode, semester, memoEndPoint, memoName } = this.state.previewMemo
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
+      isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
+    }&term=${semester}&name=${memoName || memoEndPoint}`
+
+    if (isDraftOfPublished)
+      return axios
+        .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
+        .then(result => {
+          if (result.status >= 400) {
+            this.onAlert('errWhileDeleting', 'danger')
+            return 'ERROR-' + result.status
+          }
+          setTimeout(() => {
+            window.location = startAdminPageUrl
+          }, 500)
+        })
+        .catch(err => {
+          if (err.response) {
+            throw new Error(err.message)
+          }
+          throw err
+        })
+    return setTimeout(() => {
+      window.location = startAdminPageUrl
+    }, 500)
   }
 
   render() {
@@ -321,6 +353,7 @@ class PreviewContainer extends Component {
             langIndex={this.langIndex}
             onSubmit={this.publish}
             onBack={this.onBack}
+            onCancel={this.onFinish}
             progress={this.state.progress}
             alertText={this.state.alertText}
             alertIsOpen={this.state.alertIsOpen}

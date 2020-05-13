@@ -332,6 +332,18 @@ module.exports = {
       btnClose: 'No, go back',
       btnConfirm: 'Yes, cancel'
     },
+    infoFinish: {
+      header: 'EN -> Avsluta',
+      body: `EN -> Utkast sparas först i steg 2: Redigera kurs-PM.
+        <br/>
+        <br/>
+        I detta steg, steg 1, visas sparade utkast under rubriken: Sparade utkast. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
+        <br/>
+        <br/>
+        EN -> Vill du fortsätta att avbryta?`,
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, finish'
+    },
     infoSaveAndFinish: {
       header: 'EN -> Avsluta med utkast',
       body: `EN -> Utkast är sparat.
@@ -462,8 +474,7 @@ module.exports = {
     errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Smth went wrong on api side......',
     errWhileDeleting: 'Cannot delete draft, smth wrong... try later',
-    infoAboutFreshData:
-      'should be in EN --> Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.',
+    infoAboutFreshData: 'should be in EN --> Information som hämtas har automatiskt uppdateras..',
     infoRebuildDraft:
       'should be in EN --> Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'should be in EN --> Det finns ändringar som ej publicerats. Du kan',
