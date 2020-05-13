@@ -171,6 +171,7 @@ class ChangePublished extends Component {
           langIndex={langIndex}
           hasChosenMemo={chosen.memoEndPoint}
           onSubmit={this.onSubmit}
+          onCancelAndRemove={() => console.log('Cancel and remove')}
         />
       </Container>
     )
