@@ -12,11 +12,11 @@ const { messages, extraInfo } = i18n.messages[Number(i18n.isSwedish())]
 
 const PageHead = ({ semester, memoName }) => (
   <div className="page-header-wrapper">
-    <div className="page-header-container">
+    <div className="page-header-container section-50">
       <h4>{messages.page_header_heading_semester}</h4>
       <p className="no-wrap">{seasonStr(extraInfo, semester)}</p>
     </div>
-    <div className="page-header-container">
+    <div className="page-header-container section-50">
       <h4>{messages.page_header_heading_course_round}</h4>
       <p>{memoName}</p>
     </div>

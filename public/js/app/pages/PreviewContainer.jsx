@@ -275,7 +275,6 @@ class PreviewContainer extends Component {
           </PageTitle>
         </Row>
         <ProgressBar active={this.state.progress} pages={progressBarHeaders} />
-        <Row />
         <PageHead semester={semester} memoName={memoName} />
         <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
         <div className="preview-content-separation" />
