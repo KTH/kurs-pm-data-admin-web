@@ -2,7 +2,7 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { ExtraHeaderHead } from '../ContentHead'
+import { ExtraHeaderHead } from './ContentHead'
 
 import i18n from '../../../../../i18n'
 

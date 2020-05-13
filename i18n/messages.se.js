@@ -327,18 +327,18 @@ module.exports = {
   ],
   progressBarHeaders: [
     {
-      title: '1. Välj kursomgång',
+      title: 'Välj kursomgång',
       intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
       Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
       I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
     },
     {
-      title: '2. Redigera kurs-PM',
+      title: 'Redigera kurs-PM',
       intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
       I nästa steg granskas all kurs-PM data innan publicering.`
     },
     {
-      title: '3. Granska och publicera',
+      title: 'Granska och publicera',
       intro: ''
     }
   ],

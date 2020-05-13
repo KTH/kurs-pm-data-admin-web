@@ -22,8 +22,7 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.beforeAndDuringACourse}
       </a>
-      &nbsp;
-      <FaExternalLinkAlt />
+      <FaExternalLinkAlt className="external-link-icon" />
       <Popup
         header={labels.beforeAndDuringACourse}
         body={labels.linkOpensInNewTab}
@@ -40,8 +39,7 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.contactPersonsAndStudentCounselling}
       </a>
-      &nbsp;
-      <FaExternalLinkAlt />
+      <FaExternalLinkAlt className="external-link-icon" />
       <Popup
         header={labels.contactPersonsAndStudentCounselling}
         body={labels.linkOpensInNewTab}
@@ -58,8 +56,7 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.rightsAndResponsibilities}
       </a>
-      &nbsp;
-      <FaExternalLinkAlt />
+      <FaExternalLinkAlt className="external-link-icon" />
       <Popup
         header={labels.rightsAndResponsibilities}
         body={labels.linkOpensInNewTab}
