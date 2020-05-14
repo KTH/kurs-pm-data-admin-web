@@ -87,6 +87,15 @@ class ChangePublished extends Component {
     this.setAlarm('danger', 'errNoInPublishedChosen')
   }
 
+  onFinish = () => {
+    const { courseCode } = this
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}`
+
+    setTimeout(() => {
+      window.location = startAdminPageUrl
+    }, 500)
+  }
+
   render() {
     const { hasMemos, langAbbr, langIndex, allMemosAfterPublishing } = this
     const { alerts, info, pagesChangePublishedPm, pageTitles } = i18n.messages[langIndex]
@@ -171,7 +180,7 @@ class ChangePublished extends Component {
           langIndex={langIndex}
           hasChosenMemo={chosen.memoEndPoint}
           onSubmit={this.onSubmit}
-          onCancelAndRemove={() => console.log('Cancel and remove')}
+          onCancelAndRemove={this.onFinish}
         />
       </Container>
     )
