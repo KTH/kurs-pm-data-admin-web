@@ -346,11 +346,6 @@ class ChoiceOptions extends Component {
               {/* CHOOSE TO CREATE A NEW EMPTY DRAFT OR A NEW ONE COPIED FROM PREVIOUS MEMO */}
               <div>
                 <h3>{info.createNew}</h3>
-                {/* <TitleAndInfoModal
-                  modalId="choose-semester"
-                  titleAndInfo={info.chooseSemester}
-                  btnClose={buttons.btnClose}
-                /> */}
                 <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
                 {(allSemesters && allSemesters.length > 0 && (
                   <Form style={{ width: '20em' }}>
@@ -388,7 +383,7 @@ class ChoiceOptions extends Component {
               </div>
               {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
               <div
-                className="subsection-30"
+                className="first-15"
                 style={
                   allSemesters && allSemesters.length > 0 && semester
                     ? { marginTop: '0' }
