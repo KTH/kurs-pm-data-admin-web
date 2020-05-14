@@ -3,13 +3,14 @@
 /* eslint-disable react/no-danger */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
+import { SERVICE_URL } from '../util/constants'
 import { combineMemoName, seasonStr } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
+import SectionTitleAndInfoModal from '../components/SectionTitleAndInfoModal'
 import i18n from '../../../../i18n'
 import axios from 'axios'
-import { PageTitle, ProgressBar, TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
+import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
@@ -296,8 +297,13 @@ class ChoiceOptions extends Component {
           <Row>
             <Col>
               {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
-              <div className="section-50">
-                <h2>{info.chooseSavedDraft}</h2>
+              <div className="subsection-30">
+                <SectionTitleAndInfoModal
+                  modalId="choose-course-round"
+                  titleAndInfo={info.chooseRound}
+                  btnClose={buttons.btnClose}
+                />
+                <h3>{info.chooseSavedDraft}</h3>
                 {(hasSavedDraft && (
                   <>
                     <Label htmlFor="choose-existed-memo">
@@ -338,16 +344,17 @@ class ChoiceOptions extends Component {
                 )}
               </div>
               {/* CHOOSE TO CREATE A NEW EMPTY DRAFT OR A NEW ONE COPIED FROM PREVIOUS MEMO */}
-              <div className="section-50">
-                <h2>{info.createNew}</h2>
-                <TitleAndInfoModal
+              <div>
+                <h3>{info.createNew}</h3>
+                {/* <TitleAndInfoModal
                   modalId="choose-semester"
                   titleAndInfo={info.chooseSemester}
                   btnClose={buttons.btnClose}
-                />
+                /> */}
+                <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
                 {(allSemesters && allSemesters.length > 0 && (
                   <Form style={{ width: '20em' }}>
-                    <FormGroup className="form-select first-15" key="select-semester">
+                    <FormGroup className="form-select" key="select-semester" id="choose-semester">
                       <div className="select-wrapper">
                         <select
                           className="custom-select"
@@ -361,7 +368,7 @@ class ChoiceOptions extends Component {
                               defaultValue="PLACEHOLDER"
                               style={{ display: 'none' }}
                             >
-                              {info.chooseSemester.header}
+                              {info.chooseSemester.label}
                             </option>
                           )}
                           {allSemesters.map(({ term }) => (
@@ -388,11 +395,6 @@ class ChoiceOptions extends Component {
                     : { display: 'none' }
                 }
               >
-                <TitleAndInfoModal
-                  modalId="choose-course-round"
-                  titleAndInfo={info.chooseRound}
-                  btnClose={buttons.btnClose}
-                />
                 {(availableSemesterRounds.length > 0 && (
                   <>
                     <Label className="first-15" htmlFor="choose-from-rounds-list">
