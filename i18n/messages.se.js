@@ -442,13 +442,13 @@ module.exports = {
     }
   },
   info: {
-    chooseSavedDraft: 'Fortsätt redigera ett sparat utkast',
-    createNew: 'Skapa nytt eller kopiera?',
+    chooseSavedDraft: 'Sparade utkast',
+    createNew: 'Ny kursomgång',
     choosePublishedMemo: 'Välj kurs-PM',
     chooseSemester: {
-      header: 'Välj termin',
-      body:
-        '<p>Välj vilken termin kursomgången startar. Om kursomgången sträcker sig över flera terminer; välj kursomgångens starttermin.</p>'
+      label: 'Välj termin'
+      // body:
+      //   '<p>Välj vilken termin kursomgången startar. Om kursomgången sträcker sig över flera terminer; välj kursomgångens starttermin.</p>'
     },
     chooseRound: {
       header: 'Välj kursomgång',
@@ -460,11 +460,11 @@ module.exports = {
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       availableRounds: {
         label: 'Markera ett eller flera kurstillfällen som ingår i kursomgången',
-        infoText: 'Listade kurstillfällen saknar ett publicerat kurs-PM eller utkast'
+        infoText: 'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast'
       },
       existedDrafts: {
         label: 'Välj det utkast du vill fortsätta att redigera',
-        infoText: 'Listade utkast är sparade men ej publicerade'
+        infoText: 'Utkasten listade är sparade men ej publicerade'
       },
       publishedMemos: {
         label: 'Välj det kurs-PM du vill redigera: ',

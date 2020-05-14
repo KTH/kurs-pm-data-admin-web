@@ -114,7 +114,7 @@ module.exports = {
     preparations: 'Specific preparations',
     prerequisites: 'Recommended prerequisites',
     reportingResults: 'Reporting of exam results',
-    scheduleDetails: 'Schedule details',
+    scheduleDetails: 'Detailed plan',
     software: 'Software',
     teacher: 'Teacher',
     teacherAssistants: 'Teacher assistants'
@@ -386,13 +386,13 @@ module.exports = {
     }
   },
   info: {
-    chooseSavedDraft: 'Continue to edit a saved draft',
-    createNew: 'Create new or copy?',
+    chooseSavedDraft: 'EN -> Sparade utkast',
+    createNew: 'Choose course offering',
     choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
-      header: 'Choose semester',
-      body:
-        '<p>Choose what semester the course offering starts in. If the course offering stretches over several semesters then choose the first semester.</p>'
+      label: 'Choose semester'
+      // body:
+      //   '<p>Choose what semester the course offering starts in. If the course offering stretches over several semesters then choose the first semester.</p>'
     },
     chooseRound: {
       header: 'Choose course offering',
