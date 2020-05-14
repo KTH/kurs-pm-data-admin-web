@@ -40,6 +40,7 @@ const CourseHeader = ({
         <Col className="text-right pb-4" style={{ paddingRight: '0' }}>
           <a
             id="admin-link"
+            className="course-header-admin-link"
             title={adminLinkLabel}
             href={adminLink(courseCode, language)}
             target="_blank"
