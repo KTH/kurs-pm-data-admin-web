@@ -13,6 +13,7 @@ const { getCourseEmployees } = require('../ugRedisApi')
 const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
+const i18n = require('../../i18n')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -44,7 +45,7 @@ async function renderMemoEditorPage(req, res, next) {
     const userLang = language.getLanguage(res) || 'sv'
     const { courseCode, memoEndPoint } = req.params
     const { action } = req.query
-
+    const langIndex = userLang === 'en' ? 0 : 1
     const renderProps = _staticRender(context, req.url)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
 
@@ -85,6 +86,10 @@ async function renderMemoEditorPage(req, res, next) {
       html,
       title: userLang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',
       initialState: JSON.stringify(hydrateStores(renderProps)),
+      kursinfoadmin: {
+        title: i18n.messages[langIndex].messages.main_site_name + courseCode,
+        url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode
+      },
       userLang,
       description:
         userLang === 'sv'
