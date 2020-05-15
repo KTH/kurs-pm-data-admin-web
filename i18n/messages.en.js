@@ -30,8 +30,8 @@ module.exports = {
     field_label_post_example: 'My modelData(Response from api call POST): ',
 
     lang_block_id: '1.77273',
-    locale_text: 'English',
-
+    locale_text: 'This page in English',
+    main_site_name: 'Administrate About the course ',
     site_name: 'Administration of Course Memos',
     host_name: 'KTH',
 
