@@ -9,6 +9,7 @@ const { getKoppsCourseRoundTerms } = require('../koppsApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData } = require('../kursPmDataApi')
+const i18n = require('../../i18n')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -39,6 +40,7 @@ async function getChangePublishedStartPage(req, res, next) {
   try {
     const context = {}
     const lang = language.getLanguage(res) || 'sv'
+    const langIndex = lang === 'en' ? 0 : 1
     const { courseCode } = req.params
     const renderProps = _staticRender(context, req.url)
 
@@ -63,13 +65,16 @@ async function getChangePublishedStartPage(req, res, next) {
         courseCode
       }
     )
-
     // TODO GET AWAIT COURSE
     const html = ReactDOMServer.renderToString(renderProps)
     res.render('memo/index', {
       html,
-      title: lang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',
+      title: i18n.messages[langIndex].messages.site_name,
       lang,
+      kursinfoadmin: {
+        title: i18n.messages[langIndex].messages.main_site_name + courseCode,
+        url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode
+      },
       initialState: JSON.stringify(hydrateStores(renderProps)),
       description:
         lang === 'sv'

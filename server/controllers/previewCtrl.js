@@ -14,6 +14,7 @@ const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 
 const { getSyllabus } = require('../koppsApi')
+const i18n = require('../../i18n')
 
 function hydrateStores(renderProps) {
   // This assumes that all stores are specified in a root element called Provider
@@ -66,6 +67,7 @@ async function renderMemoPreviewPage(req, res, next) {
   try {
     const context = {}
     const userLang = language.getLanguage(res) || 'sv'
+    const langIndex = userLang === 'en' ? 0 : 1
     const { courseCode, memoEndPoint } = req.params
     const renderProps = _staticRender(context, req.url)
 
@@ -107,6 +109,10 @@ async function renderMemoPreviewPage(req, res, next) {
     const html = ReactDOMServer.renderToString(renderProps)
 
     res.render('preview/index', {
+      kursinfoadmin: {
+        title: i18n.messages[langIndex].messages.main_site_name + courseCode,
+        url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode
+      },
       html,
       title: userLang === 'sv' ? 'Förhandsgranskning av kurs-PM' : 'Preview of course memos',
       initialState: JSON.stringify(hydrateStores(renderProps)),
