@@ -119,54 +119,76 @@ module.exports = {
   memoInfoByUserLang: {
     additionalRegulations: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     commentAboutMadeChanges: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     communicationDuringCourse: {
       body: `<p>Används till: att beskriva vem studenten kontakter för vad och hur det görs samt och när studenten kan förvanta sig svar.</p>
       <p>Varför: Om det finns beskrivet hur kommunikationen mellan studenter och lärare ska se ut så besparar det tid och arbete ...</p>
       <p>För att editera innehållet så väljer du: "Visa i kurs-PM”. </p>
-      <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras</p>`
+      <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras</p>`,
+      help: `<p></p>
+      <p></p>`
     },
     courseContent: {
       body: `<p><b>Kursinnehåll</b> beskriver ämnesinnehållet och de generella färdigheter som behandlas eller tränas i kursen.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilka begrepp, ämnen, färdigheter m.m. som den behöver läsa in sig på inför och under kursen. 
       Kursinnehållet hjälper på så sätt studenten att förbereda sig inför och under kursen.</p>
-      <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Kursinnehåll kan ändras eftersom informationen är en del av kursplanen. Läs mer om riktlinjer för att ändra Kursinnehåll på sidan 
-      <a href="https://intra.kth.se/utbildning/utbi/forbereda-utbildning/andra-i-en-kursplan-andra-kursuppgifter-i-ladok-ej-forskarniva" target="_blank">Ändra i en kursplan, ändra kursuppgifter i Ladok (ej forskarnivå)</a> (öppnas i ny flik).</p>`
+      <p><b>Innehållet redigeras</b>  i utbildningsdatabasen Kopps. 
+      Det finns tydliga riktlinjer för hur Kursinnehåll kan ändras eftersom informationen är en del av kursplanen. 
+      Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan 
+      <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`
     },
     courseCoordinator: {
       body: `<p>Innehållet hämtas från den kursgemensamma informationen</p>
       <p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p>
-      <p>Vad är examiner ....</p>`
+      <p>Vad är examiner ....</p>`,
+      help: `<p></p>
+      <p></p>`
     },
     ethicalApproach: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     ethicalApproachSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     equipment: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     examination: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     examinationSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     examiner: {
       body: `<p>Innehållet hämtas från den kursgemensamma informationen</p>
       <p>Redigering av innehåll kan göras av Behöriga <a href="#">(länk)</a> i KOPPS.</p>
-      <p>Vad är examiner ....</p>`
+      <p>Vad är examiner ....</p>`,
+      help: `<p></p>
+      <p></p>`
     },
     extraHeaders1: {
       body: '<p>Here you can add owh headers to H3</p>'
@@ -194,23 +216,34 @@ module.exports = {
     },
     gradingScale: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     infoForReregisteredStudents: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     learningActivities: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      body: `<p><b>Läraktiviteter</b> beskriver vilka typer av planerade aktiviteter som planerats för kursomgången och vad som är bra för studenten att veta om respektive aktivitetstyp. 
+      Läraktivitet definierar vad t.ex. ett seminarium eller en lektion eller en laboration är på just denna kursomgång.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå och planera inför kursomgångens aktiviteter och med det göra rätt förberedelser i rätt tid. 
+      Innebörden av en viss typ av läraktivitet kan ha olika innebörd på olika kurser. Med väl beskrivna läraktiviteter kan studenten därför få rätt förväntningar på varje typ av läraktivitet.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om läraktiviteter i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Under rubriken "Läraktiviteter" beskriver du vilka typer av läraktiviteter som är planerade under kursomgången. Ge de olika typerna ett intuitivt och gärna vedertaget begrepp som du sedan använder konsekvent senare i detta kurs-PM. Beskriv vad de olika typerna av läraktiviteter innebär på just denna kursomgång, kortfattat hur de går till och vad som är bra för studenten att känna till om läraktiviteten. 
+      Du kan också beskriva hur omfattande läraktiviteterna är i fråga om antal och tid, men också hur de är fördelade över kursomgångens studietid.</p>
+      <p>Kursens pedagogiska upplägg kan också beskrivas under "Läraktiviteter" om det har betydelse för studentens planering och förberedelse av kursomgången.
+      Om läraktiviteter inte är relevant för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`
     },
     learningOutcomes: {
       body: `<p><b>Lärandemål</b> ska tydliggöra vilka kunskaper, färdigheter, värderingsförmågor och förhållningssätt som studenten ska visa efter genomgången kurs.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå vad studenten behöver uppnå för att få ett godkänt betyg. 
-      Lärandemålen hjälper med det studenten att lägga en plan för kursens genomförande. 
+      <p><b>Informationen hjälper studenten</b> att förstå vad den behöver uppnå för att få ett godkänt betyg. Lärandemålen hjälper med det studenten att lägga en plan för kursens genomförande. 
       Efterföljande information i detta kurs-PM relaterar till kursens lärandemål varför det är viktigt att informationen är väl formulerad.</p>
       <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Lärandemål kan ändras eftersom informationen är en del av kursplanen. 
-      Läs mer om riktlinjer för att ändra Lärandemål på sidan <a href="https://intra.kth.se/utbildning/utbi/forbereda-utbildning/andra-i-en-kursplan-andra-kursuppgifter-i-ladok-ej-forskarniva" target="_blank">Ändra i en kursplan, ändra kursuppgifter i Ladok (ej forskarnivå)</a> (öppnas i ny flik).</p>`
+      Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p></p>`
     },
     literature: {
       body: `<p><b>Kurslitteratur</b> beskriver vilken litteratur som används i kursomgången.</p>
@@ -237,50 +270,92 @@ module.exports = {
       body: `<p>Används till: att lägga in andra kontakter än de som är obligatoriska. </p>
       <p>Varför: Det är viktigt för studenter att ha alla kontakter som de behöver för kursen samlade här.</p> 
       <p>För att editera innehållet så väljer du: "Visa i kurs-PM”.</p> 
-      <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras.</p> `
+      <p>Du kan sedan välja “Visa vägledning”  för att få hjälp med vad som kan finnas med och hur innehållet kan presenteras.</p> `,
+      help: `<p></p>
+      <p></p>`
     },
     otherRequirementsForFinalGrade: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     permanentDisability: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     permanentDisabilitySubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     possibilityToAddition: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     possibilityToCompletion: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     possibilityToCompensate: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     preparations: {
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....'
+      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....',
+      help: `<p></p>
+      <p></p>`
     },
     prerequisites: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     reportingResults: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     scheduleDetails: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      body: `<p><b>Detaljplanering</b> är en översikt av kursomgångens planerade läraktiviteter och examinationstillfällen. 
+      Detaljplanering är företrädesvis listad i kronologisk ordning. 
+      "Detaljplanering" innehåller information om aktiviteterna och vad studenten behöver förbereda inför varje aktivitet.</p>
+      <p><b>Information hjälper studenten</b> att planera sina studier och genomföra kursomgången på ett effektivt sätt. 
+      Med en tydlig detaljplanering kan studenten se när i ordningen varje läraktivitet eller examinationstillfälle infaller och med det göra rätt förberedelser vid rätt tidpunkt under kursens genomförande.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
+      Ange information om "Detaljplanering" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Under rubriken "Detaljplanering" beskriver du vilka läraktiviteter eller examinationstillfällen som har planerats under kursen. 
+      Använd med fördel en tabell för att på ett överblickbart sätt beskriva aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. 
+      Systemet skapar en tabell med tre kolumner åt dig där du kan skriva i kursomgångens läraktiviteter. 
+      Du kan anpassa denna tabell genom att t.ex. lägga till rader, lägga till kolumner, eller ersätta den med en tabell från Word.</p>
+      <p>Ett enkelt och tydligt sätt är att beskriva detaljplanering genom att för varje läraktivitet eller examination ange typ av aktivitet, aktivitetens innehåll och vilka förberedelser som studenten behöver göra. 
+      Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse. 
+      Länka gärna till instruktioner och material för kursomgången i Canvas, men var uppmärksam på att länkar från tidigare kurs-PM som kopierats till detta kurs-PM kan vara ogiltiga. 
+      Testa därför länkar till andra webbsidor innan publicering.</p>
+      <br/>
+      <p>Följande Detaljplanering är ett exempel från kurs HI1027:
+      [Infoga exempel på tabell]</p>
+      <br/>
+      <p>Om du beskrivit kursens olika läraktiviteter under rubriken "Läraktiviteter" rekommenderas att använda samma terminologi för att studenterna ska se den röda träden genom detta kurs-PM.</p>
+      <p>Om det är någon aktivitet som är särskilt viktigt för studenten att förbereda kan det understrykas genom att beskriva det i rubriken "Särskilda förberedelser".</p>`
     },
     software: {
       body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`
+      <p><b>Rubriken hjälper studenter:</b> </p>`,
+      help: `<p></p>
+      <p></p>`
     },
     teacher: {
       body:

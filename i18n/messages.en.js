@@ -130,7 +130,12 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     courseContent: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Course contents</b> describes the subjects and the general abilities that is discussed or practised on the course.</p>
+      <p><b>The information helps the student</b> to understand what concepts, subjects, abilities etc. to read up on before and during the courses. 
+      In that way, course contents helps the student to prepare both before and during the course.</p>
+      <p><b>Contents can be edited</b> in Kopps. Changes of course contents is restricted by certain regulations since the information is part of the legally binding course syllabus. 
+      Read more about changing contents of course syllabus on the page 
+      <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`
     },
     courseCoordinator: {
       body: 'It is important for students because they can plan their studies....'
@@ -182,10 +187,27 @@ module.exports = {
     //   body: 'It is important for students because they can plan their studies....'
     // },
     learningActivities: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Learning activities</b> describes the types of planned activities on the course and what is important to know about each learning activity. 
+      For example, learning activities defines what a seminar or a laboration is on this particular course.</p>
+      <p><b>The information helps the student</b> to understand the activities and to do the necessary preparations prior to the activity. 
+      Each activity type may have different meanings on different courses. Well described learning activities sets the right expectations on each type of activity.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". 
+      Enter information about learning activities and check "Include heading" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe the planned types of learning activities on the course in the section "Learning activities". 
+      Use an established term for each type and repeat the term throughout the course memo. 
+      Describe what the learning activity means for this particular course and what is important for the student to know about it. 
+      You can add information about how many of each activity type and how they are distributed over the course. </p>
+      <p>If the pedagogical disposition of the course is relevant for planning and preparations it can also be described in this section.</p>
+      <p>Uncheck "Include heading" if information about learning activities is irrelevant for this course.</p>`
     },
     learningOutcomes: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Intended learning outcomes</b> clarifies what knowledge, what skills, which evaluation abilities and approaches the student needs to demonstrate after taking the course.</p>
+      <p><b>The information helps the student</b> to understand what targets the student needs to achieve for a passed grade. Intended learning outcomes helps the student to plan the course. 
+      The following information in this course memo, in many ways, relates to the intended learning outcome. Therefore, it is important that the information is unambiguously formulated.</p>
+      <p><b>Contents can be edited</b> in Kopps. 
+      Changes of intended learning outcome is restricted by certain regulations since the information is part of the legally binding course syllabus. 
+      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`
     },
     literature: {
       body: 'It is important for students because they can plan their studies....',
@@ -214,19 +236,49 @@ module.exports = {
       body: 'It is important because'
     },
     preparations: {
-      body: 'It is important for students because they can plan their studies....'
+      body: 'It is important for students because they can plan their studies....',
+      help: `<p></p>
+      <p></p>`
     },
     prerequisites: {
-      body: 'It is important for students because they can plan their studies....'
+      body: 'It is important for students because they can plan their studies....',
+      help: `<p></p>
+      <p></p>`
     },
     reportingResults: {
-      body: '...'
+      body: '...',
+      help: `<p></p>
+      <p></p>`
     },
     scheduleDetails: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Detailed plan</b> is an overview of the learning activities and examinations on the course, preferably in a chronological order. 
+      The detailed plan contains information about each activity and what preparations that are recommended prior to each activity.</p>
+      <p><b>The information helps the student</b> to plan for the studies and take the course effeciently. 
+      A clear plan illustrates the order of the activities on the course and that makes it easy for the student to do proper preparations with the right timing.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". 
+      Enter information about the detailed plan and check "Include heading" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe the planned learning activities and examination in the "Detailed plan" section. It is common to use a table to represent the plan. 
+      A table illustrates the order of the activities, its content, and what preparations that is recommended prior to each activity. 
+      If you have chosen to create and publish a new course memo this form will automatically provide you with a table with three columns. 
+      You can complete the table with information about the activities. You can add or remove columns by your own choice or simply replace the table with another table from Word by copy/paste.</p>
+      <p>A simple but distinct format is to describe the detailed plan with three parts; the type of activity, a description of its content and a description of what preparations that is recommended. 
+      Preparations is often described as references to literature or web pages, but it could also be practical instructions like installation of software. 
+      Insert links to more detailed instructions and material for this course offering in Canvas. Make sure the links leads to the right page. 
+      A course memo that is copied from a previously published course memo may contain links to web pages and materials that is not relevant for this course offering. 
+      It is therefore recommended to test the links before publishing.</p>
+      <br/>
+      <p>The following detailed plan is an example from course EQ2400:
+      [infoga exempel på tabell]</p>
+      <br/>
+      <p>It is recommended to use the same terminology as defined in the "Learning activities" section. 
+      A coherent course memo makes it easier for students to recognize the concepts and to understand the course memo as a whole.</p>
+      <p>If there are preparations that are particularly important, you can highlight them in the "Specific preparations" section in this course memo.</p>`
     },
     software: {
-      body: 'It is important for students because they can plan their studies....'
+      body: 'It is important for students because they can plan their studies....',
+      help: `<p></p>
+      <p></p>`
     },
     teacher: {
       body: 'It is important for students because they can plan their studies....'
