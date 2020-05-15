@@ -121,7 +121,14 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Additional regulations</b> describes regulations in the course syllabus that does not comply with any of the other sections in the course syllabus. 
+      Some examples are if the course is cannot be included in their degree certificate, 
+      if the student is required to perform studies on a different campus than the ordinary, or if the course require expenses other than for literature, stationery and similar.</p>
+      <p><b>The information helps the student</b>, depending on the contents of "Additional regulations", to plan and prepare for their studies.</p>
+      <p><b>Contents can be edited</b> in Kopps. 
+      Changes of "Additional regulations" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
+      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
+      <p>If there is no content the heading will not be visible in the published course memo.</p>`
     },
     commentAboutMadeChanges: {
       body: 'It is important for students because they can plan their studies....'
@@ -180,12 +187,17 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     infoForReregisteredStudents: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Changes of the course before this course offering</b> describes the relevant conclusions from previous course evaluations and course analysis and what changes that have actually been implemented before this course offering.</p>
+      <p><b>The information helps the student</b> to understand what changes of the course that has been made to this course offering.
+      This is especially important for re-registered students who needs to be informed about any important differences to the previous course offering. 
+      Describing the changes is a good way to show the students that the course development is important and that it actually helps to improve the course.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Changes of the course before this course offering" and check "Include heading" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
+      Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
+      The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
+      <p>Uncheck "Include heading" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`
     },
-    // languageOfInstructions: {
-    //   header: 'Language of instruction',
-    //   body: 'It is important for students because they can plan their studies....'
-    // },
     learningActivities: {
       body: `<p><b>Learning activities</b> describes the types of planned activities on the course and what is important to know about each learning activity. 
       For example, learning activities defines what a seminar or a laboration is on this particular course.</p>
