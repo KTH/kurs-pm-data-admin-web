@@ -26,18 +26,18 @@ const CourseHeader = ({
   const { adminLinkLabel, linkOpensInNewTab } = labels
   return (
     <>
-      <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
-        <Col style={{ paddingLeft: '0' }}>
+      <Row>
+        <Col>
           <h1 className="preview-course-header-title">{courseMemo}</h1>
         </Col>
       </Row>
-      <Row className="w-100" style={{ marginLeft: '0', marginRight: '0' }}>
-        <Col className="text-left pb-4" style={{ paddingLeft: '0' }}>
+      <Row className="pb-3">
+        <Col className="text-left">
           <h4 className="secondTitle">
             {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
           </h4>
         </Col>
-        <Col className="text-right pb-4" style={{ paddingRight: '0' }}>
+        <Col className="text-right">
           <a
             id="admin-link"
             className="course-header-admin-link"

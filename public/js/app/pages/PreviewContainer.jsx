@@ -187,23 +187,26 @@ class PreviewContainer extends Component {
     }&term=${semester}&name=${memoName || memoEndPoint}`
 
     if (isDraftOfPublished)
-      return axios
-        .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
-        .then(result => {
-          if (result.status >= 400) {
-            this.onAlert('errWhileDeleting', 'danger')
-            return 'ERROR-' + result.status
-          }
-          setTimeout(() => {
-            window.location = startAdminPageUrl
-          }, 500)
-        })
-        .catch(err => {
-          if (err.response) {
-            throw new Error(err.message)
-          }
-          throw err
-        })
+      return (
+        axios
+          .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
+          // eslint-disable-next-line consistent-return
+          .then(result => {
+            if (result.status >= 400) {
+              this.onAlert('errWhileDeleting', 'danger')
+              return 'ERROR-' + result.status
+            }
+            setTimeout(() => {
+              window.location = startAdminPageUrl
+            }, 500)
+          })
+          .catch(err => {
+            if (err.response) {
+              throw new Error(err.message)
+            }
+            throw err
+          })
+      )
     return setTimeout(() => {
       window.location = startAdminPageUrl
     }, 500)
@@ -268,7 +271,7 @@ class PreviewContainer extends Component {
     }
 
     return (
-      <Container className="kip-container" style={{ marginBottom: '115px', padding: '0' }}>
+      <Container className="kip-container preview-container" fluid>
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
             {this.courseSubHeader()}
@@ -282,7 +285,7 @@ class PreviewContainer extends Component {
           <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
         </Row>
         <Row>
-          <Col lg="3">
+          <Col lg="3" className="preview-side-menu">
             <SideMenu
               courseCode={courseCode}
               courseMemoItems={courseMemoItems}
@@ -290,22 +293,20 @@ class PreviewContainer extends Component {
             />
           </Col>
           <Col lg="9">
-            <Row className="preview-content">
-              <CourseHeader
-                courseMemo={concatMemoName(
-                  this.props.routerStore.memoData.semester,
-                  this.props.routerStore.memoData.ladokRoundIds,
-                  this.props.routerStore.memoData.memoCommonLangAbbr
-                )}
-                courseCode={courseCode}
-                title={this.props.routerStore.koppsFreshData.title}
-                credits={this.props.routerStore.koppsFreshData.credits}
-                creditUnitAbbr={this.props.routerStore.koppsFreshData.creditUnitAbbr}
-                labels={courseHeaderLabels}
-                language={this.props.routerStore.memoData.memoCommonLangAbbr}
-              />
-            </Row>
-            <Row className="preview-content">
+            <CourseHeader
+              courseMemo={concatMemoName(
+                this.props.routerStore.memoData.semester,
+                this.props.routerStore.memoData.ladokRoundIds,
+                this.props.routerStore.memoData.memoCommonLangAbbr
+              )}
+              courseCode={courseCode}
+              title={this.props.routerStore.koppsFreshData.title}
+              credits={this.props.routerStore.koppsFreshData.credits}
+              creditUnitAbbr={this.props.routerStore.koppsFreshData.creditUnitAbbr}
+              labels={courseHeaderLabels}
+              language={this.props.routerStore.memoData.memoCommonLangAbbr}
+            />
+            <Row>
               <Col lg="8" className="preview-content-center">
                 <CoursePresentation
                   courseImageUrl={courseImageUrl}
@@ -315,34 +316,44 @@ class PreviewContainer extends Component {
                 {allSections}
               </Col>
               <Col lg="4" className="preview-content-right">
-                <CourseFacts
-                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
-                  labels={courseFactsLabels}
-                  department={this.props.routerStore.koppsFreshData.department}
-                  memoData={this.props.routerStore.memoData}
-                />
-                {/* TODO: Use better spacing method */}
-                <div style={{ height: '30px' }} />
-                <CourseMemoLinks
-                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
-                  labels={courseMemoLinksLabels}
-                  extraInfo={extraInfo}
-                  memoData={this.props.routerStore.memoData}
-                  validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
-                />
-                {/* TODO: Use better spacing method */}
-                <div style={{ height: '30px' }} />
-                <CourseLinks
-                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
-                  labels={courseLinksLabels}
-                />
-                {/* TODO: Use better spacing method */}
-                <div style={{ height: '30px' }} />
-                <CourseContacts
-                  language={this.props.routerStore.memoData.memoCommonLangAbbr}
-                  memoData={this.props.routerStore.memoData}
-                  labels={courseContactsLabels}
-                />
+                <Row className="mb-4">
+                  <Col>
+                    <CourseFacts
+                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
+                      labels={courseFactsLabels}
+                      department={this.props.routerStore.koppsFreshData.department}
+                      memoData={this.props.routerStore.memoData}
+                    />
+                  </Col>
+                </Row>
+                <Row className="my-4">
+                  <Col>
+                    <CourseMemoLinks
+                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
+                      labels={courseMemoLinksLabels}
+                      extraInfo={extraInfo}
+                      memoData={this.props.routerStore.memoData}
+                      validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col>
+                    <CourseLinks
+                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
+                      labels={courseLinksLabels}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mt-4">
+                  <Col>
+                    <CourseContacts
+                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
+                      memoData={this.props.routerStore.memoData}
+                      labels={courseContactsLabels}
+                    />
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Col>
