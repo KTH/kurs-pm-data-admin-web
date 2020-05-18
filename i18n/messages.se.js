@@ -459,7 +459,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
-      body: `Utkast sparas automatiskt från det att du påbörjat steg 2, Redigera kurs-PM. Vill du inte behålla utkastet kan du välja Radera utkast i steg 1, Välj kursomgång,nästa gång du använder tjänsten Skapa och publicera kurs-PM.
+      body: ` .....
         <br/>
         <br/>
         Vill du fortsätta att avbryta?`,
