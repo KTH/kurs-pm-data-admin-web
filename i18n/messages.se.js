@@ -118,10 +118,12 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Övriga föreskrifter</b> beskriver andra föreskrifter i kursplanen som inte ryms under övriga rubriker i kursplanen. 
+      Det kan t.ex. vara om kursen inte är examensgrundande, om deltagande innebär krav studier på annat campus eller ort eller om kursen innehåller inslag som kan innebära kostnad utöver kostnad för litteratur och annat undervisningsmaterial.</p>
+      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursens genomförande beroende på innehållet under "Övriga föreskrifter".</p>
+      <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Övriga föreskrifter kan ändras eftersom informationen är en del av kursplanen. 
+      Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
+      <p>Om det inte finns något innehåll kommer rubriken inte visas i det publicerade kurs-PM:et.</p>`
     },
     commentAboutMadeChanges: {
       body: `<p><b>Informationen syftar till: …</b></p>
@@ -221,10 +223,16 @@ module.exports = {
       <p></p>`
     },
     infoForReregisteredStudents: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Ändringar inför denna kursomgång</b> beskriver relevanta slutsatser från föregående kursvärderingar och kursanalyser samt vilka ändringar som faktiskt har införts till denna kursomgång.</p>
+      <p><b>Informationen hjälper studenten</b> att exempelvis förstå vilka förbättringar som gjorts inför kursomgången och på ett högre plan vilket förbättringsarbete i allmänhet som görs på kursen. 
+      Informationen kan också uppmärksamma omregistrerade studenter på förändringar från föregående kursomgångar den behöver ta hänsyn till.
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
+      Ange information om ändringar inför denna kursomgång i inmatningsfältet och klicka på "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Under rubriken "Ändringar inför denna kursomgång" beskriver du vilka ändringar som gjorts på kursen inför denna kursomgång. 
+      Det kan också vara viktigt att beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser som hjälper studenten att prioritera i sin planering och sina förberedelser inför kursomgången. 
+      Kurs-PM är ett av flera sätt att informera studenter om resultaten från kursvärderingar och kursanalyser samt eventuella beslut om åtgärder som följer av det.</p>
+      <p>Om det inte finns anledning att informera om ändringar inför denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`
     },
     learningActivities: {
       body: `<p><b>Läraktiviteter</b> beskriver vilka typer av planerade aktiviteter som planerats för kursomgången och vad som är bra för studenten att veta om respektive aktivitetstyp. 
@@ -451,7 +459,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
-      body: `Utkast sparas automatiskt från det att du påbörjat steg 2, Redigera kurs-PM. Vill du inte behålla utkastet kan du välja Radera utkast i steg 1, Välj kursomgång,nästa gång du använder tjänsten Skapa och publicera kurs-PM.
+      body: ` .....
         <br/>
         <br/>
         Vill du fortsätta att avbryta?`,
