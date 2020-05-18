@@ -180,7 +180,8 @@ class ChangePublished extends Component {
           langIndex={langIndex}
           hasChosenMemo={chosen.memoEndPoint}
           onSubmit={this.onSubmit}
-          onCancelAndRemove={this.onFinish}
+          onCancel={this.onFinish}
+          isDraftOfPublished
         />
       </Container>
     )

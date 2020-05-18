@@ -7,7 +7,7 @@ import { Alert, Row, Col, Button } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 
 const ControlPanel = props => {
-  const { hasChosenMemo, langIndex, onCancel, onCancelAndRemove, onRemove, onSubmit } = props // onSubmit = onForward
+  const { hasChosenMemo, langIndex, onCancel, onRemove, onSubmit } = props // onSubmit = onForward
   const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
@@ -41,15 +41,20 @@ const ControlPanel = props => {
         )}
       </Col>
       <Col sm="4" className="btn-cancel">
-        {((isDraftOfPublished || onCancelAndRemove) && (
-          <ActionModalButton
-            btnLabel={buttons.cancel}
-            modalId="cancelThisActionAndRemoveChanges"
-            type="cancel"
-            modalLabels={actionModals.infoCancel}
-            onConfirm={onCancelAndRemove || onCancel}
-          />
-        )) || (
+        {(isDraftOfPublished &&
+          ((progress === 1 && (
+            <Button modalId="cancelWithoutAction" color="secondary" onClick={onCancel}>
+              {buttons.cancel}
+            </Button>
+          )) || (
+            <ActionModalButton
+              btnLabel={buttons.cancel}
+              modalId="cancelThisActionAndRemoveChanges"
+              type="cancel"
+              modalLabels={actionModals.infoCancel}
+              onConfirm={onCancel}
+            />
+          ))) || (
           <ActionModalButton
             btnLabel={progress === 1 ? buttons.btnFinish : buttons.btnSaveAndFinish}
             modalId="cancelThisAction"

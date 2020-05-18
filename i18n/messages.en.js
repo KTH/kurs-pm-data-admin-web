@@ -389,7 +389,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'To be aware of before cancelling!',
-      body: `A draft is automatically saved immediately after you started editing the course memo in step 2, Edit course memo. If you don ́t want to keep the draft, you can choose Delete draft in step 1, Choose course offering, the next time you use the service Create and publish course memo.
+      body: `....
         <br/>
         <br/>
         Do you want to cancel?`,
