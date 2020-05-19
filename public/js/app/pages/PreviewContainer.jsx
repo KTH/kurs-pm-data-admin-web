@@ -239,8 +239,9 @@ class PreviewContainer extends Component {
     const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     // Assumes that API only gave one memoData per memoEndPoint
+    // Duplicate id’s filtered out later
     let active = false
-    const courseMemoItems = this.props.routerStore.memoDatas.map(m => {
+    let courseMemoItems = this.props.routerStore.memoDatas.map(m => {
       const id = m.memoEndPoint
       const label = concatMemoName(
         m.semester,
@@ -269,6 +270,11 @@ class PreviewContainer extends Component {
         url: `/kurs-pm/${courseCode}/${this.state.previewMemo.memoEndPoint}`
       })
     }
+
+    // Duplicate id’s filtered out
+    courseMemoItems = courseMemoItems.filter(
+      (item, index, self) => index === self.findIndex(t => t.id === item.id)
+    )
 
     return (
       <Container className="kip-container preview-container" fluid>
