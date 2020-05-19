@@ -64,7 +64,7 @@ class StandardEditorPerTitle extends Component {
     const { sourceInfo, memoInfoByUserLang } = i18n.messages[this.userLangIndex]
 
     return (
-      <span id={menuId} className={contentType}>
+      <span id={menuId} className={contentType + ' section-50'}>
         {contentType === 'section' && (
           <ContentHead contentId={contentId} memoLangIndex={this.memoLangIndex} />
         )}
