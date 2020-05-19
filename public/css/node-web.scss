@@ -459,7 +459,7 @@ h4.secondTitle {
 
 .preview-content-center {
   h2 {
-    margin-top: 28px !important; // Resets to KTH Style
+    margin-top: 32px !important; // Resets to KTH Style
     margin-bottom: 0 !important; // According to sketch
   }
   .title-and-info {
@@ -477,11 +477,14 @@ h2.preview-info {
 .preview-info-box {
   background-color: #f4f4f4;
   padding: 20px 10px 20px 20px;
+  h4 {
+    margin-bottom: 0.5rem;
+  }
   h4:first-child {
     margin-top: 0;
   }
   p + h4 {
-    margin-top: 1.75rem;
+    margin-top: 1.5rem;
   }
 }
 
