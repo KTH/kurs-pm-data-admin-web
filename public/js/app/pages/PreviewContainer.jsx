@@ -21,7 +21,13 @@ import ExtraSection from '../components/preview/ExtraSection'
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { concatMemoName } from '../util/helpers'
-import { EMPTY, REMOVE_PUBLISHED_PARAM, SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
+import {
+  EMPTY,
+  REMOVE_PUBLISHED_PARAM,
+  SERVICE_URL,
+  SAVED_NEW_PARAM,
+  ADMIN_URL
+} from '../util/constants'
 
 const PROGRESS = 3
 
@@ -199,7 +205,7 @@ class PreviewContainer extends Component {
           { courseCode, memoEndPoint }
         )
         .then(() => {
-          window.location = '/kursinfoadmin/kurs-pm-data/' + courseCode
+          window.location = `${ADMIN_URL}${courseCode}`
         })
         // eslint-disable-next-line no-console
         .catch(error => console.log(error))
