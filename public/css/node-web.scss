@@ -134,6 +134,20 @@ div.tox.tox-tinymce {
       margin-bottom: 0;
     }
   }
+  .sections-list-80 {
+    //row
+    margin-bottom: 0;
+    padding-top: 80px;
+    &:first-of-type {
+      padding-top: 0;
+    }
+    & > h2:first-child {
+      margin-top: 0;
+    }
+    .col {
+      margin-bottom: 0;
+    }
+  }
   .form-group:last-of-type {
     margin-bottom: 0;
   }
