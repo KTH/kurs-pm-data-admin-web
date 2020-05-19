@@ -22,8 +22,8 @@ const formatRounds = rounds => {
 
 const offeredBy = (language, labels, department) =>
   department.name ? (
-    <div>
-      <h4 style={{ marginTop: '0' }}>{labels.offeredByTitle}</h4>
+    <>
+      <h4>{labels.offeredByTitle}</h4>
       <p>
         <a
           id="link-department-name"
@@ -34,53 +34,49 @@ const offeredBy = (language, labels, department) =>
         >
           {department.name}
         </a>
-        &nbsp;
-        <FaExternalLinkAlt />
+        <FaExternalLinkAlt className="external-link-icon" />
         <Popup
           header={department.name}
           body={labels.linkOpensInNewTab}
           targetId="link-department-name"
         />
       </p>
-    </div>
+    </>
   ) : (
-    <div>
-      <h4 style={{ marginTop: '0' }}>{labels.offeredByTitle}</h4>
+    <>
+      <h4>{labels.offeredByTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
-    </div>
+    </>
   )
 
 const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
   memoLanguageOfInstructions ? (
-    <div>
+    <>
       <h4>{labels.languageOfInstructionTitle}</h4>
-      <p style={{ marginBottom: '0' }}>{memoLanguageOfInstructions}</p>
-    </div>
+      <p>{memoLanguageOfInstructions}</p>
+    </>
   ) : (
-    <div>
+    <>
       <h4>{labels.languageOfInstructionTitle}</h4>
-      <p style={{ marginBottom: '0' }}>{labels.mandatoryFieldMissing}</p>
-    </div>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
   )
 
 const rounds = (labels, memoName) =>
   memoName ? (
-    <div>
+    <>
       <h4>{labels.roundsTitle}</h4>
-      <p style={{ marginBottom: '0' }}>{formatRounds(memoName)}</p>
-    </div>
+      <p>{formatRounds(memoName)}</p>
+    </>
   ) : (
-    <div>
+    <>
       <h4>{labels.roundsTitle}</h4>
-      <p style={{ marginBottom: '0' }}>{labels.mandatoryFieldMissing}</p>
-    </div>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
   )
 
-const CourseFacts = ({ language = 'sv', labels = {}, department = {}, memoData = {} }) => (
-  <div
-    className="text-break"
-    style={{ backgroundColor: '#f4f4f4', padding: '20px 10px 20px 20px' }}
-  >
+const CourseFacts = ({ language, labels, department = {}, memoData = {} }) => (
+  <div className="preview-info-box text-break">
     {offeredBy(language, labels, department)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
     {rounds(labels, memoData.memoName)}

@@ -439,8 +439,8 @@ module.exports = {
     },
     {
       title: 'Granska kurs-PM som sida',
-      intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
-      Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
+      intro:
+        'I detta steg (3 av 3) visas hur kurs-PM kommer att se ut som webbsida. Kurs-PM kan också granskas som PDF. Här finns finns möjlighet att gå tillbaka för att redigera kurs-PM, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller att publicera kurs-PM som en undersida till: Om kursen / Förbereda och gå kurs.'
     }
   ],
   sectionsLabels: {

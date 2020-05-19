@@ -18,15 +18,15 @@ const formatVersion = (language = 'sv', version) => {
 
 const version = (language, labels, memoVersion) =>
   memoVersion ? (
-    <div>
-      <h4 style={{ marginTop: '0' }}>{labels.versionTitle}</h4>
+    <>
+      <h4>{labels.versionTitle}</h4>
       <p>{`${labels.latest} ${formatVersion(language, memoVersion)}`}</p>
-    </div>
+    </>
   ) : (
-    <div>
-      <h4 style={{ marginTop: '0' }}>{labels.versionTitle}</h4>
+    <>
+      <h4>{labels.versionTitle}</h4>
       <p>{labels.mandatoryFieldMissing}</p>
-    </div>
+    </>
   )
 
 const archiveLink = (language, labels, courseCode) => (
@@ -50,7 +50,7 @@ const archiveLink = (language, labels, courseCode) => (
 )
 
 const pdfLink = (labels, courseCode, memoEndPoint) => (
-  <div>
+  <>
     <h4>{labels.courseMemoPdf}</h4>
     <p>
       <a
@@ -65,7 +65,7 @@ const pdfLink = (labels, courseCode, memoEndPoint) => (
       <FaRegFilePdf className="pdf-icon" />
       <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" />
     </p>
-  </div>
+  </>
 )
 
 const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) => {
@@ -73,9 +73,9 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
     labels.syllabusLinkEnd
   }`
   return (
-    <div>
+    <>
       <h4>{labels.syllabus}</h4>
-      <p style={{ marginBottom: '0' }}>
+      <p>
         {labels.syllabusInformation}
         <br />
         <a
@@ -90,21 +90,12 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
         <FaRegFilePdf className="pdf-icon" />
         <Popup header={labels.syllabus} body={labels.linkOpensInNewTab} targetId="syllabus-link" />
       </p>
-    </div>
+    </>
   )
 }
 
-const CourseMemoLinks = ({
-  language = 'sv',
-  labels = {},
-  extraInfo = {},
-  memoData = {},
-  validFromTerm = ''
-}) => (
-  <div
-    className="text-break"
-    style={{ backgroundColor: '#f4f4f4', padding: '20px 10px 20px 20px' }}
-  >
+const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, validFromTerm = '' }) => (
+  <div className="preview-info-box">
     {version(language, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}
