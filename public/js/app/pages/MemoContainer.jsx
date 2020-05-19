@@ -24,7 +24,7 @@ import { ContentHead } from '../components/ContentHead'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
 // import axios from 'axios'
-import SideMenu from '../components/SideMenu'
+import ContentOverviewMenu from '../components/ContentOverviewMenu'
 
 const PROGRESS = 2
 
@@ -426,16 +426,15 @@ class MemoContainer extends Component {
               <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
             </Col>
           </Row>
-          <hr className="header-content-separation" />
-          <Row className="mb-4">
+          <Row className="mb-4 space-around-border">
             <Col lg="7" className="memo-content">
               {this.renderScrollView()}
             </Col>
             <Col className="separator" />
-            <Col lg="3">
+            <Col lg="3" className="sticky-overview">
               <Sticky topOffset={-31}>
                 {({ style, isSticky }) => (
-                  <SideMenu
+                  <ContentOverviewMenu
                     id="mainMenu"
                     style={{
                       ...style,
@@ -474,7 +473,7 @@ class MemoContainer extends Component {
                         </p>
                       </span>
                     )}
-                  </SideMenu>
+                  </ContentOverviewMenu>
                 )}
               </Sticky>
             </Col>
