@@ -5,16 +5,25 @@ $light-grey-dropdown: #969696;
 $lightGrey: #f6f6f6;
 $borderGrey: #d4d4d4;
 $kth-blue: #007fae;
+$blue-link: #006cb7;
 $red: #e01f28;
 
+%bordered-area {
+  border: 1px solid $borderGrey;
+  border-radius: 0.25rem;
+  border-top: 0;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+%column {
+  display: flex;
+  flex-direction: column;
+}
 %row {
   display: flex;
   flex-direction: row;
   align-items: baseline;
-}
-%column {
-  display: flex;
-  flex-direction: column;
 }
 %react-icon-basic {
   min-width: 1em;
@@ -35,16 +44,16 @@ div.tox.tox-tinymce {
 }
 
 .card.collapsible.white {
-  margin-top: 0.2em;
+  margin-bottom: 20px; //0.2em;
   .card-body {
-    padding: 1em 0;
+    padding: 0; //1em 0;
     @media (min-width: 768px) {
       display: flex;
       flex-direction: row;
       span:last-of-type {
         align-self: flex-start;
         height: 100%;
-        margin-left: 3em;
+        margin-left: 0.5em;
         span {
           margin: 0;
           padding: 0;
@@ -55,6 +64,9 @@ div.tox.tox-tinymce {
   & > .card-header {
     h4 {
       margin-left: -0.7em;
+      & > a {
+        color: $blue-link;
+      }
     }
   }
   p {
@@ -105,6 +117,12 @@ div.tox.tox-tinymce {
     margin-bottom: 0;
     margin-top: 50px;
   }
+  .space-around-border {
+    margin-top: 20px;
+    .memo-content {
+      padding-top: 20px;
+    }
+  }
   .section-50 {
     //row
     margin-bottom: 0;
@@ -133,7 +151,7 @@ div.tox.tox-tinymce {
     }
   }
   .subSection {
-    .section_info {
+    .section-info {
       margin-top: 30px;
       // padding-top: 50px;
     }
@@ -164,11 +182,11 @@ div.tox.tox-tinymce {
 }
 
 .Add--New--Title--And--Info {
-  & > .section_info {
+  & > .section-info {
     margin-top: 50px;
     margin-bottom: 0; //editor is open
   }
-  .title-and-info + .section_info {
+  .title-and-info + .section-info {
     margin-top: 0;
   }
   .form-group.title {
@@ -215,16 +233,23 @@ div.tox.tox-tinymce {
   }
 }
 
+.btn-info-modal {
+  margin-left: 10px;
+}
+
 .memo-content {
+  border-top: 1px solid $borderGrey;
   padding-bottom: 12em;
+  & + .separator {
+    border-right: 1px solid $borderGrey;
+    border-top: 1px solid $borderGrey;
+    margin-right: 50px;
+  }
   h2 {
     margin-bottom: -29px;
   }
   .title-and-info {
     margin-top: 35px; //h3 15px + 34.88px
-    .btn-info-modal {
-      margin-left: 10px;
-    }
   }
   p,
   ul,
@@ -240,7 +265,9 @@ div.tox.tox-tinymce {
   span:first-of-type h2 {
     margin-top: 0;
   }
-  .section_info + span > p {
+  .section-info + span > p {
+    font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
+    // max-width: 730px;
     margin-top: 1em;
   }
   .title-and-info + p {
@@ -248,12 +275,35 @@ div.tox.tox-tinymce {
   }
 }
 
-span.section_info {
+.sticky-overview {
+  padding-left: 0;
+  .content-overview {
+    .nav-link-to-content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-body {
+      @extend %bordered-area;
+    }
+    .card.collapsible.blue {
+      margin-top: 1em;
+      &:first-of-type {
+        margin-top: 0 !important;
+      }
+      .card-header.withTrigger > a::before {
+        margin-left: 0.5em;
+      }
+    }
+  }
+}
+
+span.section-info {
   @extend %row;
   justify-content: space-between;
-  margin-bottom: 17px;
-  i.shortInfo {
-    margin-left: 1.25em;
+  padding-top: 10px; // = 20px + button
+  .mandatory {
+    margin-top: 5px; //  = 20px
   }
 }
 .section_info_visibility_label {
@@ -272,13 +322,6 @@ span.section_info {
 }
 .section_info_visibility_icon {
   @extend %react-icon-basic;
-  margin-right: 0.3em;
-  margin-left: -20px;
-  margin-top: 0.3em;
-}
-.section_pencil {
-  @extend %react-icon-basic;
-  margin-right: 0.3em;
 }
 
 .step-forward,
@@ -303,7 +346,7 @@ a.nav-link {
   display: flex;
   margin: 0;
   div {
-    margin-right: 1.25em;
+    margin-right: 30px; //1.25em;
     &:last-of-type {
       margin-right: 0;
     }
@@ -370,11 +413,11 @@ div.container.First--Step--Choose--Parameters {
 .change-view {
   border-right: 2px solid $borderGrey;
 }
-hr.header-content-separation {
-  border: 1px solid $borderGrey;
-  margin-top: 0;
-  padding: 0;
-}
+// hr.header-content-separation {
+//   border: 1px solid $borderGrey;
+//   margin-top: 0;
+//   padding: 0;
+// }
 
 /* Breadcrumbs in preview */
 
