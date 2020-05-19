@@ -43,9 +43,7 @@ class ExtraSection extends Component {
           ((visibleInMemo && (
             <span
               dangerouslySetInnerHTML={{
-                __html:
-                  (contentForEditor !== '' && contentForEditor) ||
-                  `<p><i>${sourceInfo.noInfoYet}</i></p>`
+                __html: (contentForEditor !== '' && contentForEditor) || ''
               }}
             />
           )) ||
@@ -54,7 +52,6 @@ class ExtraSection extends Component {
               <span>
                 <p>
                   {/* <i>{type === 'optionalEditable' ? sourceInfo.notIncludedInMemoYet : sourceInfo.notIncludedInMemoYetOfAddition}</i> */}
-                  <i>{sourceInfo.notIncludedInMemoYet}</i>
                 </p>
               </span>
             )))}
