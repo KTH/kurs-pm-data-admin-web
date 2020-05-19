@@ -654,7 +654,7 @@ module.exports = {
     courseMemoArchiveLabel: 'Arkiv för kurs-PM',
     courseMemoPdf: 'Kurs-PM som pdf',
     syllabus: 'Kursplan',
-    syllabusInformation: '(s) information hämtas från',
+    syllabusInformation: 'information hämtas från',
     syllabusLinkStart: 'Kursplan (',
     syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',

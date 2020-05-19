@@ -10,7 +10,11 @@ const { nothingFetched } = i18n.messages[Number(i18n.isSwedish())].sourceInfo
 
 const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex }) => (
   <span id={menuId} key={contentId}>
-    <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} />
+    <ContentHead
+      contentId={contentId}
+      memoLangIndex={memoLangIndex}
+      fromSyllabus={context[contentId].source === '(s)'}
+    />
 
     <span
       style={visibleInMemo ? {} : { display: 'none' }}

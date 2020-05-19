@@ -504,3 +504,16 @@ h2.preview-info {
   overflow: auto;
   vertical-align: baseline;
 }
+
+.syllabus-marker-icon {
+  height: 0.7rem;
+  margin-right: 0.5rem;
+  vertical-align: baseline;
+  width: 0.7rem;
+}
+
+sup {
+  .syllabus-marker-icon {
+    margin-left: 0.3rem;
+  }
+}

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { FaRegFilePdf, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaRegFilePdf, FaExternalLinkAlt, FaAsterisk } from 'react-icons/fa'
 
 import { seasonStr } from '../../util/helpers'
 import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../../util/links'
@@ -76,6 +76,7 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
     <>
       <h4>{labels.syllabus}</h4>
       <p>
+        <FaAsterisk className="syllabus-marker-icon" />
         {labels.syllabusInformation}
         <br />
         <a

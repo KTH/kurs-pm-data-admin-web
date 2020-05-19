@@ -583,7 +583,7 @@ module.exports = {
     courseMemoArchiveLabel: 'Course memo archive',
     courseMemoPdf: 'Course memo pdf',
     syllabus: 'Syllabus',
-    syllabusInformation: '(s) fetched from',
+    syllabusInformation: 'fetched from',
     syllabusLinkStart: 'Syllabus (',
     syllabusLinkEnd: '– )',
     mandatoryFieldMissing: 'Missing mandatory information',

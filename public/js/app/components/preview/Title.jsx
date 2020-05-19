@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaAsterisk } from 'react-icons/fa'
 
 const styles = {
   span: {
@@ -12,15 +13,18 @@ const styles = {
   }
 }
 
-const Title = ({ titleId, header, children }) => {
-  return (
-    <span className="title-and-info" style={styles.span}>
-      <h3 data-testid={titleId + '-heading'} style={styles.h3}>
-        {header}
-      </h3>
-      {children}
-    </span>
-  )
-}
+const Title = ({ titleId, header, fromSyllabus, children }) => (
+  <span className="title-and-info" style={styles.span}>
+    <h3 data-testid={titleId + '-heading'} style={styles.h3}>
+      {header}
+      {fromSyllabus && (
+        <sup>
+          <FaAsterisk className="syllabus-marker-icon" />
+        </sup>
+      )}
+    </h3>
+    {children}
+  </span>
+)
 
 export default Title
