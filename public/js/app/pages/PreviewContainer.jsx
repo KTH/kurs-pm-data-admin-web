@@ -60,7 +60,50 @@ const renderAllSections = ({ memoData }) => {
   const memoLanguageIndex = memoData.memoCommonLangAbbr === 'en' ? 0 : 1
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
+  // TODO Refactor logic for visible sections
+  const sectionsWithContent = []
+  sections.forEach(({ id, content, extraHeaderTitle }) => {
+    content.forEach(contentId => {
+      const { isRequired, type } = context[contentId]
+      let contentHtml = memoData[contentId]
+      let visibleInMemo = memoData.visibleInMemo[contentId]
+      if (typeof visibleInMemo === 'undefined') {
+        visibleInMemo = true
+      }
+
+      if (isRequired && type === 'mandatory' && !contentHtml) {
+        contentHtml = EMPTY[memoLanguageIndex]
+      } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
+        visibleInMemo = false
+      } else if (!contentHtml) {
+        visibleInMemo = false
+      }
+      if (visibleInMemo && !sectionsWithContent.includes(id)) {
+        sectionsWithContent.push(id)
+      }
+    })
+
+    if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
+      memoData[extraHeaderTitle].forEach(m => {
+        if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
+          sectionsWithContent.push(id)
+        }
+      })
+    }
+  })
+
+  // TODO Refactor logic for visible sections
   return sections.map(({ id, content, extraHeaderTitle }) => {
+    if (!sectionsWithContent.includes(id)) {
+      return (
+        <span key={id}>
+          <h2 id={id} key={'header-' + id}>
+            {sectionsLabels[id]}
+          </h2>
+          {EMPTY[memoLanguageIndex]}
+        </span>
+      )
+    }
     // Contacts are displayed in the right column
     return (
       id !== 'contacts' && (
