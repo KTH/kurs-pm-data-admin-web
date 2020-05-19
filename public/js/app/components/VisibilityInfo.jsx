@@ -17,7 +17,7 @@ const VisibilityInfo = ({
   onToggleVisibleEditor,
   contentType
 }) => (
-  <span className="section_info word-break">
+  <span className="section-info word-break">
     <span>
       <span className="section_info_visibility_label">
         {(isRequired && (
