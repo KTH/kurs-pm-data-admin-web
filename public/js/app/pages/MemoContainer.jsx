@@ -283,7 +283,7 @@ class MemoContainer extends Component {
     const { sectionsLabels, buttons } = i18n.messages[this.memoLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
-      <span key={id}>
+      <div key={id} className="sections-list-80">
         <h2 id={id} key={'header-' + id}>
           {sectionsLabels[id]}
         </h2>
@@ -340,7 +340,7 @@ class MemoContainer extends Component {
             {sectionsLabels[id]}
           </Button>
         )}
-      </span>
+      </div>
     ))
   }
 
