@@ -3,6 +3,7 @@
 $grey: #65656c;
 $light-grey-dropdown: #969696;
 $lightGrey: #f6f6f6;
+$light-yellow: #fcf8e3;
 $borderGrey: #d4d4d4;
 $kth-blue: #007fae;
 $blue-link: #006cb7;
@@ -46,7 +47,8 @@ div.tox.tox-tinymce {
 .card.collapsible.white {
   margin-bottom: 20px; //0.2em;
   .card-body {
-    padding: 0; //1em 0;
+    padding: 1em 0;
+    background-color: $light-yellow;
     @media (min-width: 768px) {
       display: flex;
       flex-direction: row;
