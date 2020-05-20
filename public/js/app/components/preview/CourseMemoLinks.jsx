@@ -60,8 +60,8 @@ const pdfLink = (labels, courseCode, memoEndPoint) => (
         rel="noopener noreferrer"
       >
         {memoEndPoint}
+        <FaRegFilePdf className="pdf-icon" />
       </a>
-      <FaRegFilePdf className="pdf-icon" />
       <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" />
     </p>
   </>
@@ -86,8 +86,8 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
           rel="noopener noreferrer"
         >
           {syllabusLinkLabel}
+          <FaRegFilePdf className="pdf-icon" />
         </a>
-        <FaRegFilePdf className="pdf-icon" />
         <Popup header={labels.syllabus} body={labels.linkOpensInNewTab} targetId="syllabus-link" />
       </p>
     </>
