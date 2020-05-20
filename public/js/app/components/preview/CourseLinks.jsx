@@ -2,7 +2,6 @@
 import React from 'react'
 
 import { courseLinks } from '../../util/links'
-import { FaExternalLinkAlt } from 'react-icons/fa'
 
 import Popup from './Popup'
 
@@ -19,7 +18,6 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.beforeAndDuringACourse}
       </a>
-      <FaExternalLinkAlt className="external-link-icon" />
       <Popup
         header={labels.beforeAndDuringACourse}
         body={labels.linkOpensInNewTab}
@@ -36,7 +34,6 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.contactPersonsAndStudentCounselling}
       </a>
-      <FaExternalLinkAlt className="external-link-icon" />
       <Popup
         header={labels.contactPersonsAndStudentCounselling}
         body={labels.linkOpensInNewTab}
@@ -53,7 +50,6 @@ const CourseLinks = ({ language, labels }) => (
       >
         {labels.rightsAndResponsibilities}
       </a>
-      <FaExternalLinkAlt className="external-link-icon" />
       <Popup
         header={labels.rightsAndResponsibilities}
         body={labels.linkOpensInNewTab}

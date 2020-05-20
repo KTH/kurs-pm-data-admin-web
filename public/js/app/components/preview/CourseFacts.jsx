@@ -2,7 +2,6 @@
 import React from 'react'
 
 import { linkToSchool } from '../../util/links'
-import { FaExternalLinkAlt } from 'react-icons/fa'
 import Popup from './Popup'
 
 const formatRounds = rounds => {
@@ -34,7 +33,6 @@ const offeredBy = (language, labels, department) =>
         >
           {department.name}
         </a>
-        <FaExternalLinkAlt className="external-link-icon" />
         <Popup
           header={department.name}
           body={labels.linkOpensInNewTab}

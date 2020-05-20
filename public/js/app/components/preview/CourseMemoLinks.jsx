@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { FaRegFilePdf, FaExternalLinkAlt, FaAsterisk } from 'react-icons/fa'
+import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 
 import { seasonStr } from '../../util/helpers'
 import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../../util/links'
@@ -40,7 +40,6 @@ const archiveLink = (language, labels, courseCode) => (
     >
       {labels.courseMemoArchiveLabel}
     </a>
-    <FaExternalLinkAlt className="external-link-icon" />
     <Popup
       header={labels.courseMemoArchiveLabel}
       body={labels.linkOpensInNewTab}
