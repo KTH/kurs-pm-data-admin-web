@@ -534,7 +534,7 @@ h2.preview-info {
 
 .preview-info-box {
   background-color: #f4f4f4;
-  padding: 20px 10px 20px 20px;
+  padding: 20px;
   h4 {
     margin-bottom: 0.5rem;
   }
@@ -550,14 +550,8 @@ h2.preview-info {
   margin-bottom: 0;
 }
 
-.external-link-icon {
-  margin-left: 0.5rem;
-  overflow: auto;
-  transform: translateY(1.5px);
-  vertical-align: baseline;
-}
-
 .pdf-icon {
+  color: #000;
   margin-left: 0.5rem;
   overflow: auto;
   vertical-align: baseline;
