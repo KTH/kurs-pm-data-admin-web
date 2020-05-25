@@ -122,7 +122,7 @@ const NavItemCollapse = ({
   children
 }) => (
   <Collapse
-    isOpen={isExpandedId(id)}
+    isOpen={id === 'contentAndOutcomes' || isExpandedId(id)}
     onOpening={() => setExpandedId(id)}
     onClosing={() => removeExpandedId(id)}
     buttonText={title}

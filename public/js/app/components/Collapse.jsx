@@ -7,8 +7,8 @@ class Collapse extends React.Component {
     super(props)
 
     this.state = {
-      isOpen: false,
-      firstLoad: 'true'
+      isOpen: this.props.isOpen || false,
+      firstLoad: this.props.isOpen ? 'false' : 'true' || 'true'
     }
 
     this.toggleHeader = this.toggleHeader.bind(this)
