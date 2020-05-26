@@ -435,46 +435,50 @@ class MemoContainer extends Component {
             <Col lg="3" className="sticky-overview">
               <Sticky topOffset={-31}>
                 {({ style, isSticky }) => (
-                  <ContentOverviewMenu
-                    id="mainMenu"
+                  // TODO: Remove wrapping div element and change ContentOverviewMenu to handle style property
+                  <div
                     style={{
                       ...style,
                       ...{
                         paddingRight: '0',
                         paddingBottom: '115px',
-                        paddingTop: isSticky ? '30px' : '0'
+                        paddingTop: isSticky ? '117px' : '0'
                       }
                     }}
-                    visibleInMemo={this.state.visibleInMemo}
-                    memoLangIndex={this.memoLangIndex}
                   >
-                    {this.isDraftOfPublished && (
-                      <Form className={isError ? 'error-area' : ''}>
-                        <FormGroup className="title">
-                          <ContentHead
-                            contentId="commentAboutMadeChanges"
-                            memoLangIndex={this.memoLangIndex}
-                          />
-                          <Label htmlFor="commentChanges">{extraInfo.commentChanges}</Label>
-                          <Input
-                            type="textarea"
-                            name="text"
-                            id="commentChanges"
-                            onChange={this.setChangesAboutDraftOfPublished}
-                            defaultValue={this.state.commentAboutMadeChanges}
-                          />
-                        </FormGroup>
-                      </Form>
-                    )}
-                    {this.isDraftOfPublished && (
-                      <span className={isError ? 'error-label' : ''}>
-                        <p>
-                          <sup>*</sup>
-                          {extraInfo.mandatory}
-                        </p>
-                      </span>
-                    )}
-                  </ContentOverviewMenu>
+                    <ContentOverviewMenu
+                      id="mainMenu"
+                      visibleInMemo={this.state.visibleInMemo}
+                      memoLangIndex={this.memoLangIndex}
+                    >
+                      {this.isDraftOfPublished && (
+                        <Form className={isError ? 'error-area' : ''}>
+                          <FormGroup className="title">
+                            <ContentHead
+                              contentId="commentAboutMadeChanges"
+                              memoLangIndex={this.memoLangIndex}
+                            />
+                            <Label htmlFor="commentChanges">{extraInfo.commentChanges}</Label>
+                            <Input
+                              type="textarea"
+                              name="text"
+                              id="commentChanges"
+                              onChange={this.setChangesAboutDraftOfPublished}
+                              defaultValue={this.state.commentAboutMadeChanges}
+                            />
+                          </FormGroup>
+                        </Form>
+                      )}
+                      {this.isDraftOfPublished && (
+                        <span className={isError ? 'error-label' : ''}>
+                          <p>
+                            <sup>*</sup>
+                            {extraInfo.mandatory}
+                          </p>
+                        </span>
+                      )}
+                    </ContentOverviewMenu>
+                  </div>
                 )}
               </Sticky>
             </Col>
