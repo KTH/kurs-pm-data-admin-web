@@ -57,12 +57,12 @@ module.exports = {
     '(r)': 'from course round information',
     '(s)': 'from course syllabus (s)',
     errorEmptyTitle: 'You need to name the content',
-    mandatory: 'Mandatory information',
-    mandatoryAndEditable: 'Mandatory information',
-    mandatoryForSome: 'Mandatory information for some courses?',
+    mandatory: 'Always included',
+    mandatoryAndEditable: 'Always included',
+    mandatoryForSome: 'Included for some courses',
     includeInMemo: {
-      section: 'Include header...*?',
-      subSection: 'Include paragraph...*?'
+      section: 'Include heading',
+      subSection: 'Include additional section'
     }, // RUBRIK/ADDITION
     noInfoYet: {
       section: 'No information is added. Press "Edit" to add information....',
@@ -81,7 +81,8 @@ module.exports = {
         'No information was available to fetch because it is not intended for this course....',
       optional:
         'No information was available to fetch. How to change it you can find in information icon above. Header is optional therefore you can choose to include or not....'
-    }
+    },
+    dummyHelpText: 'Help text that helps'
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Additional regulations',
@@ -495,7 +496,7 @@ module.exports = {
   },
   buttons: {
     /** ************ BUTTONS ****************** */
-    btnAddExtra: 'Add a new header to ',
+    btnAddExtra: 'Add heading to ',
     btnClose: 'Close',
     btnRemove: 'Delete draft',
     btnRemoveHeader: 'Remove added header',
@@ -512,7 +513,8 @@ module.exports = {
     save_and_cancel: 'Save draft and cancel',
     btn_copy: 'Copy link to preview',
     btn_switch_view_single: 'Switch to “Single View”',
-    btn_switch_view_scroll: 'Switch to “Scroll View”'
+    btn_switch_view_scroll: 'Switch to “Scroll View”',
+    showGuidance: 'Show guidance'
   },
   extraInfo: {
     season: {

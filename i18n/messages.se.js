@@ -51,12 +51,12 @@ module.exports = {
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan (s)',
     errorEmptyTitle: 'Du måste ange en rubrik',
-    mandatory: 'Fast rubrik',
-    mandatoryAndEditable: 'Fast rubrik',
-    mandatoryForSome: 'Fast rubrik för vissa kurser',
+    mandatory: 'Inkluderas alltid',
+    mandatoryAndEditable: 'Inkluderas alltid',
+    mandatoryForSome: 'Inkluderas för vissa kurser',
     includeInMemo: {
       section: 'Inkludera rubrik',
-      subSection: 'Inkludera avsnitt'
+      subSection: 'Inkludera ytterligare avsnitt'
     },
     noInfoYet: {
       section:
@@ -79,7 +79,8 @@ module.exports = {
       Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
       Du kan också välja att inte inkludera rubriken.`
-    }
+    },
+    dummyHelpText: 'Hjälptext som vägleder och hjälper'
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Övriga föreskrifter',
@@ -583,7 +584,8 @@ module.exports = {
     save_and_cancel: 'Spara utkast och avsluta',
     btn_copy: 'Kopiera länk till utkast',
     btn_switch_view_single: 'Ändra till ”Fokus-vy”',
-    btn_switch_view_scroll: 'Ändra till ”Översikts-vy”'
+    btn_switch_view_scroll: 'Ändra till ”Översikts-vy”',
+    showGuidance: 'Visa vägledning'
   },
   extraInfo: {
     season: {

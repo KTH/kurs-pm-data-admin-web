@@ -280,7 +280,8 @@ class MemoContainer extends Component {
 
   renderScrollView = () => {
     const { memoData } = this.props.routerStore
-    const { sectionsLabels, buttons } = i18n.messages[this.memoLangIndex]
+    const { sectionsLabels } = i18n.messages[this.memoLangIndex]
+    const { buttons } = i18n.messages[this.userLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
       <div key={id} className="sections-list-80">

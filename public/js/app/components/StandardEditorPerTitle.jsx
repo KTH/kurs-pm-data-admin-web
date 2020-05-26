@@ -61,7 +61,7 @@ class StandardEditorPerTitle extends Component {
       })
     }
 
-    const { sourceInfo, memoInfoByUserLang } = i18n.messages[this.userLangIndex]
+    const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[this.userLangIndex]
 
     return (
       <span id={menuId} className={contentType + ' section-50'}>
@@ -82,13 +82,11 @@ class StandardEditorPerTitle extends Component {
               alt="Expand this to see a helping text"
               uLabel={contentId}
               color="white"
-              buttonText="Visa vägledning"
+              buttonText={buttons.showGuidance}
             >
               <span
                 dangerouslySetInnerHTML={{
-                  __html:
-                    memoInfoByUserLang[contentId].help ||
-                    '<p>Hjälptext som vägledar och hjälper</p>'
+                  __html: memoInfoByUserLang[contentId].help || `<p>${sourceInfo.dummyHelpText}</p>`
                 }}
               />
             </Collapse>
