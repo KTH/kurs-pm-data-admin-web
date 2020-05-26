@@ -417,23 +417,23 @@ class MemoContainer extends Component {
             <Alert color="danger">{alerts.warnFillInCommentAboutChanges}</Alert>
           </Row>
         )}
+        <Row key="section-of-header" className="sections-headers">
+          <Col lg="7">
+            <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
+          </Col>
+          <Col className="separator" />
+          <Col lg="3">
+            <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
+          </Col>
+        </Row>
         <StickyContainer className="memo-container">
-          <Row key="section-of-header" className="sections-headers">
-            <Col lg="7">
-              <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
-            </Col>
-            <Col className="separator" />
-            <Col lg="3">
-              <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
-            </Col>
-          </Row>
           <Row className="mb-4 space-around-border">
             <Col lg="7" className="memo-content">
               {this.renderScrollView()}
             </Col>
             <Col className="separator" />
             <Col lg="3" className="sticky-overview">
-              <Sticky topOffset={-31}>
+              <Sticky topOffset={-41}>
                 {({ style, isSticky }) => (
                   // TODO: Remove wrapping div element and change ContentOverviewMenu to handle style property
                   <div
@@ -442,7 +442,7 @@ class MemoContainer extends Component {
                       ...{
                         paddingRight: '0',
                         paddingBottom: '115px',
-                        paddingTop: isSticky ? '117px' : '0'
+                        paddingTop: isSticky ? '41px' : '0'
                       }
                     }}
                   >
