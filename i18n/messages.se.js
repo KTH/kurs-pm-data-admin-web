@@ -73,8 +73,8 @@ module.exports = {
     nothingFetched: {
       mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
       Välj Redigera för att lägga in innehåll.`,
-      mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-
-      pm. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
+      mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
+      Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
       mandatoryForSome: `Inget innehåll fanns att hämta. 
       Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtadinformation ges i informationsikonen ovan. 
@@ -177,10 +177,21 @@ module.exports = {
       <p>Om det inte finns anledning att informera om etiska riktlinjer som är specifik för eller extra relevant i denna  kursomgång låter du den andra redigerbara sektionen vara tom.</p>`
     },
     equipment: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Utrustning</b> beskriver vilken utrustning som normalt behövs för att kunna följa kursomgången och som inte tillhandahålls av KTH. 
+      Skrivdon och litteratur räknas inte till utrustning.</p>
+      <p><b>Informationen hjälper studenten</b> att införskaffa rätt utrustning inför kursomgångens start. 
+      Därför bör uppgifterna finnas tillgängliga minst 8 veckor före kursstart.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
+      Ange information om "Utrustning" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Om det finns generell information om utrustning på kursen i Kopps kommer den informationen att hämtas automatiskt till detta kurs-PM. 
+      Du kan ändra informationen för detta kurs-PM, men det kommer inte att automatiskt överföras till Kopps eller till något annat kurs-PM. 
+      Generell information om "Utrustning" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. 
+      Båda länkarna öppnas i ny flik. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Under rubriken "Utrustning" beskriver du vilken utrustning som studenten behöver för att genomföra kursen, men som inte tillhandahålls av KTH. 
+      Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om utrustning i Kopps. 
+      Du kan välja att behålla den hämtade informationen eller beskriva utrustning som är specifik för denna kursomgång. 
+      Du kan då ersätta den hämtade texten med en egen beskrivning som anges i inmatningsfältet.</p>
+      <p>Om utrustning inte är nödvändig på denna kurs låter du rubriken vara dold i detta kurs-PM.</p>`
     },
     examination: {
       body: `<p><b>Examination</b> beskriver hur kursen examineras och detaljer om de examinerande momenten.</p>
@@ -280,10 +291,12 @@ module.exports = {
       <p><b>Informationen hjälper studenten</b> att införskaffa rätt kurslitteratur inför kursomgångens start. 
       För studenter med funktionsnedsättning är det viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst. 
       Därför bör uppgifterna finnas tillgängliga minst 8 veckor före kursstart.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om kurslitteratur i inmatningsfältet. 
-      Om det finns kursgemensamma uppgifter om kurslitteratur i Kopps kommer den informationen hämtas automatiskt till nya kurs-PM. 
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
+      Ange information om "Kurslitteratur" i inmatningsfältet. Om det finns kursgemensamma uppgifter om kurslitteratur i Kopps kommer den informationen hämtas automatiskt till nya kurs-PM. 
       Du kan välja att behålla den informationen i detta kurs-PM eller skriva ny information som endast gäller den kursomgång som detta kurs-PM skrivs för. 
-      Du kan välja ”Hjälptext” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Information som skrivs för detta kurs-PM kommer inte att automatiskt överföras till Kopps eller något annan kurs-PM. 
+      Generell information om "Kurslitteratur" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik. 
+      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Kurslitteratur" beskriver du vilken kurslitteratur som används i denna kursomgång. 
       Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om kurslitteratur i Kopps. 
       Du kan välja att behålla den hämtade informationen eller skriva kurslitteratur specifikt för kursomgången som detta kurs-PM gäller för. 
@@ -312,16 +325,21 @@ module.exports = {
       Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`
     },
     permanentDisability: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Stöd för studenter med funktionsnedsättning</b> beskriver vilka rättigheter och möjligheter som finns för studenter med funktionsnedsättning. Informationen beskriver vilket stöd de kan väntas få under kursomgången och hur de går tillväga för att få stödet.</p>
+      <p><b>Informationen hjälper studenten</b> med funktionsnedsättning att förstå hur de kan få rätt stöd för att genomföra kursomgången. 
+      Med tydlig information om stöd kan studenter med funktionsnedsättning känna sig trygg och ha förtroende för att den kommer kunna genomföra kursomgången efter sina förutsättningar.</p>
+      <p><b>Redigera kursspecifikt innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Stöd för studenter med funktionsnedsättning" i inmatningsfältetoch klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`
     },
     permanentDisabilitySubSection: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b></b></p>
+      <p><b></b> </p>`,
+      help: `<p>Under rubriken "Stöd för studenter med funktionsnedsättning" finns två sektioner. Överst visas en fast text, som inte är redigerbar, och som kommer att publiceras i detta kurs-PM. 
+      Den fasta texten innehåller en webblänk till KTH:s officiella sida om stöd för studenter med funktionsnedsättning. Där finns generell information om vad studenten bör känna till om stödet, hur studenten går tillväga för att ansöka om särskilt stöd m.m.</p>
+      <p>Efter sektionen med den fasta texten följer en sektion där du kan ange information om stöd för studenter med funktionsnedsättning som gäller specifikt för denna kursomgång. 
+      Du kan informera om kompensatoriskt stöd vid examination eller om annat stöd i studiesituationen. 
+      Läs mer om att <a href="https://intra.kth.se/utbildning/utbi/genomfora-utbildning/hantera-stodinsatser-vid-examination-av-studenter-med-funktionsnedsattning" target="_blank">hantera stödinsatser vid examination av studenter med funktionsnedsättning</a>.</p>
+      <p>Om det inte finns anledning att informera om stöd för studenter med funktionsnedsättning som gäller specifikt denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`
     },
     possibilityToAddition: {
       body: `<p><b>Möjlighet till plussning</b> beskriver om plussning är möjligt på kursomgången, eventuella villkor för plussning och hur plussning går till på kursomgången. 
@@ -373,15 +391,23 @@ module.exports = {
       <p>Om det inte finns anledning att informera om möjlighet till ersättningsuppgifter för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`
     },
     preparations: {
-      body: 'Det är viktigt för studenter att veta om det för att planera sina studier för att....',
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Särskilda förberedelser</b> beskriver vad som är särskilt viktigt för studenten att veta och göra inför kursomgångens start.</p>
+      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande, t.ex. genom att köpa kurslitteratur i tid, 
+      repetera kunskap från "Särskild behörighet", repetera särskilt viktiga delar av "Rekommenderade förkunskaper", installera programvara och liknande.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
+      Ange information om "Särskilda förberedelser" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Under rubriken "Särskilda förberedelser" kan du understryka vad som är särskilt viktigt eller fördelaktigt för studenten att förbereda sig på. Här kan du beskriva vad som är viktigt för studenten att veta och göra inför kursomgångens start. 
+      Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna att beställa viss kurslitteratur i tid eller installera programvara m.m.</p>
+      <p>Förberedelser i allmänhet ska beskrivas under "Läraktiviteter" om det gäller generella förberedelser inför kursomgångens olika aktivitetstyper eller under "Detaljplanering" om det gäller specifika förberedelser och läsanvisningar inför varje aktivitet i kursomgången. 
+      Läs mer om det i vägledning under respektive rubrik.</p>
+      <p>Om det inte finns anledning att uppmana studenten om "Särskilda förberedelser" låter du rubriken vara dold i detta kurs-PM.</p>`
     },
     prerequisites: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Rekommenderade förkunskaper</b> beskriver vad läraren förväntar sig att studenten behärskar när kursen startar.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå vilken kunskap som är viktig att vara uppdaterad om när kursomgången startar. 
+      Tydligt avgränsad information om "Rekommenderade förkunskaper" gör det lätt för studenten att repetera rätt teorier, modeller etc. i god tid inför kursomgångens start.</p>
+      <p><b>Innehållet redigeras</b> Innehållet redigeras i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. "Rekommenderade förkunskaper" ändras av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik.</p>`
     },
     reportingResults: {
       body: `<p><b>Resultatrapportering</b> beskriver hur och när registrering av studenternas resultat på examination och resultat på hela kursen går till. 
@@ -422,10 +448,24 @@ module.exports = {
       <p>Om det är någon aktivitet som är särskilt viktigt för studenten att förbereda kan det understrykas genom att beskriva det i rubriken "Särskilda förberedelser".</p>`
     },
     software: {
-      body: `<p><b>Informationen syftar till: …</b></p>
-      <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Programvara</b> beskriver vilken programvara och version av programvaran som ska användas under kursomgången. 
+      Om nödvändigt ska Programvara även innefatta instruktioner alternativt referenser och webblänkar till instruktioner om var programvara hittas och hur den installeras.</p>
+      <p><b>Informationen hjälper studenten</b> att få tillgång till rätt programvara för att kunna genomföra kursomgången på ett effektivt sätt.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
+      Ange information om "Programvara" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      help: `<p>Under rubriken "Programvara" skriver du vilken programvara med version av programvara som eventuellt används under kursomgången. 
+      Ange även referenser eller webblänkar till var programvaran finns att hämta, instruktioner och installationsanvisningar om sådana finns på annan plats. 
+      Ange annars instruktioner och installationsanvisningar under denna rubrik.</p>
+      <p>Om programvara inte är relevant för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>
+      <p>Nedan visas ett exempel på innehåll under rubriken Programvara i kurs-PM för HI1027.</p>
+      <p>Programvaran som används under kursen är freeware och kan laddas ner från nedanstående webbsidor. Information om hur du installerar programvaran finns på kurswebben/Resurser.</p>
+      <p>• Javakompilatorn, Java SE DeveloPMent Kit (JDK), och utvecklingsmiljön, NetBeans, laddas ned från https://netbeans.org/downloads/index.html 
+      Välj ”NetBeans IDE 8.2”och "Java SE" så installeras både kompilator och utvecklingsmiljö För att även kunna kompilera javakod från ett terminalfönster, utan utvecklingsmiljön NetBeans, ska du efter installationen ange sökvägen till din JDK (som bl.a. innehåller HI1027 3 Anders Lindström, KTH CBH 
+      kompilatorn). 
+      I Windows lägger du till denna sökväg till miljövariabeln PATH (exempel ”;C:/Program Files/Java/jdk1.8.x/bin”).</p>
+      <p>• Dokumentation om Javas standardklasser (API) finns på http://docs.oracle.com/javase/8/docs/api/</p>
+      <p>• Under den senare delen av kursen, och i laboration 4, behöver du ett verktyg för objektorienterad modellering med UML. Dia är ett enkelt ritverktyg för detta, http://dia-installer.de</p>`
     },
     teacher: {
       body:

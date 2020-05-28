@@ -167,7 +167,22 @@ module.exports = {
       <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`
     },
     equipment: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. 
+      Pencils and other writing materials is not treated as equipment.</p>
+      <p><b>The information helps the student</b> to obtain the necessary equipment before the start of the course offering. 
+      Information about euipment should be available at least eight weeks before start of the course.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". 
+      Enter information about "Equipment" and check "Include section" to make the information visible on the published course memo. 
+      Any general information about equipment on this course in Kopps is automatically fetched to this course memo. You can edit that information, but it will only be changed for this particular course offering and course memo. 
+      It will not be automatically transferred to Kopps or any other course memo. 
+      General information about "Equipment" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe the equipment that is necessary to take the course, but is not provided by KTH in the "Equipment" section. 
+      Pencils and other writing materials is not treated as equipment.</p>
+      <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
+      You can choose to keep that information, or you can enter information about equipment that is valid only to this course offering. 
+      Just replace the provided information with your own.</p>
+      <p>Uncheck "Include heading" if equipment is irrelevant for this course.</p>`
     },
     examiner: {
       body: 'It is important for students because they can plan their studies....'
@@ -267,8 +282,27 @@ module.exports = {
       Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`
     },
     literature: {
-      body: 'It is important for students because they can plan their studies....',
-      help: 'Itttssss impoortant!'
+      body: `<p><b>Literature</b> describes the compulsory course literature on this course offering.</p>
+      <p><b>The information helps the student</b> to obtain the necessary literature before the start of the course offering. 
+      For students with disablities it is important to know about the compulsory course literature before the course to get it as talking books. 
+      The information should therefore be available at least eight weeks before start of the course.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". 
+      Enter information about "Literature" and check "Include section" to make the information visible on the published course memo. 
+      Any general information about literature on this course in Kopps is automatically fetched to new course memos. 
+      You can edit that information, but it will only be changed for this particular course offering and course memo. 
+      It will not be automatically transferred to Kopps or any other course memo. 
+      General information about "Literature" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe the compulsory course literature on this course in the "Literature" section. 
+      If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
+      You can choose to keep that information, or you can enter information about course literature that is valid only to this course offering. 
+      Just replace the provided information with your own.</p>
+      <p>Make a list of the course literature with information about the author, year of publication, title and name of publisher. 
+      Also include references to where the course literature could be found in digital form, for example in Canvas.</p>
+      <p>Many students want to acquire the course literature before the course start. 
+      Students with disabilities need to know the course literature well in advance of the course start to get it as talking books. 
+      The information should therefore be available at least eight weeks before start of the course.</p>
+      <p>If there is no compulsory course literature on this course it is important to mention that to reduce unnecessary questions and to avoid the students go looking for the information elsewhere in vain.</p>`
     },
     otherContacts: {
       body:
@@ -281,10 +315,28 @@ module.exports = {
       Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>`
     },
     permanentDisability: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. 
+      The information describes the rights and the possibilities for students with different types of needs and how they can apply for compensatory support.</p>
+      <p><b>The information helps the student</b> with disabilities to know if he or she is entitled for compensatory support during the studies on this course. With help from this information the students with disabilities will have the confidence to take the course based on their own capabilities. </p>
+      <p>It is not possible to edit the general part of "Support for students with disabilities". 
+      It is a fixed heading and will be included in all course memos.</p>
+      <p><b>Edit the course specific contents</b> by clicking on the button "Edit". 
+      Enter information about "Support for students with disabilities" and check "Include additional section" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`
     },
     permanentDisabilitySubSection: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p> </p>
+      <p> </p>`,
+      help: `<p>There are two sections under the "Support for students with disabilities" heading. 
+      First there is a fixed text that will be included in all published course memos. 
+      It is not possible to edit that general text. 
+      There is a web link in the fixed text that links to the KTH offical information about support for students with disabilities. 
+      There, students can find information about compensatory support and how to apply for it. </p>
+      <p>You can inform the student about course specific information regarding support for students with disabilities in the second section. 
+      You can inform the students about compensatory support during examination or aother support during the studies on this course. 
+      Read more about <a href="https://intra.kth.se/utbildning/utbi/genomfora-utbildning/hantera-stodinsatser-vid-examination-av-studenter-med-funktionsnedsattning" target="_blank">hantera stödinsatser vid examination av studenter med funktionsnedsättning</a>. 
+      The page is in Swedish but there are some helpful documents in English.</p>
+      <p>Uncheck "Include section" if there is no course specific information regarding support for students with disabilities preparations on this course.</p>`
     },
     possibilityToAddition: {
       body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course, the terms for raising it and how to apply for raising an approved grade. </p>
@@ -324,23 +376,29 @@ module.exports = {
     possibilityToCompensate: {
       body: `<p><b>Alternatives to missed activities or tasks</b> describes if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
       <p><b>The information helps the student</b> to understand what will happen if he or she gets sick. It will also help the student to plan the course in parallel with other commitments, like another course. With information about alternatives to missed activities or tasks the student can easily prioritize all the activities.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe if alternatives to missed activities or tasks are possible on this course in the "Alternatives to missed activities or tasks" section. 
       If it is possible, describe the alternatives in the case when students miss a mandatory activity or task, for example if the student miss a mandatory study visit.</p>
       <p>Remember that any other examination format than the ordinary must be written in the "Examination comment" section of the course syllabus.</p>
       <p>Uncheck "Include heading" if "Alternatives to missed activities or tasks" is irrelevant for this course.</p>`
     },
     preparations: {
-      body: 'It is important for students because they can plan their studies....',
-      help: `<p></p>
-      <p></p>
-      <p></p>`
+      body: `<p><b>Specific preparations</b> describes the most important preparations for the students before start of this course offering.</p>
+      <p><b>The information helps the student</b> to plan for and prepare for the course, for example by ordering the course literature, 
+      rehearse specific theories from "Specific prerequisites", rehears parts from "Recommended prerequisites", install software etc.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Specific preparations" and check "Include heading" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe the most important preparations for the students in the "Specific preparations" section. 
+      Write things that are important to know or to do before the start of the course. 
+      That could be ordering the course literature, rehearse specific theories from "Specific prerequisites", rehears parts from "Recommended prerequisites", install software etc.</p>
+      <p>Preparations in general should be described in the "Learning activities" section if it is related to the different types of activity types or described in the "Detailed plan" section if it is related to specific reading guidelines prior to each learning activity.</p>
+      <p>Uncheck "Include heading" if there is no reason to inform about specific preparations on this course.</p>`
     },
     prerequisites: {
-      body: 'It is important for students because they can plan their studies....',
-      help: `<p></p>
-      <p></p>
-      <p></p>`
+      body: `<p><b>Recommended prerequisites</b> describe what the teacher expects the student to know before the start of the course.</p>
+      <p><b>The information helps the student</b> to understand what knowledge that is important to take this course. Well defined "Recommended prerequisites" makes it easy for the student to rehears the right theories, models etc. in time for the start of this course offering.</p>
+      <p><b>Edit the contents</b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. The information is administered by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>.</p>`
     },
     reportingResults: {
       body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering is registered and reported. 
@@ -382,9 +440,13 @@ module.exports = {
       <p>If there are preparations that are particularly important, you can highlight them in the "Specific preparations" section in this course memo.</p>`
     },
     software: {
-      body: 'It is important for students because they can plan their studies....',
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Software</b> describes what software and what version of the software that is used on the course. 
+      Software should also include instructions or references and web links to instructions that describes where the software is found and how it is installed.</p>
+      <p><b>The information helps the student</b> to get access to the correct software that is neceasary to complete the course.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Software" and check "Include heading" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe the software that is used in the course in the "Software" section. Include references or web links to resources where the software can be downloaded from and where to find installation instructions.</p>
+      <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`
     },
     teacher: {
       body: 'It is important for students because they can plan their studies....'
