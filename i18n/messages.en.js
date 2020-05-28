@@ -148,11 +148,23 @@ module.exports = {
     courseCoordinator: {
       body: 'It is important for students because they can plan their studies....'
     },
-    ethicalApproachSubSection: {
-      body: 'It is important for students because they can plan their studies....'
-    },
     ethicalApproach: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Ethical approach</b> describes the KTH ethical values during studies and what is allowed and what is not allowed during this course offering.</p>
+      <p><b>The information helps the student</b> to know what ethical values, rights and obligations to relate to during the studies. 
+      Clearly expressed ethical values increases the student´s trust for the education and helps the student to avoid breaking the regulations.</p>
+      <p><b>Edit the course specific contents</b> by clicking on the button "Edit". Enter information about "Ethical approach" and check "Include additional section" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`
+    },
+    ethicalApproachSubSection: {
+      body: 'It is important for students because they can plan their studies....',
+      help: `<p>There are two sections under the "Ethical approach" heading. First there is a fixed text that will be included in all published course memos. 
+      It is not possible to edit that general text.<p>
+      <p>You can inform the student about course specific information regarding ethical approach in the second section. 
+      Here you can describe any values and regulations applicable for the activities in this course offering, for example group projects, assignments, programming tasks etc.</p>
+      <p>Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf " target="_blank">Ethical policy</a> to find more detailed support and information regarding ethical approach.</p>
+      <p>You can also find useful information in the EECS <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">Code of honour for students and teachers</a>. 
+      If this course is offered by the EECS school you can insert a web link to the same web page.</p>
+      <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`
     },
     equipment: {
       body: 'It is important for students because they can plan their studies....'
@@ -161,10 +173,28 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     examination: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course component.</p>
+      <p><b>The information helps the student</b> to plan for taking the course. It also helps the student to prepare for and plan for each of the examination session on this course offering.</p>
+      <p><b>Edit the contents of the fixed texts</b> in Ladok and Kopps. Normally it is not possible to change the fixed texts of Examination because the information is part of the legally binding course syllabus. 
+      Read more about changing contents of course syllabus on the page <a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
+      <p><b>Edit the contents of examination details</b> by clicking on the button "Edit". Enter information about "Examination" and check "Include additional section" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`
     },
     examinationSubSection: {
-      body: 'It is important for students because they can plan their studies....'
+      body: 'It is important for students because they can plan their studies....',
+      help: `<p>There are two sections under the "Examination" heading. First there is an examination overview that is fetched from the course syllabus. This text will be published in this course memo.</p>
+      <p>Describe the details of the examination in the second section. If this is a new course memo, that is not a new version or copied from another course memo, the system will provide you with preformatted subheadings of each module. 
+      Consider to describe the following information beneath each subheading:</p>
+      <p>- how the examination is performed</p><p>- the parts of the examination</p><p>- any deadlines</p>
+      <p>- allowed aids during the examination</p><p>- the terms for collaboration and group projects</p><p>- ...and any other important information regarding the details of the examination.</p>
+      <p>You can also describe if there are alternative ways to complete each module, for example with quizzes and partial exams, the use of bonus points and similar.</p>
+      <p>The foundations of the examination must not be changed relative to the course syllabus or a previous version of this course memo. 
+      You should therefore consider every change of the information in the "Examination" section after the first version of this course memo is published. 
+      Make sure to review the contents of the second added section of "Examination" if this course memo is a new version of a published course memo or if it is copied from a previous published course memo. 
+      Some details and dates may have changed. The fetched fixed text in the first section of "Examination" is always correct, even for copied course memos.</p>
+      <p>It is not mandatory to use the provided subheadings as a structure for the examination details. Just replace the subheadings with your own if you find that better.</p>
+      <p>The actual exams with instructions should be described in Canvas or a corresponding learning management system. 
+      Deadlines as well as time and place for exams can also be included in the "Detailed plan" section to give the students an overview of all the activities on this course offering.</p>`
     },
     extraHeaders1: {
       body: 'Here you can add owh headers to H3'
@@ -182,10 +212,24 @@ module.exports = {
       body: 'Here you can add owh headers to H3'
     },
     gradingCriteria: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Grading criteria/assessment criteria</b> shall connect the grading scale to levels of achievement of the intended learning outcomes.</p>
+        <p><b>The information helps the student</b> to understand how the grading criteria and assessment criteria relate to the intended learning outcomes. 
+        It helps the student to understand what he or she must do and have the knowledge about to achieve each grade on the course. 
+        Clearly expressed grading criteria and assessment criteria also motivate the student.</p>
+        <p><b>Edit the contents </b> by clicking on the button "Edit". Enter information about "Grading criteria/assessment criteria" and check "Include heading" to make the information visible on the published course memo. 
+        Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Grading criteria/assessment criteria shall connect the grading scale to levels of achievment of the intended learning outcomes, where a passed grade corresponds to a basic achievemnt of the intended learning outcomes. 
+      Grading criteria/assessment criteria for a higher grade may concern the quality of the performance, the difficulty, how parts of the course contents are combined and the level in the Bloom´s taxonomy. 
+      The examination shall be clarly connected to the criterias. If there is more than one course component in the course, it must be explicit what intended learning outcome that is examined in what course component. 
+      It must also be clear how the final grade is balanced by the different grades on each course component and how the grade of each course component is balanced by the assessments of the grading criterias.</p>
+      <p>Read more about grading criteria/assessment criteria and find examples of <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (only in Swedish, opens in new tab).</p>`
     },
     gradingScale: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Grading scale</b> describes the final mark grading scale of the course.</p>
+        <p><b>The information helps the student to</b> understand what kind of grade the student can expect after completing the course.</p>
+        <p><b>It is not possible to change the grading scale.</b> A new grading scale requires a new course with a new course code. 
+        Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).
+      </p>`
     },
     infoForReregisteredStudents: {
       body: `<p><b>Changes of the course before this course offering</b> describes the relevant conclusions from previous course evaluations and course analysis and what changes that have actually been implemented before this course offering.</p>
@@ -231,7 +275,10 @@ module.exports = {
         'It is important to know Lab supervisors for students because they can plan their studies....'
     },
     otherRequirementsForFinalGrade: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Other requirements for final grade</b> describes additional requirements for a final grade than written in the "Examination" section for the course, for example attendance requirements.</p>
+      <p><b>The information helps the student,</b> depending on the contents of "Other requirements for final grade", to plan and prepare for their studies.</p>
+      <p><b>Contents can be edited</b> in Kopps. Changes of "Other requirements for final grade" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
+      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>`
     },
     permanentDisability: {
       body: 'It is important for students because they can plan their studies....'
@@ -240,28 +287,74 @@ module.exports = {
       body: 'It is important for students because they can plan their studies....'
     },
     possibilityToAddition: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course, the terms for raising it and how to apply for raising an approved grade. </p>
+      <p><b>The information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination and if that is the case, the terms for that.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". 
+      Enter information about "Opportunity to raise an approved grade via renewed examination" and check "Include heading" to make the information visible on the published course memo. 
+      Any general information about opportunity to raise an approved grade via renewed examination on this course in Kopps is automatically fetched to new course memos. 
+      You can edit that information, but it will only be changed for this particular course offering and course memo. It will not be automatically transferred to Kopps or any other course memo. 
+      General information about "Opportunity to raise an approved grade via renewed examination" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe if it is possible to raise an approved grade via renewed examination on this course in this section and the terms for that. Also describe how the student can apply for a renewed examination.</p>
+      <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
+      You can choose to keep that information, or you can enter information about the opportunity to raise an approved grade via renewed examination that is valid only to this course offering. 
+      Just replace the provided information with your own.</p>
+      <p>If it is not possible to raise an approved grade on this course it is still valuable for student to know that. Uncheck "Include heading" if you despite that don´t want to include the information in this course memo</p>`
     },
     possibilityToCompletion: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes if it is possible to complete the requirements via supplemantary examination and if it possible to raise the grade to E or a higher grade. 
+      All modules/items in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to passed. 
+      Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
+      <p><b>The information helps the student</b> to understand if it is possible to complete the requirements via supplemantary examination and if that is the case, the terms for that.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about the opportunity to complete the requirements via supplementary examination and check "Include heading" to make the information visible on the published course memo. 
+      Any general information about opportunity to complete the requirements via supplementary examination on this course in Kopps is automatically fetched to new course memos. 
+      You can edit that information, but it will only be changed for this particular course offering and course memo. It will not be automatically transferred to Kopps or any other course memo. 
+      General information about "Opportunity to complete the requirements via supplementary examination" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe if it is possible to complete the requirements via supplementary examination on this course in this section and terms for that. 
+      Also describe if it is possible to complete the requirements via supplementary examination on each module/item.  
+      All modules/items in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to passed. 
+      Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
+      <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
+      You can choose to keep that information, or you can enter information about the opportunity to complete the requirements via supplementary examination that is valid only to this course offering. 
+      Just replace the provided information with your own.</p>
+      <p>It is often better to describe opportunity to complete the requirements via supplementary examination for the modules under each sub heading to the heading "Examination" above in this course memo.</p>
+      <p>Uncheck "Include heading" if "Opportunity to complete the requirements via supplementary examination" is irrelevant for this course.</p>`
     },
     possibilityToCompensate: {
-      body: 'It is important because'
+      body: `<p><b>Alternatives to missed activities or tasks</b> describes if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
+      <p><b>The information helps the student</b> to understand what will happen if he or she gets sick. It will also help the student to plan the course in parallel with other commitments, like another course. With information about alternatives to missed activities or tasks the student can easily prioritize all the activities.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe if alternatives to missed activities or tasks are possible on this course in the "Alternatives to missed activities or tasks" section. 
+      If it is possible, describe the alternatives in the case when students miss a mandatory activity or task, for example if the student miss a mandatory study visit.</p>
+      <p>Remember that any other examination format than the ordinary must be written in the "Examination comment" section of the course syllabus.</p>
+      <p>Uncheck "Include heading" if "Alternatives to missed activities or tasks" is irrelevant for this course.</p>`
     },
     preparations: {
       body: 'It is important for students because they can plan their studies....',
       help: `<p></p>
+      <p></p>
       <p></p>`
     },
     prerequisites: {
       body: 'It is important for students because they can plan their studies....',
       help: `<p></p>
+      <p></p>
       <p></p>`
     },
     reportingResults: {
-      body: '...',
-      help: `<p></p>
-      <p></p>`
+      body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering is registered and reported. 
+      It contains information of where and when the students can see their results on this course.</p>
+      <p><b>The information helps the student</b> to understand where and when they can find their results on this course. With that information the student can take any reexams in considerations. 
+      It is also important for the student to know if he or she is entitled to student grants and loans.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". 
+      Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. 
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      help: `<p>Describe what the student needs to know about reporting of exam results in this section. 
+      Describe where and when the student can find the results, both for modules and the final grade on the course. 
+      It is particularly important to describe this if the routines differs from other courses, for example if the results will be reported later than what is expected. 
+      The students should be informed of the results no later than three weeks or fifteen working days after the exam.</p>
+      <p>Uncheck "Include heading" if there is no reason to inform about reporting of exam results on this course.</p>`
     },
     scheduleDetails: {
       body: `<p><b>Detailed plan</b> is an overview of the learning activities and examinations on the course, preferably in a chronological order. 
