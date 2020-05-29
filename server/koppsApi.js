@@ -67,20 +67,20 @@ async function getKoppsCourseRoundTerms(courseCode) {
 function _getSelectedSyllabus(body, semester) {
   // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
   const { publicSyllabusVersions } = body
-  const semesterSyllabus = publicSyllabusVersions.find(
+  const sortedDescSyllabusTerms = publicSyllabusVersions.sort(
+    (a, b) => Number(b.validFromTerm.term) - Number(a.validFromTerm.term)
+  )
+  const semesterSyllabus = sortedDescSyllabusTerms.find(
     syllabus => syllabus.validFromTerm.term <= Number(semester)
   )
   const { courseSyllabus, validFromTerm } = semesterSyllabus
-  // const literatureComment = courseSyllabus.literatureComment ? courseSyllabus.literatureComment : ''
+
   const selectedFields = {
     learningOutcomes: courseSyllabus.goals,
     courseContent: courseSyllabus.content,
     additionalRegulations: courseSyllabus.additionalRegulations,
     ethicalApproach: courseSyllabus.ethicalApproach,
     examComments: courseSyllabus.examComments,
-    // literatureTemplate: courseSyllabus.literature
-    //   ? courseSyllabus.literature + literatureComment
-    //   : literatureComment,
     otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade,
     validFromTerm: validFromTerm.term
   }
@@ -90,11 +90,11 @@ function _getSelectedSyllabus(body, semester) {
 function _getExamModules(body, semester, roundLang) {
   const { examinationSets, formattedGradeScales } = body
   const { creditUnitAbbr } = body.course
-  // const { validFromTerm } = selectedSyllabus
-  // const examinationSet = Object.keys(examinationSets).find(examTerm => (Number(validFromTerm) >= Number(examTerm)))
-  const matchingExamSetKey = Object.keys(examinationSets).find(
-    examTerm => Number(semester) >= Number(examTerm)
+  const sortedDescExamTerms = Object.keys(examinationSets).sort((a, b) => Number(b) - Number(a))
+  const matchingExamSetKey = sortedDescExamTerms.find(
+    examTerm => Number(examTerm) <= Number(semester)
   )
+
   const language = roundLang === 'en' ? 0 : 1
   let titles = ''
   let liStrs = ''
