@@ -101,11 +101,13 @@ module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas
 
   requireRole('isAdmin', 'isEditor')
 */
-function _hasCourseResponsibleGroup(courseCode, courseInitials, ldapUser) {
+function _hasThisTypeGroup(courseCode, courseInitials, ldapUser, employeeType) {
   // 'edu.courses.SF.SF1624.20192.1.courseresponsible'
+  // 'edu.courses.SF.SF1624.20182.9.teachers'
+
   const groups = ldapUser.memberOf
   const startWith = `edu.courses.${courseInitials}.${courseCode}.` // TODO: What to do with years 20192. ?
-  const endWith = '.courseresponsible'
+  const endWith = `.${employeeType}`
   if (groups && groups.length > 0) {
     for (let i = 0; i < groups.length; i++) {
       if (groups[i].indexOf(startWith) >= 0 && groups[i].indexOf(endWith) >= 0) {
@@ -116,6 +118,7 @@ function _hasCourseResponsibleGroup(courseCode, courseInitials, ldapUser) {
   return false
 }
 
+// eslint-disable-next-line func-names
 module.exports.requireRole = function() {
   // TODO:Different roles for selling text and course development
   const roles = Array.prototype.slice.call(arguments)
@@ -127,8 +130,14 @@ module.exports.requireRole = function() {
     // TODO: Add date for courseresponsible
     const userCourseRoles = {
       isExaminator: hasGroup(`edu.courses.${courseInitials}.${courseCode}.examiner`, ldapUser),
-      isCourseResponsible: _hasCourseResponsibleGroup(courseCode, courseInitials, ldapUser),
-      isSuperUser: ldapUser.isSuperUser
+      isCourseResponsible: _hasThisTypeGroup(
+        courseCode,
+        courseInitials,
+        ldapUser,
+        'courseresponsible'
+      ),
+      isSuperUser: ldapUser.isSuperUser,
+      isCourseTeacher: _hasThisTypeGroup(courseCode, courseInitials, ldapUser, 'teachers')
     }
 
     // If we don't have one of these then access is forbidden

@@ -228,21 +228,21 @@ const appRoute = AppRouter()
 appRoute.post(
   'memo.api.updateCreatedDraft',
   config.proxyPrefixPath.uri + '/internal-api/draft-updates/:courseCode/:memoEndPoint',
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   MemoContent.updateContentByEndpoint
 )
 
 appRoute.post(
   'memo.api.createDraftByMemoEndPoint',
   config.proxyPrefixPath.uri + '/internal-api/create-draft/:courseCode/:memoEndPoint', // updated
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChoiceOptions.createDraftByMemoEndPoint
 )
 
 appRoute.post(
   'memo.api.publishMemoByEndPoint',
   config.proxyPrefixPath.uri + '/internal-api/publish-memo/:courseCode/:memoEndPoint',
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   PreviewContent.publishMemoByEndPoint
 )
 
@@ -250,8 +250,8 @@ appRoute.post(
 appRoute.get(
   'memo.api.getUsedRounds',
   config.proxyPrefixPath.uri + '/internal-api/used-rounds/:courseCode/:semester',
-  // serverLogin,
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  serverLogin,
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChoiceOptions.getUsedRounds
 )
 
@@ -264,47 +264,47 @@ appRoute.get(
 appRoute.delete(
   'memo.api.removeMemoDraft',
   config.proxyPrefixPath.uri + '/internal-api/draft-to-remove/:courseCode/:memoEndPoint',
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChoiceOptions.removeMemoDraft
 )
 
 appRoute.get(
   'memo.getContent',
   config.proxyPrefixPath.uri + '/published/:courseCode', // /:courseCode/:semester/:memoEndPoint*
-  // serverLogin,
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  serverLogin,
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChangePublished.getChangePublishedStartPage
 )
 
 appRoute.get(
   'memo.getContent',
   config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint', // /:courseCode/:semester/:memoEndPoint*
-  // serverLogin,
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  serverLogin,
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   MemoContent.renderMemoEditorPage
 )
 
 appRoute.get(
   'memo.getPreviewContent',
   config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint/preview',
-  // serverLogin,
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  serverLogin,
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   PreviewContent.renderMemoPreviewPage
 )
 
 appRoute.get(
   'memo.chooseRounds',
   config.proxyPrefixPath.uri + '/:courseCode/',
-  // serverLogin,
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  serverLogin,
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChoiceOptions.getCourseOptionsPage
 )
 
 appRoute.get(
   'system.gateway',
   config.proxyPrefixPath.uri + '/gateway',
-  // getServerGatewayLogin('/'),
-  // requireRole('isCourseResponsible', 'isExaminator', 'isSuperUser'),
+  getServerGatewayLogin('/'),
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   MemoContent.renderMemoEditorPage
 )
 
