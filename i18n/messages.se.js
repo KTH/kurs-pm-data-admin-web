@@ -55,7 +55,7 @@ module.exports = {
     mandatoryAndEditable: 'Inkluderas alltid',
     mandatoryForSome: 'Inkluderas för vissa kurser',
     includeInMemo: {
-      section: 'Inkludera rubrik',
+      section: 'Inkludera',
       subSection: 'Inkludera ytterligare avsnitt'
     },
     noInfoYet: {
@@ -66,8 +66,7 @@ module.exports = {
     },
     // includera rubrik
     notIncludedInMemoYet: {
-      section:
-        'Innehåll finns inlagt. Välj: Inkludera rubrik för att visa rubrik med innehåll i kurs-PM',
+      section: 'Innehåll finns inlagt. Välj: Inkludera för att visa rubrik med innehåll i kurs-PM',
       subSection: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-PM'
     },
     nothingFetched: {
@@ -272,7 +271,7 @@ module.exports = {
       <p><b>Informationen hjälper studenten</b> att exempelvis förstå vilka förbättringar som gjorts inför kursomgången och på ett högre plan vilket förbättringsarbete i allmänhet som görs på kursen. 
       Informationen kan också uppmärksamma omregistrerade studenter på förändringar från föregående kursomgångar den behöver ta hänsyn till.
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
-      Ange information om ändringar inför denna kursomgång i inmatningsfältet och klicka på "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Ange information om ändringar inför denna kursomgång i inmatningsfältet och klicka på "Inkludera" för att innehållet ska visas när detta kurs-PM publicerats. 
       Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Ändringar inför denna kursomgång" beskriver du vilka ändringar som gjorts på kursen inför denna kursomgång. 
       Det kan också vara viktigt att beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser som hjälper studenten att prioritera i sin planering och sina förberedelser inför kursomgången. 
@@ -284,7 +283,7 @@ module.exports = {
       Läraktivitet definierar vad t.ex. ett seminarium eller en lektion eller en laboration är på just denna kursomgång.</p>
       <p><b>Informationen hjälper studenten</b> att förstå och planera inför kursomgångens aktiviteter och med det göra rätt förberedelser i rätt tid. 
       Innebörden av en viss typ av läraktivitet kan ha olika innebörd på olika kurser. Med väl beskrivna läraktiviteter kan studenten därför få rätt förväntningar på varje typ av läraktivitet.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om läraktiviteter i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om läraktiviteter i inmatningsfältet och klicka i "Inkludera" för att innehållet ska visas när detta kurs-PM publicerats. 
       Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Läraktiviteter" beskriver du vilka typer av läraktiviteter som är planerade under kursomgången. Ge de olika typerna ett intuitivt och gärna vedertaget begrepp som du sedan använder konsekvent senare i detta kurs-PM. Beskriv vad de olika typerna av läraktiviteter innebär på just denna kursomgång, kortfattat hur de går till och vad som är bra för studenten att känna till om läraktiviteten. 
       Du kan också beskriva hur omfattande läraktiviteterna är i fråga om antal och tid, men också hur de är fördelade över kursomgångens studietid.</p>
@@ -442,7 +441,7 @@ module.exports = {
       <p><b>Information hjälper studenten</b> att planera sina studier och genomföra kursomgången på ett effektivt sätt. 
       Med en tydlig detaljplanering kan studenten se när i ordningen varje läraktivitet eller examinationstillfälle infaller och med det göra rätt förberedelser vid rätt tidpunkt under kursens genomförande.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
-      Ange information om "Detaljplanering" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Ange information om "Detaljplanering" i inmatningsfältet och klicka i "Inkludera" för att innehållet ska visas när detta kurs-PM publicerats. 
       Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Detaljplanering" beskriver du vilka läraktiviteter eller examinationstillfällen som har planerats under kursen. 
       Använd med fördel en tabell för att på ett överblickbart sätt beskriva aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. 
