@@ -61,7 +61,7 @@ module.exports = {
     mandatoryAndEditable: 'Always included',
     mandatoryForSome: 'Included for some courses',
     includeInMemo: {
-      section: 'Include heading',
+      section: 'Include',
       subSection: 'Include additional section'
     }, // RUBRIK/ADDITION
     noInfoYet: {
@@ -251,12 +251,12 @@ module.exports = {
       <p><b>The information helps the student</b> to understand what changes of the course that has been made to this course offering.
       This is especially important for re-registered students who needs to be informed about any important differences to the previous course offering. 
       Describing the changes is a good way to show the students that the course development is important and that it actually helps to improve the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Changes of the course before this course offering" and check "Include heading" to make the information visible on the published course memo. 
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Changes of the course before this course offering" and check "Include" to make the information visible on the published course memo. 
       Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
       Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
       The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
-      <p>Uncheck "Include heading" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`
+      <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`
     },
     learningActivities: {
       body: `<p><b>Learning activities</b> describes the types of planned activities on the course and what is important to know about each learning activity. 
@@ -264,14 +264,14 @@ module.exports = {
       <p><b>The information helps the student</b> to understand the activities and to do the necessary preparations prior to the activity. 
       Each activity type may have different meanings on different courses. Well described learning activities sets the right expectations on each type of activity.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about learning activities and check "Include heading" to make the information visible on the published course memo. 
+      Enter information about learning activities and check "Include" to make the information visible on the published course memo. 
       Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the planned types of learning activities on the course in the section "Learning activities". 
       Use an established term for each type and repeat the term throughout the course memo. 
       Describe what the learning activity means for this particular course and what is important for the student to know about it. 
       You can add information about how many of each activity type and how they are distributed over the course. </p>
       <p>If the pedagogical disposition of the course is relevant for planning and preparations it can also be described in this section.</p>
-      <p>Uncheck "Include heading" if information about learning activities is irrelevant for this course.</p>`
+      <p>Uncheck "Include" if information about learning activities is irrelevant for this course.</p>`
     },
     learningOutcomes: {
       body: `<p><b>Intended learning outcomes</b> clarifies what knowledge, what skills, which evaluation abilities and approaches the student needs to demonstrate after taking the course.</p>
@@ -420,7 +420,7 @@ module.exports = {
       <p><b>The information helps the student</b> to plan for the studies and take the course effeciently. 
       A clear plan illustrates the order of the activities on the course and that makes it easy for the student to do proper preparations with the right timing.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about the detailed plan and check "Include heading" to make the information visible on the published course memo. 
+      Enter information about the detailed plan and check "Include" to make the information visible on the published course memo. 
       Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the planned learning activities and examination in the "Detailed plan" section. It is common to use a table to represent the plan. 
       A table illustrates the order of the activities, its content, and what preparations that is recommended prior to each activity. 
