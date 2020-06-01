@@ -48,7 +48,7 @@ module.exports = {
      * Headings
      */
     page_header_heading_semester: 'Semester',
-    page_header_heading_course_round: 'Course round'
+    page_header_heading_course_round: 'Course offering'
   },
   sourceInfo: {
     addNewTitle: 'Name new section',
@@ -61,7 +61,7 @@ module.exports = {
     mandatoryAndEditable: 'Always included',
     mandatoryForSome: 'Included for some courses',
     includeInMemo: {
-      section: 'Include',
+      section: 'Include heading',
       subSection: 'Include additional section'
     }, // RUBRIK/ADDITION
     noInfoYet: {
@@ -76,11 +76,11 @@ module.exports = {
     },
     nothingFetched: {
       mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
-      mandatory: 'No information was available to fetch, edit in kopps....',
+      mandatory: 'There was no content to fetch to this course memo. The heading will despite that be included in the published course memo. Read more on how to change fetched information in the information icon next to the heading above.',
       mandatoryForSome:
-        'No information was available to fetch because it is not intended for this course....',
+        'There was no content to fetch to this course memo. The heading will not be included in the published course memo.',
       optional:
-        'No information was available to fetch. How to change it you can find in information icon above. Header is optional therefore you can choose to include or not....'
+        'There was no content to fetch to this course memo. Read more on how to change fetched information in the information icon next to the heading above. You can also choose to exclude the heading from the published course memo.'
     },
     dummyHelpText: 'Help text that helps'
   },
@@ -132,7 +132,10 @@ module.exports = {
       <p>If there is no content the heading will not be visible in the published course memo.</p>`
     },
     commentAboutMadeChanges: {
-      body: 'It is important for students because they can plan their studies....'
+      body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>
+      <p><b>The section helps KTH</b> to find and understand the changes made to a published course memo.</p>`,
+      help: `<p></p>
+      <p></p>`
     },
     communicationDuringCourse: {
       body: `<p><b>Communication during course</b> describes how the student should communicate with the teachers and the other personnel before and during the course offering. Communication during course also describes who to contact regarding the most common questions and issues.</p>
@@ -221,19 +224,38 @@ module.exports = {
       Deadlines as well as time and place for exams can also be included in the "Detailed plan" section to give the students an overview of all the activities on this course offering.</p>`
     },
     extraHeaders1: {
-      body: 'Here you can add owh headers to H3'
+		body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Content and learning outcomes" in this course memo.</p>
+			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
+			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+		help: `<p>Describe information that is related to "Content and learning outcomes", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Concepts", "Connection to qualitative targets" and "Pedagogical disposition of the course".</p>
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
     },
     extraHeaders2: {
-      body: 'Here you can add owh headers to H3'
+		body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Preparations before course start" in this course memo.</p>
+			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
+			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+		help: `<p>Describe information that is related to "Preparations before course start", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Specific prerequisites", "Course registration" and "Learning management system".</p>
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
     },
     extraHeaders3: {
-      body: 'Here you can add owh headers to H3'
+		body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Examination and completion" in this course memo.</p>
+			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
+			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+		help: `<p>Describe information that is related to "Examination and completion", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal" and "Link to sample quizzes and exams".</p>
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
     },
     extraHeaders4: {
-      body: 'Here you can add owh headers to H3'
+		body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Further information" in this course memo.</p>
+			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
+			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+		help: `<p>Describe information that is related to "Further information", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal", "Course evaluation and course analysis" and "Maps/Find your teaching premises".</p>
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
     },
     extraHeaders5: {
-      body: 'Here you can add owh headers to H3'
+		body: `<p>
+			</p>`,
+		help: `<p>
+			</p>`
     },
     gradingCriteria: {
       body: `<p><b>Grading criteria/assessment criteria</b> shall connect the grading scale to levels of achievement of the intended learning outcomes.</p>
@@ -260,12 +282,12 @@ module.exports = {
       <p><b>The information helps the student</b> to understand what changes of the course that has been made to this course offering.
       This is especially important for re-registered students who needs to be informed about any important differences to the previous course offering. 
       Describing the changes is a good way to show the students that the course development is important and that it actually helps to improve the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Changes of the course before this course offering" and check "Include" to make the information visible on the published course memo. 
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Changes of the course before this course offering" and check "Include heading" to make the information visible on the published course memo. 
       Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
       Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
       The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
-      <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`
+      <p>Uncheck "Include heading" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`
     },
     learningActivities: {
       body: `<p><b>Learning activities</b> describes the types of planned activities on the course and what is important to know about each learning activity. 
@@ -273,14 +295,14 @@ module.exports = {
       <p><b>The information helps the student</b> to understand the activities and to do the necessary preparations prior to the activity. 
       Each activity type may have different meanings on different courses. Well described learning activities sets the right expectations on each type of activity.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about learning activities and check "Include" to make the information visible on the published course memo. 
+      Enter information about learning activities and check "Include heading" to make the information visible on the published course memo. 
       Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the planned types of learning activities on the course in the section "Learning activities". 
       Use an established term for each type and repeat the term throughout the course memo. 
       Describe what the learning activity means for this particular course and what is important for the student to know about it. 
       You can add information about how many of each activity type and how they are distributed over the course. </p>
       <p>If the pedagogical disposition of the course is relevant for planning and preparations it can also be described in this section.</p>
-      <p>Uncheck "Include" if information about learning activities is irrelevant for this course.</p>`
+      <p>Uncheck "Include heading" if information about learning activities is irrelevant for this course.</p>`
     },
     learningOutcomes: {
       body: `<p><b>Intended learning outcomes</b> clarifies what knowledge, what skills, which evaluation abilities and approaches the student needs to demonstrate after taking the course.</p>
@@ -433,7 +455,7 @@ module.exports = {
       <p><b>The information helps the student</b> to plan for the studies and take the course effeciently. 
       A clear plan illustrates the order of the activities on the course and that makes it easy for the student to do proper preparations with the right timing.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about the detailed plan and check "Include" to make the information visible on the published course memo. 
+      Enter information about the detailed plan and check "Include heading" to make the information visible on the published course memo. 
       Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the planned learning activities and examination in the "Detailed plan" section. It is common to use a table to represent the plan. 
       A table illustrates the order of the activities, its content, and what preparations that is recommended prior to each activity. 
@@ -562,7 +584,7 @@ module.exports = {
   actionModals: {
     infoCancel: {
       header: 'To be aware of before cancelling!',
-      body: `....
+      body: `This draft will be deleted. The last published version of this course memo will remain unchanged.
         <br/>
         <br/>
         Do you want to cancel?`,
@@ -570,33 +592,33 @@ module.exports = {
       btnConfirm: 'Yes, cancel'
     },
     infoFinish: {
-      header: 'EN -> Avsluta',
-      body: `EN -> Utkast sparas först i steg 2: Redigera kurs-PM.
+      header: 'Exit',
+      body: `Drafts are saved only on the page "Edit course memo" (step 2).
         <br/>
         <br/>
-        I detta steg, steg 1, visas sparade utkast under rubriken: Sparade utkast. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
+        Saved drafts are displayed in the "Saved drafts" section on this page. You can choose to delete a draft or to continue editing the selected draft.
         <br/>
         <br/>
-        EN -> Vill du fortsätta att avbryta?`,
+        Do you want to exit?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, finish'
+      btnConfirm: 'Yes, exit'
     },
     infoSaveAndFinish: {
-      header: 'EN -> Avsluta med utkast',
-      body: `EN -> Utkast är sparat.
+      header: 'Exit',
+      body: `The draft is saved.
         <br/>
         <br/>
-        I steg 1 (Välj kursomgång) visas sparade utkast under rubriken: Fortsätt med ett sparat utkast. 
-        Utkast kan tas bort genom att välja ett utkast och sedan: Radera utkast.
+        Saved drafts are displayed on the page "Choose course offering" (steg 1) in the "Saved drafts" section. 
+        Saved drafts can be deleted by selecting the draft and then click on the "Delete draft" button.
         <br/>
         <br/>
-        EN -> Vill du fortsätta att avbryta?`,
+        Do you want to exit?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, finish'
+      btnConfirm: 'Yes, exit'
     },
     infoPublish: {
       header: 'To be aware of before publishing!',
-      body: `The information will be published on the page Course development and history
+      body: `The information will be published on the page Course memo for the chosen semester and course offering.
         <br/> 
         <br/> 
         Do you want to publish?`,
@@ -614,7 +636,7 @@ module.exports = {
     },
     newSectionRemove: {
       header: 'To be aware of before deleting this header!',
-      body: `Deleting the header cannot be undone. The new section will be lost.
+      body: `Deleting the heading and its content cannot be undone. The added section will be lost.
       <br/>
       <br/>
       Do you want do delete this header and its content?`,
@@ -623,7 +645,7 @@ module.exports = {
     }
   },
   info: {
-    chooseSavedDraft: 'EN -> Sparade utkast',
+    chooseSavedDraft: 'Saved drafts',
     createNew: 'Choose course offering',
     choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
@@ -652,7 +674,7 @@ module.exports = {
         infoText: 'Course memos which are published'
       }
     },
-    publishedHasDraft: ' (has unpublished alterations)',
+    publishedHasDraft: ' (has unpublished changes)',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     noCourseRoundsAvailable:
@@ -661,7 +683,7 @@ module.exports = {
     noSemesterAvailable:
       'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
     noPublishedMemos:
-      'Det finns inga publicerade kursomgångar för denna termin, föregående eller kommande.'
+      'There are no published course memos for this semester, the previous semster or any future semester.'
   },
   changePublishedInfo: {
     choosePublishedMemo: 'Choose course memo'
@@ -696,8 +718,10 @@ module.exports = {
     labelStartDate: 'Start date',
     // hasSavedDraft: 'Has a published course memo',
     contentHeaders: {
-      title: 'Headers',
-      intro: 'Headers....'
+      title: 'Headings',
+      intro: `<p>All fixed and optional sections in this course memo is listed down below. The sections are grouped in five main heading categories; "Content and learning outcomes", "Preparations before course start", "Examination and completion", "Further information" and "Contact".</p>
+		<p>Expand or collapse the main heading category to see the headings in the category. Each heading is a link that takes you directly to the section with its content. Use it to navigate quickly in this course memo.</p>
+		<p>An eye covered with slash indicates that the heading with its content will not be included in the published course memo.</p>`
     },
     commentChanges: 'Describe changes made in this version:',
     mandatory: 'Mandatory'
@@ -710,16 +734,14 @@ module.exports = {
     errNoChosen:
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
-    errWhileSaving: 'Smth went wrong on api side......',
-    errWhileDeleting: 'Cannot delete draft, smth wrong... try later',
-    infoAboutFreshData: 'should be in EN --> Information som hämtas har automatiskt uppdateras..',
-    infoRebuildDraft:
-      'should be in EN --> Kurs-PM nedan har återställts till den senaste publicerade versionen.',
-    infoStartAgain: 'should be in EN --> Det finns ändringar som ej publicerats. Du kan',
-    linkToRefreshData: 'should be in EN -->  återgå till senaste publicerade versionen av kurs-PM',
-    warnFillInCommentAboutChanges:
-      'should be in EN --> Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
-    warnNameNewSection: 'You need to give a name to a new section',
+    errWhileSaving: 'Something went wrong. Contact IT Support.',
+    errWhileDeleting: 'Cannot delete draft. Try again later and contact IT Support if the problem remains.',
+    infoAboutFreshData: 'Information from course syllabus and contact information has automatically been updated.',
+    infoRebuildDraft: 'This contents of this course memo has been reset to the latest published version of this course memo.',
+    infoStartAgain: 'There are unpublished changes in this course memo. You can',
+    linkToRefreshData: 'reset the contents in this draft to the contents of the latest published version of this course memo',
+    warnFillInCommentAboutChanges: 'You must comment the changes to this course memo in the "Made changes" field (marked in red).',
+    warnNameNewSection: 'You must name a heading to a new section',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'
   },
@@ -747,7 +769,7 @@ module.exports = {
     versionTitle: 'Version',
     languageOfInstructionTitle: 'Language Of Instruction',
     offeredByTitle: 'Offered By',
-    roundsTitle: 'Rounds',
+    roundsTitle: 'Course offering',
     mandatoryFieldMissing: 'Missing mandatory information',
     linkOpensInNewTab: 'Link will open in new tab'
   },
@@ -785,18 +807,18 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab'
   },
   courseImage: {
-    Architecture: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
-    Biotechnology: 'Picture_by_MainFieldOfStudy_02_Biotechnology.jpg',
+    'Architecture': 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
+    'Biotechnology': 'Picture_by_MainFieldOfStudy_02_Biotechnology.jpg',
     'Computer Science and Engineering': 'Picture_by_MainFieldOfStudy_03_Computer_Science.jpg',
     'Electrical Engineering': 'Picture_by_MainFieldOfStudy_04_Electrical_Engineering.jpg',
-    Physics: 'Picture_by_MainFieldOfStudy_05_Physics.jpg',
+    'Physics': 'Picture_by_MainFieldOfStudy_05_Physics.jpg',
     'Industrial Management': 'Picture_by_MainFieldOfStudy_06_Industrial_Management.jpg',
     'Information Technology': 'Picture_by_MainFieldOfStudy_07_Information_Technology.jpg',
     'Information and Communication Technology':
       'Picture_by_MainFieldOfStudy_08_Information_Communication.jpg',
     'Chemical Science and Engineering': 'Picture_by_MainFieldOfStudy_09_Chemical_Science.jpg',
     'Chemistry and Chemical Engineering': 'Picture_by_MainFieldOfStudy_10_Chemistry_Chemical.jpg',
-    Mathematics: 'Picture_by_MainFieldOfStudy_11_Mathematics.jpg',
+    'Mathematics': 'Picture_by_MainFieldOfStudy_11_Mathematics.jpg',
     'Environmental Engineering': 'Picture_by_MainFieldOfStudy_12_Environmental_Engineering.jpg',
     'Molecular Life Science': 'Picture_by_MainFieldOfStudy_13_Molecular_Life_Science.jpg',
     'Mechanical Engineering': 'Picture_by_MainFieldOfStudy_14_Mechanical_Engineering.jpg',
@@ -808,7 +830,7 @@ module.exports = {
     'Technology and Economics': 'Picture_by_MainFieldOfStudy_20_Technology_Economics.jpg',
     'Technology and Health': 'Picture_by_MainFieldOfStudy_21_Technology_Health.jpg',
     'Technology and Management': 'Picture_by_MainFieldOfStudy_22_Technology_Management.jpg',
-    Technology: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
+    'Technology': 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
     'Engineering and Management': 'Picture_by_MainFieldOfStudy_24_Engineering_Management.jpg',
     'Technology and Learning': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
     default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
