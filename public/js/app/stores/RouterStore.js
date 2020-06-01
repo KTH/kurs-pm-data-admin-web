@@ -25,8 +25,8 @@ class RouterStore {
 
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
-    this.courseCode = props.courseCode
-    this.memoEndPoint = props.memoEndPoint
+    this.courseCode = props.courseCode.toUpperCase() || ''
+    this.memoEndPoint = props.memoEndPoint.toUpperCase() || ''
     this.memoLangAbbr = props.memoLangAbbr || 'sv'
   }
 

@@ -55,6 +55,8 @@ class MemoContainer extends Component {
       search: ''
     })
     this.scrollIntoView()
+    console.log('window.localStorage', window.localStorage)
+    console.log('window.sessionStorage', window.sessionStorage)
   }
 
   setUpperAlarm = () => {

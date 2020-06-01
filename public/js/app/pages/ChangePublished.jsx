@@ -41,6 +41,12 @@ class ChangePublished extends Component {
 
   allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList || null // need to define if kopps in error
 
+  componentDidMount() {
+    this.props.history.push({
+      search: ''
+    })
+  }
+
   setAlarm = (type, textName, isOpen = true) => {
     this.setState({
       alert: {
