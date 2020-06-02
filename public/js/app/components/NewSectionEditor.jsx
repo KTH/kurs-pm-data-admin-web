@@ -178,8 +178,9 @@ class NewSectionEditor extends Component {
                   'table paste code help wordcount'
                 ],
                 language: i18n.isSwedish() ? 'sv_SE' : null,
-                toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-                  searchreplace | fullscreen |  link | table | image |     
+                toolbar1: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
+                  searchreplace | link | fullscreen `,
+                toolbar2: `table | image |     
                   bullist numlist outdent indent | removeformat | help`,
                 imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
                 block_formats: 'Body text=p; Heading=h4'

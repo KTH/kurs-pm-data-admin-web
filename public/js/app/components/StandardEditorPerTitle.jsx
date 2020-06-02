@@ -97,16 +97,17 @@ class StandardEditorPerTitle extends Component {
                 // min_height: 100,
                 menubar: false,
                 toolbar_sticky: true,
+                toolbar_mode: 'wrap',
                 plugins: [
                   'advlist autolink autoresize lists link image imagetools charmap preview anchor',
                   'searchreplace visualblocks code fullscreen',
                   'table paste code help wordcount'
                 ],
                 language: i18n.isSwedish() ? 'sv_SE' : null,
-                toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-                  searchreplace | fullscreen | link | table | image |     
+                toolbar1: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
+                  searchreplace | link | fullscreen `,
+                toolbar2: `table | image |     
                   bullist numlist outdent indent | removeformat | help`,
-                toolbar_mode: 'wrap',
                 imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
                 // autosave_interval: '60s',
                 // // autosave_restore_when_empty: true,
