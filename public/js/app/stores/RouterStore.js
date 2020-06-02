@@ -43,7 +43,7 @@ class RouterStore {
       equipment: equipment || this.koppsFreshData.equipmentTemplate || '',
       scheduleDetails:
         scheduleDetails ||
-        combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr) ||
+        combineScheduleValues(this.koppsFreshData.schemaUrls, this.memoLangAbbr) ||
         '',
       literature: literature || this.koppsFreshData.literatureTemplate || '',
       possibilityToCompletion:

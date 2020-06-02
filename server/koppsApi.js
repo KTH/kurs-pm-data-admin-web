@@ -163,7 +163,9 @@ function _getCommonInfo(resBody) {
     requiredEquipment
   } = resBody.course
   const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
-  const schemaUrl = resBody.roundInfos.filter(roundInfo => roundInfo.schemaUrl !== undefined)
+  const schemaUrls = resBody.roundInfos
+    .filter(roundInfo => roundInfo.schemaUrl !== undefined)
+    .map(({ schemaUrl }) => schemaUrl)
   return {
     credits,
     creditUnitAbbr,
@@ -172,7 +174,7 @@ function _getCommonInfo(resBody) {
     prerequisites,
     possibilityToCompletionTemplate: possibilityToCompletion,
     possibilityToAdditionTemplate: possibilityToAddition,
-    schemaUrl,
+    schemaUrls,
     literatureTemplate: courseLiterature || '',
     equipmentTemplate: requiredEquipment
   }
