@@ -103,14 +103,13 @@ class StandardEditorPerTitle extends Component {
                 ],
                 language: i18n.isSwedish() ? 'sv_SE' : null,
                 toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-                  searchreplace | image | link | fullscreen |
-                  table | 
+                  searchreplace | fullscreen |  link | table | image |     
                   bullist numlist outdent indent | removeformat | help`,
                 imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
                 // autosave_interval: '60s',
                 // // autosave_restore_when_empty: true,
                 // autosave_retention: '1m',
-                block_formats: 'Paragraph=p; Header 4=h4'
+                block_formats: 'Body text=p; Heading=h4'
               }}
               onEditorChange={this.updateMemoContent}
               onBlur={this.onBlur}
