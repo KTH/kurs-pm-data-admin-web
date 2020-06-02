@@ -644,8 +644,8 @@ module.exports = {
       Do you want do delete this header and its content?`,
       btnClose: 'No, go back',
       btnConfirm: 'Yes, delete'
-    }
-	rebuildDraftOfPublished: {
+    },
+    rebuildDraftOfPublished: {
       header: 'To be aware of before you reset the contents!',
       body: `If you reset the contents to the latest published version of this course memo your current changes will be lost.
       <br/><br/>
