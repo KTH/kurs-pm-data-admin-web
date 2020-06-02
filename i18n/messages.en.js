@@ -505,7 +505,7 @@ module.exports = {
     },
     {
 		title: 'Edit course memo',
-		intro: ''
+		intro: '',
 		info: `Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.`
     },
     {
@@ -522,7 +522,7 @@ module.exports = {
     },
     {
 		title: 'Edit course memo',
-		intro: ''
+		intro: '',
 		info: `Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.`
     },
     {
