@@ -50,7 +50,7 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
           )
         })}
       </div>
-      <p>
+      {/* <p>
         <Button id="menu-link-finish-course" color="link">
           {labels.finishCourse}
         </Button>
@@ -59,7 +59,7 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
           body={labels.noLinksInPreview}
           targetId="menu-link-finish-course"
         />
-      </p>
+      </p> */}
       <p>
         <Button id="menu-link-course-development-and-history" color="link">
           {labels.courseDevelopmentAndHistory}
