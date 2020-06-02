@@ -21,12 +21,18 @@ const ControlPanel = props => {
       </Row>
       <Col sm="4" className="step-back">
         {progress === 2 && (
-          <Button onClick={onBack} className="btn-back" alt="BACK">
-            {buttons.goToRounds}
+          <Button
+            onClick={onBack}
+            className="btn-back"
+            alt="Back to step 1, choose course memo or choose course round"
+          >
+            {isDraftOfPublished
+              ? i18n.messages[langIndex].pagesChangePublishedPm[0].title
+              : buttons.goToRounds}
           </Button>
         )}
         {progress === 3 && (
-          <Button onClick={onBack} className="btn-back" alt="BACK">
+          <Button onClick={onBack} className="btn-back" alt="Back to step 2, edit memo">
             {buttons.edit}
           </Button>
         )}
