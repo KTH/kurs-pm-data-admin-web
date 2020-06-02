@@ -34,12 +34,28 @@ $red: #e01f28;
 #app {
   width: 100%;
 }
+.preview-content-center {
+  p,
+  ul {
+    font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
+    word-break: break-word;
+  }
+}
+
+.section-info + span {
+  & > p,
+  ul {
+    font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
+    word-break: break-word;
+  }
+}
 
 .word-break {
   p {
     word-break: break-word;
   }
 }
+
 div.tox.tox-tinymce {
   margin-bottom: 1rem;
 }
@@ -282,7 +298,6 @@ div.tox.tox-tinymce {
     margin-top: 0;
   }
   .section-info + span > p {
-    font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
     // max-width: 730px;
     margin-top: 1em;
   }
