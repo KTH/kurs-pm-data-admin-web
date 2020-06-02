@@ -97,20 +97,19 @@ class StandardEditorPerTitle extends Component {
                 // min_height: 100,
                 menubar: false,
                 plugins: [
-                  'advlist autolink autoresize autosave lists link image imagetools charmap preview anchor',
+                  'advlist autolink autoresize lists link image imagetools charmap preview anchor',
                   'searchreplace visualblocks code fullscreen',
                   'table paste code help wordcount'
                 ],
                 language: i18n.isSwedish() ? 'sv_SE' : null,
                 toolbar: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-                  searchreplace | image | link | restoredraft | fullscreen |
+                  searchreplace | image | link | fullscreen |
                   table | 
                   bullist numlist outdent indent | removeformat | help`,
                 imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-                autosave_interval: '60s',
-                autosave_ask_before_unload: true,
-                autosave_restore_when_empty: true,
-                autosave_retention: '1m',
+                // autosave_interval: '60s',
+                // // autosave_restore_when_empty: true,
+                // autosave_retention: '1m',
                 block_formats: 'Paragraph=p; Header 4=h4'
               }}
               onEditorChange={this.updateMemoContent}
