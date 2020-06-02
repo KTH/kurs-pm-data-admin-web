@@ -170,6 +170,8 @@ class NewSectionEditor extends Component {
               init={{
                 // min_height: 100,
                 menubar: false,
+                toolbar_mode: 'wrap',
+                toolbar_sticky: true,
                 plugins: [
                   'advlist autolink autoresize lists link image imagetools charmap preview anchor',
                   'searchreplace visualblocks code fullscreen',
@@ -180,9 +182,6 @@ class NewSectionEditor extends Component {
                   searchreplace | fullscreen |  link | table | image |     
                   bullist numlist outdent indent | removeformat | help`,
                 imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-                // autosave_interval: '60s',
-                // // autosave_restore_when_empty: true,
-                // autosave_retention: '1m',
                 block_formats: 'Body text=p; Heading=h4'
               }}
               onEditorChange={this.updateMemoContent}
