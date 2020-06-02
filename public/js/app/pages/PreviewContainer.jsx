@@ -292,11 +292,7 @@ class PreviewContainer extends Component {
     let active = false
     let courseMemoItems = this.props.routerStore.memoDatas.map(m => {
       const id = m.memoEndPoint
-      const label = concatMemoName(
-        m.semester,
-        m.ladokRoundIds,
-        this.props.routerStore.memoData.memoCommonLangAbbr
-      )
+      const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       // memoEndPoint is currently displayed
       active = m.memoEndPoint === this.state.previewMemo.memoEndPoint
       return {
