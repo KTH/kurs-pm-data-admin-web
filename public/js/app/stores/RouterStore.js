@@ -1,7 +1,4 @@
 import { observable, action } from 'mobx'
-import { context } from '../util/fieldsByType'
-// import axios from 'axios'
-import /* SERVICE_URL */ '../util/constants'
 import { combineScheduleValues } from '../util/defaultValues'
 
 class RouterStore {
