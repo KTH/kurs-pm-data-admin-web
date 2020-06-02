@@ -43,9 +43,10 @@ async function renderMemoEditorPage(req, res, next) {
   try {
     const context = {}
     const userLang = language.getLanguage(res) || 'sv'
+    const langIndex = userLang === 'en' ? 0 : 1
+    const translateTo = userLang === 'en' ? 1 : 0
     const { courseCode, memoEndPoint } = req.params
     const { action } = req.query
-    const langIndex = userLang === 'en' ? 0 : 1
     const renderProps = _staticRender(context, req.url)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
 
@@ -89,6 +90,10 @@ async function renderMemoEditorPage(req, res, next) {
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name + courseCode,
         url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode
+      },
+      languageLink: {
+        title: i18n.messages[translateTo].messages.locale_text,
+        toLang: `?l=${userLang === 'sv' ? 'en' : 'sv'}`
       },
       userLang,
       description:

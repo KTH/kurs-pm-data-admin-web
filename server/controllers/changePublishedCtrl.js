@@ -75,6 +75,10 @@ async function getChangePublishedStartPage(req, res, next) {
         title: i18n.messages[langIndex].messages.main_site_name + courseCode,
         url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode
       },
+      languageLink: {
+        title: i18n.messages[langIndex === 0 ? 1 : 0].messages.locale_text,
+        toLang: `?l=${lang === 'sv' ? 'en' : 'sv'}`
+      },
       initialState: JSON.stringify(hydrateStores(renderProps)),
       description:
         lang === 'sv'
