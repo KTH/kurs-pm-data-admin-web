@@ -29,7 +29,7 @@ module.exports = {
     field_label_get_example: 'Min datamodell(Svar från api anrop GET): ',
     field_label_post_example: 'Min datamodell(Svar från api anrop POST): ',
 
-    lang_block_id: '1.272446',
+    lang_block_id: '1.871898',
     locale_text: 'Denna sida på svenska',
     main_site_name: 'Administrera Om kursen ',
     site_name: 'Administration av kurs-PM',
