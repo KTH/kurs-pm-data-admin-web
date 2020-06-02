@@ -3,7 +3,7 @@ import React from 'react'
 import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 
 import { seasonStr } from '../../util/helpers'
-import { linkToArchive, linkToMemoPdf, linkToSyllabus } from '../../util/links'
+import { linkToArchive, /* linkToMemoPdf, */ linkToSyllabus } from '../../util/links'
 
 import Popup from './Popup'
 
@@ -48,11 +48,12 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const pdfLink = (labels, courseCode, memoEndPoint) => (
+const pdfLink = (labels /* courseCode, memoEndPoint */) => (
   <>
     <h4>{labels.courseMemoPdf}</h4>
     <p>
-      <a
+      <i>{labels.inDevelopment}</i>
+      {/* <a
         id="pdf-link"
         title={memoEndPoint}
         href={linkToMemoPdf(courseCode, memoEndPoint)}
@@ -62,7 +63,7 @@ const pdfLink = (labels, courseCode, memoEndPoint) => (
         {memoEndPoint}
         <FaRegFilePdf className="pdf-icon" />
       </a>
-      <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" />
+      <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" /> */}
     </p>
   </>
 )
