@@ -117,6 +117,10 @@ async function renderMemoPreviewPage(req, res, next) {
       title: userLang === 'sv' ? 'Förhandsgranskning av kurs-PM' : 'Preview of course memos',
       initialState: JSON.stringify(hydrateStores(renderProps)),
       userLang,
+      languageLink: {
+        title: i18n.messages[langIndex === 0 ? 1 : 0].messages.locale_text,
+        toLang: `?l=${userLang === 'sv' ? 'en' : 'sv'}`
+      },
       description:
         userLang === 'sv'
           ? '[NY] Kursinformation – Förhandsgranskning av kurs-PM'

@@ -3,13 +3,35 @@
   <div class="container-fluid">
     <div class="container">
       <div class="header-container__top">
-        {{!-- {{{blocks.image}}}--}}
-        <h1 class="block siteName" data-cid="1.260060">   
-          <a data-cid="1.260060" href={{kursinfoadmin.url}}>{{kursinfoadmin.title}}</a>
-        </h1> 
-        {{!-- <div class="block list links defaultTheme secondaryMenu" data-cid="1.865038" lang="sv-SE">
-          {{{blocks.language}}}
-        </div> --}}
+        {{!-- {{{blocks.image}}} --}}
+        <figure class="block figure defaultTheme mainLogo" data-cid="1.77257" lang="sv-SE">
+          <a href="https://www.kth.se">
+            <img class="figure-img img-fluid" src="https://www.kth.se/polopoly_fs/1.77257.1550147376!/KTH_Logotyp_RGB_2013-2.svg" alt="KTH:s logotyp" height="70" width="70">
+          </a>
+        </figure>
+        <h1 class="block siteName" data-cid="1.260213">    
+          <a data-cid="1.260213" href={{kursinfoadmin.url}}>{{kursinfoadmin.title}}</a>
+        </h1>
+        <div id="mobileMenuWrapper">
+          <button id="nav-icon" class="navbar-toggler nav-icon" type="button" title="Öppna/stäng mobilmenyn">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <nav id="mobileMenu" class="block navbar navbar-expand-lg navbar-light">
+            <div id="mobileMenuContent" class="navbar-collapse collapse">
+              <ul id="mobileMenuList" class="menu navbar-nav mr-auto"></ul>
+            </div>
+          </nav>
+        </div>
+        <div class="block list links secondaryMenu" data-cid="1.871898" lang="sv-SE">    
+          <ul>
+            <li>
+              <a href={{languageLink.toLang}} alt={{languageLink.title}}>{{languageLink.title}}</a>
+            </li>
+          </ul>
+        </div>
     </div>
   </div>
   <div id="gradientBorder"></div>

@@ -1,7 +1,4 @@
 import { observable, action } from 'mobx'
-import { context } from '../util/fieldsByType'
-// import axios from 'axios'
-import /* SERVICE_URL */ '../util/constants'
 import { combineScheduleValues } from '../util/defaultValues'
 
 class RouterStore {
@@ -25,8 +22,8 @@ class RouterStore {
 
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
-    this.courseCode = props.courseCode
-    this.memoEndPoint = props.memoEndPoint
+    this.courseCode = props.courseCode.toUpperCase() || ''
+    this.memoEndPoint = props.memoEndPoint.toUpperCase() || ''
     this.memoLangAbbr = props.memoLangAbbr || 'sv'
   }
 
@@ -46,7 +43,7 @@ class RouterStore {
       equipment: equipment || this.koppsFreshData.equipmentTemplate || '',
       scheduleDetails:
         scheduleDetails ||
-        combineScheduleValues(this.koppsFreshData.schemaUrl, this.memoLangAbbr) ||
+        combineScheduleValues(this.koppsFreshData.schemaUrls, this.memoLangAbbr) ||
         '',
       literature: literature || this.koppsFreshData.literatureTemplate || '',
       possibilityToCompletion:

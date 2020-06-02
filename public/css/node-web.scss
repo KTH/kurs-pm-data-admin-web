@@ -17,15 +17,22 @@ $red: #e01f28;
   padding-bottom: 1em;
 }
 
+%long-text-font-style {
+  font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
+  word-break: break-word;
+}
+
 %column {
   display: flex;
   flex-direction: column;
 }
+
 %row {
   display: flex;
   flex-direction: row;
   align-items: baseline;
 }
+
 %react-icon-basic {
   min-width: 1em;
   min-height: 1em;
@@ -34,12 +41,26 @@ $red: #e01f28;
 #app {
   width: 100%;
 }
+.preview-content-center {
+  p,
+  ul {
+    @extend %long-text-font-style;
+  }
+}
+
+.section-info + span {
+  & > p,
+  ul {
+    @extend %long-text-font-style;
+  }
+}
 
 .word-break {
   p {
     word-break: break-word;
   }
 }
+
 div.tox.tox-tinymce {
   margin-bottom: 1rem;
 }
@@ -282,7 +303,6 @@ div.tox.tox-tinymce {
     margin-top: 0;
   }
   .section-info + span > p {
-    font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
     // max-width: 730px;
     margin-top: 1em;
   }
