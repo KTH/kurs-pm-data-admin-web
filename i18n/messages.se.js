@@ -49,7 +49,7 @@ module.exports = {
     fetched: 'Hämtats',
     '(c)': 'från kursgemensam information',
     '(r)': 'från kurstillfällesinformation',
-    '(s)': 'från kursplan (s)',
+    '(s)': 'från kursplan',
     errorEmptyTitle: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: 'Inkluderas alltid',
@@ -97,7 +97,7 @@ module.exports = {
     extraHeaders3: 'Egen rubrik 3',
     extraHeaders4: 'Egen rubrik 4',
     extraHeaders5: 'Egen rubrik 5',
-    gradingCriteria: 'Målrelaterade betygskriterier',
+    gradingCriteria: 'Målrelaterade betygskriterier/bedömningskriterier',
     gradingScale: 'Betygsskala',
     infoForReregisteredStudents: 'Ändringar inför denna kursomgång',
     learningActivities: 'Läraktiviteter',
@@ -136,7 +136,7 @@ module.exports = {
       body: `<p><b>Kommunikation i kursen</b> </p>
 			<p><b>Informationen hjälper studenten</b> att förstå hur den ska kommunicera med lärare och annan relevant personal inför och under kursomgångens genomförande. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer  effektiv för både studenter och lärare på kursen.</p>
 			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Kommunikation i kursen" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
-      help: `<p>Under rubriken "Kommunikation i kursen" beskriver du kortfattat hur kommunikation ska gå till inför och under kursomgångens genomförande. Du kan t.ex. hänvisa till nämnda lärare innan kursens start och till Canvas för kommunikation under kursens gång. Om olika frågor ska kommuniceras på olika sätt kan du övergripande beskriva hur man ska kommunicera om respektive fråga.</p>
+		help: `<p>Under rubriken "Kommunikation i kursen" beskriver du kortfattat hur kommunikation ska gå till inför och under kursomgångens genomförande. Du kan t.ex. hänvisa till nämnda lärare innan kursens start och till Canvas för kommunikation under kursens gång. Om olika frågor ska kommuniceras på olika sätt kan du övergripande beskriva hur man ska kommunicera om respektive fråga.</p>
 			<p>Skriv inte kontaktinformation under denna rubrik. Referera istället till kontaktinformationen under rubrikerna "Kursansvarig", "Lärare", "Lärarassistenter", "Examinator" och "Övriga kontakter".</p>
 			<p>Om det inte finns anledning att informera om kommunikation i kursen för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`
     },
@@ -222,31 +222,31 @@ module.exports = {
 	  <p><b>Innehållet redigeras</b> i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. Examinator ändras av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik.</p>`
     },
     extraHeaders1: {
-      body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Innehåll och lärandemål".</p>
+		body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Innehåll och lärandemål".</p>
 			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange rubrik i fältet "Ange rubrik" och skriv information i inmatningsfältet under och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet.</p>
 			<p>För att ta bort en tillagd rubrik klickar du på knappen "Redigera" och klickar därefter på knappen "Ta bort tillagd rubrik". Bekräfta att du vill ta bort rubrik och radera innehållet.</p>`,
-      help: `<p>Skriv information som är relaterat till "Innehåll och lärandemål", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Nyckelbegrepp", "Koppling till examensmål" eller "Kursens pedagogiska upplägg". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
+		help: `<p>Skriv information som är relaterat till "Innehåll och lärandemål", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Nyckelbegrepp", "Koppling till examensmål" eller "Kursens pedagogiska upplägg". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
 			<p>Om du inte längre vill visa en egen tillagd rubrik kan du antingen dölja rubriken med innehåll genom att klicka ur "Inkludera rubrik" eller ta bort rubrik med innehåll permanent genom att klicka på knappen "Ta bort tillagd rubrik" och bekräfta.</p>`
     },
     extraHeaders2: {
-      body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Förbereda inför kursstart".</p>
+		body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Förbereda inför kursstart".</p>
 			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange rubrik i fältet "Ange rubrik" och skriv information i inmatningsfältet under och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet.</p>
 			<p>För att ta bort en tillagd rubrik klickar du på knappen "Redigera" och klickar därefter på knappen "Ta bort tillagd rubrik". Bekräfta att du vill ta bort rubrik och radera innehållet.</p>`,
-      help: `<p>Skriv information som är relaterat till "Förbereda inför kursstart", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Särskild behörighet", "Kursregistrering" eller "Lärplattform". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
+		help: `<p>Skriv information som är relaterat till "Förbereda inför kursstart", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Särskild behörighet", "Kursregistrering" eller "Lärplattform". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
 			<p>Om du inte längre vill visa en egen tillagd rubrik kan du antingen dölja rubriken med innehåll genom att klicka ur "Inkludera rubrik" eller ta bort rubrik med innehåll permanent genom att klicka på knappen "Ta bort tillagd rubrik" och bekräfta.</p>`
     },
     extraHeaders3: {
-      body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Examination och slutförande".</p>
+		body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Examination och slutförande".</p>
 			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange rubrik i fältet "Ange rubrik" och skriv information i inmatningsfältet under och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet.</p>
 			<p>För att ta bort en tillagd rubrik klickar du på knappen "Redigera" och klickar därefter på knappen "Ta bort tillagd rubrik". Bekräfta att du vill ta bort rubrik och radera innehållet.</p>`,
-      help: `<p>Skriv information som är relaterat till "Examination och slutförande", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Överklagan" eller "Länk till gamla KS och gamla tentor". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
+		help: `<p>Skriv information som är relaterat till "Examination och slutförande", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Överklagan" eller "Länk till gamla KS och gamla tentor". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
 			<p>Om du inte längre vill visa en egen tillagd rubrik kan du antingen dölja rubriken med innehåll genom att klicka ur "Inkludera rubrik" eller ta bort rubrik med innehåll permanent genom att klicka på knappen "Ta bort tillagd rubrik" och bekräfta.</p>`
     },
     extraHeaders4: {
-      body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Ytterligare information".</p>
+		body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Ytterligare information".</p>
 			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange rubrik i fältet "Ange rubrik" och skriv information i inmatningsfältet under och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet.</p>
 			<p>För att ta bort en tillagd rubrik klickar du på knappen "Redigera" och klickar därefter på knappen "Ta bort tillagd rubrik". Bekräfta att du vill ta bort rubrik och radera innehållet.</p>`,
-      help: `<p>Skriv information som är relaterat till "Ytterligare information", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Om kursen ändras eller avvecklas", "Kursvärdering och kursanalys" eller "Kartor till undervisningssalar". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
+		help: `<p>Skriv information som är relaterat till "Ytterligare information", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Om kursen ändras eller avvecklas", "Kursvärdering och kursanalys" eller "Kartor till undervisningssalar". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
 			<p>Om du inte längre vill visa en egen tillagd rubrik kan du antingen dölja rubriken med innehåll genom att klicka ur "Inkludera rubrik" eller ta bort rubrik med innehåll permanent genom att klicka på knappen "Ta bort tillagd rubrik" och bekräfta.</p>`
     },
     extraHeaders5: {
@@ -322,10 +322,10 @@ module.exports = {
       Rubriken kurslitteratur är obligatorisk i kurs-PM och kommer alltid visas i kurs-PM oavsett om det finns relevant kurslitteratur eller inte på kursomgången.</p>`
     },
     otherContacts: {
-      body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med inför, under eller efter kursomgången och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare etc.</p>
+		body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med inför, under eller efter kursomgången och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare etc.</p>
 			<p><b>Informationen hjälper studenten</b> att förstå vem och hur den ska kontakta angående frågor eller synpunkter som inte ska adresseras rollerna examinator, kursansvarig, lärare eller lärarassistenter.</p>
 			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Övriga kontakter" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
-      help: `<p>Under rubriken "Övriga kontakter" beskriver du vilka personer eller funktioner som kan vara relevanta att kontakta under kursomgången. Ange namn, mailadress och/eller telefonnummer. Beskriv kortfattat vilka frågor eller synpunkter de kan kontaktas om.</p>
+		help: `<p>Under rubriken "Övriga kontakter" beskriver du vilka personer eller funktioner som kan vara relevanta att kontakta under kursomgången. Ange namn, mailadress och/eller telefonnummer. Beskriv kortfattat vilka frågor eller synpunkter de kan kontaktas om.</p>
 			<p>Kontakter som redan är beskrivna under rubriker "Examinator", "Kursansvarig", "Lärare" och "Lärarassistenter" ska inte återupprepas under denna rubrik.</p>
 			<p>Om övriga kontakter inte är relevanta för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`
     },
@@ -499,7 +499,8 @@ module.exports = {
     },
     {
       title: 'Redigera kurs-PM',
-      intro: ''
+      intro: '',
+	  info: `I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.`
     },
     {
       title: 'Granska och publicera',
@@ -516,7 +517,8 @@ module.exports = {
     },
     {
       title: 'Redigera kurs-PM',
-      intro: ''
+      intro: '',
+	  info: `I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.`
     },
     {
       title: 'Granska och publicera',
@@ -690,6 +692,7 @@ module.exports = {
     btnSaveAndFinish: 'Avsluta med utkast',
     closeEditor: 'Stäng redigeringsläge',
     preview: 'Granska',
+    previewPdf: 'Granska PDF',
     edit: 'Redigera',
     cancel: 'Avbryt',
     save: 'Spara',
@@ -713,23 +716,19 @@ module.exports = {
       title: 'Rubriker',
       intro: `<p>Alla fasta och valbara rubriker i detta kurs-PM visas nedan. Rubrikerna är grupperade i fem sektioner; "Innehåll och lärandemål", "Förbereda inför kursstart", "Examination och slutförande", "Ytterligare information" and "Kontakter".</p>
 		<p>Expandera sektionen för att se vilka rubriker som ingår i den. Varje rubrik är en länk som snabbt tar dig till rubriken och dess innehåll. Använd länkarna för att snabbt navigera i detta kurs-PM.</p>
-		<p>Ett överstruket öga till höger om rubriken innebär att rubriken och dess innehåll inte kommer att inkluderas i det publicerade kurs-PM:et.</p>`
-    },
+		<p>Ett överstruket öga till höger om rubriken innebär att rubriken och dess innehåll inte kommer att inkluderas i det publicerade kurs-PM:et.</p>`},
     commentChanges: 'Ange alla ändringar i denna version:',
     mandatory: 'Obligatorisk'
   },
   alerts: {
     autoSaved: 'Sparat utkast',
     autoSavedTemporary: 'Ändringar sparade temporärt inför publicering.',
-    errKoppsRounds:
-      'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
+    errKoppsRounds: 'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
-    errWhileDeleting:
-      'Det gick inte att ta bort utkasten på grund av systemfel. Försök igen eller kontakta IT-support.',
-    errWhileSaving:
-      'Det gick inte att spara utkast på grund av systemfel. Försök igen eller kontakta IT-support.',
+    errWhileDeleting: 'Det gick inte att ta bort utkasten på grund av systemfel. Försök igen eller kontakta IT-support.',
+    errWhileSaving: 'Det gick inte att spara utkast på grund av systemfel. Försök igen eller kontakta IT-support.',
     infoAboutFreshData: 'Kursplans-information och kontaktinformation har uppdaterats automatiskt.',
     // Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
@@ -737,7 +736,8 @@ module.exports = {
     linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',
     warnFillInCommentAboutChanges:
       'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
-    warnNameNewSection: 'Du behöver ange ett namn på den tillagda rubriken (se markering i rött)',
+    warnNameNewSection:
+      'Du behöver ange ett namn på den tillagda rubriken (se markering i rött)',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersätta befintligt kurs-PM (se "Välj kursomgång" nedan)'
   },
@@ -804,30 +804,29 @@ module.exports = {
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik'
   },
   courseImage: {
-    Arkitektur: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
-    Bioteknik: 'Picture_by_MainFieldOfStudy_02_Biotechnology.jpg',
+    'Arkitektur': 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
+    'Bioteknik': 'Picture_by_MainFieldOfStudy_02_Biotechnology.jpg',
     'Datalogi och datateknik': 'Picture_by_MainFieldOfStudy_03_Computer_Science.jpg',
-    Elektroteknik: 'Picture_by_MainFieldOfStudy_04_Electrical_Engineering.jpg',
-    Fysik: 'Picture_by_MainFieldOfStudy_05_Physics.jpg',
+    'Elektroteknik': 'Picture_by_MainFieldOfStudy_04_Electrical_Engineering.jpg',
+    'Fysik': 'Picture_by_MainFieldOfStudy_05_Physics.jpg',
     'Industriell ekonomi': 'Picture_by_MainFieldOfStudy_06_Industrial_Management.jpg',
-    Informationsteknik: 'Picture_by_MainFieldOfStudy_07_Information_Technology.jpg',
-    'Informations- och kommunikationsteknik':
-      'Picture_by_MainFieldOfStudy_08_Information_Communication.jpg',
-    Kemiteknik: 'Picture_by_MainFieldOfStudy_09_Chemical_Science.jpg',
+    'Informationsteknik': 'Picture_by_MainFieldOfStudy_07_Information_Technology.jpg',
+    'Informations- och kommunikationsteknik': 'Picture_by_MainFieldOfStudy_08_Information_Communication.jpg',
+    'Kemiteknik': 'Picture_by_MainFieldOfStudy_09_Chemical_Science.jpg',
     'Kemi och kemiteknik': 'Picture_by_MainFieldOfStudy_10_Chemistry_Chemical.jpg',
-    Matematik: 'Picture_by_MainFieldOfStudy_11_Mathematics.jpg',
-    Miljöteknik: 'Picture_by_MainFieldOfStudy_12_Environmental_Engineering.jpg',
+    'Matematik': 'Picture_by_MainFieldOfStudy_11_Mathematics.jpg',
+    'Miljöteknik': 'Picture_by_MainFieldOfStudy_12_Environmental_Engineering.jpg',
     'Molekylära livsvetenskaper': 'Picture_by_MainFieldOfStudy_13_Molecular_Life_Science.jpg',
-    Maskinteknik: 'Picture_by_MainFieldOfStudy_14_Mechanical_Engineering.jpg',
-    Materialvetenskap: 'Picture_by_MainFieldOfStudy_15_Materials_Science.jpg',
+    'Maskinteknik': 'Picture_by_MainFieldOfStudy_14_Mechanical_Engineering.jpg',
+    'Materialvetenskap': 'Picture_by_MainFieldOfStudy_15_Materials_Science.jpg',
     'Medicinsk teknik': 'Picture_by_MainFieldOfStudy_16_Medical_Engineering.jpg',
-    Materialteknik: 'Picture_by_MainFieldOfStudy_17_Materials_Engineering.jpg',
-    Samhällsbyggnad: 'Picture_by_MainFieldOfStudy_18_Built_Environment.jpg',
+    'Materialteknik': 'Picture_by_MainFieldOfStudy_17_Materials_Engineering.jpg',
+    'Samhällsbyggnad': 'Picture_by_MainFieldOfStudy_18_Built_Environment.jpg',
     'Teknisk fysik': 'Picture_by_MainFieldOfStudy_19_Engineering_Physics.jpg',
     'Teknik och ekonomi': 'Picture_by_MainFieldOfStudy_20_Technology_Economics.jpg',
     'Teknik och hälsa': 'Picture_by_MainFieldOfStudy_21_Technology_Health.jpg',
     'Teknik och management': 'Picture_by_MainFieldOfStudy_22_Technology_Management.jpg',
-    Teknik: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
+    'Teknik': 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
     'Teknik och lärande': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
     default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
   }
