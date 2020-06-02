@@ -17,15 +17,22 @@ $red: #e01f28;
   padding-bottom: 1em;
 }
 
+%long-text-font-style {
+  font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
+  word-break: break-word;
+}
+
 %column {
   display: flex;
   flex-direction: column;
 }
+
 %row {
   display: flex;
   flex-direction: row;
   align-items: baseline;
 }
+
 %react-icon-basic {
   min-width: 1em;
   min-height: 1em;
@@ -37,16 +44,14 @@ $red: #e01f28;
 .preview-content-center {
   p,
   ul {
-    font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
-    word-break: break-word;
+    @extend %long-text-font-style;
   }
 }
 
 .section-info + span {
   & > p,
   ul {
-    font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
-    word-break: break-word;
+    @extend %long-text-font-style;
   }
 }
 
