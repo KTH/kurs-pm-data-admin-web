@@ -7,6 +7,7 @@ import { Collapse, ActionModalButton } from '@kth/kth-kip-style-react-components
 import { ExtraHeaderHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
+import editorConf from '../util/editorInitConf'
 
 @inject(['routerStore'])
 @observer
@@ -167,24 +168,7 @@ class NewSectionEditor extends Component {
             <Editor
               id={`editorFor${contentId}-${uKey}`}
               initialValue={htmlContent}
-              init={{
-                // min_height: 100,
-                menubar: false,
-                toolbar_mode: 'wrap',
-                toolbar_sticky: true,
-                plugins: [
-                  'advlist autolink autoresize lists link image imagetools charmap preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'table paste code help wordcount'
-                ],
-                language: i18n.isSwedish() ? 'sv_SE' : null,
-                toolbar1: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-                  searchreplace | link | fullscreen `,
-                toolbar2: `table | image |     
-                  bullist numlist outdent indent | removeformat | help`,
-                imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-                block_formats: 'Body text=p; Heading=h4'
-              }}
+              init={editorConf(i18n.isSwedish() ? 'sv_SE' : null)}
               onEditorChange={this.updateMemoContent}
               onBlur={this.onSaveByThisContentId}
             />

@@ -7,6 +7,7 @@ import { Collapse } from '@kth/kth-kip-style-react-components'
 import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import { context } from '../util/fieldsByType'
+import editorConf from '../util/editorInitConf'
 
 @inject(['routerStore'])
 @observer
@@ -93,27 +94,7 @@ class StandardEditorPerTitle extends Component {
             <Editor
               id={'editorFor' + contentId}
               initialValue={htmlContent}
-              init={{
-                // min_height: 100,
-                menubar: false,
-                toolbar_sticky: true,
-                toolbar_mode: 'wrap',
-                plugins: [
-                  'advlist autolink autoresize lists link image imagetools charmap preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'table paste code help wordcount'
-                ],
-                language: i18n.isSwedish() ? 'sv_SE' : null,
-                toolbar1: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
-                  searchreplace | link | fullscreen `,
-                toolbar2: `table | image |     
-                  bullist numlist outdent indent | removeformat | help`,
-                imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-                // autosave_interval: '60s',
-                // // autosave_restore_when_empty: true,
-                // autosave_retention: '1m',
-                block_formats: 'Body text=p; Heading=h4'
-              }}
+              init={editorConf(i18n.isSwedish() ? 'sv_SE' : null)}
               onEditorChange={this.updateMemoContent}
               onBlur={this.onBlur}
             />
