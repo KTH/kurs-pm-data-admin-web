@@ -8,6 +8,7 @@ $borderGrey: #d4d4d4;
 $kth-blue: #007fae;
 $blue-link: #006cb7;
 $red: #e01f28;
+$white: #fff;
 
 %bordered-area {
   border: 1px solid $borderGrey;
@@ -20,6 +21,10 @@ $red: #e01f28;
 %long-text-font-style {
   font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
   word-break: break-word;
+}
+
+%short-text-font-style {
+  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
 }
 
 %column {
@@ -41,17 +46,13 @@ $red: #e01f28;
 #app {
   width: 100%;
 }
-.preview-content-center {
+.section-info,
+.sticky-overview,
+.preview-side-menu,
+.preview-content-right {
   p,
   ul {
-    @extend %long-text-font-style;
-  }
-}
-
-.section-info + span {
-  & > p,
-  ul {
-    @extend %long-text-font-style;
+    @extend %short-text-font-style;
   }
 }
 
@@ -60,11 +61,6 @@ $red: #e01f28;
     word-break: break-word;
   }
 }
-
-div.tox.tox-tinymce {
-  margin-bottom: 1rem;
-}
-
 .card.collapsible.white {
   margin-bottom: 20px; //0.2em;
   .card-body {
@@ -277,6 +273,7 @@ div.tox.tox-tinymce {
 .memo-content {
   border-top: 1px solid $borderGrey;
   padding-bottom: 12em;
+
   & + .separator {
     border-right: 1px solid $borderGrey;
     border-top: 1px solid $borderGrey;
@@ -449,11 +446,6 @@ div.container.First--Step--Choose--Parameters {
 .change-view {
   border-right: 2px solid $borderGrey;
 }
-// hr.header-content-separation {
-//   border: 1px solid $borderGrey;
-//   margin-top: 0;
-//   padding: 0;
-// }
 
 /* Breadcrumbs in preview */
 
@@ -587,5 +579,104 @@ h2.preview-info {
 sup {
   .syllabus-marker-icon {
     margin-left: 0.3rem;
+  }
+}
+
+//tiny mce editor
+
+.memo-content {
+  .tox.tox-tinymce.tox-tinymce--toolbar-sticky-on {
+    padding-top: 41px;
+    .tox-editor-header {
+      margin-top: 41px;
+    }
+  }
+}
+
+div.tox.tox-tinymce {
+  margin-bottom: 1rem;
+}
+
+//===STYLES FOR EDITOR AND PLAIN TEXT, SHOULD NOT HAVE PARENT CLASSES, BUT BE GLOBAL===
+p,
+ul {
+  @extend %long-text-font-style;
+}
+table {
+  width: 100%;
+
+  thead {
+    tr {
+      th {
+        color: $white;
+        background-color: $grey;
+        font-weight: 500;
+        border-right: 1px solid $white;
+        border-bottom: 1px solid $white;
+        text-align: center;
+        padding: 0.5em 0;
+        h4 {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      th {
+        color: $white;
+        background-color: $grey;
+        font-weight: 500;
+        border-right: 1px solid $white;
+
+        &[scope='row'] {
+          vertical-align: middle;
+          border-top: 1px solid $white;
+          border-right: 0;
+        }
+      }
+
+      &:first-child {
+        th {
+          border-top: 1px solid $white;
+        }
+      }
+
+      td {
+        padding: 0.5em 0;
+        background-color: $lightGrey;
+        border-top: 1px solid $white;
+        p {
+          font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+        }
+      }
+    }
+  }
+
+  th {
+    border-top: 0;
+  }
+}
+
+// Overriding Bootstrap table design
+
+table {
+  thead {
+    th {
+      border-bottom: 1px solid $white;
+      border-top: 0;
+
+      &:first-of-type {
+        border-top: 0;
+      }
+    }
+  }
+
+  tr {
+    td {
+      background-color: $lightGrey;
+      border-top: 1px solid $white;
+    }
   }
 }

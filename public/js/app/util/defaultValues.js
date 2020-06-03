@@ -18,7 +18,7 @@ const _scheduleDetailsTemplate = language => {
     ${'<td style="width: 33.3333%;">&nbsp;</td>'.repeat(3)}
     </tr>`
 
-  const scheduleTable = `<table style="border-collapse: collapse; width: 100%;" border="1">
+  const scheduleTable = `<table style="border: 0;">
     <thead><tr>
     ${header}
     </tr></thead>
@@ -36,10 +36,11 @@ const _scheduleLinks = (url, language) => {
   if (!url) return ''
   const urls = Array.isArray(url) ? url : [url]
   const uniqueUrls = urls.filter((value, index, self) => self.indexOf(value) === index)
+  const uniqueRounds = uniqueUrls.map(urlStr => urlStr.split('/')[7].toUpperCase())
   return uniqueUrls
-    .map(uniqueUrl =>
+    .map((uniqueUrl, index) =>
       uniqueUrl
-        ? `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName}</a>`
+        ? `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName} ${uniqueRounds[index]}</a>`
         : ''
     )
     .join('')
