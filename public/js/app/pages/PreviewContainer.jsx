@@ -77,7 +77,7 @@ const renderAllSections = ({ memoData }) => {
         visibleInMemo = true
       }
 
-      if (isRequired && type === 'mandatory' && !contentHtml) {
+      if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
         contentHtml = EMPTY[memoLanguageIndex]
       } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
         visibleInMemo = false
@@ -127,7 +127,11 @@ const renderAllSections = ({ memoData }) => {
               visibleInMemo = true
             }
 
-            if (isRequired && type === 'mandatory' && !contentHtml) {
+            if (
+              isRequired &&
+              (type === 'mandatory' || type === 'mandatoryAndEditable') &&
+              !contentHtml
+            ) {
               contentHtml = EMPTY[memoLanguageIndex]
             } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
               visibleInMemo = false
