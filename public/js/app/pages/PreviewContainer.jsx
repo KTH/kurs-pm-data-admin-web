@@ -106,7 +106,7 @@ const renderAllSections = ({ memoData }) => {
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
-          {EMPTY[memoLanguageIndex]}
+          <p>{EMPTY[memoLanguageIndex]}</p>
         </span>
       )
     }
