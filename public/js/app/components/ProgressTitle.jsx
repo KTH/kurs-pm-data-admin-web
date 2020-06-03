@@ -21,7 +21,7 @@ const ProgressTitle = ({ id, text }) => (
       modalId={id + '-infoModal'}
       modalLabels={{
         header: text.title,
-        body: text.intro,
+        body: text.intro || text.info,
         btnClose: 'Close'
       }}
     />
