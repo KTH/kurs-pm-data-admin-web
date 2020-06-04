@@ -209,7 +209,7 @@ class PreviewContainer extends Component {
           { courseCode, memoEndPoint }
         )
         .then(() => {
-          window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&term${semester}&name=${encodeURIComponent(
+          window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&term=${semester}&name=${encodeURIComponent(
             memoName
           )}`
         })

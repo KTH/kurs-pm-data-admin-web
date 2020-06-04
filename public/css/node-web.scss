@@ -576,6 +576,36 @@ h2.preview-info {
   width: 0.7rem;
 }
 
+.with-subheader {
+  margin-bottom: 0;
+}
+
+.subheader {
+  margin-bottom: 10px;
+}
+
+p.sub-section-header {
+  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.5;
+  padding-top: 0.8rem;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  p.sub-section-header {
+    font-size: 1rem;
+  }
+}
+
+.syllabus-marker-icon-small {
+  height: 0.5rem;
+  margin-right: 0.3rem;
+  width: 0.5rem;
+}
+
 sup {
   .syllabus-marker-icon {
     margin-left: 0.3rem;
