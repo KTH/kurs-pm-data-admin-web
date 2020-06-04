@@ -23,6 +23,7 @@
   "dependencies": {
     "@kth/kth-kip-style-react-components": "0.0.18",
     "@tinymce/tinymce-react": "^3.3.2",
+    "applicationinsights": "^1.7.6",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.1.3",
