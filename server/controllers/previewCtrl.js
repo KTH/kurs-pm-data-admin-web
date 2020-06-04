@@ -121,6 +121,7 @@ async function renderMemoPreviewPage(req, res, next) {
         title: i18n.messages[langIndex === 0 ? 1 : 0].messages.locale_text,
         toLang: `?l=${userLang === 'sv' ? 'en' : 'sv'}`
       },
+      instrumentationKey: server.appInsights.instrumentationKey,
       description:
         userLang === 'sv'
           ? '[NY] Kursinformation – Förhandsgranskning av kurs-PM'

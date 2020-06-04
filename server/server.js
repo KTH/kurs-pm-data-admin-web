@@ -11,6 +11,19 @@ server.locals.secret = new Map()
 module.exports = server
 module.exports.getPaths = () => getPaths()
 
+if (config.appInsights && config.appInsights.instrumentationKey) {
+  const appInsights = require('applicationinsights')
+  appInsights
+    .setup(config.appInsights.instrumentationKey)
+    .setAutoDependencyCorrelation(true)
+    .setAutoCollectRequests(true)
+    .setAutoCollectPerformance(true)
+    .setAutoCollectExceptions(true)
+    .setAutoCollectDependencies(true)
+    .setAutoCollectConsole(true)
+    .start()
+}
+
 /* ***********************
  * ******* LOGGING *******
  * ***********************
