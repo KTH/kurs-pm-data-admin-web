@@ -26,7 +26,7 @@ const editorConf = language => {
     toolbar2: `image |     
         bullist numlist outdent indent | table | removeformat | help`,
     imagetools_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
-    block_formats: 'Body text=p; Heading=h4'
+    block_formats: 'Body text=p;Heading=h4'
   }
 }
 
