@@ -198,7 +198,7 @@ class PreviewContainer extends Component {
   }
 
   publish = () => {
-    const { memoEndPoint, courseCode } = this.state.previewMemo
+    const { memoEndPoint, courseCode, semester, memoName } = this.state.previewMemo
     return (
       axios
         .post(
@@ -209,7 +209,9 @@ class PreviewContainer extends Component {
           { courseCode, memoEndPoint }
         )
         .then(() => {
-          window.location = `${ADMIN_URL}${courseCode}`
+          window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&term${semester}&name=${encodeURIComponent(
+            memoName
+          )}`
         })
         // eslint-disable-next-line no-console
         .catch(error => console.log(error))
