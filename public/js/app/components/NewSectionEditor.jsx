@@ -91,19 +91,39 @@ class NewSectionEditor extends Component {
     const { contentId, uKey } = this.props
     const { currentIndex, isOpen } = this.state
     const { memoData } = this.props.routerStore
-    if (
-      Object.prototype.hasOwnProperty.call(memoData[contentId][currentIndex], 'title') &&
-      memoData[contentId][currentIndex].title.trim().length === 0
-    ) {
-      this.setState({ hasEmptyTitle: true })
-      this.props.onAlert('warnNameNewSection', 'danger')
-      return false
-    }
-    if (!isOpen) this.props.routerStore.dirtyEditor = uKey
-    this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+    if (isOpen) {
+      if (
+        memoData[contentId][currentIndex].title.trim().length === 0 &&
+        memoData[contentId][currentIndex].htmlContent.trim().length === 0
+      ) {
+        this.onRemoveNewSection()
+        return false
+      }
+      this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+    } else this.props.routerStore.dirtyEditor = uKey
+
+    // if (!isOpen) this.props.routerStore.dirtyEditor = uKey
     this.setState({ isOpen: !isOpen, hasEmptyTitle: false })
     return true
   }
+
+  // onToggleVisibleEditor = () => {
+  //   const { contentId, uKey } = this.props
+  //   const { currentIndex, isOpen } = this.state
+  //   const { memoData } = this.props.routerStore
+  //   if (
+  //     Object.prototype.hasOwnProperty.call(memoData[contentId][currentIndex], 'title') &&
+  //     memoData[contentId][currentIndex].title.trim().length === 0
+  //   ) {
+  //     this.setState({ hasEmptyTitle: true })
+  //     this.props.onAlert('warnNameNewSection', 'danger')
+  //     return false
+  //   }
+  //   if (!isOpen) this.props.routerStore.dirtyEditor = uKey
+  //   this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+  //   this.setState({ isOpen: !isOpen, hasEmptyTitle: false })
+  //   return true
+  // }
 
   render() {
     const { uKey, contentId, menuId } = this.props
