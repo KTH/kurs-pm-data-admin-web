@@ -20,7 +20,7 @@ The course information project (KIP) is an initiative at KTH that was launched i
 
 ## Overview
 
-TBD
+Course memos servise can be used by teachers, course responsibles and examiners to create a more detailed overview of a course. To simplify work, default values and course syllabus information are provided in memo. User can create a new course memo, save it as a draft and publish it as well as user can edit already published course memos to keep students updated with last changes in course memo.
 
 ## API
 
