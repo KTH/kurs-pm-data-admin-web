@@ -1,5 +1,3 @@
-# kurs-pm-data-admin-web
-
 # Welcome to kurs-pm-data-admin-web 👋
 
 ## Course Information – Administration of course memos
