@@ -508,7 +508,8 @@ module.exports = {
     {
       title: 'Edit course memo',
       intro: '',
-      info: `Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.`
+      info:
+        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.'
     },
     {
       title: 'Review and publish',
@@ -525,7 +526,8 @@ module.exports = {
     {
       title: 'Edit course memo',
       intro: '',
-      info: `Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.`
+      info:
+        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.'
     },
     {
       title: 'Review and publish',
@@ -685,6 +687,13 @@ module.exports = {
         label: 'Select a course memo you want to edit: ',
         infoText: 'Course memos which are published'
       }
+    },
+    createFrom: {
+      labelBasedOn: 'Start from',
+      labelAllPrevMemos: 'Choose course memo to copy:',
+      infoTextForMemos: 'Listed course memos are published for previous course offerings',
+      basedOnStandard: 'Empty KTH course memo template',
+      basedOnAnotherMemo: 'Copy of a course memo from a previous course offering'
     },
     publishedHasDraft: ' (has unpublished changes)',
     errKoppsRounds:

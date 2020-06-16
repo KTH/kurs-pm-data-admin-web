@@ -500,7 +500,8 @@ module.exports = {
     {
       title: 'Redigera kurs-PM',
       intro: '',
-      info: `I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.`
+      info:
+        'I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.'
     },
     {
       title: 'Granska och publicera',
@@ -518,7 +519,8 @@ module.exports = {
     {
       title: 'Redigera kurs-PM',
       intro: '',
-      info: `I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.`
+      info:
+        'I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.'
     },
     {
       title: 'Granska och publicera',
@@ -671,6 +673,13 @@ module.exports = {
         label: 'Välj det kurs-PM du vill redigera: ',
         infoText: 'Kurs-PM listade är publicerade'
       }
+    },
+    createFrom: {
+      labelBasedOn: 'Utgå från:',
+      labelAllPrevMemos: 'Välj kurs-PM att kopiera:',
+      infoTextForMemos: 'Kurs-PM listade är publicerade tidigare kursomgångar',
+      basedOnStandard: 'Tom KTH-mall för kurs-PM',
+      basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kurs-PM'
     },
     publishedHasDraft: ' (finns opublicerade ändringar)',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
