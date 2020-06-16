@@ -218,13 +218,7 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const {
-  ChangePublished,
-  ChoiceOptions,
-  System,
-  MemoContent,
-  PreviewContent
-} = require('./controllers')
+const { ChooseMemoStartPoint, System, MemoContent, PreviewContent } = require('./controllers')
 const { requireRole } = require('./authentication')
 
 // System routes
@@ -249,7 +243,7 @@ appRoute.post(
   'memo.api.createDraftByMemoEndPoint',
   config.proxyPrefixPath.uri + '/internal-api/create-draft/:courseCode/:memoEndPoint', // updated
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
-  ChoiceOptions.createDraftByMemoEndPoint
+  ChooseMemoStartPoint.createDraftByMemoEndPoint
 )
 
 appRoute.post(
@@ -265,20 +259,20 @@ appRoute.get(
   config.proxyPrefixPath.uri + '/internal-api/used-rounds/:courseCode/:semester',
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
-  ChoiceOptions.getUsedRounds
+  ChooseMemoStartPoint.getUsedRounds
 )
 
 // appRoute.get(
 //   'memo.api.getUsedDrafts',
 //   config.proxyPrefixPath.uri + '/internal-api/existing-drafts/:courseCode',
-//   ChoiceOptions.getUsedDrafts
+//   ChooseMemoStartPoint.getUsedDrafts
 // )
 
 appRoute.delete(
   'memo.api.removeMemoDraft',
   config.proxyPrefixPath.uri + '/internal-api/draft-to-remove/:courseCode/:memoEndPoint',
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
-  ChoiceOptions.removeMemoDraft
+  ChooseMemoStartPoint.removeMemoDraft
 )
 
 appRoute.get(
@@ -286,7 +280,7 @@ appRoute.get(
   config.proxyPrefixPath.uri + '/published/:courseCode', // /:courseCode/:semester/:memoEndPoint*
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
-  ChangePublished.getChangePublishedStartPage
+  ChooseMemoStartPoint.getCourseOptionsPage
 )
 
 appRoute.get(
@@ -310,7 +304,7 @@ appRoute.get(
   config.proxyPrefixPath.uri + '/:courseCode/',
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
-  ChoiceOptions.getCourseOptionsPage
+  ChooseMemoStartPoint.getCourseOptionsPage
 )
 
 appRoute.get(
