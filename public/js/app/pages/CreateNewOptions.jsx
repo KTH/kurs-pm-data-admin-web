@@ -4,7 +4,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
-import { combineMemoName, seasonStr } from '../util/helpers'
+import { combineMemoName, emptyCheckboxesByIds, seasonStr, uncheckRadioById } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import SectionTitleAndInfoModal from '../components/SectionTitleAndInfoModal'
@@ -14,11 +14,11 @@ import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 
 @inject(['routerStore'])
 @observer
-class ChoiceOptions extends Component {
+class CreateNewOptions extends Component {
   state = {
     semester: this.props.routerStore.semester,
     chosen: {
-      action: this.props.routerStore.memoEndPoint ? 'copy' : 'create',
+      action: this.props.routerStore.memoEndPoint ? 'continue' : 'create',
       memoEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
       sortedRoundIds: this.props.routerStore.rounds || [],
@@ -100,24 +100,6 @@ class ChoiceOptions extends Component {
       })
   }
 
-  _uncheckRadio = () => {
-    // move to helper
-    const { memoEndPoint } = this.state.chosen
-    const memoElem = document.getElementById(memoEndPoint)
-    this.props.history.push({ search: '' })
-    if (memoEndPoint && memoElem && memoElem.checked)
-      document.getElementById(memoEndPoint).checked = false
-  }
-
-  _uncheckCheckboxes = () => {
-    // move to helper
-    const { sortedRoundIds } = this.state.chosen
-    sortedRoundIds.map(ladokRoundId => {
-      const checkboxId = 'new' + ladokRoundId
-      document.getElementById(checkboxId).checked = false
-    })
-  }
-
   _addRoundAndInfo = chosenRoundObj => {
     // move to helper
     // const { firstTuitionDate, ladokRoundId, language, shortName } = chosenRoundObj
@@ -157,13 +139,15 @@ class ChoiceOptions extends Component {
   onSemesterChoice = event => {
     const semester = event.target.value
     this.setState({ semester })
+    this._cleanUpCheckboxesState()
     this.showAvailableSemesterRounds(semester)
   }
 
   onCheckboxChange = (event, chosenRoundObj) => {
     const { checked, value } = event.target
     const { semester } = this.state
-    this._uncheckRadio()
+    const { memoEndPoint } = this.state.chosen
+    if (memoEndPoint) uncheckRadioById(memoEndPoint)
     const { sortedRoundIds, sortedKoppsInfo } = checked
       ? this._addRoundAndInfo(chosenRoundObj)
       : this._removeRoundAndInfo(value)
@@ -187,19 +171,35 @@ class ChoiceOptions extends Component {
     })
   }
 
-  onRadioChange = event => {
-    const { value } = event.target
-    this.setState({ alert: { isOpen: false } })
-    this._uncheckCheckboxes()
+  _cleanUpCheckboxesState = (memoEndPoint = '') => {
+    const { sortedRoundIds } = this.state.chosen
+    emptyCheckboxesByIds(sortedRoundIds, 'new')
     this.setState({
       chosen: {
-        action: 'copy',
-        memoEndPoint: value,
+        action: memoEndPoint ? 'continue' : '', // /'copy'
+        memoEndPoint,
         newMemoName: '',
         sortedRoundIds: [],
         sortedKoppsInfo: []
       }
     })
+  }
+
+  onRadioChange = event => {
+    const { value } = event.target
+    this.setState({ alert: { isOpen: false } })
+    this._cleanUpCheckboxesState(value)
+  }
+
+  onCopyOrCreateEmptyChoice = event => {
+    const { value } = event.target
+    this.setState(prevState => ({
+      ...prevState,
+      chosen: {
+        ...prevState.chosen,
+        action: value === 'basedOnAnotherMemo' ? 'copy' : 'create' // /'copy'
+      }
+    }))
   }
 
   onRemoveDraft = () => {
@@ -211,7 +211,6 @@ class ChoiceOptions extends Component {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
-        this.props.history.push({ search: '' })
         window.location.reload()
       })
       .catch(err => {
@@ -225,8 +224,6 @@ class ChoiceOptions extends Component {
   onSubmitNew = () => {
     const { courseCode } = this
     const { semester, chosen } = this.state
-    console.log('on submit chosen ', this.state)
-    console.log('body', chosen.languageOfInstructions)
     if (chosen.sortedRoundIds.length > 0 || chosen.memoEndPoint) {
       const body =
         chosen.action === 'create'
@@ -349,9 +346,17 @@ class ChoiceOptions extends Component {
                   </p>
                 )}
               </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h3>{info.createNew}</h3>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               {/* CHOOSE TO CREATE A NEW EMPTY DRAFT OR A NEW ONE COPIED FROM PREVIOUS MEMO */}
               <div>
-                <h3>{info.createNew}</h3>
                 <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
                 {(allSemesters && allSemesters.length > 0 && (
                   <Form style={{ width: '20em' }}>
@@ -438,6 +443,32 @@ class ChoiceOptions extends Component {
                 )}
               </div>
             </Col>
+            {chosen.sortedRoundIds.length > 0 && chosen.action !== 'continue' && (
+              <Col>
+                {/* CREATE FROM EMPTY OF COPY FROM */}
+                <div>
+                  <Label htmlFor="choose-action">{info.createFrom.labelBasedOn}</Label>
+                  <Form id="choose-action">
+                    {['basedOnStandard', 'basedOnAnotherMemo'].map(actionName => (
+                      <FormGroup className="form-select" key={actionName}>
+                        <Input
+                          type="radio"
+                          id={actionName}
+                          name="copyOrCreateEmpty"
+                          value={actionName}
+                          onClick={this.onCopyOrCreateEmptyChoice}
+                          defaultChecked={
+                            chosen.action === 'create' && actionName === 'basedOnStandard'
+                          }
+                        />
+                        <Label htmlFor={actionName}>{info.createFrom[actionName]}</Label>
+                      </FormGroup>
+                    ))}
+                  </Form>
+                </div>
+                <div />
+              </Col>
+            )}
           </Row>
         </Container>
         <ControlPanel
@@ -452,4 +483,4 @@ class ChoiceOptions extends Component {
   }
 }
 
-export default ChoiceOptions
+export default CreateNewOptions
