@@ -40,3 +40,17 @@ export const concatMemoName = (semester, ladokRoundIds, langAbbr = 'sv') => {
     semester
   )}-${ladokRoundIds.join('-')}`
 }
+
+export const uncheckRadioById = chosenId => {
+  const memoElem = document.getElementById(chosenId)
+  if (chosenId && memoElem && memoElem.checked) {
+    document.getElementById(chosenId).checked = false
+  }
+}
+
+export const emptyCheckboxesByIds = (sortedRoundIds, startOfId) => {
+  sortedRoundIds.map(ladokRoundId => {
+    const checkboxId = `${startOfId}${ladokRoundId}`
+    document.getElementById(checkboxId).checked = false
+  })
+}
