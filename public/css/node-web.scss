@@ -433,11 +433,23 @@ div.container.First--Step--Choose--Parameters {
     padding-bottom: 0.7em;
     display: block;
   }
+
+  .right-block-for-extra {
+    border-left: 1px solid $borderGrey;
+    padding-left: 30px;
+  }
+  .Start--Creating--From--Template--Or--Copy,
+  .Start--Creating--From--Copy {
+    .form-group.form-select {
+      margin-left: 1.6em;
+    }
+  }
 }
 
 .error-area {
-  border: solid 1px $red !important;
-  border-radius: 0.25rem;
+  outline: solid 1px $red !important;
+  outline-offset: 10px;
+  // border-radius: 0.25rem;
 }
 .error-label {
   color: $red;
