@@ -467,9 +467,9 @@ class CreateNewOptions extends Component {
               </div>
             </Col>
             {chosen.sortedRoundIds.length > 0 && chosen.action !== 'continue' && (
-              <Col>
+              <Col className="right-block-for-extra">
                 {/* CREATE FROM EMPTY OF COPY FROM */}
-                <div>
+                <div className="Start--Creating--From--Template--Or--Copy">
                   <Label htmlFor="choose-action">{info.createFrom.labelBasedOn}</Label>
                   <Form id="choose-action">
                     {['basedOnStandard', 'basedOnAnotherMemo'].map(templateType => (
@@ -491,8 +491,8 @@ class CreateNewOptions extends Component {
                 </div>
                 {chosen.action === 'copy' &&
                   ((this.allPublishedCourseMemos.length > 0 && (
-                    <>
-                      <Label htmlFor="choose-previously-published-memo">
+                    <div className="first-15 Start--Creating--From--Copy">
+                      <Label className="first-15" htmlFor="choose-previously-published-memo">
                         {info.createFrom.labelAllPrevMemos}
                       </Label>
                       <Label htmlFor="choose-previously-published-memo">
@@ -522,7 +522,7 @@ class CreateNewOptions extends Component {
                           </FormGroup>
                         ))}
                       </Form>
-                    </>
+                    </div>
                   )) || (
                     <p>
                       <i>{info.noPrevPublishedAvailable}</i>
