@@ -499,8 +499,8 @@ module.exports = {
   pagesCreateNewPm: [
     {
       title: 'Choose course offering',
-      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
-      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
+      intro: `Choose a semester and a course offering for the course memo to be published (step 1 of 3). 
+      You can choose to start from a completely empty KTH course memo template or start from a copy of a course memo from a previous course offering. 
       In the next step (2 of 3) you can edit the course memo. 
       Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
       `
@@ -508,7 +508,8 @@ module.exports = {
     {
       title: 'Edit course memo',
       intro: '',
-      info: `Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.`
+      info:
+        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.'
     },
     {
       title: 'Review and publish',
@@ -525,7 +526,8 @@ module.exports = {
     {
       title: 'Edit course memo',
       intro: '',
-      info: `Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.`
+      info:
+        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.'
     },
     {
       title: 'Review and publish',
@@ -686,6 +688,13 @@ module.exports = {
         infoText: 'Course memos which are published'
       }
     },
+    createFrom: {
+      labelBasedOn: 'Start from',
+      labelAllPrevMemos: 'Choose course memo to copy:',
+      infoTextForMemos: 'Listed course memos are published for previous course offerings',
+      basedOnStandard: 'Empty KTH course memo template',
+      basedOnAnotherMemo: 'Copy of a course memo from a previous course offering'
+    },
     publishedHasDraft: ' (has unpublished changes)',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
@@ -694,8 +703,9 @@ module.exports = {
     noSavedDrafts: 'There are no saved drafts.',
     noSemesterAvailable:
       'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
+    noPrevPublishedAvailable: 'There are no published course memos for previous course offerings.',
     noPublishedMemos:
-      'There are no published course memos for this semester, the previous semster or any future semester.'
+      'There are no published course memos for this semester, the previous semester or any future semester.'
   },
   changePublishedInfo: {
     choosePublishedMemo: 'Choose course memo'

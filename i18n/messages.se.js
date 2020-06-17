@@ -493,14 +493,14 @@ module.exports = {
   pagesCreateNewPm: [
     {
       title: 'Välj kursomgång',
-      intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
-      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
+      intro: `Börja med att välja kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. 
+      I sista steget (3 av 3) ges möjlighet att först granska kurs-PM och sedan publicera det som en undersida till: Om kursen [kurskod]/Förbereda och gå kurs.`
     },
     {
       title: 'Redigera kurs-PM',
       intro: '',
-      info: `I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.`
+      info:
+        'I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.'
     },
     {
       title: 'Granska och publicera',
@@ -518,7 +518,8 @@ module.exports = {
     {
       title: 'Redigera kurs-PM',
       intro: '',
-      info: `I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.`
+      info:
+        'I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.'
     },
     {
       title: 'Granska och publicera',
@@ -672,6 +673,13 @@ module.exports = {
         infoText: 'Kurs-PM listade är publicerade'
       }
     },
+    createFrom: {
+      labelBasedOn: 'Utgå från:',
+      labelAllPrevMemos: 'Välj kurs-PM att kopiera:',
+      infoTextForMemos: 'Kurs-PM listade är publicerade tidigare kursomgångar',
+      basedOnStandard: 'Tom KTH-mall för kurs-PM',
+      basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kurs-PM'
+    },
     publishedHasDraft: ' (finns opublicerade ändringar)',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     noCourseRoundsAvailable:
@@ -679,6 +687,7 @@ module.exports = {
     noSavedDrafts: 'Det finns inga sparade utkast.',
     noSemesterAvailable:
       'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-PM för.',
+    noPrevPublishedAvailable: 'Det finns inga publicerade kurs-PM tidigare kursomgångar.',
     noPublishedMemos:
       'Det finns inga publicerade kursomgångar för denna termin, föregående eller kommande.'
   },
