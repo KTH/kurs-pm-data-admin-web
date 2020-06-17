@@ -4,6 +4,7 @@ const log = require('kth-node-log')
 const api = require('./api')
 
 const clientActions = {
+  copyFromAPublishedMemo: 'postAsync',
   createDraftByMemoEndPoint: 'postAsync',
   publishMemoByEndPoint: 'postAsync',
   deleteDraftByMemoEndPoint: 'delAsync',
@@ -28,7 +29,6 @@ async function changeMemoApiData(apiFnName, uriParam, body) {
     const { client, paths } = api.kursPmDataApi
     const uri = client.resolve(paths[apiFnName].uri, uriParam)
     const action = clientActions[apiFnName]
-    console.log('action', action)
     const res = await client[action]({ uri, body, useCache: false })
     return res.body
   } catch (error) {
