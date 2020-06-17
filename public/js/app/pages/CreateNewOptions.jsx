@@ -524,7 +524,7 @@ class CreateNewOptions extends Component {
                       </Form>
                     </div>
                   )) || (
-                    <p>
+                    <p className="subsection-30">
                       <i>{info.noPrevPublishedAvailable}</i>
                     </p>
                   ))}
