@@ -499,8 +499,8 @@ module.exports = {
   pagesCreateNewPm: [
     {
       title: 'Choose course offering',
-      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
-      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
+      intro: `Choose a semester and a course offering for the course memo to be published (step 1 of 3). 
+      You can choose to start from a completely empty KTH course memo template or start from a copy of a course memo from a previous course offering. 
       In the next step (2 of 3) you can edit the course memo. 
       Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
       `
@@ -703,8 +703,9 @@ module.exports = {
     noSavedDrafts: 'There are no saved drafts.',
     noSemesterAvailable:
       'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
+    noPrevPublishedAvailable: 'There are no published course memos for previous course offerings.',
     noPublishedMemos:
-      'There are no published course memos for this semester, the previous semster or any future semester.'
+      'There are no published course memos for this semester, the previous semester or any future semester.'
   },
   changePublishedInfo: {
     choosePublishedMemo: 'Choose course memo'
