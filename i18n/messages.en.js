@@ -756,6 +756,8 @@ module.exports = {
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     errNoChosen:
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
+    errNoChosenTemplate:
+      'You must choose a course memo to copy (marked with red down below) to proceed to "Create and publish course memo".',
     errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Something went wrong. Contact IT Support.',
     errWhileDeleting:
