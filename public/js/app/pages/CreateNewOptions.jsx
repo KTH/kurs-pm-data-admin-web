@@ -17,9 +17,10 @@ import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 class CreateNewOptions extends Component {
   state = {
     semester: this.props.routerStore.semester,
+    copyFromMemoEndPoint: '',
     chosen: {
       action: this.props.routerStore.memoEndPoint ? 'continue' : 'create',
-      memoEndPoint: this.props.routerStore.memoEndPoint || '',
+      existingDraftEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
       sortedRoundIds: this.props.routerStore.rounds || [],
       sortedKoppsInfo: [] // use it for next step
@@ -36,6 +37,8 @@ class CreateNewOptions extends Component {
 
   existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos
     .draftsWithNoActivePublishedVer
+
+  allPublishedCourseMemos = this.props.routerStore.existingLatestMemos.sortedPublishedForAllYears
 
   hasSavedDraft = this.existingDraftsByCourseCode.length > 0
 
@@ -138,16 +141,17 @@ class CreateNewOptions extends Component {
 
   onSemesterChoice = event => {
     const semester = event.target.value
+    const { existingDraftEndPoint } = this.state.chosen
     this.setState({ semester })
-    this._cleanUpCheckboxesState()
+    this._cleanUpCheckboxesState(existingDraftEndPoint)
     this.showAvailableSemesterRounds(semester)
   }
 
   onCheckboxChange = (event, chosenRoundObj) => {
     const { checked, value } = event.target
     const { semester } = this.state
-    const { memoEndPoint } = this.state.chosen
-    if (memoEndPoint) uncheckRadioById(memoEndPoint)
+    const { existingDraftEndPoint } = this.state.chosen
+    if (existingDraftEndPoint) uncheckRadioById(existingDraftEndPoint) // hhhhheheheh
     const { sortedRoundIds, sortedKoppsInfo } = checked
       ? this._addRoundAndInfo(chosenRoundObj)
       : this._removeRoundAndInfo(value)
@@ -163,7 +167,7 @@ class CreateNewOptions extends Component {
         action: 'create',
         languageOfInstructions,
         memoCommonLangAbbr,
-        memoEndPoint: '',
+        existingDraftEndPoint: '',
         newMemoName,
         sortedRoundIds,
         sortedKoppsInfo
@@ -171,13 +175,14 @@ class CreateNewOptions extends Component {
     })
   }
 
-  _cleanUpCheckboxesState = (memoEndPoint = '') => {
+  _cleanUpCheckboxesState = memoEndPoint => {
+    console.log('checkbox, ', memoEndPoint)
     const { sortedRoundIds } = this.state.chosen
     emptyCheckboxesByIds(sortedRoundIds, 'new')
     this.setState({
       chosen: {
         action: memoEndPoint ? 'continue' : '', // /'copy'
-        memoEndPoint,
+        existingDraftEndPoint: memoEndPoint || '',
         newMemoName: '',
         sortedRoundIds: [],
         sortedKoppsInfo: []
@@ -193,19 +198,31 @@ class CreateNewOptions extends Component {
 
   onCopyOrCreateEmptyChoice = event => {
     const { value } = event.target
-    this.setState(prevState => ({
-      ...prevState,
-      chosen: {
-        ...prevState.chosen,
-        action: value === 'basedOnAnotherMemo' ? 'copy' : 'create' // /'copy'
-      }
-    }))
+    this.setState(
+      prevState => ({
+        ...prevState,
+        chosen: {
+          ...prevState.chosen,
+          ...{ action: value === 'basedOnAnotherMemo' ? 'copy' : 'create' }
+        },
+        copyFromMemoEndPoint: ''
+      }),
+      console.log('state nenenenenenenen', this.state.chosen)
+    )
+  }
+
+  onChoiceOfMemoToCopy = event => {
+    const { value } = event.target
+    this.setState({ alert: { isOpen: false } })
+    this.setState({
+      copyFromMemoEndPoint: value
+    })
   }
 
   onRemoveDraft = () => {
     return axios
       .delete(
-        `${SERVICE_URL.API}draft-to-remove/${this.courseCode}/${this.state.chosen.memoEndPoint}`
+        `${SERVICE_URL.API}draft-to-remove/${this.courseCode}/${this.state.chosen.existingDraftEndPoint}`
       )
       .then(result => {
         if (result.status >= 400) {
@@ -223,11 +240,15 @@ class CreateNewOptions extends Component {
 
   onSubmitNew = () => {
     const { courseCode } = this
-    const { semester, chosen } = this.state
-    if (chosen.sortedRoundIds.length > 0 || chosen.memoEndPoint) {
+    const { semester, chosen, copyFromMemoEndPoint } = this.state
+    console.log('chosen', chosen.existingDraftEndPoint)
+    if (chosen.action === 'copy' && !copyFromMemoEndPoint) {
+      this.setAlarm('danger', 'errNoChosenTemplate')
+    } else if (chosen.sortedRoundIds.length > 0 || chosen.existingDraftEndPoint) {
       const body =
-        chosen.action === 'create'
-          ? {
+        chosen.action === 'continue'
+          ? { memoEndPoint: chosen.existingDraftEndPoint }
+          : {
               courseCode,
               memoName: chosen.newMemoName,
               memoCommonLangAbbr: chosen.memoCommonLangAbbr,
@@ -236,9 +257,11 @@ class CreateNewOptions extends Component {
               memoEndPoint: courseCode + semester + '-' + chosen.sortedRoundIds.join('-'),
               semester
             }
-          : { memoEndPoint: chosen.memoEndPoint }
+      console.log('body', body)
 
-      const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}`
+      const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
+        chosen.action === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
+      }`
 
       return axios
         .post(url, body)
@@ -250,8 +273,7 @@ class CreateNewOptions extends Component {
         .catch(error => {
           this.setAlarm('danger', 'errWhileSaving')
         })
-    }
-    this.setAlarm('danger', 'errNoChosen')
+    } else this.setAlarm('danger', 'errNoChosen')
   }
 
   onFinish = () => {
@@ -330,7 +352,8 @@ class CreateNewOptions extends Component {
                             value={memoEndPoint}
                             onClick={this.onRadioChange}
                             defaultChecked={
-                              chosen.action === 'copy' && memoEndPoint === chosen.memoEndPoint
+                              chosen.action === 'continue' &&
+                              memoEndPoint === chosen.existingDraftEndPoint
                             }
                           />
                           <Label htmlFor={memoEndPoint}>
@@ -449,31 +472,69 @@ class CreateNewOptions extends Component {
                 <div>
                   <Label htmlFor="choose-action">{info.createFrom.labelBasedOn}</Label>
                   <Form id="choose-action">
-                    {['basedOnStandard', 'basedOnAnotherMemo'].map(actionName => (
-                      <FormGroup className="form-select" key={actionName}>
+                    {['basedOnStandard', 'basedOnAnotherMemo'].map(templateType => (
+                      <FormGroup className="form-select" key={templateType}>
                         <Input
                           type="radio"
-                          id={actionName}
+                          id={templateType}
                           name="copyOrCreateEmpty"
-                          value={actionName}
+                          value={templateType}
                           onClick={this.onCopyOrCreateEmptyChoice}
                           defaultChecked={
-                            chosen.action === 'create' && actionName === 'basedOnStandard'
+                            chosen.action === 'create' && templateType === 'basedOnStandard'
                           }
                         />
-                        <Label htmlFor={actionName}>{info.createFrom[actionName]}</Label>
+                        <Label htmlFor={templateType}>{info.createFrom[templateType]}</Label>
                       </FormGroup>
                     ))}
                   </Form>
                 </div>
-                <div />
+                {chosen.action === 'copy' &&
+                  ((this.allPublishedCourseMemos.length > 0 && (
+                    <>
+                      <Label htmlFor="choose-previously-published-memo">
+                        {info.createFrom.labelAllPrevMemos}
+                      </Label>
+                      <Label htmlFor="choose-previously-published-memo">
+                        {info.createFrom.infoTextForMemos}
+                      </Label>
+                      <Form
+                        className={`Existing--Published--Memos ${
+                          alert.isOpen && alert.textName === 'errNoChosenTemplate'
+                            ? 'error-area'
+                            : ''
+                        }`}
+                        id="choose-previously-published-memo"
+                      >
+                        {this.allPublishedCourseMemos.map(({ memoName, memoEndPoint }) => (
+                          <FormGroup className="form-select" key={'published' + memoEndPoint}>
+                            <Input
+                              type="radio"
+                              id={memoEndPoint}
+                              name="choosePublished"
+                              value={memoEndPoint}
+                              onClick={this.onChoiceOfMemoToCopy}
+                              defaultChecked={false}
+                            />
+                            <Label htmlFor={memoEndPoint}>
+                              {memoName || memoEndPoint + ' (old memo before namegiving)'}
+                            </Label>
+                          </FormGroup>
+                        ))}
+                      </Form>
+                    </>
+                  )) || (
+                    <p>
+                      <i>{info.noPrevPublishedAvailable}</i>
+                    </p>
+                  ))}
               </Col>
             )}
           </Row>
         </Container>
         <ControlPanel
           langIndex={langIndex}
-          hasChosenMemo={chosen.memoEndPoint}
+          hasChosenMemo={chosen.existingDraftEndPoint}
           onCancel={this.onFinish}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
