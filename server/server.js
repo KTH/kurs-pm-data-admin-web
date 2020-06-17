@@ -240,6 +240,14 @@ appRoute.post(
 )
 
 appRoute.post(
+  'memo.api.copyFromAPublishedMemo',
+  config.proxyPrefixPath.uri +
+    '/internal-api/create-draft/:courseCode/:memoEndPoint/copyFrom/:anotherMemoEndPoint', // updated
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
+  ChooseMemoStartPoint.createDraftByMemoEndPoint
+)
+
+appRoute.post(
   'memo.api.createDraftByMemoEndPoint',
   config.proxyPrefixPath.uri + '/internal-api/create-draft/:courseCode/:memoEndPoint', // updated
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),

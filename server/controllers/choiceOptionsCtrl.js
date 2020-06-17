@@ -133,10 +133,12 @@ async function getUsedRounds(req, res, next) {
 // eslint-disable-next-line consistent-return
 async function createDraftByMemoEndPoint(req, res, next) {
   try {
-    const { memoEndPoint } = req.params
+    const { memoEndPoint, anotherMemoEndPoint } = req.params
+    const apiPathId = anotherMemoEndPoint ? 'copyFromAPublishedMemo' : 'createDraftByMemoEndPoint'
+
     const apiResponse = await changeMemoApiData(
-      'createDraftByMemoEndPoint',
-      { memoEndPoint },
+      apiPathId,
+      { memoEndPoint, anotherMemoEndPoint },
       req.body
     )
     if (safeGet(() => apiResponse.message)) {
