@@ -737,6 +737,8 @@ module.exports = {
       'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
+    errNoChosenTemplate:
+      'Du måste välja ett kurs-PM att kopiera (se röd markering nedan) för att kunna gå vidare till "Skapa och publicera kurs-PM"',
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileDeleting:
       'Det gick inte att ta bort utkasten på grund av systemfel. Försök igen eller kontakta IT-support.',
