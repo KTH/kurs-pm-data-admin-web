@@ -576,6 +576,12 @@ module.exports = {
     preview: 'Skapa och publicera kurs-PM'
   },
   actionModals: {
+    changeLadokRoundIds: {
+      header: 'Lägg till kurstillfällen',
+      body: '',
+      btnClose: 'Avbryt',
+      btnConfirm: 'Spara'
+    },
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
       body: `Detta utkast kommer att raderas. Den senaste publicerade versionen av detta kurs-PM kommer att förbli oförändrat.

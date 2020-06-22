@@ -588,6 +588,12 @@ module.exports = {
     preview: 'Create and publish course memo'
   },
   actionModals: {
+    changeLadokRoundIds: {
+      header: 'Add course round',
+      body: '',
+      btnClose: 'Cancel',
+      btnConfirm: 'Save'
+    },
     infoCancel: {
       header: 'To be aware of before cancelling!',
       body: `This draft will be deleted. The last published version of this course memo will remain unchanged.
