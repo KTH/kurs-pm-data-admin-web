@@ -54,3 +54,23 @@ export const emptyCheckboxesByIds = (sortedRoundIds, startOfId) => {
     document.getElementById(checkboxId).checked = false
   })
 }
+
+export const sortRoundAndKoppsInfo = (koppsMiniObj, prevSortedInfo) => {
+  // addRoundAndInfo
+  // const { firstTuitionDate, ladokRoundId, language, shortName } = koppsMiniObj
+  const { ladokRoundId } = koppsMiniObj
+  const { sortedRoundIds, sortedKoppsInfo } = prevSortedInfo
+  sortedRoundIds.push(ladokRoundId)
+  const sortedRounds = sortedRoundIds.sort()
+  const addIndex = sortedRounds.indexOf(ladokRoundId)
+  sortedKoppsInfo.splice(addIndex, 0, koppsMiniObj)
+  return { sortedRoundIds, sortedKoppsInfo }
+}
+
+export const removeAndSortRoundAndInfo = (ladokRoundId, prevSortedInfo) => {
+  const { sortedRoundIds, sortedKoppsInfo } = prevSortedInfo
+  const removeIndex = sortedRoundIds.indexOf(ladokRoundId)
+  sortedRoundIds.splice(removeIndex, 1)
+  sortedKoppsInfo.splice(removeIndex, 1)
+  return { sortedRoundIds, sortedKoppsInfo }
+}
