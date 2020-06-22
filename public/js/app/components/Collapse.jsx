@@ -14,7 +14,7 @@ class Collapse extends React.Component {
     this.toggleHeader = this.toggleHeader.bind(this)
   }
 
-  toggleHeader() {
+  toggleHeader(event) {
     event.preventDefault()
     const isOpen = !this.state.isOpen
     this.setState({
