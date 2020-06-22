@@ -1,5 +1,7 @@
 import { observable, action } from 'mobx'
 import { combineScheduleValues } from '../util/defaultValues'
+import axios from 'axios'
+import { SERVICE_URL } from '../util/constants'
 
 class RouterStore {
   @observable courseCode
@@ -19,6 +21,8 @@ class RouterStore {
   @observable existingLatestMemos = {}
 
   @observable rebuilDraftFromPublishedVer = false
+
+  // @observable availableSemesterRounds = []
 
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
@@ -69,6 +73,70 @@ class RouterStore {
   @action tempMemoData(memoData) {
     this.memoData = memoData
   }
+
+  async _filterOutUsedRounds(usedRoundsThisSemester, chosenSemester) {
+    const allSemesters = this.slicedTermsByPrevYear.shortSemesterList || null
+    const thisSemester =
+      (allSemesters && (await allSemesters.find(({ term }) => term === chosenSemester))) || {}
+    console.log('thisSemester', thisSemester)
+    return (
+      (thisSemester &&
+        thisSemester.rounds &&
+        (await thisSemester.rounds
+          .filter(r => !usedRoundsThisSemester.includes(r.ladokRoundId))
+          .reverse())) ||
+      []
+    )
+  }
+
+  @action
+  async showAvailableSemesterRounds(chosenSemester) {
+    try {
+      console.log('hahahahahaha')
+      const result = await axios.get(
+        `${this.thisHostBaseUrl}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`
+      )
+      if (result) {
+        if (result.status >= 400) {
+          return 'ERROR-' + result.status
+        }
+        const { usedRoundsThisSemester } = result.data
+        console.log('usedRoundsThisSemester', usedRoundsThisSemester)
+        return await this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
+      }
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.message)
+      }
+      throw error
+    }
+
+    // .catch(err => {
+    //   if (err.response) {
+    //     throw new Error(err.message)
+    //   }
+    //   throw err
+    // })
+  }
+
+  //   @action
+  // showAvailableSemesterRounds = chosenSemester => {
+  //   return axios
+  //     .get(`${this.thisHostBaseUrl}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`)
+  //     .then(result => {
+  //       if (result.status >= 400) {
+  //         return 'ERROR-' + result.status
+  //       }
+  //       const { usedRoundsThisSemester } = result.data
+  //       this.availableSemesterRounds = this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
+  //     })
+  //     .catch(err => {
+  //       if (err.response) {
+  //         throw new Error(err.message)
+  //       }
+  //       throw err
+  //     })
+  // }
 
   @action setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {
     this.browserConfig = config
