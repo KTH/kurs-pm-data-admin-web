@@ -4,7 +4,14 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
-import { combineMemoName, emptyCheckboxesByIds, seasonStr, uncheckRadioById } from '../util/helpers'
+import {
+  combineMemoName,
+  emptyCheckboxesByIds,
+  seasonStr,
+  sortRoundAndKoppsInfo,
+  removeAndSortRoundAndInfo,
+  uncheckRadioById
+} from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import SectionTitleAndInfoModal from '../components/SectionTitleAndInfoModal'
@@ -19,7 +26,7 @@ class CreateNewOptions extends Component {
     semester: this.props.routerStore.semester,
     copyFromMemoEndPoint: '',
     chosen: {
-      action: this.props.routerStore.memoEndPoint ? 'continue' : 'create',
+      action: this.props.routerStore.memoEndPoint ? 'continue' : '',
       existingDraftEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
       sortedRoundIds: this.props.routerStore.rounds || [],
@@ -54,73 +61,17 @@ class CreateNewOptions extends Component {
     })
   }
 
-  setAlarm = (type, textName, isOpen = true) => {
-    this.setState({
-      alert: {
-        type,
-        isOpen,
-        textName
-      }
-    })
-    if (isOpen) {
-      const alertElement = document.getElementById('scroll-here-if-alert')
-      alertElement.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  _filterOutUsedRounds = usedRoundsThisSemester => {
-    const thisSemester =
-      (this.allSemesters && this.allSemesters.find(({ term }) => term === this.state.semester)) ||
-      {}
-    return (
-      (thisSemester &&
-        thisSemester.rounds &&
-        thisSemester.rounds
-          .filter(r => !usedRoundsThisSemester.includes(r.ladokRoundId))
-          .reverse()) ||
-      []
+  async onSemesterChoice(event) {
+    const semester = event.target.value
+    const { existingDraftEndPoint } = this.state.chosen
+    this.setState({ semester })
+    this._cleanUpCheckboxesState(existingDraftEndPoint)
+    const availableSemesterRounds = await this.props.routerStore.showAvailableSemesterRounds(
+      semester
     )
-  }
-
-  showAvailableSemesterRounds = semester => {
-    return axios
-      .get(`${SERVICE_URL.API}used-rounds/${this.courseCode}/${semester}`)
-      .then(result => {
-        if (result.status >= 400) {
-          return 'ERROR-' + result.status
-        }
-        const { usedRoundsThisSemester } = result.data
-        this.setState({
-          // updates on semester change
-          availableSemesterRounds: this._filterOutUsedRounds(usedRoundsThisSemester)
-        })
-      })
-      .catch(err => {
-        if (err.response) {
-          throw new Error(err.message)
-        }
-        throw err
-      })
-  }
-
-  _addRoundAndInfo = chosenRoundObj => {
-    // move to helper
-    // const { firstTuitionDate, ladokRoundId, language, shortName } = chosenRoundObj
-    const { ladokRoundId } = chosenRoundObj
-    const { sortedRoundIds, sortedKoppsInfo } = this.state.chosen
-    sortedRoundIds.push(ladokRoundId)
-    const sortedRounds = sortedRoundIds.sort()
-    const addIndex = sortedRounds.indexOf(ladokRoundId)
-    sortedKoppsInfo.splice(addIndex, 0, chosenRoundObj)
-    return { sortedRoundIds, sortedKoppsInfo }
-  }
-
-  _removeRoundAndInfo = ladokRoundId => {
-    const { sortedRoundIds, sortedKoppsInfo } = this.state.chosen
-    const removeIndex = sortedRoundIds.indexOf(ladokRoundId)
-    sortedRoundIds.splice(removeIndex, 1)
-    sortedKoppsInfo.splice(removeIndex, 1)
-    return { sortedRoundIds, sortedKoppsInfo }
+    this.setState({
+      availableSemesterRounds
+    })
   }
 
   _roundsCommonLanguages = sortedKoppsInfo => {
@@ -139,22 +90,28 @@ class CreateNewOptions extends Component {
     return { memoCommonLangAbbr, languageOfInstructions }
   }
 
-  onSemesterChoice = event => {
-    const semester = event.target.value
-    const { existingDraftEndPoint } = this.state.chosen
-    this.setState({ semester })
-    this._cleanUpCheckboxesState(existingDraftEndPoint)
-    this.showAvailableSemesterRounds(semester)
+  setAlarm = (type, textName, isOpen = true) => {
+    this.setState({
+      alert: {
+        type,
+        isOpen,
+        textName
+      }
+    })
+    if (isOpen) {
+      const alertElement = document.getElementById('scroll-here-if-alert')
+      alertElement.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
-  onCheckboxChange = (event, chosenRoundObj) => {
+  onChoiceOfAvailableRounds = (event, chosenRoundObj) => {
     const { checked, value } = event.target
     const { semester } = this.state
     const { existingDraftEndPoint } = this.state.chosen
-    if (existingDraftEndPoint) uncheckRadioById(existingDraftEndPoint) // hhhhheheheh
+    if (existingDraftEndPoint) uncheckRadioById(existingDraftEndPoint)
     const { sortedRoundIds, sortedKoppsInfo } = checked
-      ? this._addRoundAndInfo(chosenRoundObj)
-      : this._removeRoundAndInfo(value)
+      ? sortRoundAndKoppsInfo(chosenRoundObj, this.state.chosen)
+      : removeAndSortRoundAndInfo(value, this.state.chosen)
     const { memoCommonLangAbbr, languageOfInstructions } = this._roundsCommonLanguages(
       sortedKoppsInfo
     )
@@ -176,7 +133,6 @@ class CreateNewOptions extends Component {
   }
 
   _cleanUpCheckboxesState = memoEndPoint => {
-    console.log('checkbox, ', memoEndPoint)
     const { sortedRoundIds } = this.state.chosen
     emptyCheckboxesByIds(sortedRoundIds, 'new')
     this.setState({
@@ -190,7 +146,7 @@ class CreateNewOptions extends Component {
     })
   }
 
-  onRadioChange = event => {
+  onExistingDraftChoise = event => {
     const { value } = event.target
     this.setState({ alert: { isOpen: false } })
     this._cleanUpCheckboxesState(value)
@@ -243,21 +199,23 @@ class CreateNewOptions extends Component {
     const { semester, chosen, copyFromMemoEndPoint } = this.state
     console.log('chosen', chosen.existingDraftEndPoint)
     if (chosen.action === 'copy' && !copyFromMemoEndPoint) {
+      // if chosen to copy but not a template to copy from
       this.setAlarm('danger', 'errNoChosenTemplate')
-    } else if (chosen.sortedRoundIds.length > 0 || chosen.existingDraftEndPoint) {
-      const body =
-        chosen.action === 'continue'
-          ? { memoEndPoint: chosen.existingDraftEndPoint }
-          : {
-              courseCode,
-              memoName: chosen.newMemoName,
-              memoCommonLangAbbr: chosen.memoCommonLangAbbr,
-              ladokRoundIds: chosen.sortedRoundIds,
-              languageOfInstructions: chosen.languageOfInstructions,
-              memoEndPoint: courseCode + semester + '-' + chosen.sortedRoundIds.join('-'),
-              semester
-            }
-      console.log('body', body)
+    } else if (chosen.action === 'continue' && chosen.existingDraftEndPoint) {
+      // Draft exists just go to next step
+      const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.existingDraftEndPoint}`
+      window.location = nextStepUrl
+    } else if (chosen.sortedRoundIds.length > 0 && !chosen.existingDraftEndPoint) {
+      // Create new draft from chosen semester rounds
+      const body = {
+        courseCode,
+        memoName: chosen.newMemoName,
+        memoCommonLangAbbr: chosen.memoCommonLangAbbr,
+        ladokRoundIds: chosen.sortedRoundIds,
+        languageOfInstructions: chosen.languageOfInstructions,
+        memoEndPoint: courseCode + semester + '-' + chosen.sortedRoundIds.join('-'),
+        semester
+      }
 
       const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
         chosen.action === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
@@ -266,6 +224,10 @@ class CreateNewOptions extends Component {
       return axios
         .post(url, body)
         .then(result => {
+          if (result.status >= 400) {
+            this.setAlarm('danger', 'errWhileSaving')
+            return 'ERROR-' + result.status
+          }
           // ADDD ERROR HANTERING
           const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}`
           window.location = nextStepUrl
@@ -292,6 +254,7 @@ class CreateNewOptions extends Component {
     ]
     const { course } = this.props.routerStore.slicedTermsByPrevYear
     const { alert, availableSemesterRounds, chosen, semester } = this.state
+    console.log('availableSemesterRounds', availableSemesterRounds)
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -350,7 +313,7 @@ class CreateNewOptions extends Component {
                             id={memoEndPoint}
                             name="chooseDraft"
                             value={memoEndPoint}
-                            onClick={this.onRadioChange}
+                            onClick={this.onExistingDraftChoise}
                             defaultChecked={
                               chosen.action === 'continue' &&
                               memoEndPoint === chosen.existingDraftEndPoint
@@ -378,17 +341,22 @@ class CreateNewOptions extends Component {
           </Row>
           <Row>
             <Col>
-              {/* CHOOSE TO CREATE A NEW EMPTY DRAFT OR A NEW ONE COPIED FROM PREVIOUS MEMO */}
+              {/* CHOOSE COURSE OFFERING WITH NO MEMOS */}
               <div>
                 <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
                 {(allSemesters && allSemesters.length > 0 && (
-                  <Form style={{ width: '20em' }}>
+                  <Form
+                    style={{ width: '20em' }}
+                    // className={
+                    //     alert.isOpen && alert.textName === 'errNoChosen' && chosen.sortedRoundIds.length === 0 ? 'error-area' : ''
+                    //   }
+                  >
                     <FormGroup className="form-select" key="select-semester" id="choose-semester">
                       <div className="select-wrapper">
                         <select
                           className="custom-select"
                           id="term-list"
-                          onChange={this.onSemesterChoice}
+                          onChange={event => this.onSemesterChoice(event)}
                           defaultValue="PLACEHOLDER"
                         >
                           {!semester && (
@@ -448,7 +416,7 @@ class CreateNewOptions extends Component {
                             id={'new' + round.ladokRoundId}
                             name="chooseNew"
                             value={round.ladokRoundId}
-                            onClick={event => this.onCheckboxChange(event, round)}
+                            onClick={event => this.onChoiceOfAvailableRounds(event, round)}
                             defaultChecked={false}
                           />
                           <Label htmlFor={'new' + round.ladokRoundId}>
