@@ -61,7 +61,7 @@ class CreateNewOptions extends Component {
     })
   }
 
-  async onSemesterChoice(event) {
+  onChoiceOfSemester = async (event) => {
     const semester = event.target.value
     const { existingDraftEndPoint } = this.state.chosen
     this.setState({ semester })
@@ -146,13 +146,13 @@ class CreateNewOptions extends Component {
     })
   }
 
-  onExistingDraftChoise = event => {
+  onChoiceOfExistingDraft = event => {
     const { value } = event.target
     this.setState({ alert: { isOpen: false } })
     this._cleanUpCheckboxesState(value)
   }
 
-  onCopyOrCreateEmptyChoice = event => {
+  onChoiceOfToCopyOrCreateEmpty = event => {
     const { value } = event.target
     this.setState(
       prevState => ({
@@ -197,7 +197,7 @@ class CreateNewOptions extends Component {
   onSubmitNew = () => {
     const { courseCode } = this
     const { semester, chosen, copyFromMemoEndPoint } = this.state
-    console.log('chosen', chosen.existingDraftEndPoint)
+
     if (chosen.action === 'copy' && !copyFromMemoEndPoint) {
       // if chosen to copy but not a template to copy from
       this.setAlarm('danger', 'errNoChosenTemplate')
@@ -313,7 +313,7 @@ class CreateNewOptions extends Component {
                             id={memoEndPoint}
                             name="chooseDraft"
                             value={memoEndPoint}
-                            onClick={this.onExistingDraftChoise}
+                            onClick={this.onChoiceOfExistingDraft}
                             defaultChecked={
                               chosen.action === 'continue' &&
                               memoEndPoint === chosen.existingDraftEndPoint
@@ -356,7 +356,7 @@ class CreateNewOptions extends Component {
                         <select
                           className="custom-select"
                           id="term-list"
-                          onChange={event => this.onSemesterChoice(event)}
+                          onChange={this.onChoiceOfSemester}
                           defaultValue="PLACEHOLDER"
                         >
                           {!semester && (
@@ -447,7 +447,7 @@ class CreateNewOptions extends Component {
                           id={templateType}
                           name="copyOrCreateEmpty"
                           value={templateType}
-                          onClick={this.onCopyOrCreateEmptyChoice}
+                          onClick={this.onChoiceOfToCopyOrCreateEmpty}
                           defaultChecked={
                             chosen.action === 'create' && templateType === 'basedOnStandard'
                           }
