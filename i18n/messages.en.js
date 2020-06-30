@@ -680,6 +680,11 @@ module.exports = {
       Degree program students and non-programme students are admitted to different administrative course instances but may be educated in the same course offering. 
       A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. 
       Several administrative course instances are grouped to one course offering.</p>`,
+      addRounds: {
+        label: 'Select the course offering(s) to include in memo',
+        infoText:
+          'The following administrative course instances have no published course memo or draft'
+      },
       availableRounds: {
         label: 'Select the instances that is included in the course offerings',
         infoText:
@@ -704,6 +709,7 @@ module.exports = {
     publishedHasDraft: ' (has unpublished changes)',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
+    noRoundsToAdd: 'EN -> Det finns inga kurtillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
     noSavedDrafts: 'There are no saved drafts.',
@@ -753,7 +759,20 @@ module.exports = {
 		<p>An eye covered with slash indicates that the heading with its content will not be included in the published course memo.</p>`
     },
     commentChanges: 'Describe changes made in this version:',
-    mandatory: 'Mandatory'
+    mandatory: 'Mandatory',
+    cannotMergeLanguage: '(cannot be chosen, read abode: Language of memo)',
+    memoLanguage: {
+      label: 'Language of memo',
+      sv: 'Swedish',
+      en: 'English'
+    },
+    aboutMemoLanguage: {
+      sv: `EN-> Språket för kurs-PM är på Svenska eftersom alla kurstillfällen som valdes när kurs-PM skapades är Svenska. 
+        Det går ej att lägga till ett Engelskt kurstillfälle nedan för det kräver att kurs-PM:s språk är Engelska. 
+        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`, 
+      en: `EN-> Språket för kurs-PM är på Engelska eftersom minst ett av kurstillfällena som valdes när kurs-pm skapades är Engelskt. 
+      Det går att lägga till både svenska och engelska kurstillfällen nedan.`
+    } 
   },
   alerts: {
     autoSaved: 'Draft saved',
