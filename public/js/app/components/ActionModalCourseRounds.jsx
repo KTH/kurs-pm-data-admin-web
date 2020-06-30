@@ -114,8 +114,8 @@ class ActionModalCourseRounds extends Component {
           this.setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + newResult.status
         }
-        console.log(newResult.data)
-        const reload = `${SERVICE_URL.courseMemoAdmin}${courseCode}?memoEndPoint=${newMemoEndPoint}`
+        const eventFromParams = 'addedRoundId'
+        const reload = `${SERVICE_URL.courseMemoAdmin}${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
         window.location = reload
         // this.onAlert(alertTranslationId)
       })
