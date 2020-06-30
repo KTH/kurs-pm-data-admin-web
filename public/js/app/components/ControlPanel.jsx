@@ -5,9 +5,16 @@ import React from 'react'
 import i18n from '../../../../i18n'
 import { Alert, Row, Col, Button } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+import ActionModalCourseRounds from './ActionModalCourseRounds'
+
+const colWidthByProgress = {
+  1: {firstCol: '6', secondCol: '0', thirdCol: '6'},
+  2: {firstCol: '3', secondCol: '4', thirdCol: '5'},
+  3: {firstCol: '6', secondCol: '0', thirdCol: '6'}
+}
 
 const ControlPanel = props => {
-  const { hasChosenMemo, langIndex, onCancel, onRemove, onSubmit } = props // onSubmit = onForward
+  const { chosenMemoEndPoint, langIndex, onCancel, onRemove, onSubmit } = props // onSubmit = onForward
   const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished } = props
   const { actionModals, buttons } = i18n.messages[langIndex]
   const progress = Number(props.progress) || 1
@@ -19,7 +26,7 @@ const ControlPanel = props => {
           {alertText || ''}
         </Alert>
       </Row>
-      <Col sm="4" className="step-back">
+      <Col sm={colWidthByProgress[progress].firstCol} className="btns-helpers">
         {progress === 2 && (
           <Button
             onClick={onBack}
@@ -36,7 +43,7 @@ const ControlPanel = props => {
             {buttons.edit}
           </Button>
         )}
-        {hasChosenMemo && onRemove && (
+        {progress === 1 && chosenMemoEndPoint && onRemove && (
           <ActionModalButton
             btnLabel={buttons.btnRemove}
             modalId="removeCourseRound"
@@ -45,11 +52,24 @@ const ControlPanel = props => {
             onConfirm={onRemove}
           />
         )}
+        {progress === 1 && chosenMemoEndPoint && (
+          <ActionModalCourseRounds
+            chosenMemoEndPoint={chosenMemoEndPoint}
+          />
+        )}
       </Col>
-      <Col sm="4" className="btn-cancel">
+      {progress === 2 && (
+        <Col sm={colWidthByProgress[progress].secondCol} className="btn-middle">
+          <Button onClick={onSave} color="secondary">
+            {isDraftOfPublished ? buttons.save : buttons.saveDraft}
+          </Button>          
+        </Col>
+      )}
+      <Col sm={colWidthByProgress[progress].thirdCol} className="step-forward">
+      {/* Cancel and remove / Just cancel */}
         {(isDraftOfPublished &&
           ((progress === 1 && (
-            <Button modalId="cancelWithoutAction" color="secondary" onClick={onCancel}>
+            <Button id="cancelWithoutAction" color="secondary" onClick={onCancel}>
               {buttons.cancel}
             </Button>
           )) || (
@@ -69,13 +89,7 @@ const ControlPanel = props => {
             onConfirm={onCancel}
           />
         )}
-      </Col>
-      <Col sm="4" className="step-forward">
-        {progress === 2 && (
-          <Button onClick={onSave} color="secondary">
-            {isDraftOfPublished ? buttons.save : buttons.saveDraft}
-          </Button>
-        )}
+        {/* Redigera / Granska */}
         {progress < 3 && (
           <Button
             onClick={onSubmit}
@@ -93,6 +107,7 @@ const ControlPanel = props => {
             }
           </Button>
         )}
+        {/* Publish */}
         {progress === 3 && (
           <ActionModalButton
             btnLabel={buttons.publish}
