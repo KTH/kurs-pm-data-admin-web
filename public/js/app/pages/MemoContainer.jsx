@@ -9,6 +9,7 @@ import i18n from '../../../../i18n'
 import axios from 'axios'
 import { ActionModalButton, PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import {
+  FIRST_VERSION,
   SERVICE_URL,
   ADMIN_COURSE_PM_DATA,
   REMOVE_PUBLISHED_PARAM,
@@ -36,7 +37,7 @@ class MemoContainer extends Component {
     isError: false
   }
 
-  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > 1
+  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
 
   courseCode = this.props.routerStore.courseCode
 
@@ -395,7 +396,8 @@ class MemoContainer extends Component {
               {alerts.infoAboutFreshData || ''}
             </Alert>
             <Alert key="infoAboutStartingAgain" color="info">
-              {alerts.infoStartAgain}{' '}
+              {alerts.infoStartAgain}
+              {' '}
               <ActionModalButton
                 btnLabel={`${alerts.linkToRefreshData} (${new Date(
                   lastPublishedVersionPublishDate
