@@ -39,6 +39,8 @@ class ActionModalCourseRounds extends Component {
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
   langIndex = this.props.routerStore.langIndex
   memo = this.uniqueMemos.find(memo => memo.memoEndPoint === this.state.chosenMemoEndPoint)
+  isPublished = this.memo.status === 'published' || Number(this.memo.version) > FIRST_VERSION
+
   
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null
   thisTermInfo = this.lastTerms.find(({ term }) => term === this.memo.semester)
@@ -115,7 +117,9 @@ class ActionModalCourseRounds extends Component {
           return 'ERROR-' + newResult.status
         }
         const eventFromParams = 'addedRoundId'
-        const reload = `${SERVICE_URL.courseMemoAdmin}${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
+        const reload = `${SERVICE_URL.courseMemoAdmin}${
+          this.isPublished ? 'published/' : ''
+          }${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
         window.location = reload
         // this.onAlert(alertTranslationId)
       })
