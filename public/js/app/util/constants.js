@@ -7,10 +7,10 @@ export const SERVICE_URL = {
   courseMemoAdmin: '/kursinfoadmin/kurs-pm-data/',
   kutv: '/kursutveckling/'
 }
-export const ADMIN_COURSE_PM_DATA = '/kursinfoadmin/kurs-pm-data/'
 
 // PARAM FOR START ADMIN PAGE
 export const SAVED_NEW_PARAM = '?serv=pmdata&event=save' // 'Avsluta'
 export const REMOVE_PUBLISHED_PARAM = '?serv=pmdata&event=removedPublished'
 export const publishParam = '?serv=pmdata&event=pub'
 // export const cancelPram = '?serv=pmdata&event=cancel'
+export const FIRST_VERSION = 1

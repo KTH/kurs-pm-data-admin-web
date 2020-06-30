@@ -1,5 +1,7 @@
 import { observable, action } from 'mobx'
 import { combineScheduleValues } from '../util/defaultValues'
+import axios from 'axios'
+import { SERVICE_URL } from '../util/constants'
 
 class RouterStore {
   @observable courseCode
@@ -10,15 +12,17 @@ class RouterStore {
 
   @observable koppsFreshData = {}
 
-  @observable slicedTermsByPrevYear = {}
+  @observable miniKoppsObj = {}
 
   @observable memoEndPoint
 
   @observable memoData = {}
 
-  @observable existingLatestMemos = {}
+  @observable miniMemos = {}
 
   @observable rebuilDraftFromPublishedVer = false
+
+  // @observable availableSemesterRounds = []
 
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
@@ -68,6 +72,44 @@ class RouterStore {
 
   @action tempMemoData(memoData) {
     this.memoData = memoData
+  }
+
+  async _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester) {
+    const lastTerms = this.miniKoppsObj.lastTermsInfo || null
+    const thisTerm =
+      (lastTerms && (await lastTerms.find(({ term }) => term === chosenSemester))) || {}
+    return (
+      (thisTerm &&
+        thisTerm.rounds &&
+        (await thisTerm.rounds
+          .filter(r => !usedRoundsThisTerm.includes(r.ladokRoundId))
+          .reverse())) ||
+      []
+    )
+  }
+
+  @action
+  async showAvailableSemesterRounds(chosenSemester) {
+    try {
+      const thisHost = this.thisHostBaseUrl.slice(-1) === '/' ? this.thisHostBaseUrl.slice(0,-1) : this.thisHostBaseUrl
+      const result = await axios.get(
+        `${thisHost}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`
+      )
+      console.log("thisHost", thisHost)
+      if (result) {
+        if (result.status >= 400) {
+          return 'ERROR-' + result.status
+        }
+        const { usedRoundsThisSemester } = result.data
+        console.log('usedRoundsThisSemester', usedRoundsThisSemester)
+        return await this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
+      }
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.message)
+      }
+      throw error
+    }
   }
 
   @action setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {

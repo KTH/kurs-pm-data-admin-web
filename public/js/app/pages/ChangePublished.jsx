@@ -10,12 +10,12 @@ import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { fetchParameters } from '../util/helpers'
 
 @inject(['routerStore'])
 @observer
 class ChangePublished extends Component {
   state = {
-    // semester: this.props.routerStore.semester,
     chosen: {
       memoEndPoint: this.props.routerStore.memoEndPoint || '' // TODO FIX IF IT IS CORRECT MEMOeNDpOPIN
     },
@@ -28,18 +28,22 @@ class ChangePublished extends Component {
 
   courseCode = this.props.routerStore.courseCode
 
-  allMemosAfterPublishing = [
-    ...this.props.routerStore.existingLatestMemos.draftsOfPublishedMemos,
-    ...this.props.routerStore.existingLatestMemos.publishedMemos
+  uniqueMemosAfterPublishing = [
+    ...this.props.routerStore.miniMemos.draftsOfPublishedMemos,
+    ...this.props.routerStore.miniMemos.publishedWithNoActiveDraft
   ]
 
-  hasMemos = this.allMemosAfterPublishing.length > 0
+  hasMemos = this.uniqueMemosAfterPublishing.length > 0
 
   langIndex = this.props.routerStore.langIndex
 
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
 
-  allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList || null // need to define if kopps in error
+  lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
+
+  urlParams = fetchParameters(this.props)
+  
+  eventFromParams = this.urlParams.event || ''
 
   componentDidMount() {
     this.props.history.push({
@@ -75,22 +79,29 @@ class ChangePublished extends Component {
     const { courseCode } = this
     const { chosen } = this.state
     if (chosen.memoEndPoint) {
-      const body = { memoEndPoint: chosen.memoEndPoint }
+      const memo = this.uniqueMemosAfterPublishing.find(memo => memo.memoEndPoint === chosen.memoEndPoint)
+      
+      if (memo && memo.status === 'draft') {
+        const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.memoEndPoint}`
+        window.location = nextStepUrl
+      } else {
+        const body = { memoEndPoint: chosen.memoEndPoint }
 
-      const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}`
+        const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${chosen.memoEndPoint}`
 
-      return axios
-        .post(url, body)
-        .then(result => {
-          // ADDD ERROR HANTERING
-          const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}`
-          window.location = nextStepUrl
-        })
-        .catch(error => {
-          this.setAlarm('danger', 'errWhileSaving')
-        })
+        return axios
+          .post(url, body)
+          .then(result => {
+            // ADDD ERROR HANTERING
+            const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.memoEndPoint}`
+            window.location = nextStepUrl
+          })
+          .catch(error => {
+            this.setAlarm('danger', 'errWhileSaving')
+          })
+      }
     }
-    this.setAlarm('danger', 'errNoInPublishedChosen')
+    else this.setAlarm('danger', 'errNoInPublishedChosen')
   }
 
   onFinish = () => {
@@ -103,9 +114,9 @@ class ChangePublished extends Component {
   }
 
   render() {
-    const { hasMemos, langAbbr, langIndex, allMemosAfterPublishing } = this
+    const { hasMemos, langAbbr, langIndex, uniqueMemosAfterPublishing } = this
     const { alerts, info, pagesChangePublishedPm, pageTitles } = i18n.messages[langIndex]
-    const { course } = this.props.routerStore.slicedTermsByPrevYear
+    const { course } = this.props.routerStore.miniKoppsObj
     const { alert, chosen } = this.state
 
     return (
@@ -125,10 +136,10 @@ class ChangePublished extends Component {
         </Row>
 
         <ProgressBar active={1} pages={pagesChangePublishedPm} />
-        {alert.isOpen && (
-          <Row className="w-100 my-0 mx-auto section-50">
-            <Alert color={alert.type} isOpen={!!alert.isOpen}>
-              {alerts[alert.textName] || ''}
+        {alert.isOpen || this.eventFromParams && (
+          <Row className="w-100 my-0 mx-auto section-50 upper-alert">
+            <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
+              {alerts[alert.textName] || alerts[this.eventFromParams] ||''}
             </Alert>
           </Row>
         )}
@@ -155,7 +166,7 @@ class ChangePublished extends Component {
                       }`}
                       id="choose-existed-memo"
                     >
-                      {allMemosAfterPublishing.map(({ memoName, memoEndPoint, status }) => (
+                      {uniqueMemosAfterPublishing.map(({ memoName, memoEndPoint, status }) => (
                         <FormGroup className="form-select" key={'memo' + memoEndPoint}>
                           <Input
                             type="radio"
@@ -184,7 +195,7 @@ class ChangePublished extends Component {
         </Container>
         <ControlPanel
           langIndex={langIndex}
-          hasChosenMemo={chosen.memoEndPoint}
+          chosenMemoEndPoint={chosen.memoEndPoint}
           onSubmit={this.onSubmit}
           onCancel={this.onFinish}
           isDraftOfPublished

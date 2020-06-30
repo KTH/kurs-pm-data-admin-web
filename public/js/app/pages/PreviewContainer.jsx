@@ -22,6 +22,7 @@ import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
 import { concatMemoName } from '../util/helpers'
 import {
+  FIRST_VERSION,
   EMPTY,
   REMOVE_PUBLISHED_PARAM,
   SERVICE_URL,
@@ -188,7 +189,7 @@ class PreviewContainer extends Component {
     previewMemo: this.props.routerStore.memoData
   }
 
-  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > 1
+  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
 
   langIndex = this.props.routerStore.langIndex
 

@@ -242,8 +242,14 @@ $white: #fff;
     flex-direction: row;
     margin: 0;
     width: 100%;
-    .btn-cancel {
+    .btn-middle {
       text-align: center;
+    }
+    .btns-helpers {
+      padding-left: 0;
+    }
+    span:nth-of-type(2) > .btn {
+      margin-left: 1.25em;
     }
   }
 }
@@ -252,18 +258,13 @@ $white: #fff;
   background-color: #f6f6f6;
 }
 
-.step-back {
-  //Rebuild
-  &.col-sm-4 {
+.btns-helpers {
     padding-left: 0;
-  }
 }
 
 .step-forward,
 .btn-last {
-  &.col-sm-4 {
     padding-right: 0;
-  }
 }
 
 .btn-info-modal {
@@ -359,7 +360,7 @@ span.section-info {
 
 .step-forward,
 .btn-last,
-.btn-cancel {
+.btn-middle {
   text-align: end;
 }
 
@@ -428,11 +429,11 @@ div.container.First--Step--Choose--Parameters {
       font-weight: normal;
     }
   }
-  label + label {
-    font-weight: normal;
-    padding-bottom: 0.7em;
-    display: block;
-  }
+  // label + label {
+  //   font-weight: normal;
+  //   padding-bottom: 0.7em;
+  //   display: block;
+  // }
 
   .right-block-for-extra {
     border-left: 1px solid $borderGrey;
@@ -443,6 +444,28 @@ div.container.First--Step--Choose--Parameters {
     .form-group.form-select {
       margin-left: 1.6em;
     }
+  }
+}
+
+label + label {
+  font-weight: normal;
+  padding-bottom: 0.7em;
+  display: block;
+}
+#addingRounds.modal-dialog {
+  max-width: 1000px;
+  span {
+    display: block;
+    padding-bottom: .5rem;
+  }
+  input ~ label {
+    font-weight: normal;
+  }
+  p {
+    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+  }
+  .noAvailableRounds {
+    padding-top: .5rem;
   }
 }
 

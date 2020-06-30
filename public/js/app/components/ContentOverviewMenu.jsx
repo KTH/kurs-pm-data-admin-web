@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
-// import Collapsible from 'react-collapsible'
 import { inject, observer } from 'mobx-react'
 import { sections, context } from '../util/fieldsByType'
 import i18n from '../../../../i18n'

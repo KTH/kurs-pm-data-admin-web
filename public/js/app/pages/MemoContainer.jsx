@@ -9,8 +9,8 @@ import i18n from '../../../../i18n'
 import axios from 'axios'
 import { ActionModalButton, PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import {
+  FIRST_VERSION,
   SERVICE_URL,
-  ADMIN_COURSE_PM_DATA,
   REMOVE_PUBLISHED_PARAM,
   SAVED_NEW_PARAM
 } from '../util/constants'
@@ -36,7 +36,7 @@ class MemoContainer extends Component {
     isError: false
   }
 
-  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > 1
+  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
 
   courseCode = this.props.routerStore.courseCode
 
@@ -55,8 +55,6 @@ class MemoContainer extends Component {
       search: ''
     })
     this.scrollIntoView()
-    console.log('window.localStorage', window.localStorage)
-    console.log('window.sessionStorage', window.sessionStorage)
   }
 
   setUpperAlarm = () => {
@@ -176,7 +174,7 @@ class MemoContainer extends Component {
   /** * User clicked button to go to one step back ** */
   onBack = () => {
     const { courseCode, memoEndPoint, isDraftOfPublished } = this
-    const nextUrl = `${ADMIN_COURSE_PM_DATA}${
+    const nextUrl = `${SERVICE_URL.courseMemoAdmin}${
       isDraftOfPublished ? 'published/' : ''
     }${courseCode}?memoEndPoint=${memoEndPoint}`
     this.handleBtnSave().then(
@@ -228,7 +226,7 @@ class MemoContainer extends Component {
     else
       this.handleBtnSave().then(
         setTimeout(() => {
-          window.location = `${ADMIN_COURSE_PM_DATA}${courseCode}/${memoEndPoint}/preview`
+          window.location = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
         }, 500)
       )
   }
@@ -395,7 +393,8 @@ class MemoContainer extends Component {
               {alerts.infoAboutFreshData || ''}
             </Alert>
             <Alert key="infoAboutStartingAgain" color="info">
-              {alerts.infoStartAgain}{' '}
+              {alerts.infoStartAgain}
+              {' '}
               <ActionModalButton
                 btnLabel={`${alerts.linkToRefreshData} (${new Date(
                   lastPublishedVersionPublishDate

@@ -576,6 +576,12 @@ module.exports = {
     preview: 'Skapa och publicera kurs-PM'
   },
   actionModals: {
+    changeLadokRoundIds: {
+      header: 'Lägg till kurstillfällen',
+      body: '',
+      btnClose: 'Avbryt',
+      btnConfirm: 'Spara'
+    },
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
       body: `Detta utkast kommer att raderas. Den senaste publicerade versionen av detta kurs-PM kommer att förbli oförändrat.
@@ -660,6 +666,11 @@ module.exports = {
       Kurstillfällen ska alltså grupperas ihop till en kursomgång. Kursomgången är ett praktiskt genomförande av en kurs. 
       Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
+      addRounds: {
+        label: 'Markera en eller flera kurstillfällen som du vill läga till',
+        infoText:
+          'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast'
+      },
       availableRounds: {
         label: 'Markera ett eller flera kurstillfällen som ingår i kursomgången',
         infoText: 'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast'
@@ -682,6 +693,7 @@ module.exports = {
     },
     publishedHasDraft: ' (finns opublicerade ändringar)',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
+    noRoundsToAdd: 'Det finns inga kurtillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
     noCourseRoundsAvailable:
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-PM eller utkast.',
     noSavedDrafts: 'Det finns inga sparade utkast.',
@@ -728,11 +740,25 @@ module.exports = {
 		<p>Ett överstruket öga till höger om rubriken innebär att rubriken och dess innehåll inte kommer att inkluderas i det publicerade kurs-PM:et.</p>`
     },
     commentChanges: 'Ange alla ändringar i denna version:',
-    mandatory: 'Obligatorisk'
+    mandatory: 'Obligatorisk',
+    cannotMergeLanguage: '(går ej att välja, se ovan: Språk kurs-PM)',
+    memoLanguage: {
+      label: 'Språk kurs-PM',
+      sv: 'Svenska',
+      en: 'Engelska'
+    },
+    aboutMemoLanguage: {
+      sv: `Språket för kurs-PM är på Svenska eftersom alla kurstillfällen som valdes när kurs-PM skapades är Svenska. 
+        Det går ej att lägga till ett Engelskt kurstillfälle nedan för det kräver att kurs-PM:s språk är Engelska. 
+        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`, 
+      en: `Språket för kurs-PM är på Engelska eftersom minst ett av kurstillfällena som valdes när kurs-pm skapades är Engelskt. 
+      Det går att lägga till både svenska och engelska kurstillfällen nedan.`
+    }
   },
   alerts: {
     autoSaved: 'Sparat utkast',
     autoSavedTemporary: 'Ändringar sparade temporärt inför publicering.',
+    addedRoundId: 'Kurstillfällen har ändrats',
     errKoppsRounds:
       'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:

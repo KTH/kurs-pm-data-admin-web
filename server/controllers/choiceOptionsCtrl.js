@@ -72,17 +72,17 @@ async function getCourseOptionsPage(req, res, next) {
       courseCode,
       memoEndPoint: req.query.memoEndPoint || ''
     })
-    renderProps.props.children.props.routerStore.slicedTermsByPrevYear = await getKoppsCourseRoundTerms(
+    renderProps.props.children.props.routerStore.miniKoppsObj = await getKoppsCourseRoundTerms(
       courseCode
     )
-    // await renderProps.props.children.props.routerStore.fetchExistingMemos(courseCode)
-    renderProps.props.children.props.routerStore.existingLatestMemos = await getMemoApiData(
+
+    // await renderProps.props.children.props.routerStore.fetchminiMemos(courseCode)
+    renderProps.props.children.props.routerStore.miniMemos = await getMemoApiData(
       'getMemosStartingFromPrevYearSemester',
       {
         courseCode
       }
     )
-
     // TODO GET AWAIT COURSE
     const html = ReactDOMServer.renderToString(renderProps)
     res.render('memo/index', {
