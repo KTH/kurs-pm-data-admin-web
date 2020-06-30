@@ -91,9 +91,11 @@ class RouterStore {
   @action
   async showAvailableSemesterRounds(chosenSemester) {
     try {
+      const thisHost = this.thisHostBaseUrl.slice(-1) === '/' ? this.thisHostBaseUrl.slice(0,-1) : this.thisHostBaseUrl
       const result = await axios.get(
-        `${this.thisHostBaseUrl}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`
+        `${thisHost}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`
       )
+      console.log("thisHost", thisHost)
       if (result) {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
