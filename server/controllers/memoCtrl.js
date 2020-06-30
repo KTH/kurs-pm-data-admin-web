@@ -112,7 +112,7 @@ async function renderMemoEditorPage(req, res, next) {
 async function updateContentByEndpoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
-    const apiResponse = await changeMemoApiData('updateCreatedDraft', memoEndPoint, req.body)
+    const apiResponse = await changeMemoApiData('updateCreatedDraft', {memoEndPoint}, req.body)
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API: ', apiResponse.message)
     }

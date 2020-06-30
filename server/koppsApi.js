@@ -51,10 +51,10 @@ async function getKoppsCourseRoundTerms(courseCode) {
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
   try {
     const res = await client.getAsync({ uri, useCache: true })
-    const shortSemesterList = _sliceTermsArrByPrevTerm(res.body.termsWithCourseRounds)
+    const slicedTermsByPrevTerm = _sliceTermsArrByPrevTerm(res.body.termsWithCourseRounds)
     return {
       course: res.body.course,
-      shortSemesterList
+      lastTermsInfo: slicedTermsByPrevTerm
     }
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)

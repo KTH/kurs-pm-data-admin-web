@@ -14,3 +14,4 @@ export const SAVED_NEW_PARAM = '?serv=pmdata&event=save' // 'Avsluta'
 export const REMOVE_PUBLISHED_PARAM = '?serv=pmdata&event=removedPublished'
 export const publishParam = '?serv=pmdata&event=pub'
 // export const cancelPram = '?serv=pmdata&event=cancel'
+export const FIRST_VERSION = 1
