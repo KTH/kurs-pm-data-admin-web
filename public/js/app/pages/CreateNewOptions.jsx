@@ -278,7 +278,7 @@ class CreateNewOptions extends Component {
 
         <ProgressBar active={1} pages={pagesCreateNewPm} />
         {alert.isOpen || this.eventFromParams && (
-          <Row className="w-100 my-0 mx-auto section-50">
+          <Row className="w-100 my-0 mx-auto section-50 upper-alert">
             <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
               {alerts[alert.textName] || alerts[this.eventFromParams] ||''}
             </Alert>
