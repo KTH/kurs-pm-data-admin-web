@@ -12,13 +12,13 @@ class RouterStore {
 
   @observable koppsFreshData = {}
 
-  @observable slicedTermsByPrevYear = {}
+  @observable miniKoppsObj = {}
 
   @observable memoEndPoint
 
   @observable memoData = {}
 
-  @observable existingLatestMemos = {}
+  @observable miniMemos = {}
 
   @observable rebuilDraftFromPublishedVer = false
 
@@ -74,16 +74,15 @@ class RouterStore {
     this.memoData = memoData
   }
 
-  async _filterOutUsedRounds(usedRoundsThisSemester, chosenSemester) {
-    const allSemesters = this.slicedTermsByPrevYear.shortSemesterList || null
-    const thisSemester =
-      (allSemesters && (await allSemesters.find(({ term }) => term === chosenSemester))) || {}
-    console.log('thisSemester', thisSemester)
+  async _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester) {
+    const lastTerms = this.miniKoppsObj.lastTermsInfo || null
+    const thisTerm =
+      (lastTerms && (await lastTerms.find(({ term }) => term === chosenSemester))) || {}
     return (
-      (thisSemester &&
-        thisSemester.rounds &&
-        (await thisSemester.rounds
-          .filter(r => !usedRoundsThisSemester.includes(r.ladokRoundId))
+      (thisTerm &&
+        thisTerm.rounds &&
+        (await thisTerm.rounds
+          .filter(r => !usedRoundsThisTerm.includes(r.ladokRoundId))
           .reverse())) ||
       []
     )
@@ -92,7 +91,6 @@ class RouterStore {
   @action
   async showAvailableSemesterRounds(chosenSemester) {
     try {
-      console.log('hahahahahaha')
       const result = await axios.get(
         `${this.thisHostBaseUrl}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`
       )
@@ -110,33 +108,7 @@ class RouterStore {
       }
       throw error
     }
-
-    // .catch(err => {
-    //   if (err.response) {
-    //     throw new Error(err.message)
-    //   }
-    //   throw err
-    // })
   }
-
-  //   @action
-  // showAvailableSemesterRounds = chosenSemester => {
-  //   return axios
-  //     .get(`${this.thisHostBaseUrl}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`)
-  //     .then(result => {
-  //       if (result.status >= 400) {
-  //         return 'ERROR-' + result.status
-  //       }
-  //       const { usedRoundsThisSemester } = result.data
-  //       this.availableSemesterRounds = this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
-  //     })
-  //     .catch(err => {
-  //       if (err.response) {
-  //         throw new Error(err.message)
-  //       }
-  //       throw err
-  //     })
-  // }
 
   @action setBrowserConfig(config, paths, apiHost, thisHostBaseUrl) {
     this.browserConfig = config

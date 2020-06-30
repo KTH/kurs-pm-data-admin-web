@@ -42,18 +42,18 @@ class CreateNewOptions extends Component {
 
   courseCode = this.props.routerStore.courseCode
 
-  existingDraftsByCourseCode = this.props.routerStore.existingLatestMemos
+  existingDrafts = this.props.routerStore.miniMemos
     .draftsWithNoActivePublishedVer
 
-  allPublishedCourseMemos = this.props.routerStore.existingLatestMemos.sortedPublishedForAllYears
+  allPublishedCourseMemos = this.props.routerStore.miniMemos.sortedPublishedForAllYears
 
-  hasSavedDraft = this.existingDraftsByCourseCode.length > 0
+  hasSavedDraft = this.existingDrafts.length > 0
 
   langIndex = this.props.routerStore.langIndex
 
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
 
-  allSemesters = this.props.routerStore.slicedTermsByPrevYear.shortSemesterList || null // need to define if kopps in error
+  lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
   componentDidMount() {
     this.props.history.push({
@@ -79,8 +79,8 @@ class CreateNewOptions extends Component {
     otherwise, if all f.e., have swedish then Swedish. Saved as 'sv', en', used to extract syllabus by this lang */
     const allRoundsLanguages = sortedKoppsInfo.map(round => round.language.en)
     const uniqueLanguages = Array.from(new Set(allRoundsLanguages))
-    const memoLanguageInEnglish = uniqueLanguages.length === 1 ? uniqueLanguages[0] : 'English'
-    const memoCommonLangAbbr = memoLanguageInEnglish === 'Swedish' ? 'sv' : 'en'
+    const memoLanguage = uniqueLanguages.length === 1 ? uniqueLanguages[0] : 'English'
+    const memoCommonLangAbbr = memoLanguage === 'Swedish' ? 'sv' : 'en'
     /* After we get a language of memo, we need to extract string for a student view by chosen above memo language,
     if rounds have different lang, then join those languages ex, Swedish/English */
     const uniqueCourseLanguagesByMemoLang = Array.from(
@@ -112,6 +112,7 @@ class CreateNewOptions extends Component {
     const { sortedRoundIds, sortedKoppsInfo } = checked
       ? sortRoundAndKoppsInfo(chosenRoundObj, this.state.chosen)
       : removeAndSortRoundAndInfo(value, this.state.chosen)
+    console.log('sortedKoppsInfo', sortedKoppsInfo)
     const { memoCommonLangAbbr, languageOfInstructions } = this._roundsCommonLanguages(
       sortedKoppsInfo
     )
@@ -248,13 +249,12 @@ class CreateNewOptions extends Component {
   }
 
   render() {
-    const { allSemesters, existingDraftsByCourseCode, hasSavedDraft, langAbbr, langIndex } = this
+    const { lastTerms, existingDrafts, hasSavedDraft, langAbbr, langIndex } = this
     const { alerts, info, extraInfo, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[
       langIndex
     ]
-    const { course } = this.props.routerStore.slicedTermsByPrevYear
+    const { course } = this.props.routerStore.miniKoppsObj
     const { alert, availableSemesterRounds, chosen, semester } = this.state
-    console.log('availableSemesterRounds', availableSemesterRounds)
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -306,7 +306,7 @@ class CreateNewOptions extends Component {
                       }`}
                       id="choose-existed-memo"
                     >
-                      {existingDraftsByCourseCode.map(({ memoName, memoEndPoint }) => (
+                      {existingDrafts.map(({ memoName, memoEndPoint }) => (
                         <FormGroup className="form-select" key={'draft' + memoEndPoint}>
                           <Input
                             type="radio"
@@ -344,7 +344,7 @@ class CreateNewOptions extends Component {
               {/* CHOOSE COURSE OFFERING WITH NO MEMOS */}
               <div>
                 <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
-                {(allSemesters && allSemesters.length > 0 && (
+                {(lastTerms && lastTerms.length > 0 && (
                   <Form
                     style={{ width: '20em' }}
                     // className={
@@ -368,7 +368,7 @@ class CreateNewOptions extends Component {
                               {info.chooseSemester.label}
                             </option>
                           )}
-                          {allSemesters.map(({ term }) => (
+                          {lastTerms.map(({ term }) => (
                             <option id={`itemFor-${term}`} key={term} value={term}>
                               {seasonStr(extraInfo, term)}
                             </option>
@@ -379,7 +379,7 @@ class CreateNewOptions extends Component {
                   </Form>
                 )) || (
                   <p>
-                    <i>{(allSemesters && info.noSemesterAvailable) || info.errKoppsRounds}</i>
+                    <i>{(lastTerms && info.noSemesterAvailable) || info.errKoppsRounds}</i>
                   </p>
                 )}
               </div>
@@ -387,7 +387,7 @@ class CreateNewOptions extends Component {
               <div
                 className="first-15"
                 style={
-                  allSemesters && allSemesters.length > 0 && semester
+                  lastTerms && lastTerms.length > 0 && semester
                     ? { marginTop: '0' }
                     : { display: 'none' }
                 }
@@ -502,7 +502,7 @@ class CreateNewOptions extends Component {
         </Container>
         <ControlPanel
           langIndex={langIndex}
-          hasChosenMemo={chosen.existingDraftEndPoint}
+          chosenMemoEndPoint={chosen.existingDraftEndPoint}
           onCancel={this.onFinish}
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
