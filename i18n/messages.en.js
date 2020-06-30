@@ -777,6 +777,7 @@ module.exports = {
   alerts: {
     autoSaved: 'Draft saved',
     autoSavedTemporary: 'Changes save temporarily before publishing.',
+    addedRoundId: 'Course offerings were changed',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
     errNoChosen:

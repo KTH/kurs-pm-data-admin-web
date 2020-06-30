@@ -758,6 +758,7 @@ module.exports = {
   alerts: {
     autoSaved: 'Sparat utkast',
     autoSavedTemporary: 'Ändringar sparade temporärt inför publicering.',
+    addedRoundId: 'Kurstillfällen har ändrats',
     errKoppsRounds:
       'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:
