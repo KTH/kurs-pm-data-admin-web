@@ -14,7 +14,7 @@ import {
   removeAndSortRoundAndInfo,
   uncheckRadioById
 } from '../util/helpers'
-import { FIRST_VERSION } from '../util/constants'
+import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
 import axios from 'axios'
 
 const canMerge = (memoLangAbbr, round) => {
@@ -95,11 +95,12 @@ class ActionModalCourseRounds extends Component {
         .map(round => combineMemoName(round, semester, memoCommonLangAbbr))
         .join(', ')
       const canChange = version === FIRST_VERSION && status === 'draft'
+      const newMemoEndPoint = canChange ? courseCode + semester + '-' + sortedRoundIds.join('-') : memoEndPoint
 
       const newInfo = { 
         courseCode,
         memoName: newMemoName,
-        memoEndPoint: canChange ? courseCode + semester + '-' + sortedRoundIds.join('-') : memoEndPoint, 
+        memoEndPoint: newMemoEndPoint, 
         ladokRoundIds: sortedRoundIds 
       }
       
@@ -113,6 +114,9 @@ class ActionModalCourseRounds extends Component {
           this.setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + newResult.status
         }
+        console.log(newResult.data)
+        const reload = `${SERVICE_URL.courseMemoAdmin}${courseCode}?memoEndPoint=${newMemoEndPoint}`
+        window.location = reload
         // this.onAlert(alertTranslationId)
       })
       .catch(error => {
