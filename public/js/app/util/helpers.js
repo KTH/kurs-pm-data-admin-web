@@ -74,3 +74,13 @@ export const removeAndSortRoundAndInfo = (ladokRoundId, prevSortedInfo) => {
   sortedKoppsInfo.splice(removeIndex, 1)
   return { sortedRoundIds, sortedKoppsInfo }
 }
+
+export const fetchParameters = (props) => {
+  
+  // if (props.location.sellingDesciprion !== 'success') {
+  const params = props.location.search.substring(1).split('&')
+    .map(param => param.split('='))
+    .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
+  // }
+  return params
+}
