@@ -10,7 +10,8 @@ import {
   seasonStr,
   sortRoundAndKoppsInfo,
   removeAndSortRoundAndInfo,
-  uncheckRadioById
+  uncheckRadioById,
+  fetchParameters
 } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
@@ -23,7 +24,7 @@ import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 @observer
 class CreateNewOptions extends Component {
   state = {
-    semester: this.props.routerStore.semester,
+    semester: this.props.routerStore.semester || '',
     copyFromMemoEndPoint: '',
     chosen: {
       action: this.props.routerStore.memoEndPoint ? 'continue' : '',
@@ -39,6 +40,9 @@ class CreateNewOptions extends Component {
     },
     availableSemesterRounds: []
   }
+  urlParams = fetchParameters(this.props)
+  
+  eventFromParams = this.urlParams.event || ''
 
   courseCode = this.props.routerStore.courseCode
 
@@ -273,10 +277,10 @@ class CreateNewOptions extends Component {
         </Row>
 
         <ProgressBar active={1} pages={pagesCreateNewPm} />
-        {alert.isOpen && (
+        {alert.isOpen || this.eventFromParams && (
           <Row className="w-100 my-0 mx-auto section-50">
-            <Alert color={alert.type} isOpen={!!alert.isOpen}>
-              {alerts[alert.textName] || ''}
+            <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
+              {alerts[alert.textName] || alerts[this.eventFromParams] ||''}
             </Alert>
           </Row>
         )}

@@ -10,12 +10,12 @@ import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { fetchParameters } from '../util/helpers'
 
 @inject(['routerStore'])
 @observer
 class ChangePublished extends Component {
   state = {
-    // semester: this.props.routerStore.semester,
     chosen: {
       memoEndPoint: this.props.routerStore.memoEndPoint || '' // TODO FIX IF IT IS CORRECT MEMOeNDpOPIN
     },
@@ -40,6 +40,10 @@ class ChangePublished extends Component {
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
 
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
+
+  urlParams = fetchParameters(this.props)
+  
+  eventFromParams = this.urlParams.event || ''
 
   componentDidMount() {
     this.props.history.push({
@@ -132,10 +136,10 @@ class ChangePublished extends Component {
         </Row>
 
         <ProgressBar active={1} pages={pagesChangePublishedPm} />
-        {alert.isOpen && (
+        {alert.isOpen || this.eventFromParams && (
           <Row className="w-100 my-0 mx-auto section-50">
-            <Alert color={alert.type} isOpen={!!alert.isOpen}>
-              {alerts[alert.textName] || ''}
+            <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
+              {alerts[alert.textName] || alerts[this.eventFromParams] ||''}
             </Alert>
           </Row>
         )}
