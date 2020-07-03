@@ -259,12 +259,12 @@ $white: #fff;
 }
 
 .btns-helpers {
-    padding-left: 0;
+  padding-left: 0;
 }
 
 .step-forward,
 .btn-last {
-    padding-right: 0;
+  padding-right: 0;
 }
 
 .btn-info-modal {
@@ -456,16 +456,21 @@ label + label {
   max-width: 1000px;
   span {
     display: block;
-    padding-bottom: .5rem;
+    padding-bottom: 0.5rem;
   }
   input ~ label {
     font-weight: normal;
+  }
+  label {
+    i {
+      padding-left: 30px;
+    }
   }
   p {
     font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
   }
   .noAvailableRounds {
-    padding-top: .5rem;
+    padding-top: 0.5rem;
   }
 }
 
