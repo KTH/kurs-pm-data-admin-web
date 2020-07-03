@@ -17,7 +17,7 @@ function hydrateStores(renderProps) {
   const outp = {}
   const { props } = renderProps.props.children
 
-  Object.keys(props).map(key => {
+  Object.keys(props).map((key) => {
     if (typeof props[key].initializeStore === 'function') {
       outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
     }
@@ -72,19 +72,21 @@ async function getCourseOptionsPage(req, res, next) {
       courseCode,
       memoEndPoint: req.query.memoEndPoint || ''
     })
+
     renderProps.props.children.props.routerStore.miniKoppsObj = await getKoppsCourseRoundTerms(
       courseCode
     )
 
-    // await renderProps.props.children.props.routerStore.fetchminiMemos(courseCode)
     renderProps.props.children.props.routerStore.miniMemos = await getMemoApiData(
       'getMemosStartingFromPrevYearSemester',
       {
         courseCode
       }
     )
+
     // TODO GET AWAIT COURSE
     const html = ReactDOMServer.renderToString(renderProps)
+
     res.render('memo/index', {
       html,
       title: i18n.messages[langIndex].messages.site_name,
