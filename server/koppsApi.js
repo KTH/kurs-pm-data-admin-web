@@ -37,10 +37,10 @@ const _prevTermNumber = () => {
   return Number(`${prevYear}${currentSemester}`)
 }
 
-const _sliceTermsArrByPrevTerm = allTerms => {
+const _sliceTermsArrByPrevTerm = (allTerms) => {
   // step 1
   const prevTerm = _prevTermNumber()
-  const indexForCut = allTerms.findIndex(obj => Number(obj.term) < prevTerm)
+  const indexForCut = allTerms.findIndex((obj) => Number(obj.term) < prevTerm)
   const finalTerms = indexForCut === -1 ? allTerms : allTerms.slice(0, indexForCut)
   return finalTerms
 }
@@ -51,10 +51,20 @@ async function getKoppsCourseRoundTerms(courseCode) {
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
   try {
     const res = await client.getAsync({ uri, useCache: true })
-    const slicedTermsByPrevTerm = _sliceTermsArrByPrevTerm(res.body.termsWithCourseRounds)
+    const { course, termsWithCourseRounds } = res.body
+    const slicedTermsByPrevTerm = _sliceTermsArrByPrevTerm(termsWithCourseRounds)
+    const syllabusDatesSorted = [
+      ...Array.from(
+        new Set(
+          slicedTermsByPrevTerm.map((term) => Number(term.courseSyllabus.validFromTerm)).sort()
+        )
+      )
+    ]
+
     return {
-      course: res.body.course,
-      lastTermsInfo: slicedTermsByPrevTerm
+      course,
+      lastTermsInfo: slicedTermsByPrevTerm,
+      syllabusDatesSorted
     }
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
@@ -71,7 +81,7 @@ function _getSelectedSyllabus(body, semester) {
     (a, b) => Number(b.validFromTerm.term) - Number(a.validFromTerm.term)
   )
   const semesterSyllabus = sortedDescSyllabusTerms.find(
-    syllabus => syllabus.validFromTerm.term <= Number(semester)
+    (syllabus) => syllabus.validFromTerm.term <= Number(semester)
   )
   const { courseSyllabus, validFromTerm } = semesterSyllabus
 
@@ -92,7 +102,7 @@ function _getExamModules(body, semester, roundLang) {
   const { creditUnitAbbr } = body.course
   const sortedDescExamTerms = Object.keys(examinationSets).sort((a, b) => Number(b) - Number(a))
   const matchingExamSetKey = sortedDescExamTerms.find(
-    examTerm => Number(examTerm) <= Number(semester)
+    (examTerm) => Number(examTerm) <= Number(semester)
   )
 
   const language = roundLang === 'en' ? 0 : 1
@@ -102,7 +112,7 @@ function _getExamModules(body, semester, roundLang) {
     examinationSets[matchingExamSetKey] &&
     examinationSets[matchingExamSetKey].examinationRounds.length > 0
   ) {
-    examinationSets[matchingExamSetKey].examinationRounds.map(exam => {
+    examinationSets[matchingExamSetKey].examinationRounds.map((exam) => {
       const credits =
         exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
       titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`
@@ -164,7 +174,7 @@ function _getCommonInfo(resBody) {
   } = resBody.course
   const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
   const schemaUrls = resBody.roundInfos
-    .filter(roundInfo => roundInfo.schemaUrl !== undefined)
+    .filter((roundInfo) => roundInfo.schemaUrl !== undefined)
     .map(({ schemaUrl }) => schemaUrl)
   return {
     credits,
