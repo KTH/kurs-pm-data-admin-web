@@ -68,8 +68,8 @@ const pdfLink = (labels /* courseCode, memoEndPoint */) => (
   </>
 )
 
-const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) => {
-  const syllabusLinkLabel = `${labels.syllabusLinkStart}${seasonStr(extraInfo, validFromTerm)}${
+const syllabusLink = (language, labels, courseCode, validFromTerm) => {
+  const syllabusLinkLabel = `${labels.syllabusLinkStart}${seasonStr(language, validFromTerm)}${
     labels.syllabusLinkEnd
   }`
   return (
@@ -95,12 +95,12 @@ const syllabusLink = (language, labels, extraInfo, courseCode, validFromTerm) =>
   )
 }
 
-const CourseMemoLinks = ({ language, labels, extraInfo, memoData = {}, validFromTerm = '' }) => (
+const CourseMemoLinks = ({ language, labels, memoData = {}, validFromTerm = '' }) => (
   <div className="preview-info-box">
     {version(language, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}
-    {syllabusLink(language, labels, extraInfo, memoData.courseCode, validFromTerm)}
+    {syllabusLink(language, labels, memoData.courseCode, validFromTerm)}
   </div>
 )
 

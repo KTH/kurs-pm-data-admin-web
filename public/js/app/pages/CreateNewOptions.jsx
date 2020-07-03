@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
 import {
+  combinedCourseName,
   combineMemoName,
   emptyCheckboxesByIds,
   seasonStr,
@@ -24,7 +25,7 @@ import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 @observer
 class CreateNewOptions extends Component {
   state = {
-    semester: this.props.routerStore.semester || '',
+    semester: this.props.routerStore.semester,
     copyFromMemoEndPoint: '',
     chosen: {
       action: this.props.routerStore.memoEndPoint ? 'continue' : '',
@@ -41,13 +42,12 @@ class CreateNewOptions extends Component {
     availableSemesterRounds: []
   }
   urlParams = fetchParameters(this.props)
-  
+
   eventFromParams = this.urlParams.event || ''
 
   courseCode = this.props.routerStore.courseCode
 
-  existingDrafts = this.props.routerStore.miniMemos
-    .draftsWithNoActivePublishedVer
+  existingDrafts = this.props.routerStore.miniMemos.draftsWithNoActivePublishedVer
 
   allPublishedCourseMemos = this.props.routerStore.miniMemos.sortedPublishedForAllYears
 
@@ -78,17 +78,17 @@ class CreateNewOptions extends Component {
     })
   }
 
-  _roundsCommonLanguages = sortedKoppsInfo => {
+  _roundsCommonLanguages = (sortedKoppsInfo) => {
     /* Get memo language, if at least one round has 'English' as a languageOfInstructions then memo language is English,
     otherwise, if all f.e., have swedish then Swedish. Saved as 'sv', en', used to extract syllabus by this lang */
-    const allRoundsLanguages = sortedKoppsInfo.map(round => round.language.en)
+    const allRoundsLanguages = sortedKoppsInfo.map((round) => round.language.en)
     const uniqueLanguages = Array.from(new Set(allRoundsLanguages))
     const memoLanguage = uniqueLanguages.length === 1 ? uniqueLanguages[0] : 'English'
     const memoCommonLangAbbr = memoLanguage === 'Swedish' ? 'sv' : 'en'
     /* After we get a language of memo, we need to extract string for a student view by chosen above memo language,
     if rounds have different lang, then join those languages ex, Swedish/English */
     const uniqueCourseLanguagesByMemoLang = Array.from(
-      new Set(sortedKoppsInfo.map(round => round.language[memoCommonLangAbbr]))
+      new Set(sortedKoppsInfo.map((round) => round.language[memoCommonLangAbbr]))
     )
     const languageOfInstructions = uniqueCourseLanguagesByMemoLang.join('/')
     return { memoCommonLangAbbr, languageOfInstructions }
@@ -116,12 +116,12 @@ class CreateNewOptions extends Component {
     const { sortedRoundIds, sortedKoppsInfo } = checked
       ? sortRoundAndKoppsInfo(chosenRoundObj, this.state.chosen)
       : removeAndSortRoundAndInfo(value, this.state.chosen)
-    console.log('sortedKoppsInfo', sortedKoppsInfo)
+
     const { memoCommonLangAbbr, languageOfInstructions } = this._roundsCommonLanguages(
       sortedKoppsInfo
     )
     const newMemoName = sortedKoppsInfo // remove
-      .map(round => combineMemoName(round, semester, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
+      .map((round) => combineMemoName(round, semester, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
       .join(', ')
     this.setState({
       alert: { isOpen: false },
@@ -137,7 +137,7 @@ class CreateNewOptions extends Component {
     })
   }
 
-  _cleanUpCheckboxesState = memoEndPoint => {
+  _cleanUpCheckboxesState = (memoEndPoint) => {
     const { sortedRoundIds } = this.state.chosen
     emptyCheckboxesByIds(sortedRoundIds, 'new')
     this.setState({
@@ -151,16 +151,16 @@ class CreateNewOptions extends Component {
     })
   }
 
-  onChoiceOfExistingDraft = event => {
+  onChoiceOfExistingDraft = (event) => {
     const { value } = event.target
     this.setState({ alert: { isOpen: false } })
     this._cleanUpCheckboxesState(value)
   }
 
-  onChoiceOfToCopyOrCreateEmpty = event => {
+  onChoiceOfToCopyOrCreateEmpty = (event) => {
     const { value } = event.target
     this.setState(
-      prevState => ({
+      (prevState) => ({
         ...prevState,
         chosen: {
           ...prevState.chosen,
@@ -172,7 +172,7 @@ class CreateNewOptions extends Component {
     )
   }
 
-  onChoiceOfMemoToCopy = event => {
+  onChoiceOfMemoToCopy = (event) => {
     const { value } = event.target
     this.setState({ alert: { isOpen: false } })
     this.setState({
@@ -185,13 +185,13 @@ class CreateNewOptions extends Component {
       .delete(
         `${SERVICE_URL.API}draft-to-remove/${this.courseCode}/${this.state.chosen.existingDraftEndPoint}`
       )
-      .then(result => {
+      .then((result) => {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
         window.location.reload()
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response) {
           throw new Error(err.message)
         }
@@ -199,47 +199,65 @@ class CreateNewOptions extends Component {
       })
   }
 
-  onSubmitNew = () => {
+  onSubmitNew = async () => {
     const { courseCode } = this
+    const { course, syllabusDatesSorted } = this.props.routerStore.miniKoppsObj
     const { semester, chosen, copyFromMemoEndPoint } = this.state
+    const { action, newMemoName, memoCommonLangAbbr, sortedRoundIds } = chosen
 
-    if (chosen.action === 'copy' && !copyFromMemoEndPoint) {
+    if (action === 'copy' && !copyFromMemoEndPoint) {
       // if chosen to copy but not a template to copy from
       this.setAlarm('danger', 'errNoChosenTemplate')
-    } else if (chosen.action === 'continue' && chosen.existingDraftEndPoint) {
+    } else if (action === 'continue' && chosen.existingDraftEndPoint) {
       // Draft exists just go to next step
-      const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.existingDraftEndPoint}`
-      window.location = nextStepUrl
-    } else if (chosen.sortedRoundIds.length > 0 && !chosen.existingDraftEndPoint) {
+      const continueToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.existingDraftEndPoint}`
+      window.location = continueToEditorUrl
+    } else if (sortedRoundIds.length > 0 && !chosen.existingDraftEndPoint) {
+      const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
+
+      const { courseSyllabus } = this.lastTerms.find(({ term }) => term === semester)
+      const validFromTerm = Number(courseSyllabus.validFromTerm)
+      const validToStr =
+        syllabusDatesSorted[
+          syllabusDatesSorted.findIndex((someSyllabusDate) => someSyllabusDate === validFromTerm) +
+            1
+        ] || ''
+      const syllabusValid = {
+        validFromTerm,
+        textFromTo: `${seasonStr(memoCommonLangAbbr, validFromTerm)} - ${validToStr}`
+      }
+
       // Create new draft from chosen semester rounds
       const body = {
         courseCode,
-        memoName: chosen.newMemoName,
-        memoCommonLangAbbr: chosen.memoCommonLangAbbr,
-        ladokRoundIds: chosen.sortedRoundIds,
+        courseTitle,
+        memoName: newMemoName,
+        memoCommonLangAbbr,
+        ladokRoundIds: sortedRoundIds,
         languageOfInstructions: chosen.languageOfInstructions,
-        memoEndPoint: courseCode + semester + '-' + chosen.sortedRoundIds.join('-'),
-        semester
+        memoEndPoint: courseCode + semester + '-' + sortedRoundIds.join('-'),
+        semester,
+        syllabusValid
       }
 
       const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
-        chosen.action === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
+        action === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
       }`
 
-      return axios
-        .post(url, body)
-        .then(result => {
-          if (result.status >= 400) {
-            this.setAlarm('danger', 'errWhileSaving')
-            return 'ERROR-' + result.status
-          }
-          // ADDD ERROR HANTERING
-          const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}`
-          window.location = nextStepUrl
-        })
-        .catch(error => {
+      try {
+        const result = await axios.post(url, body)
+        if (result.status >= 400) {
           this.setAlarm('danger', 'errWhileSaving')
-        })
+          return 'ERROR-' + result.status
+        }
+        // ADDD ERROR HANTERING
+        const goToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}${
+          action === 'copy' ? '?event=copy' : ''
+        }`
+        window.location = goToEditorUrl
+      } catch (error) {
+        this.setAlarm('danger', 'errWhileSaving')
+      }
     } else this.setAlarm('danger', 'errNoChosen')
   }
 
@@ -254,36 +272,30 @@ class CreateNewOptions extends Component {
 
   render() {
     const { lastTerms, existingDrafts, hasSavedDraft, langAbbr, langIndex } = this
-    const { alerts, info, extraInfo, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[
-      langIndex
-    ]
+    const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
     const { course } = this.props.routerStore.miniKoppsObj
+
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row id="scroll-here-if-alert">
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
-            <span>
-              {this.courseCode +
-                ' ' +
-                course.title[langAbbr] +
-                ' ' +
-                course.credits +
-                ' ' +
-                (langAbbr === 'sv' ? course.creditUnitAbbr.sv : 'credits')}
-            </span>
+            <span>{course && combinedCourseName(this.courseCode, course, langAbbr)}</span>
           </PageTitle>
         </Row>
 
         <ProgressBar active={1} pages={pagesCreateNewPm} />
-        {alert.isOpen || this.eventFromParams && (
-          <Row className="w-100 my-0 mx-auto section-50 upper-alert">
-            <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
-              {alerts[alert.textName] || alerts[this.eventFromParams] ||''}
-            </Alert>
-          </Row>
-        )}
+        {alert.isOpen ||
+          (this.eventFromParams && (
+            <Row className="w-100 my-0 mx-auto section-50 upper-alert">
+              <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
+                {alerts[alert.textName] || (this.eventFromParams && alerts[this.eventFromParams])
+                  ? alerts[this.eventFromParams]
+                  : ''}
+              </Alert>
+            </Row>
+          ))}
 
         <Container className="First--Step--Choose--Parameters">
           <Row>
@@ -374,7 +386,7 @@ class CreateNewOptions extends Component {
                           )}
                           {lastTerms.map(({ term }) => (
                             <option id={`itemFor-${term}`} key={term} value={term}>
-                              {seasonStr(extraInfo, term)}
+                              {seasonStr(langIndex, term)}
                             </option>
                           ))}
                         </select>
@@ -409,7 +421,7 @@ class CreateNewOptions extends Component {
                         alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''
                       }
                     >
-                      {availableSemesterRounds.map(round => (
+                      {availableSemesterRounds.map((round) => (
                         <FormGroup
                           className="form-check"
                           id="choose-from-rounds-list"
@@ -420,7 +432,7 @@ class CreateNewOptions extends Component {
                             id={'new' + round.ladokRoundId}
                             name="chooseNew"
                             value={round.ladokRoundId}
-                            onClick={event => this.onChoiceOfAvailableRounds(event, round)}
+                            onClick={(event) => this.onChoiceOfAvailableRounds(event, round)}
                             defaultChecked={false}
                           />
                           <Label htmlFor={'new' + round.ladokRoundId}>
@@ -444,7 +456,7 @@ class CreateNewOptions extends Component {
                 <div className="Start--Creating--From--Template--Or--Copy">
                   <Label htmlFor="choose-action">{info.createFrom.labelBasedOn}</Label>
                   <Form id="choose-action">
-                    {['basedOnStandard', 'basedOnAnotherMemo'].map(templateType => (
+                    {['basedOnStandard', 'basedOnAnotherMemo'].map((templateType) => (
                       <FormGroup className="form-select" key={templateType}>
                         <Input
                           type="radio"
