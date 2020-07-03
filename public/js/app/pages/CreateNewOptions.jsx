@@ -286,16 +286,15 @@ class CreateNewOptions extends Component {
         </Row>
 
         <ProgressBar active={1} pages={pagesCreateNewPm} />
-        {alert.isOpen ||
-          (this.eventFromParams && (
-            <Row className="w-100 my-0 mx-auto section-50 upper-alert">
-              <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
-                {alerts[alert.textName] || (this.eventFromParams && alerts[this.eventFromParams])
-                  ? alerts[this.eventFromParams]
-                  : ''}
-              </Alert>
-            </Row>
-          ))}
+        {(alert.isOpen || this.eventFromParams) && (
+          <Row className="w-100 my-0 mx-auto section-50 upper-alert">
+            <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
+              {alerts[alert.textName] || (this.eventFromParams && alerts[this.eventFromParams])
+                ? alerts[this.eventFromParams]
+                : ''}
+            </Alert>
+          </Row>
+        )}
 
         <Container className="First--Step--Choose--Parameters">
           <Row>
