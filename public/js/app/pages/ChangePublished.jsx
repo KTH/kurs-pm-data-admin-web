@@ -4,7 +4,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { SERVICE_URL } from '../util/constants'
-// import { combineMemoName, seasonStr } from '../util/helpers'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
@@ -42,7 +41,7 @@ class ChangePublished extends Component {
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
   urlParams = fetchParameters(this.props)
-  
+
   eventFromParams = this.urlParams.event || ''
 
   componentDidMount() {
@@ -65,7 +64,7 @@ class ChangePublished extends Component {
     }
   }
 
-  onRadioChange = event => {
+  onRadioChange = (event) => {
     const { value } = event.target
     this.setState({ alert: { isOpen: false } })
     this.setState({
@@ -79,8 +78,10 @@ class ChangePublished extends Component {
     const { courseCode } = this
     const { chosen } = this.state
     if (chosen.memoEndPoint) {
-      const memo = this.uniqueMemosAfterPublishing.find(memo => memo.memoEndPoint === chosen.memoEndPoint)
-      
+      const memo = this.uniqueMemosAfterPublishing.find(
+        (memo) => memo.memoEndPoint === chosen.memoEndPoint
+      )
+
       if (memo && memo.status === 'draft') {
         const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.memoEndPoint}`
         window.location = nextStepUrl
@@ -91,17 +92,16 @@ class ChangePublished extends Component {
 
         return axios
           .post(url, body)
-          .then(result => {
+          .then((result) => {
             // ADDD ERROR HANTERING
             const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.memoEndPoint}`
             window.location = nextStepUrl
           })
-          .catch(error => {
+          .catch((error) => {
             this.setAlarm('danger', 'errWhileSaving')
           })
       }
-    }
-    else this.setAlarm('danger', 'errNoInPublishedChosen')
+    } else this.setAlarm('danger', 'errNoInPublishedChosen')
   }
 
   onFinish = () => {
@@ -136,13 +136,16 @@ class ChangePublished extends Component {
         </Row>
 
         <ProgressBar active={1} pages={pagesChangePublishedPm} />
-        {alert.isOpen || this.eventFromParams && (
-          <Row className="w-100 my-0 mx-auto section-50 upper-alert">
-            <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
-              {alerts[alert.textName] || alerts[this.eventFromParams] ||''}
-            </Alert>
-          </Row>
-        )}
+        {alert.isOpen ||
+          (this.eventFromParams && (
+            <Row className="w-100 my-0 mx-auto section-50 upper-alert">
+              <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
+                {alerts[alert.textName] || (this.eventFromParams && alerts[this.eventFromParams])
+                  ? alerts[this.eventFromParams]
+                  : ''}
+              </Alert>
+            </Row>
+          ))}
 
         <Container className="First--Step--Choose--Parameters">
           <Row>

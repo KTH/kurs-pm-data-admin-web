@@ -667,9 +667,8 @@ module.exports = {
       Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       addRounds: {
-        label: 'Markera en eller flera kurstillfällen som du vill läga till',
-        infoText:
-          'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast'
+        label: 'Markera ett eller flera kurstillfällen som du vill lägga till:',
+        infoText: 'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast'
       },
       availableRounds: {
         label: 'Markera ett eller flera kurstillfällen som ingår i kursomgången',
@@ -693,7 +692,8 @@ module.exports = {
     },
     publishedHasDraft: ' (finns opublicerade ändringar)',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
-    noRoundsToAdd: 'Det finns inga kurtillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
+    noRoundsToAdd:
+      'Det finns inga kurstillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
     noCourseRoundsAvailable:
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-PM eller utkast.',
     noSavedDrafts: 'Det finns inga sparade utkast.',
@@ -741,7 +741,7 @@ module.exports = {
     },
     commentChanges: 'Ange alla ändringar i denna version:',
     mandatory: 'Obligatorisk',
-    cannotMergeLanguage: '(går ej att välja, se ovan: Språk kurs-PM)',
+    cannotMergeLanguage: 'Går ej att välja, se ovan: Språk kurs-PM.',
     memoLanguage: {
       label: 'Språk kurs-PM',
       sv: 'Svenska',
@@ -750,7 +750,7 @@ module.exports = {
     aboutMemoLanguage: {
       sv: `Språket för kurs-PM är på Svenska eftersom alla kurstillfällen som valdes när kurs-PM skapades är Svenska. 
         Det går ej att lägga till ett Engelskt kurstillfälle nedan för det kräver att kurs-PM:s språk är Engelska. 
-        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`, 
+        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`,
       en: `Språket för kurs-PM är på Engelska eftersom minst ett av kurstillfällena som valdes när kurs-pm skapades är Engelskt. 
       Det går att lägga till både svenska och engelska kurstillfällen nedan.`
     }
@@ -775,6 +775,8 @@ module.exports = {
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
     linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',
+    syllabusUpdated:
+      'Information från kursplan och kontaktinformation har uppdaterats med den senaste giltiga informationen i utkastet nedan.',
     warnFillInCommentAboutChanges:
       'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
     warnNameNewSection: 'Du behöver ange ett namn på den tillagda rubriken (se markering i rött)',

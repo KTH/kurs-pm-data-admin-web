@@ -709,7 +709,8 @@ module.exports = {
     publishedHasDraft: ' (has unpublished changes)',
     errKoppsRounds:
       'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
-    noRoundsToAdd: 'EN -> Det finns inga kurtillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
+    noRoundsToAdd:
+      'EN -> Det finns inga kurtillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
     noSavedDrafts: 'There are no saved drafts.',
@@ -760,7 +761,7 @@ module.exports = {
     },
     commentChanges: 'Describe changes made in this version:',
     mandatory: 'Mandatory',
-    cannotMergeLanguage: '(cannot be chosen, read abode: Language of memo)',
+    cannotMergeLanguage: 'Cannot be chosen, read abode: Language of memo',
     memoLanguage: {
       label: 'Language of memo',
       sv: 'Swedish',
@@ -769,10 +770,10 @@ module.exports = {
     aboutMemoLanguage: {
       sv: `EN-> Språket för kurs-PM är på Svenska eftersom alla kurstillfällen som valdes när kurs-PM skapades är Svenska. 
         Det går ej att lägga till ett Engelskt kurstillfälle nedan för det kräver att kurs-PM:s språk är Engelska. 
-        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`, 
+        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`,
       en: `EN-> Språket för kurs-PM är på Engelska eftersom minst ett av kurstillfällena som valdes när kurs-pm skapades är Engelskt. 
       Det går att lägga till både svenska och engelska kurstillfällen nedan.`
-    } 
+    }
   },
   alerts: {
     autoSaved: 'Draft saved',
@@ -795,6 +796,8 @@ module.exports = {
     infoStartAgain: 'There are unpublished changes in this course memo. You can',
     linkToRefreshData:
       'reset the contents in this draft to the contents of the latest published version of this course memo',
+    syllabusUpdated:
+      'Information from course syllabus and contact information have been updated with the most recent information in the draft below.',
     warnFillInCommentAboutChanges:
       'You must comment the changes to this course memo in the "Made changes" field (marked in red).',
     warnNameNewSection: 'You must name a heading to a new section',

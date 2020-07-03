@@ -14,6 +14,7 @@ import {
   REMOVE_PUBLISHED_PARAM,
   SAVED_NEW_PARAM
 } from '../util/constants'
+import { fetchParameters } from '../util/helpers'
 // import { Switch,Route } from 'react-router-dom'
 import PageHead from '../components/PageHead'
 import ControlPanel from '../components/ControlPanel'
@@ -51,6 +52,10 @@ class MemoContainer extends Component {
   rebuilDraftFromPublishedVer = this.props.routerStore.rebuilDraftFromPublishedVer
 
   componentDidMount() {
+    const urlParams = fetchParameters(this.props)
+
+    this.eventFromParams = urlParams.event || ''
+
     this.props.history.push({
       search: ''
     })
@@ -89,7 +94,7 @@ class MemoContainer extends Component {
         '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + courseCode + '/' + memoEndPoint,
         body
       )
-      .then(newResult => {
+      .then((newResult) => {
         if (newResult.status >= 400) {
           this.setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + newResult.status
@@ -99,7 +104,7 @@ class MemoContainer extends Component {
       .then(() => {
         this.rebuilDraftFromPublishedVer = false
       })
-      .catch(error => {
+      .catch((error) => {
         this.onAlert('errWhileSaving', 'danger')
         if (error.response) {
           // test it
@@ -124,7 +129,7 @@ class MemoContainer extends Component {
   }
 
   // Function for adding new titles with a content
-  onAddNewSection = extraHeaderTitle => {
+  onAddNewSection = (extraHeaderTitle) => {
     const newSection = {
       uKey: Math.random().toString(),
       title: '',
@@ -151,7 +156,7 @@ class MemoContainer extends Component {
     return isInVisibleMemo
   }
 
-  toggleStandardVisibleInMemo = contentHeader => {
+  toggleStandardVisibleInMemo = (contentHeader) => {
     const prevVisibleInMemo = { ...this.props.routerStore.memoData.visibleInMemo }
     let visible
     if (prevVisibleInMemo) {
@@ -196,7 +201,7 @@ class MemoContainer extends Component {
     if (isDraftOfPublished)
       return axios
         .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
-        .then(result => {
+        .then((result) => {
           if (result.status >= 400) {
             this.onAlert('errWhileDeleting', 'danger')
             return 'ERROR-' + result.status
@@ -205,7 +210,7 @@ class MemoContainer extends Component {
             window.location = startAdminPageUrl
           }, 500)
         })
-        .catch(err => {
+        .catch((err) => {
           if (err.response) {
             throw new Error(err.message)
           }
@@ -233,7 +238,7 @@ class MemoContainer extends Component {
 
   /* Functions for editing/controlling published memos */
 
-  setChangesAboutDraftOfPublished = event => {
+  setChangesAboutDraftOfPublished = (event) => {
     event.preventDefault()
     this.setState({ isError: false, commentAboutMadeChanges: event.target.value.trim() })
     this.props.routerStore.memoData.commentAboutMadeChanges = event.target.value.trim()
@@ -243,7 +248,7 @@ class MemoContainer extends Component {
     const { courseCode, memoEndPoint } = this
     return axios
       .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
-      .then(result => {
+      .then((result) => {
         if (result.status >= 400) {
           this.onAlert('errWhileDeleting', 'danger')
           return 'ERROR-' + result.status
@@ -252,7 +257,7 @@ class MemoContainer extends Component {
         const newDraftUrl = `${SERVICE_URL.API}create-draft/${courseCode}/${memoEndPoint}`
         return axios
           .post(newDraftUrl, body)
-          .then(newResult => {
+          .then((newResult) => {
             if (newResult.status >= 400) {
               this.onAlert('errWhileSaving', 'danger')
               return 'ERROR-' + newResult.status
@@ -261,14 +266,14 @@ class MemoContainer extends Component {
             const thisUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}?action=rebuild`
             window.location = thisUrl
           })
-          .catch(error => {
+          .catch((error) => {
             if (error.response) {
               throw new Error(error.message)
             }
             throw error
           })
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response) {
           throw new Error(err.message)
         }
@@ -288,7 +293,7 @@ class MemoContainer extends Component {
         <h2 id={id} key={'header-' + id}>
           {sectionsLabels[id]}
         </h2>
-        {content.map(contentId => {
+        {content.map((contentId) => {
           const menuId = id + '-' + contentId
           const { isEditable, isRequired } = context[contentId]
           const initialValue = memoData[contentId]
@@ -393,13 +398,13 @@ class MemoContainer extends Component {
               {alerts.infoAboutFreshData || ''}
             </Alert>
             <Alert key="infoAboutStartingAgain" color="info">
-              {alerts.infoStartAgain}
-              {' '}
+              {alerts.infoStartAgain}{' '}
               <ActionModalButton
-                btnLabel={`${alerts.linkToRefreshData} (${new Date(
-                  lastPublishedVersionPublishDate
-                ).toLocaleString(this.userLangIndex === 0 ? 'en-US' : 'sv-SE') ||
-                  'version:' + version})`}
+                btnLabel={`${alerts.linkToRefreshData} (${
+                  new Date(lastPublishedVersionPublishDate).toLocaleString(
+                    this.userLangIndex === 0 ? 'en-US' : 'sv-SE'
+                  ) || 'version:' + version
+                })`}
                 modalId="cancelThisAction"
                 type="actionLink"
                 modalLabels={actionModals.rebuildDraftOfPublished}
@@ -413,6 +418,11 @@ class MemoContainer extends Component {
               <Alert color="success">{alerts.infoRebuildDraft}</Alert>
             </Row>
           ))}
+        {this.eventFromParams && this.eventFromParams === 'copy' && (
+          <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
+            <Alert color="success">{alerts.syllabusUpdated}</Alert>
+          </Row>
+        )}
         {isError && (
           <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
             <Alert color="danger">{alerts.warnFillInCommentAboutChanges}</Alert>

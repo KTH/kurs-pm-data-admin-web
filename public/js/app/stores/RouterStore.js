@@ -63,7 +63,7 @@ class RouterStore {
       'literatureTemplate',
       'possibilityToCompletionTemplate',
       'possibilityToAdditionTemplate'
-    ].map(property => delete this.koppsFreshData[property])
+    ].map((property) => delete this.koppsFreshData[property])
   }
 
   @action updateMemoDataWithFreshKoppsData() {
@@ -82,26 +82,28 @@ class RouterStore {
       (thisTerm &&
         thisTerm.rounds &&
         (await thisTerm.rounds
-          .filter(r => !usedRoundsThisTerm.includes(r.ladokRoundId))
+          .filter((r) => !usedRoundsThisTerm.includes(r.ladokRoundId))
           .reverse())) ||
       []
     )
   }
 
-  @action
-  async showAvailableSemesterRounds(chosenSemester) {
+  @action async showAvailableSemesterRounds(chosenSemester) {
     try {
-      const thisHost = this.thisHostBaseUrl.slice(-1) === '/' ? this.thisHostBaseUrl.slice(0,-1) : this.thisHostBaseUrl
+      const thisHost =
+        this.thisHostBaseUrl.slice(-1) === '/'
+          ? this.thisHostBaseUrl.slice(0, -1)
+          : this.thisHostBaseUrl
       const result = await axios.get(
         `${thisHost}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`
       )
-      console.log("thisHost", thisHost)
+
       if (result) {
         if (result.status >= 400) {
           return 'ERROR-' + result.status
         }
         const { usedRoundsThisSemester } = result.data
-        console.log('usedRoundsThisSemester', usedRoundsThisSemester)
+
         return await this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
       }
     } catch (error) {
@@ -150,7 +152,7 @@ class RouterStore {
 
       const tmp = JSON.parse(decodeURIComponent(window.__initialState__[storeName]))
 
-      Object.keys(tmp).map(key => {
+      Object.keys(tmp).map((key) => {
         store[key] = tmp[key]
         delete tmp[key]
       })

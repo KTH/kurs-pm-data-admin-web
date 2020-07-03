@@ -4,12 +4,12 @@ import React from 'react'
 import { linkToSchool } from '../../util/links'
 import Popup from './Popup'
 
-const formatRounds = rounds => {
+const formatRounds = (rounds) => {
   // Split rounds with look behind, so only comma after end parentheses matches
   const splitRounds = rounds.split(/(?<=\)), /g)
   return (
     <>
-      {splitRounds.map(round => (
+      {splitRounds.map((round) => (
         <span key={round}>
           {round}
           <br />
@@ -19,22 +19,22 @@ const formatRounds = rounds => {
   )
 }
 
-const offeredBy = (language, labels, department) =>
-  department.name ? (
+const offeredBy = (language, labels, departmentName) =>
+  departmentName ? (
     <>
       <h4>{labels.offeredByTitle}</h4>
       <p>
         <a
           id="link-department-name"
-          title={department.name}
-          href={linkToSchool(department.name)}
+          title={departmentName}
+          href={linkToSchool(departmentName)}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {department.name}
+          {departmentName}
         </a>
         <Popup
-          header={department.name}
+          header={departmentName}
           body={labels.linkOpensInNewTab}
           targetId="link-department-name"
         />
@@ -73,9 +73,9 @@ const rounds = (labels, memoName) =>
     </>
   )
 
-const CourseFacts = ({ language, labels, department = {}, memoData = {} }) => (
+const CourseFacts = ({ language, labels, departmentName = '', memoData = {} }) => (
   <div className="preview-info-box text-break">
-    {offeredBy(language, labels, department)}
+    {offeredBy(language, labels, departmentName)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
     {rounds(labels, memoData.memoName)}
   </div>

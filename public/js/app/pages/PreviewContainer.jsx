@@ -44,11 +44,11 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
     courseImage = imageFromAdmin
     // Course administrator has not set own picture, get one based on course’s main subjects
   } else {
-    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
+    let mainSubjects = courseMainSubjects.split(',').map((s) => s.trim())
 
     // If main subjects exist, and the language is English, get Swedish translations of main subjects
     if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
+      mainSubjects = mainSubjects.map((subject) => englishTranslations.courseMainSubjects[subject])
     }
     // Get picture according to Swedish translation of first main subject
     courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
@@ -70,7 +70,7 @@ const renderAllSections = ({ memoData }) => {
   // TODO Refactor logic for visible sections
   const sectionsWithContent = []
   sections.forEach(({ id, content, extraHeaderTitle }) => {
-    content.forEach(contentId => {
+    content.forEach((contentId) => {
       const { isRequired, type } = context[contentId]
       let contentHtml = memoData[contentId]
       let visibleInMemo = memoData.visibleInMemo[contentId]
@@ -91,7 +91,7 @@ const renderAllSections = ({ memoData }) => {
     })
 
     if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
-      memoData[extraHeaderTitle].forEach(m => {
+      memoData[extraHeaderTitle].forEach((m) => {
         if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
           sectionsWithContent.push(id)
         }
@@ -118,7 +118,7 @@ const renderAllSections = ({ memoData }) => {
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
-          {content.map(contentId => {
+          {content.map((contentId) => {
             const menuId = id + '-' + contentId
 
             const { isRequired, type } = context[contentId]
@@ -215,7 +215,7 @@ class PreviewContainer extends Component {
           )}`
         })
         // eslint-disable-next-line no-console
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
     )
   }
 
@@ -247,7 +247,7 @@ class PreviewContainer extends Component {
         axios
           .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
           // eslint-disable-next-line consistent-return
-          .then(result => {
+          .then((result) => {
             if (result.status >= 400) {
               this.onAlert('errWhileDeleting', 'danger')
               return 'ERROR-' + result.status
@@ -256,7 +256,7 @@ class PreviewContainer extends Component {
               window.location = startAdminPageUrl
             }, 500)
           })
-          .catch(err => {
+          .catch((err) => {
             if (err.response) {
               throw new Error(err.message)
             }
@@ -280,7 +280,6 @@ class PreviewContainer extends Component {
       coursePresentationLabels,
       courseFactsLabels,
       courseMemoLinksLabels,
-      extraInfo,
       courseLinksLabels,
       courseContactsLabels,
       courseHeaderLabels
@@ -297,7 +296,7 @@ class PreviewContainer extends Component {
     // Assumes that API only gave one memoData per memoEndPoint
     // Duplicate id’s filtered out later
     let active = false
-    let courseMemoItems = this.props.routerStore.memoDatas.map(m => {
+    let courseMemoItems = this.props.routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       // memoEndPoint is currently displayed
@@ -325,7 +324,7 @@ class PreviewContainer extends Component {
 
     // Duplicate id’s filtered out
     courseMemoItems = courseMemoItems.filter(
-      (item, index, self) => index === self.findIndex(t => t.id === item.id)
+      (item, index, self) => index === self.findIndex((t) => t.id === item.id)
     )
 
     return (
@@ -379,7 +378,7 @@ class PreviewContainer extends Component {
                     <CourseFacts
                       language={this.props.routerStore.memoData.memoCommonLangAbbr}
                       labels={courseFactsLabels}
-                      department={this.props.routerStore.koppsFreshData.department}
+                      departmentName={this.props.routerStore.koppsFreshData.departmentName}
                       memoData={this.props.routerStore.memoData}
                     />
                   </Col>
@@ -389,7 +388,6 @@ class PreviewContainer extends Component {
                     <CourseMemoLinks
                       language={this.props.routerStore.memoData.memoCommonLangAbbr}
                       labels={courseMemoLinksLabels}
-                      extraInfo={extraInfo}
                       memoData={this.props.routerStore.memoData}
                       validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
                     />
