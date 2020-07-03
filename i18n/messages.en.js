@@ -796,6 +796,8 @@ module.exports = {
     infoStartAgain: 'There are unpublished changes in this course memo. You can',
     linkToRefreshData:
       'reset the contents in this draft to the contents of the latest published version of this course memo',
+    syllabusUpdated:
+      'Information from course syllabus and contact information have been updated with the most recent information in the draft below.',
     warnFillInCommentAboutChanges:
       'You must comment the changes to this course memo in the "Made changes" field (marked in red).',
     warnNameNewSection: 'You must name a heading to a new section',

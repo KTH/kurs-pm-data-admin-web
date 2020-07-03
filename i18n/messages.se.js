@@ -775,6 +775,8 @@ module.exports = {
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
     linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',
+    syllabusUpdated:
+      'Information från kursplan och kontaktinformation har uppdaterats med den senaste giltiga informationen i utkastet nedan.',
     warnFillInCommentAboutChanges:
       'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
     warnNameNewSection: 'Du behöver ange ett namn på den tillagda rubriken (se markering i rött)',
