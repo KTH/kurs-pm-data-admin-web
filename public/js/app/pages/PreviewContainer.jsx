@@ -378,7 +378,7 @@ class PreviewContainer extends Component {
                     <CourseFacts
                       language={this.props.routerStore.memoData.memoCommonLangAbbr}
                       labels={courseFactsLabels}
-                      department={this.props.routerStore.koppsFreshData.department}
+                      departmentName={this.props.routerStore.koppsFreshData.departmentName}
                       memoData={this.props.routerStore.memoData}
                     />
                   </Col>
