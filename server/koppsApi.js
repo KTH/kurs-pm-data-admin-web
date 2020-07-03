@@ -146,7 +146,7 @@ function _getPermanentDisabilityTemplate(language) {
 
 function _getDepartment(body) {
   const { course } = body
-  return course && course.department ? course.department : {}
+  return course && course.department ? course.department.name : ''
 }
 
 function _getRecruitmentText(body) {
@@ -212,7 +212,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const examModules = _getExamModules(body, semester, language)
     const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
     const permanentDisability = _getPermanentDisabilityTemplate(language)
-    const department = _getDepartment(body)
+    const departmentName = _getDepartment(body)
     const recruitmentText = _getRecruitmentText(body)
     const courseMainSubjects = _getCourseMainSubjects(body)
     return {
@@ -220,8 +220,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
       ...combinedExamInfo,
       ...selectedSyllabus,
       permanentDisability,
-      ...detailedInformation,
-      department,
+      departmentName,
       recruitmentText,
       courseMainSubjects
     }
