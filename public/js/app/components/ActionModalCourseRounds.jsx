@@ -8,7 +8,7 @@ import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'react
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 import {
   combineMemoName,
-  emptyCheckboxesByIds,
+  fetchThisTermRounds,
   seasonStr,
   sortRoundAndKoppsInfo,
   removeAndSortRoundAndInfo,
@@ -17,18 +17,35 @@ import {
 import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
 import axios from 'axios'
 
+const roundLangAbbr = (round) => (round.language.en === 'Swedish' ? 'sv' : 'en')
+
 const canMerge = (memoLangAbbr, round) => {
-  const roundLangAbbr = round.language.en === 'Swedish' ? 'sv' : 'en'
-  return memoLangAbbr === 'en' || memoLangAbbr === roundLangAbbr || false
+  const abbr = roundLangAbbr(round)
+  console.log('abbr', round.language.en)
+  console.log('memoLangAbbr', memoLangAbbr)
+
+  return memoLangAbbr === 'en' || memoLangAbbr === abbr || false
+}
+
+async function isLangCompatible(availableRounds, memo) {
+  //availableRounds
+  const { memoCommonLangAbbr } = memo
+  const compatibles = availableRounds.filter(
+    (round) => canMerge(memoCommonLangAbbr, round) === true
+  )
+  const isCompatible = memoCommonLangAbbr && compatibles.length > 0
+  return isCompatible
 }
 
 @inject(['routerStore'])
 @observer
 class ActionModalCourseRounds extends Component {
   state = {
+    showSaveBtn: false,
     chosenMemoEndPoint: this.props.chosenMemoEndPoint || '', // version, published/draft?, semester
-    stayOnModal: true, 
-    availableRounds: []
+    stayOnModal: true,
+    allRounds: [],
+    availableRounds: []
   }
   uniqueMemos = [
     ...this.props.routerStore.miniMemos.draftsOfPublishedMemos,
@@ -38,23 +55,24 @@ class ActionModalCourseRounds extends Component {
 
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
   langIndex = this.props.routerStore.langIndex
-  memo = this.uniqueMemos.find(memo => memo.memoEndPoint === this.state.chosenMemoEndPoint)
-  isPublished = this.memo.status === 'published' || Number(this.memo.version) > FIRST_VERSION
-
-  
-  lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null
-  thisTermInfo = this.lastTerms.find(({ term }) => term === this.memo.semester)
-
+  memo = this.uniqueMemos.find((memo) => memo.memoEndPoint === this.state.chosenMemoEndPoint)
+  isPublished = this.memo.status === 'published' || Number(this.memo.version) > FIRST_VERSION
 
   componentDidMount() {
     const { semester } = this.memo
-    if(semester) this.onSemesterChoice(semester)
+    if (semester) this.updateState(semester)
   }
 
-  onSemesterChoice = async (semester) => {
+  updateState = async (semester) => {
     const availableRounds = await this.props.routerStore.showAvailableSemesterRounds(semester)
+    const allRounds = await fetchThisTermRounds(this.props.routerStore.miniKoppsObj, this.memo)
+    console.log('allRounds', allRounds)
+    const compatible = await isLangCompatible(availableRounds, this.memo)
+    const showSaveBtn = availableRounds && availableRounds.length > 0 && compatible
     this.setState({
-      availableRounds 
+      showSaveBtn,
+      allRounds,
+      availableRounds
     })
   }
 
@@ -68,75 +86,86 @@ class ActionModalCourseRounds extends Component {
     })
   }
 
-  onSave = () => {
-    const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester, status, version } = this.memo
-    const { courseCode } = this.props.routerStore
-    const { thisTermInfo } = this
+  _checkedRounds = () => {
     let checkedRounds = []
-      
     const checks = document.getElementsByClassName('addNewRounds')
-    for(var i=0; i<checks.length; i++){
-      if(checks[i].checked){
+    for (var i = 0; i < checks.length; i++) {
+      if (checks[i].checked) {
         checkedRounds.push(checks[i].value)
-      } 
-    }
-    console.log('checkedRounds', checkedRounds.length)
-
-    //check if version is a new draft or published
-    //if published then add round to memoName
-    // otherwise only to array
-    if (checkedRounds.length > 0) {
-      const sortedRoundIds = [...ladokRoundIds, ...checkedRounds].sort()
-      let sortedKoppsInfo = []
-
-      for(var i=0; i<sortedRoundIds.length; i++){
-        sortedKoppsInfo.push(thisTermInfo.rounds.find(({ ladokRoundId }) => sortedRoundIds[i] === ladokRoundId))
       }
+    }
+    return checkedRounds
+  }
+
+  _koppsInfoForChecked = (sortedRoundIds) => {
+    let sortedKoppsInfo = []
+    const { allRounds } = this.state
+    for (var i = 0; i < sortedRoundIds.length; i++) {
+      sortedKoppsInfo.push(allRounds.find(({ ladokRoundId }) => sortedRoundIds[i] === ladokRoundId))
+    }
+    return sortedKoppsInfo
+  }
+
+  onSave = async () => {
+    const {
+      ladokRoundIds,
+      memoCommonLangAbbr,
+      memoEndPoint,
+      memoName,
+      semester,
+      status,
+      version
+    } = this.memo
+    const { courseCode } = this.props.routerStore
+    const checkedRounds = await this._checkedRounds()
+
+    if (checkedRounds.length > 0) {
+      const sortedRoundIds = await [...ladokRoundIds, ...checkedRounds].sort()
+      const sortedKoppsInfo = await this._koppsInfoForChecked(sortedRoundIds)
 
       const newMemoName = sortedKoppsInfo
-        .map(round => combineMemoName(round, semester, memoCommonLangAbbr))
+        .map((round) => combineMemoName(round, semester, memoCommonLangAbbr))
         .join(', ')
-      const canChange = version === FIRST_VERSION && status === 'draft'
-      const newMemoEndPoint = canChange ? courseCode + semester + '-' + sortedRoundIds.join('-') : memoEndPoint
+      console.log('newMemoName ', newMemoName)
+      const firstDraft = version === FIRST_VERSION && status === 'draft'
+      const newMemoEndPoint = firstDraft
+        ? courseCode + semester + '-' + sortedRoundIds.join('-')
+        : memoEndPoint
 
-      const newInfo = { 
+      const newInfo = {
         courseCode,
         memoName: newMemoName,
-        memoEndPoint: newMemoEndPoint, 
-        ladokRoundIds: sortedRoundIds 
+        memoEndPoint: newMemoEndPoint,
+        ladokRoundIds: sortedRoundIds
       }
-      
-      return axios
-      .post(
-        '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + courseCode + '/' + memoEndPoint,
-        newInfo
-      )
-      .then(newResult => {
+      const apiAction = status === 'published' ? 'create-draft' : 'draft-updates'
+      const urlUpdateOrCreate = `${SERVICE_URL.API}${apiAction}/${courseCode}/${memoEndPoint}`
+
+      try {
+        const newResult = await axios.post(urlUpdateOrCreate, newInfo)
         if (newResult.status >= 400) {
           this.setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + newResult.status
         }
+
         const eventFromParams = 'addedRoundId'
-        const reload = `${SERVICE_URL.courseMemoAdmin}${
+
+        const reloadUrl = `${SERVICE_URL.courseMemoAdmin}${
           this.isPublished ? 'published/' : ''
-          }${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
-        window.location = reload
-        // this.onAlert(alertTranslationId)
-      })
-      .catch(error => {
+        }${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
+        window.location = reloadUrl
+      } catch (error) {
         if (error.response) {
-          // test it
           throw new Error(error.message)
         }
         throw error
-      })
-    } // alert error}
-    else return this.setAlarm('danger', 'errNoChosen')
+      }
+    } else return this.setAlarm('danger', 'errNoChosen')
   }
 
   render() {
-    const { messages, actionModals, info, extraInfo } = i18n.messages[this.langIndex]
-    const { availableRounds, stayOnModal } = this.state
+    const { extraInfo, messages, actionModals, info } = i18n.messages[this.langIndex]
+    const { availableRounds, stayOnModal, showSaveBtn } = this.state
     const { semester, memoName, memoCommonLangAbbr } = this.memo
 
     return (
@@ -146,28 +175,28 @@ class ActionModalCourseRounds extends Component {
         color="secondary"
         stayOnModal={stayOnModal}
         modalLabels={actionModals.changeLadokRoundIds}
-        onConfirm={availableRounds && availableRounds.length > 0 && this.onSave || null}
+        onConfirm={(showSaveBtn && this.onSave) || null}
       >
-        <span><Label>{messages.page_header_heading_semester}:</Label> {seasonStr(extraInfo, semester)}</span>
-        <span><Label>{messages.page_header_heading_course_round}:</Label> {memoName}</span>
-        <span><Label>{extraInfo.memoLanguage.label}:</Label> {extraInfo.memoLanguage[memoCommonLangAbbr]}</span>
-        <span><p>{extraInfo.aboutMemoLanguage[memoCommonLangAbbr]}</p></span>
+        <span>
+          <Label>{messages.page_header_heading_semester}:</Label>{' '}
+          {seasonStr(this.langIndex, semester)}
+        </span>
+        <span>
+          <Label>{messages.page_header_heading_course_round}:</Label> {memoName}
+        </span>
+        <span>
+          <Label>{extraInfo.memoLanguage.label}:</Label>{' '}
+          {extraInfo.memoLanguage[memoCommonLangAbbr]}
+        </span>
+        <span>
+          <p>{extraInfo.aboutMemoLanguage[memoCommonLangAbbr]}</p>
+        </span>
         {(availableRounds && availableRounds.length > 0 && (
           <div className="section-50">
-            <Label htmlFor="choose-rounds-list">
-              {info.chooseRound.addRounds.label}
-            </Label>
-            <Label htmlFor="choose-rounds-list">
-              {info.chooseRound.addRounds.infoText}
-            </Label>
-            <Form
-              className={`Available--Rounds--To--Add ${
-                        alert.isOpen && alert.textName === 'errNoChosen'
-                          ? 'error-area'
-                          : ''
-                      }`}
-            >
-              {availableRounds.map(round => (
+            <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.label}</Label>
+            <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
+            <Form className={`Available--Rounds--To--Add ${alert.isOpen ? 'error-area' : ''}`}>
+              {availableRounds.map((round) => (
                 <FormGroup
                   className="form-check"
                   id="choose-rounds-list"
@@ -183,8 +212,11 @@ class ActionModalCourseRounds extends Component {
                     disabled={!canMerge(memoCommonLangAbbr, round)}
                   />
                   <Label htmlFor={'addNew' + round.ladokRoundId}>
-                    {`${combineMemoName(round, semester, this.langAbbr)} ${!canMerge(memoCommonLangAbbr, round) ? extraInfo.cannotMergeLanguage : ''}`
-                    }
+                    {combineMemoName(round, semester, this.langAbbr)}.
+                    {(!canMerge(memoCommonLangAbbr, round) && (
+                      <i>{extraInfo.cannotMergeLanguage}</i>
+                    )) ||
+                      ''}
                   </Label>
                 </FormGroup>
               ))}
@@ -196,7 +228,7 @@ class ActionModalCourseRounds extends Component {
           </p>
         )}
       </ActionModalButton>
-      )
+    )
   }
 }
 
