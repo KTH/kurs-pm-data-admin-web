@@ -3,7 +3,7 @@ import React from 'react'
 import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
 
 import { seasonStr } from '../../util/helpers'
-import { linkToArchive, /* linkToMemoPdf, */ linkToSyllabus } from '../../util/links'
+import { linkToArchive, /* linkToPublishedMemoPdf, */ linkToSyllabus } from '../../util/links'
 
 import Popup from './Popup'
 
@@ -56,7 +56,7 @@ const pdfLink = (labels /* courseCode, memoEndPoint */) => (
       {/* <a
         id="pdf-link"
         title={memoEndPoint}
-        href={linkToMemoPdf(courseCode, memoEndPoint)}
+        href={linkToPublishedMemoPdf(courseCode, memoEndPoint)}
         target="_blank"
         rel="noopener noreferrer"
       >

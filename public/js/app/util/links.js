@@ -7,8 +7,8 @@ function linkToArchive(courseCode, language) {
   return `/kursutveckling/${courseCode}${languageParameter}`
 }
 
-function linkToMemoPdf(courseCode, memoEndPoint) {
-  return `/kurs-pm/${courseCode}/${memoEndPoint}/pdf`
+function linkToPublishedMemoPdf(memoEndPoint, documentName) {
+  return `/kurs-pm/memo/pdf/${memoEndPoint}?documentName=${documentName}&status=published`
 }
 
 function linkToSyllabus(courseCode, validFromTerm, language) {
@@ -37,7 +37,7 @@ function adminLink(courseCode, language) {
 module.exports = {
   linkToSchool,
   linkToArchive,
-  linkToMemoPdf,
+  linkToPublishedMemoPdf,
   linkToSyllabus,
   courseLinks,
   aboutCourseLink,
