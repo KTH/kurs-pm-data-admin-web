@@ -10,6 +10,7 @@ import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import { fetchParameters } from '../util/helpers'
+import PropTypes from 'prop-types'
 
 @inject(['routerStore'])
 @observer
@@ -205,6 +206,13 @@ class ChangePublished extends Component {
       </Container>
     )
   }
+}
+
+ChangePublished.propTypes = {
+  routerStore: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  })
 }
 
 export default ChangePublished

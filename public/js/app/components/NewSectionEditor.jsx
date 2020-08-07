@@ -8,6 +8,7 @@ import { ExtraHeaderHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
 import editorConf from '../util/editorInitConf'
+import PropTypes from 'prop-types'
 
 @inject(['routerStore'])
 @observer
@@ -16,7 +17,7 @@ class NewSectionEditor extends Component {
     extraContentArr: this.props.routerStore.memoData[this.props.contentId] || [],
     isOpen: false,
     currentIndex: this.props.routerStore.memoData[this.props.contentId].findIndex(
-      item => item.uKey === this.props.uKey
+      (item) => item.uKey === this.props.uKey
     ),
     hasEmptyTitle: false
   }
@@ -40,13 +41,13 @@ class NewSectionEditor extends Component {
     this.onSaveByThisContentId()
   }
 
-  updateMemoContent = editorContent => {
+  updateMemoContent = (editorContent) => {
     const { contentId } = this.props
     const { currentIndex } = this.state
     this.props.routerStore.memoData[contentId][currentIndex].htmlContent = editorContent
   }
 
-  setNewTitle = event => {
+  setNewTitle = (event) => {
     event.preventDefault()
     const { contentId } = this.props
     const { currentIndex } = this.state
@@ -71,7 +72,6 @@ class NewSectionEditor extends Component {
     const { currentIndex } = this.state
     const { memoData } = this.props.routerStore
     const { visibleInMemo } = memoData[contentId][currentIndex]
-    // this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.memoData[contentId][currentIndex].visibleInMemo = !visibleInMemo
     this.onSaveByThisContentId()
   }
@@ -79,8 +79,6 @@ class NewSectionEditor extends Component {
   onSaveByThisContentId = () => {
     const { contentId, uKey } = this.props
     const { dirtyEditor } = this.props.routerStore
-    // const { title } = this.props.routerStore.memoData[contentId]
-    // if (!title || title === '') this.props.onAlert('warnNameNewSection', 'danger') // TODO: Add condition if not removing IMPROVE ALERT MAYBE MOVE ALERT TEXT TO ROUTER STORE
     if (dirtyEditor === uKey) {
       this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
     }
@@ -102,28 +100,9 @@ class NewSectionEditor extends Component {
       this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
     } else this.props.routerStore.dirtyEditor = uKey
 
-    // if (!isOpen) this.props.routerStore.dirtyEditor = uKey
     this.setState({ isOpen: !isOpen, hasEmptyTitle: false })
     return true
   }
-
-  // onToggleVisibleEditor = () => {
-  //   const { contentId, uKey } = this.props
-  //   const { currentIndex, isOpen } = this.state
-  //   const { memoData } = this.props.routerStore
-  //   if (
-  //     Object.prototype.hasOwnProperty.call(memoData[contentId][currentIndex], 'title') &&
-  //     memoData[contentId][currentIndex].title.trim().length === 0
-  //   ) {
-  //     this.setState({ hasEmptyTitle: true })
-  //     this.props.onAlert('warnNameNewSection', 'danger')
-  //     return false
-  //   }
-  //   if (!isOpen) this.props.routerStore.dirtyEditor = uKey
-  //   this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
-  //   this.setState({ isOpen: !isOpen, hasEmptyTitle: false })
-  //   return true
-  // }
 
   render() {
     const { uKey, contentId, menuId } = this.props
@@ -226,4 +205,20 @@ class NewSectionEditor extends Component {
     )
   }
 }
+
+NewSectionEditor.propTypes = {
+  contentId: PropTypes.string.isRequired,
+  htmlContent: PropTypes.string,
+  menuId: PropTypes.string.isRequired,
+  visibleInMemo: PropTypes.bool,
+  onSave: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  routerStore: PropTypes.func,
+  uKey: PropTypes.string.isRequired
+}
+
+NewSectionEditor.defaultProps = {
+  htmlContent: ''
+}
+
 export default NewSectionEditor

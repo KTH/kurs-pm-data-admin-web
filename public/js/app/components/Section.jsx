@@ -4,7 +4,8 @@ import React from 'react'
 import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import i18n from '../../../../i18n'
-import { context } from '../util/fieldsByType'
+import { typeOfHeader } from '../util/fieldsByType'
+import PropTypes from 'prop-types'
 
 const { nothingFetched } = i18n.messages[Number(i18n.isSwedish())].sourceInfo
 
@@ -28,10 +29,23 @@ const Section = ({
     <span
       style={visibleInMemo ? {} : { display: 'none' }}
       dangerouslySetInnerHTML={{
-        __html: html || `<p><i>${nothingFetched[context[contentId].type]}</i></p>`
+        __html: html || `<p><i>${nothingFetched[typeOfHeader(contentId)]}</i></p>`
       }}
     />
   </span>
 )
+
+Section.propTypes = {
+  contentId: PropTypes.string.isRequired,
+  menuId: PropTypes.string.isRequired,
+  visibleInMemo: PropTypes.bool.isRequired,
+  onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
+  html: PropTypes.string, // add default
+  memoLangIndex: PropTypes.number.isRequired // add default
+}
+
+Section.defaultProps = {
+  html: null
+}
 
 export default Section

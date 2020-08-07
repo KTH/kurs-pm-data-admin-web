@@ -4,31 +4,23 @@
 import React, { Component } from 'react'
 import i18n from '../../../../i18n'
 import { inject, observer } from 'mobx-react'
-import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Form, FormGroup, Label, Input } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
-import {
-  combineMemoName,
-  fetchThisTermRounds,
-  seasonStr,
-  sortRoundAndKoppsInfo,
-  removeAndSortRoundAndInfo,
-  uncheckRadioById
-} from '../util/helpers'
+import { combineMemoName, fetchThisTermRounds, seasonStr } from '../util/helpers'
 import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 const roundLangAbbr = (round) => (round.language.en === 'Swedish' ? 'sv' : 'en')
 
 const canMerge = (memoLangAbbr, round) => {
   const abbr = roundLangAbbr(round)
-  console.log('abbr', round.language.en)
-  console.log('memoLangAbbr', memoLangAbbr)
 
   return memoLangAbbr === 'en' || memoLangAbbr === abbr || false
 }
 
 async function isLangCompatible(availableRounds, memo) {
-  //availableRounds
+  // availableRounds
   const { memoCommonLangAbbr } = memo
   const compatibles = availableRounds.filter(
     (round) => canMerge(memoCommonLangAbbr, round) === true
@@ -47,6 +39,7 @@ class ActionModalCourseRounds extends Component {
     allRounds: [],
     availableRounds: []
   }
+
   uniqueMemos = [
     ...this.props.routerStore.miniMemos.draftsOfPublishedMemos,
     ...this.props.routerStore.miniMemos.publishedWithNoActiveDraft,
@@ -54,8 +47,11 @@ class ActionModalCourseRounds extends Component {
   ]
 
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
+
   langIndex = this.props.routerStore.langIndex
+
   memo = this.uniqueMemos.find((memo) => memo.memoEndPoint === this.state.chosenMemoEndPoint)
+
   isPublished = this.memo.status === 'published' || Number(this.memo.version) > FIRST_VERSION
 
   componentDidMount() {
@@ -87,9 +83,9 @@ class ActionModalCourseRounds extends Component {
   }
 
   _checkedRounds = () => {
-    let checkedRounds = []
+    const checkedRounds = []
     const checks = document.getElementsByClassName('addNewRounds')
-    for (var i = 0; i < checks.length; i++) {
+    for (let i = 0; i < checks.length; i++) {
       if (checks[i].checked) {
         checkedRounds.push(checks[i].value)
       }
@@ -98,24 +94,16 @@ class ActionModalCourseRounds extends Component {
   }
 
   _koppsInfoForChecked = (sortedRoundIds) => {
-    let sortedKoppsInfo = []
+    const sortedKoppsInfo = []
     const { allRounds } = this.state
-    for (var i = 0; i < sortedRoundIds.length; i++) {
+    for (let i = 0; i < sortedRoundIds.length; i++) {
       sortedKoppsInfo.push(allRounds.find(({ ladokRoundId }) => sortedRoundIds[i] === ladokRoundId))
     }
     return sortedKoppsInfo
   }
 
   onSave = async () => {
-    const {
-      ladokRoundIds,
-      memoCommonLangAbbr,
-      memoEndPoint,
-      memoName,
-      semester,
-      status,
-      version
-    } = this.memo
+    const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, semester, status, version } = this.memo
     const { courseCode } = this.props.routerStore
     const checkedRounds = await this._checkedRounds()
 
@@ -165,7 +153,7 @@ class ActionModalCourseRounds extends Component {
 
   render() {
     const { extraInfo, messages, actionModals, info } = i18n.messages[this.langIndex]
-    const { availableRounds, stayOnModal, showSaveBtn } = this.state
+    const { availableRounds, alert, stayOnModal, showSaveBtn } = this.state
     const { semester, memoName, memoCommonLangAbbr } = this.memo
 
     return (
@@ -195,7 +183,9 @@ class ActionModalCourseRounds extends Component {
           <div className="section-50">
             <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.label}</Label>
             <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
-            <Form className={`Available--Rounds--To--Add ${alert.isOpen ? 'error-area' : ''}`}>
+            <Form
+              className={`Available--Rounds--To--Add ${alert && alert.isOpen ? 'error-area' : ''}`}
+            >
               {availableRounds.map((round) => (
                 <FormGroup
                   className="form-check"
@@ -231,5 +221,23 @@ class ActionModalCourseRounds extends Component {
     )
   }
 }
+
+ActionModalCourseRounds.propTypes = {
+  chosenMemoEndPoint: PropTypes.string, // version, published/draft?, semester
+  miniKoppsObj: PropTypes.exact({
+    course: PropTypes.string.isRequired,
+    lastTermsInfo: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+    ).isRequired,
+    syllabusDatesSorted: PropTypes.arrayOf(PropTypes.string).isRequired
+  }),
+  // eslint-disable-next-line react/require-default-props
+  routerStore: PropTypes.func
+}
+
+// ActionModalCourseRounds.defaultProps = {
+//   chosenMemoEndPoint: '',
+//   miniKoppsObj: null
+// }
 
 export default ActionModalCourseRounds

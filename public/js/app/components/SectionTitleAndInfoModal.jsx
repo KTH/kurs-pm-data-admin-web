@@ -1,5 +1,6 @@
 import React from 'react'
 import { InfoModalButton } from '@kth/kth-kip-style-react-components'
+import PropTypes from 'prop-types'
 
 const styles = {
   span: {
@@ -16,11 +17,10 @@ const styles = {
   }
 }
 const SectionTitleAndInfoModal = ({ modalId, titleAndInfo, btnClose, children }) => {
-  const { header, body } = titleAndInfo
+  const { header } = titleAndInfo
   const infoModalLabels = {
-    header,
-    body,
-    btnClose: btnClose || 'Close'
+    ...titleAndInfo,
+    btnClose
   }
   return (
     <span className="section-title-and-info" style={styles.span}>
@@ -35,6 +35,21 @@ const SectionTitleAndInfoModal = ({ modalId, titleAndInfo, btnClose, children })
       {children}
     </span>
   )
+}
+
+SectionTitleAndInfoModal.propTypes = {
+  modalId: PropTypes.string.isRequired,
+  titleAndInfo: PropTypes.PropTypes.shape({
+    header: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired
+  }).isRequired,
+  btnClose: PropTypes.string,
+  children: PropTypes.node
+}
+
+SectionTitleAndInfoModal.defaultProps = {
+  children: '',
+  btnClose: 'Close'
 }
 
 export default SectionTitleAndInfoModal

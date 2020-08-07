@@ -8,6 +8,7 @@ import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import { context } from '../util/fieldsByType'
 import editorConf from '../util/editorInitConf'
+import PropTypes from 'prop-types'
 
 @inject(['routerStore'])
 @observer
@@ -21,13 +22,22 @@ class StandardEditorPerTitle extends Component {
 
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
+  static getDerivedStateFromProps(props, state) {
+    const { contentId, htmlContent } = props
+    const { openIfContent } = context[contentId]
+    if (state.firstLoad && openIfContent) {
+      return { isOpen: (openIfContent && htmlContent !== '') || false, firstLoad: false }
+    }
+    return {}
+  }
+
   componentDidUpdate() {
     // used when visibleInMemo changes or open/close editor (but not when editor content changed, done in updateMemoContent)
     const { contentId } = this.props
     this.props.routerStore.dirtyEditor = contentId
   }
 
-  updateMemoContent = editorContent => {
+  updateMemoContent = (editorContent) => {
     const { contentId } = this.props
     this.props.routerStore.memoData[contentId] = editorContent
     // if content changed then update dirtyEditor with contentId
@@ -51,17 +61,21 @@ class StandardEditorPerTitle extends Component {
     this.setState({ isOpen: !this.state.isOpen })
   }
 
-  render() {
-    const { contentId, htmlContent, menuId, visibleInMemo } = this.props
-    const { isRequired, openIfContent, hasParentTitle } = context[contentId]
-    const contentType = hasParentTitle ? 'subSection' : 'section'
+  openMandatoryEditable() {
+    const { contentId, htmlContent } = this.props
+    const { openIfContent } = context[contentId]
     if (this.state.firstLoad && openIfContent) {
       this.setState({
         isOpen: (openIfContent && htmlContent !== '') || false,
         firstLoad: false
       })
     }
+  }
 
+  render() {
+    const { contentId, htmlContent, menuId, visibleInMemo } = this.props
+    const { isRequired, hasParentTitle } = context[contentId]
+    const contentType = hasParentTitle ? 'subSection' : 'section'
     const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[this.userLangIndex]
 
     return (
@@ -134,4 +148,19 @@ class StandardEditorPerTitle extends Component {
     )
   }
 }
+
+StandardEditorPerTitle.propTypes = {
+  contentId: PropTypes.string.isRequired,
+  htmlContent: PropTypes.string,
+  menuId: PropTypes.string.isRequired,
+  visibleInMemo: PropTypes.bool.isRequired,
+  onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
+  onSave: PropTypes.func.isRequired,
+  routerStore: PropTypes.func
+}
+
+StandardEditorPerTitle.defaultProps = {
+  htmlContent: ''
+}
+
 export default StandardEditorPerTitle

@@ -1,5 +1,6 @@
 import React from 'react'
 import { InfoModalButton } from '@kth/kth-kip-style-react-components'
+import PropTypes from 'prop-types'
 
 const styles = {
   span: {
@@ -27,5 +28,14 @@ const ProgressTitle = ({ id, text }) => (
     />
   </span>
 )
+
+ProgressTitle.propTypes = {
+  id: PropTypes.string.isRequired,
+  text: PropTypes.shape({
+    title: PropTypes.string,
+    intro: PropTypes.string,
+    info: PropTypes.string
+  }).isRequired
+}
 
 export default ProgressTitle

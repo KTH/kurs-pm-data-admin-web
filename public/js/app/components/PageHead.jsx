@@ -1,6 +1,7 @@
 import React from 'react'
 import { seasonStr } from '../util/helpers'
 import i18n from '../../../../i18n'
+import PropTypes from 'prop-types'
 
 const langIndex = Number(i18n.isSwedish())
 const { messages } = i18n.messages[langIndex]
@@ -23,5 +24,10 @@ const PageHead = ({ semester, memoName }) => (
     </div>
   </div>
 )
+
+PageHead.propTypes = {
+  semester: PropTypes.string.isRequired,
+  memoName: PropTypes.string.isRequired
+}
 
 export default PageHead
