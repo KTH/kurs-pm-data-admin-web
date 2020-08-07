@@ -26,6 +26,7 @@ import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
 // import axios from 'axios'
 import ContentOverviewMenu from '../components/ContentOverviewMenu'
+import PropTypes from 'prop-types'
 
 const PROGRESS = 2
 
@@ -377,13 +378,13 @@ class MemoContainer extends Component {
             pageTitle={this.isDraftOfPublished ? pageTitles.published : pageTitles.new}
           >
             <span>
-              {this.courseCode +
+              {`${this.courseCode} +
+                ' '
+                ${title}+
                 ' ' +
-                title +
+                ${credits} +
                 ' ' +
-                credits +
-                ' ' +
-                (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
+                ${i18n.isSwedish() ? creditUnitAbbr : 'credits'}`}
             </span>
           </PageTitle>
         </Row>
@@ -459,7 +460,7 @@ class MemoContainer extends Component {
                   >
                     <ContentOverviewMenu
                       id="mainMenu"
-                      visibleInMemo={this.state.visibleInMemo}
+                      visibilities={this.state.visibleInMemo}
                       memoLangIndex={this.memoLangIndex}
                     >
                       {this.isDraftOfPublished && (
@@ -512,6 +513,13 @@ class MemoContainer extends Component {
       </Container>
     )
   }
+}
+
+MemoContainer.propTypes = {
+  routerStore: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  })
 }
 
 export default MemoContainer

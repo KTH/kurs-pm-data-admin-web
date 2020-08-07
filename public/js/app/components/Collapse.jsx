@@ -1,6 +1,6 @@
 import React from 'react'
 import { Collapse as BootstrapCollapse } from 'reactstrap'
-// import classNames from 'classnames'
+import PropTypes from 'prop-types'
 
 class Collapse extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class Collapse extends React.Component {
 
     this.state = {
       isOpen: this.props.isOpen || false,
-      firstLoad: this.props.isOpen ? 'false' : 'true' || 'true'
+      firstLoad: this.props.isOpen ? 'false' : 'true'
     }
 
     this.toggleHeader = this.toggleHeader.bind(this)
@@ -66,6 +66,19 @@ class Collapse extends React.Component {
       </div>
     )
   }
+}
+
+Collapse.propTypes = {
+  alt: PropTypes.string,
+  buttonText: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  className: PropTypes.string,
+  uLabel: PropTypes.string.isRequired
+}
+
+Collapse.defaultProps = {
+  color: 'blue',
+  className: ''
 }
 
 export default Collapse
