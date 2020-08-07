@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
@@ -20,10 +21,11 @@ import SectionTitleAndInfoModal from '../components/SectionTitleAndInfoModal'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import PropTypes from 'prop-types'
 
 @inject(['routerStore'])
 @observer
-class CreateNewOptions extends Component {
+class CreateNewMemo extends Component {
   state = {
     semester: this.props.routerStore.semester,
     copyFromMemoEndPoint: '',
@@ -41,6 +43,7 @@ class CreateNewOptions extends Component {
     },
     availableSemesterRounds: []
   }
+
   urlParams = fetchParameters(this.props)
 
   eventFromParams = this.urlParams.event || ''
@@ -66,6 +69,7 @@ class CreateNewOptions extends Component {
   }
 
   onChoiceOfSemester = async (event) => {
+    console.log('ONNNNbLLUUUR')
     const semester = event.target.value
     const { existingDraftEndPoint } = this.state.chosen
     this.setState({ semester })
@@ -159,17 +163,14 @@ class CreateNewOptions extends Component {
 
   onChoiceOfToCopyOrCreateEmpty = (event) => {
     const { value } = event.target
-    this.setState(
-      (prevState) => ({
-        ...prevState,
-        chosen: {
-          ...prevState.chosen,
-          ...{ action: value === 'basedOnAnotherMemo' ? 'copy' : 'create' }
-        },
-        copyFromMemoEndPoint: ''
-      }),
-      console.log('state nenenenenenenen', this.state.chosen)
-    )
+    this.setState((prevState) => ({
+      ...prevState,
+      chosen: {
+        ...prevState.chosen,
+        ...{ action: value === 'basedOnAnotherMemo' ? 'copy' : 'create' }
+      },
+      copyFromMemoEndPoint: ''
+    }))
   }
 
   onChoiceOfMemoToCopy = (event) => {
@@ -289,7 +290,10 @@ class CreateNewOptions extends Component {
         {(alert.isOpen || this.eventFromParams) && (
           <Row className="w-100 my-0 mx-auto section-50 upper-alert">
             <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
-              {alerts[alert.textName] || (this.eventFromParams && alerts[this.eventFromParams])
+              {alerts[alert.textName]}
+              {alerts[alert.textName] && <br />}
+
+              {this.eventFromParams && alerts[this.eventFromParams]
                 ? alerts[this.eventFromParams]
                 : ''}
             </Alert>
@@ -527,4 +531,18 @@ class CreateNewOptions extends Component {
   }
 }
 
-export default CreateNewOptions
+CreateNewMemo.propTypes = {
+  miniKoppsObj: PropTypes.exact({
+    course: PropTypes.string.isRequired,
+    lastTermsInfo: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+    ).isRequired,
+    syllabusDatesSorted: PropTypes.arrayOf(PropTypes.string).isRequired
+  }),
+  routerStore: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  })
+}
+
+export default CreateNewMemo

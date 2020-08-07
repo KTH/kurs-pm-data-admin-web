@@ -12,7 +12,7 @@ import RouterStore from './stores/RouterStore'
 
 // Pages
 import ChangePublished from './pages/ChangePublished'
-import CreateNewOptions from './pages/CreateNewOptions'
+import CreateNewMemo from './pages/CreateNewMemo'
 import MemoContainer from './pages/MemoContainer'
 import PreviewContainer from './pages/PreviewContainer'
 
@@ -31,7 +31,7 @@ function appFactory() {
           path="/kursinfoadmin/kurs-pm-data/published/:courseCode/"
           component={ChangePublished}
         />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={CreateNewOptions} />
+        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={CreateNewMemo} />
         <Route
           exact
           path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint"
