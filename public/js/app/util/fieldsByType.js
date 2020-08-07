@@ -203,7 +203,16 @@ const sections = [
   }
 ]
 
+const contentParam = (contentId, param) => (context[contentId] && context[contentId][param]) || ''
+
+const isRequired = (contentId) => (context[contentId] && context[contentId].isRequired) || false
+
+const typeOfHeader = (contentId) => context[contentId].type || ''
+
 module.exports = {
   context,
-  sections
+  contentParam,
+  sections,
+  isRequired,
+  typeOfHeader
 }
