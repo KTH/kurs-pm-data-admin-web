@@ -589,7 +589,7 @@ module.exports = {
   },
   actionModals: {
     changeLadokRoundIds: {
-      header: 'Add course round',
+      header: 'Add course instances',
       body: '',
       btnClose: 'Cancel',
       btnConfirm: 'Save'
@@ -708,9 +708,9 @@ module.exports = {
     },
     publishedHasDraft: ' (has unpublished changes)',
     errKoppsRounds:
-      'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
+      'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     noRoundsToAdd:
-      'EN -> Det finns inga kurtillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
+      'All administrative course instances this semester has a published course memo or a draft of a course memo. Therefore, there is no administrative course instance to add to this course memo.',
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
     noSavedDrafts: 'There are no saved drafts.',
@@ -768,11 +768,8 @@ module.exports = {
       en: 'English'
     },
     aboutMemoLanguage: {
-      sv: `EN-> Språket för kurs-PM är på Svenska eftersom alla kurstillfällen som valdes när kurs-PM skapades är Svenska. 
-        Det går ej att lägga till ett Engelskt kurstillfälle nedan för det kräver att kurs-PM:s språk är Engelska. 
-        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`,
-      en: `EN-> Språket för kurs-PM är på Engelska eftersom minst ett av kurstillfällena som valdes när kurs-pm skapades är Engelskt. 
-      Det går att lägga till både svenska och engelska kurstillfällen nedan.`
+      sv: `The language of this course memo is Swedish since all chosen administrative course instances have Swedish as the language of instruction. It is not possible to add an English administrative course instance to a course memo in Swedish. If you want to combine administrative course instances in both Swedish and English you have to delete the draft and create a new draft with both Swedish and English administrative course instances.`,
+      en: `The language of this course memo is English since at least one of the chosen administrative course instances have English as the language of instruction. It is possible to add both administrative course instances with Swedish and English as the language of instruction.`
     }
   },
   alerts: {
@@ -780,7 +777,7 @@ module.exports = {
     autoSavedTemporary: 'Changes save temporarily before publishing.',
     addedRoundId: 'Course offerings were changed',
     errKoppsRounds:
-      'Could not fetch all available rounds because of error in Kopps. Try to refresh page',
+      'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     errNoChosen:
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errNoChosenTemplate:
