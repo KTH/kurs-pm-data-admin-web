@@ -378,13 +378,9 @@ class MemoContainer extends Component {
             pageTitle={this.isDraftOfPublished ? pageTitles.published : pageTitles.new}
           >
             <span>
-              {`${this.courseCode} +
-                ' '
-                ${title}+
-                ' ' +
-                ${credits} +
-                ' ' +
-                ${i18n.isSwedish() ? creditUnitAbbr : 'credits'}`}
+              {`${this.courseCode} ${title} ${credits} ${
+                i18n.isSwedish() ? creditUnitAbbr : 'credits'
+              }`}
             </span>
           </PageTitle>
         </Row>
