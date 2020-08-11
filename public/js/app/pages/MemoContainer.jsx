@@ -63,6 +63,18 @@ class MemoContainer extends Component {
     this.scrollIntoView()
   }
 
+  courseSubHeader = () => {
+    const { title, titleOther, credits, creditUnitAbbr } = this.state
+    const { courseCode, userLangIndex, memoLangIndex } = this
+    return (
+      <span>
+        {`${courseCode} ${userLangIndex === memoLangIndex ? title : titleOther} ${credits} ${
+          i18n.isSwedish() ? creditUnitAbbr : 'credits'
+        }`}
+      </span>
+    )
+  }
+
   setUpperAlarm = () => {
     this.setState({ isError: true })
     const alertElement = document.getElementById('scroll-here-if-alert')
@@ -360,15 +372,7 @@ class MemoContainer extends Component {
       pagesChangePublishedPm,
       pageTitles
     } = i18n.messages[this.userLangIndex]
-    const {
-      isError,
-      memoName,
-      title,
-      credits,
-      creditUnitAbbr,
-      lastPublishedVersionPublishDate,
-      version
-    } = this.state
+    const { isError, memoName, lastPublishedVersionPublishDate, version } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -377,11 +381,7 @@ class MemoContainer extends Component {
             id="mainHeading"
             pageTitle={this.isDraftOfPublished ? pageTitles.published : pageTitles.new}
           >
-            <span>
-              {`${this.courseCode} ${title} ${credits} ${
-                i18n.isSwedish() ? creditUnitAbbr : 'credits'
-              }`}
-            </span>
+            {this.courseSubHeader()}
           </PageTitle>
         </Row>
         <ProgressBar
