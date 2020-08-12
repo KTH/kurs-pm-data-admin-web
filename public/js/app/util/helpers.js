@@ -11,13 +11,14 @@ export const combinedCourseName = (courseCode, course, langAbbr) => {
   const courseName = `${courseCode} ${title[langAbbr]} ${localeCredits} ${creditUnit}`
   return courseName
 }
-export const seasonStr = (language, semesterCode) => {
+
+export const seasonStr = (language, semesterRaw) => {
   const langIndex = typeof language === 'number' ? language : language === 'en' ? 0 : 1
   const { extraInfo } = i18n.messages[langIndex]
-
+  if (!semesterRaw) return ''
   const termStringAsSeason = `${
-    extraInfo.season[semesterCode.toString()[4]]
-  }${semesterCode.toString().slice(0, 4)}`
+    extraInfo.season[semesterRaw.toString()[4]]
+  }${semesterRaw.toString().slice(0, 4)}`
   return termStringAsSeason
 }
 
@@ -84,7 +85,7 @@ export const emptyCheckboxesByIds = (sortedRoundIds, startOfId) => {
 
 export const emptyCheckboxes = (className) => {
   const checkboxes = (document.getElementsByClassName(className).checked = false)
-  for (var i = 0; i < checkboxes.length; i++) {
+  for (let i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
       checkboxes[i].checked = false
     }
@@ -120,4 +121,29 @@ export const fetchParameters = (props) => {
     .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
   // }
   return params
+}
+
+export const syllabusValidDates = (courseSyllabus, memoLangAbbr, syllabusDatesSorted) => {
+  const validFromTerm = Number(courseSyllabus.validFromTerm)
+  const indexOfTermOfNextSyllabus =
+    syllabusDatesSorted.findIndex((someSyllabusDate) => someSyllabusDate === validFromTerm) + 1
+  let lastValidTerm =
+    indexOfTermOfNextSyllabus < syllabusDatesSorted.length
+      ? syllabusDatesSorted[indexOfTermOfNextSyllabus]
+      : null
+
+  if (lastValidTerm) {
+    const termOfNextSyllabus = lastValidTerm.toString().substring(4, 5)
+    if (termOfNextSyllabus === '2') lastValidTerm -= 1
+    else if (termOfNextSyllabus === '1') lastValidTerm -= 9
+  }
+  const syllabusValid = {
+    validFromTerm,
+    textFromTo: `${seasonStr(memoLangAbbr, validFromTerm)} - ${seasonStr(
+      memoLangAbbr,
+      lastValidTerm
+    )}`
+  }
+
+  return syllabusValid
 }

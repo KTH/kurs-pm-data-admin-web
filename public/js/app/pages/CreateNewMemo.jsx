@@ -11,6 +11,7 @@ import {
   emptyCheckboxesByIds,
   seasonStr,
   sortRoundAndKoppsInfo,
+  syllabusValidDates,
   removeAndSortRoundAndInfo,
   uncheckRadioById,
   fetchParameters
@@ -217,20 +218,12 @@ class CreateNewMemo extends Component {
       const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
 
       const { courseSyllabus } = this.lastTerms.find(({ term }) => term === semester)
-      const validFromTerm = Number(courseSyllabus.validFromTerm)
-      const validToStr =
-        syllabusDatesSorted[
-          syllabusDatesSorted.findIndex((someSyllabusDate) => someSyllabusDate === validFromTerm) +
-            1
-        ] || ''
 
-      const syllabusValid = {
-        validFromTerm,
-        textFromTo: `${seasonStr(memoCommonLangAbbr, validFromTerm)} - ${seasonStr(
-          memoCommonLangAbbr,
-          validToStr
-        )}`
-      }
+      const syllabusValid = syllabusValidDates(
+        courseSyllabus,
+        memoCommonLangAbbr,
+        syllabusDatesSorted
+      )
 
       // Create new draft from chosen semester rounds
       const body = {
