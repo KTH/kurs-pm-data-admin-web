@@ -223,9 +223,13 @@ class CreateNewMemo extends Component {
           syllabusDatesSorted.findIndex((someSyllabusDate) => someSyllabusDate === validFromTerm) +
             1
         ] || ''
+
       const syllabusValid = {
         validFromTerm,
-        textFromTo: `${seasonStr(memoCommonLangAbbr, validFromTerm)} - ${validToStr}`
+        textFromTo: `${seasonStr(memoCommonLangAbbr, validFromTerm)} - ${seasonStr(
+          memoCommonLangAbbr,
+          validToStr
+        )}`
       }
 
       // Create new draft from chosen semester rounds
