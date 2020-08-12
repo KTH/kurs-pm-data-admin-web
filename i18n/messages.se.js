@@ -686,9 +686,9 @@ module.exports = {
     createFrom: {
       labelBasedOn: 'Utgå från:',
       labelAllPrevMemos: 'Välj kurs-PM att kopiera:',
-      infoTextForMemos: 'Kurs-PM listade är publicerade tidigare kursomgångar',
+      infoTextForMemos: 'Listade Kurs-PM är publicerade för tidigare kursomgångar',
       basedOnStandard: 'Tom KTH-mall för kurs-PM',
-      basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kurs-PM'
+      basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kursomgång'
     },
     publishedHasDraft: ' (finns opublicerade ändringar)',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
@@ -748,10 +748,10 @@ module.exports = {
       en: 'Engelska'
     },
     aboutMemoLanguage: {
-      sv: `Språket för kurs-PM är på Svenska eftersom alla kurstillfällen som valdes när kurs-PM skapades är Svenska. 
-        Det går ej att lägga till ett Engelskt kurstillfälle nedan för det kräver att kurs-PM:s språk är Engelska. 
-        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på Engelska).`,
-      en: `Språket för kurs-PM är på Engelska eftersom minst ett av kurstillfällena som valdes när kurs-pm skapades är Engelskt. 
+      sv: `Språket för kurs-PM är på svenska eftersom alla kurstillfällen som valdes när kurs-PM skapades är svenska. 
+        Det går ej att lägga till ett engelskt kurstillfälle nedan för det kräver att kurs-PM:s språk är engelska. 
+        Om du ändå vill inkludera engelska kurstillfällen behöver du i stället radera utkastet för detta kurs-PM och börja om (språket för kurs-PM kommer då bli på engelska).`,
+      en: `Språket för kurs-PM är på engelska eftersom minst ett av kurstillfällena som valdes när kurs-pm skapades är engelskt. 
       Det går att lägga till både svenska och engelska kurstillfällen nedan.`
     }
   },
