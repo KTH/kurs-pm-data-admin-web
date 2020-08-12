@@ -131,6 +131,7 @@ export const syllabusValidDates = (courseSyllabus, memoLangAbbr, syllabusDatesSo
     indexOfTermOfNextSyllabus < syllabusDatesSorted.length
       ? syllabusDatesSorted[indexOfTermOfNextSyllabus]
       : null
+  // {"memoEndPoint":"SF162720192-1"}
 
   if (lastValidTerm) {
     const termOfNextSyllabus = lastValidTerm.toString().substring(4, 5)

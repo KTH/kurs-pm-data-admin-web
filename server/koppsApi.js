@@ -86,13 +86,13 @@ function _getSelectedSyllabus(body, semester) {
   const { courseSyllabus, validFromTerm } = semesterSyllabus
 
   const selectedFields = {
-    learningOutcomes: courseSyllabus.goals,
-    courseContent: courseSyllabus.content,
-    additionalRegulations: courseSyllabus.additionalRegulations,
-    ethicalApproach: courseSyllabus.ethicalApproach,
-    examComments: courseSyllabus.examComments,
-    otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade,
-    validFromTerm: validFromTerm.term
+    learningOutcomes: courseSyllabus.goals || '',
+    courseContent: courseSyllabus.content || '',
+    additionalRegulations: courseSyllabus.additionalRegulations || '',
+    ethicalApproach: courseSyllabus.ethicalApproach || '',
+    examComments: courseSyllabus.examComments || '',
+    otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade || '',
+    validFromTerm: validFromTerm.term || ''
   }
   return selectedFields
 }
@@ -161,34 +161,23 @@ function _getCourseMainSubjects(body) {
 
 function _getCommonInfo(resBody) {
   // step 2
-  const {
-    credits,
-    creditUnitAbbr,
-    gradeScaleCode,
-    title,
-    titleOther,
-    prerequisites,
-    possibilityToCompletion,
-    possibilityToAddition,
-    courseLiterature,
-    requiredEquipment
-  } = resBody.course
-  const gradingScale = `<p>${resBody.formattedGradeScales[gradeScaleCode]}</p>`
+  const { course: c } = resBody
+  const gradingScale = `<p>${resBody.formattedGradeScales[c.gradeScaleCode]}</p>`
   const schemaUrls = resBody.roundInfos
     .filter((roundInfo) => roundInfo.schemaUrl !== undefined)
     .map(({ schemaUrl }) => schemaUrl)
   return {
-    credits,
-    creditUnitAbbr,
-    gradingScale,
-    title,
-    titleOther,
-    prerequisites,
-    possibilityToCompletionTemplate: possibilityToCompletion,
-    possibilityToAdditionTemplate: possibilityToAddition,
-    schemaUrls,
-    literatureTemplate: courseLiterature || '',
-    equipmentTemplate: requiredEquipment
+    credits: c.credits || '',
+    creditUnitAbbr: c.creditUnitAbbr || '',
+    gradingScale: gradingScale || '',
+    title: c.title || '',
+    titleOther: c.titleOther || '',
+    prerequisites: c.prerequisites || '',
+    possibilityToCompletionTemplate: c.possibilityToCompletion || '',
+    possibilityToAdditionTemplate: c.possibilityToAddition || '',
+    schemaUrls: schemaUrls || '',
+    literatureTemplate: c.courseLiterature || '',
+    equipmentTemplate: c.requiredEquipment || ''
   }
 }
 

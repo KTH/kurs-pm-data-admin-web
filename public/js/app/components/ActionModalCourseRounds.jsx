@@ -62,7 +62,6 @@ class ActionModalCourseRounds extends Component {
   updateState = async (semester) => {
     const availableRounds = await this.props.routerStore.showAvailableSemesterRounds(semester)
     const allRounds = await fetchThisTermRounds(this.props.routerStore.miniKoppsObj, this.memo)
-    console.log('allRounds', allRounds)
     const compatible = await isLangCompatible(availableRounds, this.memo)
     const showSaveBtn = availableRounds && availableRounds.length > 0 && compatible
     this.setState({
