@@ -235,29 +235,25 @@ const appRoute = AppRouter()
 appRoute.post(
   'memo.api.updateCreatedDraft',
   config.proxyPrefixPath.uri + '/internal-api/draft-updates/:courseCode/:memoEndPoint',
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   MemoContent.updateContentByEndpoint
 )
 
 appRoute.post(
   'memo.api.copyFromAPublishedMemo',
   config.proxyPrefixPath.uri +
-    '/internal-api/create-draft/:courseCode/:memoEndPoint/copyFrom/:anotherMemoEndPoint', // updated
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
+    '/internal-api/create-draft/:courseCode/:memoEndPoint/copyFrom/:anotherMemoEndPoint',
   ChooseMemoStartPoint.createDraftByMemoEndPoint
 )
 
 appRoute.post(
   'memo.api.createDraftByMemoEndPoint',
-  config.proxyPrefixPath.uri + '/internal-api/create-draft/:courseCode/:memoEndPoint', // updated
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
+  config.proxyPrefixPath.uri + '/internal-api/create-draft/:courseCode/:memoEndPoint',
   ChooseMemoStartPoint.createDraftByMemoEndPoint
 )
 
 appRoute.post(
   'memo.api.publishMemoByEndPoint',
   config.proxyPrefixPath.uri + '/internal-api/publish-memo/:courseCode/:memoEndPoint',
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   PreviewContent.publishMemoByEndPoint
 )
 
@@ -265,21 +261,12 @@ appRoute.post(
 appRoute.get(
   'memo.api.getUsedRounds',
   config.proxyPrefixPath.uri + '/internal-api/used-rounds/:courseCode/:semester',
-  serverLogin,
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.getUsedRounds
 )
-
-// appRoute.get(
-//   'memo.api.getUsedDrafts',
-//   config.proxyPrefixPath.uri + '/internal-api/existing-drafts/:courseCode',
-//   ChooseMemoStartPoint.getUsedDrafts
-// )
 
 appRoute.delete(
   'memo.api.removeMemoDraft',
   config.proxyPrefixPath.uri + '/internal-api/draft-to-remove/:courseCode/:memoEndPoint',
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.removeMemoDraft
 )
 
