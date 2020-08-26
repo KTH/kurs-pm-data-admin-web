@@ -137,10 +137,10 @@ function _getPermanentDisabilityTemplate(language) {
   const english = language === 'en'
   return english
     ? `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
-    <p><a href="https://www.kth.se/en/student/studentliv/funktionsnedsattning">https://www.kth.se/en/student/studentliv/funktionsnedsattning</a></p>
+    <p><a href="https://www.kth.se/en/student/studentliv/funktionsnedsattning">Funka - compensatory support for students with disabilities</a></p>
     <p>Please inform the course coordinator if you need compensatory support during the course. Present a certificate from Funka.</p>`
     : `<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-  <p><a href="https://www.kth.se/student/studentliv/funktionsnedsattning">https://www.kth.se/student/studentliv/funktionsnedsattning</a></p>
+  <p><a href="https://www.kth.se/student/studentliv/funktionsnedsattning">Funka- stöd för studenter med funktionsnedsättningar</a></p>
   <p>Informera dessutom kursledaren om du har särskilda behov. Visa då upp intyg från Funka.</p>`
 }
 
