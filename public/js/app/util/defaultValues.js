@@ -5,11 +5,11 @@ const SCHEDULE_TITLES = {
   1: ['Läraktivitet', 'Innehåll', 'Förberedelse']
 }
 
-const _scheduleDetailsTemplate = language => {
+const _scheduleDetailsTemplate = (language) => {
   const langIndex = language === 'en' ? 0 : 1
   const header = SCHEDULE_TITLES[langIndex]
     .map(
-      thTitle => `<th style="width: 33.3333%">${thTitle}
+      (thTitle) => `<th style="width: 33.3333%">${thTitle}
   </th>`
     )
     .join('')
@@ -36,11 +36,11 @@ const _scheduleLinks = (url, language) => {
   if (!url) return ''
   const urls = Array.isArray(url) ? url : [url]
   const uniqueUrls = urls.filter((value, index, self) => self.indexOf(value) === index)
-  const uniqueRounds = uniqueUrls.map(urlStr => urlStr.split('/')[7].toUpperCase())
+  const uniqueRounds = uniqueUrls.map((urlStr) => urlStr.split('/')[7].toUpperCase())
   return uniqueUrls
     .map((uniqueUrl, index) =>
       uniqueUrl
-        ? `<br/><a title="${scheduleName}" href="${uniqueUrl}" target="_blank" rel="noopener">${scheduleName} ${uniqueRounds[index]}</a>`
+        ? `<br/><a title="${scheduleName}" href="${uniqueUrl}">${scheduleName} ${uniqueRounds[index]}</a>`
         : ''
     )
     .join('')

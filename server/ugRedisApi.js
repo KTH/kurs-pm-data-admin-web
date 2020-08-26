@@ -6,29 +6,29 @@ const log = require('kth-node-log')
 const redisKeys = (courseCode, semester, ladokRoundIds) => {
   // Used to get examiners and responsibles from UG Rdedis
   return {
-    teachers: ladokRoundIds.map(round => `${courseCode}.${semester}.${round}.teachers`),
+    teachers: ladokRoundIds.map((round) => `${courseCode}.${semester}.${round}.teachers`),
     examiner: [`${courseCode}.examiner`],
     responsibles: ladokRoundIds.map(
-      round => `${courseCode}.${semester}.${round}.courseresponsible`
+      (round) => `${courseCode}.${semester}.${round}.courseresponsible`
     ),
-    assistants: ladokRoundIds.map(round => `${courseCode}.${semester}.${round}.assistants`) // edu.courses.SF.SF1624.20191.1.assistants
+    assistants: ladokRoundIds.map((round) => `${courseCode}.${semester}.${round}.assistants`) // edu.courses.SF.SF1624.20191.1.assistants
   }
 }
 
-const _removeDublicates = personListWithDublicates =>
+const _removeDublicates = (personListWithDublicates) =>
   personListWithDublicates
-    .map(person => JSON.stringify(person))
+    .map((person) => JSON.stringify(person))
     .filter((person, index, self) => self.indexOf(person) === index)
-    .map(personStr => JSON.parse(personStr))
+    .map((personStr) => JSON.parse(personStr))
 
-const createPersonHtml = personList => {
+const createPersonHtml = (personList) => {
   let personString = ''
   personList &&
-    personList.forEach(person => {
+    personList.forEach((person) => {
       if (person) {
         personString += `<p class = "person">
       <img src="https://www.kth.se/files/thumbnail/${person.username}" alt="Profile picture" width="31" height="31">
-      <a href="/profile/${person.username}/" target="_blank" property="teach:teacher">
+      <a href="/profile/${person.username}/" property="teach:teacher">
           ${person.givenName} ${person.lastName} 
       </a> 
     </p>  `
@@ -62,8 +62,8 @@ async function _getCourseEmployees(apiMemoData) {
       .mget(assistants) // [3]
       .execAsync()
     log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArrays[1])
-    const flatArrWithHtmlStr = arrWithStringifiedArrays.map(perTypeStringifiedArr => {
-      const thisTypeAllRoundsEmployees = perTypeStringifiedArr.flatMap(perRoundStr =>
+    const flatArrWithHtmlStr = arrWithStringifiedArrays.map((perTypeStringifiedArr) => {
+      const thisTypeAllRoundsEmployees = perTypeStringifiedArr.flatMap((perRoundStr) =>
         JSON.parse(perRoundStr)
       )
       /* Remove duplicates */
