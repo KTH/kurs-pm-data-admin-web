@@ -695,7 +695,7 @@ module.exports = {
     noRoundsToAdd:
       'Det finns inga kurstillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
     noCourseRoundsAvailable:
-      'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-PM eller utkast.',
+      'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-PM eller utkast. Se sparade utkast på denna sida eller publicerade kurs-PM på sidan Om kurs-PM för din kurs.',
     noSavedDrafts: 'Det finns inga sparade utkast.',
     noSemesterAvailable:
       'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-PM för.',
