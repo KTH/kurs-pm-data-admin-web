@@ -710,7 +710,7 @@ module.exports = {
     errKoppsRounds:
       'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     noRoundsToAdd:
-      'All administrative course instances this semester has a published course memo or a draft of a course memo. Therefore, there is no administrative course instance to add to this course memo.',
+      'All administrative course instances this semester has a published course memo or a draft of a course memo. Therefore, there is no administrative course instance to add to this course memo. View saved drafts on this page or published course memos on the page "About course memo" for this course.',
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
     noSavedDrafts: 'There are no saved drafts.',
