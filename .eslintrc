@@ -2,11 +2,10 @@
   "parser": "babel-eslint",
   "env": {
     "node": true,
-    "browser": true,
-    "jest/globals": true
+    "browser": true
   },
   "extends": ["airbnb", "prettier"],
-  "plugins": ["prettier", "jest"],
+  "plugins": ["prettier"],
   "rules": {
     "import/extensions": "off",
     "import/newline-after-import": "off",
