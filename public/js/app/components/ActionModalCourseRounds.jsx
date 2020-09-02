@@ -41,9 +41,9 @@ class ActionModalCourseRounds extends Component {
   }
 
   uniqueMemos = [
-    ...this.props.routerStore.miniMemos.draftsOfPublishedMemos,
-    ...this.props.routerStore.miniMemos.publishedWithNoActiveDraft,
-    ...this.props.routerStore.miniMemos.draftsWithNoActivePublishedVer
+    ...(this.props.routerStore.miniMemos.draftsOfPublishedMemos || []),
+    ...(this.props.routerStore.miniMemos.publishedWithNoActiveDraft || []),
+    ...(this.props.routerStore.miniMemos.draftsWithNoActivePublishedVer || [])
   ]
 
   langAbbr = i18n.isSwedish() ? 'sv' : 'en'
