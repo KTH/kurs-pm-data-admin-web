@@ -59,18 +59,20 @@ class CreateNewMemo extends Component {
 
   langIndex = this.props.routerStore.langIndex
 
-  langAbbr = i18n.isSwedish() ? 'sv' : 'en'
+  langAbbr = this.props.routerStore.langAbbr
 
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
   componentDidMount() {
-    this.props.history.push({
-      search: ''
-    })
+    const { history } = this.props
+    if (history) {
+      history.push({
+        search: ''
+      })
+    }
   }
 
   onChoiceOfSemester = async (event) => {
-    console.log('ONNNNbLLUUUR')
     const semester = event.target.value
     const { existingDraftEndPoint } = this.state.chosen
     this.setState({ semester })
@@ -272,6 +274,7 @@ class CreateNewMemo extends Component {
     const { lastTerms, existingDrafts, hasSavedDraft, langAbbr, langIndex } = this
     const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
     const { course } = this.props.routerStore.miniKoppsObj
+    console.log('---------------langIndex------------', langIndex)
 
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 

@@ -37,7 +37,7 @@ class ChangePublished extends Component {
 
   langIndex = this.props.routerStore.langIndex
 
-  langAbbr = i18n.isSwedish() ? 'sv' : 'en'
+  langAbbr = this.props.routerStore.langAbbr
 
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
@@ -46,9 +46,12 @@ class ChangePublished extends Component {
   eventFromParams = this.urlParams.event || ''
 
   componentDidMount() {
-    this.props.history.push({
-      search: ''
-    })
+    const { history } = this.props
+    if (history) {
+      history.push({
+        search: ''
+      })
+    }
   }
 
   setAlarm = (type, textName, isOpen = true) => {
@@ -75,34 +78,34 @@ class ChangePublished extends Component {
     })
   }
 
-  onSubmit = () => {
+  onSubmit = async () => {
     const { courseCode } = this
     const { chosen } = this.state
-    if (chosen.memoEndPoint) {
-      const memo = this.uniqueMemosAfterPublishing.find(
-        (memo) => memo.memoEndPoint === chosen.memoEndPoint
-      )
+    if (!chosen || !chosen.memoEndPoint) return this.setAlarm('danger', 'errNoInPublishedChosen')
+    const goToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.memoEndPoint}`
 
-      if (memo && memo.status === 'draft') {
-        const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.memoEndPoint}`
-        window.location = nextStepUrl
-      } else {
-        const body = { memoEndPoint: chosen.memoEndPoint }
+    const memosProps = this.uniqueMemosAfterPublishing.find(
+      (published) => published.memoEndPoint === chosen.memoEndPoint
+    )
 
-        const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${chosen.memoEndPoint}`
+    if (memosProps && memosProps.status === 'draft') {
+      window.location = goToEditorUrl
+    } else if (memosProps && memosProps.status === 'published') {
+      const body = { memoEndPoint: chosen.memoEndPoint }
 
-        return axios
-          .post(url, body)
-          .then((result) => {
-            // ADDD ERROR HANTERING
-            const nextStepUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosen.memoEndPoint}`
-            window.location = nextStepUrl
-          })
-          .catch((error) => {
-            this.setAlarm('danger', 'errWhileSaving')
-          })
+      const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${chosen.memoEndPoint}`
+
+      try {
+        const result = await axios.post(url, body)
+        if (result.status >= 400) {
+          this.setAlarm('danger', 'errWhileSaving')
+          return 'ERROR-' + result.status
+        }
+        window.location = goToEditorUrl
+      } catch (error) {
+        this.setAlarm('danger', 'errWhileSaving')
       }
-    } else this.setAlarm('danger', 'errNoInPublishedChosen')
+    }
   }
 
   onFinish = () => {
@@ -119,7 +122,6 @@ class ChangePublished extends Component {
     const { alerts, info, pagesChangePublishedPm, pageTitles } = i18n.messages[langIndex]
     const { course } = this.props.routerStore.miniKoppsObj
     const { alert, chosen } = this.state
-
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row id="scroll-here-if-alert">
@@ -140,7 +142,10 @@ class ChangePublished extends Component {
         {(alert.isOpen || this.eventFromParams) && (
           <Row className="w-100 my-0 mx-auto section-50 upper-alert">
             <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
-              {alerts[alert.textName] || (this.eventFromParams && alerts[this.eventFromParams])
+              {alerts[alert.textName]}
+              {alerts[alert.textName] && <br />}
+
+              {this.eventFromParams && alerts[this.eventFromParams]
                 ? alerts[this.eventFromParams]
                 : ''}
             </Alert>
