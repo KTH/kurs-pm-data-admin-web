@@ -113,7 +113,7 @@ export const removeAndSortRoundAndInfo = (ladokRoundId, prevSortedInfo) => {
 }
 
 export const fetchParameters = (props) => {
-  // if (props.location.sellingDesciprion !== 'success') {
+  if (!props.location) return ''
   const params = props.location.search
     .substring(1)
     .split('&')

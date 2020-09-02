@@ -129,6 +129,7 @@ class RouterStore {
 
   @action doSetLanguageIndex(lang) {
     this.langIndex = lang === 'en' ? 0 : 1
+    this.langAbbr = lang
   }
 
   initializeStore(storeName) {
