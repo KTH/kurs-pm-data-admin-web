@@ -383,7 +383,12 @@ class CreateNewMemo extends Component {
                             </option>
                           )}
                           {lastTerms.map(({ term }) => (
-                            <option id={`itemFor-${term}`} key={term} value={term}>
+                            <option
+                              data-testid="select-option"
+                              id={`itemFor-${term}`}
+                              key={term}
+                              value={term}
+                            >
                               {seasonStr(langIndex, term)}
                             </option>
                           ))}
@@ -422,8 +427,8 @@ class CreateNewMemo extends Component {
                     >
                       {availableSemesterRounds.map((round) => (
                         <FormGroup
+                          data-testid="form-choose-new"
                           className="form-check"
-                          data-testid="choose-from-rounds-list"
                           id="choose-from-rounds-list"
                           key={'new' + round.ladokRoundId}
                         >
@@ -435,7 +440,7 @@ class CreateNewMemo extends Component {
                             onClick={(event) => this.onChoiceOfAvailableRounds(event, round)}
                             defaultChecked={false}
                           />
-                          <Label htmlFor={'new' + round.ladokRoundId}>
+                          <Label htmlFor={'new' + round.ladokRoundId} data-testid="label-checkbox">
                             {/* Namegiving according to user interface language */}
                             {combineMemoName(round, semester, langAbbr)}
                           </Label>

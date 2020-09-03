@@ -74,8 +74,8 @@ class RouterStore {
     this.memoData = memoData
   }
 
-  async _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester) {
-    const lastTerms = this.miniKoppsObj.lastTermsInfo || null
+  async _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLastTerms = null) {
+    const lastTerms = this.miniKoppsObj.lastTermsInfo || koppsLastTerms.lastTermsInfo
     const thisTerm =
       (lastTerms && (await lastTerms.find(({ term }) => term === chosenSemester))) || {}
     return (
@@ -88,7 +88,14 @@ class RouterStore {
     )
   }
 
-  @action async showAvailableSemesterRounds(chosenSemester) {
+  @action async showAvailableSemesterRounds(
+    chosenSemester,
+    testUsedRounds = [],
+    testLastTerms = null
+  ) {
+    if (testLastTerms) {
+      return await this._filterOutUsedRounds(testUsedRounds, chosenSemester, testLastTerms)
+    }
     try {
       const thisHost =
         this.thisHostBaseUrl.slice(-1) === '/'
@@ -128,7 +135,7 @@ class RouterStore {
   }
 
   @action doSetLanguageIndex(lang) {
-    this.langIndex = lang === 'en' ? 0 : 1
+    this.langIndex = lang === 'sv' ? 1 : 0
     this.langAbbr = lang
   }
 
