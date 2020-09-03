@@ -1,5 +1,6 @@
 import mockMiniKoppsObj from './miniKoppsObjs'
 import mockMiniMemos from './miniMemos'
+import RouterStore from '../../public/js/app/stores/RouterStore'
 
 const tempSaveNewImage = (imageFile, tempImagePath, isDefaultChosen) => {
   mockAdminStore.newImageFile = imageFile
@@ -7,7 +8,10 @@ const tempSaveNewImage = (imageFile, tempImagePath, isDefaultChosen) => {
   mockAdminStore.isDefaultChosen = isDefaultChosen
 }
 
+const realRouterStore = new RouterStore()
+
 const mockRouterStore = {
+  ...realRouterStore,
   courseCode: 'EF1111',
   langAbbr: 'sv',
   langIndex: 0,
@@ -35,9 +39,10 @@ const mockRouterStore = {
   tempSaveNewImage: tempSaveNewImage,
 
   showAvailableSemesterRounds(semester) {
-    return new Promise((resolve, reject) => {
-      resolve({ status: 200 })
-    })
+    return realRouterStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
+    // return new Promise((resolve, reject) => {
+    //   resolve({ status: 200 })
+    // })
   }
 }
 
