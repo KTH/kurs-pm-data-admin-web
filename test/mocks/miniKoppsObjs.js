@@ -20,6 +20,12 @@ const mockMiniKoppsObj = {
           ladokRoundId: '1',
           firstTuitionDate: '2021-03-22',
           language: { sv: 'Engelska', en: 'English' }
+        },
+        {
+          shortName: 'CBIOT1 m.fl.',
+          ladokRoundId: '3',
+          firstTuitionDate: '2021-03-20',
+          language: { sv: 'Svenska', en: 'Swedish' }
         }
       ],
       examinationRounds: [
@@ -99,6 +105,12 @@ const mockMiniKoppsObj = {
           ladokRoundId: '1',
           firstTuitionDate: '2020-10-26',
           language: { sv: 'Engelska', en: 'English' }
+        },
+        {
+          shortName: 'CBIOT1 m.fl.',
+          ladokRoundId: '3',
+          firstTuitionDate: '2020-10-30',
+          language: { sv: 'Svenska', en: 'Swedish' }
         }
       ],
       examinationRounds: [

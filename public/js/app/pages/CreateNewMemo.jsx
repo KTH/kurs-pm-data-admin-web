@@ -57,9 +57,9 @@ class CreateNewMemo extends Component {
 
   hasSavedDraft = this.existingDrafts.length > 0
 
-  langIndex = this.props.routerStore.langIndex
+  langAbbr = this.props.langAbbr || this.props.routerStore.langAbbr
 
-  langAbbr = this.props.routerStore.langAbbr
+  langIndex = this.props.langIndex || this.props.routerStore.langIndex
 
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
@@ -274,7 +274,6 @@ class CreateNewMemo extends Component {
     const { lastTerms, existingDrafts, hasSavedDraft, langAbbr, langIndex } = this
     const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
     const { course } = this.props.routerStore.miniKoppsObj
-    console.log('---------------langIndex------------', langIndex)
 
     const { alert, availableSemesterRounds, chosen, semester } = this.state
 
@@ -364,16 +363,12 @@ class CreateNewMemo extends Component {
               <div>
                 <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
                 {(lastTerms && lastTerms.length > 0 && (
-                  <Form
-                    style={{ width: '20em' }}
-                    // className={
-                    //     alert.isOpen && alert.textName === 'errNoChosen' && chosen.sortedRoundIds.length === 0 ? 'error-area' : ''
-                    //   }
-                  >
+                  <Form style={{ width: '20em' }} data-testid="form-select-terms">
                     <FormGroup className="form-select" key="select-semester" id="choose-semester">
                       <div className="select-wrapper">
                         <select
                           className="custom-select"
+                          data-testid="select-terms"
                           id="term-list"
                           onChange={this.onChoiceOfSemester}
                           defaultValue="PLACEHOLDER"
@@ -404,6 +399,7 @@ class CreateNewMemo extends Component {
               </div>
               {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
               <div
+                data-testid="new-course-offering"
                 className="first-15"
                 style={
                   lastTerms && lastTerms.length > 0 && semester
@@ -427,6 +423,7 @@ class CreateNewMemo extends Component {
                       {availableSemesterRounds.map((round) => (
                         <FormGroup
                           className="form-check"
+                          data-testid="choose-from-rounds-list"
                           id="choose-from-rounds-list"
                           key={'new' + round.ladokRoundId}
                         >
@@ -542,7 +539,9 @@ CreateNewMemo.propTypes = {
   routerStore: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func
-  })
+  }),
+  langAbbr: PropTypes.string,
+  langIndex: PropTypes.number
 }
 
 export default CreateNewMemo
