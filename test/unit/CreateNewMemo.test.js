@@ -24,15 +24,15 @@ const {
   pageTitles: pageTitlesSV,
   buttons: buttonsSV
 } = i18n.messages[1]
-const { getAllByRole, getByTestId } = screen
+const { getAllByRole, getAllByTestId, getByTestId } = screen
 
-describe('Component <CreateNewMemo> Create and publish course memo, initial state, no memo created yet. English interface', () => {
+describe('Component <CreateNewMemo> Create and publish course memo, initial state, no memo created yet.', () => {
   xtest('renders without props', () => {
     render(<CreateNewMemoPage />)
   })
 
   xtest('renders two visible headers h3', () => {
-    render(<CreateNewMemoPage />)
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const allH3Headers = getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(2)
     expect(allH3Headers[0]).toHaveTextContent(info.chooseSavedDraft)
@@ -40,7 +40,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   xtest('renders text if no drafts is in the list and no semester is chosen', () => {
-    render(<CreateNewMemoPage />)
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     expect(screen.getByText(info.noSavedDrafts)).toBeVisible()
     const selectInput = getByTestId('select-terms')
     expect(selectInput).toHaveDisplayValue(info.chooseSemester.label)
@@ -57,7 +57,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   xtest('renders select options for course semesters in English.', () => {
-    render(<CreateNewMemoPage />)
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const semesters = getAllByRole('option')
     const semesterEnglish = ['Spring 2021', 'Autumn 2020', 'Spring 2020', 'Autumn 2019']
     semesters.map((s, i) => expect(s).toHaveTextContent(semesterEnglish[i]))
@@ -74,7 +74,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     render(<CreateNewMemoPage />)
     const selectInput = getByTestId('select-terms')
     await fireEvent.change(selectInput, { target: { value: '20202' } })
-    let options = screen.getAllByTestId('select-option')
+    let options = getAllByTestId('select-option')
     expect(options[0].selected).toBeFalsy()
     expect(options[1].selected).toBeTruthy()
     expect(options[2].selected).toBeFalsy()
@@ -101,7 +101,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     fireEvent.change(selectInput, { target: { value: '20202' } })
 
     await waitFor(() => {
-      const labels = screen.getAllByTestId('label-checkbox')
+      const labels = getAllByTestId('label-checkbox')
       expect(labels.length).toBe(3)
       const roundNames = [
         'Autumn 2020-1 (Start date 26/10/2020, English)',
@@ -117,7 +117,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20202' } })
     await waitFor(() => {
-      const labels = screen.getAllByTestId('label-checkbox')
+      const labels = getAllByTestId('label-checkbox')
       expect(labels.length).toBe(3)
       const roundNames = [
         'HT 2020-1 (Startdatum 2020-10-26, Engelska)',
@@ -128,12 +128,12 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  test('renders in user language: swedish, list of available spring course offerings.', async () => {
+  xtest('renders in user language: swedish, list of available spring course offerings.', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
-      const labels = screen.getAllByTestId('label-checkbox')
+      const labels = getAllByTestId('label-checkbox')
       expect(labels.length).toBe(3)
       const roundNames = [
         'Spring 2021-1 (Start date 22/03/2021, English)',
@@ -149,7 +149,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
-      const labels = screen.getAllByTestId('label-checkbox')
+      const labels = getAllByTestId('label-checkbox')
       expect(labels.length).toBe(3)
       const roundNames = [
         'VT 2021-1 (Startdatum 2021-03-22, Engelska)',
@@ -158,5 +158,32 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       ]
       roundNames.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     })
+  })
+
+  test('renders a copy section when a course offering(s) are chosen and no published memo is available as a template memo', async () => {
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    const selectInput = getByTestId('select-terms')
+    fireEvent.change(selectInput, { target: { value: '20211' } })
+    await waitFor(() => {
+      const labels = getAllByTestId('label-checkbox')
+      expect(labels.length).toBe(3)
+    })
+    const rounds = getAllByTestId('rounds-checkbox')
+    fireEvent.click(rounds[0])
+    await waitFor(() => {
+      const copyLabels = getAllByTestId('label-copy-radio')
+      expect(copyLabels.length).toBe(2)
+      expect(copyLabels[0]).toHaveTextContent(info.createFrom.basedOnStandard)
+      expect(copyLabels[1]).toHaveTextContent(info.createFrom.basedOnAnotherMemo)
+    })
+    const copyOptions = getAllByTestId('copy-radio')
+    expect(copyOptions[0].checked).toBeTruthy()
+    expect(copyOptions[1].checked).toBeFalsy()
+
+    // no published memo is available as a template memo
+    fireEvent.click(copyOptions[1])
+    expect(copyOptions[0].checked).toBeFalsy()
+    expect(copyOptions[1].checked).toBeTruthy()
+    expect(screen.getByText(info.noPrevPublishedAvailable)).toBeInTheDocument()
   })
 })

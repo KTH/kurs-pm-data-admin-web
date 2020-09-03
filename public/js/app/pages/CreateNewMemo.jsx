@@ -434,6 +434,7 @@ class CreateNewMemo extends Component {
                         >
                           <Input
                             type="checkbox"
+                            data-testid="rounds-checkbox"
                             id={'new' + round.ladokRoundId}
                             name="chooseNew"
                             value={round.ladokRoundId}
@@ -466,6 +467,7 @@ class CreateNewMemo extends Component {
                         <Input
                           type="radio"
                           id={templateType}
+                          data-testid="copy-radio"
                           name="copyOrCreateEmpty"
                           value={templateType}
                           onClick={this.onChoiceOfToCopyOrCreateEmpty}
@@ -473,7 +475,9 @@ class CreateNewMemo extends Component {
                             chosen.action === 'create' && templateType === 'basedOnStandard'
                           }
                         />
-                        <Label htmlFor={templateType}>{info.createFrom[templateType]}</Label>
+                        <Label data-testid="label-copy-radio" htmlFor={templateType}>
+                          {info.createFrom[templateType]}
+                        </Label>
                       </FormGroup>
                     ))}
                   </Form>
