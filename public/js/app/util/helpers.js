@@ -31,7 +31,6 @@ export const getDateFormat = (date, language) => {
 }
 
 export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
-  console.log('roundInfo', JSON.stringify(roundInfo))
   const { firstTuitionDate, shortName, ladokRoundId, language } = roundInfo
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { extraInfo } = i18n.messages[langIndex]

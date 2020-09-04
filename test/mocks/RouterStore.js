@@ -2,10 +2,19 @@ import mockMiniKoppsObj from './miniKoppsObjs'
 import mockMiniMemos from './miniMemos'
 import RouterStore from '../../public/js/app/stores/RouterStore'
 
-const tempSaveNewImage = (imageFile, tempImagePath, isDefaultChosen) => {
-  mockAdminStore.newImageFile = imageFile
-  mockAdminStore.tempImagePath = tempImagePath
-  mockAdminStore.isDefaultChosen = isDefaultChosen
+const tempSaveNewDraft = async (action, copyFrom, body) => {
+  const newMemo = await realRouterStore.createNewMemo(action, copyFrom, body, (isTest = true)) //function exist
+  const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
+  mockRouterStore.miniMemos.draftsWithNoActivePublishedVer.push({
+    ladokRoundIds,
+    memoCommonLangAbbr,
+    memoId: Math.random(),
+    memoEndPoint,
+    memoName,
+    semester,
+    status: 'draft',
+    version: '1'
+  })
 }
 
 const realRouterStore = new RouterStore()
@@ -35,8 +44,7 @@ const mockRouterStore = {
       }
     }
   },
-  isDefaultChosen: true,
-  tempSaveNewImage: tempSaveNewImage,
+  createNewMemo: tempSaveNewDraft,
 
   showAvailableSemesterRounds(semester) {
     return realRouterStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
