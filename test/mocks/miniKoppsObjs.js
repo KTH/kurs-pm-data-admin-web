@@ -10,18 +10,21 @@ const mockMiniKoppsObj = {
       term: '20211',
       rounds: [
         {
+          //used
           shortName: 'CBIOT1 m.fl.',
           ladokRoundId: '3',
           firstTuitionDate: '2021-03-20',
           language: { sv: 'Svenska', en: 'Swedish' }
         },
         {
+          //used
           shortName: '',
           ladokRoundId: '2',
           firstTuitionDate: '2021-01-18',
           language: { sv: 'Engelska', en: 'English' }
         },
         {
+          //todo: add as course round
           shortName: '',
           ladokRoundId: '1',
           firstTuitionDate: '2021-03-22',
@@ -95,12 +98,14 @@ const mockMiniKoppsObj = {
       term: '20202',
       rounds: [
         {
+          // used merged T
           shortName: 'CBIOT1 m.fl.',
           ladokRoundId: '3',
           firstTuitionDate: '2020-10-30',
           language: { sv: 'Svenska', en: 'Swedish' }
         },
         {
+          // used merged T
           shortName: '',
           ladokRoundId: '2',
           firstTuitionDate: '2020-08-24',
@@ -181,16 +186,17 @@ const mockMiniKoppsObj = {
       term: '20201',
       rounds: [
         {
-          shortName: '',
+          shortName: 'ShortNameTest',
           ladokRoundId: '2',
           firstTuitionDate: '2020-01-15',
           language: { sv: 'Engelska', en: 'English' }
         },
         {
-          shortName: '',
+          //used only published
+          shortName: 'CDATA',
           ladokRoundId: '1',
           firstTuitionDate: '2020-03-16',
-          language: { sv: 'Engelska', en: 'English' }
+          language: { sv: 'Svenska', en: 'Swedish' }
         }
       ],
       examinationRounds: [
@@ -261,12 +267,14 @@ const mockMiniKoppsObj = {
       term: '20192',
       rounds: [
         {
+          //used only published
           shortName: '',
           ladokRoundId: '2',
           firstTuitionDate: '2019-08-26',
           language: { sv: 'Engelska', en: 'English' }
         },
         {
+          //used published which have active draft
           shortName: '',
           ladokRoundId: '1',
           firstTuitionDate: '2019-10-28',
