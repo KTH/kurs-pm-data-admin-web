@@ -16,6 +16,7 @@ const CreateNewMemoPage = ({ ...rest }) => (
     </Provider>
   </StaticRouter>
 )
+
 const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[0]
 const {
   alerts: alertsSV,
@@ -27,6 +28,7 @@ const {
 const { getAllByRole, getAllByTestId, getByTestId } = screen
 
 describe('Component <CreateNewMemo> Create and publish course memo, initial state, no memo created yet.', () => {
+  // beforeEach(() => render(<CreateNewMemoPage langAbbr="en" langIndex={0} />))
   xtest('renders without props', () => {
     render(<CreateNewMemoPage />)
   })
@@ -37,6 +39,25 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(allH3Headers.length).toBe(2)
     expect(allH3Headers[0]).toHaveTextContent(info.chooseSavedDraft)
     expect(allH3Headers[1]).toHaveTextContent(info.createNew)
+  })
+
+  xtest('renders only three buttons if nothing pressed yet', async () => {
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    const startButtons = getAllByRole('button')
+    expect(startButtons.length).toBe(3)
+    expect(startButtons[0]).toHaveTextContent('')
+    expect(startButtons[1]).toHaveTextContent(buttons.btnFinish)
+    expect(startButtons[2]).toHaveTextContent(buttons.edit)
+  })
+
+  xtest('renders alert if nothning is chosen and button Edit is pressed', async () => {
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    const editButton = screen.getByText(buttons.edit)
+    fireEvent.click(editButton)
+    await waitFor(() => {
+      const redAlert = screen.getByText(alerts.errNoChosen)
+      expect(redAlert).toBeInTheDocument()
+    })
   })
 
   xtest('renders text if no drafts is in the list and no semester is chosen', () => {
@@ -160,7 +181,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  test('renders a copy section when a course offering(s) are chosen and no published memo is available as a template memo', async () => {
+  xtest('renders a copy section when a course offering(s) are chosen and no published memo is available as a template memo', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
@@ -185,5 +206,74 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(copyOptions[0].checked).toBeFalsy()
     expect(copyOptions[1].checked).toBeTruthy()
     expect(screen.getByText(info.noPrevPublishedAvailable)).toBeInTheDocument()
+  })
+
+  xtest('renders only three buttons if checkbox pressed but no saved drafts are chosen', async () => {
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    const selectInput = getByTestId('select-terms')
+    fireEvent.change(selectInput, { target: { value: '20211' } })
+    await waitFor(() => {
+      expect(getAllByTestId('label-checkbox')[0]).toBeInTheDocument()
+    })
+    const rounds = getAllByTestId('rounds-checkbox')
+    fireEvent.click(rounds[0])
+
+    const buttons = getAllByRole('button')
+    expect(buttons.length).toBe(3)
+  })
+
+  xtest('create a new draft with one round, with correct name (use shortName) in swedish because round language is Swedish', async () => {
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    const selectInput = getByTestId('select-terms')
+    const editButton = screen.getByText(buttons.edit)
+    fireEvent.change(selectInput, { target: { value: '20211' } })
+    await waitFor(() => {
+      expect(getAllByTestId('label-checkbox')[0]).toBeInTheDocument()
+    })
+    const rounds = getAllByTestId('rounds-checkbox')
+    fireEvent.click(rounds[2])
+    await waitFor(() => {
+      const copyOptions = getAllByTestId('copy-radio')
+      expect(copyOptions[0]).toBeInTheDocument()
+    })
+    fireEvent.click(editButton)
+    expect(getByTestId('test-data')).toBeInTheDocument()
+
+    await waitFor(() => {
+      expect(getByTestId('actionType')).toHaveTextContent('create')
+      expect(getByTestId('newMemoName')).toHaveTextContent(
+        'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)'
+      )
+      expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('sv')
+      expect(getByTestId('sortedRoundIds')).toHaveTextContent('3')
+    })
+  })
+
+  xtest('create a new draft with two rounds, with correct name (use shortName) in english because one of rounds has language: Swedish', async () => {
+    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    const selectInput = getByTestId('select-terms')
+    const editButton = screen.getByText(buttons.edit)
+    fireEvent.change(selectInput, { target: { value: '20202' } })
+    await waitFor(() => {
+      expect(getAllByTestId('label-checkbox')[0]).toBeInTheDocument()
+    })
+    const rounds = getAllByTestId('rounds-checkbox')
+    fireEvent.click(rounds[1])
+    fireEvent.click(rounds[2])
+    await waitFor(() => {
+      const copyOptions = getAllByTestId('copy-radio')
+      expect(copyOptions[0]).toBeInTheDocument()
+    })
+    fireEvent.click(editButton)
+    expect(getByTestId('test-data')).toBeInTheDocument()
+
+    await waitFor(() => {
+      expect(getByTestId('actionType')).toHaveTextContent('create')
+      expect(getByTestId('newMemoName')).toHaveTextContent(
+        'Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)'
+      )
+      expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
+      expect(getByTestId('sortedRoundIds')).toHaveTextContent('2,3')
+    })
   })
 })
