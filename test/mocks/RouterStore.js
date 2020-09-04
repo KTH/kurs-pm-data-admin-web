@@ -5,6 +5,7 @@ import RouterStore from '../../public/js/app/stores/RouterStore'
 const tempSaveNewDraft = async (action, copyFrom, body) => {
   const newMemo = await realRouterStore.createNewMemo(action, copyFrom, body, (isTest = true)) //function exist
   const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
+  //Example where data saves
   mockRouterStore.miniMemos.draftsWithNoActivePublishedVer.push({
     ladokRoundIds,
     memoCommonLangAbbr,
@@ -22,7 +23,7 @@ const realRouterStore = new RouterStore()
 const mockRouterStore = {
   ...realRouterStore,
   courseCode: 'EF1111',
-  langAbbr: 'sv',
+  langAbbr: 'en',
   langIndex: 0,
   semester: '', //20201,
   memoEndPoint: '',
@@ -35,14 +36,6 @@ const mockRouterStore = {
   miniKoppsObj: mockMiniKoppsObj,
   browserConfig: {
     storageUri: ''
-  },
-  paths: {
-    memo: {
-      saveImage: {
-        method: 'post',
-        uri: '/kursinfoadmin/kurser/kurs/storage/saveImage/:courseCode/:published'
-      }
-    }
   },
   createNewMemo: tempSaveNewDraft,
 
