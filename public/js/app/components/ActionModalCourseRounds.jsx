@@ -46,9 +46,9 @@ class ActionModalCourseRounds extends Component {
     ...(this.props.routerStore.miniMemos.draftsWithNoActivePublishedVer || [])
   ]
 
-  langAbbr = i18n.isSwedish() ? 'sv' : 'en'
+  langAbbr = this.props.langAbbr || this.props.routerStore.langAbbr
 
-  langIndex = this.props.routerStore.langIndex
+  langIndex = this.props.langIndex || this.props.routerStore.langIndex
 
   memo = this.uniqueMemos.find((memo) => memo.memoEndPoint === this.state.chosenMemoEndPoint)
 
@@ -192,6 +192,7 @@ class ActionModalCourseRounds extends Component {
                   key={'add' + round.ladokRoundId}
                 >
                   <Input
+                    data-testid="checkbox-add-rounds-to-saved-memo"
                     type="checkbox"
                     id={'addNew' + round.ladokRoundId}
                     name="addNew"
@@ -200,7 +201,10 @@ class ActionModalCourseRounds extends Component {
                     defaultChecked={false}
                     disabled={!canMerge(memoCommonLangAbbr, round)}
                   />
-                  <Label htmlFor={'addNew' + round.ladokRoundId}>
+                  <Label
+                    data-testid="label-checkbox-add-rounds-to-saved-memo"
+                    htmlFor={'addNew' + round.ladokRoundId}
+                  >
                     {combineMemoName(round, semester, this.langAbbr)}.
                     {(!canMerge(memoCommonLangAbbr, round) && (
                       <i>{extraInfo.cannotMergeLanguage}</i>
@@ -223,6 +227,8 @@ class ActionModalCourseRounds extends Component {
 
 ActionModalCourseRounds.propTypes = {
   chosenMemoEndPoint: PropTypes.string, // version, published/draft?, semester
+  langAbbr: PropTypes.string,
+  langIndex: PropTypes.number,
   miniKoppsObj: PropTypes.exact({
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(

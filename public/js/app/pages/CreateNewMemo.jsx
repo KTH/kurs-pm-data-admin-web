@@ -323,6 +323,7 @@ class CreateNewMemo extends Component {
                         >
                           <Input
                             type="radio"
+                            data-testid="radio-choose-saved-draft"
                             id={memoEndPoint}
                             name="chooseDraft"
                             value={memoEndPoint}
@@ -428,14 +429,17 @@ class CreateNewMemo extends Component {
                         >
                           <Input
                             type="checkbox"
-                            data-testid="rounds-checkbox"
+                            data-testid="checkbox-choose-available-round"
                             id={'new' + round.ladokRoundId}
                             name="chooseNew"
                             value={round.ladokRoundId}
                             onClick={(event) => this.onChoiceOfAvailableRounds(event, round)}
                             defaultChecked={false}
                           />
-                          <Label htmlFor={'new' + round.ladokRoundId} data-testid="label-checkbox">
+                          <Label
+                            htmlFor={'new' + round.ladokRoundId}
+                            data-testid="label-checkbox-choose-available-round"
+                          >
                             {/* Namegiving according to user interface language */}
                             {combineMemoName(round, semester, langAbbr)}
                           </Label>
