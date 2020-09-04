@@ -246,6 +246,7 @@ class CreateNewMemo extends Component {
           this.setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + result.status
         }
+        return result
       } catch (error) {
         this.setAlarm('danger', 'errWhileSaving')
       }

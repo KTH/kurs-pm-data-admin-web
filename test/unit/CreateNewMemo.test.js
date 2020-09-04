@@ -17,6 +17,11 @@ const CreateNewMemoPage = ({ ...rest }) => (
   </StaticRouter>
 )
 
+// const renderWithState = (stateToSet = {}) => {
+//   const newAdminStore = Object.assign(Object.assign({}, mockRouterStore), stateToSet)
+//   return CreateNewMemoPage(newAdminStore)
+// }
+
 const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[0]
 const {
   alerts: alertsSV,
@@ -29,11 +34,11 @@ const { getAllByRole, getAllByTestId, getByTestId } = screen
 
 describe('Component <CreateNewMemo> Create and publish course memo, initial state, no memo created yet.', () => {
   // beforeEach(() => render(<CreateNewMemoPage langAbbr="en" langIndex={0} />))
-  xtest('renders without props', () => {
+  test('renders without props', () => {
     render(<CreateNewMemoPage />)
   })
 
-  xtest('renders two visible headers h3', () => {
+  test('renders two visible headers h3', () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const allH3Headers = getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(2)
@@ -41,7 +46,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(allH3Headers[1]).toHaveTextContent(info.createNew)
   })
 
-  xtest('renders only three buttons if nothing pressed yet', async () => {
+  test('renders only three buttons if nothing pressed yet', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const startButtons = getAllByRole('button')
     expect(startButtons.length).toBe(3)
@@ -50,7 +55,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(startButtons[2]).toHaveTextContent(buttons.edit)
   })
 
-  xtest('renders alert if nothning is chosen and button Edit is pressed', async () => {
+  test('renders alert if nothning is chosen and button Edit is pressed', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const editButton = screen.getByText(buttons.edit)
     fireEvent.click(editButton)
@@ -60,7 +65,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  xtest('renders text if no drafts is in the list and no semester is chosen', () => {
+  test('renders text if no drafts is in the list and no semester is chosen', () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     expect(screen.getByText(info.noSavedDrafts)).toBeVisible()
     const selectInput = getByTestId('select-terms')
@@ -68,7 +73,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(getByTestId('new-course-offering')).toHaveStyle(`display: none;`)
   })
 
-  xtest('renders select options have focus.', () => {
+  test('renders select options have focus.', () => {
     render(<CreateNewMemoPage />)
     const selectInput = getByTestId('select-terms')
     selectInput.focus()
@@ -77,21 +82,21 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(selectInput).not.toHaveFocus()
   })
 
-  xtest('renders select options for course semesters in English.', () => {
+  test('renders select options for course semesters in English.', () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const semesters = getAllByRole('option')
     const semesterEnglish = ['Spring 2021', 'Autumn 2020', 'Spring 2020', 'Autumn 2019']
     semesters.map((s, i) => expect(s).toHaveTextContent(semesterEnglish[i]))
   })
 
-  xtest('renders select options for course semesters in Swedish.', () => {
+  test('renders select options for course semesters in Swedish.', () => {
     render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     const semestersSw = getAllByRole('option')
     const semesterSwedish = ['VT 2021', 'HT 2020', 'VT 2020', 'HT 2019']
     semestersSw.map((s, i) => expect(s).toHaveTextContent(semesterSwedish[i]))
   })
 
-  xtest('renders select options can be selected.', async () => {
+  test('renders select options can be selected.', async () => {
     render(<CreateNewMemoPage />)
     const selectInput = getByTestId('select-terms')
     await fireEvent.change(selectInput, { target: { value: '20202' } })
@@ -116,7 +121,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  xtest('renders in user language: english, list of available autumn course offerings.', async () => {
+  test('renders in user language: english, list of available autumn course offerings.', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20202' } })
@@ -133,7 +138,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  xtest('renders in user language: swedish, list of available autumn course offerings.', async () => {
+  test('renders in user language: swedish, list of available autumn course offerings.', async () => {
     render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20202' } })
@@ -149,7 +154,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  xtest('renders in user language: swedish, list of available spring course offerings.', async () => {
+  test('renders in user language: swedish, list of available spring course offerings.', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
@@ -165,7 +170,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  xtest('renders in user language: swedish, list of available spring course offerings.', async () => {
+  test('renders in user language: swedish, list of available spring course offerings.', async () => {
     render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
@@ -181,7 +186,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  xtest('renders a copy section when a course offering(s) are chosen and no published memo is available as a template memo', async () => {
+  test('renders a copy section when a course offering(s) are chosen and no published memo is available as a template memo', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
@@ -208,7 +213,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(screen.getByText(info.noPrevPublishedAvailable)).toBeInTheDocument()
   })
 
-  xtest('renders only three buttons if checkbox pressed but no saved drafts are chosen', async () => {
+  test('renders only three buttons if checkbox pressed but no saved drafts are chosen', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
@@ -222,13 +227,45 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(buttons.length).toBe(3)
   })
 
-  xtest('create a new draft with one round, with correct name (use shortName) in swedish because round language is Swedish', async () => {
+  test('create a new draft with one round, with correct name (use shortName) in english because round language is english', async () => {
+    render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    const selectInput = getByTestId('select-terms')
+    fireEvent.change(selectInput, { target: { value: '20211' } })
+    await waitFor(() => {
+      expect(getAllByTestId('label-checkbox')[1]).toHaveTextContent(
+        'VT 2021-2 (Startdatum 2021-01-18, Engelska)'
+      )
+    })
+    const rounds = getAllByTestId('rounds-checkbox')
+    expect(rounds[1])
+    fireEvent.click(rounds[1])
+    await waitFor(() => {
+      const copyOptions = getAllByTestId('copy-radio')
+      expect(copyOptions[0]).toBeInTheDocument()
+    })
+    const editButton = screen.getByText('Redigera')
+    fireEvent.click(editButton)
+    expect(getByTestId('test-data')).toBeInTheDocument()
+
+    await waitFor(() => {
+      expect(getByTestId('actionType')).toHaveTextContent('create')
+      expect(getByTestId('newMemoName')).toHaveTextContent(
+        'Spring 2021-2 (Start date 18/01/2021, English)'
+      )
+      expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
+      expect(getByTestId('sortedRoundIds')).toHaveTextContent('2')
+    })
+  })
+
+  test('create a new draft with one round, with correct name (use shortName) in swedish because round language is Swedish', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     const editButton = screen.getByText(buttons.edit)
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
-      expect(getAllByTestId('label-checkbox')[0]).toBeInTheDocument()
+      expect(getAllByTestId('label-checkbox')[2]).toHaveTextContent(
+        'CBIOT1 m.fl. (Start date 20/03/2021, Swedish)'
+      )
     })
     const rounds = getAllByTestId('rounds-checkbox')
     fireEvent.click(rounds[2])
@@ -249,7 +286,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  xtest('create a new draft with two rounds, with correct name (use shortName) in english because one of rounds has language: Swedish', async () => {
+  test('create a new draft with two rounds, with correct name (use shortName) in english because one of rounds has language: Swedish', async () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     const editButton = screen.getByText(buttons.edit)
