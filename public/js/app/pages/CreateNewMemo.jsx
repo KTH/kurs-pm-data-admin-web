@@ -317,7 +317,10 @@ class CreateNewMemo extends Component {
                       id="choose-existed-memo"
                     >
                       {existingDrafts.map(({ memoName, memoEndPoint }) => (
-                        <FormGroup className="form-select" key={'draft' + memoEndPoint}>
+                        <FormGroup
+                          className="form-select"
+                          key={'draftType' + (memoEndPoint || Math.random())}
+                        >
                           <Input
                             type="radio"
                             id={memoEndPoint}
