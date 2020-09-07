@@ -273,7 +273,9 @@ class CreateNewMemo extends Component {
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row id="scroll-here-if-alert">
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
-            <span>{course && combinedCourseName(this.courseCode, course, langAbbr)}</span>
+            <span role="heading" aria-level="4">
+              {course && combinedCourseName(this.courseCode, course, langAbbr)}
+            </span>
           </PageTitle>
         </Row>
 
@@ -540,6 +542,11 @@ class CreateNewMemo extends Component {
 }
 
 CreateNewMemo.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
+  langAbbr: PropTypes.string,
+  langIndex: PropTypes.number,
   miniKoppsObj: PropTypes.exact({
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(
@@ -547,12 +554,7 @@ CreateNewMemo.propTypes = {
     ).isRequired,
     syllabusDatesSorted: PropTypes.arrayOf(PropTypes.string).isRequired
   }),
-  routerStore: PropTypes.func,
-  history: PropTypes.shape({
-    push: PropTypes.func
-  }),
-  langAbbr: PropTypes.string,
-  langIndex: PropTypes.number
+  routerStore: PropTypes.func
 }
 
 export default CreateNewMemo
