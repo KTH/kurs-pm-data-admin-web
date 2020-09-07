@@ -1,16 +1,12 @@
 import mockMiniKoppsObj from './miniKoppsObjs'
 import mockMiniMemos from './miniMemos'
 import RouterStore from '../../public/js/app/stores/RouterStore'
-
-const usedRounds = {
-  20211: ['2', '3'],
-  20202: ['2', '3']
-}
+import usedRounds from './mockUsedRounds'
 
 const realRouterStore = new RouterStore()
 const { draftsWithNoActivePublishedVer } = mockMiniMemos
 
-const mockRouterStoreWithMiniMemos = {
+const mockRouterStoreWithDraftMemos = {
   ...realRouterStore,
   courseCode: 'EF1111',
   langAbbr: 'en',
@@ -35,4 +31,4 @@ const mockRouterStoreWithMiniMemos = {
   }
 }
 
-export default mockRouterStoreWithMiniMemos
+export default mockRouterStoreWithDraftMemos
