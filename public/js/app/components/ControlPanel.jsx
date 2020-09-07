@@ -54,7 +54,11 @@ const ControlPanel = (props) => {
           />
         )}
         {progressNum === 1 && chosenMemoEndPoint && (
-          <ActionModalCourseRounds chosenMemoEndPoint={chosenMemoEndPoint} />
+          <ActionModalCourseRounds
+            chosenMemoEndPoint={chosenMemoEndPoint}
+            langAbbr={langIndex === 1 ? 'sv' : 'en'}
+            langIndex={langIndex}
+          />
         )}
       </Col>
       {progressNum === 2 && (

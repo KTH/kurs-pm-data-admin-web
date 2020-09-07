@@ -28,10 +28,10 @@ import PropTypes from 'prop-types'
 @observer
 class CreateNewMemo extends Component {
   state = {
+    action: this.props.routerStore.memoEndPoint ? 'continue' : '',
     semester: this.props.routerStore.semester,
     copyFromMemoEndPoint: '',
     chosen: {
-      action: this.props.routerStore.memoEndPoint ? 'continue' : '',
       existingDraftEndPoint: this.props.routerStore.memoEndPoint || '',
       newMemoName: '',
       sortedRoundIds: this.props.routerStore.rounds || [],
@@ -57,20 +57,22 @@ class CreateNewMemo extends Component {
 
   hasSavedDraft = this.existingDrafts.length > 0
 
-  langIndex = this.props.routerStore.langIndex
+  langAbbr = this.props.langAbbr || this.props.routerStore.langAbbr
 
-  langAbbr = i18n.isSwedish() ? 'sv' : 'en'
+  langIndex = this.props.langIndex || this.props.routerStore.langIndex
 
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
   componentDidMount() {
-    this.props.history.push({
-      search: ''
-    })
+    const { history } = this.props
+    if (history) {
+      history.push({
+        search: ''
+      })
+    }
   }
 
   onChoiceOfSemester = async (event) => {
-    console.log('ONNNNbLLUUUR')
     const semester = event.target.value
     const { existingDraftEndPoint } = this.state.chosen
     this.setState({ semester })
@@ -108,8 +110,8 @@ class CreateNewMemo extends Component {
       }
     })
     if (isOpen) {
-      const alertElement = document.getElementById('scroll-here-if-alert')
-      alertElement.scrollIntoView({ behavior: 'smooth' })
+      const { scrollIntoView } = document.getElementById('scroll-here-if-alert')
+      if (scrollIntoView) scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -129,9 +131,9 @@ class CreateNewMemo extends Component {
       .map((round) => combineMemoName(round, semester, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
       .join(', ')
     this.setState({
+      action: 'create',
       alert: { isOpen: false },
       chosen: {
-        action: 'create',
         languageOfInstructions,
         memoCommonLangAbbr,
         existingDraftEndPoint: '',
@@ -146,8 +148,8 @@ class CreateNewMemo extends Component {
     const { sortedRoundIds } = this.state.chosen
     emptyCheckboxesByIds(sortedRoundIds, 'new')
     this.setState({
+      action: memoEndPoint ? 'continue' : '',
       chosen: {
-        action: memoEndPoint ? 'continue' : '', // /'copy'
         existingDraftEndPoint: memoEndPoint || '',
         newMemoName: '',
         sortedRoundIds: [],
@@ -164,14 +166,10 @@ class CreateNewMemo extends Component {
 
   onChoiceOfToCopyOrCreateEmpty = (event) => {
     const { value } = event.target
-    this.setState((prevState) => ({
-      ...prevState,
-      chosen: {
-        ...prevState.chosen,
-        ...{ action: value === 'basedOnAnotherMemo' ? 'copy' : 'create' }
-      },
+    this.setState({
+      action: value === 'basedOnAnotherMemo' ? 'copy' : 'create', // /'copy'
       copyFromMemoEndPoint: ''
-    }))
+    })
   }
 
   onChoiceOfMemoToCopy = (event) => {
@@ -182,30 +180,30 @@ class CreateNewMemo extends Component {
     })
   }
 
-  onRemoveDraft = () => {
-    return axios
-      .delete(
+  onRemoveDraft = async () => {
+    try {
+      const resultAfterDelete = await axios.delete(
         `${SERVICE_URL.API}draft-to-remove/${this.courseCode}/${this.state.chosen.existingDraftEndPoint}`
       )
-      .then((result) => {
-        if (result.status >= 400) {
-          return 'ERROR-' + result.status
-        }
-        window.location.reload()
-      })
-      .catch((err) => {
-        if (err.response) {
-          throw new Error(err.message)
-        }
-        throw err
-      })
+      if (resultAfterDelete.status >= 400) {
+        this.setAlarm('danger', 'errWhileSaving')
+        return 'ERROR-' + resultAfterDelete.status
+      }
+      window.location.reload()
+    } catch (err) {
+      this.setAlarm('danger', 'errWhileSaving')
+      if (err.response) {
+        throw new Error(err.message)
+      }
+      throw err
+    }
   }
 
   onSubmitNew = async () => {
     const { courseCode } = this
     const { course, syllabusDatesSorted } = this.props.routerStore.miniKoppsObj
-    const { semester, chosen, copyFromMemoEndPoint } = this.state
-    const { action, newMemoName, memoCommonLangAbbr, sortedRoundIds } = chosen
+    const { action, semester, chosen, copyFromMemoEndPoint } = this.state
+    const { newMemoName, memoCommonLangAbbr, sortedRoundIds } = chosen
 
     if (action === 'copy' && !copyFromMemoEndPoint) {
       // if chosen to copy but not a template to copy from
@@ -238,21 +236,17 @@ class CreateNewMemo extends Component {
         syllabusValid
       }
 
-      const url = `${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
-        action === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
-      }`
-
       try {
-        const result = await axios.post(url, body)
+        const result = await this.props.routerStore.createNewMemo(
+          action,
+          copyFromMemoEndPoint,
+          body
+        )
         if (result.status >= 400) {
           this.setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + result.status
         }
-        // ADDD ERROR HANTERING
-        const goToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}${
-          action === 'copy' ? '?event=copy' : ''
-        }`
-        window.location = goToEditorUrl
+        return result
       } catch (error) {
         this.setAlarm('danger', 'errWhileSaving')
       }
@@ -273,13 +267,15 @@ class CreateNewMemo extends Component {
     const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
     const { course } = this.props.routerStore.miniKoppsObj
 
-    const { alert, availableSemesterRounds, chosen, semester } = this.state
+    const { action, alert, availableSemesterRounds, chosen, semester } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row id="scroll-here-if-alert">
           <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
-            <span>{course && combinedCourseName(this.courseCode, course, langAbbr)}</span>
+            <span role="heading" aria-level="4">
+              {course && combinedCourseName(this.courseCode, course, langAbbr)}
+            </span>
           </PageTitle>
         </Row>
 
@@ -323,19 +319,22 @@ class CreateNewMemo extends Component {
                       id="choose-existed-memo"
                     >
                       {existingDrafts.map(({ memoName, memoEndPoint }) => (
-                        <FormGroup className="form-select" key={'draft' + memoEndPoint}>
+                        <FormGroup
+                          className="form-select"
+                          key={'draftType' + (memoEndPoint || Math.random())}
+                        >
                           <Input
                             type="radio"
+                            data-testid="radio-choose-saved-draft"
                             id={memoEndPoint}
                             name="chooseDraft"
                             value={memoEndPoint}
                             onClick={this.onChoiceOfExistingDraft}
                             defaultChecked={
-                              chosen.action === 'continue' &&
-                              memoEndPoint === chosen.existingDraftEndPoint
+                              action === 'continue' && memoEndPoint === chosen.existingDraftEndPoint
                             }
                           />
-                          <Label htmlFor={memoEndPoint}>
+                          <Label htmlFor={memoEndPoint} data-testid="label-saved-draft-radio">
                             {memoName || memoEndPoint + ' (old memo before namegiving)'}
                           </Label>
                         </FormGroup>
@@ -361,16 +360,12 @@ class CreateNewMemo extends Component {
               <div>
                 <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
                 {(lastTerms && lastTerms.length > 0 && (
-                  <Form
-                    style={{ width: '20em' }}
-                    // className={
-                    //     alert.isOpen && alert.textName === 'errNoChosen' && chosen.sortedRoundIds.length === 0 ? 'error-area' : ''
-                    //   }
-                  >
+                  <Form style={{ width: '20em' }} data-testid="form-select-terms">
                     <FormGroup className="form-select" key="select-semester" id="choose-semester">
                       <div className="select-wrapper">
                         <select
                           className="custom-select"
+                          data-testid="select-terms"
                           id="term-list"
                           onChange={this.onChoiceOfSemester}
                           defaultValue="PLACEHOLDER"
@@ -385,7 +380,12 @@ class CreateNewMemo extends Component {
                             </option>
                           )}
                           {lastTerms.map(({ term }) => (
-                            <option id={`itemFor-${term}`} key={term} value={term}>
+                            <option
+                              data-testid="select-option"
+                              id={`itemFor-${term}`}
+                              key={term}
+                              value={term}
+                            >
                               {seasonStr(langIndex, term)}
                             </option>
                           ))}
@@ -401,6 +401,7 @@ class CreateNewMemo extends Component {
               </div>
               {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
               <div
+                data-testid="new-course-offering"
                 className="first-15"
                 style={
                   lastTerms && lastTerms.length > 0 && semester
@@ -423,19 +424,24 @@ class CreateNewMemo extends Component {
                     >
                       {availableSemesterRounds.map((round) => (
                         <FormGroup
+                          data-testid="form-choose-new"
                           className="form-check"
                           id="choose-from-rounds-list"
                           key={'new' + round.ladokRoundId}
                         >
                           <Input
                             type="checkbox"
+                            data-testid="checkbox-choose-available-round"
                             id={'new' + round.ladokRoundId}
                             name="chooseNew"
                             value={round.ladokRoundId}
                             onClick={(event) => this.onChoiceOfAvailableRounds(event, round)}
                             defaultChecked={false}
                           />
-                          <Label htmlFor={'new' + round.ladokRoundId}>
+                          <Label
+                            htmlFor={'new' + round.ladokRoundId}
+                            data-testid="label-checkbox-choose-available-round"
+                          >
                             {/* Namegiving according to user interface language */}
                             {combineMemoName(round, semester, langAbbr)}
                           </Label>
@@ -450,7 +456,7 @@ class CreateNewMemo extends Component {
                 )}
               </div>
             </Col>
-            {chosen.sortedRoundIds.length > 0 && chosen.action !== 'continue' && (
+            {chosen.sortedRoundIds.length > 0 && action !== 'continue' && (
               <Col className="right-block-for-extra">
                 {/* CREATE FROM EMPTY OF COPY FROM */}
                 <div className="Start--Creating--From--Template--Or--Copy">
@@ -461,19 +467,20 @@ class CreateNewMemo extends Component {
                         <Input
                           type="radio"
                           id={templateType}
+                          data-testid="copy-radio"
                           name="copyOrCreateEmpty"
                           value={templateType}
                           onClick={this.onChoiceOfToCopyOrCreateEmpty}
-                          defaultChecked={
-                            chosen.action === 'create' && templateType === 'basedOnStandard'
-                          }
+                          defaultChecked={action === 'create' && templateType === 'basedOnStandard'}
                         />
-                        <Label htmlFor={templateType}>{info.createFrom[templateType]}</Label>
+                        <Label data-testid="label-copy-radio" htmlFor={templateType}>
+                          {info.createFrom[templateType]}
+                        </Label>
                       </FormGroup>
                     ))}
                   </Form>
                 </div>
-                {chosen.action === 'copy' &&
+                {action === 'copy' &&
                   ((this.allPublishedCourseMemos.length > 0 && (
                     <div className="first-15 Start--Creating--From--Copy">
                       <Label className="first-15" htmlFor="choose-previously-published-memo">
@@ -523,12 +530,23 @@ class CreateNewMemo extends Component {
           onRemove={this.onRemoveDraft}
           onSubmit={this.onSubmitNew}
         />
+        <div data-testid="test-data" style={{ display: 'none' }}>
+          <p data-testid="actionType">{action}</p>
+          <p data-testid="newMemoName">{chosen.newMemoName}</p>
+          <p data-testid="memoCommonLangAbbr">{chosen.memoCommonLangAbbr}</p>
+          <p data-testid="sortedRoundIds">{chosen.sortedRoundIds.join(',')}</p>
+        </div>
       </Container>
     )
   }
 }
 
 CreateNewMemo.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
+  langAbbr: PropTypes.string,
+  langIndex: PropTypes.number,
   miniKoppsObj: PropTypes.exact({
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(
@@ -536,10 +554,7 @@ CreateNewMemo.propTypes = {
     ).isRequired,
     syllabusDatesSorted: PropTypes.arrayOf(PropTypes.string).isRequired
   }),
-  routerStore: PropTypes.func,
-  history: PropTypes.shape({
-    push: PropTypes.func
-  })
+  routerStore: PropTypes.func
 }
 
 export default CreateNewMemo

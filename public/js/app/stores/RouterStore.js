@@ -74,8 +74,8 @@ class RouterStore {
     this.memoData = memoData
   }
 
-  async _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester) {
-    const lastTerms = this.miniKoppsObj.lastTermsInfo || null
+  async _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLastTerms = null) {
+    const lastTerms = this.miniKoppsObj.lastTermsInfo || koppsLastTerms.lastTermsInfo
     const thisTerm =
       (lastTerms && (await lastTerms.find(({ term }) => term === chosenSemester))) || {}
     return (
@@ -88,12 +88,22 @@ class RouterStore {
     )
   }
 
-  @action async showAvailableSemesterRounds(chosenSemester) {
+  getThisHost() {
+    return this.thisHostBaseUrl.slice(-1) === '/'
+      ? this.thisHostBaseUrl.slice(0, -1)
+      : this.thisHostBaseUrl
+  }
+
+  @action async showAvailableSemesterRounds(
+    chosenSemester,
+    testUsedRounds = [],
+    testLastTerms = null
+  ) {
+    if (testLastTerms) {
+      return await this._filterOutUsedRounds(testUsedRounds, chosenSemester, testLastTerms)
+    }
     try {
-      const thisHost =
-        this.thisHostBaseUrl.slice(-1) === '/'
-          ? this.thisHostBaseUrl.slice(0, -1)
-          : this.thisHostBaseUrl
+      const thisHost = this.getThisHost()
       const result = await axios.get(
         `${thisHost}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`
       )
@@ -106,6 +116,36 @@ class RouterStore {
 
         return await this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
       }
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.message)
+      }
+      throw error
+    }
+  }
+
+  @action async createNewMemo(actionType, copyFromMemoEndPoint, body, isTest = false) {
+    if (isTest) {
+      return { actionType, copyFromMemoEndPoint, body }
+    }
+
+    try {
+      const thisHost = this.getThisHost()
+
+      // const url =
+      const result = await axios.post(
+        `${thisHost}${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
+          actionType === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
+        }`,
+        body
+      )
+
+      if (result.status >= 400) return result
+
+      const goToEditorUrl = `${thisHost}${SERVICE_URL.courseMemoAdmin}${this.courseCode}/${
+        body.memoEndPoint
+      }${actionType === 'copy' ? '?event=copy' : ''}`
+      window.location = goToEditorUrl
     } catch (error) {
       if (error.response) {
         throw new Error(error.message)
@@ -128,7 +168,8 @@ class RouterStore {
   }
 
   @action doSetLanguageIndex(lang) {
-    this.langIndex = lang === 'en' ? 0 : 1
+    this.langIndex = lang === 'sv' ? 1 : 0
+    this.langAbbr = lang
   }
 
   initializeStore(storeName) {
