@@ -9,7 +9,7 @@ import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
-import { fetchParameters } from '../util/helpers'
+import { combinedCourseName, fetchParameters } from '../util/helpers'
 import PropTypes from 'prop-types'
 
 @inject(['routerStore'])
@@ -33,9 +33,9 @@ class ChangePublished extends Component {
 
   hasMemos = this.memosToEdit.length > 0
 
-  langIndex = this.props.routerStore.langIndex
+  langAbbr = this.props.langAbbr || this.props.routerStore.langAbbr
 
-  langAbbr = this.props.routerStore.langAbbr
+  langIndex = this.props.langIndex || this.props.routerStore.langIndex
 
   lastTerms = this.props.routerStore.miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
@@ -61,8 +61,8 @@ class ChangePublished extends Component {
       }
     })
     if (isOpen) {
-      const alertElement = document.getElementById('scroll-here-if-alert')
-      alertElement.scrollIntoView({ behavior: 'smooth' })
+      const { scrollIntoView } = document.getElementById('scroll-here-if-alert')
+      if (scrollIntoView) scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -122,14 +122,8 @@ class ChangePublished extends Component {
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row id="scroll-here-if-alert">
           <PageTitle id="mainHeading" pageTitle={pageTitles.published}>
-            <span>
-              {this.courseCode +
-                ' ' +
-                course.title[langAbbr] +
-                ' ' +
-                course.credits +
-                ' ' +
-                (langAbbr === 'sv' ? course.creditUnitAbbr.sv : 'credits')}
+            <span role="heading" aria-level="4">
+              {course && combinedCourseName(this.courseCode, course, langAbbr)}
             </span>
           </PageTitle>
         </Row>
@@ -175,12 +169,13 @@ class ChangePublished extends Component {
                           <Input
                             type="radio"
                             id={memoEndPoint}
+                            data-testid="radio-choose-pub-memo"
                             name="chooseMemo"
                             value={memoEndPoint}
                             onClick={this.onRadioChange}
                             defaultChecked={memoEndPoint === chosenMemo}
                           />
-                          <Label htmlFor={memoEndPoint}>
+                          <Label data-testid="label-radio-choose-pub-memo" htmlFor={memoEndPoint}>
                             {memoName || memoEndPoint + ' (old memo before namegiving)'}
                             {status === 'draft' ? info.publishedHasDraft : ''}
                           </Label>
@@ -210,10 +205,12 @@ class ChangePublished extends Component {
 }
 
 ChangePublished.propTypes = {
-  routerStore: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func
-  })
+  }),
+  langAbbr: PropTypes.string,
+  langIndex: PropTypes.number,
+  routerStore: PropTypes.func
 }
 
 export default ChangePublished
