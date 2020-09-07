@@ -412,8 +412,8 @@ describe('Component <CreateNewMemo> Create and publish course memo, have some sa
     const startButtons = getAllByRole('button')
     expect(startButtons.length).toBe(3)
     expect(startButtons[0]).toHaveTextContent('')
-    expect(startButtons[1]).toHaveTextContent(buttons.btnFinish)
-    expect(startButtons[2]).toHaveTextContent(buttons.edit)
+    expect(startButtons[1]).toHaveTextContent(buttonsSV.btnFinish)
+    expect(startButtons[2]).toHaveTextContent(buttonsSV.edit)
   })
 
   test('check if only one saved draft can be chosen to be edit', async () => {

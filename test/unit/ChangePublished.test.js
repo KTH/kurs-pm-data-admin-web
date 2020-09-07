@@ -141,7 +141,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
 
     fireEvent.click(getByText('Lägg till kurstillfällen'))
     await waitFor(() => {
-      expect(getByText(info.noRoundsToAdd)).toBeInTheDocument()
+      expect(getByText(infoSV.noRoundsToAdd)).toBeInTheDocument()
     })
   })
 
