@@ -64,6 +64,10 @@ const removeTemplatesFromKoppsFreshData = async (koppsFreshData) => {
   return koppsFreshData
 }
 
+const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => {
+  return { ...defaultAndMemoApiValues, ...cleanKoppsFreshData }
+}
+
 function _staticRender(context, location) {
   if (process.env.NODE_ENV === 'development') {
     delete require.cache[require.resolve('../../dist/app.js')]
@@ -116,7 +120,7 @@ async function renderMemoEditorPage(req, res, next) {
       memoLangAbbr
     )
     const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
-    const newMemoData = { ...defaultAndMemoApiValues, ...cleanKoppsFreshData }
+    const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
 
     renderProps.props.children.props.routerStore.memoData = newMemoData
 
@@ -165,6 +169,7 @@ async function updateContentByEndpoint(req, res, next) {
 
 module.exports = {
   combineDefaultValues,
+  refreshMemoData,
   renderMemoEditorPage,
   removeTemplatesFromKoppsFreshData,
   updateContentByEndpoint
