@@ -69,9 +69,9 @@ class MemoContainer extends Component {
     const { title, titleOther, credits, creditUnitAbbr } = this.state
     const { courseCode, userLangIndex, memoLangIndex } = this
     return (
-      <span>
+      <span role="heading" aria-level="4">
         {`${courseCode} ${userLangIndex === memoLangIndex ? title : titleOther} ${credits} ${
-          i18n.isSwedish() ? creditUnitAbbr : 'credits'
+          userLangIndex === 1 ? creditUnitAbbr : 'credits'
         }`}
       </span>
     )
@@ -333,6 +333,7 @@ class MemoContainer extends Component {
               visibleInMemo={visibleInMemo}
               onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
               html={initialValue}
+              userLangIndex={this.userLangIndex}
             />
           )
         })}
@@ -366,6 +367,7 @@ class MemoContainer extends Component {
   }
 
   render() {
+    const { userLangIndex } = this
     const {
       actionModals,
       alerts,
@@ -373,7 +375,7 @@ class MemoContainer extends Component {
       pagesCreateNewPm,
       pagesChangePublishedPm,
       pageTitles
-    } = i18n.messages[this.userLangIndex]
+    } = i18n.messages[userLangIndex]
     const { isError, memoName, lastPublishedVersionPublishDate, version } = this.state
 
     return (
@@ -390,7 +392,7 @@ class MemoContainer extends Component {
           active={2}
           pages={this.isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
         />
-        <PageHead semester={this.semester} memoName={memoName} />
+        <PageHead semester={this.semester} memoName={memoName} userLangIndex={userLangIndex} />
         {(this.isDraftOfPublished && !this.rebuilDraftFromPublishedVer && (
           <Row key="upper-alert" className="w-100 my-0 mx-auto upper-alert">
             <Alert key="infoAboutNewData" color="info">
@@ -401,7 +403,7 @@ class MemoContainer extends Component {
               <ActionModalButton
                 btnLabel={`${alerts.linkToRefreshData} (${
                   new Date(lastPublishedVersionPublishDate).toLocaleString(
-                    this.userLangIndex === 0 ? 'en-US' : 'sv-SE'
+                    userLangIndex === 0 ? 'en-US' : 'sv-SE'
                   ) || 'version:' + version
                 })`}
                 modalId="cancelThisAction"
@@ -467,6 +469,7 @@ class MemoContainer extends Component {
                             <ContentHead
                               contentId="commentAboutMadeChanges"
                               memoLangIndex={this.memoLangIndex}
+                              userLangIndex={userLangIndex}
                             />
                             <Label htmlFor="commentChanges">{extraInfo.commentChanges}</Label>
                             <Input
@@ -496,7 +499,7 @@ class MemoContainer extends Component {
         </StickyContainer>
         <Container className="fixed-bottom">
           <ControlPanel
-            langIndex={this.userLangIndex}
+            langIndex={userLangIndex}
             onSubmit={this.onContinueToPreview}
             onSave={this.handleBtnSave}
             onBack={this.onBack}
