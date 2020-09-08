@@ -106,14 +106,12 @@ class NewSectionEditor extends Component {
 
   render() {
     const { uKey, contentId, menuId } = this.props
-
+    const { userLangIndex } = this
     const { htmlContent, title, isEmptyNew, visibleInMemo } = this.state.extraContentArr[
       this.state.currentIndex
     ]
 
-    const { actionModals, buttons, sourceInfo, memoInfoByUserLang } = i18n.messages[
-      this.userLangIndex
-    ]
+    const { actionModals, buttons, sourceInfo, memoInfoByUserLang } = i18n.messages[userLangIndex]
 
     return (
       <span id={menuId} className="Add--New--Title--And--Info">
@@ -122,6 +120,7 @@ class NewSectionEditor extends Component {
             header={title}
             contentId={contentId}
             memoLangIndex={this.memoLangIndex}
+            userLangIndex={userLangIndex}
           />
         )}
 
@@ -132,6 +131,7 @@ class NewSectionEditor extends Component {
           onToggleVisibleInMemo={this.toggleVisibleInMemo}
           isEditorOpen={this.state.isOpen || isEmptyNew}
           onToggleVisibleEditor={this.onToggleVisibleEditor}
+          userLangIndex={userLangIndex}
         />
         {(isEmptyNew || this.state.isOpen) && (
           <span>
@@ -167,7 +167,7 @@ class NewSectionEditor extends Component {
             <Editor
               id={`editorFor${contentId}-${uKey}`}
               initialValue={htmlContent}
-              init={editorConf(i18n.isSwedish() ? 'sv_SE' : null)}
+              init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
               onEditorChange={this.updateMemoContent}
               onBlur={this.onSaveByThisContentId}
             />

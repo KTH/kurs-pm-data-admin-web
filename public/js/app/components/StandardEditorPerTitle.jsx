@@ -75,13 +75,18 @@ class StandardEditorPerTitle extends Component {
   render() {
     const { contentId, htmlContent, menuId, visibleInMemo } = this.props
     const { isRequired, hasParentTitle } = context[contentId]
+    const { userLangIndex } = this
     const contentType = hasParentTitle ? 'subSection' : 'section'
-    const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[this.userLangIndex]
+    const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[userLangIndex]
 
     return (
       <span id={menuId} className={contentType + ' section-50'}>
         {contentType === 'section' && (
-          <ContentHead contentId={contentId} memoLangIndex={this.memoLangIndex} />
+          <ContentHead
+            contentId={contentId}
+            memoLangIndex={this.memoLangIndex}
+            userLangIndex={userLangIndex}
+          />
         )}
         <VisibilityInfo
           contentId={contentId}
@@ -90,6 +95,7 @@ class StandardEditorPerTitle extends Component {
           onToggleVisibleInMemo={this.toggleVisibleInMemo}
           isEditorOpen={this.state.isOpen}
           onToggleVisibleEditor={this.onToggleVisibleEditor}
+          userLangIndex={userLangIndex}
         />
         {this.state.isOpen && (
           <span>
@@ -108,7 +114,7 @@ class StandardEditorPerTitle extends Component {
             <Editor
               id={'editorFor' + contentId}
               initialValue={htmlContent}
-              init={editorConf(i18n.isSwedish() ? 'sv_SE' : null)}
+              init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
               onEditorChange={this.updateMemoContent}
               onBlur={this.onBlur}
             />

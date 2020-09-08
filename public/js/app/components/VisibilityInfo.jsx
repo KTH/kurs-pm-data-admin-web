@@ -9,22 +9,23 @@ import PropTypes from 'prop-types'
 
 import i18n from '../../../../i18n'
 
-const { sourceInfo, buttons } = i18n.messages[Number(i18n.isSwedish())]
-
 const VisibilityInfo = ({
   contentId,
   visibleInMemo,
   isEditorOpen,
   onToggleVisibleInMemo,
   onToggleVisibleEditor,
-  contentType
+  contentType,
+  userLangIndex
 }) => {
   const dataOrigin = contentParam(contentId, 'source')
 
   const isHeaderInConf = !!context[contentId]
 
   const { isEditable } = context[contentId] || false
+  const { sourceInfo, buttons } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
+
   return (
     <span className="section-info word-break">
       <span>
@@ -71,7 +72,8 @@ VisibilityInfo.propTypes = {
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   onToggleVisibleEditor: PropTypes.func,
-  contentType: PropTypes.string.isRequired // add default
+  contentType: PropTypes.string.isRequired, // add default
+  userLangIndex: PropTypes.number.isRequired
 }
 
 VisibilityInfo.defaultProps = {

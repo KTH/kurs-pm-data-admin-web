@@ -7,41 +7,49 @@ import i18n from '../../../../i18n'
 import { typeOfHeader } from '../util/fieldsByType'
 import PropTypes from 'prop-types'
 
-const { nothingFetched } = i18n.messages[Number(i18n.isSwedish())].sourceInfo
-
 const Section = ({
   contentId,
   menuId,
   visibleInMemo,
   onToggleVisibleInMemo,
   html,
-  memoLangIndex
-}) => (
-  <span id={menuId} key={contentId} className="main-text-section section-50">
-    <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} />
-    <VisibilityInfo
-      contentId={contentId}
-      contentType="section"
-      visibleInMemo={visibleInMemo}
-      onToggleVisibleInMemo={onToggleVisibleInMemo}
-    />
+  memoLangIndex,
+  userLangIndex
+}) => {
+  const { nothingFetched } = i18n.messages[userLangIndex].sourceInfo
 
-    <span
-      style={visibleInMemo ? {} : { display: 'none' }}
-      dangerouslySetInnerHTML={{
-        __html: html || `<p><i>${nothingFetched[typeOfHeader(contentId)]}</i></p>`
-      }}
-    />
-  </span>
-)
+  return (
+    <span id={menuId} key={contentId} className="main-text-section section-50">
+      <ContentHead
+        contentId={contentId}
+        memoLangIndex={memoLangIndex}
+        userLangIndex={userLangIndex}
+      />
+      <VisibilityInfo
+        contentId={contentId}
+        contentType="section"
+        visibleInMemo={visibleInMemo}
+        onToggleVisibleInMemo={onToggleVisibleInMemo}
+        userLangIndex={userLangIndex}
+      />
 
+      <span
+        style={visibleInMemo ? {} : { display: 'none' }}
+        dangerouslySetInnerHTML={{
+          __html: html || `<p><i>${nothingFetched[typeOfHeader(contentId)]}</i></p>`
+        }}
+      />
+    </span>
+  )
+}
 Section.propTypes = {
   contentId: PropTypes.string.isRequired,
   menuId: PropTypes.string.isRequired,
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   html: PropTypes.string, // add default
-  memoLangIndex: PropTypes.number.isRequired // add default
+  memoLangIndex: PropTypes.number.isRequired, // add default
+  userLangIndex: PropTypes.number.isRequired
 }
 
 Section.defaultProps = {
