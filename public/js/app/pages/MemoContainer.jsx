@@ -53,13 +53,15 @@ class MemoContainer extends Component {
   rebuilDraftFromPublishedVer = this.props.routerStore.rebuilDraftFromPublishedVer
 
   componentDidMount() {
-    const urlParams = fetchParameters(this.props)
+    const { event } = fetchParameters(this.props)
+    const { history } = this.props
 
-    this.eventFromParams = urlParams.event || ''
-
-    this.props.history.push({
-      search: ''
-    })
+    this.eventFromParams = event || ''
+    if (history) {
+      history.push({
+        search: ''
+      })
+    }
     this.scrollIntoView()
   }
 
@@ -134,9 +136,9 @@ class MemoContainer extends Component {
   scrollIntoView = () => {
     if (window.location.hash) {
       const id = window.location.hash.replace('#', '')
-      const element = document.getElementById(id)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      const { scrollIntoView } = document.getElementById(id)
+      if (scrollIntoView) {
+        scrollIntoView({ behavior: 'smooth', block: 'center' })
       }
     }
   }
