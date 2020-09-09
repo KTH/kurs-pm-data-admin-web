@@ -37,9 +37,6 @@ class Collapse extends React.Component {
           tabIndex="0"
           onClick={this.toggleHeader}
           onKeyPress={this.toggleHeader}
-          onKeyDown={() => {
-            console.log('TEST onKeyDown')
-          }}
         >
           <h4 className="mb-0 mt-0">
             <a

@@ -58,7 +58,11 @@ const VisibilityInfo = ({
         </span>
       </span>
       {(!isHeaderInConf || isEditable) && (
-        <Button className="mb-0 mt-0" onClick={() => onToggleVisibleEditor()}>
+        <Button
+          className="mb-0 mt-0"
+          onClick={() => onToggleVisibleEditor()}
+          data-testid={isEditorOpen ? 'btn-close-editor' : 'btn-open-editor'}
+        >
           {isEditorOpen ? buttons.closeEditor : buttons.edit}
         </Button>
       )}

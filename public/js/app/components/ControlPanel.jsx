@@ -21,7 +21,7 @@ const ControlPanel = (props) => {
   const progressNum = Number(progress) || 1
 
   return (
-    <Row className="control-buttons subsection-30">
+    <Row className="control-buttons subsection-30" data-testid="buttons-control-panel">
       <Row className="w-100 my-0 mx-auto">
         <Alert color={alertColor} isOpen={!!alertIsOpen}>
           {alertText}
