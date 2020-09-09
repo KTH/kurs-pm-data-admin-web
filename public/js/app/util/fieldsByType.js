@@ -209,9 +209,30 @@ const isRequired = (contentId) => (context[contentId] && context[contentId].isRe
 
 const typeOfHeader = (contentId) => context[contentId].type || ''
 
+const allStandardHeadersAndSubHd = () => [].concat(...sections.map(({ content }) => content))
+
+const getOnlyStandardHeaders = () =>
+  [...allStandardHeadersAndSubHd().filter((id) => !contentParam(id, 'hasParentTitle'))].length
+
+const getOnlyRequiredButNotEditable = () => [
+  ...allStandardHeadersAndSubHd().filter(
+    (id) => contentParam(id, 'isRequired') && !contentParam(id, 'isEditable')
+  )
+]
+
+const getNumOfStandardHeadersAndSubHd = () => allStandardHeadersAndSubHd().length
+
+const getNumOfEditableStandardContent = () =>
+  [...allStandardHeadersAndSubHd().filter((id) => contentParam(id, 'isEditable'))].length
+
 module.exports = {
+  allStandardHeadersAndSubHd,
   context,
   contentParam,
+  getNumOfEditableStandardContent,
+  getNumOfStandardHeadersAndSubHd,
+  getOnlyRequiredButNotEditable,
+  getOnlyStandardHeaders,
   sections,
   isRequired,
   typeOfHeader
