@@ -1,35 +1,5 @@
-const standardMemoContent = [
-  'communicationDuringCourse',
-  'ethicalApproachThisCourse',
-  'examinationModules',
-  'gradingCriteria',
-  'infoForReregisteredStudents',
-  'learningActivities',
-  'possibilityToCompensate',
-  'preparations',
-  'permanentDisability',
-  'reportingResults',
-  'scheduleDetails',
-  'software',
-  // 'languageOfInstructions', // Svenska English
-  'courseContent',
-  'learningOutcomes',
-  'additionalRegulations',
-  'gradingScale',
-  'ethicalApproach',
-  'examination',
-  'otherRequirementsForFinalGrade',
-  'equipment',
-  'infoContactName',
-  'literature',
-  'possibilityToCompletion',
-  'possibilityToAddition',
-  'prerequisites',
-  'examiner',
-  'courseCoordinator',
-  'otherContacts',
-  'teacherAssistants',
-  'teacher'
-]
+import { allStandardHeadersAndSubHd } from '../../../public/js/app/util/fieldsByType'
+
+const standardMemoContent = allStandardHeadersAndSubHd()
 
 export default standardMemoContent
