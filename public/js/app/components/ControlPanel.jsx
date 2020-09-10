@@ -23,7 +23,7 @@ const ControlPanel = (props) => {
   return (
     <Row className="control-buttons subsection-30" data-testid="buttons-control-panel">
       <Row className="w-100 my-0 mx-auto">
-        <Alert color={alertColor} isOpen={!!alertIsOpen}>
+        <Alert data-testid="alert-save-data" color={alertColor} isOpen={!!alertIsOpen}>
           {alertText}
         </Alert>
       </Row>
