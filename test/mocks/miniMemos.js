@@ -1,7 +1,6 @@
 const mockMiniMemos = {
   sortedPublishedForAllYears: [
     {
-      //NEW
       ladokRoundIds: ['1'],
       memoCommonLangAbbr: 'sv',
       memoId: 'lskdijwc9bd06110a37607',
@@ -12,7 +11,6 @@ const mockMiniMemos = {
       version: 1
     },
     {
-      //new
       ladokRoundIds: ['2'],
       memoCommonLangAbbr: 'en',
       memoId: '15e82ef70daab3a6669eef2be',
@@ -23,7 +21,6 @@ const mockMiniMemos = {
       version: '1'
     },
     {
-      //new
       ladokRoundIds: ['1'],
       memoCommonLangAbbr: 'en',
       memoId: 'a15e82ef70daab3a6669eef2be',
@@ -36,7 +33,6 @@ const mockMiniMemos = {
   ],
   publishedWithNoActiveDraft: [
     {
-      //NEW
       ladokRoundIds: ['2'],
       memoCommonLangAbbr: 'en',
       memoId: '15e82ef70daab3a6669eef2be',
@@ -47,7 +43,6 @@ const mockMiniMemos = {
       version: '1'
     },
     {
-      //NEW
       ladokRoundIds: ['1'],
       memoCommonLangAbbr: 'sv',
       memoId: 'lskdijwc9bd06110a37607',
@@ -60,7 +55,6 @@ const mockMiniMemos = {
   ],
   draftsOfPublishedMemos: [
     {
-      //new
       ladokRoundIds: ['1'],
       memoCommonLangAbbr: 'en',
       memoId: 'a15e82ef70daab3a6669eef2be',
@@ -72,7 +66,6 @@ const mockMiniMemos = {
     }
   ],
   draftsWithNoActivePublishedVer: [
-    ///new
     {
       ladokRoundIds: ['2', '3'],
       memoCommonLangAbbr: 'en',

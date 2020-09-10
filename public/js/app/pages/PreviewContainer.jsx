@@ -230,7 +230,7 @@ class PreviewContainer extends Component {
           ' ' +
           credits +
           ' ' +
-          (i18n.isSwedish() ? creditUnitAbbr : 'credits')}
+          (this.langIndex === 1 ? creditUnitAbbr : 'credits')}
       </span>
     )
   }
@@ -269,13 +269,14 @@ class PreviewContainer extends Component {
   }
 
   render() {
+    const { langIndex } = this
     const {
       progressTitleHeaders,
       progressBarHeaders,
       pageTitles,
       breadCrumbLabels,
       sideMenuLabels
-    } = i18n.messages[this.langIndex]
+    } = i18n.messages[langIndex]
     const {
       coursePresentationLabels,
       courseFactsLabels,
@@ -335,7 +336,7 @@ class PreviewContainer extends Component {
           </PageTitle>
         </Row>
         <ProgressBar active={this.state.progress} pages={progressBarHeaders} />
-        <PageHead semester={semester} memoName={memoName} />
+        <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
         <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
         <div className="preview-content-separation" />
         <Row>
@@ -416,7 +417,7 @@ class PreviewContainer extends Component {
         </Row>
         <Container className="fixed-bottom">
           <ControlPanel
-            langIndex={this.langIndex}
+            langIndex={langIndex}
             onSubmit={this.publish}
             onBack={this.onBack}
             onCancel={this.onFinish}

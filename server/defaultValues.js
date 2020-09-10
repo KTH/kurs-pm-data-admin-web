@@ -46,8 +46,12 @@ const _scheduleLinks = (url, language) => {
     .join('')
 }
 
-export const combineScheduleValues = (schemaUrls, memoLangAbbr) => {
+const combineScheduleValues = (schemaUrls, memoLangAbbr) => {
   return schemaUrls && schemaUrls.length > 0
     ? `${_scheduleDetailsTemplate(memoLangAbbr)}<p>${_scheduleLinks(schemaUrls)}</p>`
     : `${_scheduleDetailsTemplate(memoLangAbbr)}`
+}
+
+module.exports = {
+  combineScheduleValues
 }

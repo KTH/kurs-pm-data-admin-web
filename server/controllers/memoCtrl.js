@@ -4,6 +4,7 @@ const apis = require('../api')
 // const kursPmDataApi = require('../kursPmDataApi')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
+const { combineScheduleValues } = require('../defaultValues')
 
 const { toJS } = require('mobx')
 const ReactDOMServer = require('react-dom/server')
@@ -20,13 +21,51 @@ function hydrateStores(renderProps) {
   const outp = {}
   const { props } = renderProps.props.children
 
-  Object.keys(props).map(key => {
+  Object.keys(props).map((key) => {
     if (typeof props[key].initializeStore === 'function') {
       outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
     }
   })
 
   return outp
+}
+
+const combineDefaultValues = (freshMemoData, koppsFreshData, memoLangAbbr) => {
+  const {
+    examinationSubSection,
+    equipment,
+    scheduleDetails,
+    literature,
+    possibilityToCompletion,
+    possibilityToAddition
+  } = freshMemoData
+  const updatedWithDefaults = {
+    ...freshMemoData,
+    examinationSubSection: examinationSubSection || koppsFreshData.examinationModules || '', // koppsFreshData.examinationModules
+    // eslint-disable-next-line no-use-before-define
+    equipment: equipment || koppsFreshData.equipmentTemplate || '',
+    scheduleDetails:
+      scheduleDetails || combineScheduleValues(koppsFreshData.schemaUrls, memoLangAbbr) || '',
+    literature: literature || koppsFreshData.literatureTemplate || '',
+    possibilityToCompletion:
+      possibilityToCompletion || koppsFreshData.possibilityToCompletionTemplate || '',
+    possibilityToAddition:
+      possibilityToAddition || koppsFreshData.possibilityToAdditionTemplate || ''
+  }
+
+  return updatedWithDefaults
+}
+
+const removeTemplatesFromKoppsFreshData = async (koppsFreshData) => {
+  await delete koppsFreshData.equipmentTemplate
+  await delete koppsFreshData.literatureTemplate
+  await delete koppsFreshData.possibilityToCompletionTemplate
+  await delete koppsFreshData.possibilityToAdditionTemplate
+  return koppsFreshData
+}
+
+const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => {
+  return { ...defaultAndMemoApiValues, ...cleanKoppsFreshData }
 }
 
 function _staticRender(context, location) {
@@ -49,8 +88,10 @@ async function renderMemoEditorPage(req, res, next) {
     const { action } = req.query
     const renderProps = _staticRender(context, req.url)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+    const { semester, memoCommonLangAbbr } = apiMemoData
+    const memoLangAbbr = memoCommonLangAbbr || userLang
 
-    if (action) renderProps.props.children.props.routerStore.rebuilDraftFromPublishedVer = true
+    renderProps.props.children.props.routerStore.rebuilDraftFromPublishedVer = !!action
 
     renderProps.props.children.props.routerStore.setBrowserConfig(
       browser,
@@ -61,25 +102,27 @@ async function renderMemoEditorPage(req, res, next) {
 
     renderProps.props.children.props.routerStore.doSetLanguageIndex(userLang)
 
-    renderProps.props.children.props.routerStore.memoData = apiMemoData
     renderProps.props.children.props.routerStore.setMemoBasicInfo({
       courseCode,
       memoEndPoint,
-      semester: apiMemoData.semester,
-      memoLangAbbr: apiMemoData.memoCommonLangAbbr || userLang
+      semester,
+      memoLangAbbr
     })
-    renderProps.props.children.props.routerStore.koppsFreshData = {
-      ...(await getSyllabus(
-        courseCode,
-        apiMemoData.semester,
-        apiMemoData.memoCommonLangAbbr || userLang
-      )), // TODO: use apiMemoData instead
+
+    const koppsFreshData = {
+      ...(await getSyllabus(courseCode, semester, apiMemoData.memoCommonLangAbbr || userLang)),
       ...(await getCourseEmployees(apiMemoData))
     }
 
-    await renderProps.props.children.props.routerStore.combineDefaultValues()
-    await renderProps.props.children.props.routerStore.removeTemplatesFromKoppsFreshData()
-    await renderProps.props.children.props.routerStore.updateMemoDataWithFreshKoppsData()
+    const defaultAndMemoApiValues = await combineDefaultValues(
+      apiMemoData,
+      koppsFreshData,
+      memoLangAbbr
+    )
+    const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
+    const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
+
+    renderProps.props.children.props.routerStore.memoData = newMemoData
 
     const html = ReactDOMServer.renderToString(renderProps)
 
@@ -112,7 +155,7 @@ async function renderMemoEditorPage(req, res, next) {
 async function updateContentByEndpoint(req, res, next) {
   try {
     const { memoEndPoint } = req.params
-    const apiResponse = await changeMemoApiData('updateCreatedDraft', {memoEndPoint}, req.body)
+    const apiResponse = await changeMemoApiData('updateCreatedDraft', { memoEndPoint }, req.body)
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API: ', apiResponse.message)
     }
@@ -125,6 +168,9 @@ async function updateContentByEndpoint(req, res, next) {
 }
 
 module.exports = {
+  combineDefaultValues,
+  refreshMemoData,
   renderMemoEditorPage,
+  removeTemplatesFromKoppsFreshData,
   updateContentByEndpoint
 }

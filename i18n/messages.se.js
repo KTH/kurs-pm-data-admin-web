@@ -70,14 +70,10 @@ module.exports = {
       subSection: 'Innehåll finns inlagt. Välj: Inkludera avsnitt för att visa innehållet i kurs-PM'
     },
     nothingFetched: {
-      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
-      Välj Redigera för att lägga in innehåll.`,
-      mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. 
-      Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
-      mandatoryForSome: `Inget innehåll fanns att hämta. 
-      Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
-      optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan. 
-      Du kan också välja att inte inkludera rubriken.`
+      mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. Välj Redigera för att lägga in innehåll.`,
+      mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
+      mandatoryForSome: `Inget innehåll fanns att hämta. Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
+      optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan. Du kan också välja att inte inkludera rubriken.`
     },
     dummyHelpText: 'Hjälptext som vägleder och hjälper',
     insertedSubSection: '(Avsnittet nedan ingår inte i kursplanen)'

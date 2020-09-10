@@ -15,7 +15,7 @@ class Collapse extends React.Component {
   }
 
   toggleHeader(event) {
-    event.preventDefault()
+    if (event) event.preventDefault()
     const isOpen = !this.state.isOpen
     this.setState({
       isOpen,
@@ -33,13 +33,11 @@ class Collapse extends React.Component {
       <div className={classes}>
         <div
           className="card-header withTrigger"
+          data-testid="collapse-help-info"
           role="tab"
           tabIndex="0"
           onClick={this.toggleHeader}
           onKeyPress={this.toggleHeader}
-          onKeyDown={() => {
-            console.log('TEST onKeyDown')
-          }}
         >
           <h4 className="mb-0 mt-0">
             <a

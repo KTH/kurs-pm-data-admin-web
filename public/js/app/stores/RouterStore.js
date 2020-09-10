@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx'
-import { combineScheduleValues } from '../util/defaultValues'
 import axios from 'axios'
 import { SERVICE_URL } from '../util/constants'
 
@@ -29,49 +28,6 @@ class RouterStore {
     this.courseCode = props.courseCode.toUpperCase() || ''
     this.memoEndPoint = props.memoEndPoint.toUpperCase() || ''
     this.memoLangAbbr = props.memoLangAbbr || 'sv'
-  }
-
-  @action combineDefaultValues() {
-    const {
-      examinationSubSection,
-      equipment,
-      scheduleDetails,
-      literature,
-      possibilityToCompletion,
-      possibilityToAddition
-    } = this.memoData
-    this.memoData = {
-      ...this.memoData,
-      examinationSubSection: examinationSubSection || this.koppsFreshData.examinationModules || '', // koppsFreshData.examinationModules
-      // eslint-disable-next-line no-use-before-define
-      equipment: equipment || this.koppsFreshData.equipmentTemplate || '',
-      scheduleDetails:
-        scheduleDetails ||
-        combineScheduleValues(this.koppsFreshData.schemaUrls, this.memoLangAbbr) ||
-        '',
-      literature: literature || this.koppsFreshData.literatureTemplate || '',
-      possibilityToCompletion:
-        possibilityToCompletion || this.koppsFreshData.possibilityToCompletionTemplate || '',
-      possibilityToAddition:
-        possibilityToAddition || this.koppsFreshData.possibilityToAdditionTemplate || ''
-    }
-  }
-
-  @action removeTemplatesFromKoppsFreshData() {
-    ;[
-      'equipmentTemplate',
-      'literatureTemplate',
-      'possibilityToCompletionTemplate',
-      'possibilityToAdditionTemplate'
-    ].map((property) => delete this.koppsFreshData[property])
-  }
-
-  @action updateMemoDataWithFreshKoppsData() {
-    this.memoData = { ...this.memoData, ...this.koppsFreshData }
-  }
-
-  @action tempMemoData(memoData) {
-    this.memoData = memoData
   }
 
   async _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLastTerms = null) {
@@ -132,7 +88,6 @@ class RouterStore {
     try {
       const thisHost = this.getThisHost()
 
-      // const url =
       const result = await axios.post(
         `${thisHost}${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
           actionType === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
@@ -146,6 +101,28 @@ class RouterStore {
         body.memoEndPoint
       }${actionType === 'copy' ? '?event=copy' : ''}`
       window.location = goToEditorUrl
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.message)
+      }
+      throw error
+    }
+  }
+
+  @action async updateDraft(body, isTest = false) {
+    if (isTest) {
+      return { body }
+    }
+
+    try {
+      const thisHost = this.getThisHost()
+
+      const resultAfterUpdate = await axios.post(
+        `${thisHost}${SERVICE_URL.API}draft-updates/${this.courseCode}/${body.memoEndPoint}`,
+        body
+      )
+
+      return resultAfterUpdate
     } catch (error) {
       if (error.response) {
         throw new Error(error.message)
