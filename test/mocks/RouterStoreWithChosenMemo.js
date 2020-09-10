@@ -14,14 +14,14 @@ const reducedKoppsData = {
   en: {
     credits: 9,
     creditUnitAbbr: 'hp',
-    gradingScale: '<p>P, F</p>',
+    gradingScale: '<p>Some test data for section gradingScale</p>',
     title: 'Project in Plasma Physics',
     titleOther: 'Projekt i plasmafysik'
   },
   sv: {
     credits: 9,
     creditUnitAbbr: 'hp',
-    gradingScale: '<p>P, F</p>',
+    gradingScale: '<p>Some test data for section gradingScale</p>',
     title: 'Projekt i plasmafysiks',
     titleOther: 'Project in Plasma Physics'
   }
@@ -34,6 +34,10 @@ const mockRouterStoreWithChosenMemo = (
   userLang = 'en'
 ) => {
   const mockedMemoData = memoTypes[memoType][memoLang][contentType]
+  const gradingScale =
+    contentType === ('freshEmpty' || 'emptyAndVisible' || 'emptyAndInvisible')
+      ? { gradingScale: '' }
+      : {}
   const updateStoreWith = memoType && contentType ? setMemoBasicInfoTest(mockedMemoData) : {}
   const routerWithMemoData = {
     ...realRouterStore,
@@ -44,9 +48,9 @@ const mockRouterStoreWithChosenMemo = (
     memoEndPoint: '',
     rounds: [],
     ...updateStoreWith,
-    memoData: { ...mockedMemoData, ...reducedKoppsData[userLang] }
+    memoData: { ...mockedMemoData, ...reducedKoppsData[userLang], ...gradingScale }
   }
-  console.log('routerWithMemoData', { routerWithMemoData })
+  // console.log('routerWithMemoData', { routerWithMemoData })
 
   return routerWithMemoData
 }
