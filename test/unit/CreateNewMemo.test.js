@@ -267,7 +267,6 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       expect(roundsLabels[1]).toHaveTextContent('VT 2021-2 (Startdatum 2021-01-18, Engelska)')
     })
     const rounds = getAllByTestId('checkbox-choose-available-round')
-    expect(rounds[1])
     fireEvent.click(rounds[1])
     await waitFor(() => {
       const copyOptions = getAllByTestId('copy-radio')
