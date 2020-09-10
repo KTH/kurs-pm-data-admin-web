@@ -15,7 +15,7 @@ const VisibilityInfo = ({
   isEditorOpen,
   onToggleVisibleInMemo,
   onToggleVisibleEditor,
-  contentType,
+  sectionType,
   userLangIndex
 }) => {
   const dataOrigin = contentParam(contentId, 'source')
@@ -31,7 +31,7 @@ const VisibilityInfo = ({
       <span>
         <span className="section_info_visibility_label">
           {(isRequired(contentId) && (
-            <p className="mandatory">
+            <p className="mandatory" data-testid="data-origin">
               <b>{sourceInfo[typeOfHeader(contentId)]}</b>
               {dataOrigin && <b className="source">{fetched} </b>}
               {dataOrigin && sourceInfo[dataOrigin]}
@@ -39,8 +39,13 @@ const VisibilityInfo = ({
           )) || (
             <form className="Show--Or--Not--inMemo">
               <span>
-                <label htmlFor={'visibilityFor' + contentId} style={{ fontSize: '1rem' }}>
+                <label
+                  data-testid="label-visibility"
+                  htmlFor={'visibilityFor' + contentId}
+                  style={{ fontSize: '1rem' }}
+                >
                   <input
+                    data-testid="checkbox-visibility"
                     type="checkbox"
                     id={'visibilityFor' + contentId}
                     name="visibleInMemo"
@@ -48,7 +53,7 @@ const VisibilityInfo = ({
                     defaultChecked={visibleInMemo || false}
                     style={{ marginRight: '.3em' }}
                   />
-                  {sourceInfo.includeInMemo[contentType]}
+                  {sourceInfo.includeInMemo[sectionType]}
                 </label>
                 {isHeaderInConf && dataOrigin && <b className="source">{fetched}</b>}
                 {isHeaderInConf && dataOrigin && sourceInfo[dataOrigin]}
@@ -76,7 +81,7 @@ VisibilityInfo.propTypes = {
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   onToggleVisibleEditor: PropTypes.func,
-  contentType: PropTypes.string.isRequired, // add default
+  sectionType: PropTypes.string.isRequired, // add default
   userLangIndex: PropTypes.number.isRequired
 }
 

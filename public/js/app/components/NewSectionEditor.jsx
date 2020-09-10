@@ -126,7 +126,7 @@ class NewSectionEditor extends Component {
 
         <VisibilityInfo
           contentId={`${contentId}-${uKey}`}
-          contentType="section"
+          sectionType="section"
           visibleInMemo={visibleInMemo}
           onToggleVisibleInMemo={this.toggleVisibleInMemo}
           isEditorOpen={this.state.isOpen || isEmptyNew}

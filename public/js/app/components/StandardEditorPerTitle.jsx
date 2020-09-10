@@ -76,12 +76,12 @@ class StandardEditorPerTitle extends Component {
     const { contentId, htmlContent, menuId, visibleInMemo } = this.props
     const { isRequired, hasParentTitle } = context[contentId]
     const { userLangIndex } = this
-    const contentType = hasParentTitle ? 'subSection' : 'section'
+    const sectionType = hasParentTitle ? 'subSection' : 'section'
     const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[userLangIndex]
 
     return (
-      <span id={menuId} className={contentType + ' section-50'}>
-        {contentType === 'section' && (
+      <span id={menuId} className={sectionType + ' section-50'}>
+        {sectionType === 'section' && (
           <ContentHead
             contentId={contentId}
             memoLangIndex={this.memoLangIndex}
@@ -90,7 +90,7 @@ class StandardEditorPerTitle extends Component {
         )}
         <VisibilityInfo
           contentId={contentId}
-          contentType={contentType}
+          sectionType={sectionType}
           visibleInMemo={visibleInMemo}
           onToggleVisibleInMemo={this.toggleVisibleInMemo}
           isEditorOpen={this.state.isOpen}
@@ -98,7 +98,7 @@ class StandardEditorPerTitle extends Component {
           userLangIndex={userLangIndex}
         />
         {this.state.isOpen && (
-          <span>
+          <span data-testid="standard-editor">
             <Collapse
               alt="Expand this to see a helping text"
               uLabel={contentId}
@@ -106,6 +106,7 @@ class StandardEditorPerTitle extends Component {
               buttonText={buttons.showGuidance}
             >
               <span
+                data-testid="help-text"
                 dangerouslySetInnerHTML={{
                   __html: memoInfoByUserLang[contentId].help || `<p>${sourceInfo.dummyHelpText}</p>`
                 }}
@@ -125,6 +126,7 @@ class StandardEditorPerTitle extends Component {
           /* isRequired && empty // type && type === 'mandatoryAndEditable' */
           ((isRequired && (
             <span
+              data-testid={`text-for-memo-mandatoryAndEditable-${contentId}`} // "text-for-memo-mandatoryAndEditable"
               dangerouslySetInnerHTML={{
                 __html:
                   (htmlContent !== '' && htmlContent) ||
@@ -135,21 +137,29 @@ class StandardEditorPerTitle extends Component {
             /* is included in memo, preview text without editor */
             (visibleInMemo && (
               <span
+                data-testid={`text-for-memo-optionalEditable-${contentId}`} // "text-for-memo-optionalEditable"
                 dangerouslySetInnerHTML={{
                   __html:
                     (htmlContent !== '' && htmlContent) ||
-                    `<p><i>${sourceInfo.noInfoYet[contentType]}</i></p>`
+                    `<p><i>${sourceInfo.noInfoYet[sectionType]}</i></p>`
                 }}
               />
             )) ||
             /* editor has content but is not yet included in pm */
             (htmlContent !== '' && (
-              <span>
-                <p>
-                  <i>{sourceInfo.notIncludedInMemoYet[contentType]}</i>
+              <span data-testid="dynamic-optional-and-not-included-but-with-content">
+                <p
+                  data-testid={`optional-and-excluded-but-with-content-${sectionType}-${contentId}`}
+                >
+                  <i>{sourceInfo.notIncludedInMemoYet[sectionType]}</i>
                 </p>
               </span>
-            )))}
+            )) || (
+              <div
+                data-testid="dynamic-empty-content-and-not-included"
+                style={{ display: 'none' }}
+              />
+            ))}
       </span>
     )
   }
