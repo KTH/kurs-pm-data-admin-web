@@ -20,7 +20,7 @@ import PageHead from '../components/PageHead'
 import ControlPanel from '../components/ControlPanel'
 import NewSectionEditor from '../components/NewSectionEditor'
 import StandardEditorPerTitle from '../components/StandardEditorPerTitle'
-import Section from '../components/Section'
+import SectionForNonEditable from '../components/SectionForNonEditable'
 import { ContentHead } from '../components/ContentHead'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
@@ -35,7 +35,10 @@ const PROGRESS = 2
 class MemoContainer extends Component {
   state = {
     ...(this.props.routerStore.memoData || {}),
-    isError: false
+    isError: false,
+    alertIsOpen: false,
+    alertText: '',
+    alertColor: ''
   }
 
   isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
@@ -95,38 +98,32 @@ class MemoContainer extends Component {
 
     const { alerts } = i18n.messages[this.userLangIndex]
     this.setState({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
-    setTimeout(() => {
-      this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
-    }, 2000)
+    if (process.env.NODE_ENV !== 'test')
+      setTimeout(() => {
+        this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
+      }, 2000)
   }
 
-  onSave = (editorContent, alertTranslationId) => {
+  onSuccess = (alertTranslationId) => {
+    this.onAlert(alertTranslationId)
+    this.rebuilDraftFromPublishedVer = false
+  }
+
+  onSave = async (editorContent, alertTranslationId) => {
     const { courseCode, memoEndPoint } = this
     const body = { courseCode, memoEndPoint, ...editorContent } // containt kopps old data, or it is empty first time
-
-    return axios
-      .post(
-        '/kursinfoadmin/kurs-pm-data/internal-api/draft-updates/' + courseCode + '/' + memoEndPoint,
-        body
-      )
-      .then((newResult) => {
-        if (newResult.status >= 400) {
-          this.setAlarm('danger', 'errWhileSaving')
-          return 'ERROR-' + newResult.status
-        }
-        this.onAlert(alertTranslationId)
-      })
-      .then(() => {
-        this.rebuilDraftFromPublishedVer = false
-      })
-      .catch((error) => {
+    try {
+      const result = await this.props.routerStore.updateDraft(body)
+      if (result.status >= 400) {
         this.onAlert('errWhileSaving', 'danger')
-        if (error.response) {
-          // test it
-          throw new Error(error.message)
-        }
-        throw error
-      }) // alert error
+
+        return 'ERROR-' + result.status
+      }
+      this.onSuccess(alertTranslationId)
+      return result
+    } catch (error) {
+      this.onAlert('errWhileSaving', 'danger')
+    }
   }
 
   onAutoSave = () => {
@@ -204,38 +201,40 @@ class MemoContainer extends Component {
     )
   }
 
-  onFinish = () => {
+  onFinish = async () => {
     const { courseCode, semester, isDraftOfPublished, memoEndPoint } = this
     const { memoName } = this.state
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
       isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
     }&term=${semester}&name=${memoName || memoEndPoint}`
 
-    // ADD ERROR IF IT WAS NOT SAVED THEN STOP
+    if (!isDraftOfPublished)
+      return this.handleBtnSave().then(
+        setTimeout(() => {
+          window.location = startAdminPageUrl
+        }, 500)
+      )
 
-    if (isDraftOfPublished)
-      return axios
-        .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
-        .then((result) => {
-          if (result.status >= 400) {
-            this.onAlert('errWhileDeleting', 'danger')
-            return 'ERROR-' + result.status
-          }
-          setTimeout(() => {
-            window.location = startAdminPageUrl
-          }, 500)
-        })
-        .catch((err) => {
-          if (err.response) {
-            throw new Error(err.message)
-          }
-          throw err
-        })
-    return this.handleBtnSave().then(
+    try {
+      const resultAfterDelete = await axios.delete(
+        `${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`
+      )
+      if (resultAfterDelete.status >= 400) {
+        this.onAlert('errWhileDeleting', 'danger')
+
+        return 'ERROR-' + resultAfterDelete.status
+      }
       setTimeout(() => {
         window.location = startAdminPageUrl
       }, 500)
-    )
+    } catch (err) {
+      this.onAlert('errWhileDeleting', 'danger')
+
+      if (err.response) {
+        throw new Error(err.message)
+      }
+      throw err
+    }
   }
 
   /** * User clicked button to go to next step  ** */
@@ -259,41 +258,36 @@ class MemoContainer extends Component {
     this.props.routerStore.memoData.commentAboutMadeChanges = event.target.value.trim()
   }
 
-  rebuildDraftOfPublished = () => {
+  rebuildDraftOfPublished = async () => {
     const { courseCode, memoEndPoint } = this
-    return axios
-      .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
-      .then((result) => {
-        if (result.status >= 400) {
-          this.onAlert('errWhileDeleting', 'danger')
-          return 'ERROR-' + result.status
-        }
-        const body = { memoEndPoint }
-        const newDraftUrl = `${SERVICE_URL.API}create-draft/${courseCode}/${memoEndPoint}`
-        return axios
-          .post(newDraftUrl, body)
-          .then((newResult) => {
-            if (newResult.status >= 400) {
-              this.onAlert('errWhileSaving', 'danger')
-              return 'ERROR-' + newResult.status
-            }
-            // ADDD ERROR HANTERING
-            const thisUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}?action=rebuild`
-            window.location = thisUrl
-          })
-          .catch((error) => {
-            if (error.response) {
-              throw new Error(error.message)
-            }
-            throw error
-          })
-      })
-      .catch((err) => {
-        if (err.response) {
-          throw new Error(err.message)
-        }
-        throw err
-      })
+    try {
+      const resultAfterDelete = await axios.delete(
+        `${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`
+      )
+      if (resultAfterDelete.status >= 400) {
+        this.onAlert('errWhileDeleting', 'danger')
+
+        return 'ERROR-' + resultAfterDelete.status
+      }
+
+      const body = { memoEndPoint }
+      const newDraftUrl = `${SERVICE_URL.API}create-draft/${courseCode}/${memoEndPoint}`
+
+      const newResult = await axios.post(newDraftUrl, body)
+      if (newResult.status >= 400) {
+        this.onAlert('errWhileSaving', 'danger')
+        return 'ERROR-' + newResult.status
+      }
+      const thisUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}?action=rebuild`
+      window.location = thisUrl
+    } catch (err) {
+      this.onAlert('errWhileDeleting', 'danger')
+
+      if (err.response) {
+        throw new Error(err.message)
+      }
+      throw err
+    }
   }
 
   /* GENERAL VIEW OF ALL MEMO HEADERS WITH TEXT OR EDITOR */
@@ -325,7 +319,7 @@ class MemoContainer extends Component {
               onSave={this.onSave}
             />
           ) : (
-            <Section
+            <SectionForNonEditable
               memoLangIndex={this.memoLangIndex}
               contentId={contentId}
               menuId={menuId}
@@ -483,7 +477,10 @@ class MemoContainer extends Component {
                         </Form>
                       )}
                       {this.isDraftOfPublished && (
-                        <span className={isError ? 'error-label' : ''}>
+                        <span
+                          data-testid="text-about-changes"
+                          className={isError ? 'error-label' : ''}
+                        >
                           <p>
                             <sup>*</sup>
                             {extraInfo.mandatory}
