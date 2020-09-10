@@ -88,7 +88,6 @@ class RouterStore {
     try {
       const thisHost = this.getThisHost()
 
-      // const url =
       const result = await axios.post(
         `${thisHost}${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
           actionType === 'copy' ? 'copyFrom/' + copyFromMemoEndPoint : ''
@@ -102,6 +101,28 @@ class RouterStore {
         body.memoEndPoint
       }${actionType === 'copy' ? '?event=copy' : ''}`
       window.location = goToEditorUrl
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.message)
+      }
+      throw error
+    }
+  }
+
+  @action async updateDraft(body, isTest = false) {
+    if (isTest) {
+      return { body }
+    }
+
+    try {
+      const thisHost = this.getThisHost()
+
+      const resultAfterUpdate = await axios.post(
+        `${thisHost}${SERVICE_URL.API}draft-updates/${this.courseCode}/${body.memoEndPoint}`,
+        body
+      )
+
+      return resultAfterUpdate
     } catch (error) {
       if (error.response) {
         throw new Error(error.message)
