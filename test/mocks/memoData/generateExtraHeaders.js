@@ -7,19 +7,19 @@ const extraHeaders = [
 ]
 
 const headers = (headerId) => {
-  const invisibleExtraHeader = {
-    uKey: Math.random(),
-    title: `Extra header which is invisible, ${headerId}`,
-    htmlContent: '<p>Content which should be hidden<p>',
-    visibleInMemo: false
-  }
+  // const invisibleExtraHeader = {
+  //   uKey: Math.random().toString(),
+  //   title: `Extra header which is invisible, ${headerId}`,
+  //   htmlContent: '<p>Content which should be hidden<p>',
+  //   visibleInMemo: false
+  // }
   const visibleHeaders = ['First header', 'Second header'].map((title) => ({
-    uKey: Math.random(),
+    uKey: Math.random().toString(),
     title: `Created by user ${title} for section ${headerId}`,
     htmlContent: `<p>Html content for section ${title} </p>`,
     visibleInMemo: true
   }))
-  return [invisibleExtraHeader, ...visibleHeaders]
+  return visibleHeaders //[invisibleExtraHeader, ...visibleHeaders]
 }
 
 const generatedExtraHeaders = (withData = false) => {

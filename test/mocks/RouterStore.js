@@ -44,6 +44,10 @@ const mockRouterStore = {
     // return new Promise((resolve, reject) => {
     //   resolve({ status: 200 })
     // })
+  },
+
+  updateDraft(body) {
+    return realRouterStore.updateDraft(body, true)
   }
 }
 
