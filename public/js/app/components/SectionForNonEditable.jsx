@@ -7,7 +7,7 @@ import i18n from '../../../../i18n'
 import { typeOfHeader } from '../util/fieldsByType'
 import PropTypes from 'prop-types'
 
-const Section = ({
+const SectionForNonEditable = ({
   contentId,
   menuId,
   visibleInMemo,
@@ -17,9 +17,15 @@ const Section = ({
   userLangIndex
 }) => {
   const { nothingFetched } = i18n.messages[userLangIndex].sourceInfo
+  const typeOfThisHeader = typeOfHeader(contentId)
 
   return (
-    <span id={menuId} key={contentId} className="main-text-section section-50">
+    <span
+      id={menuId}
+      key={contentId}
+      className="main-text-section section-50"
+      data-testid={`section-${typeOfThisHeader}-${contentId}`}
+    >
       <ContentHead
         contentId={contentId}
         memoLangIndex={memoLangIndex}
@@ -27,22 +33,25 @@ const Section = ({
       />
       <VisibilityInfo
         contentId={contentId}
-        contentType="section"
+        sectionType="section"
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={onToggleVisibleInMemo}
         userLangIndex={userLangIndex}
       />
 
       <span
+        data-testid={`text-for-memo-${typeOfThisHeader}-${contentId}`}
         style={visibleInMemo ? {} : { display: 'none' }}
         dangerouslySetInnerHTML={{
-          __html: html || `<p><i>${nothingFetched[typeOfHeader(contentId)]}</i></p>`
+          __html:
+            html ||
+            `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`
         }}
       />
     </span>
   )
 }
-Section.propTypes = {
+SectionForNonEditable.propTypes = {
   contentId: PropTypes.string.isRequired,
   menuId: PropTypes.string.isRequired,
   visibleInMemo: PropTypes.bool.isRequired,
@@ -52,8 +61,8 @@ Section.propTypes = {
   userLangIndex: PropTypes.number.isRequired
 }
 
-Section.defaultProps = {
+SectionForNonEditable.defaultProps = {
   html: null
 }
 
-export default Section
+export default SectionForNonEditable
