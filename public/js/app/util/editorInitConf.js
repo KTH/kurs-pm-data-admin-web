@@ -1,5 +1,5 @@
 const table = {
-  // content_css: '/kursinfoadmin/kurs-pm-data/static/kth-style/css/kth-bootstrap.min.css', //KTH-STYLE
+  // content_css: '/kursinfoadmin/kurs-pm-data/static/kth-style/css/kth-bootstrap.css', //KTH-STYLE
   table_default_attributes: {
     border: '0'
   },
@@ -8,7 +8,7 @@ const table = {
 }
 // min/kurs-pm-data/SF1624/app.js
 
-const editorConf = language => {
+const editorConf = (language) => {
   // min_height: 100,
   return {
     menubar: false,
