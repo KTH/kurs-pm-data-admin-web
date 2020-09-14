@@ -252,4 +252,17 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     expect(getAllByText('Html content for section First header').length).toBe(extraHeaders.length)
     expect(getAllByText('Html content for section Second header').length).toBe(extraHeaders.length)
   })
+
+  test('render correct number of text about data origin and source info ', () => {
+    expect(getAllByText('från kursplan').length).toBe(7)
+    expect(getAllByText('från kursgemensam information').length).toBe(2)
+    expect(getAllByText('från kurstillfällesinformation').length).toBe(3)
+  })
+
+  test('render correct number of include label, standard + extra headers', () => {
+    expect(getAllByText('Inkluderas alltid').length).toBe(10)
+    expect(getAllByText('Inkludera').length).toBe(23)
+    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(2)
+    expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(3)
+  })
 })
