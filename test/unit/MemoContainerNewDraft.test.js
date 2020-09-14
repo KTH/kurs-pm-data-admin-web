@@ -5,7 +5,6 @@ import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 import i18n from '../../i18n'
 import {
-  allStandardHeadersAndSubHd,
   getNumOfEditableStandardContent,
   getOnlyStandardHeaders,
   getHeadersByType,
