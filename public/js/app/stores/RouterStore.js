@@ -80,13 +80,13 @@ class RouterStore {
     }
   }
 
-  @action async createNewMemo(actionType, copyFromMemoEndPoint, body, isTest = false) {
+  @action async postNewMemo(actionType, copyFromMemoEndPoint, body, isTest = false) {
     if (isTest) {
       return { actionType, copyFromMemoEndPoint, body }
     }
 
     try {
-      const thisHost = this.getThisHost()
+      const thisHost = await this.getThisHost()
 
       const result = await axios.post(
         `${thisHost}${SERVICE_URL.API}create-draft/${this.courseCode}/${body.memoEndPoint}/${
@@ -95,12 +95,7 @@ class RouterStore {
         body
       )
 
-      if (result.status >= 400) return result
-
-      const goToEditorUrl = `${thisHost}${SERVICE_URL.courseMemoAdmin}${this.courseCode}/${
-        body.memoEndPoint
-      }${actionType === 'copy' ? '?event=copy' : ''}`
-      window.location = goToEditorUrl
+      return result
     } catch (error) {
       if (error.response) {
         throw new Error(error.message)

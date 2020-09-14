@@ -237,15 +237,15 @@ class CreateNewMemo extends Component {
       }
 
       try {
-        const result = await this.props.routerStore.createNewMemo(
-          action,
-          copyFromMemoEndPoint,
-          body
-        )
+        const result = await this.props.routerStore.postNewMemo(action, copyFromMemoEndPoint, body)
         if (result.status >= 400) {
           this.setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + result.status
         }
+        const goToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}${
+          action === 'copy' ? '?event=copy' : ''
+        }`
+        window.location = goToEditorUrl
         return result
       } catch (error) {
         this.setAlarm('danger', 'errWhileSaving')
