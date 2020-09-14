@@ -368,7 +368,7 @@ class PreviewContainer extends Component {
               <Col lg="8" className="preview-content-center">
                 <CoursePresentation
                   courseImageUrl={courseImageUrl}
-                  introText={this.props.routerStore.sellingText}
+                  introText={this.props.routerStore.sellingText || ''}
                   labels={coursePresentationLabels}
                 />
                 {allSections}

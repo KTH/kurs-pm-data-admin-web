@@ -92,7 +92,6 @@ module.exports = {
     extraHeaders2: 'Egen rubrik 2',
     extraHeaders3: 'Egen rubrik 3',
     extraHeaders4: 'Egen rubrik 4',
-    extraHeaders5: 'Egen rubrik 5',
     gradingCriteria: 'Målrelaterade betygskriterier/bedömningskriterier',
     gradingScale: 'Betygsskala',
     infoForReregisteredStudents: 'Ändringar inför denna kursomgång',
@@ -244,9 +243,6 @@ module.exports = {
 			<p>För att ta bort en tillagd rubrik klickar du på knappen "Redigera" och klickar därefter på knappen "Ta bort tillagd rubrik". Bekräfta att du vill ta bort rubrik och radera innehållet.</p>`,
       help: `<p>Skriv information som är relaterat till "Ytterligare information", men som inte passar i någon av de ordinarie rubrikerna, i en egen tillagd rubrik. Exempel på sådan information kan vara "Om kursen ändras eller avvecklas", "Kursvärdering och kursanalys" eller "Kartor till undervisningssalar". Du kan namnge rubriken som du själv önskar för att passa just din kurs.</p>
 			<p>Om du inte längre vill visa en egen tillagd rubrik kan du antingen dölja rubriken med innehåll genom att klicka ur "Inkludera rubrik" eller ta bort rubrik med innehåll permanent genom att klicka på knappen "Ta bort tillagd rubrik" och bekräfta.</p>`
-    },
-    extraHeaders5: {
-      body: 'Lägg till egna rubriker H3' // <a href="" target="_blank"></a>
     },
     gradingCriteria: {
       body: `<p><b>Målrelaterade betygskriterier/bedömningskriterier</b> ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål.</p>

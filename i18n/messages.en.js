@@ -100,7 +100,6 @@ module.exports = {
     extraHeaders2: 'Extra header 2',
     extraHeaders3: 'Extra header 3',
     extraHeaders4: 'Extra header 4',
-    extraHeaders5: 'Extra header 5',
     gradingCriteria: 'Grading criteria/assessment criteria',
     gradingScale: 'Grading scale',
     infoForReregisteredStudents: 'Changes of the course before this course offering',
@@ -252,12 +251,6 @@ module.exports = {
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
       help: `<p>Describe information that is related to "Further information", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal", "Course evaluation and course analysis" and "Maps/Find your teaching premises".</p>
 			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
-    },
-    extraHeaders5: {
-      body: `<p>
-			</p>`,
-      help: `<p>
-			</p>`
     },
     gradingCriteria: {
       body: `<p><b>Grading criteria/assessment criteria</b> shall connect the grading scale to levels of achievement of the intended learning outcomes.</p>
