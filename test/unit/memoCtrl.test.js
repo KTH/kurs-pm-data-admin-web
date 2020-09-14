@@ -13,12 +13,6 @@ const mockedApi = (withValues = false) => ({
     : ''
 })
 const mockedKoppsTemplates = {
-  // credits: 7.5,
-  // creditUnitAbbr: 'hp',
-  // gradingScale: '<p>A, B, C, D, E, FX, F</p>',
-  // title: 'Algebra och geometri',
-  // titleOther: 'Algebra and Geometry',
-  // prerequisites: '<p>Text fetched from kopps and can be edited, removed</p>',
   possibilityToCompletionTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   possibilityToAdditionTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   schemaUrls: [
@@ -27,8 +21,6 @@ const mockedKoppsTemplates = {
   ],
   literatureTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   equipmentTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
-  // examination:
-  //   '<p><ul><li>TEN1 - Tentamen, 7,5 hp, Betygsskala: A, B, C, D, E, FX, F</li></ul></p><p>Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning.&#160;</p></p>',
   examinationModules: '<h4>Written Exam ( wTEN1 )</h4>'
 }
 

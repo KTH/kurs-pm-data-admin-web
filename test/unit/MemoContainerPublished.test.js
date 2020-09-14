@@ -5,35 +5,22 @@ import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 import i18n from '../../i18n'
 import {
-  allStandardHeadersAndSubHd,
   getNumOfEditableStandardContent,
   getOnlyStandardHeaders,
   getHeadersByType,
   typeOfThisHeader
 } from '../../public/js/app/util/fieldsByType.js'
-import MemoContainer from '../../public/js/app/pages/MemoContainer'
-import mockRouterStoreWithChosenMemo from '../mocks/RouterStoreWithChosenMemo'
 
-const {
-  alerts,
-  info,
-  pagesCreateNewPm,
-  pageTitles,
-  buttons,
-  sourceInfo,
-  sectionsLabels,
-  memoTitlesByMemoLang
-} = i18n.messages[0]
-const {
-  alerts: alertsSV,
-  info: infoSV,
-  pagesCreateNewPm: pagesCreateNewPmSV,
-  pageTitles: pageTitlesSV,
-  buttons: buttonsSV,
-  sectionsLabels: sectionsLabelsSV,
-  sourceInfo: sourceInfoSV,
-  memoTitlesByMemoLang: memoTitlesByMemoLangSV
-} = i18n.messages[1]
+import MemoContainer from '../../public/js/app/pages/MemoContainer'
+
+import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoData'
+import mockRouterStoreWithChosenMemo from '../mocks/RouterStoreWithChosenMemo'
+import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
+import translations from '../mocks/translations'
+
+const { memoTitlesByMemoLang, orderedFilledInAndVisible, sectionsLabels } = translations.en
+const { notIncludedInMemoYet, pageTitles } = translations.sv
+
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
 
 const EditPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
@@ -59,12 +46,37 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   test('renders a page with a new draft of a new memo', (done) => {
     done()
   })
-  //
+  test('get memo standard content which should be in text formremove some fields(like equipment', async () => {
+    const standardheadersContent = generatedStandardMemoData(true, '', '')
+    // remove some fields(like equipment) because they are in open editor
+    await delete standardheadersContent.equipment
+    await delete standardheadersContent.ethicalApproachSubSection
+    await delete standardheadersContent.additionalRegulations
+    await delete standardheadersContent.examinationSubSection
+    await delete standardheadersContent.permanentDisabilitySubSection
+    await delete standardheadersContent.possibilityToAddition
+    await delete standardheadersContent.possibilityToCompletion
+    await delete standardheadersContent.prerequisites
+    await delete standardheadersContent.scheduleDetails
+    await delete standardheadersContent.literature
+    const textContent = Object.values(standardheadersContent)
+    textContent.map((content) => {
+      expect(getByText(content)).toBeInTheDocument()
+    })
+  })
 
   test('renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
-    expect(allH1Headers[0]).toHaveTextContent(pageTitlesSV.published)
+    expect(allH1Headers[0]).toHaveTextContent(pageTitles.published)
+  })
+
+  test('renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
+    const allH3Headers = getAllByRole('heading', { level: 3 })
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    expect(allH3Headers.length).toBe(36)
+    const expectedh3ds = orderedFilledInAndVisible
+    expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
   test('renders alert about kopps data were updated', () => {
@@ -90,8 +102,16 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   })
 
   test('All section with editor are visible', async (done) => {
-    const allCloseEditorBtn = getAllByTestId('standard-editor')
-    expect(allCloseEditorBtn.length).toBe(8)
+    const allEditors = getAllByTestId('standard-editor')
+    expect(allEditors.length).toBe(8)
+    done()
+  })
+
+  test('All section with editor are visible', async (done) => {
+    const allEditors = getAllByTestId('standard-editor')
+    expect(allEditors[0]).toHaveTextContent(
+      `Visa vägledningUnder rubriken "Detaljplanering" beskriver du vilka läraktiviteter eller examinationstillfällen som har planerats under kursen. Använd med fördel en tabell för att på ett överblickbart sätt beskriva aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Systemet skapar en tabell med tre kolumner åt dig där du kan skriva i kursomgångens läraktiviteter. Du kan anpassa denna tabell genom att t.ex. lägga till rader, lägga till kolumner, eller ersätta den med en tabell från Word. Ett enkelt och tydligt sätt är att beskriva detaljplanering genom att för varje läraktivitet eller examination ange typ av aktivitet, aktivitetens innehåll och vilka förberedelser som studenten behöver göra. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse. Länka gärna till instruktioner och material för kursomgången i Canvas, men var uppmärksam på att länkar från tidigare kurs-PM som kopierats till detta kurs-PM kan vara ogiltiga. Testa därför länkar till andra webbsidor innan publicering. Följande Detaljplanering är ett exempel från kurs HI1027: [Infoga exempel på tabell] Om du beskrivit kursens olika läraktiviteter under rubriken "Läraktiviteter" rekommenderas att använda samma terminologi för att studenterna ska se den röda träden genom detta kurs-PM. Om det är någon aktivitet som är särskilt viktigt för studenten att förbereda kan det understrykas genom att beskriva det i rubriken "Särskilda förberedelser".`
+    )
     done()
   })
 
@@ -120,7 +140,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
-  test('renders main header h2 (page name) in user lang(en),  and memo sections headers in memo lang(en)', () => {
+  test('renders main header h2 (page name) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -174,7 +194,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   })
 
   test('renders checkbox which are checked and check it to reveal message about include in msg', async (done) => {
-    const { section: sectionIsNotIncluded } = sourceInfoSV.notIncludedInMemoYet
+    const { section: sectionIsNotIncluded } = notIncludedInMemoYet
     //Läraktiviteter - Learning activities
     const checkExclude = getAllByTestId('checkbox-visibility')[0]
     fireEvent.click(checkExclude)
@@ -223,5 +243,25 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
 
   test('comment about changes does not exist in html, because it is not a draft of a published memo', async () => {
     expect(getByTestId('text-about-changes')).toBeInTheDocument()
+  })
+
+  test('Check if Extra headers content is on page', () => {
+    const extraheadersContent = generatedExtraHeaders(true)
+    const extraHeaders = ['extraHeaders1', 'extraHeaders2', 'extraHeaders3', 'extraHeaders4']
+    expect(getAllByText('Html content for section First header').length).toBe(extraHeaders.length)
+    expect(getAllByText('Html content for section Second header').length).toBe(extraHeaders.length)
+  })
+
+  test('render correct number of text about data origin and source info ', () => {
+    expect(getAllByText('från kursplan').length).toBe(7)
+    expect(getAllByText('från kursgemensam information').length).toBe(2)
+    expect(getAllByText('från kurstillfällesinformation').length).toBe(3)
+  })
+
+  test('render correct number of include label, standard + extra headers', () => {
+    expect(getAllByText('Inkluderas alltid').length).toBe(10)
+    expect(getAllByText('Inkludera').length).toBe(23)
+    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(2)
+    expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(3)
   })
 })

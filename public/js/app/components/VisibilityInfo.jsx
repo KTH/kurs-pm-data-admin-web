@@ -55,7 +55,7 @@ const VisibilityInfo = ({
                   />
                   {sourceInfo.includeInMemo[sectionType]}
                 </label>
-                {isHeaderInConf && dataOrigin && <b className="source">{fetched}</b>}
+                {isHeaderInConf && dataOrigin && <b className="source">{fetched} </b>}
                 {isHeaderInConf && dataOrigin && sourceInfo[dataOrigin]}
               </span>
             </form>

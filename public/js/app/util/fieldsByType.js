@@ -56,7 +56,6 @@ const context = {
   extraHeaders2: { isEditable: true, isRequired: false },
   extraHeaders3: { isEditable: true, isRequired: false },
   extraHeaders4: { isEditable: true, isRequired: false },
-  extraHeaders5: { isEditable: true, isRequired: false },
   equipment: {
     openIfContent: true,
     type: 'optionalEditable',
@@ -209,7 +208,7 @@ const isRequired = (contentId) => (context[contentId] && context[contentId].isRe
 
 const typeOfHeader = (contentId) => context[contentId].type || ''
 
-const allStandardHeadersAndSubHd = () => [].concat(...sections.map(({ content }) => content))
+const allStandardHeadersAndSubHd = () => [].concat(...sections.map(({ content }) => content)).sort()
 
 const getOnlyStandardHeaders = () => [
   ...allStandardHeadersAndSubHd().filter((id) => !contentParam(id, 'hasParentTitle'))

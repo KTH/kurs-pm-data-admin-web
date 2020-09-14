@@ -5,7 +5,6 @@ import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 import i18n from '../../i18n'
 import {
-  allStandardHeadersAndSubHd,
   getNumOfEditableStandardContent,
   getOnlyStandardHeaders,
   getHeadersByType,
@@ -13,27 +12,23 @@ import {
 } from '../../public/js/app/util/fieldsByType.js'
 import MemoContainer from '../../public/js/app/pages/MemoContainer'
 import mockRouterStoreWithChosenMemo from '../mocks/RouterStoreWithChosenMemo'
+import translations from '../mocks/translations'
 
+const { memoTitlesByMemoLang, sectionsLabels, pageTitles: pageTitlesEN } = translations.en
 const {
-  alerts,
-  info,
-  pagesCreateNewPm,
-  pageTitles,
-  buttons,
-  sourceInfo,
-  sectionsLabels,
-  memoTitlesByMemoLang
-} = i18n.messages[0]
+  notIncludedInMemoYet,
+  pageTitles: pageTitlesSV,
+  sectionsLabels: sectionsLabelsSV
+} = translations.sv
+
+const { alerts, info, pagesCreateNewPm, sourceInfo } = i18n.messages[0]
 const {
   alerts: alertsSV,
   info: infoSV,
   pagesCreateNewPm: pagesCreateNewPmSV,
-  pageTitles: pageTitlesSV,
-  buttons: buttonsSV,
-  sectionsLabels: sectionsLabelsSV,
-  sourceInfo: sourceInfoSV,
-  memoTitlesByMemoLang: memoTitlesByMemoLangSV
+  sourceInfo: sourceInfoSV
 } = i18n.messages[1]
+
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByRole, getByText } = screen
 
 const EditFreshDraftOfNewMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
@@ -63,7 +58,7 @@ describe('Component <MemoContainer> Edit. A New fresh draft of a NEW memo. Memo 
   test('renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
-    expect(allH1Headers[0]).toHaveTextContent(pageTitles.new)
+    expect(allH1Headers[0]).toHaveTextContent(pageTitlesEN.new)
   })
 
   test('renders main subheader h4 (course name) and other menu h4 (menu headers), ', () => {
@@ -425,5 +420,18 @@ describe('Component <MemoContainer> Edit. A New fresh draft of a new memo. Memo 
 
   test('(userLang=sv) get memo semester', async () => {
     expect(getByText('HT 2020')).toBeInTheDocument()
+  })
+
+  test('render correct number of text about data origin and source info ', () => {
+    expect(getAllByText('från kursplan').length).toBe(7)
+    expect(getAllByText('från kursgemensam information').length).toBe(2)
+    expect(getAllByText('från kurstillfällesinformation').length).toBe(3)
+  })
+
+  test('render correct number of include label, standard only (no extra headers)', () => {
+    expect(getAllByText('Inkluderas alltid').length).toBe(10)
+    expect(getAllByText('Inkludera').length).toBe(15)
+    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(2)
+    expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(3)
   })
 })

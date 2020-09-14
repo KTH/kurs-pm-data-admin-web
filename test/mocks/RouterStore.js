@@ -2,11 +2,11 @@ import mockMiniKoppsObj from './miniKoppsObjs'
 import mockMiniMemos from './miniMemos'
 import RouterStore from '../../public/js/app/stores/RouterStore'
 
-const tempSaveNewDraft = async (action, copyFrom, body) => {
-  const newMemo = await realRouterStore.createNewMemo(action, copyFrom, body, (isTest = true)) //function exist
+const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
+  const newMemo = await realRouterStore.createNewMemo(action, copyFrom, body, isTest) //function exist
   const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
   //Example where data saves
-  mockRouterStore.miniMemos.draftsWithNoActivePublishedVer.push({
+  const objToSave = {
     ladokRoundIds,
     memoCommonLangAbbr,
     memoId: Math.random(),
@@ -15,7 +15,10 @@ const tempSaveNewDraft = async (action, copyFrom, body) => {
     semester,
     status: 'draft',
     version: '1'
-  })
+  }
+  mockRouterStore.miniMemos.draftsWithNoActivePublishedVer.push(objToSave)
+
+  return newMemo
 }
 
 const realRouterStore = new RouterStore()
@@ -37,7 +40,9 @@ const mockRouterStore = {
   browserConfig: {
     storageUri: ''
   },
-  createNewMemo: tempSaveNewDraft,
+  createNewMemo(action, copyFrom, body) {
+    return tempSaveNewDraft(action, copyFrom, body, true)
+  },
 
   showAvailableSemesterRounds(semester) {
     return realRouterStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
