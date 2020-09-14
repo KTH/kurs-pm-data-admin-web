@@ -12,27 +12,23 @@ import {
 } from '../../public/js/app/util/fieldsByType.js'
 import MemoContainer from '../../public/js/app/pages/MemoContainer'
 import mockRouterStoreWithChosenMemo from '../mocks/RouterStoreWithChosenMemo'
+import translations from '../mocks/translations'
 
+const { memoTitlesByMemoLang, sectionsLabels, pageTitles: pageTitlesEN } = translations.en
 const {
-  alerts,
-  info,
-  pagesCreateNewPm,
-  pageTitles,
-  buttons,
-  sourceInfo,
-  sectionsLabels,
-  memoTitlesByMemoLang
-} = i18n.messages[0]
+  notIncludedInMemoYet,
+  pageTitles: pageTitlesSV,
+  sectionsLabels: sectionsLabelsSV
+} = translations.sv
+
+const { alerts, info, pagesCreateNewPm, sourceInfo } = i18n.messages[0]
 const {
   alerts: alertsSV,
   info: infoSV,
   pagesCreateNewPm: pagesCreateNewPmSV,
-  pageTitles: pageTitlesSV,
-  buttons: buttonsSV,
-  sectionsLabels: sectionsLabelsSV,
-  sourceInfo: sourceInfoSV,
-  memoTitlesByMemoLang: memoTitlesByMemoLangSV
+  sourceInfo: sourceInfoSV
 } = i18n.messages[1]
+
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByRole, getByText } = screen
 
 const EditFreshDraftOfNewMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
@@ -62,7 +58,7 @@ describe('Component <MemoContainer> Edit. A New fresh draft of a NEW memo. Memo 
   test('renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
-    expect(allH1Headers[0]).toHaveTextContent(pageTitles.new)
+    expect(allH1Headers[0]).toHaveTextContent(pageTitlesEN.new)
   })
 
   test('renders main subheader h4 (course name) and other menu h4 (menu headers), ', () => {

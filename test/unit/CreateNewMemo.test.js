@@ -8,6 +8,7 @@ import i18n from '../../i18n'
 import CreateNewMemo from '../../public/js/app/pages/CreateNewMemo'
 import mockRouterStore from '../mocks/RouterStore'
 import mockRouterStoreWithDraftMemos from '../mocks/RouterStoreWithDraftMemos'
+import translations from '../mocks/translations'
 
 const CreateNewMemoPage = ({ ...rest }) => (
   <StaticRouter>
@@ -24,15 +25,11 @@ const CreateNewMemoPageWithSavedDrafts = ({ ...rest }) => (
     </Provider>
   </StaticRouter>
 )
+const { buttons: buttonsSV } = translations.sv
+const { pageTitles: pageTitlesEN, buttons } = translations.en
 
-const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[0]
-const {
-  alerts: alertsSV,
-  info: infoSV,
-  pagesCreateNewPm: pagesCreateNewPmSV,
-  pageTitles: pageTitlesSV,
-  buttons: buttonsSV
-} = i18n.messages[1]
+const { alerts, info, pagesCreateNewPm } = i18n.messages[0]
+const { alerts: alertsSV, info: infoSV, pagesCreateNewPm: pagesCreateNewPmSV } = i18n.messages[1]
 const { getAllByRole, getAllByTestId, getByTestId } = screen
 
 describe('Component <CreateNewMemo> Create and publish course memo, initial state, no memo created yet.', () => {
@@ -45,7 +42,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const allH2Headers = getAllByRole('heading', { level: 1 })
     expect(allH2Headers.length).toBe(1)
-    expect(allH2Headers[0]).toHaveTextContent(pageTitles.new)
+    expect(allH2Headers[0]).toHaveTextContent(pageTitlesEN.new)
   })
 
   test('renders main subheader h4, course name. English.', () => {

@@ -8,15 +8,17 @@ import i18n from '../../i18n'
 import ChangePublished from '../../public/js/app/pages/ChangePublished'
 import mockRouterStore from '../mocks/RouterStore'
 import mockRouterStoreWithAllMemos from '../mocks/RouterStoreWithAllMemos'
+import translations from '../mocks/translations'
 
-const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[0]
+const { buttons, sectionsLabels, pageTitles } = translations.en
 const {
-  alerts: alertsSV,
-  info: infoSV,
-  pagesCreateNewPm: pagesCreateNewPmSV,
+  buttons: buttonsSV,
   pageTitles: pageTitlesSV,
-  buttons: buttonsSV
-} = i18n.messages[1]
+  sectionsLabels: sectionsLabelsSV
+} = translations.sv
+
+const { alerts, info, pagesCreateNewPm } = i18n.messages[0]
+const { alerts: alertsSV, info: infoSV, pagesCreateNewPm: pagesCreateNewPmSV } = i18n.messages[1]
 const { getAllByRole, getAllByTestId, getByTestId, getByText } = screen
 
 const ChangedPublishedEmpty = ({ ...rest }) => (

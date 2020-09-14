@@ -18,9 +18,8 @@ import mockRouterStoreWithChosenMemo from '../mocks/RouterStoreWithChosenMemo'
 import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
 import translations from '../mocks/translations'
 
-const { orderedFilledInAndVisible, sectionsLabels } = translations.en
-const { sourceInfo, memoTitlesByMemoLang } = i18n.messages[0]
-const { pageTitles: pageTitlesSV, sourceInfo: sourceInfoSV } = i18n.messages[1]
+const { memoTitlesByMemoLang, orderedFilledInAndVisible, sectionsLabels } = translations.en
+const { notIncludedInMemoYet, pageTitles } = translations.sv
 
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
 
@@ -69,7 +68,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   test('renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
-    expect(allH1Headers[0]).toHaveTextContent(pageTitlesSV.published)
+    expect(allH1Headers[0]).toHaveTextContent(pageTitles.published)
   })
 
   test('renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
@@ -195,7 +194,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   })
 
   test('renders checkbox which are checked and check it to reveal message about include in msg', async (done) => {
-    const { section: sectionIsNotIncluded } = sourceInfoSV.notIncludedInMemoYet
+    const { section: sectionIsNotIncluded } = notIncludedInMemoYet
     //Läraktiviteter - Learning activities
     const checkExclude = getAllByTestId('checkbox-visibility')[0]
     fireEvent.click(checkExclude)
