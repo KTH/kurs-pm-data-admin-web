@@ -250,7 +250,7 @@ class PreviewContainer extends Component {
           .then((result) => {
             if (result.status >= 400) {
               this.onAlert('errWhileDeleting', 'danger')
-              return 'ERROR-' + result.status
+              return 'ERROR-PreviewContainer.jsx-onFinish-' + result.status
             }
             setTimeout(() => {
               window.location = startAdminPageUrl
@@ -258,7 +258,7 @@ class PreviewContainer extends Component {
           })
           .catch((err) => {
             if (err.response) {
-              throw new Error(err.message)
+              throw new Error('PreviewContainer.jsx-onFinish-' + err.message)
             }
             throw err
           })

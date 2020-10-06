@@ -132,7 +132,7 @@ class ActionModalCourseRounds extends Component {
         const newResult = await axios.post(urlUpdateOrCreate, newInfo)
         if (newResult.status >= 400) {
           this.setAlarm('danger', 'errWhileSaving')
-          return 'ERROR-' + newResult.status
+          return 'ERROR- ActionModalCourseRounds - onSave -' + newResult.status
         }
 
         const eventFromParams = 'addedRoundId'
@@ -143,7 +143,7 @@ class ActionModalCourseRounds extends Component {
         window.location = reloadUrl
       } catch (error) {
         if (error.response) {
-          throw new Error(error.message)
+          throw new Error('ActionModalCourseRounds - onSave - ' + error.message)
         }
         throw error
       }

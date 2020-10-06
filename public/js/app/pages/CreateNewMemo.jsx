@@ -187,13 +187,13 @@ class CreateNewMemo extends Component {
       )
       if (resultAfterDelete.status >= 400) {
         this.setAlarm('danger', 'errWhileSaving')
-        return 'ERROR-' + resultAfterDelete.status
+        return 'ERROR-CreateNewMemo.jsx-onRemoveDraft -' + resultAfterDelete.status
       }
       window.location.reload()
     } catch (err) {
       this.setAlarm('danger', 'errWhileSaving')
       if (err.response) {
-        throw new Error(err.message)
+        throw new Error('CreateNewMemo.jsx-onRemoveDraft-' + err.message)
       }
       throw err
     }

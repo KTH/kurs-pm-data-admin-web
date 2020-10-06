@@ -66,7 +66,7 @@ class RouterStore {
 
       if (result) {
         if (result.status >= 400) {
-          return 'ERROR-' + result.status
+          return 'ERROR-RouterStore.js-showAvailableSemesterRounds-' + result.status
         }
         const { usedRoundsThisSemester } = result.data
 
@@ -74,7 +74,7 @@ class RouterStore {
       }
     } catch (error) {
       if (error.response) {
-        throw new Error(error.message)
+        throw new Error('RouterStore.js-showAvailableSemesterRounds-' + error.message)
       }
       throw error
     }
@@ -98,7 +98,7 @@ class RouterStore {
       return result
     } catch (error) {
       if (error.response) {
-        throw new Error(error.message)
+        throw new Error('RouterStore.js-postNewMemo-' + error.message)
       }
       throw error
     }
@@ -120,7 +120,7 @@ class RouterStore {
       return resultAfterUpdate
     } catch (error) {
       if (error.response) {
-        throw new Error(error.message)
+        throw new Error('RouterStore.js-updateDraft-' + error.message)
       }
       throw error
     }

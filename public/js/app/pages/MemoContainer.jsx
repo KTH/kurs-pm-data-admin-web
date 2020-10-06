@@ -222,7 +222,7 @@ class MemoContainer extends Component {
       if (resultAfterDelete.status >= 400) {
         this.onAlert('errWhileDeleting', 'danger')
 
-        return 'ERROR-' + resultAfterDelete.status
+        return 'ERROR-MemoContainer.jsx-onFinish-' + resultAfterDelete.status
       }
       setTimeout(() => {
         window.location = startAdminPageUrl
@@ -231,7 +231,7 @@ class MemoContainer extends Component {
       this.onAlert('errWhileDeleting', 'danger')
 
       if (err.response) {
-        throw new Error(err.message)
+        throw new Error('MemoContainer.jsx-onFinish-' + err.message)
       }
       throw err
     }
