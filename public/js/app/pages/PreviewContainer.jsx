@@ -104,18 +104,18 @@ const renderAllSections = ({ memoData }) => {
   return sections.map(({ id, content, extraHeaderTitle }) => {
     if (!sectionsWithContent.includes(id)) {
       return (
-        <span key={id}>
+        <section key={id}>
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
           <p>{EMPTY[memoLanguageIndex]}</p>
-        </span>
+        </section>
       )
     }
     // Contacts are displayed in the right column
     return (
       id !== 'contacts' && (
-        <span key={id}>
+        <section key={id}>
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
@@ -176,7 +176,7 @@ const renderAllSections = ({ memoData }) => {
                 )
               }
             )}
-        </span>
+        </section>
       )
     )
   })
@@ -188,7 +188,7 @@ const determineContentFlexibility = () => {
     const lastElBottomPx = lastColLastElem.getBoundingClientRect().bottom
     const allCenterSections = document
       .getElementById('flexible-content-of-center')
-      .querySelectorAll('article')
+      .querySelectorAll('span')
     allCenterSections.forEach((section) => {
       const topOfSection = section.getBoundingClientRect().top
       if (topOfSection > lastElBottomPx) section.classList.add('flexible-section-style')

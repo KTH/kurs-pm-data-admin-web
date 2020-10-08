@@ -767,7 +767,8 @@ ul {
   @extend %long-text-font-style;
 }
 table {
-  max-width: 120%;
+  width: 100%;
+
   @media print {
     width: 100%;
   }
