@@ -104,9 +104,11 @@ const otherContacts = (language, memoData, labels) =>
     </>
   )
 
-const CourseContacts = ({ language, memoData = {}, labels = {} }) => (
-  <>
-    <h2 className="preview-info">{labels.courseContactsTitle}</h2>
+const CourseContacts = ({ styleId = null, language, memoData = {}, labels = {} }) => (
+  <section id={styleId} aria-labelledby="memo-contacts">
+    <h2 id="memo-contacts" className="preview-info">
+      {labels.courseContactsTitle}
+    </h2>
     <div className="preview-info-box text-break">
       {communicationWithTeachers(language, memoData, labels)}
       {courseCoordinator(language, memoData, labels)}
@@ -115,7 +117,7 @@ const CourseContacts = ({ language, memoData = {}, labels = {} }) => (
       {examiner(language, memoData, labels)}
       {otherContacts(language, memoData, labels)}
     </div>
-  </>
+  </section>
 )
 
 export default CourseContacts

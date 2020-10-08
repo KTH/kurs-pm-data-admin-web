@@ -25,6 +25,10 @@ $white: #fff;
 
 %short-text-font-style {
   font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.5;
 }
 
 %column {
@@ -41,6 +45,95 @@ $white: #fff;
 %react-icon-basic {
   min-width: 1em;
   min-height: 1em;
+}
+
+%table-style {
+  .flexible-section-style {
+    table {
+      @media (min-width: 1000px) {
+        width: 150% !important;
+        table-layout: fixed;
+      }
+      @media print {
+        // must be here, to make it more specific and stronger rule
+        width: 100%;
+      }
+    }
+  }
+
+  table {
+    width: 100% !important;
+
+    text-align: left;
+    p,
+    ul,
+    li,
+    ol,
+    h1,
+    h2,
+    h3,
+    h4,
+    span,
+    div {
+      @extend %short-text-font-style;
+      margin-bottom: 0 !important;
+    }
+
+    tr {
+      th {
+        color: $white !important;
+        background-color: $grey !important;
+        font-weight: 500;
+        border-right: 1px solid $white;
+        border-bottom: 1px solid $white;
+        border-top: 0;
+        padding: 0.75rem;
+        h4 {
+          color: $white;
+        }
+        &:first-of-type {
+          border-top: 0;
+        }
+        &[scope='row'] {
+          vertical-align: middle;
+          border-top: 1px solid $white;
+          border-right: 0;
+        }
+      }
+
+      &:first-child {
+        th {
+          border-top: 1px solid $white;
+        }
+      }
+
+      td {
+        padding: 0.75rem;
+        background-color: $lightGrey;
+        border-top: 1px solid $white;
+      }
+    }
+
+    th {
+      border-top: 0;
+    }
+
+    //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
+    tbody:first-child {
+      tr:first-of-type > td {
+        color: $white;
+        background-color: $grey !important;
+        font-weight: 500;
+        border-right: 1px solid $white;
+        border-bottom: 1px solid $white;
+        border-top: 0;
+        p {
+          color: $white;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
 }
 
 #app {
@@ -578,6 +671,7 @@ h4.secondTitle {
       margin-bottom: 10px !important; // Resets to KTH Style
     }
   }
+  @extend %table-style;
 }
 
 h2.preview-info {
@@ -673,80 +767,78 @@ ul {
   @extend %long-text-font-style;
 }
 table {
-  width: 100%;
+  max-width: 120%;
+  @media print {
+    width: 100%;
+  }
   text-align: left;
-
-  thead {
-    tr {
-      th {
-        color: $white;
-        background-color: $grey;
-        font-weight: 500;
-        border-right: 1px solid $white;
-        border-bottom: 1px solid $white;
-        padding: 0.75rem;
-        h4 {
-          color: $white;
-        }
-      }
-    }
+  p,
+  ul,
+  li,
+  ol,
+  h1,
+  h2,
+  h3,
+  h4,
+  span,
+  div {
+    @extend %short-text-font-style;
+    margin-bottom: 0 !important;
   }
 
-  tbody {
-    tr {
-      th {
+  tr {
+    th {
+      color: $white !important;
+      background-color: $grey !important;
+      font-weight: 500;
+      border-right: 1px solid $white;
+      border-bottom: 1px solid $white;
+      border-top: 0;
+      padding: 0.75rem;
+      h4 {
         color: $white;
-        background-color: $grey;
-        font-weight: 500;
-        border-right: 1px solid $white;
-
-        &[scope='row'] {
-          vertical-align: middle;
-          border-top: 1px solid $white;
-          border-right: 0;
-        }
       }
-
-      &:first-child {
-        th {
-          border-top: 1px solid $white;
-        }
+      &:first-of-type {
+        border-top: 0;
       }
-
-      td {
-        padding: 0.75rem;
-        background-color: $lightGrey;
+      &[scope='row'] {
+        vertical-align: middle;
         border-top: 1px solid $white;
-        p {
-          font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-        }
+        border-right: 0;
       }
+    }
+
+    &:first-child {
+      th {
+        border-top: 1px solid $white;
+      }
+    }
+
+    td {
+      padding: 0.75rem;
+      background-color: $lightGrey;
+      border-top: 1px solid $white;
     }
   }
 
   th {
     border-top: 0;
   }
-}
 
-// Overriding Bootstrap table design
-
-table {
-  thead {
-    th {
+  //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
+  tbody:first-child {
+    tr:first-of-type > td {
+      color: $white !important;
+      background-color: $grey !important;
+      font-weight: 500;
+      border-right: 1px solid $white;
       border-bottom: 1px solid $white;
       border-top: 0;
-
-      &:first-of-type {
-        border-top: 0;
+      padding: 0.75rem;
+      p {
+        color: $white !important;
+        margin: 0;
       }
-    }
-  }
-
-  tr {
-    td {
-      background-color: $lightGrey;
-      border-top: 1px solid $white;
     }
   }
 }

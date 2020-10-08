@@ -29,6 +29,7 @@ import {
   SAVED_NEW_PARAM,
   ADMIN_URL
 } from '../util/constants'
+import PropTypes from 'prop-types'
 
 const PROGRESS = 3
 
@@ -181,6 +182,20 @@ const renderAllSections = ({ memoData }) => {
   })
 }
 
+const determineContentFlexibility = () => {
+  const lastColLastElem = document.getElementById('last-element-which-determines-styles')
+  if (lastColLastElem) {
+    const lastElBottomPx = lastColLastElem.getBoundingClientRect().bottom
+    const allCenterSections = document
+      .getElementById('flexible-content-of-center')
+      .querySelectorAll('article')
+    allCenterSections.forEach((section) => {
+      const topOfSection = section.getBoundingClientRect().top
+      if (topOfSection > lastElBottomPx) section.classList.add('flexible-section-style')
+    })
+  }
+}
+
 @inject(['routerStore'])
 @observer
 class PreviewContainer extends Component {
@@ -192,6 +207,11 @@ class PreviewContainer extends Component {
   isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
 
   langIndex = this.props.routerStore.langIndex
+
+  componentDidMount() {
+    //Decide which content can have wider content (exempel tables, to make them more readable)
+    determineContentFlexibility()
+  }
 
   onBack = () => {
     const editLocation = window.location.href.replace(/\/preview/, '')
@@ -365,7 +385,7 @@ class PreviewContainer extends Component {
               language={this.props.routerStore.memoData.memoCommonLangAbbr}
             />
             <Row>
-              <Col lg="8" className="preview-content-center">
+              <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
                 <CoursePresentation
                   courseImageUrl={courseImageUrl}
                   introText={this.props.routerStore.sellingText || ''}
@@ -402,9 +422,10 @@ class PreviewContainer extends Component {
                     />
                   </Col>
                 </Row>
-                <Row className="mt-4">
+                <Row id="row-for-the-last-element-which-determines-styles" className="mt-4">
                   <Col>
                     <CourseContacts
+                      styleId="last-element-which-determines-styles"
                       language={this.props.routerStore.memoData.memoCommonLangAbbr}
                       memoData={this.props.routerStore.memoData}
                       labels={courseContactsLabels}
@@ -430,6 +451,10 @@ class PreviewContainer extends Component {
       </Container>
     )
   }
+}
+
+PreviewContainer.propTypes = {
+  routerStore: PropTypes.func
 }
 
 export default PreviewContainer
