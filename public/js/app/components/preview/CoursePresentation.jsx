@@ -2,6 +2,7 @@
 import React from 'react'
 
 const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => {
+  const { imageAltText, imageTitleText } = labels
   return (
     <div style={{ minHeight: '160px' }}>
       <img
@@ -11,8 +12,8 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => 
         height="auto"
         width="150px"
         src={courseImageUrl}
-        alt={labels.imageAltText}
-        title={labels.imageTitleText}
+        alt={imageAltText}
+        title={imageTitleText}
       />
       <div dangerouslySetInnerHTML={{ __html: introText }} />
     </div>

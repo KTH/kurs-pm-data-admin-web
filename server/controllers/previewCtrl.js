@@ -21,7 +21,7 @@ function hydrateStores(renderProps) {
   const outp = {}
   const { props } = renderProps.props.children
 
-  Object.keys(props).map(key => {
+  Object.keys(props).map((key) => {
     if (typeof props[key].initializeStore === 'function') {
       outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
     }
@@ -41,6 +41,9 @@ function _staticRender(context, location) {
 }
 
 function resolveSellingText(sellingText, recruitmentText, lang) {
+  console.log('4444 resolveSellingText', sellingText[lang])
+  console.log('4444 lang', lang)
+
   return sellingText[lang] ? sellingText[lang] : recruitmentText
 }
 
@@ -85,24 +88,26 @@ async function renderMemoPreviewPage(req, res, next) {
     })
     renderProps.props.children.props.routerStore.memoDatas = allApiMemoData
     renderProps.props.children.props.routerStore.memoData = apiMemoData
+    const { semester, memoCommonLangAbbr } = apiMemoData
+    const memoLangAbbr = memoCommonLangAbbr || userLang
     renderProps.props.children.props.routerStore.setMemoBasicInfo({
       courseCode,
       memoEndPoint,
       semester: '',
-      memoLangAbbr: userLang
+      memoLangAbbr
     })
     renderProps.props.children.props.routerStore.koppsFreshData = await getSyllabus(
       courseCode,
-      apiMemoData.semester,
-      apiMemoData.memoCommonLangAbbr || userLang
-    ) // TODO: use apiMemoData instead
+      semester,
+      memoLangAbbr
+    )
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     const { recruitmentText } = renderProps.props.children.props.routerStore.koppsFreshData
     renderProps.props.children.props.routerStore.sellingText = resolveSellingText(
       sellingText,
       recruitmentText,
-      renderProps.props.children.props.routerStore.memoLanguage
+      memoLangAbbr
     )
     renderProps.props.children.props.routerStore.imageFromAdmin = imageInfo
 
