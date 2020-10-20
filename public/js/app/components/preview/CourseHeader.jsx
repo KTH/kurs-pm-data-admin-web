@@ -8,8 +8,12 @@ import { adminLink } from '../../util/links'
 import { Row, Col } from 'reactstrap'
 
 const formatCredits = (credits, creditUnitAbbr, language) => {
+  const creditsStandard = credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
+
   const localeCredits =
-    language === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-US')
+    language === 'sv'
+      ? creditsStandard.toLocaleString('sv-SE')
+      : creditsStandard.toLocaleString('en-US')
   const creditUnit = language === 'sv' ? creditUnitAbbr : 'credits'
   return `${localeCredits} ${creditUnit}`
 }

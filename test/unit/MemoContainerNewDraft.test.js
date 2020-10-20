@@ -66,7 +66,7 @@ describe('Component <MemoContainer> Edit. A New fresh draft of a NEW memo. Memo 
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(8)
     const expectedhds = [
-      'EF1111 Project in Plasma Physics 9 credits',
+      'EF1111 Project in Plasma Physics 9.0 credits',
       'Semester',
       'Course offering',
       contentAndOutcomes,
@@ -266,7 +266,7 @@ describe('Component <MemoContainer> Edit. A New fresh draft of a new memo. Memo 
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(8)
     const expectedhds = [
-      'EF1111 Project in Plasma Physics 9 hp',
+      'EF1111 Project in Plasma Physics 9.0 hp',
       'Termin',
       'Kursomgång',
       contentAndOutcomes,

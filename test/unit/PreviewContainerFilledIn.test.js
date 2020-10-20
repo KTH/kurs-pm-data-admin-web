@@ -20,7 +20,13 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
       memoLang,
       userLang
     ),
-    koppsFreshData: { courseMainSubjects: '', validFromTerm: 20191 },
+    koppsFreshData: {
+      courseMainSubjects: '',
+      validFromTerm: 20191,
+      title: 'Project in Plasma Physics',
+      credits: '9',
+      creditUnitAbbr: 'hp'
+    },
     browserConfig: { imageStorageUri: 'localhost://' },
     imageFromAdmin: '',
     noMemoData: () => false,
@@ -91,7 +97,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const expectedhds = [
       'Termin',
       'Kursomgång',
-      'EF1111 credits',
+      'EF1111 Project in Plasma Physics 9.0 credits',
       labelFacts.offeredByTitle,
       labelFacts.languageOfInstructionTitle,
       labelFacts.roundsTitle,

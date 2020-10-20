@@ -242,13 +242,16 @@ class PreviewContainer extends Component {
   courseSubHeader = () => {
     const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
     const { courseCode } = this.state.previewMemo
+    const creditsStandard =
+      credits && credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
+
     return (
       <span>
         {courseCode +
           ' ' +
           title +
           ' ' +
-          credits +
+          creditsStandard +
           ' ' +
           (this.langIndex === 1 ? creditUnitAbbr : 'credits')}
       </span>

@@ -167,7 +167,8 @@ function _getCommonInfo(resBody) {
     .filter((roundInfo) => roundInfo.schemaUrl !== undefined)
     .map(({ schemaUrl }) => schemaUrl)
   return {
-    credits: c.credits || '',
+    credits:
+      c.credits && c.credits.toString().indexOf('.') < 0 ? c.credits + '.0' : c.credits || '',
     creditUnitAbbr: c.creditUnitAbbr || '',
     gradingScale: gradingScale || '',
     title: c.title || '',

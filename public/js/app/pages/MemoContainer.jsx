@@ -71,11 +71,13 @@ class MemoContainer extends Component {
   courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = this.state
     const { courseCode, userLangIndex, memoLangIndex } = this
+    const creditsStandard = credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
+
     return (
       <span role="heading" aria-level="4">
-        {`${courseCode} ${userLangIndex === memoLangIndex ? title : titleOther} ${credits} ${
-          userLangIndex === 1 ? creditUnitAbbr : 'credits'
-        }`}
+        {`${courseCode} ${
+          userLangIndex === memoLangIndex ? title : titleOther
+        } ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`}
       </span>
     )
   }

@@ -49,14 +49,14 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const allH2Headers = getAllByRole('heading', { level: 4 })
     expect(allH2Headers.length).toBe(1)
-    expect(allH2Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9 credits')
+    expect(allH2Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
   test('renders main header h1, course name. Swedish.', () => {
     render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     const allH2Headers = getAllByRole('heading', { level: 4 })
     expect(allH2Headers.length).toBe(1)
-    expect(allH2Headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9 hp')
+    expect(allH2Headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('renders main header h2, Choose course offering', () => {

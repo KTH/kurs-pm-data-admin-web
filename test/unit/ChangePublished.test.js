@@ -53,14 +53,14 @@ describe('Component <ChangedPublished> Edit published course memo with empty lis
     render(<ChangedPublishedEmpty langAbbr="en" langIndex={0} />)
     const allH4Headers = getAllByRole('heading', { level: 4 })
     expect(allH4Headers.length).toBe(1)
-    expect(allH4Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9 credits')
+    expect(allH4Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
   test('renders main header h1, course name. Swedish.', () => {
     render(<ChangedPublishedEmpty langAbbr="sv" langIndex={1} />)
     const allH4Headers = getAllByRole('heading', { level: 4 })
     expect(allH4Headers.length).toBe(1)
-    expect(allH4Headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9 hp')
+    expect(allH4Headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('renders main header h2, Choose course offering', () => {

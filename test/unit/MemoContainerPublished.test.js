@@ -120,7 +120,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(16)
     const expectedhds = [
-      'EF1111 Project in Plasma Physics 9 hp',
+      'EF1111 Project in Plasma Physics 9.0 hp',
       'Termin',
       'Kursomgång',
       'Visa vägledning',

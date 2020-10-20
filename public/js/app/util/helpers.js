@@ -3,9 +3,11 @@ const i18n = require('../../../../i18n')
 
 export const combinedCourseName = (courseCode, course, langAbbr) => {
   const { credits, creditUnitAbbr, title } = course
-
+  const creditsStandard = credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
   const localeCredits =
-    langAbbr === 'sv' ? credits.toLocaleString('sv-SE') : credits.toLocaleString('en-US')
+    langAbbr === 'sv'
+      ? creditsStandard.toLocaleString('sv-SE')
+      : creditsStandard.toLocaleString('en-US')
   const creditUnit = langAbbr === 'sv' ? creditUnitAbbr.sv || creditUnitAbbr : 'credits'
 
   const courseName = `${courseCode} ${title[langAbbr]} ${localeCredits} ${creditUnit}`

@@ -3,12 +3,6 @@ import { seasonStr } from '../util/helpers'
 import i18n from '../../../../i18n'
 import PropTypes from 'prop-types'
 
-// const testDataCourseRounds = [
-//   'Kurstillfällesnamn1 (finns publicerat kurs-PM )',
-//   'Kurstillfällesnamn2',
-//   'Kurstillfällesnamn3'
-// ]
-
 const PageHead = ({ semester, memoName, userLangIndex }) => {
   const { messages } = i18n.messages[userLangIndex]
   return (
