@@ -166,9 +166,10 @@ function _getCommonInfo(resBody) {
   const schemaUrls = resBody.roundInfos
     .filter((roundInfo) => roundInfo.schemaUrl !== undefined)
     .map(({ schemaUrl }) => schemaUrl)
+  const isCreditNotStandard =
+    c.credits && c.credits.toString().indexOf('.') < 0 && c.credits.toString().indexOf(',') < 0
   return {
-    credits:
-      c.credits && c.credits.toString().indexOf('.') < 0 ? c.credits + '.0' : c.credits || '',
+    credits: isCreditNotStandard ? c.credits + '.0' : c.credits || '',
     creditUnitAbbr: c.creditUnitAbbr || '',
     gradingScale: gradingScale || '',
     title: c.title || '',
