@@ -41,9 +41,6 @@ function _staticRender(context, location) {
 }
 
 function resolveSellingText(sellingText, recruitmentText, lang) {
-  console.log('4444 resolveSellingText', sellingText[lang])
-  console.log('4444 lang', lang)
-
   return sellingText[lang] ? sellingText[lang] : recruitmentText
 }
 
