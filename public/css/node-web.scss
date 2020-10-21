@@ -696,6 +696,17 @@ h2.preview-info {
   margin-bottom: 0;
 }
 
+.pdf-post-link {
+  margin: 0;
+
+  &:after {
+    height: 0.9em;
+    margin: 0 0 0 0.4em;
+    width: 0.7em;
+    vertical-align: -7%;
+  }
+}
+
 .pdf-icon {
   color: #000;
   margin-left: 0.5rem;
