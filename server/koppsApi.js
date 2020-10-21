@@ -53,18 +53,10 @@ async function getKoppsCourseRoundTerms(courseCode) {
     const res = await client.getAsync({ uri, useCache: true })
     const { course, termsWithCourseRounds } = res.body
     const slicedTermsByPrevTerm = _sliceTermsArrByPrevTerm(termsWithCourseRounds)
-    const syllabusDatesSorted = [
-      ...Array.from(
-        new Set(
-          slicedTermsByPrevTerm.map((term) => Number(term.courseSyllabus.validFromTerm)).sort()
-        )
-      )
-    ]
 
     return {
       course,
-      lastTermsInfo: slicedTermsByPrevTerm,
-      syllabusDatesSorted
+      lastTermsInfo: slicedTermsByPrevTerm
     }
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
@@ -73,17 +65,34 @@ async function getKoppsCourseRoundTerms(courseCode) {
 }
 
 /** STEP 2: CONTENT FOR COURSE SYLLLABUS INFO AND OTHER COURES INFO WHEN USER EDIT A MEMO * */
+const _combineStartEndDates = (sortedSyllabuses, indexOf) => {
+  if (sortedSyllabuses.length === 0) return ''
+  let validUntilTerm = ''
+
+  const nextSyllabusDate = sortedSyllabuses[indexOf - 1]
+    ? sortedSyllabuses[indexOf - 1].validFromTerm.term
+    : ''
+  const lastTerm = nextSyllabusDate.toString().substring(4, 5)
+  if (lastTerm === '2') validUntilTerm = nextSyllabusDate - 1
+  else if (lastTerm === '1') validUntilTerm = nextSyllabusDate - 9
+  return validUntilTerm
+}
 
 function _getSelectedSyllabus(body, semester) {
   // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
   const { publicSyllabusVersions } = body
-  const sortedDescSyllabusTerms = publicSyllabusVersions.sort(
+  const sortedSyllabusesByTerms = publicSyllabusVersions.sort(
     (a, b) => Number(b.validFromTerm.term) - Number(a.validFromTerm.term)
   )
-  const semesterSyllabus = sortedDescSyllabusTerms.find(
+  const syllabusIndex = sortedSyllabusesByTerms.findIndex(
     (syllabus) => syllabus.validFromTerm.term <= Number(semester)
   )
-  const { courseSyllabus, validFromTerm } = semesterSyllabus
+
+  const syllabusContent = sortedSyllabusesByTerms[syllabusIndex]
+
+  const validUntilTerm = _combineStartEndDates(sortedSyllabusesByTerms, syllabusIndex)
+
+  const { courseSyllabus, validFromTerm } = syllabusContent
 
   const selectedFields = {
     learningOutcomes: courseSyllabus.goals || '',
@@ -92,8 +101,12 @@ function _getSelectedSyllabus(body, semester) {
     ethicalApproach: courseSyllabus.ethicalApproach || '',
     examComments: courseSyllabus.examComments || '',
     otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade || '',
-    validFromTerm: validFromTerm.term || ''
+    syllabusValid: {
+      validFromTerm: validFromTerm.term || '',
+      validUntilTerm
+    }
   }
+
   return selectedFields
 }
 
@@ -208,6 +221,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
     const departmentName = _getDepartment(body)
     const recruitmentText = _getRecruitmentText(body)
     const courseMainSubjects = _getCourseMainSubjects(body)
+
     return {
       ...commonInfo,
       ...combinedExamInfo,

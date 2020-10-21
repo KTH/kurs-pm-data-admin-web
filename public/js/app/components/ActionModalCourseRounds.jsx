@@ -233,8 +233,7 @@ ActionModalCourseRounds.propTypes = {
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(
       PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
-    ).isRequired,
-    syllabusDatesSorted: PropTypes.arrayOf(PropTypes.string).isRequired
+    ).isRequired
   }),
   // eslint-disable-next-line react/require-default-props
   routerStore: PropTypes.func
