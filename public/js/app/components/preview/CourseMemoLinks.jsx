@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
+import { FaAsterisk } from 'react-icons/fa'
 
 import { seasonStr } from '../../util/helpers'
 import { linkToArchive, /* linkToPublishedMemoPdf, */ linkToSyllabus } from '../../util/links'
@@ -68,10 +68,12 @@ const pdfLink = (labels /* courseCode, memoEndPoint */) => (
   </>
 )
 
-const syllabusLink = (language, labels, courseCode, validFromTerm) => {
-  const syllabusLinkLabel = `${labels.syllabusLinkStart}${seasonStr(language, validFromTerm)}${
-    labels.syllabusLinkEnd
-  }`
+const syllabusLink = (language, labels, courseCode, syllabusValid) => {
+  const { validFromTerm, validUntilTerm } = syllabusValid
+  const syllabusLinkLabel = `${labels.syllabusLinkStart} ${courseCode} (${seasonStr(
+    language,
+    validFromTerm || ''
+  )}-${seasonStr(language, validUntilTerm || '')})`
   return (
     <>
       <h4>{labels.syllabus}</h4>
@@ -80,14 +82,14 @@ const syllabusLink = (language, labels, courseCode, validFromTerm) => {
         {labels.syllabusInformation}
         <br />
         <a
+          className="pdf-post-link"
           id="syllabus-link"
-          title={syllabusLinkLabel}
+          title={'PDF ' + syllabusLinkLabel}
           href={linkToSyllabus(courseCode, validFromTerm, language)}
           target="_blank"
           rel="noopener noreferrer"
         >
           {syllabusLinkLabel}
-          <FaRegFilePdf className="pdf-icon" />
         </a>
         <Popup header={labels.syllabus} body={labels.linkOpensInNewTab} targetId="syllabus-link" />
       </p>
@@ -95,12 +97,12 @@ const syllabusLink = (language, labels, courseCode, validFromTerm) => {
   )
 }
 
-const CourseMemoLinks = ({ language, labels, memoData = {}, validFromTerm = '' }) => (
+const CourseMemoLinks = ({ language, labels, memoData = {}, syllabusValid = {} }) => (
   <div className="preview-info-box">
     {version(language, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}
-    {syllabusLink(language, labels, memoData.courseCode, validFromTerm)}
+    {syllabusLink(language, labels, memoData.courseCode, syllabusValid)}
   </div>
 )
 

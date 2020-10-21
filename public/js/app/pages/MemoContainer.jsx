@@ -14,8 +14,7 @@ import {
   REMOVE_PUBLISHED_PARAM,
   SAVED_NEW_PARAM
 } from '../util/constants'
-import { fetchParameters } from '../util/helpers'
-// import { Switch,Route } from 'react-router-dom'
+import { fetchParameters, seasonStr } from '../util/helpers'
 import PageHead from '../components/PageHead'
 import ControlPanel from '../components/ControlPanel'
 import NewSectionEditor from '../components/NewSectionEditor'
@@ -86,9 +85,6 @@ class MemoContainer extends Component {
     this.setState({ isError: true })
     const alertElement = document.getElementById('scroll-here-if-alert')
     alertElement.scrollIntoView({ behavior: 'smooth' })
-    // setTimeout(() => {
-    //   this.setState({ isError: false })
-    // }, 2000)
   }
 
   /* General functions */
@@ -112,8 +108,15 @@ class MemoContainer extends Component {
   }
 
   onSave = async (editorContent, alertTranslationId) => {
-    const { courseCode, memoEndPoint } = this
-    const body = { courseCode, memoEndPoint, ...editorContent } // containt kopps old data, or it is empty first time
+    const { courseCode, memoEndPoint, memoLangIndex } = this
+    const { syllabusValid } = this.state
+    const { validFromTerm, validUntilTerm } = syllabusValid
+    syllabusValid.textFromTo = `${seasonStr(memoLangIndex, validFromTerm)} - ${seasonStr(
+      memoLangIndex,
+      validUntilTerm
+    )}`
+
+    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid } // containt kopps old data, or it is empty first time
     try {
       const result = await this.props.routerStore.updateDraft(body)
       if (result.status >= 400) {

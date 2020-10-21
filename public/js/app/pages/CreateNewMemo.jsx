@@ -11,7 +11,6 @@ import {
   emptyCheckboxesByIds,
   seasonStr,
   sortRoundAndKoppsInfo,
-  syllabusValidDates,
   removeAndSortRoundAndInfo,
   uncheckRadioById,
   fetchParameters
@@ -201,7 +200,7 @@ class CreateNewMemo extends Component {
 
   onSubmitNew = async () => {
     const { courseCode } = this
-    const { course, syllabusDatesSorted } = this.props.routerStore.miniKoppsObj
+    const { course } = this.props.routerStore.miniKoppsObj
     const { action, semester, chosen, copyFromMemoEndPoint } = this.state
     const { newMemoName, memoCommonLangAbbr, sortedRoundIds } = chosen
 
@@ -215,14 +214,6 @@ class CreateNewMemo extends Component {
     } else if (sortedRoundIds.length > 0 && !chosen.existingDraftEndPoint) {
       const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
 
-      const { courseSyllabus } = this.lastTerms.find(({ term }) => term === semester)
-
-      const syllabusValid = syllabusValidDates(
-        courseSyllabus,
-        memoCommonLangAbbr,
-        syllabusDatesSorted
-      )
-
       // Create new draft from chosen semester rounds
       const body = {
         courseCode,
@@ -232,8 +223,7 @@ class CreateNewMemo extends Component {
         ladokRoundIds: sortedRoundIds,
         languageOfInstructions: chosen.languageOfInstructions,
         memoEndPoint: courseCode + semester + '-' + sortedRoundIds.join('-'),
-        semester,
-        syllabusValid
+        semester
       }
 
       try {
@@ -551,8 +541,7 @@ CreateNewMemo.propTypes = {
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(
       PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
-    ).isRequired,
-    syllabusDatesSorted: PropTypes.arrayOf(PropTypes.string).isRequired
+    ).isRequired
   }),
   routerStore: PropTypes.func
 }
