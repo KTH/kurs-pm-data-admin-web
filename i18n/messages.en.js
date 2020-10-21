@@ -829,8 +829,7 @@ module.exports = {
     courseMemoPdf: 'Course memo pdf',
     syllabus: 'Syllabus',
     syllabusInformation: 'fetched from',
-    syllabusLinkStart: 'Syllabus (',
-    syllabusLinkEnd: '– )',
+    syllabusLinkStart: 'Syllabus',
     mandatoryFieldMissing: 'Missing mandatory information',
     linkOpensInNewTab: 'Link will open in new tab',
     inDevelopment: 'In development'
