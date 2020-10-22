@@ -690,6 +690,16 @@ h2.preview-info {
   p + h4 {
     margin-top: 1.5rem;
   }
+  #print-link-with-modal {
+    h4 {
+      margin-bottom: 1rem;
+    }
+  }
+  .btn-link {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
 }
 
 .preview-course-header-title {
