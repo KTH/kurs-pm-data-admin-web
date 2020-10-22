@@ -70,13 +70,18 @@ class MemoContainer extends Component {
   courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = this.state
     const { courseCode, userLangIndex, memoLangIndex } = this
-    const creditsStandard = credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
+
+    const creditsStandard = credits || ''
+    const courseTitle = `${courseCode} ${
+      userLangIndex === memoLangIndex ? title : titleOther
+    } ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`
+
+    // update course title in case if smth changed in kopps
+    this.props.routerStore.memoData.courseTitle = courseTitle
 
     return (
       <span role="heading" aria-level="4">
-        {`${courseCode} ${
-          userLangIndex === memoLangIndex ? title : titleOther
-        } ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`}
+        {courseTitle}
       </span>
     )
   }
@@ -110,11 +115,14 @@ class MemoContainer extends Component {
   onSave = async (editorContent, alertTranslationId) => {
     const { courseCode, memoEndPoint, memoLangIndex } = this
     const { syllabusValid } = this.state
-    const { validFromTerm, validUntilTerm } = syllabusValid
-    syllabusValid.textFromTo = `${seasonStr(memoLangIndex, validFromTerm)} - ${seasonStr(
-      memoLangIndex,
-      validUntilTerm
-    )}`
+
+    const { validFromTerm, validUntilTerm } = syllabusValid || {}
+    if (syllabusValid)
+      syllabusValid.textFromTo =
+        `${seasonStr(memoLangIndex, validFromTerm)} - ${seasonStr(
+          memoLangIndex,
+          validUntilTerm
+        )}` || ''
 
     const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid } // containt kopps old data, or it is empty first time
     try {
