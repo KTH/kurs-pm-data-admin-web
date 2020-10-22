@@ -1,10 +1,9 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 import { FaAsterisk } from 'react-icons/fa'
-
 import { seasonStr } from '../../util/helpers'
-import { linkToArchive, /* linkToPublishedMemoPdf, */ linkToSyllabus } from '../../util/links'
-
+import { linkToArchive, linkToSyllabus } from '../../util/links'
+import pdfLink from './PrintPdfLink'
 import Popup from './Popup'
 
 const formatVersion = (language = 'sv', version) => {
@@ -48,26 +47,6 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const pdfLink = (labels /* courseCode, memoEndPoint */) => (
-  <>
-    <h4>{labels.courseMemoPdf}</h4>
-    <p>
-      <i>{labels.inDevelopment}</i>
-      {/* <a
-        id="pdf-link"
-        title={memoEndPoint}
-        href={linkToPublishedMemoPdf(courseCode, memoEndPoint)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {memoEndPoint}
-        <FaRegFilePdf className="pdf-icon" />
-      </a>
-      <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" /> */}
-    </p>
-  </>
-)
-
 const syllabusLink = (language, labels, courseCode, syllabusValid) => {
   const { validFromTerm, validUntilTerm } = syllabusValid
   const syllabusLinkLabel = `${labels.syllabusLinkStart} ${courseCode} (${seasonStr(
@@ -101,7 +80,7 @@ const CourseMemoLinks = ({ language, labels, memoData = {}, syllabusValid = {} }
   <div className="preview-info-box">
     {version(language, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
-    {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}
+    {pdfLink(labels)}
     {syllabusLink(language, labels, memoData.courseCode, syllabusValid)}
   </div>
 )
