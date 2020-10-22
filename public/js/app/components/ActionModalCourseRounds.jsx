@@ -113,7 +113,6 @@ class ActionModalCourseRounds extends Component {
       const newMemoName = sortedKoppsInfo
         .map((round) => combineMemoName(round, semester, memoCommonLangAbbr))
         .join(', ')
-      console.log('newMemoName ', newMemoName)
       const firstDraft = version === FIRST_VERSION && status === 'draft'
       const newMemoEndPoint = firstDraft
         ? courseCode + semester + '-' + sortedRoundIds.join('-')
