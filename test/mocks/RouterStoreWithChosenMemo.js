@@ -12,16 +12,24 @@ const setMemoBasicInfoTest = (props) => ({
 })
 const reducedKoppsData = {
   en: {
-    credits: 9,
+    credits: '9.0',
     creditUnitAbbr: 'hp',
     title: 'Project in Plasma Physics',
-    titleOther: 'Projekt i plasmafysik'
+    titleOther: 'Projekt i plasmafysik',
+    syllabusValid: {
+      validFromTerm: 20191,
+      validUntilTerm: 20201
+    }
   },
   sv: {
-    credits: 9,
+    credits: '9.0',
     creditUnitAbbr: 'hp',
     title: 'Projekt i plasmafysiks',
-    titleOther: 'Project in Plasma Physics'
+    titleOther: 'Project in Plasma Physics',
+    syllabusValid: {
+      validFromTerm: 20191,
+      validUntilTerm: 20201
+    }
   }
 }
 

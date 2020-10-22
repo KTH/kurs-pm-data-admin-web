@@ -195,8 +195,6 @@ describe('Component <MemoContainer> Edit. A New fresh draft of a NEW memo. Memo 
 
   test('renders alert about result of saving data', async () => {
     const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-    // const onSave = jest.fn()
-    // const axios = { post: jest.fn() }
     //Detailed plan
     const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[1]
     fireEvent.click(checkboxIncludeInMemo)

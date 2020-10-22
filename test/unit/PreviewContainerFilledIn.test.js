@@ -21,11 +21,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
       userLang
     ),
     koppsFreshData: {
-      courseMainSubjects: '',
-      validFromTerm: 20191,
-      title: 'Project in Plasma Physics',
-      credits: '9',
-      creditUnitAbbr: 'hp'
+      courseMainSubjects: ''
     },
     browserConfig: { imageStorageUri: 'localhost://' },
     imageFromAdmin: '',
@@ -102,7 +98,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       labelFacts.languageOfInstructionTitle,
       labelFacts.roundsTitle,
       labelLinks.versionTitle,
-      labelLinks.courseMemoPdf,
+      labelLinks.courseMemoPrint,
       labelLinks.syllabus,
       'Student at KTH',
       labelContacts.communicationWithTeachersTitle,
@@ -116,7 +112,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('Get buttons and check it is name', async () => {
     const allBtns = getAllByRole('button')
-    expect(allBtns.length).toBe(11)
+    expect(allBtns.length).toBe(12)
     const expectedBtns = [
       '', //Info icon
       breadCrumbLabels.university,
@@ -126,6 +122,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       `‹ ${breadCrumbLabels.directory}`,
       'Inför kursval',
       'Kursens utveckling och historik',
+      'Print or save',
       'Redigera',
       'Avbryt',
       'Publicera'
@@ -143,23 +140,23 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expect(otherContacts).toBeInTheDocument()
   })
 
-  test('Get Syllabus link names ', async () => {
-    const syllabusName = getByText('Syllabus (Spring 2019– )')
-    expect(syllabusName).toBeInTheDocument()
-  })
-
   test('Get all link names if it renders', async () => {
     const allLinks = getAllByRole('link')
     expect(allLinks.length).toBe(6)
     const expectedLinks = [
       'Administrate About course information',
       labelLinks.courseMemoArchiveLabel,
-      'Syllabus (Spring 2019– )',
+      'Syllabus EF1111 (Spring 2019-Spring 2020)',
       'Before and during a course',
       'Contact persons and student counselling',
       `Rights and responsibilities`
     ]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
+  })
+
+  test('Get Syllabus link names ', async () => {
+    const syllabusName = getByText('Syllabus EF1111 (Spring 2019-Spring 2020)')
+    expect(syllabusName).toBeInTheDocument()
   })
 
   test('Syllabus link have a correct href', async () => {

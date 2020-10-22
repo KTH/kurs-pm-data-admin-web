@@ -345,8 +345,7 @@ const mockMiniKoppsObj = {
         additionalRegulations: { sv: '', en: '' }
       }
     }
-  ],
-  syllabusDatesSorted: [20191]
+  ]
 }
 
 export default mockMiniKoppsObj
