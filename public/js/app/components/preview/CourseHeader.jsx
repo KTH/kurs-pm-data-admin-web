@@ -21,9 +21,7 @@ const formatCredits = (credits, creditUnitAbbr, language) => {
 const CourseHeader = ({
   courseMemo = '',
   courseCode = '',
-  title = '',
-  credits = '',
-  creditUnitAbbr = '',
+  courseTitle = '',
   labels = {},
   language = 'sv'
 }) => {
@@ -37,9 +35,7 @@ const CourseHeader = ({
       </Row>
       <Row className="pb-3">
         <Col className="text-left" xs="12" lg="6">
-          <h4 className="secondTitle">
-            {courseCode} {title} {formatCredits(credits, creditUnitAbbr, language)}
-          </h4>
+          <h4 className="secondTitle">{courseTitle}</h4>
         </Col>
         <Col className="text-lg-right" xs="12" lg="6">
           <a

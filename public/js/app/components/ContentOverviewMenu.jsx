@@ -19,7 +19,6 @@ const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
     // Display mode is inverted from whether or not an eye slash icon should be shown
     return !visibleInMemoProp[contentId]
   }
-  // console.log()
   if (typeof visibleInMemoProp === 'boolean') return !visibleInMemoProp
 
   // Header isn’t required and there’s no display mode saved

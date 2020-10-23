@@ -31,7 +31,7 @@ const ControlPanel = (props) => {
         {progressNum === 2 && (
           <Button
             onClick={onBack}
-            className="btn-back"
+            className="back"
             alt="Back to step 1, choose course memo or choose course round"
           >
             {isDraftOfPublished
@@ -40,7 +40,7 @@ const ControlPanel = (props) => {
           </Button>
         )}
         {progressNum === 3 && (
-          <Button onClick={onBack} className="btn-back" alt="Back to step 2, edit memo">
+          <Button onClick={onBack} className="back" alt="Back to step 2, edit memo">
             {buttons.edit}
           </Button>
         )}
@@ -99,10 +99,9 @@ const ControlPanel = (props) => {
           <Button
             onClick={onSubmit}
             id="to-id"
-            className="btn-next"
+            className="next"
             style={{ marginLeft: '1.25em' }}
             color="success"
-            alt="Go to ..."
           >
             {
               {

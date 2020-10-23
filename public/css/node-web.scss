@@ -690,10 +690,31 @@ h2.preview-info {
   p + h4 {
     margin-top: 1.5rem;
   }
+  #print-link-with-modal {
+    h4 {
+      margin-bottom: 1rem;
+    }
+  }
+  .btn-link {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
 }
 
 .preview-course-header-title {
   margin-bottom: 0;
+}
+
+.pdf-post-link {
+  margin: 0;
+
+  &:after {
+    height: 0.9em;
+    margin: 0 0 0 0.4em;
+    width: 0.7em;
+    vertical-align: -7%;
+  }
 }
 
 .pdf-icon {
