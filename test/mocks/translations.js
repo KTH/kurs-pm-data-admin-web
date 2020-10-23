@@ -47,7 +47,7 @@ const translations = {
     labelLinks: {
       courseMemoArchiveLabel: 'Course memo archive',
       versionTitle: 'Course memo version',
-      courseMemoPdf: 'Course memo pdf',
+      courseMemoPrint: 'Print or save',
       syllabus: 'Syllabus'
     },
     memoTitlesByMemoLang: {

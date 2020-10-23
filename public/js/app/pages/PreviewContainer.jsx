@@ -239,25 +239,6 @@ class PreviewContainer extends Component {
     )
   }
 
-  courseSubHeader = () => {
-    const { title, credits, creditUnitAbbr } = this.props.routerStore.koppsFreshData
-    const { courseCode } = this.state.previewMemo
-    const creditsStandard =
-      credits && credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
-
-    return (
-      <span>
-        {courseCode +
-          ' ' +
-          title +
-          ' ' +
-          creditsStandard +
-          ' ' +
-          (this.langIndex === 1 ? creditUnitAbbr : 'credits')}
-      </span>
-    )
-  }
-
   onFinish = () => {
     const { isDraftOfPublished } = this
     const { courseCode, semester, memoEndPoint, memoName } = this.state.previewMemo
@@ -293,6 +274,7 @@ class PreviewContainer extends Component {
 
   render() {
     const { langIndex } = this
+    const { routerStore } = this.props
     const {
       progressTitleHeaders,
       progressBarHeaders,
@@ -310,17 +292,17 @@ class PreviewContainer extends Component {
     } = i18n.messages[this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1]
     const { memoName, semester = '', courseCode } = this.state.previewMemo
     const courseImage = resolveCourseImage(
-      this.props.routerStore.imageFromAdmin,
-      this.props.routerStore.koppsFreshData.courseMainSubjects,
-      this.props.routerStore.memoLanguage
+      routerStore.imageFromAdmin,
+      routerStore.koppsFreshData.courseMainSubjects,
+      routerStore.memoLanguage
     )
-    const allSections = renderAllSections(this.props.routerStore)
-    const courseImageUrl = `${this.props.routerStore.browserConfig.imageStorageUri}${courseImage}`
+    const allSections = renderAllSections(routerStore)
+    const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
 
     // Assumes that API only gave one memoData per memoEndPoint
     // Duplicate id’s filtered out later
     let active = false
-    let courseMemoItems = this.props.routerStore.memoDatas.map((m) => {
+    let courseMemoItems = routerStore.memoDatas.map((m) => {
       const id = m.memoEndPoint
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       // memoEndPoint is currently displayed
@@ -335,11 +317,11 @@ class PreviewContainer extends Component {
     // memoEndPoint has not been published before, and wasn’t in memoData
     if (!active) {
       courseMemoItems.push({
-        id: this.props.routerStore.memoEndPoint,
+        id: routerStore.memoEndPoint,
         label: concatMemoName(
-          this.props.routerStore.memoData.semester,
-          this.props.routerStore.memoData.ladokRoundIds,
-          this.props.routerStore.memoData.memoCommonLangAbbr
+          routerStore.memoData.semester,
+          routerStore.memoData.ladokRoundIds,
+          routerStore.memoData.memoCommonLangAbbr
         ),
         active: true,
         url: `/kurs-pm/${courseCode}/${this.state.previewMemo.memoEndPoint}`
@@ -355,7 +337,7 @@ class PreviewContainer extends Component {
       <Container className="kip-container preview-container" fluid>
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
-            {this.courseSubHeader()}
+            <span>{routerStore.memoData.courseTitle}</span>
           </PageTitle>
         </Row>
         <ProgressBar active={this.state.progress} pages={progressBarHeaders} />
@@ -376,22 +358,20 @@ class PreviewContainer extends Component {
           <Col lg="9">
             <CourseHeader
               courseMemo={concatMemoName(
-                this.props.routerStore.memoData.semester,
-                this.props.routerStore.memoData.ladokRoundIds,
-                this.props.routerStore.memoData.memoCommonLangAbbr
+                routerStore.memoData.semester,
+                routerStore.memoData.ladokRoundIds,
+                routerStore.memoData.memoCommonLangAbbr
               )}
               courseCode={courseCode}
-              title={this.props.routerStore.koppsFreshData.title}
-              credits={this.props.routerStore.koppsFreshData.credits}
-              creditUnitAbbr={this.props.routerStore.koppsFreshData.creditUnitAbbr}
+              courseTitle={routerStore.memoData.courseTitle}
               labels={courseHeaderLabels}
-              language={this.props.routerStore.memoData.memoCommonLangAbbr}
+              language={routerStore.memoData.memoCommonLangAbbr}
             />
             <Row>
               <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
                 <CoursePresentation
                   courseImageUrl={courseImageUrl}
-                  introText={this.props.routerStore.sellingText || ''}
+                  introText={routerStore.sellingText || ''}
                   labels={coursePresentationLabels}
                 />
                 {allSections}
@@ -400,27 +380,27 @@ class PreviewContainer extends Component {
                 <Row className="mb-4">
                   <Col>
                     <CourseFacts
-                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
+                      language={routerStore.memoData.memoCommonLangAbbr}
                       labels={courseFactsLabels}
-                      departmentName={this.props.routerStore.koppsFreshData.departmentName}
-                      memoData={this.props.routerStore.memoData}
+                      departmentName={routerStore.memoData.departmentName}
+                      memoData={routerStore.memoData}
                     />
                   </Col>
                 </Row>
                 <Row className="my-4">
                   <Col>
                     <CourseMemoLinks
-                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
+                      language={routerStore.memoData.memoCommonLangAbbr}
                       labels={courseMemoLinksLabels}
-                      memoData={this.props.routerStore.memoData}
-                      validFromTerm={this.props.routerStore.koppsFreshData.validFromTerm}
+                      memoData={routerStore.memoData}
+                      syllabusValid={routerStore.memoData.syllabusValid}
                     />
                   </Col>
                 </Row>
                 <Row className="mt-4">
                   <Col>
                     <CourseLinks
-                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
+                      language={routerStore.memoData.memoCommonLangAbbr}
                       labels={courseLinksLabels}
                     />
                   </Col>
@@ -429,8 +409,8 @@ class PreviewContainer extends Component {
                   <Col>
                     <CourseContacts
                       styleId="last-element-which-determines-styles"
-                      language={this.props.routerStore.memoData.memoCommonLangAbbr}
-                      memoData={this.props.routerStore.memoData}
+                      language={routerStore.memoData.memoCommonLangAbbr}
+                      memoData={routerStore.memoData}
                       labels={courseContactsLabels}
                     />
                   </Col>

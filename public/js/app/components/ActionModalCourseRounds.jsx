@@ -113,7 +113,6 @@ class ActionModalCourseRounds extends Component {
       const newMemoName = sortedKoppsInfo
         .map((round) => combineMemoName(round, semester, memoCommonLangAbbr))
         .join(', ')
-      console.log('newMemoName ', newMemoName)
       const firstDraft = version === FIRST_VERSION && status === 'draft'
       const newMemoEndPoint = firstDraft
         ? courseCode + semester + '-' + sortedRoundIds.join('-')
@@ -233,8 +232,7 @@ ActionModalCourseRounds.propTypes = {
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(
       PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
-    ).isRequired,
-    syllabusDatesSorted: PropTypes.arrayOf(PropTypes.string).isRequired
+    ).isRequired
   }),
   // eslint-disable-next-line react/require-default-props
   routerStore: PropTypes.func

@@ -14,8 +14,7 @@ import {
   REMOVE_PUBLISHED_PARAM,
   SAVED_NEW_PARAM
 } from '../util/constants'
-import { fetchParameters } from '../util/helpers'
-// import { Switch,Route } from 'react-router-dom'
+import { fetchParameters, seasonStr } from '../util/helpers'
 import PageHead from '../components/PageHead'
 import ControlPanel from '../components/ControlPanel'
 import NewSectionEditor from '../components/NewSectionEditor'
@@ -71,13 +70,18 @@ class MemoContainer extends Component {
   courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = this.state
     const { courseCode, userLangIndex, memoLangIndex } = this
-    const creditsStandard = credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
+
+    const creditsStandard = credits || ''
+    const courseTitle = `${courseCode} ${
+      userLangIndex === memoLangIndex ? title : titleOther
+    } ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`
+
+    // update course title in case if smth changed in kopps
+    this.props.routerStore.memoData.courseTitle = courseTitle
 
     return (
       <span role="heading" aria-level="4">
-        {`${courseCode} ${
-          userLangIndex === memoLangIndex ? title : titleOther
-        } ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`}
+        {courseTitle}
       </span>
     )
   }
@@ -86,9 +90,6 @@ class MemoContainer extends Component {
     this.setState({ isError: true })
     const alertElement = document.getElementById('scroll-here-if-alert')
     alertElement.scrollIntoView({ behavior: 'smooth' })
-    // setTimeout(() => {
-    //   this.setState({ isError: false })
-    // }, 2000)
   }
 
   /* General functions */
@@ -112,8 +113,18 @@ class MemoContainer extends Component {
   }
 
   onSave = async (editorContent, alertTranslationId) => {
-    const { courseCode, memoEndPoint } = this
-    const body = { courseCode, memoEndPoint, ...editorContent } // containt kopps old data, or it is empty first time
+    const { courseCode, memoEndPoint, memoLangIndex } = this
+    const { syllabusValid } = this.state
+
+    const { validFromTerm, validUntilTerm } = syllabusValid || {}
+    if (syllabusValid)
+      syllabusValid.textFromTo =
+        `${seasonStr(memoLangIndex, validFromTerm)} - ${seasonStr(
+          memoLangIndex,
+          validUntilTerm
+        )}` || ''
+
+    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid } // containt kopps old data, or it is empty first time
     try {
       const result = await this.props.routerStore.updateDraft(body)
       if (result.status >= 400) {

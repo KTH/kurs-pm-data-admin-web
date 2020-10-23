@@ -15,9 +15,9 @@ export const combinedCourseName = (courseCode, course, langAbbr) => {
 }
 
 export const seasonStr = (language, semesterRaw) => {
+  if (!semesterRaw) return ''
   const langIndex = typeof language === 'number' ? language : language === 'en' ? 0 : 1
   const { extraInfo } = i18n.messages[langIndex]
-  if (!semesterRaw) return ''
   const termStringAsSeason = `${
     extraInfo.season[semesterRaw.toString()[4]]
   }${semesterRaw.toString().slice(0, 4)}`
@@ -122,30 +122,4 @@ export const fetchParameters = (props) => {
     .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
   // }
   return params
-}
-
-export const syllabusValidDates = (courseSyllabus, memoLangAbbr, syllabusDatesSorted) => {
-  const validFromTerm = Number(courseSyllabus.validFromTerm)
-  const indexOfTermOfNextSyllabus =
-    syllabusDatesSorted.findIndex((someSyllabusDate) => someSyllabusDate === validFromTerm) + 1
-  let lastValidTerm =
-    indexOfTermOfNextSyllabus < syllabusDatesSorted.length
-      ? syllabusDatesSorted[indexOfTermOfNextSyllabus]
-      : null
-  // {"memoEndPoint":"SF162720192-1"}
-
-  if (lastValidTerm) {
-    const termOfNextSyllabus = lastValidTerm.toString().substring(4, 5)
-    if (termOfNextSyllabus === '2') lastValidTerm -= 1
-    else if (termOfNextSyllabus === '1') lastValidTerm -= 9
-  }
-  const syllabusValid = {
-    validFromTerm,
-    textFromTo: `${seasonStr(memoLangAbbr, validFromTerm)} - ${seasonStr(
-      memoLangAbbr,
-      lastValidTerm
-    )}`
-  }
-
-  return syllabusValid
 }

@@ -1,10 +1,9 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { FaRegFilePdf, FaAsterisk } from 'react-icons/fa'
-
+import { FaAsterisk } from 'react-icons/fa'
 import { seasonStr } from '../../util/helpers'
-import { linkToArchive, /* linkToPublishedMemoPdf, */ linkToSyllabus } from '../../util/links'
-
+import { linkToArchive, linkToSyllabus } from '../../util/links'
+import pdfLink from './PrintPdfLink'
 import Popup from './Popup'
 
 const formatVersion = (language = 'sv', version) => {
@@ -48,30 +47,12 @@ const archiveLink = (language, labels, courseCode) => (
   </p>
 )
 
-const pdfLink = (labels /* courseCode, memoEndPoint */) => (
-  <>
-    <h4>{labels.courseMemoPdf}</h4>
-    <p>
-      <i>{labels.inDevelopment}</i>
-      {/* <a
-        id="pdf-link"
-        title={memoEndPoint}
-        href={linkToPublishedMemoPdf(courseCode, memoEndPoint)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {memoEndPoint}
-        <FaRegFilePdf className="pdf-icon" />
-      </a>
-      <Popup header={labels.courseMemoPdf} body={labels.linkOpensInNewTab} targetId="pdf-link" /> */}
-    </p>
-  </>
-)
-
-const syllabusLink = (language, labels, courseCode, validFromTerm) => {
-  const syllabusLinkLabel = `${labels.syllabusLinkStart}${seasonStr(language, validFromTerm)}${
-    labels.syllabusLinkEnd
-  }`
+const syllabusLink = (language, labels, courseCode, syllabusValid) => {
+  const { validFromTerm, validUntilTerm } = syllabusValid
+  const syllabusLinkLabel = `${labels.syllabusLinkStart} ${courseCode} (${seasonStr(
+    language,
+    validFromTerm || ''
+  )}-${seasonStr(language, validUntilTerm || '')})`
   return (
     <>
       <h4>{labels.syllabus}</h4>
@@ -80,14 +61,14 @@ const syllabusLink = (language, labels, courseCode, validFromTerm) => {
         {labels.syllabusInformation}
         <br />
         <a
+          className="pdf-post-link"
           id="syllabus-link"
-          title={syllabusLinkLabel}
+          title={'PDF ' + syllabusLinkLabel}
           href={linkToSyllabus(courseCode, validFromTerm, language)}
           target="_blank"
           rel="noopener noreferrer"
         >
           {syllabusLinkLabel}
-          <FaRegFilePdf className="pdf-icon" />
         </a>
         <Popup header={labels.syllabus} body={labels.linkOpensInNewTab} targetId="syllabus-link" />
       </p>
@@ -95,12 +76,12 @@ const syllabusLink = (language, labels, courseCode, validFromTerm) => {
   )
 }
 
-const CourseMemoLinks = ({ language, labels, memoData = {}, validFromTerm = '' }) => (
+const CourseMemoLinks = ({ language, labels, memoData = {}, syllabusValid = {} }) => (
   <div className="preview-info-box">
     {version(language, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
-    {pdfLink(labels, memoData.courseCode, memoData.memoEndPoint)}
-    {syllabusLink(language, labels, memoData.courseCode, validFromTerm)}
+    {pdfLink(labels)}
+    {syllabusLink(language, labels, memoData.courseCode, syllabusValid)}
   </div>
 )
 
