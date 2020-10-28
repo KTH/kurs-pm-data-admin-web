@@ -808,6 +808,7 @@ module.exports = {
     latest: 'Senaste:',
     courseMemoArchiveLabel: 'Arkiv för kurs-PM',
     courseMemoPrint: 'Skriv ut eller spara',
+    linkCourseMemoPrint: 'Skriv ut eller spara kurs-PM',
     courseMemoModal: 'Länk fungerar inte i granska-läge',
     btnCloseModal: 'Stäng',
     syllabus: 'Kursplan',

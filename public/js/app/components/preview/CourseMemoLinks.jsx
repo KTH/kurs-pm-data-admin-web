@@ -1,9 +1,9 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { FaAsterisk } from 'react-icons/fa'
+import { FaAsterisk, FaPrint } from 'react-icons/fa'
 import { seasonStr } from '../../util/helpers'
 import { linkToArchive, linkToSyllabus } from '../../util/links'
-import pdfLink from './PrintPdfLink'
+import { Button } from 'reactstrap'
 import Popup from './Popup'
 
 const formatVersion = (language = 'sv', version) => {
@@ -45,6 +45,27 @@ const archiveLink = (language, labels, courseCode) => (
       targetId="archive-link"
     />
   </p>
+)
+
+const pdfLink = (labels) => (
+  <span id="print-link-with-popup">
+    <h4>{labels.courseMemoPrint}</h4>
+    <Button id="print-pm-link" color="link">
+      {labels.linkCourseMemoPrint}
+    </Button>
+    {/* <ActionModalButton
+      type="actionLink"
+      modalId="print-link"
+      btnLabel={labels.courseMemoPrint}
+      modalLabels={{
+        header: labels.courseMemoPrint,
+        body: labels.courseMemoModal,
+        btnClose: labels.btnCloseModal
+      }}
+    /> */}
+    <FaPrint className="pdf-icon" />
+    <Popup header={labels.courseMemoPrint} body={labels.courseMemoModal} targetId="print-pm-link" />
+  </span>
 )
 
 const syllabusLink = (language, labels, courseCode, syllabusValid) => {

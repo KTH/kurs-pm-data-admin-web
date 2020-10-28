@@ -827,6 +827,7 @@ module.exports = {
     latest: 'Latest:',
     courseMemoArchiveLabel: 'Course memo archive',
     courseMemoPrint: 'Print or save',
+    linkCourseMemoPrint: 'Print or save course memo',
     courseMemoModal: 'Link doesn’t work in review mode',
     btnCloseModal: 'Close',
     syllabus: 'Syllabus',
