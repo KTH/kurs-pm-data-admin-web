@@ -811,7 +811,8 @@ module.exports = {
     beforeChoosingCourse: 'Before choosing course',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
-    courseDevelopmentAndHistory: 'Course development and history',
+    courseDevelopment: 'Course development',
+    archive: 'Archive',
     noLinksInPreview: 'Menu links doesn’t work in review mode'
   },
   courseFactsLabels: {

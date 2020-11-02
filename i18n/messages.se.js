@@ -792,7 +792,8 @@ module.exports = {
     beforeChoosingCourse: 'Inför kursval',
     courseMemo: 'Förbereda och gå kurs',
     finishCourse: 'Slutföra ej avklarad kurs',
-    courseDevelopmentAndHistory: 'Kursens utveckling och historik',
+    courseDevelopment: 'Kursens utveckling',
+    archive: 'Arkiv',
     noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge'
   },
   courseFactsLabels: {
