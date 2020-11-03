@@ -4,7 +4,7 @@ function linkToSchool(name) {
 
 function linkToArchive(courseCode, language) {
   const languageParameter = language === 'en' ? '?l=en' : ''
-  return `/kursutveckling/${courseCode}${languageParameter}`
+  return `/kursutveckling/${courseCode}/arkiv${languageParameter}`
 }
 
 function linkToPublishedMemoPdf(memoEndPoint, documentName) {

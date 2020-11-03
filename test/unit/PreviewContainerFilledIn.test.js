@@ -112,7 +112,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('Get buttons and check it is name', async () => {
     const allBtns = getAllByRole('button')
-    expect(allBtns.length).toBe(12)
+    expect(allBtns.length).toBe(13)
     const expectedBtns = [
       '', //Info icon
       breadCrumbLabels.university,
@@ -121,7 +121,8 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       breadCrumbLabels.aboutCourse,
       `‹ ${breadCrumbLabels.directory}`,
       'Inför kursval',
-      'Kursens utveckling och historik',
+      'Kursens utveckling',
+      'Arkiv',
       'Print or save',
       'Redigera',
       'Avbryt',
