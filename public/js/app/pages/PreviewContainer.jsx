@@ -209,7 +209,7 @@ class PreviewContainer extends Component {
   langIndex = this.props.routerStore.langIndex
 
   componentDidMount() {
-    //Decide which content can have wider content (exempel tables, to make them more readable)
+    // Decide which content can have wider content (exempel tables, to make them more readable)
     determineContentFlexibility()
   }
 
@@ -275,6 +275,8 @@ class PreviewContainer extends Component {
   render() {
     const { langIndex } = this
     const { routerStore } = this.props
+    const { previewMemo, progress, alertText, alertIsOpen } = this.state
+    const { memoName, semester = '', courseCode, memoCommonLangAbbr, memoEndPoint } = previewMemo
     const {
       progressTitleHeaders,
       progressBarHeaders,
@@ -289,8 +291,7 @@ class PreviewContainer extends Component {
       courseLinksLabels,
       courseContactsLabels,
       courseHeaderLabels
-    } = i18n.messages[this.state.previewMemo.memoCommonLangAbbr === 'en' ? 0 : 1]
-    const { memoName, semester = '', courseCode } = this.state.previewMemo
+    } = i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
     const courseImage = resolveCourseImage(
       routerStore.imageFromAdmin,
       routerStore.koppsFreshData.courseMainSubjects,
@@ -306,7 +307,7 @@ class PreviewContainer extends Component {
       const id = m.memoEndPoint
       const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
       // memoEndPoint is currently displayed
-      active = m.memoEndPoint === this.state.previewMemo.memoEndPoint
+      active = m.memoEndPoint === memoEndPoint
       return {
         id,
         label,
@@ -324,7 +325,7 @@ class PreviewContainer extends Component {
           routerStore.memoData.memoCommonLangAbbr
         ),
         active: true,
-        url: `/kurs-pm/${courseCode}/${this.state.previewMemo.memoEndPoint}`
+        url: `/kurs-pm/${courseCode}/${memoEndPoint}`
       })
     }
 
@@ -337,10 +338,10 @@ class PreviewContainer extends Component {
       <Container className="kip-container preview-container" fluid>
         <Row>
           <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
-            <span>{routerStore.memoData.courseTitle}</span>
+            {routerStore.memoData.courseTitle}
           </PageTitle>
         </Row>
-        <ProgressBar active={this.state.progress} pages={progressBarHeaders} />
+        <ProgressBar active={progress} pages={progressBarHeaders} />
         <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
         <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
         <div className="preview-content-separation" />
@@ -425,9 +426,9 @@ class PreviewContainer extends Component {
             onSubmit={this.publish}
             onBack={this.onBack}
             onCancel={this.onFinish}
-            progress={this.state.progress}
-            alertText={this.state.alertText}
-            alertIsOpen={this.state.alertIsOpen}
+            progress={progress}
+            alertText={alertText}
+            alertIsOpen={alertIsOpen}
             isDraftOfPublished={this.isDraftOfPublished}
           />
         </Container>
@@ -437,7 +438,8 @@ class PreviewContainer extends Component {
 }
 
 PreviewContainer.propTypes = {
-  routerStore: PropTypes.func
+  routerStore: PropTypes.func,
+  progress: PropTypes.number
 }
 
 export default PreviewContainer
