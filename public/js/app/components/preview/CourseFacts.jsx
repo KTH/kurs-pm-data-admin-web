@@ -5,13 +5,15 @@ import { linkToSchool } from '../../util/links'
 import Popup from './Popup'
 
 const formatRounds = (rounds) => {
-  // Split rounds with look behind, so only comma after end parentheses matches
-  const splitRounds = rounds.split(/(?<=\)), /g)
+  // Split rounds with comma after end parentheses and then add '),' in display
+  const splitRounds = rounds.split('), ')
+  const lastIndex = splitRounds.length - 1
+
   return (
     <>
-      {splitRounds.map((round) => (
+      {splitRounds.map((round, thisIndex) => (
         <span key={round}>
-          {round}
+          {`${round}${thisIndex === lastIndex ? '' : '),'}`}
           <br />
         </span>
       ))}
