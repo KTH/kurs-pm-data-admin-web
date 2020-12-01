@@ -5,7 +5,7 @@
 The new administraion site makes it possible to create and manage course memos.
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
-![Prerequisite](https://img.shields.io/badge/node-12.0.0-blue.svg)
+![Prerequisite](https://img.shields.io/badge/node-14.0.0-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 ## Introduction
@@ -32,8 +32,7 @@ Application is fetching/saving data from/to [https://github.com/KTH/kurs-pm-data
 
 ## Prerequisites
 
-- Node.js 12.0.0
-- Ansible Vault
+- Node.js 14.0.0
 
 ### Secrets for Development
 
@@ -107,9 +106,9 @@ docker-compose up
 
 Status:
 
-To monitor status: http://localhost:3000/kursinfoadmin/kurs-pm-data/_monitor
+To monitor status: http://localhost:3000/kursinfoadmin/kurs-pm-data/\_monitor
 
-To see branch information: http://localhost:3000/kursinfoadmin/kurs-pm-data/_about
+To see branch information: http://localhost:3000/kursinfoadmin/kurs-pm-data/\_about
 
 To see more detailed behaviour in project used application insights: f.e., kursinfo-web-stage-application-insights-kthse
 

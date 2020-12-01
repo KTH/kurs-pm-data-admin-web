@@ -61,13 +61,23 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => {
         />
       </p> */}
       <p>
-        <Button id="menu-link-course-development-and-history" color="link">
-          {labels.courseDevelopmentAndHistory}
+        <Button id="menu-link-course-development" color="link">
+          {labels.courseDevelopment}
         </Button>
         <Popup
-          header={labels.courseDevelopmentAndHistory}
+          header={labels.courseDevelopment}
           body={labels.noLinksInPreview}
-          targetId="menu-link-course-development-and-history"
+          targetId="menu-link-course-development"
+        />
+      </p>
+      <p>
+        <Button id="menu-link-archive" color="link">
+          {labels.archive}
+        </Button>
+        <Popup
+          header={labels.archive}
+          body={labels.noLinksInPreview}
+          targetId="menu-link-archive"
         />
       </p>
     </div>

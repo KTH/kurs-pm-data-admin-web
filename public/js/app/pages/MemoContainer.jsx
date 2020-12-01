@@ -1,6 +1,4 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-/* eslint-disable react/no-danger */
+/* eslint-disable react/jsx-one-expression-per-line */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Alert, Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
@@ -14,7 +12,7 @@ import {
   REMOVE_PUBLISHED_PARAM,
   SAVED_NEW_PARAM
 } from '../util/constants'
-import { fetchParameters, seasonStr } from '../util/helpers'
+import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
 import PageHead from '../components/PageHead'
 import ControlPanel from '../components/ControlPanel'
 import NewSectionEditor from '../components/NewSectionEditor'
@@ -114,8 +112,7 @@ class MemoContainer extends Component {
 
   onSave = async (editorContent, alertTranslationId) => {
     const { courseCode, memoEndPoint, memoLangIndex } = this
-    const { syllabusValid } = this.state
-
+    const { syllabusValid, memoCommonLangAbbr, credits, creditUnitAbbr, title } = this.state
     const { validFromTerm, validUntilTerm } = syllabusValid || {}
     if (syllabusValid)
       syllabusValid.textFromTo =
@@ -124,7 +121,13 @@ class MemoContainer extends Component {
           validUntilTerm
         )}` || ''
 
-    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid } // containt kopps old data, or it is empty first time
+    const course = {
+      credits,
+      creditUnitAbbr,
+      title: { [memoCommonLangAbbr]: title }
+    }
+    const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
+    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle } // containt kopps old data, or it is empty first time
     try {
       const result = await this.props.routerStore.updateDraft(body)
       if (result.status >= 400) {
@@ -383,7 +386,17 @@ class MemoContainer extends Component {
       pagesChangePublishedPm,
       pageTitles
     } = i18n.messages[userLangIndex]
-    const { isError, memoName, lastPublishedVersionPublishDate, version } = this.state
+    const {
+      isError,
+      memoName,
+      lastPublishedVersionPublishDate,
+      version,
+      visibleInMemo,
+      commentAboutMadeChanges,
+      alertText,
+      alertIsOpen,
+      alertColor
+    } = this.state
 
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -467,7 +480,7 @@ class MemoContainer extends Component {
                   >
                     <ContentOverviewMenu
                       id="mainMenu"
-                      visibilities={this.state.visibleInMemo}
+                      visibilities={visibleInMemo}
                       memoLangIndex={this.memoLangIndex}
                     >
                       {this.isDraftOfPublished && (
@@ -484,7 +497,7 @@ class MemoContainer extends Component {
                               name="text"
                               id="commentChanges"
                               onChange={this.setChangesAboutDraftOfPublished}
-                              defaultValue={this.state.commentAboutMadeChanges}
+                              defaultValue={commentAboutMadeChanges}
                             />
                           </FormGroup>
                         </Form>
@@ -515,9 +528,9 @@ class MemoContainer extends Component {
             onBack={this.onBack}
             onCancel={this.onFinish}
             progress={2}
-            alertText={this.state.alertText}
-            alertIsOpen={this.state.alertIsOpen}
-            alertColor={this.state.alertColor || 'success'}
+            alertText={alertText}
+            alertIsOpen={alertIsOpen}
+            alertColor={alertColor || 'success'}
             isDraftOfPublished={this.isDraftOfPublished}
           />
         </Container>
