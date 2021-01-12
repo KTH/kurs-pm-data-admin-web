@@ -280,6 +280,14 @@ appRoute.get(
 
 appRoute.get(
   'memo.getContent',
+  config.proxyPrefixPath.uri + '/v1/:courseCode/:memoEndPoint', // /:courseCode/:semester/:memoEndPoint*
+  serverLogin,
+  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
+  MemoContent.renderMemoEditorPage
+)
+
+appRoute.get(
+  'memo.getContent',
   config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint', // /:courseCode/:semester/:memoEndPoint*
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),

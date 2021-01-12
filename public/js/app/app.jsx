@@ -14,6 +14,7 @@ import RouterStore from './stores/RouterStore'
 import ChangePublished from './pages/ChangePublished'
 import CreateNewMemo from './pages/CreateNewMemo'
 import MemoContainer from './pages/MemoContainer'
+import MemoEditingContainer from './pages/MemoEditingContainer'
 import PreviewContainer from './pages/PreviewContainer'
 
 function appFactory() {
@@ -34,8 +35,13 @@ function appFactory() {
         <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={CreateNewMemo} />
         <Route
           exact
-          path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint"
+          path="/kursinfoadmin/kurs-pm-data/v1/:courseCode/:memoEndPoint"
           component={MemoContainer}
+        />
+        <Route
+          exact
+          path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint"
+          component={MemoEditingContainer}
         />
         <Route
           exact
