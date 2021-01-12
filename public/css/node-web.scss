@@ -246,6 +246,22 @@ $white: #fff;
       margin-bottom: 0;
     }
   }
+  .memo-content.tab-content {
+    //row
+    margin-bottom: 0;
+    padding: inherit 0;
+    // padding-top: 80px;
+    &:first-of-type {
+      padding-top: 0;
+    }
+    & > h2:first-child {
+      margin-top: 0;
+    }
+    .col {
+      margin-bottom: 0;
+    }
+  }
+  //.sections-list-80 FOR LIST VIEW
   .sections-list-80 {
     //row
     margin-bottom: 0;
