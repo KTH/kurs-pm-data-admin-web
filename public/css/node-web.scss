@@ -230,6 +230,7 @@ $white: #fff;
     margin-top: 50px;
   }
   .space-around-border {
+    //TODO: REMOVE AFTER NEW LAYOUT IS READY
     margin-top: 20px;
     .memo-content {
       padding-top: 20px;
@@ -381,6 +382,7 @@ $white: #fff;
 }
 
 .memo-content {
+  //TODO: REMOVE AFTER TAB READY
   border-top: 1px solid $borderGrey;
   padding-bottom: 12em;
 
@@ -418,7 +420,61 @@ $white: #fff;
   }
 }
 
+//Edit page
+//tabs
+#memoTab {
+  a {
+    @extend %short-text-font-style;
+  }
+}
+//Edit content
+.memo-container > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.memo-content.tab-content {
+  // border-top: 1px solid $borderGrey;
+  padding-bottom: 12em;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
+  & + .separator {
+    border-right: 1px solid $borderGrey;
+    border-top: none;
+    margin-right: 50px;
+  }
+  h2 {
+    margin-bottom: -29px;
+  }
+  .title-and-info {
+    margin-top: 35px; //h3 15px + 34.88px
+  }
+  p,
+  ul,
+  span {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  ul {
+    margin-top: 1em;
+    padding-left: 20px;
+  }
+  span:first-of-type h2 {
+    margin-top: 0;
+  }
+  .section-info + span > p {
+    // max-width: 730px;
+    margin-top: 1em;
+  }
+  .title-and-info + p {
+    font-weight: 900;
+  }
+}
+
 .sticky-overview {
+  @extend %bordered-area;
+
   padding-left: 0;
   .content-overview {
     .nav-link-to-content-header {
@@ -426,6 +482,8 @@ $white: #fff;
       justify-content: space-between;
       align-items: center;
     }
+    //TODO: remove below, after tab
+
     .card-body {
       @extend %bordered-area;
     }

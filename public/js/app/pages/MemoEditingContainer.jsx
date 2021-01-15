@@ -22,7 +22,7 @@ import { ContentHead } from '../components/ContentHead'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
 // import axios from 'axios'
-import ContentOverviewMenu from '../components/ContentOverviewMenu'
+import SectionMenu from '../components/SectionMenu'
 import PropTypes from 'prop-types'
 
 const PROGRESS = 2
@@ -318,12 +318,12 @@ class MemoContainer extends Component {
       // <div key={id} className="sections-list-80">
       <div
         className={`tab-pane fade ${this.state.activeTab === id ? 'show active' : ''}`}
-        id={id}
+        id={'tab-content-for-' + id}
         key={'tab-content-for-' + id}
         role="tabpanel"
         aria-labelledby={id + '-tab'}
       >
-        <h2 id={id} key={'header-' + id}>
+        <h2 id={'header-' + id} key={'header-' + id}>
           {sectionsLabels[id]}
         </h2>
         {content.map((contentId) => {
@@ -463,9 +463,9 @@ class MemoContainer extends Component {
             <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
           </Col>
           <Col className="separator" />
-          <Col lg="3">
+          {/* <Col lg="3">
             <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
-          </Col>
+          </Col> */}
         </Row>
 
         <div className="tab-bar-container row">
@@ -491,7 +491,7 @@ class MemoContainer extends Component {
           </div>
         </div>
         <StickyContainer className="memo-container">
-          <Row className="mb-4 space-around-border">
+          <Row className="mb-4">
             <Col lg="7" className="memo-content tab-content" id="memoTabContent">
               {/* <div className="tab-content sections-list" id="memoTabContent"> */}
               {this.renderScrollView()}
@@ -501,7 +501,7 @@ class MemoContainer extends Component {
             <Col lg="3" className="sticky-overview">
               <Sticky topOffset={-41}>
                 {({ style, isSticky }) => (
-                  // TODO: Remove wrapping div element and change ContentOverviewMenu to handle style property
+                  // TODO: Remove wrapping div element and change SectionMenu to handle style property
                   <div
                     style={{
                       ...style,
@@ -512,10 +512,12 @@ class MemoContainer extends Component {
                       }
                     }}
                   >
-                    <ContentOverviewMenu
+                    <SectionMenu
                       id="mainMenu"
                       visibilities={visibleInMemo}
+                      userLangIndex={userLangIndex}
                       memoLangIndex={this.memoLangIndex}
+                      activeTab={activeTab}
                     >
                       {this.isDraftOfPublished && (
                         <Form className={isError ? 'error-area' : ''}>
@@ -547,7 +549,7 @@ class MemoContainer extends Component {
                           </p>
                         </span>
                       )}
-                    </ContentOverviewMenu>
+                    </SectionMenu>
                   </div>
                 )}
               </Sticky>
