@@ -77,7 +77,7 @@ class SectionMenu extends Component {
         > */}
         {content.map(
           (contentId) =>
-            memoTitlesByMemoLang[contentId] && ( // to skip avsnitt
+            memoTitlesByMemoLang[contentId] && (
               <NavItemLink
                 key={'nav-litem-leaf-' + contentId}
                 id={id + '-' + contentId}
