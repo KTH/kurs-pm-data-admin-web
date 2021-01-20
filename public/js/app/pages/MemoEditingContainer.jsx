@@ -460,9 +460,13 @@ class MemoContainer extends Component {
         )}
         <Row key="section-of-header" className="sections-headers">
           <Col lg="7">
-            <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
+            <ProgressTitle
+              id="progress-title"
+              text={pagesCreateNewPm[PROGRESS - 1]}
+              style={{ marginBottom: '30px' }}
+            />
           </Col>
-          <Col className="separator" />
+          {/* <Col className="separator" /> */}
           {/* <Col lg="3">
             <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
           </Col> */}
