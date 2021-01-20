@@ -474,13 +474,31 @@ $white: #fff;
 
 .sticky-overview {
   @extend %bordered-area;
-
+  border-left: none;
+  border-bottom: none;
   padding-left: 0;
+
+  .progress-title {
+    //mobil view, hide title 'Rubriker/Headers'
+    display: none !important;
+  }
+  @media (min-width: 992px) {
+    #mainMenu.col {
+      max-width: 250px;
+    }
+    .progress-title {
+      display: flex !important;
+    }
+  }
+
   .content-overview {
     .nav-link-to-content-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+    svg {
+      margin-left: 15px;
     }
     //TODO: remove below, after tab
 
