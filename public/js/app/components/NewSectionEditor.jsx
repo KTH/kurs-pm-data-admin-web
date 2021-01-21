@@ -19,7 +19,7 @@ class NewSectionEditor extends Component {
     currentIndex: this.props.routerStore.memoData[this.props.contentId].findIndex(
       (item) => item.uKey === this.props.uKey
     ),
-    hasEmptyTitle: false
+    hasEmptyTitleAlert: false
   }
 
   userLangIndex = this.props.routerStore.langIndex
@@ -27,13 +27,14 @@ class NewSectionEditor extends Component {
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   componentDidMount() {
-    const { contentId } = this.props
+    const { contentId, routerStore } = this.props
     const { currentIndex } = this.state
-    this.setState({ isOpen: this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew })
+    this.setState({ isOpen: routerStore.memoData[contentId][currentIndex].isEmptyNew })
   }
 
   componentDidUpdate() {
     const { uKey } = this.props
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.routerStore.dirtyEditor = uKey
   }
 
@@ -41,10 +42,10 @@ class NewSectionEditor extends Component {
     this.onSaveByThisContentId()
   }
 
-  updateMemoContent = (editorContent) => {
+  setNewContent = (editorContent) => {
     const { contentId } = this.props
     const { currentIndex } = this.state
-    this.props.routerStore.memoData[contentId][currentIndex].htmlContent = editorContent
+    this.props.routerStore.memoData[contentId][currentIndex].htmlContent = editorContent.trim()
   }
 
   setNewTitle = (event) => {
@@ -54,7 +55,6 @@ class NewSectionEditor extends Component {
     const { memoData } = this.props.routerStore
     const title = event.target.value.trim()
     memoData[contentId][currentIndex].title = title // || (this.memoLangIndex === 1 ? 'Egna rubrik ' + currentIndex : 'New heading ' + currentIndex)
-    this.setState({ hasEmptyTitle: !title })
   }
 
   onRemoveNewSection = () => {
@@ -67,6 +67,17 @@ class NewSectionEditor extends Component {
     this.props.routerStore.memoData[contentId] = arrayToReduce
   }
 
+  onSaveByThisContentId = () => {
+    const { contentId, uKey } = this.props
+    const { currentIndex } = this.state
+    const { dirtyEditor } = this.props.routerStore
+    if (dirtyEditor === uKey) {
+      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
+    }
+    this.props.routerStore.dirtyEditor = ''
+    this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+  }
+
   toggleVisibleInMemo = () => {
     const { contentId } = this.props
     const { currentIndex } = this.state
@@ -76,46 +87,44 @@ class NewSectionEditor extends Component {
     this.onSaveByThisContentId()
   }
 
-  onSaveByThisContentId = () => {
-    const { contentId, uKey } = this.props
-    const { dirtyEditor } = this.props.routerStore
-    if (dirtyEditor === uKey) {
-      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
-    }
-    this.props.routerStore.dirtyEditor = ''
-  }
-
   onToggleVisibleEditor = () => {
     const { contentId, uKey } = this.props
     const { currentIndex, isOpen } = this.state
     const { memoData } = this.props.routerStore
+    const { title, htmlContent } = memoData[contentId][currentIndex]
+    const hasEmptyTitle = !!(title.length === 0)
+    const hasEmptyText = !!(htmlContent.length === 0)
     if (isOpen) {
       if (
-        memoData[contentId][currentIndex].title.trim().length === 0 &&
-        memoData[contentId][currentIndex].htmlContent.trim().length === 0
+        hasEmptyTitle && // memoData[contentId][currentIndex].title.trim().length === 0 &&
+        hasEmptyText
       ) {
         this.onRemoveNewSection()
         return false
       }
+      if (hasEmptyTitle) {
+        this.setState({ hasEmptyTitleAlert: true })
+        return false
+      }
+
       this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
     } else this.props.routerStore.dirtyEditor = uKey
 
-    this.setState({ isOpen: !isOpen, hasEmptyTitle: false })
+    this.setState({ isOpen: !isOpen })
     return true
   }
 
   render() {
     const { uKey, contentId, menuId } = this.props
     const { userLangIndex } = this
-    const { htmlContent, title, isEmptyNew, visibleInMemo } = this.state.extraContentArr[
-      this.state.currentIndex
-    ]
+    const { currentIndex, extraContentArr, hasEmptyTitleAlert, isOpen } = this.state
+    const { htmlContent, title, isEmptyNew, visibleInMemo } = extraContentArr[currentIndex]
 
     const { actionModals, buttons, sourceInfo, memoInfoByUserLang } = i18n.messages[userLangIndex]
 
     return (
       <span id={menuId} className="Add--New--Title--And--Info">
-        {!this.state.isOpen && !isEmptyNew && (
+        {!isOpen && !isEmptyNew && (
           <ExtraHeaderHead
             header={title}
             contentId={contentId}
@@ -129,11 +138,11 @@ class NewSectionEditor extends Component {
           sectionType="section"
           visibleInMemo={visibleInMemo}
           onToggleVisibleInMemo={this.toggleVisibleInMemo}
-          isEditorOpen={this.state.isOpen || isEmptyNew}
+          isEditorOpen={isOpen || isEmptyNew}
           onToggleVisibleEditor={this.onToggleVisibleEditor}
           userLangIndex={userLangIndex}
         />
-        {(isEmptyNew || this.state.isOpen) && (
+        {(isEmptyNew || isOpen) && (
           <span>
             <Form>
               <FormGroup className="title">
@@ -145,7 +154,7 @@ class NewSectionEditor extends Component {
                   onBlur={this.onSaveByThisContentId}
                   defaultValue={title}
                 />
-                {this.state.hasEmptyTitle && (
+                {hasEmptyTitleAlert && (
                   <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
                     {sourceInfo.errorEmptyTitle}
                   </Label>
@@ -168,7 +177,7 @@ class NewSectionEditor extends Component {
               id={`editorFor${contentId}-${uKey}`}
               initialValue={htmlContent}
               init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
-              onEditorChange={this.updateMemoContent}
+              onEditorChange={this.setNewContent}
               onBlur={this.onSaveByThisContentId}
             />
             <ActionModalButton
@@ -181,7 +190,7 @@ class NewSectionEditor extends Component {
           </span>
         )}
 
-        {!this.state.isOpen &&
+        {!isOpen &&
           !isEmptyNew &&
           /* is included in memo, preview text without editor */
           ((visibleInMemo && (
