@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Alert, Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 import i18n from '../../../../i18n'
 import axios from 'axios'
-import { ActionModalButton, PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import {
   FIRST_VERSION,
   SERVICE_URL,
@@ -13,15 +13,19 @@ import {
   SAVED_NEW_PARAM
 } from '../util/constants'
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
+import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
+import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComment'
+import AlertSuccessCopiedMemo from '../components/alerts/AlertSuccessCopiedMemo'
+import AlertSuccessRebuild from '../components/alerts/AlertSuccessRebuild'
 import PageHead from '../components/PageHead'
+import CommentChangesTextarea from '../components/editors/CommentChangesTextarea'
 import ControlPanel from '../components/ControlPanel'
-import NewSectionEditor from '../components/NewSectionEditor'
-import StandardEditorPerTitle from '../components/StandardEditorPerTitle'
+import NewSectionEditor from '../components/editors/NewSectionEditor'
+import StandardEditorPerTitle from '../components/editors/StandardEditorPerTitle'
 import SectionForNonEditable from '../components/SectionForNonEditable'
-import { ContentHead } from '../components/ContentHead'
+import TabPanel from '../components/TabPanel'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections } from '../util/fieldsByType'
-// import axios from 'axios'
 import SectionMenu from '../components/SectionMenu'
 import PropTypes from 'prop-types'
 
@@ -106,7 +110,7 @@ class MemoContainer extends Component {
       }, 2000)
   }
 
-  onSuccess = (alertTranslationId) => {
+  alertOnSuccessSave = (alertTranslationId) => {
     this.onAlert(alertTranslationId)
     this.rebuilDraftFromPublishedVer = false
   }
@@ -136,7 +140,7 @@ class MemoContainer extends Component {
 
         return 'ERROR-' + result.status
       }
-      this.onSuccess(alertTranslationId)
+      this.alertOnSuccessSave(alertTranslationId)
       return result
     } catch (error) {
       this.onAlert('errWhileSaving', 'danger')
@@ -160,7 +164,7 @@ class MemoContainer extends Component {
   // Function for adding new titles with a content
   onAddNewSection = (extraHeaderTitle) => {
     const newSection = {
-      uKey: Math.random().toString(),
+      uKey: Math.random().toString(), // react requires unique key to add/remove items
       title: '',
       htmlContent: '',
       visibleInMemo: true,
@@ -275,38 +279,6 @@ class MemoContainer extends Component {
     this.props.routerStore.memoData.commentAboutMadeChanges = event.target.value.trim()
   }
 
-  rebuildDraftOfPublished = async () => {
-    const { courseCode, memoEndPoint } = this
-    try {
-      const resultAfterDelete = await axios.delete(
-        `${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`
-      )
-      if (resultAfterDelete.status >= 400) {
-        this.onAlert('errWhileDeleting', 'danger')
-
-        return 'ERROR-' + resultAfterDelete.status
-      }
-
-      const body = { memoEndPoint }
-      const newDraftUrl = `${SERVICE_URL.API}create-draft/${courseCode}/${memoEndPoint}`
-
-      const newResult = await axios.post(newDraftUrl, body)
-      if (newResult.status >= 400) {
-        this.onAlert('errWhileSaving', 'danger')
-        return 'ERROR-' + newResult.status
-      }
-      const thisUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}?action=rebuild`
-      window.location = thisUrl
-    } catch (err) {
-      this.onAlert('errWhileDeleting', 'danger')
-
-      if (err.response) {
-        throw new Error(err.message)
-      }
-      throw err
-    }
-  }
-
   /* GENERAL VIEW OF ALL MEMO HEADERS WITH TEXT OR EDITOR */
 
   renderScrollView = () => {
@@ -385,9 +357,8 @@ class MemoContainer extends Component {
   }
 
   render() {
-    const { userLangIndex } = this
+    const { memoLangIndex, userLangIndex } = this
     const {
-      actionModals,
       alerts,
       extraInfo,
       pagesCreateNewPm,
@@ -406,7 +377,6 @@ class MemoContainer extends Component {
       alertIsOpen,
       alertColor
     } = this.state
-
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
         <Row key="pageHeader" id="scroll-here-if-alert">
@@ -423,41 +393,28 @@ class MemoContainer extends Component {
         />
         <PageHead semester={this.semester} memoName={memoName} userLangIndex={userLangIndex} />
         {(this.isDraftOfPublished && !this.rebuilDraftFromPublishedVer && (
-          <Row key="upper-alert" className="w-100 my-0 mx-auto upper-alert">
-            <Alert key="infoAboutNewData" color="info">
-              {alerts.infoAboutFreshData || ''}
-            </Alert>
-            <Alert key="infoAboutStartingAgain" color="info">
-              {alerts.infoStartAgain}{' '}
-              <ActionModalButton
-                btnLabel={`${alerts.linkToRefreshData} (${
-                  new Date(lastPublishedVersionPublishDate).toLocaleString(
-                    userLangIndex === 0 ? 'en-US' : 'sv-SE'
-                  ) || 'version:' + version
-                })`}
-                modalId="cancelThisAction"
-                type="actionLink"
-                modalLabels={actionModals.rebuildDraftOfPublished}
-                onConfirm={this.rebuildDraftOfPublished}
-              />
-            </Alert>
-          </Row>
-        )) ||
-          (this.rebuilDraftFromPublishedVer && (
-            <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
-              <Alert color="success">{alerts.infoRebuildDraft}</Alert>
-            </Row>
-          ))}
-        {this.eventFromParams && this.eventFromParams === 'copy' && (
-          <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
-            <Alert color="success">{alerts.syllabusUpdated}</Alert>
-          </Row>
+          <AlertDraftOfPublished
+            courseCode={this.courseCode}
+            memoEndPoint={this.memoEndPoint}
+            memoVersion={version}
+            onAlert={this.onAlert}
+            publishDate={lastPublishedVersionPublishDate}
+            userLangIndex={userLangIndex}
+          />
+        )) || (
+          <AlertSuccessRebuild
+            alertMsg={alerts.infoRebuildDraft}
+            hasBeenRebuild={this.rebuilDraftFromPublishedVer}
+          />
         )}
-        {isError && (
-          <Row key="success-upper-alert" className="w-100 my-0 mx-auto upper-alert">
-            <Alert color="danger">{alerts.warnFillInCommentAboutChanges}</Alert>
-          </Row>
-        )}
+        <AlertSuccessCopiedMemo
+          eventFromParams={this.eventFromParams}
+          alertMsg={alerts.syllabusUpdated}
+        />
+        <AlertErrorMissingComment
+          isError={isError}
+          alertMsg={alerts.warnFillInCommentAboutChanges}
+        />
         <Row key="section-of-header" className="sections-headers">
           <Col lg="7">
             <ProgressTitle
@@ -466,46 +423,22 @@ class MemoContainer extends Component {
               style={{ marginBottom: '30px' }}
             />
           </Col>
-          {/* <Col className="separator" /> */}
-          {/* <Col lg="3">
-            <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
-          </Col> */}
         </Row>
-
-        <div className="tab-bar-container row">
-          <div className="col">
-            <ul className="nav nav-tabs" id="memoTab" role="tablist">
-              {sections.map(({ id }) => (
-                <li className="nav-item" key={'header-' + id}>
-                  <a
-                    className={`nav-link ${activeTab === id ? 'active' : ''}`}
-                    id={id + '-tab'}
-                    data-toggle="tab"
-                    href={`#${id}`}
-                    role="tab"
-                    aria-controls={id}
-                    aria-selected={activeTab === id}
-                    onClick={() => this.setState({ activeTab: id })}
-                  >
-                    {i18n.messages[this.memoLangIndex].sectionsLabels[id]}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <TabPanel
+          activeTabId={activeTab}
+          onClick={(sectionId) => this.setState({ activeTab: sectionId })}
+          sections={sections}
+          sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
+        />
         <StickyContainer className="memo-container">
           <Row className="mb-4">
             <Col lg="7" className="memo-content tab-content" id="memoTabContent">
-              {/* <div className="tab-content sections-list" id="memoTabContent"> */}
               {this.renderScrollView()}
-              {/* </div> */}
             </Col>
             <Col className="separator" />
             <Col lg="3" className="sticky-overview">
               <Sticky topOffset={-41}>
                 {({ style, isSticky }) => (
-                  // TODO: Remove wrapping div element and change SectionMenu to handle style property
                   <div
                     style={{
                       ...style,
@@ -520,40 +453,40 @@ class MemoContainer extends Component {
                       id="mainMenu"
                       visibilities={visibleInMemo}
                       userLangIndex={userLangIndex}
-                      memoLangIndex={this.memoLangIndex}
+                      memoLangIndex={memoLangIndex}
                       activeTab={activeTab}
                     >
                       {this.isDraftOfPublished && (
-                        <Form className={isError ? 'error-area' : ''}>
-                          <FormGroup className="title">
-                            <ContentHead
-                              contentId="commentAboutMadeChanges"
-                              memoLangIndex={this.memoLangIndex}
-                              userLangIndex={userLangIndex}
-                            />
-                            <Label htmlFor="commentChanges">{extraInfo.commentChanges}</Label>
-                            <Input
-                              type="textarea"
-                              name="text"
-                              id="commentChanges"
-                              onChange={this.setChangesAboutDraftOfPublished}
-                              defaultValue={commentAboutMadeChanges}
-                            />
-                          </FormGroup>
-                        </Form>
-                      )}
-                      {this.isDraftOfPublished && (
-                        <span
-                          data-testid="text-about-changes"
-                          className={isError ? 'error-label' : ''}
-                        >
-                          <p>
-                            <sup>*</sup>
-                            {extraInfo.mandatory}
-                          </p>
-                        </span>
+                        <CommentChangesTextarea
+                          isError={isError}
+                          labels={extraInfo}
+                          memoLangIndex={memoLangIndex}
+                          onChange={this.setChangesAboutDraftOfPublished}
+                          textAboutChanges={commentAboutMadeChanges}
+                          userLangIndex={userLangIndex}
+                        />
+                        // <Form className={isError ? 'error-area' : ''}>
+                        //   <FormGroup className="title">
+                        //     <ContentHead
+                        //       contentId="commentAboutMadeChanges"
+                        //       memoLangIndex={memoLangIndex}
+                        //       userLangIndex={userLangIndex}
+                        //     />
+                        //     <Label htmlFor="commentChanges">{extraInfo.commentChanges}</Label>
+                        //     <Input
+                        //       type="textarea"
+                        //       name="text"
+                        //       id="commentChanges"
+                        //       onChange={this.setChangesAboutDraftOfPublished}
+                        //       defaultValue={commentAboutMadeChanges}
+                        //     />
+                        //   </FormGroup>
+                        // </Form>
                       )}
                     </SectionMenu>
+                    <div id="back-to-top" role="link" aria-label="To page to" />
+                    {/* <button></button>
+                    <a href=""></a> */}
                   </div>
                 )}
               </Sticky>
