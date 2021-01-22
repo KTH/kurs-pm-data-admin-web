@@ -2,12 +2,12 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
-import i18n from '../../../../i18n'
+import i18n from '../../../../../i18n'
 import { Collapse, ActionModalButton } from '@kth/kth-kip-style-react-components'
-import { ExtraHeaderHead } from './ContentHead'
-import VisibilityInfo from './VisibilityInfo'
+import { ExtraHeaderHead } from '../ContentHead'
+import VisibilityInfo from '../VisibilityInfo'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
-import editorConf from '../util/editorInitConf'
+import editorConf from '../../util/editorInitConf'
 import PropTypes from 'prop-types'
 
 @inject(['routerStore'])
