@@ -164,15 +164,16 @@ class ActionModalCourseRounds extends Component {
         onConfirm={(showSaveBtn && this.onSave) || null}
       >
         <span>
-          <Label>{messages.page_header_heading_semester}:</Label>{' '}
-          {seasonStr(this.langIndex, semester)}
+          <Label>{`${messages.page_header_heading_semester}:`}</Label>
+          {` ${seasonStr(this.langIndex, semester)}`}
         </span>
         <span>
-          <Label>{messages.page_header_heading_course_round}:</Label> {memoName}
+          <Label>{`${messages.page_header_heading_course_round}:`}</Label>
+          {` ${memoName}`}
         </span>
         <span>
-          <Label>{extraInfo.memoLanguage.label}:</Label>{' '}
-          {extraInfo.memoLanguage[memoCommonLangAbbr]}
+          <Label>{`${extraInfo.memoLanguage.label}:`}</Label>
+          {` ${extraInfo.memoLanguage[memoCommonLangAbbr]}`}
         </span>
         <span>
           <p>{extraInfo.aboutMemoLanguage[memoCommonLangAbbr]}</p>
@@ -204,7 +205,7 @@ class ActionModalCourseRounds extends Component {
                     data-testid="label-checkbox-add-rounds-to-saved-memo"
                     htmlFor={'addNew' + round.ladokRoundId}
                   >
-                    {combineMemoName(round, semester, this.langAbbr)}.
+                    {`${combineMemoName(round, semester, this.langAbbr)}.`}
                     {(!canMerge(memoCommonLangAbbr, round) && (
                       <i>{extraInfo.cannotMergeLanguage}</i>
                     )) ||
@@ -229,7 +230,9 @@ ActionModalCourseRounds.propTypes = {
   langAbbr: PropTypes.string,
   langIndex: PropTypes.number,
   miniKoppsObj: PropTypes.exact({
+    // eslint-disable-next-line react/no-unused-prop-types
     course: PropTypes.string.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
     lastTermsInfo: PropTypes.arrayOf(
       PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
     ).isRequired
@@ -237,10 +240,5 @@ ActionModalCourseRounds.propTypes = {
   // eslint-disable-next-line react/require-default-props
   routerStore: PropTypes.func
 }
-
-// ActionModalCourseRounds.defaultProps = {
-//   chosenMemoEndPoint: '',
-//   miniKoppsObj: null
-// }
 
 export default ActionModalCourseRounds
