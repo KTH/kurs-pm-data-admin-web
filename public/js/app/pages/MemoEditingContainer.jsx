@@ -465,28 +465,11 @@ class MemoContainer extends Component {
                           textAboutChanges={commentAboutMadeChanges}
                           userLangIndex={userLangIndex}
                         />
-                        // <Form className={isError ? 'error-area' : ''}>
-                        //   <FormGroup className="title">
-                        //     <ContentHead
-                        //       contentId="commentAboutMadeChanges"
-                        //       memoLangIndex={memoLangIndex}
-                        //       userLangIndex={userLangIndex}
-                        //     />
-                        //     <Label htmlFor="commentChanges">{extraInfo.commentChanges}</Label>
-                        //     <Input
-                        //       type="textarea"
-                        //       name="text"
-                        //       id="commentChanges"
-                        //       onChange={this.setChangesAboutDraftOfPublished}
-                        //       defaultValue={commentAboutMadeChanges}
-                        //     />
-                        //   </FormGroup>
-                        // </Form>
                       )}
                     </SectionMenu>
-                    <div id="back-to-top" role="link" aria-label="To page to" />
-                    {/* <button></button>
-                    <a href=""></a> */}
+                    <div id="back-to-top" role="link" aria-label="Upp till nästa avsnitt">
+                      {'Upp till nästa avsnitt'}
+                    </div>
                   </div>
                 )}
               </Sticky>
