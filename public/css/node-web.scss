@@ -497,7 +497,9 @@ $white: #fff;
       justify-content: space-between;
       align-items: center;
     }
+
     svg {
+      // visibility, eye icon
       margin-left: 15px;
     }
     //TODO: remove below, after tab
@@ -515,12 +517,22 @@ $white: #fff;
       }
     }
   }
+
+  div#back-to-top {
+    background-position: center;
+    bottom: 40px;
+    font-size: 0.9rem;
+    right: 70px;
+    text-indent: 0;
+    padding-top: 60px;
+    width: 150px;
+  }
 }
 
 span.section-info {
   @extend %row;
   justify-content: space-between;
-  padding-top: 10px; // = 20px + button
+  padding-top: 10px; // + button = 20px
   .mandatory {
     margin-top: 5px; //  = 20px
   }
