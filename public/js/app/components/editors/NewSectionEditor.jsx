@@ -71,11 +71,17 @@ class NewSectionEditor extends Component {
     const { contentId, uKey } = this.props
     const { currentIndex } = this.state
     const { dirtyEditor } = this.props.routerStore
+    const latestMemoData = this.props.routerStore.memoData[contentId]
+    // thisSectionExist is needed to know if section was deleted before unmounting
+    const thisSectionExist = !!this.props.routerStore.memoData[contentId][currentIndex]
+
     if (dirtyEditor === uKey) {
-      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
+      this.props.onSave({ [contentId]: latestMemoData }, 'autoSaved')
     }
     this.props.routerStore.dirtyEditor = ''
-    this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+
+    if (thisSectionExist)
+      this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
   }
 
   toggleVisibleInMemo = () => {
@@ -106,7 +112,6 @@ class NewSectionEditor extends Component {
         this.setState({ hasEmptyTitleAlert: true })
         return false
       }
-
       this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
     } else this.props.routerStore.dirtyEditor = uKey
 
