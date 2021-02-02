@@ -27,12 +27,12 @@ class NewSectionEditor extends Component {
   static getDerivedStateFromProps(props, state) {
     const { showError } = props
     const { extraContent, showEmptyTitleAlert } = state
-    // fast reaction after switch/submit
+    // fast reaction to props change after switch/submit
     if (showError && !showEmptyTitleAlert) {
       return { showEmptyTitleAlert: showError }
     }
 
-    // if error is fixed then check it and update state
+    // check if hasEmptyTitle error is fixed and update state
     const { title, htmlContent } = extraContent
     const hasEmptyTitle = !!(title.length === 0)
     const hasEmptyText = !!(htmlContent.length === 0)
@@ -135,10 +135,14 @@ class NewSectionEditor extends Component {
         hasEmptyText
       ) {
         this.onRemoveNewSection()
+        this.props.onAlert('removedEmptyContent', 'success', 500)
+
         return false
       }
       if (hasEmptyTitle) {
         this.setState({ showEmptyTitleAlert: true })
+        this.props.onAlert('errorEmptyTitle', 'danger')
+
         return false
       }
       delete this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew
@@ -255,6 +259,7 @@ NewSectionEditor.propTypes = {
   htmlContent: PropTypes.string,
   menuId: PropTypes.string.isRequired,
   visibleInMemo: PropTypes.bool,
+  onAlert: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   // eslint-disable-next-line react/require-default-props
   routerStore: PropTypes.func,

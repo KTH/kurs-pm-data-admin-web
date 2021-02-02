@@ -148,14 +148,17 @@ class MemoContainer extends Component {
   }
 
   /* General functions */
-  onAlert = (alertTranslationId, alertColor = 'success') => {
+  onAlert = (alertTranslationId, alertColor = 'success', timeOut = 0) => {
     const translationId =
       this.isDraftOfPublished && alertTranslationId === 'autoSaved'
         ? 'autoSavedTemporary'
         : alertTranslationId
 
     const { alerts } = i18n.messages[this.userLangIndex]
-    this.setState({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
+    setTimeout(() => {
+      this.setState({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
+    }, timeOut)
+
     if (process.env.NODE_ENV !== 'test')
       setTimeout(() => {
         this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
@@ -239,9 +242,7 @@ class MemoContainer extends Component {
     } else {
       this.setState({ checkOnlyContentId: getExtraHeaderIdBySectionId(activeTab) })
       // Show alert below after scroll is done
-      setTimeout(() => {
-        this.onAlert('errorEmptyTitle', 'danger')
-      }, 500)
+      this.onAlert('errorEmptyTitle', 'danger', 500)
     }
   }
 
@@ -286,9 +287,7 @@ class MemoContainer extends Component {
     if (!canFinish) {
       this.setState({ checkAllExtra: true })
       // Show alert below after scroll is done
-      setTimeout(() => {
-        this.onAlert('errorEmptyTitle', 'danger')
-      }, 500)
+      this.onAlert('errorEmptyTitle', 'danger', 500)
       return false
     }
 
