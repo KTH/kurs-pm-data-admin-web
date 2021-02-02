@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 import i18n from '../../../../i18n'
 import axios from 'axios'
@@ -25,7 +25,7 @@ import StandardEditorPerTitle from '../components/editors/StandardEditorPerTitle
 import SectionForNonEditable from '../components/SectionForNonEditable'
 import TabPanel from '../components/TabPanel'
 import ProgressTitle from '../components/ProgressTitle'
-import { context, sections } from '../util/fieldsByType'
+import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
 import PropTypes from 'prop-types'
 
@@ -40,7 +40,9 @@ class MemoContainer extends Component {
     alertIsOpen: false,
     alertText: '',
     alertColor: '',
-    activeTab: sections[0].id
+    activeTab: sections[0].id,
+    checkAllExtra: false,
+    checkOnlyContentId: null
   }
 
   isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
@@ -59,11 +61,12 @@ class MemoContainer extends Component {
 
   componentDidMount() {
     const { event } = fetchParameters(this.props)
-    const { history } = this.props
+    const { history, location } = this.props
 
     this.eventFromParams = event || ''
     if (history) {
       history.push({
+        // hash: location.hash, need to fix scroll view hash of sections and hash of tabs
         search: ''
       })
     }
@@ -91,6 +94,7 @@ class MemoContainer extends Component {
 
   setUpperAlarm = () => {
     this.setState({ isError: true })
+    // this.scrollIntoView('scroll-here-if-alert')
     const alertElement = document.getElementById('scroll-here-if-alert')
     alertElement.scrollIntoView({ behavior: 'smooth' })
   }
@@ -113,6 +117,10 @@ class MemoContainer extends Component {
   alertOnSuccessSave = (alertTranslationId) => {
     this.onAlert(alertTranslationId)
     this.rebuilDraftFromPublishedVer = false
+  }
+
+  onAutoSave = () => {
+    this.onSave(this.props.routerStore.memoData, 'autoSaved') // save precisily this editor content by contentId
   }
 
   onSave = async (editorContent, alertTranslationId) => {
@@ -138,17 +146,13 @@ class MemoContainer extends Component {
       if (result.status >= 400) {
         this.onAlert('errWhileSaving', 'danger')
 
-        return 'ERROR-' + result.status
+        return 'ERROR-onSave-' + result.status
       }
       this.alertOnSuccessSave(alertTranslationId)
       return result
     } catch (error) {
       this.onAlert('errWhileSaving', 'danger')
     }
-  }
-
-  onAutoSave = () => {
-    this.onSave(this.props.routerStore.memoData, 'autoSaved') // save precisily this editor content by contentId
   }
 
   scrollIntoView = () => {
@@ -172,6 +176,19 @@ class MemoContainer extends Component {
     }
     this.props.routerStore.dirtyEditor = newSection.uKey
     this.props.routerStore.memoData[extraHeaderTitle].push(newSection)
+  }
+
+  onChangeTab = (nextSectionId) => {
+    // const { checkEmptiesForSectionId } = this
+    const { activeTab } = this.state
+    const canBeSwitched = this.props.routerStore.checkEmptiesForSectionId(activeTab)
+    // extraContentState[sectionId].
+    if (canBeSwitched) {
+      this.setState({ activeTab: nextSectionId, checkOnlyContentId: '' })
+      this.onAutoSave()
+    } else {
+      this.setState({ checkOnlyContentId: getExtraHeaderIdBySectionId(activeTab) })
+    }
   }
 
   // Check visibility for standard headers
@@ -222,7 +239,7 @@ class MemoContainer extends Component {
     )
   }
 
-  onFinish = async () => {
+  onCancel = async () => {
     const { courseCode, semester, isDraftOfPublished, memoEndPoint } = this
     const { memoName } = this.state
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
@@ -235,7 +252,7 @@ class MemoContainer extends Component {
           window.location = startAdminPageUrl
         }, 500)
       )
-
+    /* If it is a draft of published version, draft will be deleted */
     try {
       const resultAfterDelete = await axios.delete(
         `${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`
@@ -243,7 +260,7 @@ class MemoContainer extends Component {
       if (resultAfterDelete.status >= 400) {
         this.onAlert('errWhileDeleting', 'danger')
 
-        return 'ERROR-MemoContainer.jsx-onFinish-' + resultAfterDelete.status
+        return 'ERROR-MemoContainer.jsx-onCancel-' + resultAfterDelete.status
       }
       setTimeout(() => {
         window.location = startAdminPageUrl
@@ -252,7 +269,7 @@ class MemoContainer extends Component {
       this.onAlert('errWhileDeleting', 'danger')
 
       if (err.response) {
-        throw new Error('MemoContainer.jsx-onFinish-' + err.message)
+        throw new Error('MemoContainer.jsx-onCancel-' + err.message)
       }
       throw err
     }
@@ -329,15 +346,20 @@ class MemoContainer extends Component {
         })}
         {extraHeaderTitle &&
           memoData[extraHeaderTitle] &&
-          memoData[extraHeaderTitle].map(({ uKey }) => {
+          memoData[extraHeaderTitle].map((extraInfo, index) => {
+            const { uKey } = extraInfo
             return (
               <NewSectionEditor
                 contentId={extraHeaderTitle}
+                currentIndex={index}
                 key={uKey}
-                menuId={id + '-' + extraHeaderTitle + uKey}
+                menuId={`${id}-${extraHeaderTitle}${uKey}`}
                 uKey={uKey}
                 onAlert={this.onAlert}
                 onSave={this.onSave}
+                showError={
+                  this.state.checkOnlyContentId === extraHeaderTitle || this.state.checkAllExtra
+                }
               />
             )
           })}
@@ -426,7 +448,7 @@ class MemoContainer extends Component {
         </Row>
         <TabPanel
           activeTabId={activeTab}
-          onClick={(sectionId) => this.setState({ activeTab: sectionId })}
+          onClick={this.onChangeTab}
           sections={sections}
           sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
         />
@@ -482,7 +504,7 @@ class MemoContainer extends Component {
             onSubmit={this.onContinueToPreview}
             onSave={this.handleBtnSave}
             onBack={this.onBack}
-            onCancel={this.onFinish}
+            onCancel={this.onCancel}
             progress={2}
             alertText={alertText}
             alertIsOpen={alertIsOpen}
