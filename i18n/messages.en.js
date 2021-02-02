@@ -769,6 +769,7 @@ module.exports = {
     autoSaved: 'Draft saved',
     autoSavedTemporary: 'Changes save temporarily before publishing.',
     addedRoundId: 'Course offerings were changed',
+    errorEmptyTitle: 'You need to name the content (look for error marks above)',
     errKoppsRounds:
       'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     errNoChosen:

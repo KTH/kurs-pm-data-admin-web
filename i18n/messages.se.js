@@ -751,6 +751,7 @@ module.exports = {
     autoSaved: 'Sparat utkast',
     autoSavedTemporary: 'Ändringar sparade temporärt inför publicering.',
     addedRoundId: 'Kurstillfällen har ändrats',
+    errorEmptyTitle: 'Du behöver ange ett namn på rubriken (se markering i rött ovan)',
     errKoppsRounds:
       'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:

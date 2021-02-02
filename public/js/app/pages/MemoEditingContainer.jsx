@@ -229,6 +229,7 @@ class MemoContainer extends Component {
   onChangeTab = (nextSectionId) => {
     // const { checkEmptiesForSectionId } = this
     const { activeTab } = this.state
+    // TODO: CHECK SEPARATELY EMPTIES AND DELETE LATER AFTER SWITCHING TAB
     const canBeSwitched = this.props.routerStore.checkEmptiesForSectionId(activeTab)
     // extraContentState[sectionId].
     if (canBeSwitched) {
@@ -237,6 +238,10 @@ class MemoContainer extends Component {
       this.onAutoSave()
     } else {
       this.setState({ checkOnlyContentId: getExtraHeaderIdBySectionId(activeTab) })
+      // Show alert below after scroll is done
+      setTimeout(() => {
+        this.onAlert('errorEmptyTitle', 'danger')
+      }, 500)
     }
   }
 
@@ -280,6 +285,10 @@ class MemoContainer extends Component {
     const { canFinish } = this.props.routerStore
     if (!canFinish) {
       this.setState({ checkAllExtra: true })
+      // Show alert below after scroll is done
+      setTimeout(() => {
+        this.onAlert('errorEmptyTitle', 'danger')
+      }, 500)
       return false
     }
 
