@@ -787,6 +787,9 @@ module.exports = {
     infoStartAgain: 'There are unpublished changes in this course memo. You can',
     linkToRefreshData:
       'reset the contents in this draft to the contents of the latest published version of this course memo',
+    removedAddedContent: '(TRANSLATE TO EN) Tillagd rubrik har tagits bort',
+    removedEmptyContent:
+      '(TRANSLATE TO EN) Tillagd rubrik har tagits bort eftersom det saknas rubrik och innehåll',
     syllabusUpdated:
       'Information from course syllabus and contact information have been updated with the most recent information in the draft below.',
     warnFillInCommentAboutChanges:

@@ -93,10 +93,12 @@ class NewSectionEditor extends Component {
     memoData[contentId][currentIndex].title = title // || (this.memoLangIndex === 1 ? 'Egna rubrik ' + currentIndex : 'New heading ' + currentIndex)
   }
 
-  onRemoveNewSection = () => {
+  onRemoveNewSection = (wasEmpty = false) => {
     const { contentId, uKey, currentIndex } = this.props
     this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.removeExtraContent(contentId, currentIndex)
+    if (wasEmpty) this.props.onAlert('removedEmptyContent', 'success', 500)
+    else this.props.onAlert('removedAddedContent', 'success', 500)
   }
 
   onSaveByThisContentId = () => {
@@ -134,8 +136,7 @@ class NewSectionEditor extends Component {
         hasEmptyTitle && // memoData[contentId][currentIndex].title.trim().length === 0 &&
         hasEmptyText
       ) {
-        this.onRemoveNewSection()
-        this.props.onAlert('removedEmptyContent', 'success', 500)
+        this.onRemoveNewSection(true)
 
         return false
       }

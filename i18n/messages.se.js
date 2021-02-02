@@ -768,6 +768,8 @@ module.exports = {
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
     linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',
+    removedAddedContent: 'Tillagd rubrik har tagits bort',
+    removedEmptyContent: 'Tillagd rubrik har tagits bort eftersom det saknas rubrik och innehåll',
     syllabusUpdated:
       'Information från kursplan och kontaktinformation har uppdaterats med den senaste giltiga informationen i utkastet nedan.',
     warnFillInCommentAboutChanges:
