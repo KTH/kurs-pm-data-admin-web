@@ -14,79 +14,108 @@ import PropTypes from 'prop-types'
 @observer
 class NewSectionEditor extends Component {
   state = {
-    extraContentArr: this.props.routerStore.memoData[this.props.contentId] || [],
+    extraContent:
+      this.props.routerStore.memoData[this.props.contentId][this.props.currentIndex] || [],
     isOpen: false,
-    currentIndex: this.props.routerStore.memoData[this.props.contentId].findIndex(
-      (item) => item.uKey === this.props.uKey
-    ),
-    hasEmptyTitleAlert: false
+    showEmptyTitleAlert: false
   }
 
   userLangIndex = this.props.routerStore.langIndex
 
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
+  static getDerivedStateFromProps(props, state) {
+    const { showError } = props
+    const { extraContent, showEmptyTitleAlert } = state
+    // fast reaction after switch/submit
+    if (showError && !showEmptyTitleAlert) {
+      return { showEmptyTitleAlert: showError }
+    }
+
+    // if error is fixed then check it and update state
+    const { title, htmlContent } = extraContent
+    const hasEmptyTitle = !!(title.length === 0)
+    const hasEmptyText = !!(htmlContent.length === 0)
+    return { showEmptyTitleAlert: hasEmptyTitle && !hasEmptyText }
+  }
+
   componentDidMount() {
-    const { contentId, routerStore } = this.props
-    const { currentIndex } = this.state
-    this.setState({ isOpen: routerStore.memoData[contentId][currentIndex].isEmptyNew })
+    const { extraContent } = this.state
+
+    this.setState({
+      isOpen: extraContent.isEmptyNew || !!(extraContent.title.length === 0) || false
+    })
   }
 
   componentDidUpdate() {
-    const { uKey } = this.props
+    const { uKey, menuId, contentId, currentIndex, routerStore, showError } = this.props
+    const { extraContent, showEmptyTitleAlert } = this.state
     // eslint-disable-next-line react/destructuring-assignment
-    this.props.routerStore.dirtyEditor = uKey
+    this.updateExtraHeadersState(contentId, currentIndex, extraContent)
+    routerStore.dirtyEditor = uKey
+
+    if (showError && showEmptyTitleAlert) {
+      const sectionElement = document.getElementById(menuId)
+      sectionElement.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   componentWillUnmount() {
     this.onSaveByThisContentId()
   }
 
+  updateExtraHeadersState = () => {
+    const { contentId, currentIndex } = this.props
+    const { extraContent } = this.state
+    const { title, htmlContent } = extraContent
+    const hasEmptyTitle = !!(title.length === 0)
+    const hasEmptyText = !!(htmlContent.length === 0)
+    // full path to routerStore
+    this.props.routerStore.updateThisExtraState(
+      contentId,
+      currentIndex,
+      hasEmptyTitle,
+      hasEmptyText
+    )
+  }
+
   setNewContent = (editorContent) => {
-    const { contentId } = this.props
-    const { currentIndex } = this.state
-    this.props.routerStore.memoData[contentId][currentIndex].htmlContent = editorContent.trim()
+    const { contentId, currentIndex } = this.props
+    const { memoData } = this.props.routerStore
+    memoData[contentId][currentIndex].htmlContent = editorContent.trim()
   }
 
   setNewTitle = (event) => {
     event.preventDefault()
-    const { contentId } = this.props
-    const { currentIndex } = this.state
+    const { contentId, currentIndex } = this.props
     const { memoData } = this.props.routerStore
     const title = event.target.value.trim()
     memoData[contentId][currentIndex].title = title // || (this.memoLangIndex === 1 ? 'Egna rubrik ' + currentIndex : 'New heading ' + currentIndex)
   }
 
   onRemoveNewSection = () => {
-    const { contentId, uKey } = this.props
-    const { currentIndex } = this.state
-    const arrayToReduce = [...this.props.routerStore.memoData[contentId]]
-    arrayToReduce.splice(currentIndex, 1)
+    const { contentId, uKey, currentIndex } = this.props
     this.props.routerStore.dirtyEditor = uKey
-    /* Remove direct from routerStore to keep state and initialValue for editor but still update both of them after removal */
-    this.props.routerStore.memoData[contentId] = arrayToReduce
+    this.props.routerStore.removeExtraContent(contentId, currentIndex)
   }
 
   onSaveByThisContentId = () => {
-    const { contentId, uKey } = this.props
-    const { currentIndex } = this.state
+    const { contentId, currentIndex, uKey } = this.props
     const { dirtyEditor } = this.props.routerStore
     const latestMemoData = this.props.routerStore.memoData[contentId]
     // thisSectionExist is needed to know if section was deleted before unmounting
-    const thisSectionExist = !!this.props.routerStore.memoData[contentId][currentIndex]
+    const thisSectionExist = !!this.props.routerStore.memoData[contentId].length > currentIndex
 
     if (dirtyEditor === uKey) {
       this.props.onSave({ [contentId]: latestMemoData }, 'autoSaved')
     }
     this.props.routerStore.dirtyEditor = ''
 
-    if (thisSectionExist)
-      this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+    if (thisSectionExist) delete this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew
   }
 
   toggleVisibleInMemo = () => {
-    const { contentId } = this.props
-    const { currentIndex } = this.state
+    const { contentId, currentIndex } = this.props
     const { memoData } = this.props.routerStore
     const { visibleInMemo } = memoData[contentId][currentIndex]
     this.props.routerStore.memoData[contentId][currentIndex].visibleInMemo = !visibleInMemo
@@ -94,8 +123,8 @@ class NewSectionEditor extends Component {
   }
 
   onToggleVisibleEditor = () => {
-    const { contentId, uKey } = this.props
-    const { currentIndex, isOpen } = this.state
+    const { contentId, currentIndex, uKey } = this.props
+    const { isOpen } = this.state
     const { memoData } = this.props.routerStore
     const { title, htmlContent } = memoData[contentId][currentIndex]
     const hasEmptyTitle = !!(title.length === 0)
@@ -109,10 +138,10 @@ class NewSectionEditor extends Component {
         return false
       }
       if (hasEmptyTitle) {
-        this.setState({ hasEmptyTitleAlert: true })
+        this.setState({ showEmptyTitleAlert: true })
         return false
       }
-      this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew = false
+      delete this.props.routerStore.memoData[contentId][currentIndex].isEmptyNew
     } else this.props.routerStore.dirtyEditor = uKey
 
     this.setState({ isOpen: !isOpen })
@@ -122,8 +151,8 @@ class NewSectionEditor extends Component {
   render() {
     const { uKey, contentId, menuId } = this.props
     const { userLangIndex } = this
-    const { currentIndex, extraContentArr, hasEmptyTitleAlert, isOpen } = this.state
-    const { htmlContent, title, isEmptyNew, visibleInMemo } = extraContentArr[currentIndex]
+    const { extraContent, showEmptyTitleAlert, isOpen } = this.state
+    const { htmlContent, title, isEmptyNew, visibleInMemo } = extraContent
 
     const { actionModals, buttons, sourceInfo, memoInfoByUserLang } = i18n.messages[userLangIndex]
 
@@ -159,7 +188,7 @@ class NewSectionEditor extends Component {
                   onBlur={this.onSaveByThisContentId}
                   defaultValue={title}
                 />
-                {hasEmptyTitleAlert && (
+                {showEmptyTitleAlert && (
                   <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
                     {sourceInfo.errorEmptyTitle}
                   </Label>
@@ -222,12 +251,14 @@ class NewSectionEditor extends Component {
 
 NewSectionEditor.propTypes = {
   contentId: PropTypes.string.isRequired,
+  currentIndex: PropTypes.number.isRequired,
   htmlContent: PropTypes.string,
   menuId: PropTypes.string.isRequired,
   visibleInMemo: PropTypes.bool,
   onSave: PropTypes.func.isRequired,
   // eslint-disable-next-line react/require-default-props
   routerStore: PropTypes.func,
+  showError: PropTypes.bool,
   uKey: PropTypes.string.isRequired
 }
 
