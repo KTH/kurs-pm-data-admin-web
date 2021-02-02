@@ -93,7 +93,7 @@ class NewSectionEditor extends Component {
     memoData[contentId][currentIndex].title = title // || (this.memoLangIndex === 1 ? 'Egna rubrik ' + currentIndex : 'New heading ' + currentIndex)
   }
 
-  onRemoveNewSection = (wasEmpty = false) => {
+  onRemoveThisContent = (wasEmpty = false) => {
     const { contentId, uKey, currentIndex } = this.props
     this.props.routerStore.dirtyEditor = uKey
     this.props.routerStore.removeExtraContent(contentId, currentIndex)
@@ -136,7 +136,7 @@ class NewSectionEditor extends Component {
         hasEmptyTitle && // memoData[contentId][currentIndex].title.trim().length === 0 &&
         hasEmptyText
       ) {
-        this.onRemoveNewSection(true)
+        this.onRemoveThisContent(true)
 
         return false
       }
@@ -224,7 +224,7 @@ class NewSectionEditor extends Component {
               modalId={`beforeRemoving-${contentId}-${uKey}`}
               type="remove"
               modalLabels={actionModals.newSectionRemove}
-              onConfirm={this.onRemoveNewSection}
+              onConfirm={this.onRemoveThisContent}
             />
           </span>
         )}
