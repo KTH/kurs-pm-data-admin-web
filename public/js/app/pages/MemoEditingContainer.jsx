@@ -42,7 +42,7 @@ class MemoContainer extends Component {
     alertColor: '',
     activeTab: sections[0].id,
     checkAllExtra: false,
-    checkOnlyContentId: null
+    checkOnlyContentId: ''
   }
 
   isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
@@ -72,6 +72,54 @@ class MemoContainer extends Component {
     }
     this.scrollIntoView()
   }
+
+  // checkEmpties = (sectionId) => {
+  //   const contentId = getExtraHeaderIdBySectionId(sectionId)
+  //   const { extraContentState } = this.props.routerStore
+  //   if (!extraContentState || !extraContentState[contentId]) return true
+  //   let canBeSwitched = true
+
+  //   // this.emptyExtrasBySection[sectionId] = !!this.extraContentState[contentId].filter(())
+  //   extraContentState[contentId].forEach(
+  //     ({ hasEmptyTitleAndText, hasEmptyTitle }, currentIndex) => {
+  //       if (hasEmptyTitleAndText) {
+  //         const arrayToReduce = [...this.memoData[contentId]]
+  //         arrayToReduce.splice(currentIndex, 1)
+  //         this.memoData[contentId] = arrayToReduce // used changed array, not return value from splice
+  //       } else if (hasEmptyTitle) canBeSwitched = false
+  //     }
+  //   )
+
+  //   return canBeSwitched
+  // }
+
+  // checkEmptiesForSectionId = (sectionId) => {
+  //   const contentId = getExtraHeaderIdBySectionId(sectionId)
+  //   const { extraContentState } = this.props.routerStore
+  //   let canBeSwitched = true
+  //   console.log('sectionId', sectionId)
+  //   console.log('extraContentState[contentId]', Object.keys(extraContentState))
+
+  //   if (!extraContentState || !extraContentState[contentId]) return true
+  //   console.log('contentId', contentId)
+
+  //   extraContentState[contentId].forEach(
+  //     ({ hasEmptyTitleAndText, hasEmptyTitle }, currentIndex) => {
+  //       console.log('currentIndex', currentIndex)
+
+  //       console.log('hasEmptyTitleAndText', hasEmptyTitleAndText)
+
+  //       if (hasEmptyTitleAndText) {
+  //         this.props.routerStore.removeExtraContent(contentId, currentIndex)
+  //       } else if (hasEmptyTitle && !hasEmptyTitleAndText) {
+  //         canBeSwitched = false
+  //         // stopAndShowError()
+  //       }
+  //     }
+  //   )
+
+  //   return canBeSwitched
+  // }
 
   courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = this.state
@@ -119,8 +167,8 @@ class MemoContainer extends Component {
     this.rebuilDraftFromPublishedVer = false
   }
 
-  onAutoSave = () => {
-    this.onSave(this.props.routerStore.memoData, 'autoSaved') // save precisily this editor content by contentId
+  onAutoSave = (data = this.props.routerStore.memoData) => {
+    this.onSave(data, 'autoSaved') // save precisily this editor content by contentId
   }
 
   onSave = async (editorContent, alertTranslationId) => {
@@ -185,6 +233,7 @@ class MemoContainer extends Component {
     // extraContentState[sectionId].
     if (canBeSwitched) {
       this.setState({ activeTab: nextSectionId, checkOnlyContentId: '' })
+      // this.onSave(this.props.routerStore.memoData, 'autoSaved')
       this.onAutoSave()
     } else {
       this.setState({ checkOnlyContentId: getExtraHeaderIdBySectionId(activeTab) })
@@ -215,15 +264,31 @@ class MemoContainer extends Component {
       visible = false
     }
     this.props.routerStore.memoData.visibleInMemo[contentHeader] = !visible
-    this.onSave({ visibleInMemo: this.props.routerStore.memoData.visibleInMemo }, 'autoSaved')
+    // this.onSave({ visibleInMemo: this.props.routerStore.memoData.visibleInMemo }, 'autoSaved')
+    this.onAutoSave({ visibleInMemo: this.props.routerStore.memoData.visibleInMemo })
   }
 
   /** * Conrol Panel ** */
 
   /** * User clicked button to save a draft  ** */
-  handleBtnSave = () => {
-    const resAfterSavingMemoData = this.onSave(this.props.routerStore.memoData, 'autoSaved')
-    return resAfterSavingMemoData
+  // handleBtnSave = () => {
+  //   const resAfterSavingMemoData = this.onSave(this.props.routerStore.memoData, 'autoSaved')
+  //   return resAfterSavingMemoData
+  // }
+
+  handleBtnSaveAndMove = async (nextUrl = '') => {
+    const { canFinish } = this.props.routerStore
+    if (!canFinish) {
+      this.setState({ checkAllExtra: true })
+      return false
+    }
+
+    const resAfterSavingMemoData = await this.onSave(this.props.routerStore.memoData, 'autoSaved')
+    if (nextUrl && canFinish && resAfterSavingMemoData)
+      setTimeout(() => {
+        window.location = nextUrl
+      }, 500)
+    return true
   }
 
   /** * User clicked button to go to one step back ** */
@@ -232,11 +297,12 @@ class MemoContainer extends Component {
     const nextUrl = `${SERVICE_URL.courseMemoAdmin}${
       isDraftOfPublished ? 'published/' : ''
     }${courseCode}?memoEndPoint=${memoEndPoint}`
-    this.handleBtnSave().then(
-      setTimeout(() => {
-        window.location = nextUrl
-      }, 500)
-    )
+    this.handleBtnSaveAndMove(nextUrl)
+    // this.handleBtnSave().then(
+    //   setTimeout(() => {
+    //     window.location = nextUrl
+    //   }, 500)
+    // )
   }
 
   onCancel = async () => {
@@ -247,11 +313,14 @@ class MemoContainer extends Component {
     }&term=${semester}&name=${memoName || memoEndPoint}`
 
     if (!isDraftOfPublished)
-      return this.handleBtnSave().then(
-        setTimeout(() => {
-          window.location = startAdminPageUrl
-        }, 500)
+      return this.handleBtnSaveAndMove(
+        `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
       )
+    // this.handleBtnSave().then(
+    //   setTimeout(() => {
+    //     window.location = startAdminPageUrl
+    //   }, 500)
+    // )
     /* If it is a draft of published version, draft will be deleted */
     try {
       const resultAfterDelete = await axios.delete(
@@ -281,11 +350,15 @@ class MemoContainer extends Component {
     const { commentAboutMadeChanges } = this.state
     if (isDraftOfPublished && commentAboutMadeChanges.length === 0) this.setUpperAlarm()
     else
-      this.handleBtnSave().then(
-        setTimeout(() => {
-          window.location = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
-        }, 500)
+      this.handleBtnSaveAndMove(
+        `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
       )
+
+    // this.handleBtnSave().then(
+    //   setTimeout(() => {
+    //     window.location = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
+    //   }, 500)
+    // )
   }
 
   /* Functions for editing/controlling published memos */
@@ -502,7 +575,7 @@ class MemoContainer extends Component {
           <ControlPanel
             langIndex={userLangIndex}
             onSubmit={this.onContinueToPreview}
-            onSave={this.handleBtnSave}
+            onSave={this.onAutoSave}
             onBack={this.onBack}
             onCancel={this.onCancel}
             progress={2}
