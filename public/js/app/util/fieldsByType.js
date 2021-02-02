@@ -201,6 +201,8 @@ const sections = [
     extraHeaderTitle: null
   }
 ]
+const getExtraHeaderIdBySectionId = (sectionId) =>
+  sections.find(({ id }) => id === sectionId).extraHeaderTitle || null
 
 const contentParam = (contentId, param) => (context[contentId] && context[contentId][param]) || ''
 
@@ -244,6 +246,7 @@ module.exports = {
   allStandardHeadersAndSubHd,
   context,
   contentParam,
+  getExtraHeaderIdBySectionId,
   getNumOfEditableStandardContent,
   getNumOfStandardHeadersAndSubHd,
   getHeadersByType,
