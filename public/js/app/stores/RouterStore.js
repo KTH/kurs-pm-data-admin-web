@@ -1,6 +1,7 @@
-import { observable, action } from 'mobx'
+import { observable, action, computed } from 'mobx'
 import axios from 'axios'
 import { SERVICE_URL } from '../util/constants'
+import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 
 class RouterStore {
   @observable courseCode
@@ -21,7 +22,62 @@ class RouterStore {
 
   @observable rebuilDraftFromPublishedVer = false
 
+  @observable showError = false
+
+  @observable canFinish = true
+
+  @observable extraContentState =
+    Object.fromEntries(sections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
+
+  // @observable errorStateForExtraContent = Object.fromEntries(sections.map(({ id }) => [id, false]))
   // @observable availableSemesterRounds = []
+
+  // @action checkAllSections() {
+  //   const { showError } = this
+  //   console.log('opa')
+  //   sections.slice(0, 4).map(({ id: sectionId }) => this.checkEmpties(sectionId))
+  //   return showError
+  // }
+
+  @action updateThisExtraState(contentId, currentIndex, hasEmptyTitle, hasEmptyText) {
+    const hasEmptyTitleAndText = hasEmptyText && hasEmptyTitle
+
+    this.extraContentState[contentId][currentIndex] = {
+      hasEmptyTitleAndText,
+      hasEmptyText,
+      hasEmptyTitle
+    }
+    if (!hasEmptyTitleAndText) this.canFinish = this.canFinish && !hasEmptyTitle
+  }
+
+  @action removeExtraContent(contentId, currentIndex) {
+    this.memoData[contentId].splice(currentIndex, 1)
+  }
+
+  @action stopAndShowError() {
+    this.showError = true
+  }
+
+  @action checkEmptiesForSectionId(sectionId) {
+    const contentId = getExtraHeaderIdBySectionId(sectionId)
+    const { extraContentState } = this
+    let canBeSwitched = true
+
+    if (!extraContentState || !extraContentState[contentId]) return true
+
+    extraContentState[contentId].forEach(
+      ({ hasEmptyTitleAndText, hasEmptyTitle }, currentIndex) => {
+        if (hasEmptyTitleAndText) {
+          this.removeExtraContent(contentId, currentIndex)
+        } else if (hasEmptyTitle && !hasEmptyTitleAndText) {
+          canBeSwitched = false
+          // this.stopAndShowError()
+        }
+      }
+    )
+
+    return canBeSwitched
+  }
 
   @action setMemoBasicInfo(props) {
     this.semester = props.semester || ''
