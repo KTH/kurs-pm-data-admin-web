@@ -396,6 +396,11 @@ class MemoContainer extends Component {
         <h2 id={'header-' + id} key={'header-' + id}>
           {sectionsLabels[id]}
         </h2>
+        <details>
+          <summary className="white" aria-label={`Om ${sectionsLabels[id]}`}>
+            {`Om ${sectionsLabels[id]}`}
+          </summary>
+        </details>
         {content.map((contentId) => {
           const menuId = id + '-' + contentId
           const { isEditable, isRequired } = context[contentId]
@@ -526,6 +531,13 @@ class MemoContainer extends Component {
               style={{ marginBottom: '30px' }}
             />
           </Col>
+        </Row>
+        <Row>
+          <details>
+            <summary className="white" aria-label={`Introduktion och hjälp`}>
+              {`Introduktion och hjälp`}
+            </summary>
+          </details>
         </Row>
         <TabPanel
           activeTabId={activeTab}
