@@ -278,8 +278,8 @@ class PreviewContainer extends Component {
     const { previewMemo, progress, alertText, alertIsOpen } = this.state
     const { memoName, semester = '', courseCode, memoCommonLangAbbr, memoEndPoint } = previewMemo
     const {
-      progressTitleHeaders,
-      progressBarHeaders,
+      pagesCreateNewPm,
+      pagesChangePublishedPm,
       pageTitles,
       breadCrumbLabels,
       sideMenuLabels
@@ -341,9 +341,12 @@ class PreviewContainer extends Component {
             {routerStore.memoData.courseTitle}
           </PageTitle>
         </Row>
-        <ProgressBar active={progress} pages={progressBarHeaders} />
+        <ProgressBar
+          active={progress}
+          pages={this.isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
+        />
         <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
-        <ProgressTitle id="progress-title" text={progressTitleHeaders[PROGRESS - 1]} />
+        <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
         <div className="preview-content-separation" />
         <Row>
           <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
