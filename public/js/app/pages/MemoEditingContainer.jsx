@@ -382,12 +382,12 @@ class MemoContainer extends Component {
   renderScrollView = () => {
     const { memoData } = this.props.routerStore
     const { sectionsLabels } = i18n.messages[this.memoLangIndex]
-    const { buttons } = i18n.messages[this.userLangIndex]
+    const { buttons, sectionsSummary } = i18n.messages[this.userLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
       // <div key={id} className="sections-list-80">
       <div
-        className={`tab-pane fade ${this.state.activeTab === id ? 'show active' : ''}`}
+        className={`tab-panel fade ${this.state.activeTab === id ? 'show active' : ''}`}
         id={'tab-content-for-' + id}
         key={'tab-content-for-' + id}
         role="tabpanel"
@@ -396,10 +396,12 @@ class MemoContainer extends Component {
         <h2 id={'header-' + id} key={'header-' + id}>
           {sectionsLabels[id]}
         </h2>
-        <details>
-          <summary className="white" aria-label={`Om ${sectionsLabels[id]}`}>
-            {`Om ${sectionsLabels[id]}`}
+        <details className="details-about-each-section">
+          <summary className="white" aria-label={`${sectionsSummary.about} ${sectionsLabels[id]}`}>
+            {/* Is user language or memo language */}
+            {`${sectionsSummary.about} ${sectionsLabels[id]}`}
           </summary>
+          {sectionsSummary[id]}
         </details>
         {content.map((contentId) => {
           const menuId = id + '-' + contentId
@@ -530,14 +532,53 @@ class MemoContainer extends Component {
               text={pagesCreateNewPm[PROGRESS - 1]}
               style={{ marginBottom: '30px' }}
             />
+            <details>
+              <summary className="white" aria-label={`Introduktion och hjälp`}>
+                {extraInfo.summaryIntroductionHelp.titleMain}
+              </summary>
+              <span
+                dangerouslySetInnerHTML={{ __html: extraInfo.summaryIntroductionHelp.startInfo }}
+              />
+              <details>
+                <summary className="white">
+                  {extraInfo.summaryIntroductionHelp.aboutMemo.title +
+                    ' (se text sist i dokumentet)'}
+                </summary>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: extraInfo.summaryIntroductionHelp.aboutMemo.details
+                  }}
+                />
+              </details>
+              <details>
+                <summary className="white">
+                  {extraInfo.summaryIntroductionHelp.aboutKursinformation.title +
+                    ' (se text sist i dokumentet)'}
+                </summary>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: extraInfo.summaryIntroductionHelp.aboutKursinformation.details
+                  }}
+                />
+              </details>
+              <details>
+                <summary className="white">
+                  {extraInfo.summaryIntroductionHelp.aboutHelpInCanvasAndMemo.title +
+                    ' (se text sist i dokumentet)'}
+                </summary>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: extraInfo.summaryIntroductionHelp.aboutHelpInCanvasAndMemo.details
+                  }}
+                />
+              </details>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: extraInfo.summaryIntroductionHelp.mainContinue
+                }}
+              />
+            </details>
           </Col>
-        </Row>
-        <Row>
-          <details>
-            <summary className="white" aria-label={`Introduktion och hjälp`}>
-              {`Introduktion och hjälp`}
-            </summary>
-          </details>
         </Row>
         <TabPanel
           activeTabId={activeTab}
