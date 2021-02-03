@@ -507,7 +507,9 @@ module.exports = {
     {
       title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
-      It is possible to go back to make adjustments, to save a draft or publish the information.`
+      It is possible to go back to make adjustments, to save a draft or publish the information.`,
+      info:
+        'In this step (3 of 3) you can review the course memo as it will look on the published web page. It is also possible to review the course memo as a PDF. You can return to the previous page if you want to continue editing the course memo, or you can end your work with this draft and return to it another time. If you publish this course memo it will be visible as a sub page to About the course / Prepare and take course.'
     }
   ],
   pagesChangePublishedPm: [
@@ -525,45 +527,8 @@ module.exports = {
     {
       title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
-      It is possible to go back to make adjustments, to save a draft or publish the information.`
-    }
-  ],
-  progressBarHeaders: [
-    {
-      title: 'Choose course offering',
-      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
-      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
-      In the next step (2 of 3) you can edit the course memo. 
-      Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
-      `
-    },
-    {
-      title: 'Edit course memo',
-      intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
-      changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
-    },
-    {
-      title: 'Review and publish',
-      intro: ''
-    }
-  ],
-  progressTitleHeaders: [
-    {
-      title: '1. Choose course offering',
-      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
-      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
-      In the next step (2 of 3) you can edit the course memo. 
-      Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
-      `
-    },
-    {
-      title: '2. Edit course memo',
-      intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
-      changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
-    },
-    {
-      title: 'Review and publish course memo',
-      intro:
+      It is possible to go back to make adjustments, to save a draft or publish the information.`,
+      info:
         'In this step (3 of 3) you can review the course memo as it will look on the published web page. It is also possible to review the course memo as a PDF. You can return to the previous page if you want to continue editing the course memo, or you can end your work with this draft and return to it another time. If you publish this course memo it will be visible as a sub page to About the course / Prepare and take course.'
     }
   ],

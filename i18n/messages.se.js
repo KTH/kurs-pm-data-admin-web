@@ -496,8 +496,9 @@ module.exports = {
     },
     {
       title: 'Granska och publicera',
-      intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
-      Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
+      intro: '',
+      info:
+        'I detta steg (3 av 3) visas hur kurs-PM kommer att se ut som webbsida. Kurs-PM kan också granskas som PDF. Här finns finns möjlighet att gå tillbaka för att redigera kurs-PM, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller att publicera kurs-PM som en undersida till: Om kursen / Förbereda och gå kurs.'
     }
   ],
   pagesChangePublishedPm: [
@@ -515,42 +516,8 @@ module.exports = {
     },
     {
       title: 'Granska och publicera',
-      intro: `I detta steg (3 av 3) visas hur kurs-PM data kommer att se ut på sidan .... 
-      Här finns möjlighet att gå tillbaka för att redigera ytterligare, spara som utkast eller publicera direkt.`
-    }
-  ],
-  progressBarHeaders: [
-    {
-      title: 'Välj kursomgång',
-      intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
-      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
-    },
-    {
-      title: 'Redigera kurs-PM',
-      intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
-      I nästa steg granskas all kurs-PM data innan publicering.`
-    },
-    {
-      title: 'Granska och publicera',
-      intro: ''
-    }
-  ],
-  progressTitleHeaders: [
-    {
-      title: '1. Välj kursomgång',
-      intro: `Börja med att välja termin och kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). 
-      Du kan i detta steg välja om du vill skapa ett helt nytt kurs-PM för kursomgången eller skapa ett utkast genom att kopiera innehållet från ett tidigare kurs-PM på denna kurs. 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) har du möjlighet att först granska kurs-PM och sedan publicera kurs-PM på kursplatsen “Om kursen“ för vald termin och kursomgång.`
-    },
-    {
-      title: '2. Redigera kurs-PM',
-      intro: `I detta steg (2 av 3) ska kurs-PM data redigeras, förändringar för vald kursomgång summeras samt kurs-PM data kontrolleras och vid behov justeras. 
-      I nästa steg granskas all kurs-PM data innan publicering.`
-    },
-    {
-      title: 'Granska kurs-PM som sida',
-      intro:
+      intro: '',
+      info:
         'I detta steg (3 av 3) visas hur kurs-PM kommer att se ut som webbsida. Kurs-PM kan också granskas som PDF. Här finns finns möjlighet att gå tillbaka för att redigera kurs-PM, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller att publicera kurs-PM som en undersida till: Om kursen / Förbereda och gå kurs.'
     }
   ],
