@@ -75,7 +75,6 @@ module.exports = {
       mandatoryForSome: `Inget innehåll fanns att hämta. Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan. Du kan också välja att inte inkludera rubriken.`
     },
-    dummyHelpText: 'Hjälptext som vägleder och hjälper',
     insertedSubSection: '(Avsnittet nedan ingår inte i kursplanen)'
   },
   memoTitlesByMemoLang: {

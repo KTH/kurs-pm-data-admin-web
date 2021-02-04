@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../../i18n'
-import { Collapse } from '@kth/kth-kip-style-react-components'
 import { ContentHead } from '../ContentHead'
+import CollapseGuidance from '../details/CollapseGuidance'
 import VisibilityInfo from '../VisibilityInfo'
 import { context } from '../../util/fieldsByType'
 import editorConf from '../../util/editorInitConf'
@@ -100,19 +100,10 @@ class StandardEditorPerTitle extends Component {
         />
         {this.state.isOpen && (
           <span data-testid="standard-editor">
-            <Collapse
-              alt="Expand this to see a helping text"
-              uLabel={contentId}
-              color="white"
-              buttonText={buttons.showGuidance}
-            >
-              <span
-                data-testid="help-text"
-                dangerouslySetInnerHTML={{
-                  __html: memoInfoByUserLang[contentId].help || `<p>${sourceInfo.dummyHelpText}</p>`
-                }}
-              />
-            </Collapse>
+            <CollapseGuidance
+              title={buttons.showGuidance}
+              details={memoInfoByUserLang[contentId].help}
+            />
             <Editor
               id={'editorFor' + contentId}
               initialValue={htmlContent}

@@ -154,7 +154,13 @@ $white: #fff;
     word-break: break-word;
   }
 }
+details.guidance-per-content {
+  background-color: $light-yellow;
+}
+
 .card.collapsible.white {
+  //TODO: REMOVE AFTER NEW LAYOUT IS READY
+
   margin-bottom: 20px; //0.2em;
   .card-body {
     padding: 1em 0;
@@ -511,6 +517,8 @@ $white: #fff;
       @extend %bordered-area;
     }
     .card.collapsible.blue {
+      //TODO: REMOVE AFTER NEW LAYOUT IS READY
+
       margin-top: 30px; //1.8em;
       &:first-of-type {
         margin-top: 0 !important;

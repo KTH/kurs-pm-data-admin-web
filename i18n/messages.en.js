@@ -83,7 +83,6 @@ module.exports = {
       optional:
         'There was no content to fetch to this course memo. Read more on how to change fetched information in the information icon next to the heading above. You can also choose to exclude the heading from the published course memo.'
     },
-    dummyHelpText: 'Help text that helps',
     insertedSubSection: '(Section below is not part of the syllabus)'
   },
   memoTitlesByMemoLang: {

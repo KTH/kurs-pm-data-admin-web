@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../../i18n'
-import { Collapse, ActionModalButton } from '@kth/kth-kip-style-react-components'
+import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+import CollapseGuidance from '../details/CollapseGuidance'
 import { ExtraHeaderHead } from '../ContentHead'
 import VisibilityInfo from '../VisibilityInfo'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
@@ -200,18 +201,10 @@ class NewSectionEditor extends Component {
                 )}
               </FormGroup>
             </Form>
-            <Collapse
-              alt="Expand this to see a helping text"
-              uLabel={contentId}
-              color="white"
-              buttonText={buttons.showGuidance}
-            >
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: memoInfoByUserLang[contentId].help || `<p>${sourceInfo.dummyHelpText}</p>`
-                }}
-              />
-            </Collapse>
+            <CollapseGuidance
+              title={buttons.showGuidance}
+              details={memoInfoByUserLang[contentId].help}
+            />
             <Editor
               id={`editorFor${contentId}-${uKey}`}
               initialValue={htmlContent}
