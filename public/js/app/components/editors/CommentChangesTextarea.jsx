@@ -13,14 +13,17 @@ const CommentChangesTextarea = ({
 }) => (
   <>
     <Form className={isError ? 'error-area' : ''}>
-      <FormGroup className="title">
+      <FormGroup>
         <ContentHead
           contentId="commentAboutMadeChanges"
           memoLangIndex={memoLangIndex}
           userLangIndex={userLangIndex}
         />
-        <Label htmlFor="commentChanges">{labels.commentChanges}</Label>
+        <Label className="form-control-label" htmlFor="commentChanges">
+          {labels.commentChanges}
+        </Label>
         <Input
+          className="form-control"
           type="textarea"
           name="text"
           id="commentChanges"

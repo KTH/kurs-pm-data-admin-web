@@ -34,26 +34,6 @@ class SectionMenu extends Component {
     this.state = {}
   }
 
-  // setExpandedId = (expandedId) => {
-  //   this.setState(({ expandedIds }) => {
-  //     if (!expandedIds.includes(expandedId)) {
-  //       expandedIds.push(expandedId)
-  //     }
-  //     return { expandedIds }
-  //   })
-  // }
-
-  // removeExpandedId = (expandedId) =>
-  //   this.setState(({ expandedIds }) => ({
-  //     expandedIds: expandedIds.filter((id) => id !== expandedId)
-  //   }))
-
-  // isExpandedId = (id) => this.state.expandedIds.includes(id)
-
-  // componentDidMount = () => {
-  //   if (this.state.expandedIds.length === 0) this.setState({ expandedIds: [sections[0].id] })
-  // }
-
   render() {
     const { memoTitlesByMemoLang } = i18n.messages[this.props.memoLangIndex]
     const { extraInfo } = i18n.messages[this.props.userLangIndex]

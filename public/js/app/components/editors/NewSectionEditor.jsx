@@ -186,8 +186,11 @@ class NewSectionEditor extends Component {
           <span>
             <Form>
               <FormGroup className="title">
-                <Label htmlFor={`headerFor${contentId}-${uKey}`}>{sourceInfo.addNewTitle}</Label>
+                <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
+                  {sourceInfo.addNewTitle}
+                </Label>
                 <Input
+                  className="form-control"
                   type="text"
                   id={`headerFor${contentId}-${uKey}`}
                   onChange={this.setNewTitle}

@@ -38,26 +38,29 @@ const VisibilityInfo = ({
             </p>
           )) || (
             <form className="Show--Or--Not--inMemo">
-              <span>
+              <div className="form-check form-group">
+                <input
+                  className="form-check-input"
+                  data-testid="checkbox-visibility"
+                  type="checkbox"
+                  id={'visibilityFor' + contentId}
+                  name="visibleInMemo"
+                  onClick={() => onToggleVisibleInMemo(contentId)}
+                  defaultChecked={visibleInMemo || false}
+                  style={{ marginRight: '.3em' }}
+                />
                 <label
+                  className="form-control-label"
                   data-testid="label-visibility"
                   htmlFor={'visibilityFor' + contentId}
                   style={{ fontSize: '1rem' }}
                 >
-                  <input
-                    data-testid="checkbox-visibility"
-                    type="checkbox"
-                    id={'visibilityFor' + contentId}
-                    name="visibleInMemo"
-                    onClick={() => onToggleVisibleInMemo(contentId)}
-                    defaultChecked={visibleInMemo || false}
-                    style={{ marginRight: '.3em' }}
-                  />
+                  {' '}
                   {sourceInfo.includeInMemo[sectionType]}
                 </label>
                 {isHeaderInConf && dataOrigin && <b className="source">{fetched} </b>}
                 {isHeaderInConf && dataOrigin && sourceInfo[dataOrigin]}
-              </span>
+              </div>
             </form>
           )}
         </span>

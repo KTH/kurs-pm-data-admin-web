@@ -8,7 +8,7 @@ const StandardSectionOrEditor = ({
   contentId,
   memoData,
   sectionId,
-  toggleStandardVisibleInMemo,
+  onToggleVisibleInMemo,
   memoLangIndex,
   onSave,
   userLangIndex,
@@ -26,7 +26,7 @@ const StandardSectionOrEditor = ({
       menuId={menuId}
       key={contentId}
       htmlContent={initialValue}
-      onToggleVisibleInMemo={toggleStandardVisibleInMemo}
+      onToggleVisibleInMemo={onToggleVisibleInMemo}
       visibleInMemo={visibleInMemo}
       onSave={onSave}
     />
@@ -37,7 +37,7 @@ const StandardSectionOrEditor = ({
       menuId={menuId}
       key={contentId}
       visibleInMemo={visibleInMemo}
-      onToggleVisibleInMemo={toggleStandardVisibleInMemo}
+      onToggleVisibleInMemo={onToggleVisibleInMemo}
       html={initialValue}
       userLangIndex={userLangIndex}
     />
@@ -46,11 +46,11 @@ const StandardSectionOrEditor = ({
 StandardSectionOrEditor.propTypes = {
   checkVisibility: PropTypes.func,
   contentId: PropTypes.string,
-  memoData: PropTypes.objectOf,
+  memoData: PropTypes.func,
   memoLangIndex: PropTypes.number,
   onSave: PropTypes.func,
   sectionId: PropTypes.string,
-  toggleStandardVisibleInMemo: PropTypes.func,
+  onToggleVisibleInMemo: PropTypes.func,
   userLangIndex: PropTypes.number
 }
 

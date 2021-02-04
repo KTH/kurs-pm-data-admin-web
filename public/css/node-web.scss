@@ -487,10 +487,15 @@ details.guidance-per-content {
   border-bottom: none;
   padding-left: 0;
 
+  #mainMenu {
+    margin-top: 10px;
+  }
+
   .progress-title {
     //mobil view, hide title 'Rubriker/Headers'
     display: none !important;
   }
+
   @media (min-width: 992px) {
     #mainMenu.col {
       max-width: 250px;
@@ -528,16 +533,16 @@ details.guidance-per-content {
       }
     }
   }
+}
 
-  div#back-to-top {
-    background-position: center;
-    bottom: 40px;
-    font-size: 0.9rem;
-    right: 70px;
-    text-indent: 0;
-    padding-top: 60px;
-    width: 150px;
-  }
+div#back-to-top {
+  background-position: center;
+  bottom: 20px;
+  font-size: 0.9rem;
+  right: 70px;
+  text-indent: 0;
+  padding-top: 60px;
+  width: 150px;
 }
 
 span.section-info {
