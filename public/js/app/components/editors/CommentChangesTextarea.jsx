@@ -42,7 +42,10 @@ const CommentChangesTextarea = ({
 )
 CommentChangesTextarea.propTypes = {
   isError: PropTypes.bool,
-  labels: PropTypes.objectOf(PropTypes.string),
+  labels: PropTypes.shape({
+    mandatory: PropTypes.string,
+    commentChanges: PropTypes.string
+  }),
   memoLangIndex: PropTypes.number,
   userLangIndex: PropTypes.number,
   textAboutChanges: PropTypes.string,

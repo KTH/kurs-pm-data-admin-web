@@ -14,7 +14,7 @@ const CollapseMemoIntroduction = ({ translate }) => {
   return (
     <CollapseDetails
       // className="details-about-each-section"
-      ariaLabel={translate}
+      ariaLabel={titleMain}
       title={titleMain}
     >
       <span dangerouslySetInnerHTML={{ __html: startInfo }} />
@@ -48,7 +48,14 @@ const CollapseMemoIntroduction = ({ translate }) => {
 }
 
 CollapseMemoIntroduction.propTypes = {
-  translate: PropTypes.objectOf,
+  translate: PropTypes.shape({
+    aboutMemo: PropTypes.objectOf(PropTypes.string),
+    aboutKursinformation: PropTypes.objectOf(PropTypes.string),
+    aboutHelpInCanvasAndMemo: PropTypes.objectOf(PropTypes.string),
+    titleMain: PropTypes.string,
+    startInfo: PropTypes.string,
+    mainContinue: PropTypes.string
+  }),
   details: PropTypes.string,
   title: PropTypes.string
 }

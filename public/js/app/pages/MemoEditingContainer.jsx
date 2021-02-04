@@ -26,6 +26,7 @@ import NewSectionEditor from '../components/editors/NewSectionEditor'
 import StandardSectionOrEditor from '../components/StandardSectionOrEditor'
 
 import TabPanel from '../components/TabPanel'
+import TabSection from '../components/TabSection'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
@@ -366,12 +367,10 @@ class MemoContainer extends Component {
     ]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
-      <div
-        className={`tab-pane fade ${this.state.activeTab === id ? 'show active' : ''}`}
-        id={'tab-content-for-' + id}
-        key={'tab-content-for-' + id}
-        role="tabpanel"
-        aria-labelledby={id + '-tab'}
+      <TabSection
+        key={'tab-content-for-section-' + id}
+        isActive={this.state.activeTab === id}
+        sectionId={id}
       >
         <h2 id={'header-' + id} key={'header-' + id}>
           {sectionsLabels[id]}
@@ -384,7 +383,7 @@ class MemoContainer extends Component {
           <StandardSectionOrEditor
             key={'standard' + contentId}
             contentId={contentId}
-            memoData={memoData}
+            initialValue={memoData[contentId]}
             memoLangIndex={this.memoLangIndex}
             onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
             checkVisibility={this.checkVisibility}
@@ -419,7 +418,7 @@ class MemoContainer extends Component {
             {sectionsLabels[id]}
           </Button>
         )}
-      </div>
+      </TabSection>
     ))
   }
 

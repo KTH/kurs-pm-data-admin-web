@@ -28,7 +28,14 @@ const TabPanel = ({ activeTabId, onClick, sections, sectionsLabels }) => (
 TabPanel.propTypes = {
   activeTabId: PropTypes.string,
   onClick: PropTypes.func,
-  sections: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  sections: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      content: PropTypes.arrayOf(PropTypes.string),
+      extraHeaderTitle: PropTypes.string
+    })
+  ),
   sectionsLabels: PropTypes.objectOf(PropTypes.string)
 }
 
