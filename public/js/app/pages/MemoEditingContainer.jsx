@@ -21,8 +21,8 @@ import PageHead from '../components/PageHead'
 import CommentChangesTextarea from '../components/editors/CommentChangesTextarea'
 import ControlPanel from '../components/ControlPanel'
 import NewSectionEditor from '../components/editors/NewSectionEditor'
-import StandardEditorPerTitle from '../components/editors/StandardEditorPerTitle'
-import SectionForNonEditable from '../components/SectionForNonEditable'
+import StandardSectionOrEditor from '../components/StandardSectionOrEditor'
+
 import TabPanel from '../components/TabPanel'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
@@ -230,14 +230,11 @@ class MemoContainer extends Component {
   }
 
   onChangeTab = (nextSectionId) => {
-    // const { checkEmptiesForSectionId } = this
     const { activeTab } = this.state
     // TODO: CHECK SEPARATELY EMPTIES AND DELETE LATER AFTER SWITCHING TAB
     const canBeSwitched = this.props.routerStore.checkEmptiesForSectionId(activeTab)
-    // extraContentState[sectionId].
     if (canBeSwitched) {
       this.setState({ activeTab: nextSectionId, checkOnlyContentId: '' })
-      // this.onSave(this.props.routerStore.memoData, 'autoSaved')
       this.onAutoSave()
     } else {
       this.setState({ checkOnlyContentId: getExtraHeaderIdBySectionId(activeTab) })
@@ -270,17 +267,12 @@ class MemoContainer extends Component {
       visible = false
     }
     this.props.routerStore.memoData.visibleInMemo[contentHeader] = !visible
-    // this.onSave({ visibleInMemo: this.props.routerStore.memoData.visibleInMemo }, 'autoSaved')
     this.onAutoSave({ visibleInMemo: this.props.routerStore.memoData.visibleInMemo })
   }
 
   /** * Conrol Panel ** */
 
   /** * User clicked button to save a draft  ** */
-  // handleBtnSave = () => {
-  //   const resAfterSavingMemoData = this.onSave(this.props.routerStore.memoData, 'autoSaved')
-  //   return resAfterSavingMemoData
-  // }
 
   handleBtnSaveAndMove = async (nextUrl = '') => {
     const { canFinish } = this.props.routerStore
@@ -306,11 +298,6 @@ class MemoContainer extends Component {
       isDraftOfPublished ? 'published/' : ''
     }${courseCode}?memoEndPoint=${memoEndPoint}`
     this.handleBtnSaveAndMove(nextUrl)
-    // this.handleBtnSave().then(
-    //   setTimeout(() => {
-    //     window.location = nextUrl
-    //   }, 500)
-    // )
   }
 
   onCancel = async () => {
@@ -324,11 +311,7 @@ class MemoContainer extends Component {
       return this.handleBtnSaveAndMove(
         `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
       )
-    // this.handleBtnSave().then(
-    //   setTimeout(() => {
-    //     window.location = startAdminPageUrl
-    //   }, 500)
-    // )
+
     /* If it is a draft of published version, draft will be deleted */
     try {
       const resultAfterDelete = await axios.delete(
@@ -361,12 +344,6 @@ class MemoContainer extends Component {
       this.handleBtnSaveAndMove(
         `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
       )
-
-    // this.handleBtnSave().then(
-    //   setTimeout(() => {
-    //     window.location = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
-    //   }, 500)
-    // )
   }
 
   /* Functions for editing/controlling published memos */
@@ -382,12 +359,14 @@ class MemoContainer extends Component {
   renderScrollView = () => {
     const { memoData } = this.props.routerStore
     const { sectionsLabels } = i18n.messages[this.memoLangIndex]
-    const { buttons, sectionsSummary } = i18n.messages[this.userLangIndex]
+    const { buttons, sectionsLabels: sectionsLabelsInUserLang, sectionsSummary } = i18n.messages[
+      this.userLangIndex
+    ]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
       // <div key={id} className="sections-list-80">
       <div
-        className={`tab-panel fade ${this.state.activeTab === id ? 'show active' : ''}`}
+        className={`tab-pane fade ${this.state.activeTab === id ? 'show active' : ''}`}
         id={'tab-content-for-' + id}
         key={'tab-content-for-' + id}
         role="tabpanel"
@@ -397,60 +376,42 @@ class MemoContainer extends Component {
           {sectionsLabels[id]}
         </h2>
         <details className="details-about-each-section">
-          <summary className="white" aria-label={`${sectionsSummary.about} ${sectionsLabels[id]}`}>
-            {/* Is user language or memo language */}
-            {`${sectionsSummary.about} ${sectionsLabels[id]}`}
+          <summary
+            className="white"
+            aria-label={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
+          >
+            {`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
           </summary>
           {sectionsSummary[id]}
         </details>
-        {content.map((contentId) => {
-          const menuId = id + '-' + contentId
-          const { isEditable, isRequired } = context[contentId]
-          const initialValue = memoData[contentId]
-          const visibleInMemo = isRequired ? true : this.checkVisibility(contentId, initialValue)
-
-          return isEditable ? (
-            <StandardEditorPerTitle
-              contentId={contentId}
-              menuId={menuId}
-              key={contentId}
-              htmlContent={initialValue}
-              onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
-              visibleInMemo={visibleInMemo}
-              onSave={this.onSave}
-            />
-          ) : (
-            <SectionForNonEditable
-              memoLangIndex={this.memoLangIndex}
-              contentId={contentId}
-              menuId={menuId}
-              key={contentId}
-              visibleInMemo={visibleInMemo}
-              onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
-              html={initialValue}
-              userLangIndex={this.userLangIndex}
-            />
-          )
-        })}
+        {content.map((contentId) => (
+          <StandardSectionOrEditor
+            key={'standard' + contentId}
+            contentId={contentId}
+            memoData={memoData}
+            memoLangIndex={this.memoLangIndex}
+            onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
+            checkVisibility={this.checkVisibility}
+            onSave={this.onSave}
+            userLangIndex={this.userLangIndex}
+          />
+        ))}
         {extraHeaderTitle &&
           memoData[extraHeaderTitle] &&
-          memoData[extraHeaderTitle].map((extraInfo, index) => {
-            const { uKey } = extraInfo
-            return (
-              <NewSectionEditor
-                contentId={extraHeaderTitle}
-                currentIndex={index}
-                key={uKey}
-                menuId={`${id}-${extraHeaderTitle}${uKey}`}
-                uKey={uKey}
-                onAlert={this.onAlert}
-                onSave={this.onSave}
-                showError={
-                  this.state.checkOnlyContentId === extraHeaderTitle || this.state.checkAllExtra
-                }
-              />
-            )
-          })}
+          memoData[extraHeaderTitle].map(({ uKey }, index) => (
+            <NewSectionEditor
+              contentId={extraHeaderTitle}
+              currentIndex={index}
+              key={uKey}
+              menuId={`${id}-${extraHeaderTitle}${uKey}`}
+              uKey={uKey}
+              onAlert={this.onAlert}
+              onSave={this.onSave}
+              showError={
+                this.state.checkOnlyContentId === extraHeaderTitle || this.state.checkAllExtra
+              }
+            />
+          ))}
         {extraHeaderTitle && (
           <Button
             className="element-50"
@@ -541,8 +502,7 @@ class MemoContainer extends Component {
               />
               <details>
                 <summary className="white">
-                  {extraInfo.summaryIntroductionHelp.aboutMemo.title +
-                    ' (se text sist i dokumentet)'}
+                  {extraInfo.summaryIntroductionHelp.aboutMemo.title}
                 </summary>
                 <span
                   dangerouslySetInnerHTML={{
@@ -552,8 +512,7 @@ class MemoContainer extends Component {
               </details>
               <details>
                 <summary className="white">
-                  {extraInfo.summaryIntroductionHelp.aboutKursinformation.title +
-                    ' (se text sist i dokumentet)'}
+                  {extraInfo.summaryIntroductionHelp.aboutKursinformation.title}
                 </summary>
                 <span
                   dangerouslySetInnerHTML={{
@@ -563,8 +522,7 @@ class MemoContainer extends Component {
               </details>
               <details>
                 <summary className="white">
-                  {extraInfo.summaryIntroductionHelp.aboutHelpInCanvasAndMemo.title +
-                    ' (se text sist i dokumentet)'}
+                  {extraInfo.summaryIntroductionHelp.aboutHelpInCanvasAndMemo.title}
                 </summary>
                 <span
                   dangerouslySetInnerHTML={{
