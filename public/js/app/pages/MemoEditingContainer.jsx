@@ -17,6 +17,8 @@ import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
 import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComment'
 import AlertSuccessCopiedMemo from '../components/alerts/AlertSuccessCopiedMemo'
 import AlertSuccessRebuild from '../components/alerts/AlertSuccessRebuild'
+import CollapseMemoIntroduction from '../components/details/CollapseMemoIntroduction'
+import CollapseSectionDetails from '../components/details/CollapseSectionDetails'
 import PageHead from '../components/PageHead'
 import CommentChangesTextarea from '../components/editors/CommentChangesTextarea'
 import ControlPanel from '../components/ControlPanel'
@@ -364,7 +366,6 @@ class MemoContainer extends Component {
     ]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
-      // <div key={id} className="sections-list-80">
       <div
         className={`tab-pane fade ${this.state.activeTab === id ? 'show active' : ''}`}
         id={'tab-content-for-' + id}
@@ -375,15 +376,10 @@ class MemoContainer extends Component {
         <h2 id={'header-' + id} key={'header-' + id}>
           {sectionsLabels[id]}
         </h2>
-        <details className="details-about-each-section">
-          <summary
-            className="white"
-            aria-label={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
-          >
-            {`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
-          </summary>
-          {sectionsSummary[id]}
-        </details>
+        <CollapseSectionDetails
+          title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
+          details={sectionsSummary[id]}
+        />
         {content.map((contentId) => (
           <StandardSectionOrEditor
             key={'standard' + contentId}
@@ -459,7 +455,7 @@ class MemoContainer extends Component {
           </PageTitle>
         </Row>
         <ProgressBar
-          active={2}
+          active={PROGRESS}
           pages={this.isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
         />
         <PageHead semester={this.semester} memoName={memoName} userLangIndex={userLangIndex} />
@@ -493,49 +489,7 @@ class MemoContainer extends Component {
               text={pagesCreateNewPm[PROGRESS - 1]}
               style={{ marginBottom: '30px' }}
             />
-            <details>
-              <summary className="white" aria-label={`Introduktion och hjälp`}>
-                {extraInfo.summaryIntroductionHelp.titleMain}
-              </summary>
-              <span
-                dangerouslySetInnerHTML={{ __html: extraInfo.summaryIntroductionHelp.startInfo }}
-              />
-              <details>
-                <summary className="white">
-                  {extraInfo.summaryIntroductionHelp.aboutMemo.title}
-                </summary>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: extraInfo.summaryIntroductionHelp.aboutMemo.details
-                  }}
-                />
-              </details>
-              <details>
-                <summary className="white">
-                  {extraInfo.summaryIntroductionHelp.aboutKursinformation.title}
-                </summary>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: extraInfo.summaryIntroductionHelp.aboutKursinformation.details
-                  }}
-                />
-              </details>
-              <details>
-                <summary className="white">
-                  {extraInfo.summaryIntroductionHelp.aboutHelpInCanvasAndMemo.title}
-                </summary>
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: extraInfo.summaryIntroductionHelp.aboutHelpInCanvasAndMemo.details
-                  }}
-                />
-              </details>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: extraInfo.summaryIntroductionHelp.mainContinue
-                }}
-              />
-            </details>
+            <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} />
           </Col>
         </Row>
         <TabPanel

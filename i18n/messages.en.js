@@ -540,7 +540,7 @@ module.exports = {
     contacts: 'Contact'
   },
   sectionsSummary: {
-    about: 'Om',
+    about: 'About',
     contentAndOutcomes:
       '[TO-ENG] Rubriker under Innehåll och lärandemål syftar dels till att övergripande beskriva innehåll och lärandemål för kursen (hämtas från kursplanen) dels till att mer detaljerat beskriva vilka läraktiviteter som ingår i kursen. Sist har du möjlighet att skapa en detaljplanering.',
     prep:
