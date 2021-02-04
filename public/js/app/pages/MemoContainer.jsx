@@ -453,7 +453,7 @@ class MemoContainer extends Component {
           <Col lg="7">
             <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
           </Col>
-          <Col className="separator" />
+          <Col className="vertical-separator" />
           <Col lg="3">
             <ProgressTitle id="select-header" text={extraInfo.contentHeaders} />
           </Col>
@@ -463,7 +463,7 @@ class MemoContainer extends Component {
             <Col lg="7" className="memo-content">
               {this.renderScrollView()}
             </Col>
-            <Col className="separator" />
+            <Col className="vertical-separator" />
             <Col lg="3" className="sticky-overview">
               <Sticky topOffset={-41}>
                 {({ style, isSticky }) => (

@@ -308,7 +308,7 @@ details.guidance-per-content {
   .first-15 {
     padding-top: 15px;
   }
-  .separator {
+  .vertical-separator {
     max-width: 15%;
   }
 
@@ -392,7 +392,7 @@ details.guidance-per-content {
   border-top: 1px solid $borderGrey;
   padding-bottom: 12em;
 
-  & + .separator {
+  & + .vertical-separator {
     border-right: 1px solid $borderGrey;
     border-top: 1px solid $borderGrey;
     margin-right: 50px;
@@ -444,7 +444,7 @@ details.guidance-per-content {
   border-right: none;
   border-bottom: none;
   border-top: none;
-  & + .separator {
+  & + .vertical-separator {
     border-right: 1px solid $borderGrey;
     border-top: none;
     margin-right: 50px;

@@ -503,7 +503,7 @@ class MemoContainer extends Component {
             <Col lg="7" className="memo-content tab-content" id="memoTabContent">
               {this.renderScrollView()}
             </Col>
-            <Col className="separator" />
+            <Col className="vertical-separator" />
             <Col lg="3" className="sticky-overview">
               <Sticky topOffset={-41}>
                 {({ style, isSticky }) => (
