@@ -46,7 +46,7 @@ class RouterStore {
     this.showError = true
   }
 
-  @action checkEmptiesForSectionId(contentId) {
+  @action checkExtraTitlesForSectionId(contentId) {
     const { extraContentState } = this
     let canBeSwitched = true
 
@@ -63,7 +63,7 @@ class RouterStore {
 
   @action checkAllSectionsHasTitles() {
     const filterEmpty = sections.filter(
-      ({ extraHeaderTitle }) => this.checkEmptiesForSectionId(extraHeaderTitle) === false
+      ({ extraHeaderTitle }) => this.checkExtraTitlesForSectionId(extraHeaderTitle) === false
     )
     const canBeFinished = !(filterEmpty.length > 0)
 

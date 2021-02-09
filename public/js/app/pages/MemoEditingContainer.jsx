@@ -88,54 +88,6 @@ class MemoContainer extends Component {
     this.scrollIntoView()
   }
 
-  // checkEmpties = (sectionId) => {
-  //   const contentId = getExtraHeaderIdBySectionId(sectionId)
-  //   const { extraContentState } = this.props.routerStore
-  //   if (!extraContentState || !extraContentState[contentId]) return true
-  //   let canBeSwitched = true
-
-  //   // this.emptyExtrasBySection[sectionId] = !!this.extraContentState[contentId].filter(())
-  //   extraContentState[contentId].forEach(
-  //     ({ hasEmptyTitleAndText, hasEmptyTitle }, currentIndex) => {
-  //       if (hasEmptyTitleAndText) {
-  //         const arrayToReduce = [...this.memoData[contentId]]
-  //         arrayToReduce.splice(currentIndex, 1)
-  //         this.memoData[contentId] = arrayToReduce // used changed array, not return value from splice
-  //       } else if (hasEmptyTitle) canBeSwitched = false
-  //     }
-  //   )
-
-  //   return canBeSwitched
-  // }
-
-  // checkEmptiesForSectionId = (sectionId) => {
-  //   const contentId = getExtraHeaderIdBySectionId(sectionId)
-  //   const { extraContentState } = this.props.routerStore
-  //   let canBeSwitched = true
-  //   console.log('sectionId', sectionId)
-  //   console.log('extraContentState[contentId]', Object.keys(extraContentState))
-
-  //   if (!extraContentState || !extraContentState[contentId]) return true
-  //   console.log('contentId', contentId)
-
-  //   extraContentState[contentId].forEach(
-  //     ({ hasEmptyTitleAndText, hasEmptyTitle }, currentIndex) => {
-  //       console.log('currentIndex', currentIndex)
-
-  //       console.log('hasEmptyTitleAndText', hasEmptyTitleAndText)
-
-  //       if (hasEmptyTitleAndText) {
-  //         this.props.routerStore.removeExtraContent(contentId, currentIndex)
-  //       } else if (hasEmptyTitle && !hasEmptyTitleAndText) {
-  //         canBeSwitched = false
-  //         // stopAndShowError()
-  //       }
-  //     }
-  //   )
-
-  //   return canBeSwitched
-  // }
-
   courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = this.state
     const { courseCode, userLangIndex, memoLangIndex } = this
@@ -261,7 +213,7 @@ class MemoContainer extends Component {
   onChangeTab = (nextSectionId) => {
     const { activeTab } = this.state
     const extraHeadersId = getExtraHeaderIdBySectionId(activeTab)
-    const canBeSwitched = this.props.routerStore.checkEmptiesForSectionId(extraHeadersId)
+    const canBeSwitched = this.props.routerStore.checkExtraTitlesForSectionId(extraHeadersId)
     if (canBeSwitched) {
       this.setState({ activeTab: nextSectionId, checkOnlyContentId: '' })
       this.onAutoSave()
