@@ -141,7 +141,7 @@ class MemoContainer extends Component {
       if (process.env.NODE_ENV !== 'test') {
         setTimeout(() => {
           this.offAlert()
-        }, 2000)
+        }, 5000)
       }
     }
   }
