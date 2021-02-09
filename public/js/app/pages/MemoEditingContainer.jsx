@@ -45,7 +45,8 @@ class MemoContainer extends Component {
     alertColor: '',
     activeTab: sections[0].id,
     checkAllExtra: false,
-    checkOnlyContentId: ''
+    checkOnlyContentId: '',
+    openAlertIdUntilFixed: ''
   }
 
   isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
@@ -61,6 +62,17 @@ class MemoContainer extends Component {
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   rebuilDraftFromPublishedVer = this.props.routerStore.rebuilDraftFromPublishedVer
+
+  static getDerivedStateFromProps(props, state) {
+    const hasAllExtraSectionsTitle = props.routerStore.checkAllSectionsHasTitles()
+    const { openAlertIdUntilFixed } = state
+
+    // check if it is time to hide red alert about empty titles of extra section
+    if (hasAllExtraSectionsTitle && !!openAlertIdUntilFixed) {
+      return { openAlertIdUntilFixed: '' }
+    }
+    return {}
+  }
 
   componentDidMount() {
     const { event } = fetchParameters(this.props)
@@ -150,8 +162,12 @@ class MemoContainer extends Component {
     alertElement.scrollIntoView({ behavior: 'smooth' })
   }
 
+  offAlert = () => {
+    this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
+  }
+
   /* General functions */
-  onAlert = (alertTranslationId, alertColor = 'success', timeOut = 0) => {
+  onAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
     const translationId =
       this.isDraftOfPublished && alertTranslationId === 'autoSaved'
         ? 'autoSavedTemporary'
@@ -160,16 +176,26 @@ class MemoContainer extends Component {
     const { alerts } = i18n.messages[this.userLangIndex]
     setTimeout(() => {
       this.setState({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
-    }, timeOut)
+    }, onTimeout)
+  }
 
-    if (process.env.NODE_ENV !== 'test')
-      setTimeout(() => {
-        this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
-      }, 2000)
+  onToastAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
+    const showUntilFix = alertTranslationId === 'errorEmptyTitle'
+    if (showUntilFix && !this.state.openAlertIdUntilFixed)
+      // initiate semi-permament alert for empty title
+      this.setState({ openAlertIdUntilFixed: 'errorEmptyTitle' })
+    else if (!showUntilFix) {
+      this.onAlert(alertTranslationId, alertColor, onTimeout)
+      if (process.env.NODE_ENV !== 'test') {
+        setTimeout(() => {
+          this.offAlert()
+        }, 2000)
+      }
+    }
   }
 
   alertOnSuccessSave = (alertTranslationId) => {
-    this.onAlert(alertTranslationId)
+    this.onToastAlert(alertTranslationId)
     this.rebuilDraftFromPublishedVer = false
   }
 
@@ -198,14 +224,14 @@ class MemoContainer extends Component {
     try {
       const result = await this.props.routerStore.updateDraft(body)
       if (result.status >= 400) {
-        this.onAlert('errWhileSaving', 'danger')
+        this.onToastAlert('errWhileSaving', 'danger')
 
         return 'ERROR-onSave-' + result.status
       }
       this.alertOnSuccessSave(alertTranslationId)
       return result
     } catch (error) {
-      this.onAlert('errWhileSaving', 'danger')
+      this.onToastAlert('errWhileSaving', 'danger')
     }
   }
 
@@ -234,15 +260,15 @@ class MemoContainer extends Component {
 
   onChangeTab = (nextSectionId) => {
     const { activeTab } = this.state
-    // TODO: CHECK SEPARATELY EMPTIES AND DELETE LATER AFTER SWITCHING TAB
-    const canBeSwitched = this.props.routerStore.checkEmptiesForSectionId(activeTab)
+    const extraHeadersId = getExtraHeaderIdBySectionId(activeTab)
+    const canBeSwitched = this.props.routerStore.checkEmptiesForSectionId(extraHeadersId)
     if (canBeSwitched) {
       this.setState({ activeTab: nextSectionId, checkOnlyContentId: '' })
       this.onAutoSave()
     } else {
-      this.setState({ checkOnlyContentId: getExtraHeaderIdBySectionId(activeTab) })
+      this.setState({ checkOnlyContentId: extraHeadersId })
       // Show alert below after scroll is done
-      this.onAlert('errorEmptyTitle', 'danger', 500)
+      this.onToastAlert('errorEmptyTitle', 'danger', 500)
     }
   }
 
@@ -278,16 +304,16 @@ class MemoContainer extends Component {
   /** * User clicked button to save a draft  ** */
 
   handleBtnSaveAndMove = async (nextUrl = '') => {
-    const { canFinish } = this.props.routerStore
-    if (!canFinish) {
+    const hasAllExtraSectionsTitle = this.props.routerStore.checkAllSectionsHasTitles()
+    if (!hasAllExtraSectionsTitle) {
       this.setState({ checkAllExtra: true })
       // Show alert below after scroll is done
-      this.onAlert('errorEmptyTitle', 'danger', 500)
+      this.onToastAlert('errorEmptyTitle', 'danger', 500)
       return false
     }
 
     const resAfterSavingMemoData = await this.onSave(this.props.routerStore.memoData, 'autoSaved')
-    if (nextUrl && canFinish && resAfterSavingMemoData)
+    if (nextUrl && hasAllExtraSectionsTitle && resAfterSavingMemoData)
       setTimeout(() => {
         window.location = nextUrl
       }, 500)
@@ -321,7 +347,7 @@ class MemoContainer extends Component {
         `${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`
       )
       if (resultAfterDelete.status >= 400) {
-        this.onAlert('errWhileDeleting', 'danger')
+        this.onToastAlert('errWhileDeleting', 'danger')
 
         return 'ERROR-MemoContainer.jsx-onCancel-' + resultAfterDelete.status
       }
@@ -329,7 +355,7 @@ class MemoContainer extends Component {
         window.location = startAdminPageUrl
       }, 500)
     } catch (err) {
-      this.onAlert('errWhileDeleting', 'danger')
+      this.onToastAlert('errWhileDeleting', 'danger')
 
       if (err.response) {
         throw new Error('MemoContainer.jsx-onCancel-' + err.message)
@@ -400,7 +426,7 @@ class MemoContainer extends Component {
               key={uKey}
               menuId={`${id}-${extraHeaderTitle}${uKey}`}
               uKey={uKey}
-              onAlert={this.onAlert}
+              onAlert={this.onToastAlert}
               onSave={this.onSave}
               showError={
                 this.state.checkOnlyContentId === extraHeaderTitle || this.state.checkAllExtra
@@ -441,7 +467,8 @@ class MemoContainer extends Component {
       commentAboutMadeChanges,
       alertText,
       alertIsOpen,
-      alertColor
+      alertColor,
+      openAlertIdUntilFixed
     } = this.state
     return (
       <Container className="kip-container" style={{ marginBottom: '115px' }}>
@@ -463,7 +490,7 @@ class MemoContainer extends Component {
             courseCode={this.courseCode}
             memoEndPoint={this.memoEndPoint}
             memoVersion={version}
-            onAlert={this.onAlert}
+            onAlert={this.onToastAlert}
             publishDate={lastPublishedVersionPublishDate}
             userLangIndex={userLangIndex}
           />
@@ -555,6 +582,7 @@ class MemoContainer extends Component {
             alertIsOpen={alertIsOpen}
             alertColor={alertColor || 'success'}
             isDraftOfPublished={this.isDraftOfPublished}
+            openAlertIdUntilFixed={openAlertIdUntilFixed}
           />
         </Container>
       </Container>
