@@ -26,18 +26,22 @@ class NewSectionEditor extends Component {
   memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
 
   static getDerivedStateFromProps(props, state) {
-    const { showError } = props
-    const { extraContent, showEmptyTitleAlert } = state
+    const { contentId, currentIndex, showError } = props
+    const { extraContent: initialExtraContent, showEmptyTitleAlert } = state
+    const { extraContent: updatedExtraContent } = props.routerStore.memoData[contentId][
+      currentIndex
+    ]
+    const extraContent = updatedExtraContent || initialExtraContent
     // fast reaction to props change after switch/submit
     if (showError && !showEmptyTitleAlert) {
-      return { showEmptyTitleAlert: showError }
+      return { extraContent, showEmptyTitleAlert: showError }
     }
 
     // check if hasEmptyTitle error is fixed and update state
     const { title, htmlContent } = extraContent
     const hasEmptyTitle = !!(title.length === 0)
     const hasEmptyText = !!(htmlContent.length === 0)
-    return { showEmptyTitleAlert: hasEmptyTitle && !hasEmptyText }
+    return { extraContent, showEmptyTitleAlert: hasEmptyTitle && !hasEmptyText }
   }
 
   componentDidMount() {
