@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const TabPanel = ({ activeTabId, onClick, sections, sectionsLabels }) => (
-  <div className="tab-bar-container row">
+  <div className="tab-bar-container row" id="scroll-here-to-see-tabs">
     <div className="col">
       <ul className="nav nav-tabs" id="sectionsTabPanel" role="tablist">
         {sections.map(({ id }) => (

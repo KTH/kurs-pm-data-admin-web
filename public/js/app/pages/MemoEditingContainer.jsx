@@ -349,6 +349,7 @@ class MemoContainer extends Component {
         key={'tab-content-for-section-' + id}
         isActive={this.state.activeTab === id}
         sectionId={id}
+        scrollUp
       >
         <h2 id={'header-' + id} key={'header-' + id}>
           {sectionsLabels[id]}
@@ -513,9 +514,6 @@ class MemoContainer extends Component {
                         />
                       )}
                     </SectionMenu>
-                    <div id="back-to-top" role="link" aria-label="Upp till nästa avsnitt">
-                      {'Upp till nästa avsnitt'}
-                    </div>
                   </div>
                 )}
               </Sticky>
