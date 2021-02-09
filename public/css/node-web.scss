@@ -535,16 +535,6 @@ details.guidance-per-content {
   }
 }
 
-div#back-to-top {
-  background-position: center;
-  bottom: 20px;
-  font-size: 0.9rem;
-  right: 70px;
-  text-indent: 0;
-  padding-top: 60px;
-  width: 150px;
-}
-
 span.section-info {
   @extend %row;
   justify-content: space-between;
