@@ -498,7 +498,7 @@ class MemoContainer extends Component {
                   >
                     <SectionMenu
                       id="mainMenu"
-                      visibilities={visibleInMemo}
+                      visiblesOfStandard={visibleInMemo}
                       userLangIndex={userLangIndex}
                       memoLangIndex={memoLangIndex}
                       activeTab={activeTab}

@@ -480,7 +480,7 @@ class MemoContainer extends Component {
                   >
                     <ContentOverviewMenu
                       id="mainMenu"
-                      visibilities={visibleInMemo}
+                      visiblesOfStandard={visibleInMemo}
                       memoLangIndex={this.memoLangIndex}
                     >
                       {this.isDraftOfPublished && (

@@ -40,7 +40,7 @@ class SectionMenu extends Component {
 
     const { memoData } = this.props.routerStore
 
-    const { activeTab } = this.props
+    const { activeTab, visiblesOfStandard } = this.props
     const activeSection = sections.find(({ id }) => id === activeTab)
     const { id, content, extraHeaderTitle } = activeSection
 
@@ -62,7 +62,7 @@ class SectionMenu extends Component {
                 key={'nav-litem-leaf-' + contentId}
                 id={id + '-' + contentId}
                 title={memoTitlesByMemoLang[contentId]}
-                showEyeSlashIcon={showEyeSlashIcon(contentId, this.props.visiblesOfStandard)}
+                showEyeSlashIcon={showEyeSlashIcon(contentId, visiblesOfStandard)}
               />
             )
         )}
