@@ -1,7 +1,7 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action } from 'mobx'
 import axios from 'axios'
 import { SERVICE_URL } from '../util/constants'
-import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
+import { sections } from '../util/fieldsByType'
 
 class RouterStore {
   @observable courseCode
@@ -24,20 +24,8 @@ class RouterStore {
 
   @observable showError = false
 
-  @observable canFinish = true
-
   @observable extraContentState =
     Object.fromEntries(sections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
-
-  // @observable errorStateForExtraContent = Object.fromEntries(sections.map(({ id }) => [id, false]))
-  // @observable availableSemesterRounds = []
-
-  // @action checkAllSections() {
-  //   const { showError } = this
-  //   console.log('opa')
-  //   sections.slice(0, 4).map(({ id: sectionId }) => this.checkEmpties(sectionId))
-  //   return showError
-  // }
 
   @action updateThisExtraState(contentId, currentIndex, hasEmptyTitle, hasEmptyText) {
     const hasEmptyTitleAndText = hasEmptyText && hasEmptyTitle
@@ -45,9 +33,9 @@ class RouterStore {
     this.extraContentState[contentId][currentIndex] = {
       hasEmptyTitleAndText,
       hasEmptyText,
-      hasEmptyTitle
+      hasEmptyTitle,
+      canFinish: !hasEmptyTitle || hasEmptyTitleAndText
     }
-    if (!hasEmptyTitleAndText) this.canFinish = this.canFinish && !hasEmptyTitle
   }
 
   @action removeExtraContent(contentId, currentIndex) {
@@ -58,25 +46,28 @@ class RouterStore {
     this.showError = true
   }
 
-  @action checkEmptiesForSectionId(sectionId) {
-    const contentId = getExtraHeaderIdBySectionId(sectionId)
+  @action checkEmptiesForSectionId(contentId) {
     const { extraContentState } = this
     let canBeSwitched = true
 
     if (!extraContentState || !extraContentState[contentId]) return true
 
     extraContentState[contentId].forEach(
-      ({ hasEmptyTitleAndText, hasEmptyTitle }, currentIndex) => {
-        if (hasEmptyTitleAndText) {
-          this.removeExtraContent(contentId, currentIndex)
-        } else if (hasEmptyTitle && !hasEmptyTitleAndText) {
-          canBeSwitched = false
-          // this.stopAndShowError()
-        }
+      ({ hasEmptyTitleAndText, canFinish: isReadyForReview }, currentIndex) => {
+        if (hasEmptyTitleAndText) this.removeExtraContent(contentId, currentIndex)
+        else if (!isReadyForReview) canBeSwitched = isReadyForReview
       }
     )
-
     return canBeSwitched
+  }
+
+  @action checkAllSectionsHasTitles() {
+    const filterEmpty = sections.filter(
+      ({ extraHeaderTitle }) => this.checkEmptiesForSectionId(extraHeaderTitle) === false
+    )
+    const canBeFinished = !(filterEmpty.length > 0)
+
+    return canBeFinished
   }
 
   @action setMemoBasicInfo(props) {
