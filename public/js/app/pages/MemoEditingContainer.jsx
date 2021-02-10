@@ -351,7 +351,7 @@ class MemoContainer extends Component {
         sectionId={id}
         scrollUp
       >
-        <h2 id={'header-' + id} key={'header-' + id}>
+        <h2 id={'section-header-' + id} key={'section-header-' + id}>
           {sectionsLabels[id]}
         </h2>
         <CollapseSectionDetails
@@ -362,6 +362,7 @@ class MemoContainer extends Component {
           <StandardSectionOrEditor
             key={'standard' + contentId}
             contentId={contentId}
+            sectionId={id}
             initialValue={memoData[contentId]}
             memoLangIndex={this.memoLangIndex}
             onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
@@ -478,8 +479,8 @@ class MemoContainer extends Component {
           sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
         />
         <StickyContainer className="memo-container">
-          <Row className="mb-4">
-            <Col lg="7" className="memo-content tab-content" id="memoTabContent">
+          <Row>
+            <Col lg="8" className="memo-content tab-content" id="memoTabContent">
               {this.renderScrollView()}
             </Col>
             <Col className="vertical-separator" />

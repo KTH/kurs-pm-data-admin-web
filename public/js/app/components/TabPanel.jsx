@@ -11,11 +11,14 @@ const TabPanel = ({ activeTabId, onClick, sections, sectionsLabels }) => (
               className={`nav-link ${activeTabId === id ? 'active' : ''}`}
               id={id + '-tab'}
               data-toggle="tab"
-              href={`#${id}`}
+              href={`#section-header-${id}`}
               role="tab"
               aria-controls={id}
               aria-selected={activeTabId === id}
-              onClick={() => onClick(id)}
+              onClick={(event) => {
+                event.preventDefault()
+                onClick(id)
+              }}
             >
               {sectionsLabels[id]}
             </a>

@@ -255,8 +255,8 @@ details.guidance-per-content {
   }
   .memo-content.tab-content {
     //row
-    margin-bottom: 0;
-    padding: inherit 0;
+    // margin-bottom: 0;
+    // padding: inherit 0;
     // padding-top: 80px;
     &:first-of-type {
       padding-top: 0;
@@ -440,7 +440,7 @@ details.guidance-per-content {
 }
 .memo-content.tab-content {
   // border-top: 1px solid $borderGrey;
-  padding-bottom: 12em;
+  padding-bottom: 5em;
   border-right: none;
   border-bottom: none;
   border-top: none;
