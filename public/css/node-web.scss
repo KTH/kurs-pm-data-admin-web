@@ -356,6 +356,7 @@ details.guidance-per-content {
 .control-buttons {
   @extend %column;
   border-top: 1px solid #dee2e6;
+  padding-bottom: 25px;
   // padding-top: 1.5em;
 
   @media (min-width: 768px) {
