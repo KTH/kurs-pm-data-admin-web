@@ -1,8 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const CollapseDetails = ({ className, color = 'white', children, title, ariaLabel }) => (
-  <details className={className}>
+const CollapseDetails = ({
+  className,
+  color = 'white',
+  children,
+  open = false,
+  title,
+  ariaLabel
+}) => (
+  <details className={className} open={open}>
     <summary className={color} aria-label={ariaLabel}>
       {title}
     </summary>
@@ -15,6 +22,7 @@ CollapseDetails.propTypes = {
   className: PropTypes.string,
   color: PropTypes.string,
   title: PropTypes.string,
+  open: PropTypes.bool,
   children: PropTypes.node
 }
 

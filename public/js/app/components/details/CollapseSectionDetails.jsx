@@ -7,6 +7,7 @@ const CollapseSectionDetails = ({ ariaLabel = '', title, details }) => (
     className="details-about-each-section"
     ariaLabel={ariaLabel || title}
     title={title}
+    open
   >
     {details}
   </CollapseDetails>
