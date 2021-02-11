@@ -426,7 +426,8 @@ class MemoContainer extends Component {
       openAlertIdUntilFixed
     } = this.state
     return (
-      <Container className="kip-container" style={{ marginBottom: '115px' }}>
+      <Container className="kip-container">
+        {/* /* style={{ marginBottom: '110px' }} */}
         <Row key="pageHeader" id="scroll-here-if-alert">
           <PageTitle
             id="mainHeading"
@@ -514,7 +515,7 @@ class MemoContainer extends Component {
                       ...style,
                       ...{
                         paddingRight: '0',
-                        paddingBottom: '115px',
+                        // paddingBottom: '110px',
                         paddingTop: isSticky ? '41px' : '0'
                       }
                     }}
