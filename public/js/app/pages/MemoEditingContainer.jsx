@@ -361,11 +361,11 @@ class MemoContainer extends Component {
         <h2 id={'section-header-' + id} key={'section-header-' + id}>
           {sectionsLabels[id]}
         </h2>
-        {/* <CollapseSectionDetails
+        <CollapseSectionDetails
           title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
           details={sectionsSummary[id]}
-        /> */}
-        <p className="details-about-each-section">{sectionsSummary[id]}</p>
+        />
+        {/* <p className="details-about-each-section">{sectionsSummary[id]}</p> */}
         {content.map((contentId) => (
           <StandardSectionOrEditor
             key={'standard' + contentId}
