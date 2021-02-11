@@ -884,12 +884,14 @@ sup {
 }
 
 //tiny mce editor
-
+$personal-menu-height: 41px;
+$tab-menu-height: 35px;
+$editor-menu-offset: $personal-menu-height + $tab-menu-height;
 .memo-content {
   .tox.tox-tinymce.tox-tinymce--toolbar-sticky-on {
-    padding-top: 41px;
+    padding-top: $editor-menu-offset;
     .tox-editor-header {
-      margin-top: 41px;
+      margin-top: $editor-menu-offset + 4;
     }
   }
 }

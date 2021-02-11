@@ -474,22 +474,24 @@ class MemoContainer extends Component {
             <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} />
           </Col>
         </Row>
-        <TabPanel
+        {/* <TabPanel
           activeTabId={activeTab}
           onClick={this.onChangeTab}
           sections={sections}
           sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
-        />
+        /> */}
         <StickyContainer className="memo-container">
-          {/* <Sticky topOffset={-41}>
+          <Sticky topOffset={-41} bottomOffset={51}>
             {({ style, isSticky }) => (
               <div
                 style={{
                   ...style,
                   ...{
                     paddingRight: '0',
-                    paddingBottom: '0',
-                    paddingTop: isSticky ? '25px' : '0'
+                    // paddingBottom: '0',
+                    paddingTop: isSticky ? '35px' : '0',
+                    backgroundColor: '#ffffff',
+                    zIndex: 1
                   }
                 }}
               >
@@ -501,14 +503,14 @@ class MemoContainer extends Component {
                 />
               </div>
             )}
-          </Sticky> */}
+          </Sticky>
           <Row>
             <Col lg="8" className="memo-content tab-content" id="memoTabContent">
               {this.renderScrollView()}
             </Col>
             <Col className="vertical-separator" />
             <Col lg="3" className="sticky-overview">
-              <Sticky topOffset={-41}>
+              <Sticky topOffset={-41} bottomOffset={51}>
                 {({ style, isSticky }) => (
                   <div
                     style={{
@@ -516,7 +518,7 @@ class MemoContainer extends Component {
                       ...{
                         paddingRight: '0',
                         // paddingBottom: '110px',
-                        paddingTop: isSticky ? '41px' : '0'
+                        paddingTop: isSticky ? '80px' : '0'
                       }
                     }}
                   >
