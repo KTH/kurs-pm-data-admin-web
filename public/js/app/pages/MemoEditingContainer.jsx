@@ -354,10 +354,11 @@ class MemoContainer extends Component {
         <h2 id={'section-header-' + id} key={'section-header-' + id}>
           {sectionsLabels[id]}
         </h2>
-        <CollapseSectionDetails
+        {/* <CollapseSectionDetails
           title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
           details={sectionsSummary[id]}
-        />
+        /> */}
+        <p className="details-about-each-section">{sectionsSummary[id]}</p>
         {content.map((contentId) => (
           <StandardSectionOrEditor
             key={'standard' + contentId}
@@ -479,6 +480,27 @@ class MemoContainer extends Component {
           sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
         />
         <StickyContainer className="memo-container">
+          {/* <Sticky topOffset={-41}>
+            {({ style, isSticky }) => (
+              <div
+                style={{
+                  ...style,
+                  ...{
+                    paddingRight: '0',
+                    paddingBottom: '0',
+                    paddingTop: isSticky ? '25px' : '0'
+                  }
+                }}
+              >
+                <TabPanel
+                  activeTabId={activeTab}
+                  onClick={this.onChangeTab}
+                  sections={sections}
+                  sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
+                />
+              </div>
+            )}
+          </Sticky> */}
           <Row>
             <Col lg="8" className="memo-content tab-content" id="memoTabContent">
               {this.renderScrollView()}
