@@ -216,6 +216,13 @@ class MemoContainer extends Component {
     const canBeSwitched = this.props.routerStore.checkExtraTitlesForSectionId(extraHeadersId)
     if (canBeSwitched) {
       this.setState({ activeTab: nextSectionId, checkOnlyContentId: '' })
+      setTimeout(() => {
+        const startOfSection = document.getElementById(`section-header-${nextSectionId}`)
+        if (startOfSection) {
+          startOfSection.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }, 400)
+
       this.onAutoSave()
     } else {
       this.setState({ checkOnlyContentId: extraHeadersId })
