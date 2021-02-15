@@ -257,7 +257,9 @@ details.guidance-per-content {
   .tab-bar-container .nav.nav-tabs .nav-link {
     padding-right: 1.06em;
     padding-left: 1.06em;
-    border-color: #65656c;
+    border-left-color: #65656c;
+    border-right-color: #65656c;
+    border-top-color: #65656c;
   }
   .memo-content.tab-content {
     //row
