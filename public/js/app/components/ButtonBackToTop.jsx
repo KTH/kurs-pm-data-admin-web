@@ -11,7 +11,7 @@ const ButtonBackToTop = ({ id }) => {
   function goToTabs(event) {
     event.preventDefault()
     const topElement = document.getElementById(id)
-    topElement.scrollIntoView({ behavior: 'smooth' })
+    topElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
   return (
     <div
@@ -33,7 +33,7 @@ const ButtonBackToTop = ({ id }) => {
           marginBottom: '5px'
         }}
       />
-      <a style={{ alignSelf: 'center', decoration: 'none' }} href="#scroll-here-to-see-tabs">
+      <a style={{ alignSelf: 'center', decoration: 'none' }} href={`#${id}`}>
         Fler rubriker
       </a>
     </div>

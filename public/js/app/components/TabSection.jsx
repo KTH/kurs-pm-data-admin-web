@@ -9,8 +9,9 @@ const TabSection = ({ children, isActive, sectionId, scrollUp = false }) => (
     role="tabpanel"
     aria-labelledby={sectionId + '-tab'}
   >
+    <span id={`go-to-${sectionId}`} />
     {children}
-    {scrollUp && <ButtonBackToTop id="scroll-here-to-see-tabs" />}
+    {scrollUp && <ButtonBackToTop id={`go-to-${sectionId}`} />}
   </div>
 )
 
