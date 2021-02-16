@@ -461,6 +461,12 @@ details.guidance-per-content {
   margin-left: 0;
   margin-right: 0;
 }
+.white-space-under-tabs {
+  // under sticky tab white space
+  height: 30px;
+  border-right: 1px solid $borderGrey;
+  border-left: 1px solid $borderGrey;
+}
 .memo-content.tab-content {
   // border-top: 1px solid $borderGrey;
   padding-bottom: 5em;
@@ -474,6 +480,9 @@ details.guidance-per-content {
   }
   h2 {
     margin-bottom: -29px;
+  }
+  .tab-pane {
+    padding-top: 0;
   }
   .title-and-info {
     margin-top: 35px; //h3 15px + 34.88px
@@ -903,12 +912,13 @@ sup {
 //tiny mce editor
 $personal-menu-height: 41px;
 $tab-menu-height: 35px;
-$editor-menu-offset: $personal-menu-height + $tab-menu-height;
+$tab-menu-top-bottom-padding: 40px;
+$editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bottom-padding;
 .memo-content {
   .tox.tox-tinymce.tox-tinymce--toolbar-sticky-on {
     padding-top: $editor-menu-offset;
     .tox-editor-header {
-      margin-top: $editor-menu-offset + 4;
+      margin-top: $editor-menu-offset;
     }
   }
 }
