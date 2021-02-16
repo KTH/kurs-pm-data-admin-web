@@ -203,7 +203,8 @@ details.guidance-per-content {
 .fas {
   font-weight: 900;
 }
-
+.introduction-to-edit-memo {
+}
 .kip-container {
   padding-top: 2em;
   margin-bottom: 4.5em;
@@ -275,21 +276,21 @@ details.guidance-per-content {
       }
     }
   }
-  .memo-content.tab-content {
-    //row
-    // margin-bottom: 0;
-    // padding: inherit 0;
-    // padding-top: 80px;
-    &:first-of-type {
-      padding-top: 0;
-    }
-    & > h2:first-child {
-      margin-top: 0;
-    }
-    .col {
-      margin-bottom: 0;
-    }
-  }
+  // .memo-content.tab-content {
+  //   //row
+  //   // margin-bottom: 0;
+  //   // padding: inherit 0;
+  //   // padding-top: 80px;
+  //   &:first-of-type {
+  //     padding-top: 0;
+  //   }
+  //   & > h2:first-child {
+  //     margin-top: 0;
+  //   }
+  //   .col {
+  //     margin-bottom: 0;
+  //   }
+  // }
   //.sections-list-80 FOR LIST VIEW
   .sections-list-80 {
     //row
@@ -373,7 +374,7 @@ details.guidance-per-content {
 //BUTTONS STYLES
 .control-buttons {
   @extend %column;
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid $grey;
   padding-bottom: 25px;
   // padding-top: 1.5em;
 
@@ -412,7 +413,7 @@ details.guidance-per-content {
 
 .memo-content {
   //TODO: REMOVE AFTER TAB READY
-  border-top: 1px solid $borderGrey;
+  border-left: 1px solid $grey;
   padding-bottom: 12em;
 
   & + .vertical-separator {
@@ -464,8 +465,8 @@ details.guidance-per-content {
 .white-space-under-tabs {
   // under sticky tab white space
   height: 30px;
-  border-right: 1px solid $borderGrey;
-  border-left: 1px solid $borderGrey;
+  border-right: 1px solid $grey;
+  border-left: 1px solid $grey;
 }
 .memo-content.tab-content {
   // border-top: 1px solid $borderGrey;
@@ -478,11 +479,21 @@ details.guidance-per-content {
     border-top: none;
     margin-right: 50px;
   }
+  &:first-of-type {
+    padding-top: 0;
+  }
+  & > h2:first-child {
+    margin-top: 0;
+  }
+  .col {
+    margin-bottom: 0;
+  }
   h2 {
     margin-bottom: -29px;
   }
   .tab-pane {
     padding-top: 0;
+    border-color: $grey;
   }
   .title-and-info {
     margin-top: 35px; //h3 15px + 34.88px
@@ -515,6 +526,8 @@ details.guidance-per-content {
 
 .sticky-overview {
   @extend %bordered-area;
+  border-color: $grey;
+  border-top-right-radius: 0;
   border-left: none;
   border-bottom: none;
   padding-left: 0;
