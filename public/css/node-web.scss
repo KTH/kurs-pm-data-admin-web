@@ -254,12 +254,26 @@ details.guidance-per-content {
       margin-bottom: 0;
     }
   }
-  .tab-bar-container .nav.nav-tabs .nav-link {
-    padding-right: 1.06em;
-    padding-left: 1.06em;
-    border-left-color: #65656c;
-    border-right-color: #65656c;
-    border-top-color: #65656c;
+  .tab-bar-container .nav.nav-tabs {
+    border-bottom: solid 1px $grey;
+
+    .nav-link {
+      padding-right: 1.06em;
+      padding-left: 1.06em;
+      // större kontrasten
+      border-color: $grey;
+
+      &.active {
+        font-weight: 700 !important;
+        border-bottom: none;
+      }
+      &[aria-selected='false'] {
+        border-bottom: solid 1px $grey;
+        padding-bottom: 7.4px;
+        // color: #fff !important;
+        // background-color: $grey;
+      }
+    }
   }
   .memo-content.tab-content {
     //row
