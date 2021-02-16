@@ -418,7 +418,7 @@ class MemoContainer extends Component {
   }
 
   render() {
-    const { memoLangIndex, userLangIndex } = this
+    const { memoLangIndex, userLangIndex, isDraftOfPublished } = this
     const {
       alerts,
       extraInfo,
@@ -445,17 +445,17 @@ class MemoContainer extends Component {
         <Row key="pageHeader" id="scroll-here-if-alert">
           <PageTitle
             id="mainHeading"
-            pageTitle={this.isDraftOfPublished ? pageTitles.published : pageTitles.new}
+            pageTitle={isDraftOfPublished ? pageTitles.published : pageTitles.new}
           >
             {this.courseSubHeader()}
           </PageTitle>
         </Row>
         <ProgressBar
           active={PROGRESS}
-          pages={this.isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
+          pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
         />
         <PageHead semester={this.semester} memoName={memoName} userLangIndex={userLangIndex} />
-        {(this.isDraftOfPublished && !this.rebuilDraftFromPublishedVer && (
+        {(isDraftOfPublished && !this.rebuilDraftFromPublishedVer && (
           <AlertDraftOfPublished
             courseCode={this.courseCode}
             memoEndPoint={this.memoEndPoint}
@@ -485,7 +485,10 @@ class MemoContainer extends Component {
               text={pagesCreateNewPm[PROGRESS - 1]}
               style={{ marginBottom: '30px' }}
             />
-            <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} />
+            <CollapseMemoIntroduction
+              open={!isDraftOfPublished}
+              translate={extraInfo.summaryIntroductionHelp}
+            />
           </Col>
         </Row>
         {/* <TabPanel
@@ -545,7 +548,7 @@ class MemoContainer extends Component {
                       memoLangIndex={memoLangIndex}
                       activeTab={activeTab}
                     >
-                      {this.isDraftOfPublished && (
+                      {isDraftOfPublished && (
                         <CommentChangesTextarea
                           isError={isError}
                           labels={extraInfo}
@@ -573,7 +576,7 @@ class MemoContainer extends Component {
             alertText={alertText}
             alertIsOpen={alertIsOpen}
             alertColor={alertColor || 'success'}
-            isDraftOfPublished={this.isDraftOfPublished}
+            isDraftOfPublished={isDraftOfPublished}
             openAlertIdUntilFixed={openAlertIdUntilFixed}
           />
         </Container>
