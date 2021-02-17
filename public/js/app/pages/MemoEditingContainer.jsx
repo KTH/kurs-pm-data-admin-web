@@ -197,6 +197,8 @@ class MemoContainer extends Component {
   scrollIntoView = () => {
     if (window.location.hash) {
       const id = window.location.hash.replace('#', '')
+      // const tabIds = sections.map({ id })
+      // if (tabIds.includes(id)) this.setState({ activeTab: id })
       const { scrollIntoView } = document.getElementById(id)
       if (scrollIntoView) {
         scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -486,7 +488,7 @@ class MemoContainer extends Component {
               style={{ marginBottom: '30px' }}
             />
             <CollapseMemoIntroduction
-              open={!isDraftOfPublished}
+              // open={!isDraftOfPublished}
               translate={extraInfo.summaryIntroductionHelp}
             />
           </Col>

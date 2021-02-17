@@ -9,11 +9,11 @@ const CollapseMemoIntroduction = ({ translate }) => {
     aboutHelpInCanvasAndMemo,
     mainContinue,
     startInfo,
-    titleMain,
-    open
+    titleMain
+    // open
   } = translate
   return (
-    <CollapseDetails className="guidance-per-content" ariaLabel={titleMain} title={titleMain} open>
+    <CollapseDetails className="guidance-per-content" ariaLabel={titleMain} title={titleMain}>
       {/* <span dangerouslySetInnerHTML={{ __html: startInfo }} /> */}
       {/* <details>
         <summary className="white">{aboutMemo.title}</summary> */}
