@@ -632,6 +632,9 @@ a.nav-link {
     &:last-of-type {
       margin-right: 0;
     }
+    p {
+      @extend %short-text-font-style;
+    }
   }
 }
 
