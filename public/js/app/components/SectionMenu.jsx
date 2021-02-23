@@ -36,7 +36,7 @@ class SectionMenu extends Component {
 
   render() {
     const { memoTitlesByMemoLang } = i18n.messages[this.props.memoLangIndex]
-    const { extraInfo } = i18n.messages[this.props.userLangIndex]
+    // const { extraInfo } = i18n.messages[this.props.userLangIndex]
 
     const { memoData } = this.props.routerStore
 
@@ -45,7 +45,8 @@ class SectionMenu extends Component {
     const { id, content, extraHeaderTitle } = activeSection
 
     return (
-      <MainMenu extraClasses={['pl-0', 'h-100']} menuHeaderAndInfo={extraInfo.contentHeaders}>
+      <MainMenu extraClasses={['pl-0', 'h-100']}>
+        {/* menuHeaderAndInfo={extraInfo.contentHeaders} */}
         {/* {sections.map(({ id, content, extraHeaderTitle }) => ( */}
         {/* <NavItemCollapse
           key={'nav-item-node-' + id}
@@ -84,9 +85,9 @@ class SectionMenu extends Component {
   }
 }
 
-const MainMenu = ({ extraClasses = '', menuHeaderAndInfo, children }) => (
+const MainMenu = ({ extraClasses = '', children }) => (
   <>
-    <ProgressTitle id="select-header" text={menuHeaderAndInfo} />
+    {/* <ProgressTitle id="select-header" text={menuHeaderAndInfo} /> */}
     <nav
       id="mainMenu"
       className={

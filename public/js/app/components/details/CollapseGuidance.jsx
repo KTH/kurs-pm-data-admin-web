@@ -5,9 +5,10 @@ import CollapseDetails from './CollapseDetails'
 
 const CollapseGuidance = ({ ariaLabel = '', title, details }) => (
   <CollapseDetails
-    className="guidance-per-content"
+    // className="guidance-per-content"
     ariaLabel={ariaLabel || 'Expand this to see a helping text'}
     title={title}
+    yellow
   >
     <span
       data-testid="help-text"

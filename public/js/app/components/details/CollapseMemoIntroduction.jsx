@@ -13,17 +13,18 @@ const CollapseMemoIntroduction = ({ translate }) => {
     // open
   } = translate
   return (
-    <CollapseDetails className="guidance-per-content" ariaLabel={titleMain} title={titleMain}>
+    <CollapseDetails ariaLabel={titleMain} title={titleMain} yellow>
+      {/* // className="guidance-per-content" */}
       {/* <span dangerouslySetInnerHTML={{ __html: startInfo }} /> */}
       {/* <details>
         <summary className="white">{aboutMemo.title}</summary> */}
       <div
-        style={{
-          marginLeft: '10px',
-          marginRight: '10px',
-          paddingBottom: '20px',
-          width: '1000px'
-        }}
+      // style={{
+      //   marginLeft: '10px',
+      //   marginRight: '10px',
+      //   paddingBottom: '20px',
+      //   width: '1000px'
+      // }}
       >
         <h3>Kom i gång snabbt</h3>
         <ol>

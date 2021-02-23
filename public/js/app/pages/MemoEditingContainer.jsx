@@ -365,11 +365,12 @@ class MemoContainer extends Component {
         key={'tab-content-for-section-' + id}
         isActive={this.state.activeTab === id}
         sectionId={id}
-        scrollUp
+        // scrollUp
       >
-        <h2 id={'section-header-' + id} key={'section-header-' + id}>
+        <span id={'section-header-' + id} />
+        {/* <h2 id={'section-header-' + id} key={'section-header-' + id}>
           {sectionsLabels[id]}
-        </h2>
+        </h2> */}
         <CollapseSectionDetails
           title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
           details={sectionsSummary[id]}
