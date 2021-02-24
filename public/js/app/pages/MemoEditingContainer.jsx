@@ -217,6 +217,13 @@ class MemoContainer extends Component {
     }
     this.props.routerStore.dirtyEditor = newSection.uKey
     this.props.routerStore.memoData[extraHeaderTitle].push(newSection)
+    setTimeout(() => {
+      window.scrollBy({
+        top: 700,
+        behavior: 'smooth',
+        block: 'center'
+      })
+    }, 300)
   }
 
   onChangeTab = (nextSectionId) => {
