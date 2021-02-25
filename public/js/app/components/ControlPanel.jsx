@@ -74,7 +74,7 @@ const ControlPanel = (props) => {
       </Col>
       {progressNum === 2 && (
         <Col sm={colWidthByProgress[progressNum].secondCol} className="btn-middle">
-          <Button onClick={onSave} color="secondary">
+          <Button onClick={() => onSave()} color="secondary">
             {isDraftOfPublished ? buttons.save : buttons.saveDraft}
           </Button>
         </Col>

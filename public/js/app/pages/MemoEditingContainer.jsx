@@ -153,7 +153,7 @@ class MemoContainer extends Component {
     }
   }
 
-  alertOnSuccessSave = (alertTranslationId) => {
+  toastAlertOnSuccessSave = (alertTranslationId) => {
     this.onToastAlert(alertTranslationId)
     this.rebuilDraftFromPublishedVer = false
   }
@@ -187,7 +187,7 @@ class MemoContainer extends Component {
 
         return 'ERROR-onSave-' + result.status
       }
-      this.alertOnSuccessSave(alertTranslationId)
+      this.toastAlertOnSuccessSave(alertTranslationId)
       return result
     } catch (error) {
       this.onToastAlert('errWhileSaving', 'danger')

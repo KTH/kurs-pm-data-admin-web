@@ -36,7 +36,6 @@ class SectionMenu extends Component {
 
   render() {
     const { memoTitlesByMemoLang } = i18n.messages[this.props.memoLangIndex]
-    // const { extraInfo } = i18n.messages[this.props.userLangIndex]
 
     const { memoData } = this.props.routerStore
 
@@ -46,7 +45,6 @@ class SectionMenu extends Component {
 
     return (
       <MainMenu extraClasses={['pl-0', 'h-100']}>
-        {/* menuHeaderAndInfo={extraInfo.contentHeaders} */}
         {/* {sections.map(({ id, content, extraHeaderTitle }) => ( */}
         {/* <NavItemCollapse
           key={'nav-item-node-' + id}
@@ -86,17 +84,14 @@ class SectionMenu extends Component {
 }
 
 const MainMenu = ({ extraClasses = '', children }) => (
-  <>
-    {/* <ProgressTitle id="select-header" text={menuHeaderAndInfo} /> */}
-    <nav
-      id="mainMenu"
-      className={
-        'content-overview col navbar navbar-expand-lg navbar-light ' + extraClasses.join(' ')
-      }
-    >
-      {children}
-    </nav>
-  </>
+  <nav
+    id="mainMenu"
+    className={
+      'content-overview col navbar navbar-expand-lg navbar-light ' + extraClasses.join(' ')
+    }
+  >
+    {children}
+  </nav>
 )
 
 // const NavItemCollapse = ({
@@ -136,7 +131,6 @@ NavItemLink.propTypes = {
 
 MainMenu.propTypes = {
   extraClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
-  menuHeaderAndInfo: PropTypes.objectOf(PropTypes.string),
   children: PropTypes.node.isRequired
 }
 
@@ -153,7 +147,6 @@ SectionMenu.propTypes = {
   activeTab: PropTypes.string.isRequired,
   children: PropTypes.node,
   memoLangIndex: PropTypes.number.isRequired,
-  userLangIndex: PropTypes.number.isRequired,
   visiblesOfStandard: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool])),
   // eslint-disable-next-line react/require-default-props
   routerStore: PropTypes.func
