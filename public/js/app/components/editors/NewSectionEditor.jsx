@@ -188,7 +188,7 @@ class NewSectionEditor extends Component {
         />
         {(isEmptyNew || isOpen) && (
           <span>
-            <Form>
+            <Form className={showEmptyTitleAlert ? 'error-area' : ''}>
               <FormGroup className="title">
                 <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
                   {sourceInfo.addNewTitle}
