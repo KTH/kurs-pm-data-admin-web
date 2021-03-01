@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CollapseDetails from './CollapseDetails'
+import { CollapseDetails } from '@kth/kth-kip-style-react-components'
 // TODO: ENGLISH TRANSLATIONS AND MOVE TO MESSAGES
 const CollapseMemoIntroduction = ({ translate }) => {
   const {
@@ -14,18 +14,7 @@ const CollapseMemoIntroduction = ({ translate }) => {
   } = translate
   return (
     <CollapseDetails ariaLabel={titleMain} title={titleMain} yellow>
-      {/* // className="guidance-per-content" */}
-      {/* <span dangerouslySetInnerHTML={{ __html: startInfo }} /> */}
-      {/* <details>
-        <summary className="white">{aboutMemo.title}</summary> */}
-      <div
-      // style={{
-      //   marginLeft: '10px',
-      //   marginRight: '10px',
-      //   paddingBottom: '20px',
-      //   width: '1000px'
-      // }}
-      >
+      <div>
         <h3>Kom i gång snabbt</h3>
         <ol>
           <li>Bläddra igenom alla tabbar/ flikar för att se vilka rubriker som finns</li>
@@ -49,29 +38,6 @@ const CollapseMemoIntroduction = ({ translate }) => {
           </a>
         </p>
       </div>
-      {/* <span
-          dangerouslySetInnerHTML={{
-            __html: aboutMemo.details
-          }}
-        />
-      </details>
-      <details>
-        <summary className="white">{aboutKursinformation.title}</summary>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: aboutKursinformation.details
-          }}
-        />
-      </details>
-      <details>
-        <summary className="white">{aboutHelpInCanvasAndMemo.title}</summary>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: aboutHelpInCanvasAndMemo.details
-          }}
-        />
-      <span dangerouslySetInnerHTML={{ __html: mainContinue }} /> */}
-      {/* </details> */}
     </CollapseDetails>
   )
 }
@@ -85,8 +51,6 @@ CollapseMemoIntroduction.propTypes = {
     startInfo: PropTypes.string,
     mainContinue: PropTypes.string
   })
-  // details: PropTypes.string,
-  // title: PropTypes.string
 }
 
 export default CollapseMemoIntroduction

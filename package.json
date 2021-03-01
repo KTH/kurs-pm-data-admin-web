@@ -21,7 +21,7 @@
     "start-dev": "cross-env NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"nodemon --ignore dist/ --ignore public/ app.js\""
   },
   "dependencies": {
-    "@kth/kth-kip-style-react-components": "0.0.22",
+    "@kth/kth-kip-style-react-components": "0.0.26",
     "@tinymce/tinymce-react": "^3.8.1",
     "applicationinsights": "^1.8.8",
     "axios": "^0.21.1",
