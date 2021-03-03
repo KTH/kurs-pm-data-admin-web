@@ -133,12 +133,6 @@ class RouterStore {
     this.thisHostBaseUrl = thisHostBaseUrl
   }
 
-  @action SSRsetCookieHeader(cookieHeader) {
-    if (typeof window === 'undefined') {
-      this.cookieHeader = cookieHeader || ''
-    }
-  }
-
   @action doSetLanguageIndex(lang) {
     this.langIndex = lang === 'sv' ? 1 : 0
     this.langAbbr = lang
