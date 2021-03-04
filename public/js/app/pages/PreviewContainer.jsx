@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
+import React, { useEffect } from 'react'
+import { observer } from 'mobx-react'
+import { useStore } from '../mobx'
+
 import { Container, Row, Col } from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import axios from 'axios'
@@ -27,7 +29,7 @@ import {
   REMOVE_PUBLISHED_PARAM,
   SERVICE_URL,
   SAVED_NEW_PARAM,
-  ADMIN_URL
+  ADMIN_URL,
 } from '../util/constants'
 import PropTypes from 'prop-types'
 
@@ -45,20 +47,18 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
     courseImage = imageFromAdmin
     // Course administrator has not set own picture, get one based on course’s main subjects
   } else {
-    let mainSubjects = courseMainSubjects.split(',').map((s) => s.trim())
+    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
 
     // If main subjects exist, and the language is English, get Swedish translations of main subjects
     if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map((subject) => englishTranslations.courseMainSubjects[subject])
+      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
     }
     // Get picture according to Swedish translation of first main subject
     courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
     // If no picture is available for first main subject, use default picture for language
     courseImage =
       courseImage ||
-      (language === 'en'
-        ? englishTranslations.courseImage.default
-        : swedishTranslations.courseImage.default)
+      (language === 'en' ? englishTranslations.courseImage.default : swedishTranslations.courseImage.default)
   }
   return courseImage
 }
@@ -71,7 +71,7 @@ const renderAllSections = ({ memoData }) => {
   // TODO Refactor logic for visible sections
   const sectionsWithContent = []
   sections.forEach(({ id, content, extraHeaderTitle }) => {
-    content.forEach((contentId) => {
+    content.forEach(contentId => {
       const { isRequired, type } = context[contentId]
       let contentHtml = memoData[contentId]
       let visibleInMemo = memoData.visibleInMemo[contentId]
@@ -92,7 +92,7 @@ const renderAllSections = ({ memoData }) => {
     })
 
     if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
-      memoData[extraHeaderTitle].forEach((m) => {
+      memoData[extraHeaderTitle].forEach(m => {
         if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
           sectionsWithContent.push(id)
         }
@@ -119,7 +119,7 @@ const renderAllSections = ({ memoData }) => {
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
-          {content.map((contentId) => {
+          {content.map(contentId => {
             const menuId = id + '-' + contentId
 
             const { isRequired, type } = context[contentId]
@@ -129,11 +129,7 @@ const renderAllSections = ({ memoData }) => {
               visibleInMemo = true
             }
 
-            if (
-              isRequired &&
-              (type === 'mandatory' || type === 'mandatoryAndEditable') &&
-              !contentHtml
-            ) {
+            if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
               contentHtml = EMPTY[memoLanguageIndex]
             } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
               visibleInMemo = false
@@ -157,25 +153,23 @@ const renderAllSections = ({ memoData }) => {
           })}
           {extraHeaderTitle &&
             Array.isArray(memoData[extraHeaderTitle]) &&
-            memoData[extraHeaderTitle].map(
-              ({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
-                return (
-                  <ExtraSection
-                    contentId={extraHeaderTitle}
-                    key={uKey || extraHeaderTitle}
-                    initialTitle={title}
-                    initialValue={htmlContent}
-                    visibleInMemo={visibleInMemo}
-                    isEmptyNew={isEmptyNew}
-                    uKey={uKey}
-                    onEditorChange={() => {}}
-                    onBlur={() => {}}
-                    onRemove={() => {}}
-                    memoLanguageIndex={memoLanguageIndex}
-                  />
-                )
-              }
-            )}
+            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
+              return (
+                <ExtraSection
+                  contentId={extraHeaderTitle}
+                  key={uKey || extraHeaderTitle}
+                  initialTitle={title}
+                  initialValue={htmlContent}
+                  visibleInMemo={visibleInMemo}
+                  isEmptyNew={isEmptyNew}
+                  uKey={uKey}
+                  onEditorChange={() => {}}
+                  onBlur={() => {}}
+                  onRemove={() => {}}
+                  memoLanguageIndex={memoLanguageIndex}
+                />
+              )
+            })}
         </section>
       )
     )
@@ -186,62 +180,106 @@ const determineContentFlexibility = () => {
   const lastColLastElem = document.getElementById('last-element-which-determines-styles')
   if (lastColLastElem) {
     const lastElBottomPx = lastColLastElem.getBoundingClientRect().bottom
-    const allCenterSections = document
-      .getElementById('flexible-content-of-center')
-      .querySelectorAll('span')
-    allCenterSections.forEach((section) => {
+    const allCenterSections = document.getElementById('flexible-content-of-center').querySelectorAll('span')
+    allCenterSections.forEach(section => {
       const topOfSection = section.getBoundingClientRect().top
       if (topOfSection > lastElBottomPx) section.classList.add('flexible-section-style')
     })
   }
 }
 
-@inject(['routerStore'])
-@observer
-class PreviewContainer extends Component {
-  state = {
-    progress: this.props.progress ? Number(this.props.progress) : 3,
-    previewMemo: this.props.routerStore.memoData
+function PreviewContainer(props) {
+  const store = useStore()
+  const { browserConfig, langIndex, memoData: previewMemo } = useStore()
+  const progress = props.progress ? Number(props.progress) : 3
+
+  const isDraftOfPublished = Number(previewMemo.version) > FIRST_VERSION
+  const {
+    courseCode,
+    courseTitle,
+    semester: semester = '',
+    ladokRoundIds,
+    memoCommonLangAbbr,
+    memoEndPoint,
+    memoName,
+  } = previewMemo
+  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } = i18n.messages[
+    langIndex
+  ]
+  const {
+    coursePresentationLabels,
+    courseFactsLabels,
+    courseMemoLinksLabels,
+    courseLinksLabels,
+    courseContactsLabels,
+    courseHeaderLabels,
+  } = i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
+
+  const courseImage = resolveCourseImage(
+    store.imageFromAdmin,
+    store.koppsFreshData.courseMainSubjects,
+    store.memoLanguage
+  )
+  const allSections = renderAllSections(store)
+  const courseImageUrl = `${browserConfig.imageStorageUri}${courseImage}`
+
+  // Assumes that API only gave one memoData per memoEndPoint
+  // Duplicate id’s filtered out later
+  let active = false
+  let courseMemoItems = store.memoDatas.map(m => {
+    const id = m.memoEndPoint
+    const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
+    // memoEndPoint is currently displayed
+    active = m.memoEndPoint === memoEndPoint
+    return {
+      id,
+      label,
+      active,
+      url: `/kurs-pm/${courseCode}/${label}`,
+    }
+  })
+  // memoEndPoint has not been published before, and wasn’t in memoData
+  if (!active) {
+    courseMemoItems.push({
+      id: store.memoEndPoint,
+      label: concatMemoName(semester, ladokRoundIds, memoCommonLangAbbr),
+      active: true,
+      url: `/kurs-pm/${courseCode}/${memoEndPoint}`,
+    })
   }
 
-  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
+  // Duplicate id’s filtered out
+  courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex(t => t.id === item.id))
 
-  langIndex = this.props.routerStore.langIndex
-
-  componentDidMount() {
+  useEffect(() => {
     // Decide which content can have wider content (exempel tables, to make them more readable)
+    // But text must stay the same
     determineContentFlexibility()
-  }
+  }, [])
 
-  onBack = () => {
+  const onBack = () => {
     const editLocation = window.location.href.replace(/\/preview/, '')
     window.location = editLocation
   }
 
-  publish = () => {
-    const { memoEndPoint, courseCode, semester, memoName } = this.state.previewMemo
+  const publish = () => {
     return (
       axios
-        .post(
-          '/kursinfoadmin/kurs-pm-data/internal-api/publish-memo/' +
-            courseCode +
-            '/' +
-            memoEndPoint,
-          { courseCode, memoEndPoint }
-        )
+        .post('/kursinfoadmin/kurs-pm-data/internal-api/publish-memo/' + courseCode + '/' + memoEndPoint, {
+          courseCode,
+          memoEndPoint,
+        })
         .then(() => {
           window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&term=${semester}&name=${encodeURIComponent(
             memoName
           )}`
         })
         // eslint-disable-next-line no-console
-        .catch((error) => console.log(error))
+        .catch(error => console.log(error))
     )
   }
 
-  onFinish = () => {
-    const { isDraftOfPublished } = this
-    const { courseCode, semester, memoEndPoint, memoName } = this.state.previewMemo
+  const onFinish = () => {
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
       isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
     }&term=${semester}&name=${memoName || memoEndPoint}`
@@ -251,16 +289,15 @@ class PreviewContainer extends Component {
         axios
           .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
           // eslint-disable-next-line consistent-return
-          .then((result) => {
+          .then(result => {
             if (result.status >= 400) {
-              this.onAlert('errWhileDeleting', 'danger')
               return 'ERROR-PreviewContainer.jsx-onFinish-' + result.status
             }
             setTimeout(() => {
               window.location = startAdminPageUrl
             }, 500)
           })
-          .catch((err) => {
+          .catch(err => {
             if (err.response) {
               throw new Error('PreviewContainer.jsx-onFinish-' + err.message)
             }
@@ -272,177 +309,99 @@ class PreviewContainer extends Component {
     }, 500)
   }
 
-  render() {
-    const { langIndex } = this
-    const { routerStore } = this.props
-    const { previewMemo, progress, alertText, alertIsOpen } = this.state
-    const { memoName, semester = '', courseCode, memoCommonLangAbbr, memoEndPoint } = previewMemo
-    const {
-      pagesCreateNewPm,
-      pagesChangePublishedPm,
-      pageTitles,
-      breadCrumbLabels,
-      sideMenuLabels
-    } = i18n.messages[langIndex]
-    const {
-      coursePresentationLabels,
-      courseFactsLabels,
-      courseMemoLinksLabels,
-      courseLinksLabels,
-      courseContactsLabels,
-      courseHeaderLabels
-    } = i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
-    const courseImage = resolveCourseImage(
-      routerStore.imageFromAdmin,
-      routerStore.koppsFreshData.courseMainSubjects,
-      routerStore.memoLanguage
-    )
-    const allSections = renderAllSections(routerStore)
-    const courseImageUrl = `${routerStore.browserConfig.imageStorageUri}${courseImage}`
-
-    // Assumes that API only gave one memoData per memoEndPoint
-    // Duplicate id’s filtered out later
-    let active = false
-    let courseMemoItems = routerStore.memoDatas.map((m) => {
-      const id = m.memoEndPoint
-      const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
-      // memoEndPoint is currently displayed
-      active = m.memoEndPoint === memoEndPoint
-      return {
-        id,
-        label,
-        active,
-        url: `/kurs-pm/${courseCode}/${label}`
-      }
-    })
-    // memoEndPoint has not been published before, and wasn’t in memoData
-    if (!active) {
-      courseMemoItems.push({
-        id: routerStore.memoEndPoint,
-        label: concatMemoName(
-          routerStore.memoData.semester,
-          routerStore.memoData.ladokRoundIds,
-          routerStore.memoData.memoCommonLangAbbr
-        ),
-        active: true,
-        url: `/kurs-pm/${courseCode}/${memoEndPoint}`
-      })
-    }
-
-    // Duplicate id’s filtered out
-    courseMemoItems = courseMemoItems.filter(
-      (item, index, self) => index === self.findIndex((t) => t.id === item.id)
-    )
-
-    return (
-      <Container className="kip-container preview-container" fluid>
-        <Row>
-          <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
-            {routerStore.memoData.courseTitle}
-          </PageTitle>
-        </Row>
-        <ProgressBar
-          active={progress}
-          pages={this.isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
-        />
-        <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
-        <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
-        <div className="preview-content-separation" />
-        <Row>
-          <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
-        </Row>
-        <Row>
-          <Col lg="3" className="preview-side-menu">
-            <SideMenu
-              courseCode={courseCode}
-              courseMemoItems={courseMemoItems}
-              labels={sideMenuLabels}
-            />
-          </Col>
-          <Col lg="9">
-            <CourseHeader
-              courseMemo={concatMemoName(
-                routerStore.memoData.semester,
-                routerStore.memoData.ladokRoundIds,
-                routerStore.memoData.memoCommonLangAbbr
-              )}
-              courseCode={courseCode}
-              courseTitle={routerStore.memoData.courseTitle}
-              labels={courseHeaderLabels}
-              language={routerStore.memoData.memoCommonLangAbbr}
-            />
-            <Row>
-              <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
-                <CoursePresentation
-                  courseImageUrl={courseImageUrl}
-                  introText={routerStore.sellingText || ''}
-                  labels={coursePresentationLabels}
-                />
-                {allSections}
-              </Col>
-              <Col lg="4" className="preview-content-right">
-                <Row className="mb-4">
-                  <Col>
-                    <CourseFacts
-                      language={routerStore.memoData.memoCommonLangAbbr}
-                      labels={courseFactsLabels}
-                      departmentName={routerStore.memoData.departmentName}
-                      memoData={routerStore.memoData}
-                    />
-                  </Col>
-                </Row>
-                <Row className="my-4">
-                  <Col>
-                    <CourseMemoLinks
-                      language={routerStore.memoData.memoCommonLangAbbr}
-                      labels={courseMemoLinksLabels}
-                      memoData={routerStore.memoData}
-                      syllabusValid={routerStore.memoData.syllabusValid}
-                    />
-                  </Col>
-                </Row>
-                <Row className="mt-4">
-                  <Col>
-                    <CourseLinks
-                      language={routerStore.memoData.memoCommonLangAbbr}
-                      labels={courseLinksLabels}
-                    />
-                  </Col>
-                </Row>
-                <Row id="row-for-the-last-element-which-determines-styles" className="mt-4">
-                  <Col>
-                    <CourseContacts
-                      styleId="last-element-which-determines-styles"
-                      language={routerStore.memoData.memoCommonLangAbbr}
-                      memoData={routerStore.memoData}
-                      labels={courseContactsLabels}
-                    />
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <Container className="fixed-bottom">
-          <ControlPanel
-            langIndex={langIndex}
-            onSubmit={this.publish}
-            onBack={this.onBack}
-            onCancel={this.onFinish}
-            progress={progress}
-            alertText={alertText}
-            alertIsOpen={alertIsOpen}
-            isDraftOfPublished={this.isDraftOfPublished}
+  return (
+    <Container className="kip-container preview-container" fluid>
+      <Row>
+        <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
+          {courseTitle}
+        </PageTitle>
+      </Row>
+      <ProgressBar active={progress} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
+      <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
+      <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
+      <div className="preview-content-separation" />
+      <Row>
+        <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
+      </Row>
+      <Row>
+        <Col lg="3" className="preview-side-menu">
+          <SideMenu courseCode={courseCode} courseMemoItems={courseMemoItems} labels={sideMenuLabels} />
+        </Col>
+        <Col lg="9">
+          <CourseHeader
+            courseMemo={concatMemoName(semester, ladokRoundIds, memoCommonLangAbbr)}
+            courseCode={courseCode}
+            courseTitle={courseTitle}
+            labels={courseHeaderLabels}
+            language={memoCommonLangAbbr}
           />
-        </Container>
+          <Row>
+            <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
+              <CoursePresentation
+                courseImageUrl={courseImageUrl}
+                introText={store.sellingText || ''}
+                labels={coursePresentationLabels}
+              />
+              {allSections}
+            </Col>
+            <Col lg="4" className="preview-content-right">
+              <Row className="mb-4">
+                <Col>
+                  <CourseFacts
+                    language={memoCommonLangAbbr}
+                    labels={courseFactsLabels}
+                    departmentName={previewMemo.departmentName}
+                    memoData={previewMemo}
+                  />
+                </Col>
+              </Row>
+              <Row className="my-4">
+                <Col>
+                  <CourseMemoLinks
+                    language={memoCommonLangAbbr}
+                    labels={courseMemoLinksLabels}
+                    memoData={previewMemo}
+                    syllabusValid={previewMemo.syllabusValid}
+                  />
+                </Col>
+              </Row>
+              <Row className="mt-4">
+                <Col>
+                  <CourseLinks language={memoCommonLangAbbr} labels={courseLinksLabels} />
+                </Col>
+              </Row>
+              <Row id="row-for-the-last-element-which-determines-styles" className="mt-4">
+                <Col>
+                  <CourseContacts
+                    styleId="last-element-which-determines-styles"
+                    language={memoCommonLangAbbr}
+                    memoData={previewMemo}
+                    labels={courseContactsLabels}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Container className="fixed-bottom">
+        <ControlPanel
+          langIndex={langIndex}
+          onSubmit={publish}
+          onBack={onBack}
+          onCancel={onFinish}
+          progress={progress}
+          // alertText={alertText}
+          // alertIsOpen={alertIsOpen}
+          isDraftOfPublished={isDraftOfPublished}
+        />
       </Container>
-    )
-  }
+    </Container>
+  )
 }
 
 PreviewContainer.propTypes = {
-  routerStore: PropTypes.func,
-  progress: PropTypes.number
+  progress: PropTypes.number,
 }
 
 export default PreviewContainer
