@@ -1,8 +1,17 @@
 {
   "verbose": true,
   "ignore": [
-  	"public/**/*.*", 
-  	"test/**/*.*", 
-  	"bundles/**/*.*",
-	  "server/views**/*.*"]
+    "dist/*",
+    "*/__tests__/*",
+    "*/__mocks__/*",
+    "*/__snapshots__/*",
+    "*.test.js",
+    "./*.svg",
+    "public/**/*.*",
+    "test/**/*.*",
+    "bundles/**/*.*",
+    "server/views**/*.*"
+  ],
+  "ext": "js,jsx,handlebars,scss,svg,png",
+  "delay": 3000
 }

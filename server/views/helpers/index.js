@@ -1,9 +1,9 @@
 'use strict'
 
 const registerHeaderContentHelper = require('kth-node-web-common/lib/handlebars/helpers/headerContent')
+const log = require('kth-node-log')
 const config = require('../../configuration').server
 const packageFile = require('../../../package.json')
-const log = require('kth-node-log')
 
 let { version } = packageFile
 
@@ -16,17 +16,15 @@ try {
 
 /*
   Register standard helpers:
-
     - withVersion
     - extend
     - prefixScript
     - prefixStyle
     - render
-
 */
 registerHeaderContentHelper({
   proxyPrefixPath: config.proxyPrefixPath.uri,
-  version
+  version,
 })
 
 /**
@@ -37,7 +35,7 @@ registerHeaderContentHelper({
 require('kth-node-web-common/lib/handlebars/helpers/breadcrumbs')(
   config.hostUrl,
   'host_name',
-  '/node',
+  config.proxyPrefixPath.uri,
   'site_name'
 )
 require('kth-node-web-common/lib/handlebars/helpers/contentedit')

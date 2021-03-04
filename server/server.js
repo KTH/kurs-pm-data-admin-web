@@ -6,11 +6,6 @@ require('./api')
 const AppRouter = require('kth-node-express-routing').PageRouter
 const { getPaths } = require('kth-node-express-routing')
 
-// Expose the server and paths
-server.locals.secret = new Map()
-module.exports = server
-module.exports.getPaths = () => getPaths()
-
 if (config.appInsights && config.appInsights.instrumentationKey) {
   const appInsights = require('applicationinsights')
   appInsights
@@ -23,6 +18,13 @@ if (config.appInsights && config.appInsights.instrumentationKey) {
     .setAutoCollectConsole(true)
     .start()
 }
+
+const _addProxy = uri => `${config.proxyPrefixPath.uri}${uri}`
+
+// Expose the server and paths
+server.locals.secret = new Map()
+module.exports = server
+module.exports.getPaths = () => getPaths()
 
 /* ***********************
  * ******* LOGGING *******
@@ -38,7 +40,7 @@ const logConfiguration = {
   level: config.logging.log.level,
   console: config.logging.console,
   stdout: config.logging.stdout,
-  src: config.logging.src
+  src: config.logging.src,
 }
 
 log.init(logConfiguration)
@@ -57,7 +59,7 @@ server.engine(
   exphbs({
     defaultLayout: 'publicLayout',
     layoutsDir: server.settings.layouts,
-    partialsDir: server.settings.partials
+    partialsDir: server.settings.partials,
   })
 )
 server.set('view engine', 'handlebars')
@@ -79,9 +81,12 @@ const browserConfig = require('./configuration').browser
 const browserConfigHandler = require('kth-node-configuration').getHandler(browserConfig, getPaths())
 const express = require('express')
 
+// Removes the "X-Powered-By: Express header" that shows the underlying Express framework
+server.disable('x-powered-by')
+
 // helper
-function setCustomCacheControl(res, contentType) {
-  if (express.static.mime.lookup(contentType) === 'text/html') {
+function setCustomCacheControl(res, path2) {
+  if (express.static.mime.lookup(path2) === 'text/html') {
     // Custom Cache-Control for HTML files
     res.setHeader('Cache-Control', 'no-cache')
   }
@@ -90,23 +95,22 @@ function setCustomCacheControl(res, contentType) {
 // Files/statics routes--
 // Map components HTML files as static content, but set custom cache control header, currently no-cache to force If-modified-since/Etag check.
 server.use(
-  config.proxyPrefixPath.uri + '/static/js/components',
+  _addProxy('/static/js/components'),
   express.static('./dist/js/components', { setHeaders: setCustomCacheControl })
 )
 
 // Expose browser configurations
-server.use(config.proxyPrefixPath.uri + '/static/browserConfig', browserConfigHandler)
+server.use(_addProxy('/static/browserConfig'), browserConfigHandler)
 // Files/statics routes
-server.use(
-  config.proxyPrefixPath.uri + '/static/kth-style',
-  express.static('./node_modules/kth-style/dist')
-)
+server.use(_addProxy('/static/kth-style'), express.static('./node_modules/kth-style/dist'))
 // tinymce
-server.use(config.proxyPrefixPath.uri + '/static/tinymce', express.static('./tinymce'))
+server.use(_addProxy('/static/tinymce'), express.static('./tinymce'))
 // Map static content like images, css and js.
-server.use(config.proxyPrefixPath.uri + '/static', express.static('./dist'))
+server.use(_addProxy('/static'), express.static('./dist'))
+// server.use(_addProxy('/static/icon/favicon'), express.static('./public/favicon.ico'))
+
 // Return 404 if static file isn't found so we don't go through the rest of the pipeline
-server.use(config.proxyPrefixPath.uri + '/static', (req, res, next) => {
+server.use(_addProxy('/static'), (req, res, next) => {
   const error = new Error('File not found: ' + req.originalUrl)
   error.statusCode = 404
   next(error)
@@ -154,33 +158,23 @@ const {
   logoutHandler,
   pgtCallbackHandler,
   serverLogin,
-  getServerGatewayLogin
+  getServerGatewayLogin,
 } = require('kth-node-passport-cas').routeHandlers({
-  casLoginUri: config.proxyPrefixPath.uri + '/login',
-  casGatewayUri: config.proxyPrefixPath.uri + '/loginGateway',
+  casLoginUri: _addProxy('/login'),
+  casGatewayUri: _addProxy('/loginGateway'),
   proxyPrefixPath: config.proxyPrefixPath.uri,
-  server
+  server,
 })
 const { redirectAuthenticatedUserHandler } = require('./authentication')
 server.use(passport.initialize())
 server.use(passport.session())
 
 const authRoute = AppRouter()
-authRoute.get(
-  'cas.login',
-  config.proxyPrefixPath.uri + '/login',
-  authLoginHandler,
-  redirectAuthenticatedUserHandler
-)
-authRoute.get(
-  'cas.gateway',
-  config.proxyPrefixPath.uri + '/loginGateway',
-  authCheckHandler,
-  redirectAuthenticatedUserHandler
-)
-authRoute.get('cas.logout', config.proxyPrefixPath.uri + '/logout', logoutHandler)
+authRoute.get('cas.login', _addProxy('/login'), authLoginHandler, redirectAuthenticatedUserHandler)
+authRoute.get('cas.gateway', _addProxy('/loginGateway'), authCheckHandler, redirectAuthenticatedUserHandler)
+authRoute.get('cas.logout', _addProxy('/logout'), logoutHandler)
 // Optional pgtCallback (use config.cas.pgtUrl?)
-authRoute.get('cas.pgtCallback', config.proxyPrefixPath.uri + '/pgtCallback', pgtCallbackHandler)
+authRoute.get('cas.pgtCallback', _addProxy('/pgtCallback'), pgtCallbackHandler)
 server.use('/', authRoute.getRouter())
 
 // Convenience methods that should really be removed
@@ -197,7 +191,7 @@ server.use(
     blockUrl: config.blockApi.blockUrl,
     proxyPrefixPath: config.proxyPrefixPath.uri,
     hostUrl: config.hostUrl,
-    redisConfig: config.cache.cortinaBlock.redis
+    redisConfig: config.cache.cortinaBlock.redis,
   })
 )
 
@@ -205,12 +199,12 @@ server.use(
  * ******* CRAWLER REDIRECT *******
  * ********************************
  */
-const excludePath = config.proxyPrefixPath.uri + '(?!/static).*'
+const excludePath = _addProxy('(?!/static).*')
 const excludeExpression = new RegExp(excludePath)
 server.use(
   excludeExpression,
   require('kth-node-web-common/lib/web/crawlerRedirect')({
-    hostUrl: config.hostUrl
+    hostUrl: config.hostUrl,
   })
 )
 
@@ -218,14 +212,15 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { ChooseMemoStartPoint, System, MemoContent, PreviewContent } = require('./controllers')
+const { ChooseMemoStartPoint, MemoContent, PreviewContent, System } = require('./controllers')
+
 const { requireRole } = require('./authentication')
 
 // System routes
 const systemRoute = AppRouter()
-systemRoute.get('system.monitor', config.proxyPrefixPath.uri + '/_monitor', System.monitor)
-systemRoute.get('system.about', config.proxyPrefixPath.uri + '/_about', System.about)
-systemRoute.get('system.paths', config.proxyPrefixPath.uri + '/_paths', System.paths)
+systemRoute.get('system.monitor', _addProxy('/_monitor'), System.monitor)
+systemRoute.get('system.about', _addProxy('/_about'), System.about)
+systemRoute.get('system.paths', _addProxy('/_paths'), System.paths)
 systemRoute.get('system.robots', '/robots.txt', System.robotsTxt)
 server.use('/', systemRoute.getRouter())
 
@@ -234,45 +229,44 @@ const appRoute = AppRouter()
 
 appRoute.post(
   'memo.api.updateCreatedDraft',
-  config.proxyPrefixPath.uri + '/internal-api/draft-updates/:courseCode/:memoEndPoint',
+  _addProxy('/internal-api/draft-updates/:courseCode/:memoEndPoint'),
   MemoContent.updateContentByEndpoint
 )
 
 appRoute.post(
   'memo.api.copyFromAPublishedMemo',
-  config.proxyPrefixPath.uri +
-    '/internal-api/create-draft/:courseCode/:memoEndPoint/copyFrom/:anotherMemoEndPoint',
+  _addProxy('/internal-api/create-draft/:courseCode/:memoEndPoint/copyFrom/:anotherMemoEndPoint'),
   ChooseMemoStartPoint.createDraftByMemoEndPoint
 )
 
 appRoute.post(
   'memo.api.createDraftByMemoEndPoint',
-  config.proxyPrefixPath.uri + '/internal-api/create-draft/:courseCode/:memoEndPoint',
+  _addProxy('/internal-api/create-draft/:courseCode/:memoEndPoint'),
   ChooseMemoStartPoint.createDraftByMemoEndPoint
 )
 
 appRoute.post(
   'memo.api.publishMemoByEndPoint',
-  config.proxyPrefixPath.uri + '/internal-api/publish-memo/:courseCode/:memoEndPoint',
+  _addProxy('/internal-api/publish-memo/:courseCode/:memoEndPoint'),
   PreviewContent.publishMemoByEndPoint
 )
 
 // Gets a list of used round ids for a semester in a course
 appRoute.get(
   'memo.api.getUsedRounds',
-  config.proxyPrefixPath.uri + '/internal-api/used-rounds/:courseCode/:semester',
+  _addProxy('/internal-api/used-rounds/:courseCode/:semester'),
   ChooseMemoStartPoint.getUsedRounds
 )
 
 appRoute.delete(
   'memo.api.removeMemoDraft',
-  config.proxyPrefixPath.uri + '/internal-api/draft-to-remove/:courseCode/:memoEndPoint',
+  _addProxy('/internal-api/draft-to-remove/:courseCode/:memoEndPoint'),
   ChooseMemoStartPoint.removeMemoDraft
 )
 
 appRoute.get(
   'memo.getContent',
-  config.proxyPrefixPath.uri + '/published/:courseCode', // /:courseCode/:semester/:memoEndPoint*
+  _addProxy('/published/:courseCode'), // /:courseCode/:semester/:memoEndPoint*
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.getCourseOptionsPage
@@ -280,7 +274,7 @@ appRoute.get(
 
 appRoute.get(
   'memo.getContent',
-  config.proxyPrefixPath.uri + '/v1/:courseCode/:memoEndPoint', // /:courseCode/:semester/:memoEndPoint*
+  _addProxy('/v1/:courseCode/:memoEndPoint'), // /:courseCode/:semester/:memoEndPoint*
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   MemoContent.renderMemoEditorPage
@@ -288,7 +282,7 @@ appRoute.get(
 
 appRoute.get(
   'memo.getContent',
-  config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint', // /:courseCode/:semester/:memoEndPoint*
+  _addProxy('/:courseCode/:memoEndPoint'), // /:courseCode/:semester/:memoEndPoint*
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   MemoContent.renderMemoEditorPage
@@ -296,7 +290,7 @@ appRoute.get(
 
 appRoute.get(
   'memo.getPreviewContent',
-  config.proxyPrefixPath.uri + '/:courseCode/:memoEndPoint/preview',
+  _addProxy('/:courseCode/:memoEndPoint/preview'),
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   PreviewContent.renderMemoPreviewPage
@@ -304,7 +298,7 @@ appRoute.get(
 
 appRoute.get(
   'memo.chooseRounds',
-  config.proxyPrefixPath.uri + '/:courseCode/',
+  _addProxy('/:courseCode/'),
   serverLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.getCourseOptionsPage
@@ -312,10 +306,12 @@ appRoute.get(
 
 appRoute.get(
   'system.gateway',
-  config.proxyPrefixPath.uri + '/gateway',
+  _addProxy('/gateway'),
   getServerGatewayLogin('/'),
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
-  MemoContent.renderMemoEditorPage
+  ChooseMemoStartPoint.getCourseOptionsPage
+
+  // MemoContent.renderMemoEditorPage
 )
 
 server.use('/', appRoute.getRouter())
