@@ -9,5 +9,5 @@ module.exports = {
   System: require('./systemCtrl'),
   MemoContent: require('./memoCtrl'),
   ChooseMemoStartPoint: require('./choiceOptionsCtrl'),
-  PreviewContent: require('./previewCtrl')
+  PreviewContent: require('./previewCtrl'),
 }

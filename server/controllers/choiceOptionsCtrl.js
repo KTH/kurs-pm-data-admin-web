@@ -3,28 +3,16 @@
 const apis = require('../api')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
-const { toJS } = require('mobx')
+// const { toJS } = require('mobx')
+const { getServerSideFunctions } = require('../utils/serverSideRendering')
+
 const { safeGet } = require('safe-utils')
-const ReactDOMServer = require('react-dom/server')
+// const ReactDOMServer = require('react-dom/server')
 const { getKoppsCourseRoundTerms } = require('../koppsApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const i18n = require('../../i18n')
-
-function hydrateStores(renderProps) {
-  // This assumes that all stores are specified in a root element called Provider
-  const outp = {}
-  const { props } = renderProps.props.children
-
-  Object.keys(props).map((key) => {
-    if (typeof props[key].initializeStore === 'function') {
-      outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
-    }
-  })
-
-  return outp
-}
 
 // eslint-disable-next-line consistent-return
 async function getUsedDrafts(req, res, next) {
@@ -33,7 +21,7 @@ async function getUsedDrafts(req, res, next) {
     log.debug('trying to fetch getUsedDrafts with course code: ' + courseCode)
 
     const apiResponse = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
-      courseCode
+      courseCode,
     })
     log.debug('getUsedDrafts response: ', apiResponse)
     return res.json(apiResponse)
@@ -42,69 +30,53 @@ async function getUsedDrafts(req, res, next) {
     next(error)
   }
 }
-function _staticRender(context, location) {
-  if (process.env.NODE_ENV === 'development') {
-    delete require.cache[require.resolve('../../dist/app.js')]
-  }
-
-  const { staticRender } = require('../../dist/app.js')
-
-  return staticRender(context, location)
-}
 
 async function getCourseOptionsPage(req, res, next) {
   try {
-    const context = {}
+    // const context = {}
     const lang = language.getLanguage(res) || 'sv'
     const langIndex = lang === 'en' ? 0 : 1
     const { courseCode } = req.params
-    const renderProps = _staticRender(context, req.url)
-
-    // renderProps.props.children.props.routerStore.getData(courseCode, semester)
-    renderProps.props.children.props.routerStore.setBrowserConfig(
-      browser,
-      serverPaths,
-      apis,
-      server.hostUrl
-    )
-    renderProps.props.children.props.routerStore.doSetLanguageIndex(lang)
-    renderProps.props.children.props.routerStore.setMemoBasicInfo({
+    //STORE MANIPULATIONS
+    const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
+    const applicationStore = createStore()
+    applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
+    applicationStore.doSetLanguageIndex(lang)
+    applicationStore.setMemoBasicInfo({
       courseCode,
-      memoEndPoint: req.query.memoEndPoint || ''
+      memoEndPoint: req.query.memoEndPoint || '',
     })
 
-    renderProps.props.children.props.routerStore.miniKoppsObj = await getKoppsCourseRoundTerms(
-      courseCode
-    )
+    applicationStore.miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
 
-    renderProps.props.children.props.routerStore.miniMemos = await getMemoApiData(
-      'getMemosStartingFromPrevYearSemester',
-      {
-        courseCode
-      }
-    )
+    applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
+      courseCode,
+    })
 
-    // TODO GET AWAIT COURSE
-    const html = ReactDOMServer.renderToString(renderProps)
+    const compressedStoreCode = getCompressedStoreCode(applicationStore)
+
+    const { uri: proxyPrefix } = server.proxyPrefixPath
+    const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
     res.render('memo/index', {
+      compressedStoreCode,
       html,
       title: i18n.messages[langIndex].messages.site_name,
       lang,
-      initialState: JSON.stringify(hydrateStores(renderProps)),
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name + courseCode,
-        url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode
+        url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode,
       },
       languageLink: {
         title: i18n.messages[langIndex === 0 ? 1 : 0].messages.locale_text,
-        toLang: `?l=${lang === 'sv' ? 'en' : 'sv'}`
+        toLang: `?l=${lang === 'sv' ? 'en' : 'sv'}`,
       },
       instrumentationKey: server.appInsights.instrumentationKey,
+      proxyPrefix,
       description:
         lang === 'sv'
-          ? '[NY] Kursinformation – Administration av kurs-PM'
-          : '[NEW] Course Information – Administration of course memos'
+          ? 'Kursinformation – Administration av kurs-PM'
+          : 'Course Information – Administration of course memos',
     })
   } catch (err) {
     log.error('Error in getCourseOptionsPage', { error: err })
@@ -116,13 +88,11 @@ async function getCourseOptionsPage(req, res, next) {
 async function getUsedRounds(req, res, next) {
   const { courseCode, semester } = req.params
   try {
-    log.debug(
-      'trying to fetch getUsedRounds with course code: ' + courseCode + ' and semester: ' + semester
-    )
+    log.debug('trying to fetch getUsedRounds with course code: ' + courseCode + ' and semester: ' + semester)
 
     const apiResponse = await getMemoApiData('getCourseSemesterUsedRounds', {
       courseCode,
-      semester
+      semester,
     })
     log.debug('getUsedRounds response: ', apiResponse)
     return res.json(apiResponse)
@@ -138,18 +108,11 @@ async function createDraftByMemoEndPoint(req, res, next) {
     const { memoEndPoint, anotherMemoEndPoint } = req.params
     const apiPathId = anotherMemoEndPoint ? 'copyFromAPublishedMemo' : 'createDraftByMemoEndPoint'
 
-    const apiResponse = await changeMemoApiData(
-      apiPathId,
-      { memoEndPoint, anotherMemoEndPoint },
-      req.body
-    )
+    const apiResponse = await changeMemoApiData(apiPathId, { memoEndPoint, anotherMemoEndPoint }, req.body)
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API trying to create a new draft: ', apiResponse.message)
     }
-    log.info(
-      'New memo draft was created in kursinfo api for course memo with memoEndPoint:',
-      memoEndPoint
-    )
+    log.info('New memo draft was created in kursinfo api for course memo with memoEndPoint:', memoEndPoint)
     return res.json(apiResponse)
   } catch (err) {
     log.error('Error in createDraftCopyOfPublishedMemo', { error: err })
@@ -160,18 +123,11 @@ async function createDraftByMemoEndPoint(req, res, next) {
 async function removeMemoDraft(req, res, next) {
   try {
     const { memoEndPoint } = req.params
-    const apiResponse = await changeMemoApiData(
-      'deleteDraftByMemoEndPoint',
-      { memoEndPoint },
-      req.body
-    )
+    const apiResponse = await changeMemoApiData('deleteDraftByMemoEndPoint', { memoEndPoint }, req.body)
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API trying to delete a draft: ', apiResponse.message)
     }
-    log.info(
-      'Memo contents was deleted in kursinfo api for course memo with memoEndPoint:',
-      memoEndPoint
-    )
+    log.info('Memo contents was deleted in kursinfo api for course memo with memoEndPoint:', memoEndPoint)
     return res.json(apiResponse)
   } catch (err) {
     log.error('Error in deleting of a draft', { err })
@@ -184,5 +140,5 @@ module.exports = {
   getCourseOptionsPage,
   getUsedRounds,
   getUsedDrafts,
-  removeMemoDraft
+  removeMemoDraft,
 }
