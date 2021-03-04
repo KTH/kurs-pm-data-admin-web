@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{lang}}">
 
 <head>
   <title>KTH | {{title}}</title>
@@ -23,14 +23,7 @@
 
   {{#extend 'head-scripts'}}
   <script src="//www.kth.se/social/toolbar/widget.js"></script>
-  <!-- analytics start -->
-  {{{blocks.analytics}}}
-  <!-- analytics end -->
   {{/extend}}
-
-  {{#if debug}}
-  {{prefixScript '/static/js/lib/firebug-lite/build/firebug-lite.js' 'head-scripts'}}
-  {{/if}}
 
   {{{render 'head-scripts'}}}
   {{#if instrumentationKey}}
@@ -50,10 +43,15 @@
 </head>
 
 <body>
+  <a class="skipToMainContent" href="#mainContent" tabindex="1">{{i18n 'skip_to_main_content' lang}}</a>
+
   {{> kthHeader }}
   <div class="container main">
     <div class="row">
-      {{{body}}}
+      {{!-- TODO: CHECK IF IT IS NEEDED --}}
+      <div class="col app">
+        {{{body}}}
+      </div>
     </div>
   </div>
   {{{render 'scripts'}}}
