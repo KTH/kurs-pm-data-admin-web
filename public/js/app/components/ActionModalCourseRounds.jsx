@@ -1,9 +1,10 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import i18n from '../../../../i18n'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
+import { useStore } from '../mobx'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 import { combineMemoName, fetchThisTermRounds, seasonStr } from '../util/helpers'
@@ -11,7 +12,7 @@ import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
-const roundLangAbbr = (round) => (round.language.en === 'Swedish' ? 'sv' : 'en')
+const roundLangAbbr = round => (round.language.en === 'Swedish' ? 'sv' : 'en')
 
 const canMerge = (memoLangAbbr, round) => {
   const abbr = roundLangAbbr(round)
@@ -19,69 +20,65 @@ const canMerge = (memoLangAbbr, round) => {
   return memoLangAbbr === 'en' || memoLangAbbr === abbr || false
 }
 
-async function isLangCompatible(availableRounds, memo) {
-  // availableRounds
-  const { memoCommonLangAbbr } = memo
-  const compatibles = availableRounds.filter(
-    (round) => canMerge(memoCommonLangAbbr, round) === true
-  )
+async function isLangCompatible(availableRounds, memoCommonLangAbbr) {
+  const compatibles = availableRounds.filter(round => canMerge(memoCommonLangAbbr, round) === true)
   const isCompatible = memoCommonLangAbbr && compatibles.length > 0
   return isCompatible
 }
 
-@inject(['routerStore'])
-@observer
-class ActionModalCourseRounds extends Component {
-  state = {
-    showSaveBtn: false,
-    chosenMemoEndPoint: this.props.chosenMemoEndPoint || '', // version, published/draft?, semester
-    stayOnModal: true,
-    allRounds: [],
-    availableRounds: []
-  }
-
-  uniqueMemos = [
-    ...(this.props.routerStore.miniMemos.draftsOfPublishedMemos || []),
-    ...(this.props.routerStore.miniMemos.publishedWithNoActiveDraft || []),
-    ...(this.props.routerStore.miniMemos.draftsWithNoActivePublishedVer || [])
+function ActionModalCourseRounds(props) {
+  const store = useStore()
+  const { courseCode, langAbbr: storeLangAbbr, langIndex: storeLangIndex, miniKoppsObj, miniMemos } = store
+  const uniqueMemos = [
+    ...(miniMemos.draftsOfPublishedMemos || []),
+    ...(miniMemos.publishedWithNoActiveDraft || []),
+    ...(miniMemos.draftsWithNoActivePublishedVer || []),
   ]
+  const chosenMemoEndPoint = props.chosenMemoEndPoint
+  const [alert, setAlert] = useState({
+    type: '', // danger, success, warn
+    isOpen: false,
+    textName: '',
+  })
 
-  langAbbr = this.props.langAbbr || this.props.routerStore.langAbbr
+  const [memo, setMemo] = useState(() => uniqueMemos.find(memo => memo.memoEndPoint === chosenMemoEndPoint) || {})
+  const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester, status, version } = memo
 
-  langIndex = this.props.langIndex || this.props.routerStore.langIndex
+  const [roundGroups, setRoundsGroup] = useState({ allRounds: [], availableRounds: [], showSaveBtn: false })
+  const { allRounds, availableRounds, showSaveBtn } = roundGroups
+  const langAbbr = props.langAbbr || storeLangAbbr
+  const langIndex = props.langIndex || storeLangIndex
+  const stayOnModal = true
 
-  memo = this.uniqueMemos.find((memo) => memo.memoEndPoint === this.state.chosenMemoEndPoint)
+  const { extraInfo, messages, actionModals, info } = i18n.messages[langIndex]
 
-  isPublished = this.memo.status === 'published' || Number(this.memo.version) > FIRST_VERSION
+  useEffect(() => {
+    const mathingMemo = uniqueMemos.find(memo => memo.memoEndPoint === chosenMemoEndPoint)
+    setMemo(mathingMemo)
+    fetchMatchingRounds(mathingMemo)
+  }, [chosenMemoEndPoint])
 
-  componentDidMount() {
-    const { semester } = this.memo
-    if (semester) this.updateState(semester)
+  const setAlarm = (type, textName, isOpen) => {
+    setAlert({
+      type,
+      isOpen: isOpen || true,
+      textName,
+    })
   }
 
-  updateState = async (semester) => {
-    const availableRounds = await this.props.routerStore.showAvailableSemesterRounds(semester)
-    const allRounds = await fetchThisTermRounds(this.props.routerStore.miniKoppsObj, this.memo)
-    const compatible = await isLangCompatible(availableRounds, this.memo)
+  async function fetchMatchingRounds(newMemo) {
+    const availableRounds = await store.showAvailableSemesterRounds(semester)
+    const allRounds = await fetchThisTermRounds(miniKoppsObj, memo)
+    const compatible = await isLangCompatible(availableRounds, memoCommonLangAbbr)
     const showSaveBtn = availableRounds && availableRounds.length > 0 && compatible
-    this.setState({
-      showSaveBtn,
+    setRoundsGroup({
       allRounds,
-      availableRounds
+      availableRounds,
+      showSaveBtn,
     })
   }
 
-  setAlarm = (type, textName, isOpen) => {
-    this.setState({
-      alert: {
-        type,
-        isOpen: isOpen || true,
-        textName
-      }
-    })
-  }
-
-  _checkedRounds = () => {
+  const _checkedRounds = () => {
     const checkedRounds = []
     const checks = document.getElementsByClassName('addNewRounds')
     for (let i = 0; i < checks.length; i++) {
@@ -92,52 +89,46 @@ class ActionModalCourseRounds extends Component {
     return checkedRounds
   }
 
-  _koppsInfoForChecked = (sortedRoundIds) => {
+  const _koppsInfoForChecked = sortedRoundIds => {
     const sortedKoppsInfo = []
-    const { allRounds } = this.state
     for (let i = 0; i < sortedRoundIds.length; i++) {
       sortedKoppsInfo.push(allRounds.find(({ ladokRoundId }) => sortedRoundIds[i] === ladokRoundId))
     }
     return sortedKoppsInfo
   }
 
-  onSave = async () => {
-    const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, semester, status, version } = this.memo
-    const { courseCode } = this.props.routerStore
-    const checkedRounds = await this._checkedRounds()
+  const onSave = async () => {
+    const checkedRounds = await _checkedRounds()
+    const isPublished = status === 'published' || Number(version) > FIRST_VERSION
 
     if (checkedRounds.length > 0) {
       const sortedRoundIds = await [...ladokRoundIds, ...checkedRounds].sort()
-      const sortedKoppsInfo = await this._koppsInfoForChecked(sortedRoundIds)
+      const sortedKoppsInfo = await _koppsInfoForChecked(sortedRoundIds)
 
-      const newMemoName = sortedKoppsInfo
-        .map((round) => combineMemoName(round, semester, memoCommonLangAbbr))
-        .join(', ')
+      const newMemoName = sortedKoppsInfo.map(round => combineMemoName(round, semester, memoCommonLangAbbr)).join(', ')
       const firstDraft = version === FIRST_VERSION && status === 'draft'
-      const newMemoEndPoint = firstDraft
-        ? courseCode + semester + '-' + sortedRoundIds.join('-')
-        : memoEndPoint
+      const newMemoEndPoint = firstDraft ? courseCode + semester + '-' + sortedRoundIds.join('-') : memoEndPoint
 
       const newInfo = {
         courseCode,
         memoName: newMemoName,
         memoEndPoint: newMemoEndPoint,
-        ladokRoundIds: sortedRoundIds
+        ladokRoundIds: sortedRoundIds,
       }
-      const apiAction = status === 'published' ? 'create-draft' : 'draft-updates'
+      const apiAction = isPublished ? 'create-draft' : 'draft-updates'
       const urlUpdateOrCreate = `${SERVICE_URL.API}${apiAction}/${courseCode}/${memoEndPoint}`
 
       try {
         const newResult = await axios.post(urlUpdateOrCreate, newInfo)
         if (newResult.status >= 400) {
-          this.setAlarm('danger', 'errWhileSaving')
+          setAlarm('danger', 'errWhileSaving')
           return 'ERROR- ActionModalCourseRounds - onSave -' + newResult.status
         }
 
         const eventFromParams = 'addedRoundId'
 
         const reloadUrl = `${SERVICE_URL.courseMemoAdmin}${
-          this.isPublished ? 'published/' : ''
+          isPublished ? 'published/' : ''
         }${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
         window.location = reloadUrl
       } catch (error) {
@@ -146,83 +137,65 @@ class ActionModalCourseRounds extends Component {
         }
         throw error
       }
-    } else return this.setAlarm('danger', 'errNoChosen')
+    } else return setAlarm('danger', 'errNoChosen')
   }
 
-  render() {
-    const { extraInfo, messages, actionModals, info } = i18n.messages[this.langIndex]
-    const { availableRounds, alert, stayOnModal, showSaveBtn } = this.state
-    const { semester, memoName, memoCommonLangAbbr } = this.memo
-
-    return (
-      <ActionModalButton
-        btnLabel={actionModals.changeLadokRoundIds.header}
-        modalId="addingRounds"
-        color="secondary"
-        stayOnModal={stayOnModal}
-        modalLabels={actionModals.changeLadokRoundIds}
-        onConfirm={(showSaveBtn && this.onSave) || null}
-      >
-        <span>
-          <Label>{`${messages.page_header_heading_semester}:`}</Label>
-          {` ${seasonStr(this.langIndex, semester)}`}
-        </span>
-        <span>
-          <Label>{`${messages.page_header_heading_course_round}:`}</Label>
-          {` ${memoName}`}
-        </span>
-        <span>
-          <Label>{`${extraInfo.memoLanguage.label}:`}</Label>
-          {` ${extraInfo.memoLanguage[memoCommonLangAbbr]}`}
-        </span>
-        <span>
-          <p>{extraInfo.aboutMemoLanguage[memoCommonLangAbbr]}</p>
-        </span>
-        {(availableRounds && availableRounds.length > 0 && (
-          <div className="section-50">
-            <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.label}</Label>
-            <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
-            <Form
-              className={`Available--Rounds--To--Add ${alert && alert.isOpen ? 'error-area' : ''}`}
-            >
-              {availableRounds.map((round) => (
-                <FormGroup
-                  className="form-check"
-                  id="choose-rounds-list"
-                  key={'add' + round.ladokRoundId}
-                >
-                  <Input
-                    data-testid="checkbox-add-rounds-to-saved-memo"
-                    type="checkbox"
-                    id={'addNew' + round.ladokRoundId}
-                    name="addNew"
-                    className="addNewRounds"
-                    value={round.ladokRoundId}
-                    defaultChecked={false}
-                    disabled={!canMerge(memoCommonLangAbbr, round)}
-                  />
-                  <Label
-                    data-testid="label-checkbox-add-rounds-to-saved-memo"
-                    htmlFor={'addNew' + round.ladokRoundId}
-                  >
-                    {`${combineMemoName(round, semester, this.langAbbr)}.`}
-                    {(!canMerge(memoCommonLangAbbr, round) && (
-                      <i>{extraInfo.cannotMergeLanguage}</i>
-                    )) ||
-                      ''}
-                  </Label>
-                </FormGroup>
-              ))}
-            </Form>
-          </div>
-        )) || (
-          <p className="noAvailableRounds">
-            <i>{info.noRoundsToAdd}</i>
-          </p>
-        )}
-      </ActionModalButton>
-    )
-  }
+  return (
+    <ActionModalButton
+      btnLabel={actionModals.changeLadokRoundIds.header}
+      modalId="addingRounds"
+      color="secondary"
+      stayOnModal={stayOnModal}
+      modalLabels={actionModals.changeLadokRoundIds}
+      onConfirm={(showSaveBtn && onSave) || null}
+    >
+      <span>
+        <Label>{`${messages.page_header_heading_semester}:`}</Label>
+        {` ${seasonStr(langIndex, semester)}`}
+      </span>
+      <span>
+        <Label>{`${messages.page_header_heading_course_round}:`}</Label>
+        {` ${memoName}`}
+      </span>
+      <span>
+        <Label>{`${extraInfo.memoLanguage.label}:`}</Label>
+        {` ${extraInfo.memoLanguage[memoCommonLangAbbr]}`}
+      </span>
+      <span>
+        <p>{extraInfo.aboutMemoLanguage[memoCommonLangAbbr]}</p>
+      </span>
+      {(availableRounds && availableRounds.length > 0 && (
+        <div className="section-50">
+          <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.label}</Label>
+          <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
+          <Form className={`Available--Rounds--To--Add ${alert && alert.isOpen ? 'error-area' : ''}`}>
+            {availableRounds.map(round => (
+              <FormGroup className="form-check" id="choose-rounds-list" key={'add' + round.ladokRoundId}>
+                <Input
+                  data-testid="checkbox-add-rounds-to-saved-memo"
+                  type="checkbox"
+                  id={'addNew' + round.ladokRoundId}
+                  name="addNew"
+                  className="addNewRounds"
+                  value={round.ladokRoundId}
+                  defaultChecked={false}
+                  disabled={!canMerge(memoCommonLangAbbr, round)}
+                />
+                <Label data-testid="label-checkbox-add-rounds-to-saved-memo" htmlFor={'addNew' + round.ladokRoundId}>
+                  {`${combineMemoName(round, semester, langAbbr)}.`}
+                  {(!canMerge(memoCommonLangAbbr, round) && <i>{extraInfo.cannotMergeLanguage}</i>) || ''}
+                </Label>
+              </FormGroup>
+            ))}
+          </Form>
+        </div>
+      )) || (
+        <p className="noAvailableRounds">
+          <i>{info.noRoundsToAdd}</i>
+        </p>
+      )}
+    </ActionModalButton>
+  )
 }
 
 ActionModalCourseRounds.propTypes = {
@@ -233,12 +206,9 @@ ActionModalCourseRounds.propTypes = {
     // eslint-disable-next-line react/no-unused-prop-types
     course: PropTypes.string.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types
-    lastTermsInfo: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
-    ).isRequired
+    lastTermsInfo: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])))
+      .isRequired,
   }),
-  // eslint-disable-next-line react/require-default-props
-  routerStore: PropTypes.func
 }
 
 export default ActionModalCourseRounds
