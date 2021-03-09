@@ -55,8 +55,6 @@ function CreateNewMemo(props) {
     textName: '',
   })
 
-  console.log('chosenSemesterAvailableRounds', chosenSemesterAvailableRounds)
-
   const urlParams = fetchParameters(props)
   const eventFromParams = urlParams.event || ''
 

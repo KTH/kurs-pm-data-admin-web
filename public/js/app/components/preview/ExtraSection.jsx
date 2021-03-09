@@ -22,7 +22,7 @@ function ExtraSection(props) {
   const { sourceInfo } = i18n.messages[this.userLangIndex]
 
   return (
-    <span className="Add--New--Title--And--Info">
+    <span className="Added--New--Title--And--Info">
       {!isEmptyNew && (
         <ExtraHeaderHead header={contentForTitle} contentId={contentId} memoLangIndex={memoLanguageIndex} />
       )}

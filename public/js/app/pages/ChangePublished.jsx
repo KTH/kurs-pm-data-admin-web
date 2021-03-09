@@ -30,7 +30,6 @@ function ChangePublished(props) {
     isOpen: false,
     textName: '',
   })
-  console.log('parent chosenMemo', chosenMemo)
   const memosToEdit = [...(miniMemos.draftsOfPublishedMemos || []), ...(miniMemos.publishedWithNoActiveDraft || [])]
 
   const hasMemos = memosToEdit.length > 0
@@ -71,7 +70,6 @@ function ChangePublished(props) {
   const onRadioChange = event => {
     const { value } = event.target
     setAlert({ isOpen: false })
-    console.log('value', value)
     setMemo(value)
   }
 
