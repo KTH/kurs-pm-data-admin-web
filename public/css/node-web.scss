@@ -162,43 +162,6 @@ $white: #fff;
 //   // width: '1000px'
 // }
 
-.card.collapsible.white {
-  //TODO: REMOVE AFTER NEW LAYOUT IS READY
-
-  margin-bottom: 20px; //0.2em;
-  .card-body {
-    padding: 1em 0;
-    background-color: $light-yellow;
-    @media (min-width: 768px) {
-      display: flex;
-      flex-direction: row;
-      span:last-of-type {
-        align-self: flex-start;
-        height: 100%;
-        margin-left: 0.5em;
-        span {
-          margin: 0;
-          padding: 0;
-        }
-      }
-    }
-  }
-  & > .card-header {
-    h4 {
-      margin-left: -0.7em;
-      & > a {
-        color: $blue-link;
-      }
-    }
-  }
-  p {
-    margin-bottom: 0;
-  }
-  & + p {
-    margin-bottom: 15px;
-  }
-}
-
 //person
 .person {
   margin-bottom: 0.3rem;
@@ -207,8 +170,7 @@ $white: #fff;
 .fas {
   font-weight: 900;
 }
-.introduction-to-edit-memo {
-}
+
 .kip-container {
   padding-top: 2em;
   margin-bottom: 4.5em;
@@ -357,7 +319,7 @@ $white: #fff;
   }
 }
 
-.Add--New--Title--And--Info {
+.Added--New--Title--And--Info {
   & > .section-info {
     margin-top: 50px;
     margin-bottom: 0; //editor is open
@@ -568,22 +530,6 @@ $white: #fff;
     svg {
       // visibility, eye icon
       margin-left: 15px;
-    }
-    //TODO: remove below, after tab
-
-    .card-body {
-      @extend %bordered-area;
-    }
-    .card.collapsible.blue {
-      //TODO: REMOVE AFTER NEW LAYOUT IS READY
-
-      margin-top: 30px; //1.8em;
-      &:first-of-type {
-        margin-top: 0 !important;
-      }
-      .card-header.withTrigger > a::before {
-        margin-left: 0.5em;
-      }
     }
   }
 }
