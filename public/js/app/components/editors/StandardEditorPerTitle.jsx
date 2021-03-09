@@ -1,7 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-danger */
-import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
+import React, { useState, useEffect } from 'react'
+import { observer } from 'mobx-react'
+import { useStore } from '../../mobx'
+
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../../i18n'
 import { ContentHead } from '../ContentHead'
@@ -11,150 +13,113 @@ import { context } from '../../util/fieldsByType'
 import editorConf from '../../util/editorInitConf'
 import PropTypes from 'prop-types'
 
-@inject(['routerStore'])
-@observer
-class StandardEditorPerTitle extends Component {
-  state = {
-    isOpen: false,
-    firstLoad: true
-  }
+function StandardEditorPerTitle(props) {
+  const store = useStore()
+  const { langIndex: userLangIndex, memoLangAbbr } = store
+  const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
+  const { contentId, htmlContent, menuId, visibleInMemo } = props
 
-  userLangIndex = this.props.routerStore.langIndex
+  const { isRequired, hasParentTitle, openIfContent } = context[contentId]
 
-  memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
+  const [firstLoad, setFirstLoad] = useState(true)
+  const [isOpen, setOpenStatus] = useState(false)
 
-  static getDerivedStateFromProps(props, state) {
-    const { contentId, htmlContent } = props
-    const { openIfContent } = context[contentId]
-    if (state.firstLoad && openIfContent) {
-      return { isOpen: (openIfContent && htmlContent !== '') || false, firstLoad: false }
+  function _openMandatoryEditable() {
+    if (firstLoad && openIfContent) {
+      setOpenStatus((openIfContent && htmlContent !== '') || false)
+      setFirstLoad(false)
     }
-    return {}
   }
+  _openMandatoryEditable()
 
-  componentDidUpdate() {
+  const sectionType = hasParentTitle ? 'subSection' : 'section'
+  const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[userLangIndex]
+
+  useEffect(() => {
     // used when visibleInMemo changes or open/close editor (but not when editor content changed, done in updateMemoContent)
-    const { contentId } = this.props
-    this.props.routerStore.dirtyEditor = contentId
-  }
+    store.setDirtyEditor(contentId)
+  }, [isOpen, visibleInMemo])
 
-  updateMemoContent = (editorContent) => {
-    const { contentId } = this.props
-    this.props.routerStore.memoData[contentId] = editorContent
+  function updateMemoContent(editorContent) {
+    store.setMemoByContentId(contentId, editorContent)
     // if content changed then update dirtyEditor with contentId
-    this.props.routerStore.dirtyEditor = contentId
+    store.setDirtyEditor(contentId)
   }
 
-  onBlur = () => {
-    const { contentId } = this.props
-    const { dirtyEditor } = this.props.routerStore
+  const onBlur = () => {
+    const { dirtyEditor } = store
     if (dirtyEditor === contentId) {
-      this.props.onSave({ [contentId]: this.props.routerStore.memoData[contentId] }, 'autoSaved')
+      props.onSave({ [contentId]: store.memoData[contentId] }, 'autoSaved')
     }
-    this.props.routerStore.dirtyEditor = ''
+    store.setDirtyEditor('')
   }
 
-  toggleVisibleInMemo = () => {
-    this.props.onToggleVisibleInMemo(this.props.contentId)
+  const toggleVisibleInMemo = () => {
+    props.onToggleVisibleInMemo(contentId)
   }
 
-  onToggleVisibleEditor = () => {
-    this.setState({ isOpen: !this.state.isOpen })
+  const onToggleVisibleEditor = () => {
+    setOpenStatus(!isOpen)
   }
 
-  openMandatoryEditable() {
-    const { contentId, htmlContent } = this.props
-    const { openIfContent } = context[contentId]
-    if (this.state.firstLoad && openIfContent) {
-      this.setState({
-        isOpen: (openIfContent && htmlContent !== '') || false,
-        firstLoad: false
-      })
-    }
-  }
-
-  render() {
-    const { contentId, htmlContent, menuId, visibleInMemo } = this.props
-    const { isRequired, hasParentTitle } = context[contentId]
-    const { userLangIndex } = this
-    const sectionType = hasParentTitle ? 'subSection' : 'section'
-    const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[userLangIndex]
-
-    return (
-      <span id={menuId} className={sectionType + ' section-50'}>
-        {sectionType === 'section' && (
-          <ContentHead
-            contentId={contentId}
-            memoLangIndex={this.memoLangIndex}
-            userLangIndex={userLangIndex}
+  return (
+    <span id={menuId} className={sectionType + ' section-50'}>
+      {sectionType === 'section' && (
+        <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
+      )}
+      <VisibilityInfo
+        contentId={contentId}
+        sectionType={sectionType}
+        visibleInMemo={visibleInMemo}
+        onToggleVisibleInMemo={toggleVisibleInMemo}
+        isEditorOpen={isOpen}
+        onToggleVisibleEditor={onToggleVisibleEditor}
+        userLangIndex={userLangIndex}
+      />
+      {isOpen && (
+        <span data-testid="standard-editor">
+          <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
+          <Editor
+            id={'editorFor' + contentId}
+            initialValue={htmlContent}
+            init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
+            onEditorChange={updateMemoContent}
+            onBlur={onBlur}
           />
-        )}
-        <VisibilityInfo
-          contentId={contentId}
-          sectionType={sectionType}
-          visibleInMemo={visibleInMemo}
-          onToggleVisibleInMemo={this.toggleVisibleInMemo}
-          isEditorOpen={this.state.isOpen}
-          onToggleVisibleEditor={this.onToggleVisibleEditor}
-          userLangIndex={userLangIndex}
-        />
-        {this.state.isOpen && (
-          <span data-testid="standard-editor">
-            <CollapseGuidance
-              title={buttons.showGuidance}
-              details={memoInfoByUserLang[contentId].help}
-            />
-            <Editor
-              id={'editorFor' + contentId}
-              initialValue={htmlContent}
-              init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
-              onEditorChange={this.updateMemoContent}
-              onBlur={this.onBlur}
-            />
-          </span>
-        )}
+        </span>
+      )}
 
-        {!this.state.isOpen &&
-          /* isRequired && empty // type && type === 'mandatoryAndEditable' */
-          ((isRequired && (
+      {!isOpen &&
+        /* isRequired && empty // type && type === 'mandatoryAndEditable' */
+        ((isRequired && (
+          <span
+            data-testid={`text-for-memo-mandatoryAndEditable-${contentId}`} // "text-for-memo-mandatoryAndEditable"
+            dangerouslySetInnerHTML={{
+              __html:
+                (htmlContent !== '' && htmlContent) ||
+                `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`,
+            }}
+          />
+        )) ||
+          /* is included in memo, preview text without editor */
+          (visibleInMemo && (
             <span
-              data-testid={`text-for-memo-mandatoryAndEditable-${contentId}`} // "text-for-memo-mandatoryAndEditable"
+              data-testid={`text-for-memo-optionalEditable-${contentId}`} // "text-for-memo-optionalEditable"
               dangerouslySetInnerHTML={{
-                __html:
-                  (htmlContent !== '' && htmlContent) ||
-                  `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`
+                __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet[sectionType]}</i></p>`,
               }}
             />
           )) ||
-            /* is included in memo, preview text without editor */
-            (visibleInMemo && (
-              <span
-                data-testid={`text-for-memo-optionalEditable-${contentId}`} // "text-for-memo-optionalEditable"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    (htmlContent !== '' && htmlContent) ||
-                    `<p><i>${sourceInfo.noInfoYet[sectionType]}</i></p>`
-                }}
-              />
-            )) ||
-            /* editor has content but is not yet included in pm */
-            (htmlContent !== '' && (
-              <span data-testid="dynamic-optional-and-not-included-but-with-content">
-                <p
-                  data-testid={`optional-and-excluded-but-with-content-${sectionType}-${contentId}`}
-                >
-                  <i>{sourceInfo.notIncludedInMemoYet[sectionType]}</i>
-                </p>
-              </span>
-            )) || (
-              <div
-                data-testid="dynamic-empty-content-and-not-included"
-                style={{ display: 'none' }}
-              />
-            ))}
-      </span>
-    )
-  }
+          /* editor has content but is not yet included in pm */
+          (htmlContent !== '' && (
+            <span data-testid="dynamic-optional-and-not-included-but-with-content">
+              <p data-testid={`optional-and-excluded-but-with-content-${sectionType}-${contentId}`}>
+                <i>{sourceInfo.notIncludedInMemoYet[sectionType]}</i>
+              </p>
+            </span>
+          )) || <div data-testid="dynamic-empty-content-and-not-included" style={{ display: 'none' }} />)}
+    </span>
+  )
 }
 
 StandardEditorPerTitle.propTypes = {
@@ -164,11 +129,10 @@ StandardEditorPerTitle.propTypes = {
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   onSave: PropTypes.func.isRequired,
-  routerStore: PropTypes.func
 }
 
 StandardEditorPerTitle.defaultProps = {
-  htmlContent: ''
+  htmlContent: '',
 }
 
 export default StandardEditorPerTitle
