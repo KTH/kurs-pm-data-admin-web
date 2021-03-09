@@ -12,44 +12,89 @@ function createApplicationStore() {
   const store = {
     /**
      * @property {string} courseCode
-     */
-    courseCode: observable.box(null),
-    /**
      * @property {string} dirtyEditor
-     */
-    dirtyEditor: observable.box(''),
-    /**
      * @property {string} semester
      */
+    courseCode: observable.box(null),
+    dirtyEditor: observable.box(''),
     semester: observable.box(null),
     /**
      * @property {object} koppsFreshData
      */
     koppsFreshData: observable.box({}),
+    /**
+     * @property {number} langIndex
+     */
     langIndex: observable.box(0),
+    /**
+     * @property {string} langAbbr
+     */
     langAbbr: observable.box('en'),
+    /**
+     * @property {object} miniKoppsObj
+     */
     miniKoppsObj: observable.box({}),
+    /**
+     * @property {string} memoEndPoint
+     */
     memoEndPoint: observable.box(null),
+    /**
+     * @property {string} memoLangAbbr
+     */
     memoLangAbbr: 'sv',
+    /**
+     * @property {object} memoData
+     */
     memoData: observable.box({}),
+    /**
+     * @property {object} miniMemos
+     */
     miniMemos: observable.box({}),
+    /**
+     * @property {boolean} rebuilDraftFromPublishedVer
+     */
     rebuilDraftFromPublishedVer: observable.box(false),
+    /**
+     * @property {boolean} showError
+     */
     showError: observable.box(false),
+    /**
+     * @property {object} extraContentState
+     */
     extraContentState: observable.box(
       Object.fromEntries(sections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
     ),
+    /**
+     * @property {string} sellingText
+     */
     sellingText: observable.box(''),
+    /**
+     * @property {string} imageFromAdmin
+     */
     imageFromAdmin: observable.box(''),
+    /**
+     * @property {object} browserConfig
+     */
     browserConfig: observable.box(null),
     paths: observable.box(null),
     apiHost: observable.box(null),
+    /**
+     * @property {string} thisHostBaseUrl
+     */
     thisHostBaseUrl: observable.box(null),
-    updateThisExtraState: action(updateThisExtraState),
+    checkTitleExist: action(checkTitleExist),
     removeExtraContent: action(removeExtraContent),
     stopAndShowError: action(stopAndShowError),
     checkExtraTitlesForSectionId: action(checkExtraTitlesForSectionId),
     checkAllSectionsHasTitles: action(checkAllSectionsHasTitles),
+    cleanUpAllEmptyExtraContent: action(cleanUpAllEmptyExtraContent),
+    setCourseTitle: action(setCourseTitle),
+    setDirtyEditor: action(setDirtyEditor),
     setMemoBasicInfo: action(setMemoBasicInfo),
+    setMemoByContentId: action(setMemoByContentId),
+    setMemoExtraContent: action(setMemoExtraContent),
+    setNewEmptyExtraContent: action(setNewEmptyExtraContent),
+    setVisibilityOfStandard: action(setVisibilityOfStandard),
     _filterOutUsedRounds,
     getThisHost,
     showAvailableSemesterRounds: action(showAvailableSemesterRounds),
@@ -62,15 +107,36 @@ function createApplicationStore() {
   return store
 }
 
-// function setLanguage(lang) {
-//   this.language = lang
-// }
+function setCourseTitle(courseTitle) {
+  this.memoData.courseTitle = courseTitle
+}
+function setDirtyEditor(contentId) {
+  this.dirtyEditor = contentId
+}
+function setMemoByContentId(contentId, value) {
+  this.memoData[contentId] = value
+}
 
-// function setMessage(text = 'Happy coding!! :)') {
-//   this.message = text
-// }
+function setMemoExtraContent(contentId, currentIndex = null, contextId = null, value = null) {
+  this.memoData[contentId][currentIndex][contextId] = value
+}
+function setNewEmptyExtraContent(extraHeaderTitle) {
+  const newSection = {
+    uKey: Math.random().toString(), // react requires unique key to add/remove items
+    title: '',
+    htmlContent: '',
+    visibleInMemo: true,
+  }
+  this.dirtyEditor = newSection.uKey
 
-function updateThisExtraState(contentId, currentIndex, hasEmptyTitle, hasEmptyText) {
+  this.memoData[extraHeaderTitle] = [...this.memoData[extraHeaderTitle], newSection]
+}
+
+function setVisibilityOfStandard(contentId, value) {
+  this.memoData.visibleInMemo[contentId] = value
+}
+
+function checkTitleExist(contentId, currentIndex, hasEmptyTitle, hasEmptyText) {
   const hasEmptyTitleAndText = hasEmptyText && hasEmptyTitle
 
   this.extraContentState[contentId][currentIndex] = {
@@ -89,15 +155,23 @@ function stopAndShowError() {
   this.showError = true
 }
 
+function cleanUpAllEmptyExtraContent(contentId) {
+  const { extraContentState } = this
+  let canBeSwitched = true
+  if (!extraContentState || !extraContentState[contentId]) return true
+
+  extraContentState[contentId].forEach(({ hasEmptyTitleAndText }, currentIndex) => {
+    if (hasEmptyTitleAndText) this.removeExtraContent(contentId, currentIndex)
+  })
+}
+
 function checkExtraTitlesForSectionId(contentId) {
   const { extraContentState } = this
   let canBeSwitched = true
-
   if (!extraContentState || !extraContentState[contentId]) return true
 
   extraContentState[contentId].forEach(({ hasEmptyTitleAndText, canFinish: isReadyForReview }, currentIndex) => {
-    if (hasEmptyTitleAndText) this.removeExtraContent(contentId, currentIndex)
-    else if (!isReadyForReview) canBeSwitched = isReadyForReview
+    if (!isReadyForReview) canBeSwitched = isReadyForReview
   })
   return canBeSwitched
 }
@@ -140,13 +214,11 @@ async function showAvailableSemesterRounds(chosenSemester, testUsedRounds = [], 
   try {
     const thisHost = this.getThisHost()
     const result = await axios.get(`${thisHost}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`)
-    console.log('result', result)
     if (result) {
       if (result.status >= 400) {
         return 'ERROR-RouterStore.js-showAvailableSemesterRounds-' + result.status
       }
       const { usedRoundsThisSemester } = result.data
-      console.log('usedRoundsThisSemester', usedRoundsThisSemester)
 
       return await this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
     }
