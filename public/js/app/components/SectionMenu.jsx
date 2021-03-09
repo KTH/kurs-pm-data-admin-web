@@ -1,8 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { Component } from 'react'
+import React from 'react'
+import { observer } from 'mobx-react'
+import { useStore } from '../mobx'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
-import { inject, observer } from 'mobx-react'
 import { sections, isRequired } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 import ProgressTitle from './ProgressTitle'
@@ -26,97 +27,50 @@ const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
   return true
 }
 
-@inject(['routerStore'])
-@observer
-class SectionMenu extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
+function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard }) {
+  const { memoData } = useStore()
+  const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 
-  render() {
-    const { memoTitlesByMemoLang } = i18n.messages[this.props.memoLangIndex]
+  const activeSection = sections.find(({ id }) => id === activeTab)
+  const { id, content, extraHeaderTitle } = activeSection
 
-    const { memoData } = this.props.routerStore
-
-    const { activeTab, visiblesOfStandard } = this.props
-    const activeSection = sections.find(({ id }) => id === activeTab)
-    const { id, content, extraHeaderTitle } = activeSection
-
-    return (
-      <MainMenu extraClasses={['pl-0', 'h-100']}>
-        {/* {sections.map(({ id, content, extraHeaderTitle }) => ( */}
-        {/* <NavItemCollapse
-          key={'nav-item-node-' + id}
-          id={id}
-          title={sectionsLabels[id]}
-          isExpandedId={this.isExpandedId}
-          setExpandedId={this.setExpandedId}
-          removeExpandedId={this.removeExpandedId}
-        > */}
-        {content.map(
-          (contentId) =>
-            memoTitlesByMemoLang[contentId] && (
-              <NavItemLink
-                key={'nav-litem-leaf-' + contentId}
-                id={id + '-' + contentId}
-                title={memoTitlesByMemoLang[contentId]}
-                showEyeSlashIcon={showEyeSlashIcon(contentId, visiblesOfStandard)}
-              />
-            )
-        )}
-        {extraHeaderTitle &&
-          memoData[extraHeaderTitle] &&
-          memoData[extraHeaderTitle].map(({ uKey, title, visibleInMemo: isVisible }) => (
+  return (
+    <MainMenu extraClasses={['pl-0', 'h-100']}>
+      {content.map(
+        contentId =>
+          memoTitlesByMemoLang[contentId] && (
             <NavItemLink
-              key={'nav-litem-leaf-' + uKey}
-              id={id + '-' + extraHeaderTitle + uKey}
-              title={title}
-              showEyeSlashIcon={showEyeSlashIcon(uKey, isVisible)}
+              key={'nav-litem-leaf-' + contentId}
+              id={id + '-' + contentId}
+              title={memoTitlesByMemoLang[contentId]}
+              showEyeSlashIcon={showEyeSlashIcon(contentId, visiblesOfStandard)}
             />
-          ))}
-        {/* </NavItemCollapse> */}
-        {/* ))} */}
-        {this.props.children}
-      </MainMenu>
-    )
-  }
+          )
+      )}
+      {extraHeaderTitle &&
+        memoData[extraHeaderTitle] &&
+        memoData[extraHeaderTitle].map(({ uKey, title, visibleInMemo: isVisible }) => (
+          <NavItemLink
+            key={'nav-litem-leaf-' + uKey}
+            id={id + '-' + extraHeaderTitle + uKey}
+            title={title}
+            showEyeSlashIcon={showEyeSlashIcon(uKey, isVisible)}
+          />
+        ))}
+      {children}
+    </MainMenu>
+  )
 }
 
 const MainMenu = ({ extraClasses = '', children }) => (
-  <nav
-    id="mainMenu"
-    className={
-      'content-overview col navbar navbar-expand-lg navbar-light ' + extraClasses.join(' ')
-    }
-  >
+  <nav id="mainMenu" className={'content-overview col navbar navbar-expand-lg navbar-light ' + extraClasses.join(' ')}>
     {children}
   </nav>
 )
 
-// const NavItemCollapse = ({
-//   id,
-//   title,
-//   isExpandedId,
-//   setExpandedId,
-//   removeExpandedId,
-//   children
-// }) => (
-//   <Collapse
-//     isOpen={id === 'contentAndOutcomes' || isExpandedId(id)}
-//     onOpening={() => setExpandedId(id)}
-//     onClosing={() => removeExpandedId(id)}
-//     buttonText={title}
-//     color="blue"
-//     uLabel={id}
-//   >
-//     {children}
-//   </Collapse>
-// )
-
 const NavItemLink = ({ id, title, showEyeSlashIcon: showIcon }) => (
   <p className="nav-link-to-content-header">
-    <Link smooth to={'#' + id} scroll={(el) => el.scrollIntoView({ behavior: 'smooth' })}>
+    <Link smooth to={'#' + id} scroll={el => el.scrollIntoView({ behavior: 'smooth' })}>
       <span>{title}</span>
     </Link>
     {showIcon && <FaRegEyeSlash className="section_info_visibility_icon" />}
@@ -126,34 +80,23 @@ const NavItemLink = ({ id, title, showEyeSlashIcon: showIcon }) => (
 NavItemLink.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  showEyeSlashIcon: PropTypes.bool.isRequired
+  showEyeSlashIcon: PropTypes.bool.isRequired,
 }
 
 MainMenu.propTypes = {
   extraClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
-
-// NavItemCollapse.propTypes = {
-//   id: PropTypes.string.isRequired,
-//   title: PropTypes.string.isRequired,
-//   // isExpandedId: PropTypes.func.isRequired,
-//   // setExpandedId: PropTypes.func.isRequired,
-//   // removeExpandedId: PropTypes.func.isRequired,
-//   children: PropTypes.node.isRequired
-// }
 
 SectionMenu.propTypes = {
   activeTab: PropTypes.string.isRequired,
   children: PropTypes.node,
   memoLangIndex: PropTypes.number.isRequired,
   visiblesOfStandard: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool])),
-  // eslint-disable-next-line react/require-default-props
-  routerStore: PropTypes.func
 }
 
 SectionMenu.defaultProps = {
-  children: ''
+  children: '',
 }
 
 export default SectionMenu
