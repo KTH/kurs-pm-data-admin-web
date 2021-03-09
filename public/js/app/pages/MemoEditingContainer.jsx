@@ -1,17 +1,14 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
+/* eslint-disable react/jsx-one-expression-per-line */
+import React, { useState, useEffect } from 'react'
+import { observer } from 'mobx-react'
+import { useStore } from '../mobx'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
-import {
-  FIRST_VERSION,
-  SERVICE_URL,
-  REMOVE_PUBLISHED_PARAM,
-  SAVED_NEW_PARAM
-} from '../util/constants'
+import { FIRST_VERSION, SERVICE_URL, REMOVE_PUBLISHED_PARAM, SAVED_NEW_PARAM } from '../util/constants'
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
 import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
 import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComment'
@@ -24,7 +21,6 @@ import CommentChangesTextarea from '../components/editors/CommentChangesTextarea
 import ControlPanel from '../components/ControlPanel'
 import NewSectionEditor from '../components/editors/NewSectionEditor'
 import StandardSectionOrEditor from '../components/StandardSectionOrEditor'
-
 import TabPanel from '../components/TabPanel'
 import TabSection from '../components/TabSection'
 import ProgressTitle from '../components/ProgressTitle'
@@ -41,71 +37,83 @@ const MINUS_PERSONAL_MENU_HEIGHT = 0 - PERSONAL_MENU_HEIGHT
 const OVERVIEW_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN + PERSONAL_MENU_HEIGHT + 4}px`
 const STICKY_BOTTOM_OFFSEST = PERSONAL_MENU_HEIGHT + 10
 
-@inject(['routerStore'])
-@observer
-class MemoContainer extends Component {
-  state = {
-    ...(this.props.routerStore.memoData || {}),
-    isError: false,
-    alertIsOpen: false,
-    alertText: '',
-    alertColor: '',
-    activeTab: sections[0].id,
-    checkAllExtra: false,
-    checkOnlyContentId: '',
-    openAlertIdUntilFixed: ''
-  }
+function MemoContainer(props) {
+  const store = useStore()
+  const {
+    courseCode,
+    langIndex: userLangIndex,
+    memoData,
+    memoEndPoint,
+    memoLangAbbr,
+    rebuilDraftFromPublishedVer: initialDraftState,
+    semester,
+  } = store
+  // console.log('memodata from store learningActivities', memoData.learningActivities)
+  // const [memoState, setMemoState] = useState({ ...(memoData || {}) })
+  const [isError, setErrorBool] = useState(false)
+  const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
+  const [activeTab, setActiveTab] = useState(sections[0].id)
+  const [checkAllExtra, setCheckAllExtra] = useState(false) // check all extra content groups
+  const [checkOneContentId, setCheckOneContentId] = useState('') // check specific extra content group
+  const [openAlertIdUntilFixed, setOpenAlertIdUntilFixed] = useState('')
 
-  isDraftOfPublished = Number(this.props.routerStore.memoData.version) > FIRST_VERSION
+  const { commentAboutMadeChanges, lastPublishedVersionPublishDate, memoName, version, visibleInMemo } = memoData
+  const { alertText, alertIsOpen, alertColor } = alert
 
-  courseCode = this.props.routerStore.courseCode
+  const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
+  const [isDraftOfPublishedUntouched, setDraftOfPublishedState] = useState(initialDraftState)
 
-  memoEndPoint = this.props.routerStore.memoEndPoint
+  const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
+  const { sectionsLabels } = i18n.messages[memoLangIndex]
+  const { alerts, extraInfo, pagesCreateNewPm, pagesChangePublishedPm, pageTitles } = i18n.messages[userLangIndex]
+  const { event: eventFromParams = '' } = fetchParameters(props)
+  // console.log('event', eventFromParams)
 
-  semester = this.props.routerStore.semester
-
-  userLangIndex = this.props.routerStore.langIndex
-
-  memoLangIndex = this.props.routerStore.memoLangAbbr === 'sv' ? 1 : 0
-
-  rebuilDraftFromPublishedVer = this.props.routerStore.rebuilDraftFromPublishedVer
-
-  static getDerivedStateFromProps(props, state) {
-    const hasAllExtraSectionsTitle = props.routerStore.checkAllSectionsHasTitles()
-    const { openAlertIdUntilFixed } = state
-
-    // check if it is time to hide red alert about empty titles of extra section
+  useEffect(() => {
+    //getDerivedStateFromProps
+    //   // check if it is time to hide red alert about empty titles of extra section
+    const hasAllExtraSectionsTitle = store.checkAllSectionsHasTitles()
     if (hasAllExtraSectionsTitle && !!openAlertIdUntilFixed) {
-      return { openAlertIdUntilFixed: '' }
+      console.log('! ! ! ! checking open alert ! ! ! !')
+
+      setOpenAlertIdUntilFixed('')
     }
-    return {}
-  }
+  })
 
-  componentDidMount() {
-    const { event } = fetchParameters(this.props)
-    const { history, location } = this.props
+  useEffect(() => {
+    console.log('CLEAN UP')
+    store.cleanUpAllEmptyExtraContent()
+  }, [activeTab])
 
-    this.eventFromParams = event || ''
+  // useEffect(() => {
+  //   console.log('memoData was changed so update memostate')
+  //   setMemoState(store.memoData)
+  // }, [store.dirtyEditor])
+
+  useEffect(() => {
+    //  componentDidMount() {
+
+    const { history, location } = props
+
     if (history) {
       history.push({
         // hash: location.hash, need to fix scroll view hash of sections and hash of tabs
-        search: ''
+        search: '',
       })
     }
-    this.scrollIntoView()
-  }
+    onScrollIntoView()
+  }, [])
 
-  courseSubHeader = () => {
-    const { title, titleOther, credits, creditUnitAbbr } = this.state
-    const { courseCode, userLangIndex, memoLangIndex } = this
+  const courseSubHeader = () => {
+    const { title, titleOther, credits, creditUnitAbbr } = memoData
 
     const creditsStandard = credits || ''
-    const courseTitle = `${courseCode} ${
-      userLangIndex === memoLangIndex ? title : titleOther
-    } ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`
+    const courseTitle = `${courseCode} ${userLangIndex === memoLangIndex ? title : titleOther} ${creditsStandard} ${
+      userLangIndex === 1 ? creditUnitAbbr : 'credits'
+    }`
 
     // update course title in case if smth changed in kopps
-    this.props.routerStore.memoData.courseTitle = courseTitle
+    store.setCourseTitle(courseTitle)
 
     return (
       <span role="heading" aria-level="4">
@@ -114,91 +122,82 @@ class MemoContainer extends Component {
     )
   }
 
-  setUpperAlarm = () => {
-    this.setState({ isError: true })
-    // this.scrollIntoView('scroll-here-if-alert')
+  const setUpperAlarm = () => {
+    setErrorBool(true)
+    // onScrollIntoView('scroll-here-if-alert')
     const alertElement = document.getElementById('scroll-here-if-alert')
     alertElement.scrollIntoView({ behavior: 'smooth' })
   }
 
-  offAlert = () => {
-    this.setState({ alertIsOpen: false, alertText: '', alertColor: '' })
-  }
-
-  /* General functions */
-  onAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
+  const onAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
     const translationId =
-      this.isDraftOfPublished && alertTranslationId === 'autoSaved'
-        ? 'autoSavedTemporary'
-        : alertTranslationId
+      isDraftOfPublished && alertTranslationId === 'autoSaved' ? 'autoSavedTemporary' : alertTranslationId
 
-    const { alerts } = i18n.messages[this.userLangIndex]
+    const { alerts } = i18n.messages[userLangIndex]
     setTimeout(() => {
-      this.setState({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
+      setAlert({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
     }, onTimeout)
   }
 
-  onToastAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
+  const offAlert = () => {
+    setAlert({ alertIsOpen: false, alertText: '', alertColor: '' })
+  }
+
+  const onToastAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
     const showUntilFix = alertTranslationId === 'errorEmptyTitle'
-    if (showUntilFix && !this.state.openAlertIdUntilFixed)
+    if (showUntilFix && !openAlertIdUntilFixed)
       // initiate semi-permament alert for empty title
-      this.setState({ openAlertIdUntilFixed: 'errorEmptyTitle' })
+      setOpenAlertIdUntilFixed('errorEmptyTitle')
     else if (!showUntilFix) {
-      this.onAlert(alertTranslationId, alertColor, onTimeout)
+      onAlert(alertTranslationId, alertColor, onTimeout)
       if (process.env.NODE_ENV !== 'test') {
         setTimeout(() => {
-          this.offAlert()
+          offAlert()
         }, 5000)
       }
     }
   }
 
-  toastAlertOnSuccessSave = (alertTranslationId) => {
-    this.onToastAlert(alertTranslationId)
-    this.rebuilDraftFromPublishedVer = false
+  const toastAlertOnSuccessSave = alertTranslationId => {
+    onToastAlert(alertTranslationId)
+    setDraftOfPublishedState(false)
   }
 
-  onAutoSave = (data = this.props.routerStore.memoData) => {
-    this.onSave(data, 'autoSaved') // save precisily this editor content by contentId
+  const onAutoSave = (data = store.memoData) => {
+    onSave(data, 'autoSaved') // save precisily this editor content by contentId
   }
 
-  onSave = async (editorContent, alertTranslationId) => {
-    const { courseCode, memoEndPoint, memoLangIndex } = this
-    const { syllabusValid, memoCommonLangAbbr, credits, creditUnitAbbr, title } = this.state
+  const onSave = async (editorContent, alertTranslationId) => {
+    const { syllabusValid, memoCommonLangAbbr, credits, creditUnitAbbr, title } = memoData
     const { validFromTerm, validUntilTerm } = syllabusValid || {}
     if (syllabusValid)
       syllabusValid.textFromTo =
-        `${seasonStr(memoLangIndex, validFromTerm)} - ${seasonStr(
-          memoLangIndex,
-          validUntilTerm
-        )}` || ''
+        `${seasonStr(memoLangIndex, validFromTerm)} - ${seasonStr(memoLangIndex, validUntilTerm)}` || ''
 
     const course = {
       credits,
       creditUnitAbbr,
-      title: { [memoCommonLangAbbr]: title }
+      title: { [memoCommonLangAbbr]: title },
     }
     const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
     const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle } // containt kopps old data, or it is empty first time
     try {
-      const result = await this.props.routerStore.updateDraft(body)
+      const result = await store.updateDraft(body)
       if (result.status >= 400) {
-        this.onToastAlert('errWhileSaving', 'danger')
+        onToastAlert('errWhileSaving', 'danger')
 
         return 'ERROR-onSave-' + result.status
       }
-      this.toastAlertOnSuccessSave(alertTranslationId)
+      toastAlertOnSuccessSave(alertTranslationId)
       return result
     } catch (error) {
-      this.onToastAlert('errWhileSaving', 'danger')
+      onToastAlert('errWhileSaving', 'danger')
     }
   }
 
-  scrollIntoView = () => {
+  const onScrollIntoView = () => {
     if (window.location.hash) {
       const id = window.location.hash.replace('#', '')
-      // const tabIds = sections.map({ id })
-      // if (tabIds.includes(id)) this.setState({ activeTab: id })
       const { scrollIntoView } = document.getElementById(id)
       if (scrollIntoView) {
         scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -207,31 +206,24 @@ class MemoContainer extends Component {
   }
 
   // Function for adding new titles with a content
-  onAddNewSection = (extraHeaderTitle) => {
-    const newSection = {
-      uKey: Math.random().toString(), // react requires unique key to add/remove items
-      title: '',
-      htmlContent: '',
-      visibleInMemo: true,
-      isEmptyNew: true
-    }
-    this.props.routerStore.dirtyEditor = newSection.uKey
-    this.props.routerStore.memoData[extraHeaderTitle].push(newSection)
+  const onAddNewSection = extraHeaderTitle => {
+    store.setNewEmptyExtraContent(extraHeaderTitle)
+
     setTimeout(() => {
       window.scrollBy({
         top: 700,
         behavior: 'smooth',
-        block: 'center'
+        block: 'center',
       })
     }, 300)
   }
 
-  onChangeTab = (nextSectionId) => {
-    const { activeTab } = this.state
+  const onChangeTab = nextSectionId => {
     const extraHeadersId = getExtraHeaderIdBySectionId(activeTab)
-    const canBeSwitched = this.props.routerStore.checkExtraTitlesForSectionId(extraHeadersId)
+    const canBeSwitched = store.checkExtraTitlesForSectionId(extraHeadersId)
     if (canBeSwitched) {
-      this.setState({ activeTab: nextSectionId, checkOnlyContentId: '' })
+      setActiveTab(nextSectionId)
+      setCheckOneContentId('')
       setTimeout(() => {
         const startOfSection = document.getElementById(`section-header-${nextSectionId}`)
         if (startOfSection) {
@@ -239,55 +231,56 @@ class MemoContainer extends Component {
         }
       }, 400)
 
-      this.onAutoSave()
+      onAutoSave()
     } else {
-      this.setState({ checkOnlyContentId: extraHeadersId })
+      setCheckOneContentId(extraHeadersId)
       // Show alert below after scroll is done
-      this.onToastAlert('errorEmptyTitle', 'danger', 500)
+      onToastAlert('errorEmptyTitle', 'danger', 500)
     }
   }
 
   // Check visibility for standard headers
-  checkVisibility = (contentId, initialValue) => {
+  const checkVisibility = (contentId, initialValue) => {
     // first time isInVisibleMemo for those header which have openIfContent=true will be true as well
     const { openIfContent } = context[contentId]
-    const isInVisibleMemo =
-      (this.state.visibleInMemo && this.state.visibleInMemo[contentId]) || false
+    const isInVisibleMemo = (visibleInMemo && visibleInMemo[contentId]) || false
     if (openIfContent && isInVisibleMemo === 'defaultTrue') {
       // openIfContent is not required
       const isDefaultAndHasContent = initialValue !== '' || false // for some headers: if it has a (default) value it must be opened and included(when created from a scratch)
-      this.props.routerStore.memoData.visibleInMemo[contentId] = isDefaultAndHasContent
+      console.log('check visibility')
+      store.setVisibilityOfStandard(contentId, isDefaultAndHasContent)
       return isDefaultAndHasContent
     }
     return isInVisibleMemo
   }
 
-  toggleStandardVisibleInMemo = (contentHeader) => {
-    const prevVisibleInMemo = { ...this.props.routerStore.memoData.visibleInMemo }
+  const toggleStandardVisibleInMemo = contentHeader => {
+    const prevVisibleInMemo = { ...store.memoData.visibleInMemo }
     let visible
     if (prevVisibleInMemo) {
       visible = contentHeader in prevVisibleInMemo ? prevVisibleInMemo[contentHeader] : false
     } else {
       visible = false
     }
-    this.props.routerStore.memoData.visibleInMemo[contentHeader] = !visible
-    this.onAutoSave({ visibleInMemo: this.props.routerStore.memoData.visibleInMemo })
+    console.log('tooggle')
+    store.setVisibilityOfStandard(contentHeader, !visible)
+    onAutoSave({ visibleInMemo: !visible })
   }
 
   /** * Conrol Panel ** */
 
   /** * User clicked button to save a draft  ** */
 
-  handleBtnSaveAndMove = async (nextUrl = '') => {
-    const hasAllExtraSectionsTitle = this.props.routerStore.checkAllSectionsHasTitles()
+  const handleBtnSaveAndMove = async (nextUrl = '') => {
+    const hasAllExtraSectionsTitle = store.checkAllSectionsHasTitles()
     if (!hasAllExtraSectionsTitle) {
-      this.setState({ checkAllExtra: true })
+      setCheckAllExtra(true)
       // Show alert below after scroll is done
-      this.onToastAlert('errorEmptyTitle', 'danger', 500)
+      onToastAlert('errorEmptyTitle', 'danger', 500)
       return false
     }
 
-    const resAfterSavingMemoData = await this.onSave(this.props.routerStore.memoData, 'autoSaved')
+    const resAfterSavingMemoData = await onSave(store.memoData, 'autoSaved')
     if (nextUrl && hasAllExtraSectionsTitle && resAfterSavingMemoData)
       setTimeout(() => {
         window.location = nextUrl
@@ -296,33 +289,26 @@ class MemoContainer extends Component {
   }
 
   /** * User clicked button to go to one step back ** */
-  onBack = () => {
-    const { courseCode, memoEndPoint, isDraftOfPublished } = this
+  const onBack = () => {
     const nextUrl = `${SERVICE_URL.courseMemoAdmin}${
       isDraftOfPublished ? 'published/' : ''
     }${courseCode}?memoEndPoint=${memoEndPoint}`
-    this.handleBtnSaveAndMove(nextUrl)
+    handleBtnSaveAndMove(nextUrl)
   }
 
-  onCancel = async () => {
-    const { courseCode, semester, isDraftOfPublished, memoEndPoint } = this
-    const { memoName } = this.state
+  const onCancel = async () => {
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
       isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
     }&term=${semester}&name=${memoName || memoEndPoint}`
 
     if (!isDraftOfPublished)
-      return this.handleBtnSaveAndMove(
-        `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
-      )
+      return handleBtnSaveAndMove(`${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`)
 
     /* If it is a draft of published version, draft will be deleted */
     try {
-      const resultAfterDelete = await axios.delete(
-        `${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`
-      )
+      const resultAfterDelete = await axios.delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
       if (resultAfterDelete.status >= 400) {
-        this.onToastAlert('errWhileDeleting', 'danger')
+        onToastAlert('errWhileDeleting', 'danger')
 
         return 'ERROR-MemoContainer.jsx-onCancel-' + resultAfterDelete.status
       }
@@ -330,7 +316,7 @@ class MemoContainer extends Component {
         window.location = startAdminPageUrl
       }, 500)
     } catch (err) {
-      this.onToastAlert('errWhileDeleting', 'danger')
+      onToastAlert('errWhileDeleting', 'danger')
 
       if (err.response) {
         throw new Error('MemoContainer.jsx-onCancel-' + err.message)
@@ -340,266 +326,210 @@ class MemoContainer extends Component {
   }
 
   /** * User clicked button to go to next step  ** */
-  onContinueToPreview = () => {
-    const { courseCode, memoEndPoint, isDraftOfPublished } = this
-    const { commentAboutMadeChanges } = this.state
-    if (isDraftOfPublished && commentAboutMadeChanges.length === 0) this.setUpperAlarm()
-    else
-      this.handleBtnSaveAndMove(
-        `${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`
-      )
+  const onContinueToPreview = () => {
+    if (isDraftOfPublished && commentAboutMadeChanges.length === 0) setUpperAlarm()
+    else handleBtnSaveAndMove(`${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`)
   }
 
   /* Functions for editing/controlling published memos */
 
-  setChangesAboutDraftOfPublished = (event) => {
+  const setChangesAboutDraftOfPublished = event => {
     event.preventDefault()
-    this.setState({ isError: false, commentAboutMadeChanges: event.target.value.trim() })
-    this.props.routerStore.memoData.commentAboutMadeChanges = event.target.value.trim()
+    setErrorBool(false)
+    // setMemoState({ ...memoState, commentAboutMadeChanges: event.target.value.trim() }) // ???? Zachem esli sled stroka
+    store.setMemoByContentId('commentAboutMadeChanges', event.target.value.trim())
   }
 
   /* GENERAL VIEW OF ALL MEMO HEADERS WITH TEXT OR EDITOR */
 
-  renderScrollView = () => {
-    const { memoData } = this.props.routerStore
-    const { sectionsLabels } = i18n.messages[this.memoLangIndex]
-    const { buttons, sectionsLabels: sectionsLabelsInUserLang, sectionsSummary } = i18n.messages[
-      this.userLangIndex
-    ]
+  const renderTabSections = () => {
+    const { buttons, sectionsLabels: sectionsLabelsInUserLang, sectionsSummary } = i18n.messages[userLangIndex]
 
-    return sections.map(({ id, content, extraHeaderTitle }) => (
-      <TabSection
-        key={'tab-content-for-section-' + id}
-        isActive={this.state.activeTab === id}
-        sectionId={id}
-        // scrollUp
-      >
-        <span id={'section-header-' + id} />
-        {/* <h2 id={'section-header-' + id} key={'section-header-' + id}>
-          {sectionsLabels[id]}
-        </h2> */}
-        <CollapseSectionDetails
-          title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
-          details={sectionsSummary[id]}
-        />
-        {/* <p className="details-about-each-section">{sectionsSummary[id]}</p> */}
-        {content.map((contentId) => (
-          <StandardSectionOrEditor
-            key={'standard' + contentId}
-            contentId={contentId}
-            sectionId={id}
-            initialValue={memoData[contentId]}
-            memoLangIndex={this.memoLangIndex}
-            onToggleVisibleInMemo={this.toggleStandardVisibleInMemo}
-            checkVisibility={this.checkVisibility}
-            onSave={this.onSave}
-            userLangIndex={this.userLangIndex}
+    return sections.map(({ id, content, extraHeaderTitle }) => {
+      console.log(
+        'renderTabSections memoData of ',
+        extraHeaderTitle,
+        ' data:',
+        JSON.stringify(memoData[extraHeaderTitle])
+      )
+      return (
+        <TabSection
+          key={'tab-content-for-section-' + id}
+          isActive={activeTab === id}
+          sectionId={id}
+          // scrollUp
+        >
+          <span id={'section-header-' + id} />
+          <CollapseSectionDetails
+            title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
+            details={sectionsSummary[id]}
           />
-        ))}
-        {extraHeaderTitle &&
-          memoData[extraHeaderTitle] &&
-          memoData[extraHeaderTitle].map(({ uKey }, index) => (
-            <NewSectionEditor
-              contentId={extraHeaderTitle}
-              currentIndex={index}
-              key={uKey}
-              menuId={`${id}-${extraHeaderTitle}${uKey}`}
-              uKey={uKey}
-              onAlert={this.onToastAlert}
-              onSave={this.onSave}
-              showError={
-                this.state.checkOnlyContentId === extraHeaderTitle || this.state.checkAllExtra
-              }
+          {content.map(contentId => (
+            <StandardSectionOrEditor
+              key={'standard' + contentId}
+              contentId={contentId}
+              sectionId={id}
+              initialValue={memoData[contentId]} //TODO: MAYBE REMOVE
+              memoLangIndex={memoLangIndex}
+              onToggleVisibleInMemo={toggleStandardVisibleInMemo}
+              checkVisibility={checkVisibility}
+              onSave={onSave}
+              userLangIndex={userLangIndex}
             />
           ))}
-        {extraHeaderTitle && (
-          <Button
-            className="element-50"
-            color="secondary"
-            block
-            onClick={() => this.onAddNewSection(extraHeaderTitle)}
-          >
-            {buttons.btnAddExtra}
-            {sectionsLabels[id]}
-          </Button>
-        )}
-      </TabSection>
-    ))
-  }
 
-  render() {
-    const { memoLangIndex, userLangIndex, isDraftOfPublished } = this
-    const {
-      alerts,
-      extraInfo,
-      pagesCreateNewPm,
-      pagesChangePublishedPm,
-      pageTitles
-    } = i18n.messages[userLangIndex]
-    const {
-      activeTab,
-      isError,
-      memoName,
-      lastPublishedVersionPublishDate,
-      version,
-      visibleInMemo,
-      commentAboutMadeChanges,
-      alertText,
-      alertIsOpen,
-      alertColor,
-      openAlertIdUntilFixed
-    } = this.state
-    return (
-      <Container className="kip-container">
-        {/* /* style={{ marginBottom: '110px' }} */}
-        <Row key="pageHeader" id="scroll-here-if-alert">
-          <PageTitle
-            id="mainHeading"
-            pageTitle={isDraftOfPublished ? pageTitles.published : pageTitles.new}
-          >
-            {this.courseSubHeader()}
-          </PageTitle>
-        </Row>
-        <ProgressBar
-          active={PROGRESS}
-          pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm}
+          {extraHeaderTitle &&
+            memoData[extraHeaderTitle] &&
+            memoData[extraHeaderTitle].map(({ uKey }, index) => (
+              <NewSectionEditor
+                contentId={extraHeaderTitle}
+                currentIndex={index}
+                key={uKey}
+                menuId={`${id}-${extraHeaderTitle}${uKey}`}
+                uKey={uKey}
+                onAlert={onToastAlert}
+                onSave={onSave}
+                showError={checkOneContentId === extraHeaderTitle || checkAllExtra}
+              />
+            ))}
+          {extraHeaderTitle && (
+            <Button className="element-50" color="secondary" block onClick={() => onAddNewSection(extraHeaderTitle)}>
+              {buttons.btnAddExtra}
+              {sectionsLabels[id]}
+            </Button>
+          )}
+        </TabSection>
+      )
+    })
+  }
+  return (
+    <Container className="kip-container">
+      {/* /* style={{ marginBottom: '110px' }} */}
+      <Row key="pageHeader" id="scroll-here-if-alert">
+        <PageTitle id="mainHeading" pageTitle={isDraftOfPublished ? pageTitles.published : pageTitles.new}>
+          {courseSubHeader()}
+        </PageTitle>
+      </Row>
+      <ProgressBar active={PROGRESS} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
+      <PageHead semester={semester} memoName={memoName} userLangIndex={userLangIndex} />
+      {(isDraftOfPublished && !isDraftOfPublishedUntouched && (
+        <AlertDraftOfPublished
+          courseCode={courseCode}
+          memoEndPoint={memoEndPoint}
+          memoVersion={version}
+          onAlert={onToastAlert}
+          publishDate={lastPublishedVersionPublishDate}
+          userLangIndex={userLangIndex}
         />
-        <PageHead semester={this.semester} memoName={memoName} userLangIndex={userLangIndex} />
-        {(isDraftOfPublished && !this.rebuilDraftFromPublishedVer && (
-          <AlertDraftOfPublished
-            courseCode={this.courseCode}
-            memoEndPoint={this.memoEndPoint}
-            memoVersion={version}
-            onAlert={this.onToastAlert}
-            publishDate={lastPublishedVersionPublishDate}
-            userLangIndex={userLangIndex}
+      )) || <AlertSuccessRebuild alertMsg={alerts.infoRebuildDraft} hasBeenRebuild={isDraftOfPublishedUntouched} />}
+      <AlertSuccessCopiedMemo eventFromParams={eventFromParams} alertMsg={alerts.syllabusUpdated} />
+      <AlertErrorMissingComment isError={isError} alertMsg={alerts.warnFillInCommentAboutChanges} />
+      <Row key="section-of-header" className="sections-headers">
+        <Col lg="7">
+          <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} style={{ marginBottom: '30px' }} />
+          <CollapseMemoIntroduction
+            // open={!isDraftOfPublished}
+            translate={extraInfo.summaryIntroductionHelp}
           />
-        )) || (
-          <AlertSuccessRebuild
-            alertMsg={alerts.infoRebuildDraft}
-            hasBeenRebuild={this.rebuilDraftFromPublishedVer}
-          />
-        )}
-        <AlertSuccessCopiedMemo
-          eventFromParams={this.eventFromParams}
-          alertMsg={alerts.syllabusUpdated}
-        />
-        <AlertErrorMissingComment
-          isError={isError}
-          alertMsg={alerts.warnFillInCommentAboutChanges}
-        />
-        <Row key="section-of-header" className="sections-headers">
-          <Col lg="7">
-            <ProgressTitle
-              id="progress-title"
-              text={pagesCreateNewPm[PROGRESS - 1]}
-              style={{ marginBottom: '30px' }}
-            />
-            <CollapseMemoIntroduction
-              // open={!isDraftOfPublished}
-              translate={extraInfo.summaryIntroductionHelp}
-            />
-          </Col>
-        </Row>
-        {/* <TabPanel
+        </Col>
+      </Row>
+      {/* <TabPanel
           activeTabId={activeTab}
-          onClick={this.onChangeTab}
+          onClick={onChangeTab}
           sections={sections}
           sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
         /> */}
-        <StickyContainer className="memo-container">
-          <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
-            {({ style, isSticky }) => (
-              <div
-                style={{
-                  ...style,
-                  ...{
-                    paddingRight: '0',
-                    // paddingBottom: '0',
-                    paddingTop: isSticky ? TAB_HEIGHT_WITH_TOP_PADDING : '0',
-                    backgroundColor: '#ffffff',
-                    zIndex: 1
-                  }
-                }}
-              >
-                <TabPanel
-                  activeTabId={activeTab}
-                  onClick={this.onChangeTab}
-                  sections={sections}
-                  sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
-                />
-                <div className="white-space-under-tabs" />
-              </div>
-            )}
-          </Sticky>
+      <StickyContainer className="memo-container">
+        <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
+          {({ style, isSticky }) => (
+            <div
+              style={{
+                ...style,
+                ...{
+                  paddingRight: '0',
+                  // paddingBottom: '0',
+                  paddingTop: isSticky ? TAB_HEIGHT_WITH_TOP_PADDING : '0',
+                  backgroundColor: '#ffffff',
+                  zIndex: 1,
+                },
+              }}
+            >
+              <TabPanel
+                activeTabId={activeTab}
+                onClick={onChangeTab}
+                sections={sections}
+                sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
+              />
+              <div className="white-space-under-tabs" />
+            </div>
+          )}
+        </Sticky>
 
-          <Row>
-            <Col lg="8" className="memo-content tab-content" id="memoTabContent">
-              {this.renderScrollView()}
-            </Col>
-            <Col className="vertical-separator" />
-            <Col lg="3" className="sticky-overview">
-              <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
-                {({ style, isSticky }) => (
-                  <div
-                    style={{
-                      ...style,
-                      ...{
-                        paddingRight: '0',
-                        // paddingBottom: '110px',
-                        paddingTop: isSticky ? OVERVIEW_TOP_PADDING : '0'
-                      }
-                    }}
+        <Row>
+          <Col lg="8" className="memo-content tab-content" id="memoTabContent">
+            {renderTabSections()}
+          </Col>
+          <Col className="vertical-separator" />
+          <Col lg="3" className="sticky-overview">
+            <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
+              {({ style, isSticky }) => (
+                <div
+                  style={{
+                    ...style,
+                    ...{
+                      paddingRight: '0',
+                      // paddingBottom: '110px',
+                      paddingTop: isSticky ? OVERVIEW_TOP_PADDING : '0',
+                    },
+                  }}
+                >
+                  <SectionMenu
+                    id="mainMenu"
+                    visiblesOfStandard={visibleInMemo}
+                    userLangIndex={userLangIndex}
+                    memoLangIndex={memoLangIndex}
+                    activeTab={activeTab}
                   >
-                    <SectionMenu
-                      id="mainMenu"
-                      visiblesOfStandard={visibleInMemo}
-                      userLangIndex={userLangIndex}
-                      memoLangIndex={memoLangIndex}
-                      activeTab={activeTab}
-                    >
-                      {isDraftOfPublished && (
-                        <CommentChangesTextarea
-                          isError={isError}
-                          labels={extraInfo}
-                          memoLangIndex={memoLangIndex}
-                          onChange={this.setChangesAboutDraftOfPublished}
-                          textAboutChanges={commentAboutMadeChanges}
-                          userLangIndex={userLangIndex}
-                        />
-                      )}
-                    </SectionMenu>
-                  </div>
-                )}
-              </Sticky>
-            </Col>
-          </Row>
-        </StickyContainer>
-        <Container className="fixed-bottom">
-          <ControlPanel
-            langIndex={userLangIndex}
-            onSubmit={this.onContinueToPreview}
-            onSave={this.onAutoSave}
-            onBack={this.onBack}
-            onCancel={this.onCancel}
-            progress={2}
-            alertText={alertText}
-            alertIsOpen={alertIsOpen}
-            alertColor={alertColor || 'success'}
-            isDraftOfPublished={isDraftOfPublished}
-            openAlertIdUntilFixed={openAlertIdUntilFixed}
-          />
-        </Container>
+                    {isDraftOfPublished && (
+                      <CommentChangesTextarea
+                        isError={isError}
+                        labels={extraInfo}
+                        memoLangIndex={memoLangIndex}
+                        onChange={setChangesAboutDraftOfPublished}
+                        textAboutChanges={commentAboutMadeChanges}
+                        userLangIndex={userLangIndex}
+                      />
+                    )}
+                  </SectionMenu>
+                </div>
+              )}
+            </Sticky>
+          </Col>
+        </Row>
+      </StickyContainer>
+      <Container className="fixed-bottom">
+        <ControlPanel
+          langIndex={userLangIndex}
+          onSubmit={onContinueToPreview}
+          onSave={onAutoSave}
+          onBack={onBack}
+          onCancel={onCancel}
+          progress={2}
+          alertText={alertText}
+          alertIsOpen={alertIsOpen}
+          alertColor={alertColor || 'success'}
+          isDraftOfPublished={isDraftOfPublished}
+          openAlertIdUntilFixed={openAlertIdUntilFixed}
+        />
       </Container>
-    )
-  }
+    </Container>
+  )
 }
 
 MemoContainer.propTypes = {
-  routerStore: PropTypes.func,
   history: PropTypes.shape({
-    push: PropTypes.func
-  })
+    push: PropTypes.func,
+  }),
 }
 
-export default MemoContainer
+export default observer(MemoContainer)
