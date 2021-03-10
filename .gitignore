@@ -32,6 +32,7 @@ bundles
 public/js/app/config*.js
 dist
 .cache
+.parcel-cache
 
 # Docker
 *.env
