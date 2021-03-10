@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import i18n from '../../i18n'
@@ -15,7 +14,7 @@ import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoDat
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
 
 const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
-  const updatedRouterStore = {
+  const updatedApplicationStore = {
     ...mockApplicationStoreWithChosenMemo('DRAFT_OF_PUBLISHED', 'filledInAndVisible', memoLang, userLang),
     koppsFreshData: {
       courseMainSubjects: '',
@@ -29,7 +28,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
   }
   return (
     <StaticRouter>
-      <MobxStoreProvider initCallback={() => updatedRouterStore}>
+      <MobxStoreProvider initCallback={() => updatedApplicationStore}>
         <PreviewContainer {...rest} />
       </MobxStoreProvider>
     </StaticRouter>
