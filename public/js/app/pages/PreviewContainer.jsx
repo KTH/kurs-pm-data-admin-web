@@ -190,10 +190,10 @@ const determineContentFlexibility = () => {
 
 function PreviewContainer(props) {
   const store = useStore()
-  const { browserConfig, langIndex, memoData: previewMemo } = useStore()
+  const { browserConfig, langIndex, memoData } = store
   const progress = props.progress ? Number(props.progress) : 3
 
-  const isDraftOfPublished = Number(previewMemo.version) > FIRST_VERSION
+  const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
   const {
     courseCode,
     courseTitle,
@@ -202,7 +202,7 @@ function PreviewContainer(props) {
     memoCommonLangAbbr,
     memoEndPoint,
     memoName,
-  } = previewMemo
+  } = memoData
   const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } = i18n.messages[
     langIndex
   ]
@@ -350,8 +350,8 @@ function PreviewContainer(props) {
                   <CourseFacts
                     language={memoCommonLangAbbr}
                     labels={courseFactsLabels}
-                    departmentName={previewMemo.departmentName}
-                    memoData={previewMemo}
+                    departmentName={memoData.departmentName}
+                    memoData={memoData}
                   />
                 </Col>
               </Row>
@@ -360,8 +360,8 @@ function PreviewContainer(props) {
                   <CourseMemoLinks
                     language={memoCommonLangAbbr}
                     labels={courseMemoLinksLabels}
-                    memoData={previewMemo}
-                    syllabusValid={previewMemo.syllabusValid}
+                    memoData={memoData}
+                    syllabusValid={memoData.syllabusValid}
                   />
                 </Col>
               </Row>
@@ -375,7 +375,7 @@ function PreviewContainer(props) {
                   <CourseContacts
                     styleId="last-element-which-determines-styles"
                     language={memoCommonLangAbbr}
-                    memoData={previewMemo}
+                    memoData={memoData}
                     labels={courseContactsLabels}
                   />
                 </Col>
