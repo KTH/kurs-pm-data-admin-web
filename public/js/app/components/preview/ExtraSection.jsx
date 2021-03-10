@@ -8,7 +8,7 @@ import { useStore } from '../../mobx'
 import i18n from '../../../../../i18n'
 
 function ExtraSection(props) {
-  const { language } = useStore()
+  const { langIndex: userLangIndex } = useStore()
   const {
     contentId,
     isEmptyNew,
@@ -18,8 +18,7 @@ function ExtraSection(props) {
     visibleInMemo,
   } = props
 
-  userLangIndex = language === 'sv' ? 1 : 0
-  const { sourceInfo } = i18n.messages[this.userLangIndex]
+  const { sourceInfo } = i18n.messages[userLangIndex]
 
   return (
     <span className="Added--New--Title--And--Info">
