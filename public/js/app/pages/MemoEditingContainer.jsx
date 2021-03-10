@@ -48,8 +48,6 @@ function MemoContainer(props) {
     rebuilDraftFromPublishedVer: initialDraftState,
     semester,
   } = store
-  // console.log('memodata from store learningActivities', memoData.learningActivities)
-  // const [memoState, setMemoState] = useState({ ...(memoData || {}) })
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
   const [activeTab, setActiveTab] = useState(sections[0].id)
@@ -67,11 +65,9 @@ function MemoContainer(props) {
   const { sectionsLabels } = i18n.messages[memoLangIndex]
   const { alerts, extraInfo, pagesCreateNewPm, pagesChangePublishedPm, pageTitles } = i18n.messages[userLangIndex]
   const { event: eventFromParams = '' } = fetchParameters(props)
-  // console.log('event', eventFromParams)
 
   useEffect(() => {
-    //getDerivedStateFromProps
-    //   // check if it is time to hide red alert about empty titles of extra section
+    // check if it is time to hide red alert about empty titles of extra section
     const hasAllExtraSectionsTitle = store.checkAllSectionsHasTitles()
     if (hasAllExtraSectionsTitle && !!openAlertIdUntilFixed) {
       console.log('! ! ! ! checking open alert ! ! ! !')
@@ -81,18 +77,10 @@ function MemoContainer(props) {
   })
 
   useEffect(() => {
-    console.log('CLEAN UP')
     store.cleanUpAllEmptyExtraContent()
   }, [activeTab])
 
-  // useEffect(() => {
-  //   console.log('memoData was changed so update memostate')
-  //   setMemoState(store.memoData)
-  // }, [store.dirtyEditor])
-
   useEffect(() => {
-    //  componentDidMount() {
-
     const { history, location } = props
 
     if (history) {
@@ -124,7 +112,6 @@ function MemoContainer(props) {
 
   const setUpperAlarm = () => {
     setErrorBool(true)
-    // onScrollIntoView('scroll-here-if-alert')
     const alertElement = document.getElementById('scroll-here-if-alert')
     alertElement.scrollIntoView({ behavior: 'smooth' })
   }
@@ -164,7 +151,7 @@ function MemoContainer(props) {
   }
 
   const onAutoSave = (data = store.memoData) => {
-    onSave(data, 'autoSaved') // save precisily this editor content by contentId
+    onSave(data, 'autoSaved') // save precisely this editor content by contentId
   }
 
   const onSave = async (editorContent, alertTranslationId) => {
@@ -364,39 +351,51 @@ function MemoContainer(props) {
             title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
             details={sectionsSummary[id]}
           />
-          {content.map(contentId => (
-            <StandardSectionOrEditor
-              key={'standard' + contentId}
-              contentId={contentId}
-              sectionId={id}
-              initialValue={memoData[contentId]} //TODO: MAYBE REMOVE
-              memoLangIndex={memoLangIndex}
-              onToggleVisibleInMemo={toggleStandardVisibleInMemo}
-              checkVisibility={checkVisibility}
-              onSave={onSave}
-              userLangIndex={userLangIndex}
-            />
-          ))}
+          {/* load editors for only active tab
+          to reduce load and trigger dismount all possible 
+          overlay windows from other section's editors */}
+          {activeTab === id && (
+            <>
+              {content.map(contentId => (
+                <StandardSectionOrEditor
+                  key={'standard' + contentId}
+                  contentId={contentId}
+                  sectionId={id}
+                  initialValue={memoData[contentId]}
+                  memoLangIndex={memoLangIndex}
+                  onToggleVisibleInMemo={toggleStandardVisibleInMemo}
+                  checkVisibility={checkVisibility}
+                  onSave={onSave}
+                  userLangIndex={userLangIndex}
+                />
+              ))}
 
-          {extraHeaderTitle &&
-            memoData[extraHeaderTitle] &&
-            memoData[extraHeaderTitle].map(({ uKey }, index) => (
-              <NewSectionEditor
-                contentId={extraHeaderTitle}
-                currentIndex={index}
-                key={uKey}
-                menuId={`${id}-${extraHeaderTitle}${uKey}`}
-                uKey={uKey}
-                onAlert={onToastAlert}
-                onSave={onSave}
-                showError={checkOneContentId === extraHeaderTitle || checkAllExtra}
-              />
-            ))}
-          {extraHeaderTitle && (
-            <Button className="element-50" color="secondary" block onClick={() => onAddNewSection(extraHeaderTitle)}>
-              {buttons.btnAddExtra}
-              {sectionsLabels[id]}
-            </Button>
+              {extraHeaderTitle &&
+                memoData[extraHeaderTitle] &&
+                memoData[extraHeaderTitle].map(({ uKey }, index) => (
+                  <NewSectionEditor
+                    contentId={extraHeaderTitle}
+                    currentIndex={index}
+                    key={uKey}
+                    menuId={`${id}-${extraHeaderTitle}${uKey}`}
+                    uKey={uKey}
+                    onAlert={onToastAlert}
+                    onSave={onSave}
+                    showError={checkOneContentId === extraHeaderTitle || checkAllExtra}
+                  />
+                ))}
+              {extraHeaderTitle && (
+                <Button
+                  className="element-50"
+                  color="secondary"
+                  block
+                  onClick={() => onAddNewSection(extraHeaderTitle)}
+                >
+                  {buttons.btnAddExtra}
+                  {sectionsLabels[id]}
+                </Button>
+              )}
+            </>
           )}
         </TabSection>
       )
@@ -427,18 +426,9 @@ function MemoContainer(props) {
       <Row key="section-of-header" className="sections-headers">
         <Col lg="7">
           <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} style={{ marginBottom: '30px' }} />
-          <CollapseMemoIntroduction
-            // open={!isDraftOfPublished}
-            translate={extraInfo.summaryIntroductionHelp}
-          />
+          <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} />
         </Col>
       </Row>
-      {/* <TabPanel
-          activeTabId={activeTab}
-          onClick={onChangeTab}
-          sections={sections}
-          sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
-        /> */}
       <StickyContainer className="memo-container">
         <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
           {({ style, isSticky }) => (
