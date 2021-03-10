@@ -1,6 +1,5 @@
 import mockMiniKoppsObj from './miniKoppsObjs'
 import memoTypes from './memoData/memoTypes'
-// import RouterStore from '../../public/js/app/stores/RouterStore'
 import usedRounds from './mockUsedRounds'
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
 
