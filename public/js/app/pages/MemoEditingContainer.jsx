@@ -50,7 +50,7 @@ function MemoContainer(props) {
   } = store
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
-  const [activeTab, setActiveTab] = useState(sections[0].id)
+  const [activeTab, setActiveTab] = useState(props.activeTab || sections[0].id)
   const [checkAllExtra, setCheckAllExtra] = useState(false) // check all extra content groups
   const [checkOneContentId, setCheckOneContentId] = useState('') // check specific extra content group
   const [openAlertIdUntilFixed, setOpenAlertIdUntilFixed] = useState('')
