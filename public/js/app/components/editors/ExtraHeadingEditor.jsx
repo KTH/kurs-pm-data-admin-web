@@ -1,19 +1,20 @@
 /* eslint-disable react/no-danger */
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
+import { Editor } from '@tinymce/tinymce-react'
+import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+import { Form, FormGroup, Label, Input } from 'reactstrap'
+import PropTypes from 'prop-types'
+
 import { useStore } from '../../mobx'
 
-import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../../i18n'
-import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 import CollapseGuidance from '../details/CollapseGuidance'
 import { ExtraHeaderHead } from '../ContentHead'
 import VisibilityInfo from '../VisibilityInfo'
-import { Form, FormGroup, Label, Input } from 'reactstrap'
 import editorConf from '../../util/editorInitConf'
-import PropTypes from 'prop-types'
 
-function NewSectionEditor(props) {
+function ExtraHeadingEditor(props) {
   const store = useStore()
   const { langIndex: userLangIndex, memoLangAbbr, memoData, dirtyEditor } = store
 
@@ -22,39 +23,36 @@ function NewSectionEditor(props) {
   const extraContent = memoData[contentId][currentIndex] || []
   const { title, htmlContent, visibleInMemo } = extraContent
 
-  const hasEmptyTitle = !!(title.length === 0)
+  const hasEmptyHeading = !!(title.length === 0)
   const hasEmptyText = !!(htmlContent.length === 0)
 
   const [isOpen, setOpenStatus] = useState(false)
-  const [showEmptyTitleErrorLabel, setEmptyTitleErrorLabel] = useState(false)
+  const [showEmptyHeadingErrorLabel, setEmptyHeadingErrorLabel] = useState(false)
 
   const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
   const { actionModals, buttons, sourceInfo, memoInfoByUserLang } = i18n.messages[userLangIndex]
 
   useEffect(() => {
-    //fast reaction to parent prop showError change when user clicked switch tab/submit
-    if (showError && !showEmptyTitleErrorLabel) {
-      setEmptyTitleErrorLabel(true)
+    // fast reaction to parent prop showError change when user clicked switch tab/submit
+    if (showError && !showEmptyHeadingErrorLabel) {
+      setEmptyHeadingErrorLabel(true)
       const sectionElement = document.getElementById(menuId)
       sectionElement.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [showError, showEmptyTitleErrorLabel])
+  }, [showError, showEmptyHeadingErrorLabel])
 
   useEffect(() => {
-    // check if hasEmptyTitle error is fixed and update state
-    setEmptyTitleErrorLabel(hasEmptyTitle && !hasEmptyText)
+    // check if hasEmptyHeading error is fixed and update state
+    setEmptyHeadingErrorLabel(hasEmptyHeading && !hasEmptyText)
   }, [title, htmlContent])
 
   useEffect(() => {
     // decides to (keep) editor open if title it empty
-    console.log('new editor hall it open')
-    if (hasEmptyTitle) setOpenStatus(true)
-  }, [hasEmptyTitle])
+    if (hasEmptyHeading) setOpenStatus(true)
+  }, [hasEmptyHeading])
 
   useEffect(() => {
-    // eslint-disable-next-line react/destructuring-assignment
-    console.log('save new section data')
-    store.checkTitleExist(contentId, currentIndex, hasEmptyTitle, hasEmptyText)
+    store.checkTitleExist(contentId, currentIndex, hasEmptyHeading, hasEmptyText)
   }, [title])
 
   useEffect(() => {
@@ -65,24 +63,21 @@ function NewSectionEditor(props) {
     store.setMemoExtraContent(contentId, currentIndex, 'htmlContent', editorContent.trim())
   }
 
-  const setNewTitle = event => {
+  const setNewHeading = event => {
     event.preventDefault()
-    const title = event.target.value.trim()
-    store.setMemoExtraContent(contentId, currentIndex, 'title', title) // || (this.memoLangIndex === 1 ? 'Egna rubrik ' + currentIndex : 'New heading ' + currentIndex)
+    const newTitle = event.target.value.trim()
+    store.setMemoExtraContent(contentId, currentIndex, 'title', newTitle)
   }
 
   const onRemoveThisContent = (wasEmpty = false) => {
     store.setDirtyEditor(uKey)
     store.removeExtraContent(contentId, currentIndex)
-    if (wasEmpty) props.onAlert('removedEmptyContent', 'success', 500)
-    else props.onAlert('removedAddedContent', 'success', 500)
-    //onSaveByThisContentId
+    if (wasEmpty) props.onAlert('removedEmptyHeading', 'success', 500)
+    else props.onAlert('removedAddedHeading', 'success', 500)
   }
 
   const onSaveByThisContentId = () => {
     const latestMemoData = store.memoData[contentId]
-    // thisSectionExist is needed to know if section was deleted before unmounting
-    const thisSectionExist = !!store.memoData[contentId].length > currentIndex
 
     if (dirtyEditor === uKey) {
       props.onSave({ [contentId]: latestMemoData }, 'autoSaved')
@@ -97,13 +92,13 @@ function NewSectionEditor(props) {
 
   const onToggleVisibleEditor = () => {
     if (isOpen) {
-      if (hasEmptyTitle && hasEmptyText) {
+      if (hasEmptyHeading && hasEmptyText) {
         onRemoveThisContent(true)
 
         return false
       }
-      if (hasEmptyTitle) {
-        setEmptyTitleErrorLabel(true)
+      if (hasEmptyHeading) {
+        setEmptyHeadingErrorLabel(true)
         props.onAlert('errorEmptyHeading', 'danger')
 
         return false
@@ -136,7 +131,7 @@ function NewSectionEditor(props) {
       />
       {isOpen && (
         <span>
-          <Form className={showEmptyTitleErrorLabel ? 'error-area' : ''}>
+          <Form className={showEmptyHeadingErrorLabel ? 'error-area' : ''}>
             <FormGroup className="title">
               <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
                 {sourceInfo.addNewHeading}
@@ -145,11 +140,11 @@ function NewSectionEditor(props) {
                 className="form-control"
                 type="text"
                 id={`headerFor${contentId}-${uKey}`}
-                onChange={setNewTitle}
+                onChange={setNewHeading}
                 onBlur={onSaveByThisContentId}
                 defaultValue={title}
               />
-              {showEmptyTitleErrorLabel && (
+              {showEmptyHeadingErrorLabel && (
                 <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
                   {sourceInfo.errorEmptyHeading}
                 </Label>
@@ -184,7 +179,7 @@ function NewSectionEditor(props) {
           />
         )) ||
           /* editor has content but is not yet included in pm */
-          (htmlContent !== '' && ( // TODO: add DEFAULT TEXT
+          (htmlContent !== '' && (
             <span>
               <p>
                 <i>{sourceInfo.notIncludedInMemoYet.section}</i>
@@ -195,20 +190,18 @@ function NewSectionEditor(props) {
   )
 }
 
-NewSectionEditor.propTypes = {
+ExtraHeadingEditor.propTypes = {
   contentId: PropTypes.string.isRequired,
   currentIndex: PropTypes.number.isRequired,
-  htmlContent: PropTypes.string,
   menuId: PropTypes.string.isRequired,
-  visibleInMemo: PropTypes.bool,
   onAlert: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   showError: PropTypes.bool,
   uKey: PropTypes.string.isRequired,
 }
 
-NewSectionEditor.defaultProps = {
-  htmlContent: '',
+ExtraHeadingEditor.defaultProps = {
+  showError: false,
 }
 
-export default observer(NewSectionEditor)
+export default observer(ExtraHeadingEditor)

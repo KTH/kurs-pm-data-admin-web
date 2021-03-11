@@ -133,17 +133,18 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 }
 
 function setVisibilityOfStandard(contentId, value) {
+  console.log('setVisibilityOfStandard', contentId, ' value ', value)
   this.memoData.visibleInMemo[contentId] = value
 }
 
-function checkTitleExist(contentId, currentIndex, hasEmptyTitle, hasEmptyText) {
-  const hasEmptyTitleAndText = hasEmptyText && hasEmptyTitle
+function checkTitleExist(contentId, currentIndex, hasEmptyHeading, hasEmptyText) {
+  const hasEmptyHeadingAndText = hasEmptyText && hasEmptyHeading
 
   this.extraContentState[contentId][currentIndex] = {
-    hasEmptyTitleAndText,
+    hasEmptyHeadingAndText,
     hasEmptyText,
-    hasEmptyTitle,
-    canFinish: !hasEmptyTitle || hasEmptyTitleAndText,
+    hasEmptyHeading,
+    canFinish: !hasEmptyHeading || hasEmptyHeadingAndText,
   }
 }
 
@@ -157,12 +158,12 @@ function stopAndShowError() {
 
 function cleanUpAllEmptyExtraContent(contentId) {
   const { extraContentState } = this
-  let canBeSwitched = true
   if (!extraContentState || !extraContentState[contentId]) return true
 
-  extraContentState[contentId].forEach(({ hasEmptyTitleAndText }, currentIndex) => {
-    if (hasEmptyTitleAndText) this.removeExtraContent(contentId, currentIndex)
+  extraContentState[contentId].forEach(({ hasEmptyHeadingAndText }, currentIndex) => {
+    if (hasEmptyHeadingAndText) this.removeExtraContent(contentId, currentIndex)
   })
+  return true
 }
 
 function checkExtraTitlesForSectionId(contentId) {
@@ -170,7 +171,7 @@ function checkExtraTitlesForSectionId(contentId) {
   let canBeSwitched = true
   if (!extraContentState || !extraContentState[contentId]) return true
 
-  extraContentState[contentId].forEach(({ hasEmptyTitleAndText, canFinish: isReadyForReview }, currentIndex) => {
+  extraContentState[contentId].forEach(({ canFinish: isReadyForReview }) => {
     if (!isReadyForReview) canBeSwitched = isReadyForReview
   })
   return canBeSwitched
@@ -207,8 +208,10 @@ function getThisHost() {
   return this.thisHostBaseUrl.slice(-1) === '/' ? this.thisHostBaseUrl.slice(0, -1) : this.thisHostBaseUrl
 }
 
+// eslint-disable-next-line consistent-return
 async function showAvailableSemesterRounds(chosenSemester, testUsedRounds = [], testLastTerms = null) {
   if (testLastTerms) {
+    // eslint-disable-next-line no-return-await
     return await this._filterOutUsedRounds(testUsedRounds, chosenSemester, testLastTerms)
   }
   try {
