@@ -18,38 +18,38 @@ const context = {
     type: 'mandatoryForSome',
     isEditable: false,
     isRequired: true,
-    source: '(s)'
+    source: '(s)',
   },
   courseContent: {
     type: 'mandatory',
     isEditable: false,
     isRequired: true,
-    source: '(s)'
+    source: '(s)',
   },
   communicationDuringCourse: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   }, // Kommunikation med lärare
   courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
   ethicalApproach: {
     type: 'mandatory',
     isEditable: false,
     isRequired: true,
-    source: '(s)'
+    source: '(s)',
   },
   ethicalApproachSubSection: {
     openIfContent: true,
     isEditable: true,
     isRequired: false,
-    hasParentTitle: true
+    hasParentTitle: true,
   },
   examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   examinationSubSection: {
     openIfContent: true,
     isEditable: true,
     isRequired: false,
-    hasParentTitle: true
+    hasParentTitle: true,
   },
   examiner: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' },
   extraHeaders1: { isEditable: true, isRequired: false },
@@ -60,61 +60,61 @@ const context = {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   },
   gradingCriteria: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   },
   gradingScale: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' }, // Betygsskala
   infoForReregisteredStudents: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   },
   learningActivities: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
     openIfContent: true,
     type: 'mandatoryAndEditable',
     isEditable: true,
-    isRequired: true
+    isRequired: true,
   },
   otherContacts: { type: 'optionalEditable', isEditable: true, isRequired: false },
   otherRequirementsForFinalGrade: {
     type: 'mandatoryForSome',
     isEditable: false,
     isRequired: true,
-    source: '(s)'
+    source: '(s)',
   },
   permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true }, // Funktionsnedsättning
   permanentDisabilitySubSection: {
     openIfContent: true,
     isEditable: true,
     isRequired: false,
-    hasParentTitle: true
+    hasParentTitle: true,
   },
   possibilityToCompletion: {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   }, // default
   possibilityToAddition: {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   }, // default
   possibilityToCompensate: {
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   },
   preparations: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Förbereda inför kursstart
   prerequisites: {
@@ -122,14 +122,14 @@ const context = {
     type: 'optional',
     isEditable: false,
     isRequired: false,
-    source: '(c)'
+    source: '(c)',
   }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false },
   scheduleDetails: {
     openIfContent: true,
     type: 'optionalEditable',
     isEditable: true,
-    isRequired: false
+    isRequired: false,
   },
   software: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Programvara
   teacherAssistants: {
@@ -137,9 +137,9 @@ const context = {
     type: 'optional',
     isEditable: false,
     isRequired: false,
-    source: '(r)'
+    source: '(r)',
   }, // Lärarassistenter
-  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' } // Lärare
+  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Lärare
 }
 
 const sections = [
@@ -147,7 +147,7 @@ const sections = [
     id: 'contentAndOutcomes',
     title: 'Innehåll och lärandemål', // TODO: Later, to use i18n messages.sections for en/Sv somehow
     content: ['courseContent', 'learningOutcomes', 'learningActivities', 'scheduleDetails'],
-    extraHeaderTitle: 'extraHeaders1'
+    extraHeaderTitle: 'extraHeaders1',
   },
   {
     id: 'prep',
@@ -159,9 +159,9 @@ const sections = [
       'equipment',
       'software',
       'permanentDisability',
-      'permanentDisabilitySubSection'
+      'permanentDisabilitySubSection',
     ],
-    extraHeaderTitle: 'extraHeaders2'
+    extraHeaderTitle: 'extraHeaders2',
   },
   {
     id: 'reqToFinal',
@@ -177,15 +177,15 @@ const sections = [
       'possibilityToCompensate',
       'reportingResults',
       'ethicalApproach',
-      'ethicalApproachSubSection'
+      'ethicalApproachSubSection',
     ],
-    extraHeaderTitle: 'extraHeaders3'
+    extraHeaderTitle: 'extraHeaders3',
   },
   {
     id: 'extra',
     title: 'Ytterligare Information',
     content: ['additionalRegulations', 'infoForReregisteredStudents'],
-    extraHeaderTitle: 'extraHeaders4'
+    extraHeaderTitle: 'extraHeaders4',
   },
   {
     id: 'contacts',
@@ -196,28 +196,27 @@ const sections = [
       'teacher',
       'teacherAssistants',
       'examiner',
-      'otherContacts'
+      'otherContacts',
     ],
-    extraHeaderTitle: null
-  }
+    extraHeaderTitle: null,
+  },
 ]
-const getExtraHeaderIdBySectionId = (sectionId) =>
-  sections.find(({ id }) => id === sectionId).extraHeaderTitle || null
+const getExtraHeaderIdBySectionId = sectionId => sections.find(({ id }) => id === sectionId).extraHeaderTitle || null
 
 const contentParam = (contentId, param) => (context[contentId] && context[contentId][param]) || ''
 
-const isRequired = (contentId) => (context[contentId] && context[contentId].isRequired) || false
+const isRequired = contentId => (context[contentId] && context[contentId].isRequired) || false
 
-const typeOfHeader = (contentId) => context[contentId].type || ''
+const typeOfHeader = contentId => context[contentId].type || ''
 
 const allStandardHeadersAndSubHd = () => [].concat(...sections.map(({ content }) => content)).sort()
 
-const getOnlyStandardHeaders = () => [
-  ...allStandardHeadersAndSubHd().filter((id) => !contentParam(id, 'hasParentTitle'))
-]
+const getOnlyStandardHeaders = () => [...allStandardHeadersAndSubHd().filter(id => !contentParam(id, 'hasParentTitle'))]
 
-const getHeadersByType = (headerType) => [
-  ...allStandardHeadersAndSubHd().filter((id) => context[id].type === headerType)
+const getHeadersByType = headerType => [...allStandardHeadersAndSubHd().filter(id => context[id].type === headerType)]
+
+const getHeadersByTypeAndSection = headerType => [
+  ...allStandardHeadersAndSubHd().filter(id => context[id].type === headerType),
 ]
 // const getAlwaysRequiredButNotEditable = () => [
 //   ...allStandardHeadersAndSubHd().filter((id) => context[id].type === 'mandatory')
@@ -240,7 +239,7 @@ const getHeadersByType = (headerType) => [
 const getNumOfStandardHeadersAndSubHd = () => allStandardHeadersAndSubHd().length
 
 const getNumOfEditableStandardContent = () =>
-  [...allStandardHeadersAndSubHd().filter((id) => contentParam(id, 'isEditable'))].length
+  [...allStandardHeadersAndSubHd().filter(id => contentParam(id, 'isEditable'))].length
 
 module.exports = {
   allStandardHeadersAndSubHd,
@@ -253,5 +252,5 @@ module.exports = {
   getOnlyStandardHeaders,
   sections,
   isRequired,
-  typeOfHeader
+  typeOfHeader,
 }
