@@ -15,7 +15,7 @@ const TabPanel = ({ activeTabId, onClick, sections, sectionsLabels }) => (
               role="tab"
               aria-controls={id}
               aria-selected={activeTabId === id}
-              onClick={(event) => {
+              onClick={event => {
                 event.preventDefault()
                 onClick(id)
               }}
@@ -29,17 +29,17 @@ const TabPanel = ({ activeTabId, onClick, sections, sectionsLabels }) => (
   </div>
 )
 TabPanel.propTypes = {
-  activeTabId: PropTypes.string,
-  onClick: PropTypes.func,
+  activeTabId: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
       title: PropTypes.string,
       content: PropTypes.arrayOf(PropTypes.string),
-      extraHeaderTitle: PropTypes.string
+      extraHeaderTitle: PropTypes.string,
     })
-  ),
-  sectionsLabels: PropTypes.objectOf(PropTypes.string)
+  ).isRequired,
+  sectionsLabels: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
 export default TabPanel
