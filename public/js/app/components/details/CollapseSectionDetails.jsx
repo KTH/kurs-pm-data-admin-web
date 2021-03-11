@@ -16,8 +16,12 @@ const CollapseSectionDetails = ({ ariaLabel = '', title, details }) => (
 
 CollapseSectionDetails.propTypes = {
   ariaLabel: PropTypes.string,
-  details: PropTypes.string,
-  title: PropTypes.string
+  details: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+}
+
+CollapseSectionDetails.defaultProps = {
+  ariaLabel: '',
 }
 
 export default CollapseSectionDetails
