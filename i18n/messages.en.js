@@ -52,12 +52,12 @@ module.exports = {
     page_header_heading_course_round: 'Course offering',
   },
   sourceInfo: {
-    addNewTitle: 'Name new section',
+    addNewHeading: 'Name header',
     fetched: 'Fetched', // IF NOT EDITABLE
     '(c)': 'from common course information',
     '(r)': 'from course round information',
     '(s)': 'from course syllabus',
-    errorEmptyTitle: 'You need to name the content',
+    errorEmptyHeading: 'You need to name the header',
     mandatory: 'Always included',
     mandatoryAndEditable: 'Always included',
     mandatoryForSome: 'Included for some courses',
@@ -696,7 +696,7 @@ module.exports = {
     btnAddExtra: 'Add heading to ',
     btnClose: 'Close',
     btnRemove: 'Delete draft',
-    btnRemoveHeader: 'Remove added header',
+    btnRemoveHeading: 'Remove added heading',
     btnFinish: 'Exit',
     btnSaveAndFinish: 'Exit (save draft)',
     closeEditor: 'Close edit mode',
@@ -769,7 +769,7 @@ module.exports = {
     autoSaved: 'Draft saved',
     autoSavedTemporary: 'Changes save temporarily before publishing.',
     addedRoundId: 'Course offerings were changed',
-    errorEmptyTitle: 'You need to name the content (look for error marks above)',
+    errorEmptyHeading: 'You need to name the header (look for error marks above)',
     errKoppsRounds:
       'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     errNoChosen:

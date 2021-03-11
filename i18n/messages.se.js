@@ -46,12 +46,12 @@ module.exports = {
   },
   /** Labels */
   sourceInfo: {
-    addNewTitle: 'Ange rubrik',
+    addNewHeading: 'Ange rubrik',
     fetched: 'Hämtats',
     '(c)': 'från kursgemensam information',
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan',
-    errorEmptyTitle: 'Du måste ange en rubrik',
+    errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: 'Inkluderas alltid',
     mandatoryForSome: 'Inkluderas för vissa kurser',
@@ -679,7 +679,7 @@ module.exports = {
     btnAddExtra: 'Lägg till rubrik till ',
     btnClose: 'Stäng',
     btnRemove: 'Radera utkast',
-    btnRemoveHeader: 'Ta bort tillagd rubrik',
+    btnRemoveHeading: 'Ta bort tillagd rubrik',
     btnFinish: 'Avsluta',
     btnSaveAndFinish: 'Avsluta med utkast',
     closeEditor: 'Stäng redigeringsläge',
@@ -755,7 +755,7 @@ module.exports = {
     autoSaved: 'Sparat utkast',
     autoSavedTemporary: 'Ändringar sparade temporärt inför publicering.',
     addedRoundId: 'Kurstillfällen har ändrats',
-    errorEmptyTitle: 'Du behöver ange ett namn på rubriken (se markering i rött ovan)',
+    errorEmptyHeading: 'Du behöver ange ett namn på rubriken (se markering i rött ovan)',
     errKoppsRounds:
       'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:

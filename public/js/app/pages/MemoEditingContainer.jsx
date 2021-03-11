@@ -131,10 +131,10 @@ function MemoContainer(props) {
   }
 
   const onToastAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
-    const showUntilFix = alertTranslationId === 'errorEmptyTitle'
+    const showUntilFix = alertTranslationId === 'errorEmptyHeading'
     if (showUntilFix && !openAlertIdUntilFixed)
       // initiate semi-permament alert for empty title
-      setOpenAlertIdUntilFixed('errorEmptyTitle')
+      setOpenAlertIdUntilFixed('errorEmptyHeading')
     else if (!showUntilFix) {
       onAlert(alertTranslationId, alertColor, onTimeout)
       if (process.env.NODE_ENV !== 'test') {
@@ -222,7 +222,7 @@ function MemoContainer(props) {
     } else {
       setCheckOneContentId(extraHeadersId)
       // Show alert below after scroll is done
-      onToastAlert('errorEmptyTitle', 'danger', 500)
+      onToastAlert('errorEmptyHeading', 'danger', 500)
     }
   }
 
@@ -263,7 +263,7 @@ function MemoContainer(props) {
     if (!hasAllExtraSectionsTitle) {
       setCheckAllExtra(true)
       // Show alert below after scroll is done
-      onToastAlert('errorEmptyTitle', 'danger', 500)
+      onToastAlert('errorEmptyHeading', 'danger', 500)
       return false
     }
 
