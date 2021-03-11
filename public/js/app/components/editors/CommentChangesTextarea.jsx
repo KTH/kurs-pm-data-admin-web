@@ -1,24 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FaAsterisk } from 'react-icons/fa'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
+
 import { ContentHead } from '../ContentHead'
 
-const CommentChangesTextarea = ({
-  isError,
-  labels,
-  memoLangIndex,
-  onChange,
-  textAboutChanges,
-  userLangIndex
-}) => (
+const CommentChangesTextarea = ({ isError, labels, memoLangIndex, onChange, textAboutChanges, userLangIndex }) => (
   <>
     <Form className={isError ? 'error-area' : ''}>
       <FormGroup>
-        <ContentHead
-          contentId="commentAboutMadeChanges"
-          memoLangIndex={memoLangIndex}
-          userLangIndex={userLangIndex}
-        />
+        <ContentHead contentId="commentAboutMadeChanges" memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
         <Label className="form-control-label" htmlFor="commentChanges">
           {labels.commentChanges}
         </Label>
@@ -34,22 +25,25 @@ const CommentChangesTextarea = ({
     </Form>
     <span data-testid="text-about-changes" className={isError ? 'error-label' : ''}>
       <p>
-        <sup>*</sup>
+        <sup>
+          <FaAsterisk className="syllabus-marker-icon" />
+        </sup>
         {labels.mandatory}
       </p>
     </span>
   </>
 )
+
 CommentChangesTextarea.propTypes = {
-  isError: PropTypes.bool,
+  isError: PropTypes.bool.isRequired,
   labels: PropTypes.shape({
     mandatory: PropTypes.string,
-    commentChanges: PropTypes.string
-  }),
-  memoLangIndex: PropTypes.number,
-  userLangIndex: PropTypes.number,
-  textAboutChanges: PropTypes.string,
-  onChange: PropTypes.func
+    commentChanges: PropTypes.string,
+  }).isRequired,
+  memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
+  userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
+  textAboutChanges: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 export default CommentChangesTextarea

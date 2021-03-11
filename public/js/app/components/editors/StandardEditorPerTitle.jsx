@@ -1,17 +1,16 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-danger */
 import React, { useState, useEffect } from 'react'
-import { observer } from 'mobx-react'
+import { Editor } from '@tinymce/tinymce-react'
+import PropTypes from 'prop-types'
 import { useStore } from '../../mobx'
 
-import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../../i18n'
 import { ContentHead } from '../ContentHead'
 import CollapseGuidance from '../details/CollapseGuidance'
 import VisibilityInfo from '../VisibilityInfo'
 import { context } from '../../util/fieldsByType'
 import editorConf from '../../util/editorInitConf'
-import PropTypes from 'prop-types'
 
 function StandardEditorPerTitle(props) {
   const store = useStore()

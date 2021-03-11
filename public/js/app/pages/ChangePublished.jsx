@@ -1,18 +1,17 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-/* eslint-disable react/no-danger */
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
+import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import axios from 'axios'
+import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
 import { SERVICE_URL } from '../util/constants'
-import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import i18n from '../../../../i18n'
-import axios from 'axios'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+
 import { combinedCourseName, fetchParameters } from '../util/helpers'
-import PropTypes from 'prop-types'
 
 function ChangePublished(props) {
   const {
@@ -23,7 +22,7 @@ function ChangePublished(props) {
     langAbbr: storeLangAbbr,
     langIndex: storeLangIndex,
   } = useStore()
-
+  const { langAbbr = storeLangAbbr, langIndex = storeLangIndex } = props
   const [chosenMemo, setMemo] = useState(() => initialMemoEndPoint || '')
   const [alert, setAlert] = useState({
     type: '', // danger, success, warn
@@ -33,11 +32,6 @@ function ChangePublished(props) {
   const memosToEdit = [...(miniMemos.draftsOfPublishedMemos || []), ...(miniMemos.publishedWithNoActiveDraft || [])]
 
   const hasMemos = memosToEdit.length > 0
-
-  const langAbbr = props.langAbbr || storeLangAbbr
-  const langIndex = props.langIndex || storeLangIndex
-
-  const lastTerms = miniKoppsObj.lastTermsInfo || null // need to define if kopps in error
 
   const urlParams = fetchParameters(props)
 
@@ -187,9 +181,8 @@ ChangePublished.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
-  langAbbr: PropTypes.string,
-  langIndex: PropTypes.number,
-  applicationStore: PropTypes.func,
+  langAbbr: PropTypes.oneOf(['sv', 'en']),
+  langIndex: PropTypes.oneOf([1, 0]),
 }
 
 export default observer(ChangePublished)
