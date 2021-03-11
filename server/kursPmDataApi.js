@@ -8,7 +8,7 @@ const clientActions = {
   createDraftByMemoEndPoint: 'postAsync',
   publishMemoByEndPoint: 'postAsync',
   deleteDraftByMemoEndPoint: 'delAsync',
-  updateCreatedDraft: 'putAsync'
+  updateCreatedDraft: 'putAsync',
 }
 // Gets a list of used round ids for a semester in a course
 async function getMemoApiData(apiFnName, uriParam) {
@@ -32,20 +32,14 @@ async function changeMemoApiData(apiFnName, uriParam, body) {
     const res = await client[action]({ uri, body, useCache: false })
     return res.body
   } catch (error) {
-    log.debug(
-      'Changing of data with ',
-      { apiFnName },
-      ' with parameter,',
-      { uriParam },
-      { body },
-      'is not available',
-      { error }
-    )
+    log.debug('Changing of data with ', { apiFnName }, ' with parameter,', { uriParam }, { body }, 'is not available', {
+      error,
+    })
     return error
   }
 }
 
 module.exports = {
   getMemoApiData,
-  changeMemoApiData
+  changeMemoApiData,
 }

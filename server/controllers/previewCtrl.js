@@ -1,11 +1,10 @@
 'use strict'
 
-const apis = require('../api')
-// const kursPmDataApi = require('../kursPmDataApi')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
 const { safeGet } = require('safe-utils')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
+const apis = require('../api')
 
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
@@ -40,7 +39,7 @@ async function renderMemoPreviewPage(req, res, next) {
     const userLang = language.getLanguage(res) || 'sv'
     const langIndex = userLang === 'en' ? 0 : 1
     const { courseCode, memoEndPoint } = req.params
-    //STORE MANIPULATIONS
+    // STORE MANIPULATIONS
     const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
     const applicationStore = createStore()
 

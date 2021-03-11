@@ -20,7 +20,7 @@ function courseLinks(language) {
   return {
     beforeAndDuringACourse: `https://www.kth.se/${languagePath}student/kurs/infor-och-under-en-kurs`,
     contactPersonsAndStudentCounselling: `https://www.kth.se/${languagePath}student/studievagledning-kontakt`,
-    rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studentliv/studentratt`
+    rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studentliv/studentratt`,
   }
 }
 
@@ -40,5 +40,5 @@ module.exports = {
   linkToSyllabus,
   courseLinks,
   aboutCourseLink,
-  adminLink
+  adminLink,
 }

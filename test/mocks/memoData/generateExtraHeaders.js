@@ -1,6 +1,6 @@
 const extraHeaders = ['extraHeaders1', 'extraHeaders2', 'extraHeaders3', 'extraHeaders4']
 
-const visibleHeaders = (headerId) => {
+const visibleHeaders = headerId => {
   const twovisibleHeaders = ['First header', 'Second header'].map((title, index) => {
     const readableContent = `Html content for section ${title}`
     return {
@@ -8,7 +8,7 @@ const visibleHeaders = (headerId) => {
       title: `Created by user ${title} for section ${headerId}`,
       htmlContent: `<p>${readableContent}</p>`,
       readContentExistsONLYforTest: readableContent,
-      visibleInMemo: true
+      visibleInMemo: true,
     }
   })
   return twovisibleHeaders
@@ -16,9 +16,7 @@ const visibleHeaders = (headerId) => {
 
 const generatedExtraHeaders = (withData = false) => {
   const headersWithContent = {}
-  extraHeaders.map(
-    (headerId) => (headersWithContent[headerId] = withData ? visibleHeaders(headerId) : [])
-  )
+  extraHeaders.map(headerId => (headersWithContent[headerId] = withData ? visibleHeaders(headerId) : []))
   return headersWithContent
 }
 

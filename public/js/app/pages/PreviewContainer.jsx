@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import { useStore } from '../mobx'
-
 import { Container, Row, Col } from 'reactstrap'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
 import axios from 'axios'
+import PropTypes from 'prop-types'
+
+import { useStore } from '../mobx'
 
 import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
@@ -18,7 +18,7 @@ import CourseContacts from '../components/preview/CourseContacts'
 import CourseHeader from '../components/preview/CourseHeader'
 import CoursePresentation from '../components/preview/CoursePresentation'
 import Section from '../components/preview/Section'
-import ExtraSection from '../components/preview/ExtraSection'
+import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
@@ -31,7 +31,6 @@ import {
   SAVED_NEW_PARAM,
   ADMIN_URL,
 } from '../util/constants'
-import PropTypes from 'prop-types'
 
 const PROGRESS = 3
 
@@ -137,7 +136,6 @@ const renderAllSections = ({ memoData }) => {
               visibleInMemo = false
             }
 
-            // TODO: Rethink use of visibleInMemo
             return (
               visibleInMemo && (
                 <Section
@@ -153,23 +151,18 @@ const renderAllSections = ({ memoData }) => {
           })}
           {extraHeaderTitle &&
             Array.isArray(memoData[extraHeaderTitle]) &&
-            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => {
-              return (
-                <ExtraSection
-                  contentId={extraHeaderTitle}
-                  key={uKey || extraHeaderTitle}
-                  initialTitle={title}
-                  initialValue={htmlContent}
-                  visibleInMemo={visibleInMemo}
-                  isEmptyNew={isEmptyNew}
-                  uKey={uKey}
-                  onEditorChange={() => {}}
-                  onBlur={() => {}}
-                  onRemove={() => {}}
-                  memoLanguageIndex={memoLanguageIndex}
-                />
-              )
-            })}
+            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => (
+              <ExtraHeadingContent
+                contentId={extraHeaderTitle}
+                key={uKey || extraHeaderTitle}
+                initialTitle={title}
+                initialValue={htmlContent}
+                visibleInMemo={visibleInMemo}
+                isEmptyNew={isEmptyNew}
+                uKey={uKey}
+                memoLanguageIndex={memoLanguageIndex}
+              />
+            ))}
         </section>
       )
     )
@@ -190,19 +183,12 @@ const determineContentFlexibility = () => {
 
 function PreviewContainer(props) {
   const store = useStore()
-  const { browserConfig, langIndex, memoData } = store
+  const { browserConfig, langIndex, memoData, sellingText = '' } = store
+  // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
 
   const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
-  const {
-    courseCode,
-    courseTitle,
-    semester: semester = '',
-    ladokRoundIds,
-    memoCommonLangAbbr,
-    memoEndPoint,
-    memoName,
-  } = memoData
+  const { courseCode, courseTitle, semester = '', ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName } = memoData
   const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } = i18n.messages[
     langIndex
   ]
@@ -262,22 +248,19 @@ function PreviewContainer(props) {
     window.location = editLocation
   }
 
-  const publish = () => {
-    return (
-      axios
-        .post('/kursinfoadmin/kurs-pm-data/internal-api/publish-memo/' + courseCode + '/' + memoEndPoint, {
-          courseCode,
-          memoEndPoint,
-        })
-        .then(() => {
-          window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&term=${semester}&name=${encodeURIComponent(
-            memoName
-          )}`
-        })
-        // eslint-disable-next-line no-console
-        .catch(error => console.log(error))
-    )
-  }
+  const publish = () =>
+    axios
+      .post('/kursinfoadmin/kurs-pm-data/internal-api/publish-memo/' + courseCode + '/' + memoEndPoint, {
+        courseCode,
+        memoEndPoint,
+      })
+      .then(() => {
+        window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&term=${semester}&name=${encodeURIComponent(
+          memoName
+        )}`
+      })
+      // eslint-disable-next-line no-console
+      .catch(error => console.log(error))
 
   const onFinish = () => {
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
@@ -339,7 +322,7 @@ function PreviewContainer(props) {
             <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
               <CoursePresentation
                 courseImageUrl={courseImageUrl}
-                introText={store.sellingText || ''}
+                introText={sellingText || ''}
                 labels={coursePresentationLabels}
               />
               {allSections}
@@ -348,7 +331,6 @@ function PreviewContainer(props) {
               <Row className="mb-4">
                 <Col>
                   <CourseFacts
-                    language={memoCommonLangAbbr}
                     labels={courseFactsLabels}
                     departmentName={memoData.departmentName}
                     memoData={memoData}
@@ -374,7 +356,6 @@ function PreviewContainer(props) {
                 <Col>
                   <CourseContacts
                     styleId="last-element-which-determines-styles"
-                    language={memoCommonLangAbbr}
                     memoData={memoData}
                     labels={courseContactsLabels}
                   />
@@ -404,4 +385,7 @@ PreviewContainer.propTypes = {
   progress: PropTypes.number,
 }
 
+PreviewContainer.defaultProps = {
+  progress: 3,
+}
 export default PreviewContainer

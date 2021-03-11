@@ -43,7 +43,7 @@ passport.deserializeUser((user, done) => {
 const casOptions = {
   ssoBaseURL: config.cas.ssoBaseURL,
   serverBaseURL: config.hostUrl,
-  log
+  log,
 }
 
 if (config.cas.pgtUrl) {
@@ -61,7 +61,7 @@ passport.use(strategy)
 passport.use(
   new GatewayStrategy(
     {
-      casUrl: config.cas.ssoBaseURL
+      casUrl: config.cas.ssoBaseURL,
     },
     (result, done) => {
       log.debug({ result }, `CAS Gateway user: ${result.user}`)
@@ -88,9 +88,9 @@ module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas
         pgtIou,
         // This is where you can set custom roles
         memberOf: getGroups(ldapUser), // memberOf important for requireRole
-        isSuperUser: hasGroup(config.auth.superuserGroup, ldapUser)
+        isSuperUser: hasGroup(config.auth.superuserGroup, ldapUser),
       }
-    }
+    },
   }
 )
 
@@ -119,7 +119,7 @@ function _hasThisTypeGroup(courseCode, courseInitials, ldapUser, employeeType) {
 }
 
 // eslint-disable-next-line func-names
-module.exports.requireRole = function() {
+module.exports.requireRole = function () {
   // TODO:Different roles for selling text and course development
   const roles = Array.prototype.slice.call(arguments)
 
@@ -127,17 +127,11 @@ module.exports.requireRole = function() {
     const ldapUser = req.session.authUser || {}
     const courseCode = req.params.courseCode.toUpperCase()
     const courseInitials = req.params.courseCode.slice(0, 2).toUpperCase()
-    // TODO: Add date for courseresponsible
     const userCourseRoles = {
       isExaminator: hasGroup(`edu.courses.${courseInitials}.${courseCode}.examiner`, ldapUser),
-      isCourseResponsible: _hasThisTypeGroup(
-        courseCode,
-        courseInitials,
-        ldapUser,
-        'courseresponsible'
-      ),
+      isCourseResponsible: _hasThisTypeGroup(courseCode, courseInitials, ldapUser, 'courseresponsible'),
       isSuperUser: ldapUser.isSuperUser,
-      isCourseTeacher: _hasThisTypeGroup(courseCode, courseInitials, ldapUser, 'teachers')
+      isCourseTeacher: _hasThisTypeGroup(courseCode, courseInitials, ldapUser, 'teachers'),
     }
 
     // If we don't have one of these then access is forbidden

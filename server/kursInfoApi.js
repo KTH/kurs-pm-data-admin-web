@@ -9,8 +9,7 @@ async function getCourseInfo(courseCode) {
 
   try {
     const res = await client.getAsync({ uri }, { useCache: false })
-    if (res.body)
-      return { sellingText: res.body.sellingText || {}, imageInfo: res.body.imageInfo || '' }
+    if (res.body) return { sellingText: res.body.sellingText || {}, imageInfo: res.body.imageInfo || '' }
     return { sellingText: {}, imageInfo: '' }
   } catch (err) {
     log.debug('getCourseInfo is not available', err)
@@ -22,5 +21,5 @@ async function getCourseInfo(courseCode) {
 }
 
 module.exports = {
-  getCourseInfo
+  getCourseInfo,
 }

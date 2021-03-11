@@ -15,6 +15,23 @@ import CreateNewMemo from './pages/CreateNewMemo'
 import MemoEditingContainer from './pages/MemoEditingContainer'
 import PreviewContainer from './pages/PreviewContainer'
 
+function appFactory(applicationStore) {
+  return (
+    <MobxStoreProvider initCallback={() => applicationStore}>
+      <Switch>
+        <Route exact path="/kursinfoadmin/kurs-pm-data/published/:courseCode/" component={ChangePublished} />
+        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={CreateNewMemo} />
+        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint" component={MemoEditingContainer} />
+        <Route
+          exact
+          path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint/preview"
+          component={PreviewContainer}
+        />
+      </Switch>
+    </MobxStoreProvider>
+  )
+}
+
 function _renderOnClientSide() {
   const isClientSide = typeof window !== 'undefined'
   if (!isClientSide) {
@@ -33,22 +50,5 @@ function _renderOnClientSide() {
 }
 
 _renderOnClientSide()
-
-function appFactory(applicationStore) {
-  return (
-    <MobxStoreProvider initCallback={() => applicationStore}>
-      <Switch>
-        <Route exact path="/kursinfoadmin/kurs-pm-data/published/:courseCode/" component={ChangePublished} />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={CreateNewMemo} />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint" component={MemoEditingContainer} />
-        <Route
-          exact
-          path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint/preview"
-          component={PreviewContainer}
-        />
-      </Switch>
-    </MobxStoreProvider>
-  )
-}
 
 export default appFactory

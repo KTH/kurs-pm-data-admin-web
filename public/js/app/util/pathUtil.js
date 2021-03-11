@@ -4,5 +4,5 @@ function _addParamToPath(path, param, value) {
 }
 
 module.exports = {
-  addParamToPath: _addParamToPath
+  addParamToPath: _addParamToPath,
 }

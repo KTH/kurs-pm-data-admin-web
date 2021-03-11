@@ -145,7 +145,7 @@ const context = {
 const sections = [
   {
     id: 'contentAndOutcomes',
-    title: 'Innehåll och lärandemål', // TODO: Later, to use i18n messages.sections for en/Sv somehow
+    title: 'Innehåll och lärandemål',
     content: ['courseContent', 'learningOutcomes', 'learningActivities', 'scheduleDetails'],
     extraHeaderTitle: 'extraHeaders1',
   },
@@ -215,9 +215,6 @@ const getOnlyStandardHeaders = () => [...allStandardHeadersAndSubHd().filter(id 
 
 const getHeadersByType = headerType => [...allStandardHeadersAndSubHd().filter(id => context[id].type === headerType)]
 
-const getHeadersByTypeAndSection = headerType => [
-  ...allStandardHeadersAndSubHd().filter(id => context[id].type === headerType),
-]
 // const getAlwaysRequiredButNotEditable = () => [
 //   ...allStandardHeadersAndSubHd().filter((id) => context[id].type === 'mandatory')
 // ]
