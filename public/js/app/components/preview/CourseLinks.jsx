@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { courseLinks } from '../../util/links'
 
@@ -58,5 +59,16 @@ const CourseLinks = ({ language, labels }) => (
     </p>
   </div>
 )
+
+CourseLinks.propTypes = {
+  labels: PropTypes.shape({
+    contactPersonsAndStudentCounselling: PropTypes.string.isRequired,
+    beforeAndDuringACourse: PropTypes.string.isRequired,
+    linkHeaderTitle: PropTypes.string.isRequired,
+    rightsAndResponsibilities: PropTypes.string.isRequired,
+    linkOpensInNewTab: PropTypes.string.isRequired,
+  }).isRequired,
+  language: PropTypes.oneOf(['sv', 'en']).isRequired,
+}
 
 export default CourseLinks
