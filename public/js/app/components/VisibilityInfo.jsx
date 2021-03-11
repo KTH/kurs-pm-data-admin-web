@@ -1,11 +1,10 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-nested-ternary */
-/* eslint-disable react/no-danger */
 import React from 'react'
 import { Button } from 'reactstrap'
-import { context, contentParam, isRequired, typeOfHeader } from '../util/fieldsByType'
 import PropTypes from 'prop-types'
+import { context, contentParam, isRequired, typeOfHeader } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 
@@ -85,7 +84,7 @@ VisibilityInfo.propTypes = {
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   onToggleVisibleEditor: PropTypes.func,
   sectionType: PropTypes.string.isRequired, // add default
-  userLangIndex: PropTypes.number.isRequired,
+  userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
 }
 
 VisibilityInfo.defaultProps = {
