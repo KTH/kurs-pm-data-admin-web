@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ButtonBackToTop from './ButtonBackToTop'
+
 const TabSection = ({ children, isActive, sectionId, scrollUp = false }) => (
   <div
     className={`tab-pane fade ${isActive ? 'show active' : ''}`}
@@ -16,10 +17,13 @@ const TabSection = ({ children, isActive, sectionId, scrollUp = false }) => (
 )
 
 TabSection.propTypes = {
-  children: PropTypes.node,
-  isActive: PropTypes.bool,
-  sectionId: PropTypes.string,
-  scrollUp: PropTypes.bool
+  children: PropTypes.node.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  sectionId: PropTypes.string.isRequired,
+  scrollUp: PropTypes.bool,
+}
+TabSection.defaultProps = {
+  scrollUp: false,
 }
 
 export default TabSection

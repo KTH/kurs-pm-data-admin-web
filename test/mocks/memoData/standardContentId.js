@@ -30,11 +30,11 @@ const standardMemoContent = [
   'scheduleDetails',
   'software',
   'teacher',
-  'teacherAssistants'
+  'teacherAssistants',
 ]
 
 describe('Contol generation of headers which are standard for memo content', () => {
-  test('Check standard memo content', (done) => {
+  test('Check standard memo content', done => {
     const s = allStandardHeadersAndSubHd()
 
     expect(standardMemoContent).toStrictEqual(s)

@@ -5,7 +5,7 @@ export const SERVICE_URL = {
   aboutCourseAdmin: '/kursinfoadmin/kurser/kurs/',
   API: '/kursinfoadmin/kurs-pm-data/internal-api/',
   courseMemoAdmin: '/kursinfoadmin/kurs-pm-data/',
-  kutv: '/kursutveckling/'
+  kutv: '/kursutveckling/',
 }
 
 // PARAM FOR START ADMIN PAGE

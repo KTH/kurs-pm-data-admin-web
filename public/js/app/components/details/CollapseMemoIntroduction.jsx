@@ -3,15 +3,7 @@ import PropTypes from 'prop-types'
 import { CollapseDetails } from '@kth/kth-kip-style-react-components'
 // TODO: ENGLISH TRANSLATIONS AND MOVE TO MESSAGES
 const CollapseMemoIntroduction = ({ translate }) => {
-  const {
-    aboutMemo,
-    aboutKursinformation,
-    aboutHelpInCanvasAndMemo,
-    mainContinue,
-    startInfo,
-    titleMain
-    // open
-  } = translate
+  const { titleMain } = translate
   return (
     <CollapseDetails ariaLabel={titleMain} title={titleMain} yellow>
       <div>
@@ -44,13 +36,8 @@ const CollapseMemoIntroduction = ({ translate }) => {
 
 CollapseMemoIntroduction.propTypes = {
   translate: PropTypes.shape({
-    aboutMemo: PropTypes.objectOf(PropTypes.string),
-    aboutKursinformation: PropTypes.objectOf(PropTypes.string),
-    aboutHelpInCanvasAndMemo: PropTypes.objectOf(PropTypes.string),
-    titleMain: PropTypes.string,
-    startInfo: PropTypes.string,
-    mainContinue: PropTypes.string
-  })
+    titleMain: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 export default CollapseMemoIntroduction

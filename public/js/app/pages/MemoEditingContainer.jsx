@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
-import { useStore } from '../mobx'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
-import i18n from '../../../../i18n'
 import axios from 'axios'
 import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import PropTypes from 'prop-types'
+import { useStore } from '../mobx'
+import i18n from '../../../../i18n'
 import { FIRST_VERSION, SERVICE_URL, REMOVE_PUBLISHED_PARAM, SAVED_NEW_PARAM } from '../util/constants'
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
 import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
@@ -19,14 +18,13 @@ import CollapseSectionDetails from '../components/details/CollapseSectionDetails
 import PageHead from '../components/PageHead'
 import CommentChangesTextarea from '../components/editors/CommentChangesTextarea'
 import ControlPanel from '../components/ControlPanel'
-import NewSectionEditor from '../components/editors/NewSectionEditor'
+import ExtraHeadingEditor from '../components/editors/ExtraHeadingEditor'
 import StandardSectionOrEditor from '../components/StandardSectionOrEditor'
 import TabPanel from '../components/TabPanel'
 import TabSection from '../components/TabSection'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
-import PropTypes from 'prop-types'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 35
@@ -45,12 +43,13 @@ function MemoContainer(props) {
     memoData,
     memoEndPoint,
     memoLangAbbr,
-    rebuilDraftFromPublishedVer: initialDraftState,
+    rebuilDraftFromPublishedVer,
     semester,
   } = store
+  const { initialActiveTab } = props // used for test
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
-  const [activeTab, setActiveTab] = useState(props.activeTab || sections[0].id)
+  const [activeTab, setActiveTab] = useState(initialActiveTab || sections[0].id)
   const [checkAllExtra, setCheckAllExtra] = useState(false) // check all extra content groups
   const [checkOneContentId, setCheckOneContentId] = useState('') // check specific extra content group
   const [openAlertIdUntilFixed, setOpenAlertIdUntilFixed] = useState('')
@@ -59,7 +58,7 @@ function MemoContainer(props) {
   const { alertText, alertIsOpen, alertColor } = alert
 
   const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
-  const [isDraftOfPublishedUntouched, setDraftOfPublishedState] = useState(initialDraftState)
+  const [exactDraftCopyOfPublishedFromPrevVersion, setDraftOfPublishedState] = useState(rebuilDraftFromPublishedVer)
 
   const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
   const { sectionsLabels } = i18n.messages[memoLangIndex]
@@ -68,10 +67,8 @@ function MemoContainer(props) {
 
   useEffect(() => {
     // check if it is time to hide red alert about empty titles of extra section
-    const hasAllExtraSectionsTitle = store.checkAllSectionsHasTitles()
-    if (hasAllExtraSectionsTitle && !!openAlertIdUntilFixed) {
-      console.log('! ! ! ! checking open alert ! ! ! !')
-
+    const hasAllExtraHeadingsNamed = store.checkAllSectionsHasTitles()
+    if (hasAllExtraHeadingsNamed && !!openAlertIdUntilFixed) {
       setOpenAlertIdUntilFixed('')
     }
   })
@@ -81,14 +78,14 @@ function MemoContainer(props) {
   }, [activeTab])
 
   useEffect(() => {
-    const { history, location } = props
+    const { history } = props
 
     if (history) {
       history.push({
-        // hash: location.hash, need to fix scroll view hash of sections and hash of tabs
         search: '',
       })
     }
+    // eslint-disable-next-line no-use-before-define
     onScrollIntoView()
   }, [])
 
@@ -116,13 +113,12 @@ function MemoContainer(props) {
     alertElement.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const onAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
+  const onAlert = (alertTranslationId, alertNewColor = 'success', onTimeout = 0) => {
     const translationId =
       isDraftOfPublished && alertTranslationId === 'autoSaved' ? 'autoSavedTemporary' : alertTranslationId
 
-    const { alerts } = i18n.messages[userLangIndex]
     setTimeout(() => {
-      setAlert({ alertIsOpen: true, alertText: alerts[translationId], alertColor })
+      setAlert({ alertIsOpen: true, alertText: alerts[translationId], alertNewColor })
     }, onTimeout)
   }
 
@@ -130,13 +126,13 @@ function MemoContainer(props) {
     setAlert({ alertIsOpen: false, alertText: '', alertColor: '' })
   }
 
-  const onToastAlert = (alertTranslationId, alertColor = 'success', onTimeout = 0) => {
+  const onToastAlert = (alertTranslationId, alertNewColor = 'success', onTimeout = 0) => {
     const showUntilFix = alertTranslationId === 'errorEmptyHeading'
     if (showUntilFix && !openAlertIdUntilFixed)
       // initiate semi-permament alert for empty title
       setOpenAlertIdUntilFixed('errorEmptyHeading')
     else if (!showUntilFix) {
-      onAlert(alertTranslationId, alertColor, onTimeout)
+      onAlert(alertTranslationId, alertNewColor, onTimeout)
       if (process.env.NODE_ENV !== 'test') {
         setTimeout(() => {
           offAlert()
@@ -148,10 +144,6 @@ function MemoContainer(props) {
   const toastAlertOnSuccessSave = alertTranslationId => {
     onToastAlert(alertTranslationId)
     setDraftOfPublishedState(false)
-  }
-
-  const onAutoSave = (data = store.memoData) => {
-    onSave(data, 'autoSaved') // save precisely this editor content by contentId
   }
 
   const onSave = async (editorContent, alertTranslationId) => {
@@ -182,6 +174,8 @@ function MemoContainer(props) {
     }
   }
 
+  const onAutoSave = (data = store.memoData) => onSave(data, 'autoSaved') // save precisely this editor content by contentId
+
   const onScrollIntoView = () => {
     if (window.location.hash) {
       const id = window.location.hash.replace('#', '')
@@ -193,7 +187,7 @@ function MemoContainer(props) {
   }
 
   // Function for adding new titles with a content
-  const onAddNewSection = extraHeaderTitle => {
+  const onAddNewExtraContent = extraHeaderTitle => {
     store.setNewEmptyExtraContent(extraHeaderTitle)
 
     setTimeout(() => {
@@ -234,7 +228,6 @@ function MemoContainer(props) {
     if (openIfContent && isInVisibleMemo === 'defaultTrue') {
       // openIfContent is not required
       const isDefaultAndHasContent = initialValue !== '' || false // for some headers: if it has a (default) value it must be opened and included(when created from a scratch)
-      console.log('check visibility')
       store.setVisibilityOfStandard(contentId, isDefaultAndHasContent)
       return isDefaultAndHasContent
     }
@@ -249,7 +242,6 @@ function MemoContainer(props) {
     } else {
       visible = false
     }
-    console.log('tooggle')
     store.setVisibilityOfStandard(contentHeader, !visible)
     onAutoSave({ visibleInMemo: !visible })
   }
@@ -259,8 +251,8 @@ function MemoContainer(props) {
   /** * User clicked button to save a draft  ** */
 
   const handleBtnSaveAndMove = async (nextUrl = '') => {
-    const hasAllExtraSectionsTitle = store.checkAllSectionsHasTitles()
-    if (!hasAllExtraSectionsTitle) {
+    const hasAllExtraHeadingsNamed = store.checkAllSectionsHasTitles()
+    if (!hasAllExtraHeadingsNamed) {
       setCheckAllExtra(true)
       // Show alert below after scroll is done
       onToastAlert('errorEmptyHeading', 'danger', 500)
@@ -268,7 +260,7 @@ function MemoContainer(props) {
     }
 
     const resAfterSavingMemoData = await onSave(store.memoData, 'autoSaved')
-    if (nextUrl && hasAllExtraSectionsTitle && resAfterSavingMemoData)
+    if (nextUrl && hasAllExtraHeadingsNamed && resAfterSavingMemoData)
       setTimeout(() => {
         window.location = nextUrl
       }, 500)
@@ -283,6 +275,7 @@ function MemoContainer(props) {
     handleBtnSaveAndMove(nextUrl)
   }
 
+  // eslint-disable-next-line consistent-return
   const onCancel = async () => {
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
       isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
@@ -323,7 +316,6 @@ function MemoContainer(props) {
   const setChangesAboutDraftOfPublished = event => {
     event.preventDefault()
     setErrorBool(false)
-    // setMemoState({ ...memoState, commentAboutMadeChanges: event.target.value.trim() }) // ???? Zachem esli sled stroka
     store.setMemoByContentId('commentAboutMadeChanges', event.target.value.trim())
   }
 
@@ -332,74 +324,66 @@ function MemoContainer(props) {
   const renderTabSections = () => {
     const { buttons, sectionsLabels: sectionsLabelsInUserLang, sectionsSummary } = i18n.messages[userLangIndex]
 
-    return sections.map(({ id, content, extraHeaderTitle }) => {
-      console.log(
-        'renderTabSections memoData of ',
-        extraHeaderTitle,
-        ' data:',
-        JSON.stringify(memoData[extraHeaderTitle])
-      )
-      return (
-        <TabSection
-          key={'tab-content-for-section-' + id}
-          isActive={activeTab === id}
-          sectionId={id}
-          // scrollUp
-        >
-          <span id={'section-header-' + id} />
-          <CollapseSectionDetails
-            title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
-            details={sectionsSummary[id]}
-          />
-          {/* load editors for only active tab
+    return sections.map(({ id, content, extraHeaderTitle }) => (
+      <TabSection
+        key={'tab-content-for-section-' + id}
+        isActive={activeTab === id}
+        sectionId={id}
+        // scrollUp
+      >
+        <span id={'section-header-' + id} />
+        <CollapseSectionDetails
+          title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
+          details={sectionsSummary[id]}
+        />
+        {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
           overlay windows from other section's editors */}
-          {activeTab === id && (
-            <>
-              {content.map(contentId => (
-                <StandardSectionOrEditor
-                  key={'standard' + contentId}
-                  contentId={contentId}
-                  sectionId={id}
-                  initialValue={memoData[contentId]}
-                  memoLangIndex={memoLangIndex}
-                  onToggleVisibleInMemo={toggleStandardVisibleInMemo}
-                  checkVisibility={checkVisibility}
+        {activeTab === id && (
+          <>
+            {content.map(contentId => (
+              <StandardSectionOrEditor
+                key={'standard' + contentId}
+                contentId={contentId}
+                sectionId={id}
+                initialValue={memoData[contentId]}
+                memoLangIndex={memoLangIndex}
+                onToggleVisibleInMemo={toggleStandardVisibleInMemo}
+                checkVisibility={checkVisibility}
+                onSave={onSave}
+                userLangIndex={userLangIndex}
+              />
+            ))}
+
+            {extraHeaderTitle &&
+              memoData[extraHeaderTitle] &&
+              memoData[extraHeaderTitle].map(({ uKey }, index) => (
+                <ExtraHeadingEditor
+                  contentId={extraHeaderTitle}
+                  currentIndex={index}
+                  key={uKey}
+                  menuId={`${id}-${extraHeaderTitle}${uKey}`}
+                  uKey={uKey}
+                  onAlert={onToastAlert}
                   onSave={onSave}
-                  userLangIndex={userLangIndex}
+                  showError={checkOneContentId === extraHeaderTitle || checkAllExtra}
                 />
               ))}
-
-              {extraHeaderTitle &&
-                memoData[extraHeaderTitle] &&
-                memoData[extraHeaderTitle].map(({ uKey }, index) => (
-                  <NewSectionEditor
-                    contentId={extraHeaderTitle}
-                    currentIndex={index}
-                    key={uKey}
-                    menuId={`${id}-${extraHeaderTitle}${uKey}`}
-                    uKey={uKey}
-                    onAlert={onToastAlert}
-                    onSave={onSave}
-                    showError={checkOneContentId === extraHeaderTitle || checkAllExtra}
-                  />
-                ))}
-              {extraHeaderTitle && (
-                <Button
-                  className="element-50"
-                  color="secondary"
-                  block
-                  onClick={() => onAddNewSection(extraHeaderTitle)}
-                >
-                  {buttons.btnAddExtra}
-                  {sectionsLabels[id]}
-                </Button>
-              )}
-            </>
-          )}
-        </TabSection>
-      )
-    })
+            {extraHeaderTitle && (
+              <Button
+                className="element-50"
+                color="secondary"
+                block
+                onClick={() => onAddNewExtraContent(extraHeaderTitle)}
+              >
+                {buttons.btnAddExtra}
+                {sectionsLabels[id]}
+              </Button>
+            )}
+          </>
+        )}
+      </TabSection>
+    ))
   }
   return (
     <Container className="kip-container">
@@ -411,7 +395,7 @@ function MemoContainer(props) {
       </Row>
       <ProgressBar active={PROGRESS} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={userLangIndex} />
-      {(isDraftOfPublished && !isDraftOfPublishedUntouched && (
+      {(isDraftOfPublished && !exactDraftCopyOfPublishedFromPrevVersion && (
         <AlertDraftOfPublished
           courseCode={courseCode}
           memoEndPoint={memoEndPoint}
@@ -420,7 +404,12 @@ function MemoContainer(props) {
           publishDate={lastPublishedVersionPublishDate}
           userLangIndex={userLangIndex}
         />
-      )) || <AlertSuccessRebuild alertMsg={alerts.infoRebuildDraft} hasBeenRebuild={isDraftOfPublishedUntouched} />}
+      )) || (
+        <AlertSuccessRebuild
+          alertMsg={alerts.infoRebuildDraft}
+          hasBeenRebuild={exactDraftCopyOfPublishedFromPrevVersion}
+        />
+      )}
       <AlertSuccessCopiedMemo eventFromParams={eventFromParams} alertMsg={alerts.syllabusUpdated} />
       <AlertErrorMissingComment isError={isError} alertMsg={alerts.warnFillInCommentAboutChanges} />
       <Row key="section-of-header" className="sections-headers">
@@ -517,9 +506,15 @@ function MemoContainer(props) {
 }
 
 MemoContainer.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
+  initialActiveTab: PropTypes.string,
+}
+
+MemoContainer.defaultProps = {
+  initialActiveTab: null,
 }
 
 export default observer(MemoContainer)

@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 import UpperAlertRow from './UpperAlertRow'
 
 const AlertErrorMissingComment = ({ isError, alertMsg }) =>
-  isError && (
-    <UpperAlertRow alertMsg={alertMsg} color="danger" ukey="error-if-smth-missing-upper-alert" />
-  )
+  isError && <UpperAlertRow alertMsg={alertMsg} color="danger" ukey="error-if-smth-missing-upper-alert" />
 
 AlertErrorMissingComment.propTypes = {
   alertMsg: PropTypes.string,
-  isError: PropTypes.bool
+  isError: PropTypes.bool,
+}
+
+AlertErrorMissingComment.defaultProps = {
+  alertMsg: '',
+  isError: false,
 }
 
 export default AlertErrorMissingComment

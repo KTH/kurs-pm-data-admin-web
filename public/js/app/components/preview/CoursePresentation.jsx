@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => {
   const { imageAltText, imageTitleText } = labels
@@ -18,6 +19,20 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => 
       <div dangerouslySetInnerHTML={{ __html: introText }} />
     </div>
   )
+}
+
+CoursePresentation.propTypes = {
+  courseImageUrl: PropTypes.string,
+  introText: PropTypes.string,
+  labels: PropTypes.shape({
+    imageAltText: PropTypes.string.isRequired,
+    imageTitleText: PropTypes.string.isRequired,
+  }).isRequired,
+}
+
+CoursePresentation.defaultProps = {
+  courseImageUrl: '',
+  introText: '',
 }
 
 export default CoursePresentation

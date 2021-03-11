@@ -3,11 +3,7 @@ import generatedStandardVisibility from './generateStandardVisibility'
 import generatedStandardMemoData from './generateStandardMemoData'
 import mockMiniMemos from '../miniMemos'
 
-const {
-  draftsOfPublishedMemos,
-  draftsWithNoActivePublishedVer,
-  publishedWithNoActiveDraft
-} = mockMiniMemos
+const { draftsOfPublishedMemos, draftsWithNoActivePublishedVer, publishedWithNoActiveDraft } = mockMiniMemos
 
 const memoTypes = {
   // PUBLISHED_WITHOUT_DRAFT: {
@@ -50,9 +46,9 @@ const memoTypes = {
         ...draftsOfPublishedMemos[0],
         syllabusValid: {
           validFromTerm: 20191,
-          validUntilTerm: 20201
-        }
-      }
+          validUntilTerm: 20201,
+        },
+      },
       // filledInAndInvisible: {
       //   _id: draftsOfPublishedMemos[0].memoId,
       //   courseCode: 'EF1111',
@@ -62,7 +58,7 @@ const memoTypes = {
       //   ...draftsOfPublishedMemos[0]
       // }
     },
-    sv: { filledInAndVisible: {} }
+    sv: { filledInAndVisible: {} },
   },
   DRAFT_NEW_MEMO: {
     en: {
@@ -77,8 +73,8 @@ const memoTypes = {
         ...draftsWithNoActivePublishedVer[0],
         syllabusValid: {
           validFromTerm: 20191,
-          validUntilTerm: 20201
-        }
+          validUntilTerm: 20201,
+        },
       },
       // emptyAndVisible: {
       //   _id: draftsWithNoActivePublishedVer[0].memoId,
@@ -107,9 +103,10 @@ const memoTypes = {
         ...draftsWithNoActivePublishedVer[0],
         syllabusValid: {
           validFromTerm: 20191,
-          validUntilTerm: 20201
-        }
-      }
+          validUntilTerm: 20201,
+        },
+        sellingText: 'This is the best course ever',
+      },
       // filledInAndInvisible: {
       //   _id: draftsWithNoActivePublishedVer[0].memoId,
       //   courseCode: 'EF1111',
@@ -120,9 +117,9 @@ const memoTypes = {
       // }
     },
     sv: {
-      freshEmpty: {}
-    }
-  }
+      freshEmpty: {},
+    },
+  },
 }
 
 export default memoTypes

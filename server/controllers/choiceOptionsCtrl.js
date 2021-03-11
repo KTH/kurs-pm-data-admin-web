@@ -1,13 +1,11 @@
 'use strict'
 
-const apis = require('../api')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
-// const { toJS } = require('mobx')
-const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { safeGet } = require('safe-utils')
-// const ReactDOMServer = require('react-dom/server')
+const apis = require('../api')
+const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const { getKoppsCourseRoundTerms } = require('../koppsApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
@@ -37,7 +35,7 @@ async function getCourseOptionsPage(req, res, next) {
     const lang = language.getLanguage(res) || 'sv'
     const langIndex = lang === 'en' ? 0 : 1
     const { courseCode } = req.params
-    //STORE MANIPULATIONS
+    // STORE MANIPULATIONS
     const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)

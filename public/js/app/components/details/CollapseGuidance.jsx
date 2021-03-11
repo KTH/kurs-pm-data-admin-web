@@ -13,7 +13,7 @@ const CollapseGuidance = ({ ariaLabel = '', title, details }) => (
     <span
       data-testid="help-text"
       dangerouslySetInnerHTML={{
-        __html: details || ''
+        __html: details || '',
       }}
     />
   </CollapseDetails>
@@ -22,7 +22,7 @@ const CollapseGuidance = ({ ariaLabel = '', title, details }) => (
 CollapseGuidance.propTypes = {
   ariaLabel: PropTypes.string,
   details: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 export default CollapseGuidance

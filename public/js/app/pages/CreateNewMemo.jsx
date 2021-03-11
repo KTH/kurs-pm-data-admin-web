@@ -1,9 +1,11 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
-/* eslint-disable react/no-danger */
 import React, { useState, useEffect } from 'react'
-import { observer } from 'mobx-react'
+import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import axios from 'axios'
+import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
 import { SERVICE_URL } from '../util/constants'
@@ -17,13 +19,9 @@ import {
   uncheckRadioById,
   fetchParameters,
 } from '../util/helpers'
-import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import ControlPanel from '../components/ControlPanel'
 import SectionTitleAndInfoModal from '../components/SectionTitleAndInfoModal'
 import i18n from '../../../../i18n'
-import axios from 'axios'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
-import PropTypes from 'prop-types'
 
 function CreateNewMemo(props) {
   const store = useStore()
@@ -37,6 +35,7 @@ function CreateNewMemo(props) {
     rounds,
     semester: initialSemester,
   } = store
+  const { langAbbr = storeLangAbbr, langIndex = storeLangIndex } = props
 
   const [semester, setSemester] = useState(initialSemester)
   const [action, setAction] = useState(initialMemoEndPoint ? 'continue' : '')
@@ -63,9 +62,6 @@ function CreateNewMemo(props) {
   const existingDrafts = miniMemos.draftsWithNoActivePublishedVer
   const hasSavedDraft = existingDrafts.length > 0
 
-  const langAbbr = props.langAbbr || storeLangAbbr
-  const langIndex = props.langIndex || storeLangIndex
-
   const { course, lastTermsInfo: lastTerms = null } = miniKoppsObj
 
   const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
@@ -85,6 +81,18 @@ function CreateNewMemo(props) {
     }
     store.showAvailableSemesterRounds(semester).then(setAvailableRounds)
   }, [semester])
+
+  const _cleanUpPrevCheckboxesState = memoEndPoint => {
+    const { sortedRoundIds } = chosen
+    emptyCheckboxesByIds(sortedRoundIds, 'new')
+    setAction(memoEndPoint ? 'continue' : '')
+    setChosen({
+      existingDraftEndPoint: memoEndPoint || '',
+      newMemoName: '',
+      sortedRoundIds: [],
+      sortedKoppsInfo: [],
+    })
+  }
 
   const onChoiceOfSemester = event => {
     const newSemester = event.target.value
@@ -142,18 +150,6 @@ function CreateNewMemo(props) {
       newMemoName,
       sortedRoundIds,
       sortedKoppsInfo,
-    })
-  }
-
-  const _cleanUpPrevCheckboxesState = memoEndPoint => {
-    const { sortedRoundIds } = chosen
-    emptyCheckboxesByIds(sortedRoundIds, 'new')
-    setAction(memoEndPoint ? 'continue' : '')
-    setChosen({
-      existingDraftEndPoint: memoEndPoint || '',
-      newMemoName: '',
-      sortedRoundIds: [],
-      sortedKoppsInfo: [],
     })
   }
 
@@ -480,8 +476,8 @@ CreateNewMemo.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
-  langAbbr: PropTypes.string,
-  langIndex: PropTypes.number,
+  langAbbr: PropTypes.oneOf(['sv', 'en']),
+  langIndex: PropTypes.oneOf([1, 0]),
   miniKoppsObj: PropTypes.exact({
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])))

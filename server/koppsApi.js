@@ -13,14 +13,14 @@ const koppsOpts = {
   timeout: 5000,
   defaultTimeout: config.koppsApi.defaultTimeout,
   retryOnESOCKETTIMEDOUT: true,
-  useApiKey: false // skip key
+  useApiKey: false, // skip key
 }
 
 config.koppsApi.doNotCallPathsEndpoint = true // skip checking _paths, because kopps doesnt have it
 config.koppsApi.connected = true
 
 const koppsConfig = {
-  koppsApi: config.koppsApi
+  koppsApi: config.koppsApi,
 }
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
@@ -37,10 +37,10 @@ const _prevTermNumber = () => {
   return Number(`${prevYear}${currentSemester}`)
 }
 
-const _sliceTermsArrByPrevTerm = (allTerms) => {
+const _sliceTermsArrByPrevTerm = allTerms => {
   // step 1
   const prevTerm = _prevTermNumber()
-  const indexForCut = allTerms.findIndex((obj) => Number(obj.term) < prevTerm)
+  const indexForCut = allTerms.findIndex(obj => Number(obj.term) < prevTerm)
   const finalTerms = indexForCut === -1 ? allTerms : allTerms.slice(0, indexForCut)
   return finalTerms
 }
@@ -56,7 +56,7 @@ async function getKoppsCourseRoundTerms(courseCode) {
 
     return {
       course,
-      lastTermsInfo: slicedTermsByPrevTerm
+      lastTermsInfo: slicedTermsByPrevTerm,
     }
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
@@ -69,9 +69,7 @@ const _combineStartEndDates = (sortedSyllabuses, indexOf) => {
   if (sortedSyllabuses.length === 0) return ''
   let validUntilTerm = ''
 
-  const nextSyllabusDate = sortedSyllabuses[indexOf - 1]
-    ? sortedSyllabuses[indexOf - 1].validFromTerm.term
-    : ''
+  const nextSyllabusDate = sortedSyllabuses[indexOf - 1] ? sortedSyllabuses[indexOf - 1].validFromTerm.term : ''
   const lastTerm = nextSyllabusDate.toString().substring(4, 5)
   if (lastTerm === '2') validUntilTerm = nextSyllabusDate - 1
   else if (lastTerm === '1') validUntilTerm = nextSyllabusDate - 9
@@ -84,9 +82,7 @@ function _getSelectedSyllabus(body, semester) {
   const sortedSyllabusesByTerms = publicSyllabusVersions.sort(
     (a, b) => Number(b.validFromTerm.term) - Number(a.validFromTerm.term)
   )
-  const syllabusIndex = sortedSyllabusesByTerms.findIndex(
-    (syllabus) => syllabus.validFromTerm.term <= Number(semester)
-  )
+  const syllabusIndex = sortedSyllabusesByTerms.findIndex(syllabus => syllabus.validFromTerm.term <= Number(semester))
 
   const syllabusContent = sortedSyllabusesByTerms[syllabusIndex]
 
@@ -103,8 +99,8 @@ function _getSelectedSyllabus(body, semester) {
     otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade || '',
     syllabusValid: {
       validFromTerm: validFromTerm.term || '',
-      validUntilTerm
-    }
+      validUntilTerm,
+    },
   }
 
   return selectedFields
@@ -114,26 +110,20 @@ function _getExamModules(body, semester, roundLang) {
   const { examinationSets, formattedGradeScales } = body
   const { creditUnitAbbr } = body.course
   const sortedDescExamTerms = Object.keys(examinationSets).sort((a, b) => Number(b) - Number(a))
-  const matchingExamSetKey = sortedDescExamTerms.find(
-    (examTerm) => Number(examTerm) <= Number(semester)
-  )
+  const matchingExamSetKey = sortedDescExamTerms.find(examTerm => Number(examTerm) <= Number(semester))
 
   const language = roundLang === 'en' ? 0 : 1
   let titles = ''
   let liStrs = ''
-  if (
-    examinationSets[matchingExamSetKey] &&
-    examinationSets[matchingExamSetKey].examinationRounds.length > 0
-  ) {
-    examinationSets[matchingExamSetKey].examinationRounds.map((exam) => {
-      const credits =
-        exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
+  if (examinationSets[matchingExamSetKey] && examinationSets[matchingExamSetKey].examinationRounds.length > 0) {
+    examinationSets[matchingExamSetKey].examinationRounds.map(exam => {
+      const credits = exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
       titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`
       liStrs += `<li>${exam.examCode} - ${exam.title}, ${
         language === 0 ? credits : credits.toString().replace('.', ',')
-      } ${language === 0 ? 'credits' : creditUnitAbbr}, ${
-        language === 0 ? 'Grading scale' : 'Betygsskala'
-      }: ${formattedGradeScales[exam.gradeScaleCode]}</li>`
+      } ${language === 0 ? 'credits' : creditUnitAbbr}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
+        formattedGradeScales[exam.gradeScaleCode]
+      }</li>`
     })
   }
   return { titles, liStrs }
@@ -177,7 +167,7 @@ function _getCommonInfo(resBody) {
   const { course: c } = resBody
   const gradingScale = `<p>${resBody.formattedGradeScales[c.gradeScaleCode]}</p>`
   const schemaUrls = resBody.roundInfos
-    .filter((roundInfo) => roundInfo.schemaUrl !== undefined)
+    .filter(roundInfo => roundInfo.schemaUrl !== undefined)
     .map(({ schemaUrl }) => schemaUrl)
   const isCreditNotStandard =
     c.credits && c.credits.toString().indexOf('.') < 0 && c.credits.toString().indexOf(',') < 0
@@ -192,7 +182,7 @@ function _getCommonInfo(resBody) {
     possibilityToAdditionTemplate: c.possibilityToAddition || '',
     schemaUrls: schemaUrls || '',
     literatureTemplate: c.courseLiterature || '',
-    equipmentTemplate: c.requiredEquipment || ''
+    equipmentTemplate: c.requiredEquipment || '',
   }
 }
 
@@ -229,7 +219,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
       permanentDisability,
       departmentName,
       recruitmentText,
-      courseMainSubjects
+      courseMainSubjects,
     }
   } catch (err) {
     log.debug('Kopps is not available', err)
@@ -240,5 +230,5 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 module.exports = {
   koppsApi: api,
   getKoppsCourseRoundTerms,
-  getSyllabus
+  getSyllabus,
 }

@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FaArrowCircleUp } from 'react-icons/fa'
+
 const styles = {
   display: 'flex',
   flexDirection: 'column',
   marginTop: '50px',
-  fontSize: '0.9rem'
+  fontSize: '0.9rem',
 }
-const ButtonBackToTop = ({ id }) => {
+const ButtonBackToTop = ({ scrollToId }) => {
   function goToTabs(event) {
     event.preventDefault()
-    const topElement = document.getElementById(id)
+    const topElement = document.getElementById(scrollToId)
     topElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
   return (
@@ -30,7 +31,7 @@ const ButtonBackToTop = ({ id }) => {
           alignSelf: 'center',
           height: '2.5em',
           width: '2.5em',
-          marginBottom: '5px'
+          marginBottom: '5px',
         }}
       />
       <a style={{ alignSelf: 'center', decoration: 'none' }} href={`#${id}`}>
@@ -40,7 +41,7 @@ const ButtonBackToTop = ({ id }) => {
   )
 }
 ButtonBackToTop.propTypes = {
-  id: PropTypes.string
+  scrollToId: PropTypes.string.isRequired,
 }
 
 export default ButtonBackToTop

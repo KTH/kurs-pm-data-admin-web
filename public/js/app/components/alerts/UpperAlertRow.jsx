@@ -12,8 +12,13 @@ const UpperAlertRow = ({ alertMsg, children, color, ukey }) => (
 UpperAlertRow.propTypes = {
   alertMsg: PropTypes.string.isRequired,
   children: PropTypes.node,
-  color: PropTypes.string,
-  ukey: PropTypes.string.isRequired
+  color: PropTypes.oneOf(['info', 'success', 'danger', 'warn']),
+  ukey: PropTypes.string.isRequired,
+}
+
+UpperAlertRow.defaultProps = {
+  children: <></>,
+  color: 'info',
 }
 
 export default UpperAlertRow

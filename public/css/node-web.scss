@@ -154,13 +154,6 @@ $white: #fff;
     word-break: break-word;
   }
 }
-// details.guidance-per-content {
-//   background-color: $light-yellow;
-//   margin-left: '10px';
-//   margin-right: '10px';
-//   padding-bottom: '20px';
-//   // width: '1000px'
-// }
 
 //person
 .person {
@@ -203,13 +196,6 @@ $white: #fff;
     margin-bottom: 0;
     margin-top: 50px;
   }
-  .space-around-border {
-    //TODO: REMOVE AFTER NEW LAYOUT IS READY
-    margin-top: 20px;
-    .memo-content {
-      padding-top: 20px;
-    }
-  }
   .section-50 {
     //row
     margin-bottom: 0;
@@ -237,26 +223,10 @@ $white: #fff;
       &[aria-selected='false'] {
         border-bottom: solid 1px $grey;
         padding-bottom: 7.4px;
-        // color: #fff !important;
-        // background-color: $grey;
       }
     }
   }
-  // .memo-content.tab-content {
-  //   //row
-  //   // margin-bottom: 0;
-  //   // padding: inherit 0;
-  //   // padding-top: 80px;
-  //   &:first-of-type {
-  //     padding-top: 0;
-  //   }
-  //   & > h2:first-child {
-  //     margin-top: 0;
-  //   }
-  //   .col {
-  //     margin-bottom: 0;
-  //   }
-  // }
+
   //.sections-list-80 FOR LIST VIEW
   .sections-list-80 {
     //row
@@ -377,45 +347,6 @@ $white: #fff;
   margin-left: 10px;
 }
 
-.memo-content {
-  //TODO: REMOVE AFTER TAB READY
-  border-left: 1px solid $grey;
-  padding-bottom: 12em;
-
-  & + .vertical-separator {
-    border-right: 1px solid $borderGrey;
-    border-top: 1px solid $borderGrey;
-    margin-right: 50px;
-  }
-  h2 {
-    margin-bottom: -29px;
-  }
-  .title-and-info {
-    margin-top: 35px; //h3 15px + 34.88px
-  }
-  p,
-  ul,
-  span {
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-  }
-  ul {
-    margin-top: 1em;
-    padding-left: 20px;
-  }
-  span:first-of-type h2 {
-    margin-top: 0;
-  }
-  .section-info + span > p {
-    // max-width: 730px;
-    margin-top: 1em;
-  }
-  .title-and-info + p {
-    font-weight: 900;
-  }
-}
-
 //Edit page
 //tabs
 #sectionsTabPanel {
@@ -502,11 +433,6 @@ $white: #fff;
     margin-top: 10px;
   }
 
-  // .progress-title {
-  //   //TODO: REMOVE mobil view, hide title 'Rubriker/Headers'
-  //   display: none !important;
-  // }
-
   @media (min-width: 992px) {
     #mainMenu.col {
       max-width: 250px;
@@ -520,7 +446,6 @@ $white: #fff;
   }
 
   .content-overview {
-    // margin-top: 40px;
     .nav-link-to-content-header {
       display: flex;
       justify-content: space-between;

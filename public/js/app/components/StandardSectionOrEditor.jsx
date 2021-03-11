@@ -12,7 +12,7 @@ const StandardSectionOrEditor = ({
   memoLangIndex,
   onSave,
   userLangIndex,
-  checkVisibility
+  checkVisibility,
 }) => {
   const menuId = sectionId + '-' + contentId
   // eslint-disable-next-line react/destructuring-assignment
@@ -43,14 +43,14 @@ const StandardSectionOrEditor = ({
   )
 }
 StandardSectionOrEditor.propTypes = {
-  checkVisibility: PropTypes.func,
-  contentId: PropTypes.string,
-  initialValue: PropTypes.string, // PropTypes.oneOfType([PropTypes.func, PropTypes.objectOf]),
-  memoLangIndex: PropTypes.number,
-  onSave: PropTypes.func,
-  sectionId: PropTypes.string,
-  onToggleVisibleInMemo: PropTypes.func,
-  userLangIndex: PropTypes.number
+  checkVisibility: PropTypes.func.isRequired,
+  contentId: PropTypes.string.isRequired,
+  initialValue: PropTypes.string.isRequired, // PropTypes.oneOfType([PropTypes.func, PropTypes.objectOf]),
+  memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
+  onSave: PropTypes.func.isRequired,
+  sectionId: PropTypes.string.isRequired,
+  onToggleVisibleInMemo: PropTypes.func.isRequired,
+  userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
 }
 
 export default StandardSectionOrEditor

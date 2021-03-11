@@ -1,10 +1,11 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { linkToSchool } from '../../util/links'
 import Popup from './Popup'
 
-const formatRounds = (rounds) => {
+const formatRounds = rounds => {
   // Split rounds with comma after end parentheses and then add '),' in display
   const splitRounds = rounds.split('), ')
   const lastIndex = splitRounds.length - 1
@@ -21,7 +22,7 @@ const formatRounds = (rounds) => {
   )
 }
 
-const offeredBy = (language, labels, departmentName) =>
+const offeredBy = (labels, departmentName) =>
   departmentName ? (
     <>
       <h4>{labels.offeredByTitle}</h4>
@@ -35,11 +36,7 @@ const offeredBy = (language, labels, departmentName) =>
         >
           {departmentName}
         </a>
-        <Popup
-          header={departmentName}
-          body={labels.linkOpensInNewTab}
-          targetId="link-department-name"
-        />
+        <Popup header={departmentName} body={labels.linkOpensInNewTab} targetId="link-department-name" />
       </p>
     </>
   ) : (
@@ -75,12 +72,23 @@ const rounds = (labels, memoName) =>
     </>
   )
 
-const CourseFacts = ({ language, labels, departmentName = '', memoData = {} }) => (
+const CourseFacts = ({ labels, departmentName = '', memoData = {} }) => (
   <div className="preview-info-box text-break">
-    {offeredBy(language, labels, departmentName)}
+    {offeredBy(labels, departmentName)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
     {rounds(labels, memoData.memoName)}
   </div>
 )
+
+CourseFacts.propTypes = {
+  departmentName: PropTypes.string,
+  memoData: PropTypes.shape({
+    memoName: PropTypes.string,
+    languageOfInstructions: PropTypes.oneOf(['Swedish', 'Svenska', 'English', 'Engelska']),
+  }),
+  labels: PropTypes.objectOf(PropTypes.string).isRequired,
+}
+
+CourseFacts.defaultProps = { departmentName: '', memoData: {} }
 
 export default CourseFacts

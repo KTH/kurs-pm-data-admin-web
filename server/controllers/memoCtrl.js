@@ -1,36 +1,20 @@
 'use strict'
 
-const apis = require('../api')
-// const kursPmDataApi = require('../kursPmDataApi')
 const log = require('kth-node-log')
 const language = require('kth-node-web-common/lib/language')
+const { safeGet } = require('safe-utils')
+const apis = require('../api')
+
 const { combineScheduleValues } = require('../defaultValues')
 
-// const { toJS } = require('mobx')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
-// const ReactDOMServer = require('react-dom/server')
 const { getSyllabus } = require('../koppsApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRedisApi')
-const { safeGet } = require('safe-utils')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
-
-// function hydrateStores(renderProps) {
-//   // This assumes that all stores are specified in a root element called Provider
-//   const outp = {}
-//   const { props } = renderProps.props.children
-
-//   Object.keys(props).map(key => {
-//     if (typeof props[key].initializeStore === 'function') {
-//       outp[key] = encodeURIComponent(JSON.stringify(toJS(props[key], true)))
-//     }
-//   })
-
-//   return outp
-// }
 
 const combineDefaultValues = (freshMemoData, koppsFreshData, memoLangAbbr) => {
   const {
@@ -43,7 +27,7 @@ const combineDefaultValues = (freshMemoData, koppsFreshData, memoLangAbbr) => {
   } = freshMemoData
   const updatedWithDefaults = {
     ...freshMemoData,
-    examinationSubSection: examinationSubSection || koppsFreshData.examinationModules || '', // koppsFreshData.examinationModules
+    examinationSubSection: examinationSubSection || koppsFreshData.examinationModules || '',
     // eslint-disable-next-line no-use-before-define
     equipment: equipment || koppsFreshData.equipmentTemplate || '',
     scheduleDetails: scheduleDetails || combineScheduleValues(koppsFreshData.schemaUrls, memoLangAbbr) || '',
@@ -56,6 +40,8 @@ const combineDefaultValues = (freshMemoData, koppsFreshData, memoLangAbbr) => {
 }
 
 const removeTemplatesFromKoppsFreshData = async koppsFreshData => {
+  // no map()
+  // to send cleaned up koppsFreshData to client side end then to api
   await delete koppsFreshData.equipmentTemplate
   await delete koppsFreshData.literatureTemplate
   await delete koppsFreshData.possibilityToCompletionTemplate
@@ -67,26 +53,14 @@ const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => {
   return { ...defaultAndMemoApiValues, ...cleanKoppsFreshData }
 }
 
-// function _staticRender(context, location) {
-//   if (process.env.NODE_ENV === 'development') {
-//     delete require.cache[require.resolve('../../dist/app.js')]
-//   }
-
-//   const { staticRender } = require('../../dist/app.js')
-
-//   return staticRender(context, location)
-// }
-
 async function renderMemoEditorPage(req, res, next) {
   try {
-    // const context = {}
     const userLang = language.getLanguage(res) || 'sv'
     const langIndex = userLang === 'en' ? 0 : 1
     const translateTo = userLang === 'en' ? 1 : 0
     const { courseCode, memoEndPoint } = req.params
     const { action } = req.query
-    // const renderProps = _staticRender(context, req.url)
-    //STORE MANIPULATIONS
+    // STORE MANIPULATIONS
     const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
     const applicationStore = createStore()
 

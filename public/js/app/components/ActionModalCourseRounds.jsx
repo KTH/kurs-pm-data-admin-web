@@ -1,16 +1,17 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable react/no-danger */
 import React, { useState, useEffect } from 'react'
-import i18n from '../../../../i18n'
-import { observer } from 'mobx-react'
-import { useStore } from '../mobx'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
-import { combineMemoName, fetchThisTermRounds, seasonStr } from '../util/helpers'
-import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
 import axios from 'axios'
 import PropTypes from 'prop-types'
+import { useStore } from '../mobx'
+import i18n from '../../../../i18n'
+
+import { combineMemoName, fetchThisTermRounds, seasonStr } from '../util/helpers'
+import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
 
 const roundLangAbbr = round => (round.language.en === 'Swedish' ? 'sv' : 'en')
 
@@ -34,27 +35,27 @@ function ActionModalCourseRounds(props) {
     ...(miniMemos.publishedWithNoActiveDraft || []),
     ...(miniMemos.draftsWithNoActivePublishedVer || []),
   ]
-  const chosenMemoEndPoint = props.chosenMemoEndPoint
+  const { chosenMemoEndPoint, langAbbr = storeLangAbbr, langIndex = storeLangIndex } = props
   const [alert, setAlert] = useState({
     type: '', // danger, success, warn
     isOpen: false,
     textName: '',
   })
 
-  const [memo, setMemo] = useState(() => uniqueMemos.find(memo => memo.memoEndPoint === chosenMemoEndPoint) || {})
+  const [memo, setMemo] = useState(() => uniqueMemos.find(m => m.memoEndPoint === chosenMemoEndPoint) || {})
   const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester, status, version } = memo
 
   const [roundGroups, setRoundsGroup] = useState({ allRounds: [], availableRounds: [], showSaveBtn: false })
   const { allRounds, availableRounds, showSaveBtn } = roundGroups
-  const langAbbr = props.langAbbr || storeLangAbbr
-  const langIndex = props.langIndex || storeLangIndex
+
   const stayOnModal = true
 
   const { extraInfo, messages, actionModals, info } = i18n.messages[langIndex]
 
   useEffect(() => {
-    const mathingMemo = uniqueMemos.find(memo => memo.memoEndPoint === chosenMemoEndPoint)
+    const mathingMemo = uniqueMemos.find(m => m.memoEndPoint === chosenMemoEndPoint)
     setMemo(mathingMemo)
+    // eslint-disable-next-line no-use-before-define
     fetchMatchingRounds(mathingMemo)
   }, [chosenMemoEndPoint])
 
@@ -67,14 +68,14 @@ function ActionModalCourseRounds(props) {
   }
 
   async function fetchMatchingRounds(newMemo) {
-    const availableRounds = await store.showAvailableSemesterRounds(semester)
-    const allRounds = await fetchThisTermRounds(miniKoppsObj, memo)
+    const newAvailableRounds = await store.showAvailableSemesterRounds(semester)
+    const allNewRounds = await fetchThisTermRounds(miniKoppsObj, newMemo || memo)
     const compatible = await isLangCompatible(availableRounds, memoCommonLangAbbr)
-    const showSaveBtn = availableRounds && availableRounds.length > 0 && compatible
+    const checkIfShowSaveBtn = availableRounds && availableRounds.length > 0 && compatible
     setRoundsGroup({
-      allRounds,
-      availableRounds,
-      showSaveBtn,
+      allRounds: allNewRounds,
+      availableRounds: newAvailableRounds,
+      showSaveBtn: checkIfShowSaveBtn,
     })
   }
 
@@ -200,8 +201,8 @@ function ActionModalCourseRounds(props) {
 
 ActionModalCourseRounds.propTypes = {
   chosenMemoEndPoint: PropTypes.string, // version, published/draft?, semester
-  langAbbr: PropTypes.string,
-  langIndex: PropTypes.number,
+  langAbbr: PropTypes.oneOf(['sv', 'en']),
+  langIndex: PropTypes.oneOf([1, 0]),
   miniKoppsObj: PropTypes.exact({
     // eslint-disable-next-line react/no-unused-prop-types
     course: PropTypes.string.isRequired,

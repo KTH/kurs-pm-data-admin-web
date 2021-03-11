@@ -6,21 +6,21 @@ const styles = {
   span: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   btnInfoModal: {
     // /specific for this project
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   },
   h2: {
-    marginBottom: '0'
-  }
+    marginBottom: '0',
+  },
 }
 const SectionTitleAndInfoModal = ({ modalId, titleAndInfo, btnClose, children }) => {
   const { header } = titleAndInfo
   const infoModalLabels = {
     ...titleAndInfo,
-    btnClose
+    btnClose,
   }
   return (
     <span className="section-title-and-info" style={styles.span}>
@@ -41,15 +41,15 @@ SectionTitleAndInfoModal.propTypes = {
   modalId: PropTypes.string.isRequired,
   titleAndInfo: PropTypes.PropTypes.shape({
     header: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired
+    body: PropTypes.string.isRequired,
   }).isRequired,
   btnClose: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 SectionTitleAndInfoModal.defaultProps = {
   children: '',
-  btnClose: 'Close'
+  btnClose: 'Close',
 }
 
 export default SectionTitleAndInfoModal
