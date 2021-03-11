@@ -34,6 +34,7 @@ module.exports = {
     main_site_name: 'Administrate About the course ',
     site_name: 'Administration of Course Memos',
     host_name: 'KTH',
+    skip_to_main_content: 'Skip to main content',
 
     memoLabel: 'Course memo',
 
@@ -48,7 +49,7 @@ module.exports = {
      * Headings
      */
     page_header_heading_semester: 'Semester',
-    page_header_heading_course_round: 'Course offering'
+    page_header_heading_course_round: 'Course offering',
   },
   sourceInfo: {
     addNewTitle: 'Name new section',
@@ -62,17 +63,17 @@ module.exports = {
     mandatoryForSome: 'Included for some courses',
     includeInMemo: {
       section: 'Include',
-      subSection: 'Include additional section'
+      subSection: 'Include additional section',
     }, // RUBRIK/ADDITION
     noInfoYet: {
       section: 'No information is inserted. Click on "Edit" to add information.',
-      subSection: 'No information is inserted. Click on "Edit" to add information.'
+      subSection: 'No information is inserted. Click on "Edit" to add information.',
     },
     notIncludedInMemoYet: {
       section:
         'There is content that is not included. Check "Include" to make the contents visible in the published course memo.',
       subSection:
-        'There is content that is not included. Check "Include" to make the contents visible in the published course memo.'
+        'There is content that is not included. Check "Include" to make the contents visible in the published course memo.',
     },
     nothingFetched: {
       mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
@@ -81,10 +82,9 @@ module.exports = {
       mandatoryForSome:
         'There was no content to fetch to this course memo. The heading will not be included in the published course memo.',
       optional:
-        'There was no content to fetch to this course memo. Read more on how to change fetched information in the information icon next to the heading above. You can also choose to exclude the heading from the published course memo.'
+        'There was no content to fetch to this course memo. Read more on how to change fetched information in the information icon next to the heading above. You can also choose to exclude the heading from the published course memo.',
     },
-    dummyHelpText: 'Help text that helps',
-    insertedSubSection: '(Section below is not part of the syllabus)'
+    insertedSubSection: '(Section below is not part of the syllabus)',
   },
   memoTitlesByMemoLang: {
     additionalRegulations: 'Additional regulations',
@@ -110,8 +110,7 @@ module.exports = {
     otherRequirementsForFinalGrade: 'Other requirements for final grade',
     permanentDisability: 'Support for students with disabilities',
     possibilityToAddition: 'Opportunity to raise an approved grade via renewed examination',
-    possibilityToCompletion:
-      'Opportunity to complete the requirements via supplementary examination',
+    possibilityToCompletion: 'Opportunity to complete the requirements via supplementary examination',
     possibilityToCompensate: 'Alternatives to missed activities or tasks',
     preparations: 'Specific preparations',
     prerequisites: 'Recommended prerequisites',
@@ -119,7 +118,7 @@ module.exports = {
     scheduleDetails: 'Detailed plan',
     software: 'Software',
     teacher: 'Teacher',
-    teacherAssistants: 'Teacher assistants'
+    teacherAssistants: 'Teacher assistants',
   },
   memoInfoByUserLang: {
     additionalRegulations: {
@@ -130,13 +129,13 @@ module.exports = {
       <p><b>Contents can be edited</b> in Kopps. 
       Changes of "Additional regulations" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
       Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
-      <p>If there is no content the heading will not be visible in the published course memo.</p>`
+      <p>If there is no content the heading will not be visible in the published course memo.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>
       <p><b>The section helps KTH</b> to find and understand the changes made to a published course memo.</p>`,
       help: `<p></p>
-      <p></p>`
+      <p></p>`,
     },
     communicationDuringCourse: {
       body: `<p><b>Communication during course</b> describes how the student should communicate with the teachers and the other personnel before and during the course offering. Communication during course also describes who to contact regarding the most common questions and issues.</p>
@@ -144,7 +143,7 @@ module.exports = {
 		<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Communication during course" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe how to communicate before and during this course offering in the section "Communication during course". For example, you can refer to the teachers regarding questions before start of the course and to Canvas for dialogue during the course. If you want different types of questions to be handled differently, describe the different ways to communicate in short.</p>
 		<p>Don´t write contact information in this section. Instead you refer to the sections "Course coordinator", "Teacher", "Teacher assistants", "Examiner" and "Other contacts".</p>
-		<p>Uncheck "Include heading" if there is no reason to inform about communication during course.</p>`
+		<p>Uncheck "Include heading" if there is no reason to inform about communication during course.</p>`,
     },
     courseContent: {
       body: `<p><b>Course contents</b> describes the subjects and the general abilities that is discussed or practised on the course.</p>
@@ -152,19 +151,19 @@ module.exports = {
       In that way, course contents helps the student to prepare both before and during the course.</p>
       <p><b>Contents can be edited</b> in Kopps. Changes of course contents is restricted by certain regulations since the information is part of the legally binding course syllabus. 
       Read more about changing contents of course syllabus on the page 
-      <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`
+      <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`,
     },
     courseCoordinator: {
       body: `<p><b>Course coordinator</b> holds the contact details to the course coordinator on this course offering.</p>
       <p><b>The information helps the student</b> to understand who and how the student shall contact the course coordinator for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Course coordinator is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`
+	  <p><b>Edit the contents</b> in Kopps. Course coordinator is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Ethical approach</b> describes the KTH ethical values during studies and what is allowed and what is not allowed during this course offering.</p>
       <p><b>The information helps the student</b> to know what ethical values, rights and obligations to relate to during the studies. 
       Clearly expressed ethical values increases the student´s trust for the education and helps the student to avoid breaking the regulations.</p>
       <p><b>Edit the course specific contents</b> by clicking on the button "Edit". Enter information about "Ethical approach" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
     },
     ethicalApproachSubSection: {
       body: 'It is important for students because they can plan their studies....',
@@ -175,7 +174,7 @@ module.exports = {
       <p>Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf " target="_blank">Ethical policy</a> to find more detailed support and information regarding ethical approach.</p>
       <p>You can also find useful information in the EECS <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">Code of honour for students and teachers</a>. 
       If this course is offered by the EECS school you can insert a web link to the same web page.</p>
-      <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`
+      <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`,
     },
     equipment: {
       body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. 
@@ -193,12 +192,12 @@ module.exports = {
       <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
       You can choose to keep that information, or you can enter information about equipment that is valid only to this course offering. 
       Just replace the provided information with your own.</p>
-      <p>Uncheck "Include heading" if equipment is irrelevant for this course.</p>`
+      <p>Uncheck "Include heading" if equipment is irrelevant for this course.</p>`,
     },
     examiner: {
       body: `<p><b>Examiner</b> holds the contact details to the examiner on this course offering.</p>
       <p><b>The information helps the student</b> to understand who and how the student shall contact the examiner for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Examiner is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`
+	  <p><b>Edit the contents</b> in Kopps. Examiner is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     examination: {
       body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course component.</p>
@@ -206,7 +205,7 @@ module.exports = {
       <p><b>Edit the contents of the fixed texts</b> in Ladok and Kopps. Normally it is not possible to change the fixed texts of Examination because the information is part of the legally binding course syllabus. 
       Read more about changing contents of course syllabus on the page <a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
       <p><b>Edit the contents of examination details</b> by clicking on the button "Edit". Enter information about "Examination" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
     },
     examinationSubSection: {
       body: 'It is important for students because they can plan their studies....',
@@ -222,35 +221,35 @@ module.exports = {
       Some details and dates may have changed. The fetched fixed text in the first section of "Examination" is always correct, even for copied course memos.</p>
       <p>It is not mandatory to use the provided subheadings as a structure for the examination details. Just replace the subheadings with your own if you find that better.</p>
       <p>The actual exams with instructions should be described in Canvas or a corresponding learning management system. 
-      Deadlines as well as time and place for exams can also be included in the "Detailed plan" section to give the students an overview of all the activities on this course offering.</p>`
+      Deadlines as well as time and place for exams can also be included in the "Detailed plan" section to give the students an overview of all the activities on this course offering.</p>`,
     },
     extraHeaders1: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Content and learning outcomes" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
       help: `<p>Describe information that is related to "Content and learning outcomes", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Concepts", "Connection to qualitative targets" and "Pedagogical disposition of the course".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
     },
     extraHeaders2: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Preparations before course start" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
       help: `<p>Describe information that is related to "Preparations before course start", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Specific prerequisites", "Course registration" and "Learning management system".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
     },
     extraHeaders3: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Examination and completion" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
       help: `<p>Describe information that is related to "Examination and completion", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal" and "Link to sample quizzes and exams".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
     },
     extraHeaders4: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Further information" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
       help: `<p>Describe information that is related to "Further information", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal", "Course evaluation and course analysis" and "Maps/Find your teaching premises".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`
+			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
     },
     gradingCriteria: {
       body: `<p><b>Grading criteria/assessment criteria</b> shall connect the grading scale to levels of achievement of the intended learning outcomes.</p>
@@ -263,14 +262,14 @@ module.exports = {
       Grading criteria/assessment criteria for a higher grade may concern the quality of the performance, the difficulty, how parts of the course contents are combined and the level in the Bloom´s taxonomy. 
       The examination shall be clarly connected to the criterias. If there is more than one course component in the course, it must be explicit what intended learning outcome that is examined in what course component. 
       It must also be clear how the final grade is balanced by the different grades on each course component and how the grade of each course component is balanced by the assessments of the grading criterias.</p>
-      <p>Read more about grading criteria/assessment criteria and find examples of <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (only in Swedish, opens in new tab).</p>`
+      <p>Read more about grading criteria/assessment criteria and find examples of <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (only in Swedish, opens in new tab).</p>`,
     },
     gradingScale: {
       body: `<p><b>Grading scale</b> describes the final mark grading scale of the course.</p>
         <p><b>The information helps the student to</b> understand what kind of grade the student can expect after completing the course.</p>
         <p><b>It is not possible to change the grading scale.</b> A new grading scale requires a new course with a new course code. 
         Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).
-      </p>`
+      </p>`,
     },
     infoForReregisteredStudents: {
       body: `<p><b>Changes of the course before this course offering</b> describes the relevant conclusions from previous course evaluations and course analysis and what changes that have actually been implemented before this course offering.</p>
@@ -282,7 +281,7 @@ module.exports = {
       help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
       Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
       The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
-      <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`
+      <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`,
     },
     learningActivities: {
       body: `<p><b>Learning activities</b> describes the types of planned activities on the course and what is important to know about each learning activity. 
@@ -297,7 +296,7 @@ module.exports = {
       Describe what the learning activity means for this particular course and what is important for the student to know about it. 
       You can add information about how many of each activity type and how they are distributed over the course. </p>
       <p>If the pedagogical disposition of the course is relevant for planning and preparations it can also be described in this section.</p>
-      <p>Uncheck "Include" if information about learning activities is irrelevant for this course.</p>`
+      <p>Uncheck "Include" if information about learning activities is irrelevant for this course.</p>`,
     },
     learningOutcomes: {
       body: `<p><b>Intended learning outcomes</b> clarifies what knowledge, what skills, which evaluation abilities and approaches the student needs to demonstrate after taking the course.</p>
@@ -305,7 +304,7 @@ module.exports = {
       The following information in this course memo, in many ways, relates to the intended learning outcome. Therefore, it is important that the information is unambiguously formulated.</p>
       <p><b>Contents can be edited</b> in Kopps. 
       Changes of intended learning outcome is restricted by certain regulations since the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`
+      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`,
     },
     literature: {
       body: `<p><b>Literature</b> describes the compulsory course literature on this course offering.</p>
@@ -328,7 +327,7 @@ module.exports = {
       <p>Many students want to acquire the course literature before the course start. 
       Students with disabilities need to know the course literature well in advance of the course start to get it as talking books. 
       The information should therefore be available at least eight weeks before start of the course.</p>
-      <p>If there is no compulsory course literature on this course it is important to mention that to reduce unnecessary questions and to avoid the students go looking for the information elsewhere in vain.</p>`
+      <p>If there is no compulsory course literature on this course it is important to mention that to reduce unnecessary questions and to avoid the students go looking for the information elsewhere in vain.</p>`,
     },
     otherContacts: {
       body: `<p><b>Other contacts</b> describes the contact details to personnel and functions, other than the contacts mentioned above, the students may have to contact before or during this course offering. Course administrators, lab supervisors and project supervisors are examples of "Other contacts".</p>
@@ -336,13 +335,13 @@ module.exports = {
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Other contacts" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the contact details to personnel and functions other than the contacts mentioned above. Enter name, mail address and phone number. Describe in short the questions and issues each contact handles.</p>
 			<p>Contacts already mentioned in the "Course coordinator", "Teacher", "Teacher assistants" and "Examiner" sections should not be repeated in this section.</p>
-			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`
+			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`,
     },
     otherRequirementsForFinalGrade: {
       body: `<p><b>Other requirements for final grade</b> describes additional requirements for a final grade than written in the "Examination" section for the course, for example attendance requirements.</p>
       <p><b>The information helps the student,</b> depending on the contents of "Other requirements for final grade", to plan and prepare for their studies.</p>
       <p><b>Contents can be edited</b> in Kopps. Changes of "Other requirements for final grade" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>`
+      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>`,
     },
     permanentDisability: {
       body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. 
@@ -352,7 +351,7 @@ module.exports = {
       It is a fixed heading and will be included in all course memos.</p>
       <p><b>Edit the course specific contents</b> by clicking on the button "Edit". 
       Enter information about "Support for students with disabilities" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`
+      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p> </p>
@@ -366,7 +365,7 @@ module.exports = {
       You can inform the students about compensatory support during examination or aother support during the studies on this course. 
       Read more about <a href="https://intra.kth.se/utbildning/utbi/genomfora-utbildning/hantera-stodinsatser-vid-examination-av-studenter-med-funktionsnedsattning" target="_blank">hantera stödinsatser vid examination av studenter med funktionsnedsättning</a>. 
       The page is in Swedish but there are some helpful documents in English.</p>
-      <p>Uncheck "Include section" if there is no course specific information regarding support for students with disabilities preparations on this course.</p>`
+      <p>Uncheck "Include section" if there is no course specific information regarding support for students with disabilities preparations on this course.</p>`,
     },
     possibilityToAddition: {
       body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course, the terms for raising it and how to apply for raising an approved grade. </p>
@@ -381,7 +380,7 @@ module.exports = {
       <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
       You can choose to keep that information, or you can enter information about the opportunity to raise an approved grade via renewed examination that is valid only to this course offering. 
       Just replace the provided information with your own.</p>
-      <p>If it is not possible to raise an approved grade on this course it is still valuable for student to know that. Uncheck "Include heading" if you despite that don´t want to include the information in this course memo</p>`
+      <p>If it is not possible to raise an approved grade on this course it is still valuable for student to know that. Uncheck "Include heading" if you despite that don´t want to include the information in this course memo</p>`,
     },
     possibilityToCompletion: {
       body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes if it is possible to complete the requirements via supplemantary examination and if it possible to raise the grade to E or a higher grade. 
@@ -401,7 +400,7 @@ module.exports = {
       You can choose to keep that information, or you can enter information about the opportunity to complete the requirements via supplementary examination that is valid only to this course offering. 
       Just replace the provided information with your own.</p>
       <p>It is often better to describe opportunity to complete the requirements via supplementary examination for the modules under each sub heading to the heading "Examination" above in this course memo.</p>
-      <p>Uncheck "Include heading" if "Opportunity to complete the requirements via supplementary examination" is irrelevant for this course.</p>`
+      <p>Uncheck "Include heading" if "Opportunity to complete the requirements via supplementary examination" is irrelevant for this course.</p>`,
     },
     possibilityToCompensate: {
       body: `<p><b>Alternatives to missed activities or tasks</b> describes if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
@@ -411,7 +410,7 @@ module.exports = {
       help: `<p>Describe if alternatives to missed activities or tasks are possible on this course in the "Alternatives to missed activities or tasks" section. 
       If it is possible, describe the alternatives in the case when students miss a mandatory activity or task, for example if the student miss a mandatory study visit.</p>
       <p>Remember that any other examination format than the ordinary must be written in the "Examination comment" section of the course syllabus.</p>
-      <p>Uncheck "Include heading" if "Alternatives to missed activities or tasks" is irrelevant for this course.</p>`
+      <p>Uncheck "Include heading" if "Alternatives to missed activities or tasks" is irrelevant for this course.</p>`,
     },
     preparations: {
       body: `<p><b>Specific preparations</b> describes the most important preparations for the students before start of this course offering.</p>
@@ -423,12 +422,12 @@ module.exports = {
       Write things that are important to know or to do before the start of the course. 
       That could be ordering the course literature, rehearse specific theories from "Specific prerequisites", rehears parts from "Recommended prerequisites", install software etc.</p>
       <p>Preparations in general should be described in the "Learning activities" section if it is related to the different types of activity types or described in the "Detailed plan" section if it is related to specific reading guidelines prior to each learning activity.</p>
-      <p>Uncheck "Include heading" if there is no reason to inform about specific preparations on this course.</p>`
+      <p>Uncheck "Include heading" if there is no reason to inform about specific preparations on this course.</p>`,
     },
     prerequisites: {
       body: `<p><b>Recommended prerequisites</b> describe what the teacher expects the student to know before the start of the course.</p>
       <p><b>The information helps the student</b> to understand what knowledge that is important to take this course. Well defined "Recommended prerequisites" makes it easy for the student to rehears the right theories, models etc. in time for the start of this course offering.</p>
-      <p><b>Edit the contents</b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. The information is administered by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>.</p>`
+      <p><b>Edit the contents</b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. The information is administered by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>.</p>`,
     },
     reportingResults: {
       body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering is registered and reported. 
@@ -442,7 +441,7 @@ module.exports = {
       Describe where and when the student can find the results, both for modules and the final grade on the course. 
       It is particularly important to describe this if the routines differs from other courses, for example if the results will be reported later than what is expected. 
       The students should be informed of the results no later than three weeks or fifteen working days after the exam.</p>
-      <p>Uncheck "Include heading" if there is no reason to inform about reporting of exam results on this course.</p>`
+      <p>Uncheck "Include heading" if there is no reason to inform about reporting of exam results on this course.</p>`,
     },
     scheduleDetails: {
       body: `<p><b>Detailed plan</b> is an overview of the learning activities and examinations on the course, preferably in a chronological order. 
@@ -467,7 +466,7 @@ module.exports = {
       <br/>
       <p>It is recommended to use the same terminology as defined in the "Learning activities" section. 
       A coherent course memo makes it easier for students to recognize the concepts and to understand the course memo as a whole.</p>
-      <p>If there are preparations that are particularly important, you can highlight them in the "Specific preparations" section in this course memo.</p>`
+      <p>If there are preparations that are particularly important, you can highlight them in the "Specific preparations" section in this course memo.</p>`,
     },
     software: {
       body: `<p><b>Software</b> describes what software and what version of the software that is used on the course. 
@@ -476,18 +475,18 @@ module.exports = {
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Software" and check "Include heading" to make the information visible on the published course memo. 
       Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
       help: `<p>Describe the software that is used in the course in the "Software" section. Include references or web links to resources where the software can be downloaded from and where to find installation instructions.</p>
-      <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`
+      <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`,
     },
     teacher: {
       body: `<p><b>Teacher</b> holds the contact details to the teachers on this course offering.</p>
       <p><b>The information helps the student</b> to understand who and how the student shall contact the teachers for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Teacher is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`
+	  <p><b>Edit the contents</b> in Kopps. Teacher is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     teacherAssistants: {
       body: `<p><b>Teacher assistants</b> holds the contact details to the teacher assistants on this course offering.</p>
       <p><b>The information helps the student</b> to understand who and how the student shall contact the teacher assistants for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Teacher assistants is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`
-    }
+	  <p><b>Edit the contents</b> in Kopps. Teacher assistants is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+    },
   },
   pagesCreateNewPm: [
     {
@@ -496,96 +495,74 @@ module.exports = {
       You can choose to start from a completely empty KTH course memo template or start from a copy of a course memo from a previous course offering. 
       In the next step (2 of 3) you can edit the course memo. 
       Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
-      `
+      `,
     },
     {
       title: 'Edit course memo',
       intro: '',
       info:
-        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.'
+        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.',
     },
     {
       title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
-      It is possible to go back to make adjustments, to save a draft or publish the information.`
-    }
+      It is possible to go back to make adjustments, to save a draft or publish the information.`,
+      info:
+        'In this step (3 of 3) you can review the course memo as it will look on the published web page. It is also possible to review the course memo as a PDF. You can return to the previous page if you want to continue editing the course memo, or you can end your work with this draft and return to it another time. If you publish this course memo it will be visible as a sub page to About the course / Prepare and take course.',
+    },
   ],
   pagesChangePublishedPm: [
     {
       title: 'Choose a course memo',
       intro: `Start by choosing the course memo you want to change (step 1 of 3). Edit the chosen course memo in the next step (2 of 3). 
-      Review the new version of the course memo in the last step (3 of 3) and then publish it on the page About the course / Prepare and take course.`
+      Review the new version of the course memo in the last step (3 of 3) and then publish it on the page About the course / Prepare and take course.`,
     },
     {
       title: 'Edit course memo',
       intro: '',
       info:
-        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.'
+        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.',
     },
     {
       title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
-      It is possible to go back to make adjustments, to save a draft or publish the information.`
-    }
-  ],
-  progressBarHeaders: [
-    {
-      title: 'Choose course offering',
-      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
-      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
-      In the next step (2 of 3) you can edit the course memo. 
-      Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
-      `
+      It is possible to go back to make adjustments, to save a draft or publish the information.`,
+      info:
+        'In this step (3 of 3) you can review the course memo as it will look on the published web page. It is also possible to review the course memo as a PDF. You can return to the previous page if you want to continue editing the course memo, or you can end your work with this draft and return to it another time. If you publish this course memo it will be visible as a sub page to About the course / Prepare and take course.',
     },
-    {
-      title: 'Edit course memo',
-      intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
-      changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
-    },
-    {
-      title: 'Review and publish',
-      intro: ''
-    }
-  ],
-  progressTitleHeaders: [
-    {
-      title: '1. Choose course offering',
-      intro: `Choose a semester and a course offering for thecourse memo to be published (step 1 of 3). 
-      In this step you can choose to create a new coursememo for the course offering or you can chooseto copy a draft from a previously published course memo for this course. 
-      In the next step (2 of 3) you can edit the course memo. 
-      Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
-      `
-    },
-    {
-      title: '2. Edit course memo',
-      intro: `In this step (2 of 3) course memo data and course memo shall be uploaded, 
-      changes to the chosen course offering is summarized and some of the course data are reviewed and adjusted.`
-    },
-    {
-      title: 'Review and publish course memo',
-      intro:
-        'In this step (3 of 3) you can review the course memo as it will look on the published web page. It is also possible to review the course memo as a PDF. You can return to the previous page if you want to continue editing the course memo, or you can end your work with this draft and return to it another time. If you publish this course memo it will be visible as a sub page to About the course / Prepare and take course.'
-    }
   ],
   sectionsLabels: {
     contentAndOutcomes: 'Content and learning outcomes',
     prep: 'Preparations before course start',
     reqToFinal: 'Examination and completion',
     extra: 'Further information',
-    contacts: 'Contact'
+    contacts: 'Contact',
+  },
+  sectionsSummary: {
+    about: 'About',
+    contentAndOutcomes:
+      'Rubriker under Innehåll och lärandemål syftar dels till att övergripande beskriva innehåll och lärandemål för kursen (hämtas från kursplanen) dels till att mer detaljerat beskriva vilka läraktiviteter som ingår i kursen. Sist har du möjlighet att skapa en detaljplanering.',
+    prep:
+      'Rubriker under Förbereda inför kursstart syftar till att informera studenten om vilka förberedelser som studenten bör göra innan kursstart. Utöver vilken kurslitteratur som ingår kan till exempel en specifik programvara eller annan utrustning komma att användas under kursen',
+    reqToFinal:
+      'Rubriker under Examination och slutförande syftar till att tydliggöra för studenten hur examinationen kommer att genomföras och hur betygsättningen genomförs. Till exempel kan studenten få information möjlighet till komplettering, plussning och ersättningsuppgifter.',
+    extra:
+      'Rubriker under Ytterligare information syftar till att beskriva andra föreskrifter i kursplanen som inte ryms under övriga rubriker i kursplanen. Dessutom kan man här beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser samt eventuella ändringar som har införts till denna kursomgång.',
+    contacts:
+      'Rubriker under Kontakter syftar till att informera studenten om hur kommunikationen med lärare och annan relevant personal inför och under kursomgångens genomförande sker. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer effektiv för både studenter och lärare på kursen.',
   },
   pageTitles: {
     new: 'Create and publish course memo',
     // draft: 'Publish course memo draft',
     published: 'Edit published course memo',
-    preview: 'Create and publish course memo'
+    preview: 'Create and publish course memo',
   },
   actionModals: {
     changeLadokRoundIds: {
       header: 'Add course instances',
       body: '',
       btnClose: 'Cancel',
-      btnConfirm: 'Save'
+      btnConfirm: 'Save',
     },
     infoCancel: {
       header: 'To be aware of before cancelling!',
@@ -594,7 +571,7 @@ module.exports = {
         <br/>
         Do you want to cancel?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, cancel'
+      btnConfirm: 'Yes, cancel',
     },
     infoFinish: {
       header: 'To be aware of before exit!',
@@ -606,7 +583,7 @@ module.exports = {
         <br/>
         Do you want to exit?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, exit'
+      btnConfirm: 'Yes, exit',
     },
     infoSaveAndFinish: {
       header: 'To be aware of before exit!',
@@ -619,7 +596,7 @@ module.exports = {
         <br/>
         Do you want to exit?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, exit'
+      btnConfirm: 'Yes, exit',
     },
     infoPublish: {
       header: 'To be aware of before publishing!',
@@ -628,7 +605,7 @@ module.exports = {
         <br/> 
         Do you want to publish?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, publish'
+      btnConfirm: 'Yes, publish',
     },
     infoRemove: {
       header: 'To be aware of before deleting this draft!',
@@ -637,7 +614,7 @@ module.exports = {
       <br/>
       Do you want do delete this draft?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, delete'
+      btnConfirm: 'Yes, delete',
     },
     newSectionRemove: {
       header: 'To be aware of before deleting this header!',
@@ -646,7 +623,7 @@ module.exports = {
       <br/>
       Do you want do delete this header and its content?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, delete'
+      btnConfirm: 'Yes, delete',
     },
     rebuildDraftOfPublished: {
       header: 'To be aware of before you reset the contents!',
@@ -654,15 +631,15 @@ module.exports = {
       <br/><br/>
       Do you want to reset the contents to the latest published version of this course memo?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, reset to the latest published version'
-    }
+      btnConfirm: 'Yes, reset to the latest published version',
+    },
   },
   info: {
     chooseSavedDraft: 'Saved drafts',
     createNew: 'Choose course offering',
     choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
-      label: 'Choose semester'
+      label: 'Choose semester',
       // body:
       //   '<p>Choose what semester the course offering starts in. If the course offering stretches over several semesters then choose the first semester.</p>'
     },
@@ -675,29 +652,27 @@ module.exports = {
       Several administrative course instances are grouped to one course offering.</p>`,
       addRounds: {
         label: 'Select the course offering(s) to include in memo',
-        infoText:
-          'The following administrative course instances have no published course memo or draft'
+        infoText: 'The following administrative course instances have no published course memo or draft',
       },
       availableRounds: {
         label: 'Select the instances that is included in the course offerings',
-        infoText:
-          'The following administrative course instances have no published course memo or draft'
+        infoText: 'The following administrative course instances have no published course memo or draft',
       },
       existedDrafts: {
         label: 'Select a draft and click on the button Edit to continue edit the draft',
-        infoText: 'The following course offerings have drafts that are not yet published'
+        infoText: 'The following course offerings have drafts that are not yet published',
       },
       publishedMemos: {
         label: 'Select a course memo you want to edit: ',
-        infoText: 'Course memos which are published'
-      }
+        infoText: 'Course memos which are published',
+      },
     },
     createFrom: {
       labelBasedOn: 'Start from',
       labelAllPrevMemos: 'Choose course memo to copy:',
       infoTextForMemos: 'Listed course memos are published for previous course offerings',
       basedOnStandard: 'Empty KTH course memo template',
-      basedOnAnotherMemo: 'Copy of a course memo from a previous course offering'
+      basedOnAnotherMemo: 'Copy of a course memo from a previous course offering',
     },
     publishedHasDraft: ' (has unpublished changes)',
     errKoppsRounds:
@@ -711,10 +686,10 @@ module.exports = {
       'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
     noPrevPublishedAvailable: 'There are no published course memos for previous course offerings.',
     noPublishedMemos:
-      'There are no published course memos for this semester, the previous semester or any future semester.'
+      'There are no published course memos for this semester, the previous semester or any future semester.',
   },
   changePublishedInfo: {
-    choosePublishedMemo: 'Choose course memo'
+    choosePublishedMemo: 'Choose course memo',
   },
   buttons: {
     /** ************ BUTTONS ****************** */
@@ -737,38 +712,64 @@ module.exports = {
     btn_copy: 'Copy link to preview',
     btn_switch_view_single: 'Switch to “Single View”',
     btn_switch_view_scroll: 'Switch to “Scroll View”',
-    showGuidance: 'Show guidance'
+    showGuidance: 'Show guidance',
   },
   extraInfo: {
-    season: {
-      1: 'Spring ',
-      2: 'Autumn '
+    aboutMemoLanguage: {
+      sv: `The language of this course memo is Swedish since all chosen administrative course instances have Swedish as the language of instruction. It is not possible to add an English administrative course instance to a course memo in Swedish. If you want to combine administrative course instances in both Swedish and English you have to delete the draft and create a new draft with both Swedish and English administrative course instances.`,
+      en: `The language of this course memo is English since at least one of the chosen administrative course instances have English as the language of instruction. It is possible to add both administrative course instances with Swedish and English as the language of instruction.`,
     },
-    labelStartDate: 'Start date',
-    // hasSavedDraft: 'Has a published course memo',
+    cannotMergeLanguage: 'Cannot be chosen, read abode: Language of memo',
+    commentChanges: 'Describe changes made in this version:',
     contentHeaders: {
       title: 'Headings',
       intro: `<p>All fixed and optional sections in this course memo is listed down below. The sections are grouped in five main heading categories; "Content and learning outcomes", "Preparations before course start", "Examination and completion", "Further information" and "Contact".</p>
 		<p>Expand or collapse the main heading category to see the headings in the category. Each heading is a link that takes you directly to the section with its content. Use it to navigate quickly in this course memo.</p>
-		<p>An eye covered with slash indicates that the heading with its content will not be included in the published course memo.</p>`
+		<p>An eye covered with slash indicates that the heading with its content will not be included in the published course memo.</p>`,
     },
-    commentChanges: 'Describe changes made in this version:',
+    labelStartDate: 'Start date',
+    // hasSavedDraft: 'Has a published course memo',
     mandatory: 'Mandatory',
-    cannotMergeLanguage: 'Cannot be chosen, read abode: Language of memo',
     memoLanguage: {
       label: 'Language of memo',
       sv: 'Swedish',
-      en: 'English'
+      en: 'English',
     },
-    aboutMemoLanguage: {
-      sv: `The language of this course memo is Swedish since all chosen administrative course instances have Swedish as the language of instruction. It is not possible to add an English administrative course instance to a course memo in Swedish. If you want to combine administrative course instances in both Swedish and English you have to delete the draft and create a new draft with both Swedish and English administrative course instances.`,
-      en: `The language of this course memo is English since at least one of the chosen administrative course instances have English as the language of instruction. It is possible to add both administrative course instances with Swedish and English as the language of instruction.`
-    }
+    season: {
+      1: 'Spring ',
+      2: 'Autumn ',
+    },
+    summaryIntroductionHelp: {
+      titleMain: 'Introduktion och hjälp',
+      startInfo: `<p>Innan du skapar ditt kurs-PM behöver du förståelse för kursinformation i stort och kurs-PM i synnerhet. 
+      Du kan även behöva se över ditt upplägg i Canvas så det fungerar bra i hop med kurs-PM. </p>`,
+      aboutMemo: {
+        title: 'Vad är ett kurs-PM?',
+        details:
+          '<p>Kurs-PM är planen för kursomgångens genomförande. Ett kurs-PM ska hjälpa studenterna att förbereda och planera för kursens genomförande. Kurs-PM innehåller information om kursens mål, läraktiviteter, förberedelser, detaljer om examination och kontakter. Det ska också inkludera information om studentens rättigheter och skyldigheter på kursen. Ett kurs-PM guidar studenten och möjliggör att kursen kan genomföras på ett effektivt och ändamålsenligt sätt.</p>',
+      },
+      aboutKursinformation: {
+        title: 'Olika delar av kursinformation',
+        details: `<p>Delar av den information som visas på Om kursen hämtas från olika källor. En källa är utbildningsdatabasen Kopps, där kurstillfällen, kursens kursplan och ”kursgemensamma uppgifter” finns. Även när du arbetar med ditt kurs-PM hämtas vissa av dessa uppgifter från Kopps till ditt kurs-PM.</p>
+          <p>Finns beskrivande text för kursen inlagd i Kopps visas den på Om kursen, kursansvarig och examinator kan dock lägga in en annan beskrivande text via Om kursens administrationsverktyg ”Administrera om kursen”.</p>
+          <p>En annan källa är Ladok, där information om bland annat förstagångsregistrerade studenter och resultat för tidigare kursomgångar finns.</p>
+          <p>På Om kursen ska även kursens kursanalyser laddas upp.</p>`,
+      },
+      aboutHelpInCanvasAndMemo: {
+        title: 'Få hjälp med att strukturera information i Canvas och Kurs-PM',
+        details: '',
+      },
+      mainContinue: `<p>På denna sida hittar du introduktion för varje avsnitt och rubrik. Börja med att förstå de olika delarna i ett kurs-PM. Det gör du genom att gå igenom de olika flikarna/ tabbarna som delar in kurs-PM:et i avsnitt. Under varje flik finns en expanderbar länk som förklarar vad avsnittet syftar till och vilka rubriker som hör hit.</p>
+      <p>I respektive flik finns det olika rubriker, vissa är obligatoriska och vissa kan du själv välja om du vill ha med eller inte. Under redigering av kurs-PM kan du för respektive rubrik läsa i i-ikonen bredvid rubriken; vad rubriken handlar om, hur den hjälper studenter och hur innehållet redigeras.</p>
+      <p>Det finns också möjlighet att lägga till egna rubriker, men tänk på att i så stor utsträckning som möjligt använda de rubriker som finns. Detta eftersom att rubrikerna är framtagna utifrån KTH skolor och studenters behov och att studenter önskar igenkänning mellan kurser.</p>
+      <p>Om du valt att redigera en rubrik har du möjlighet att expandera ”Visa vägledning” för att få vägledning hur du ska skriva innehåll under rubriken.</p>`,
+    },
   },
   alerts: {
     autoSaved: 'Draft saved',
     autoSavedTemporary: 'Changes save temporarily before publishing.',
     addedRoundId: 'Course offerings were changed',
+    errorEmptyTitle: 'You need to name the content (look for error marks above)',
     errKoppsRounds:
       'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     errNoChosen:
@@ -777,33 +778,33 @@ module.exports = {
       'You must choose a course memo to copy (marked with red down below) to proceed to "Create and publish course memo".',
     errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
     errWhileSaving: 'Something went wrong. Contact IT Support.',
-    errWhileDeleting:
-      'Cannot delete draft. Try again later and contact IT Support if the problem remains.',
-    infoAboutFreshData:
-      'Information from course syllabus and contact information has automatically been updated.',
+    errWhileDeleting: 'Cannot delete draft. Try again later and contact IT Support if the problem remains.',
+    infoAboutFreshData: 'Information from course syllabus and contact information has automatically been updated.',
     infoRebuildDraft:
       'The contents of this course memo has been reset to the latest published version of this course memo.',
     infoStartAgain: 'There are unpublished changes in this course memo. You can',
     linkToRefreshData:
       'reset the contents in this draft to the contents of the latest published version of this course memo',
+    removedAddedContent: '(TRANSLATE TO EN) Tillagd rubrik har tagits bort',
+    removedEmptyContent: '(TRANSLATE TO EN) Tillagd rubrik har tagits bort eftersom det saknas rubrik och innehåll',
     syllabusUpdated:
       'Information from course syllabus and contact information have been updated with the most recent information in the draft below.',
     warnFillInCommentAboutChanges:
       'You must comment the changes to this course memo in the "Made changes" field (marked in red).',
     warnNameNewSection: 'You must name a heading to a new section',
     warnReplacePm:
-      'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.'
+      'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
   },
   breadCrumbLabels: {
     university: 'KTH',
     student: 'Student at KTH',
     directory: 'Course and programme directory',
     aboutCourse: 'About course',
-    noLinksInPreview: 'Menu links doesn’t work in review mode'
+    noLinksInPreview: 'Menu links doesn’t work in review mode',
   },
   coursePresentationLabels: {
     imageAltText: 'Inspiring image for course',
-    imageTitleText: ''
+    imageTitleText: '',
   },
   sideMenuLabels: {
     directory: 'Course and programme directory',
@@ -813,7 +814,7 @@ module.exports = {
     finishCourse: 'Finish course',
     courseDevelopment: 'Course development',
     archive: 'Archive',
-    noLinksInPreview: 'Menu links doesn’t work in review mode'
+    noLinksInPreview: 'Menu links doesn’t work in review mode',
   },
   courseFactsLabels: {
     versionTitle: 'Version',
@@ -821,7 +822,7 @@ module.exports = {
     offeredByTitle: 'Offered By',
     roundsTitle: 'Course offering',
     mandatoryFieldMissing: 'Missing mandatory information',
-    linkOpensInNewTab: 'Link will open in new tab'
+    linkOpensInNewTab: 'Link will open in new tab',
   },
   courseMemoLinksLabels: {
     versionTitle: 'Course memo version',
@@ -836,14 +837,14 @@ module.exports = {
     syllabusLinkStart: 'Syllabus',
     mandatoryFieldMissing: 'Missing mandatory information',
     linkOpensInNewTab: 'Link will open in new tab',
-    inDevelopment: 'In development'
+    inDevelopment: 'In development',
   },
   courseLinksLabels: {
     linkHeaderTitle: 'Student at KTH',
     beforeAndDuringACourse: 'Before and during a course',
     contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
     rightsAndResponsibilities: 'Rights and responsibilities',
-    linkOpensInNewTab: 'Link will open in new tab'
+    linkOpensInNewTab: 'Link will open in new tab',
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',
@@ -853,11 +854,11 @@ module.exports = {
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
-    linkOpensInNewTab: 'Link will open in new tab'
+    linkOpensInNewTab: 'Link will open in new tab',
   },
   courseHeaderLabels: {
     adminLinkLabel: 'Administrate About course information',
-    linkOpensInNewTab: 'Link will open in new tab'
+    linkOpensInNewTab: 'Link will open in new tab',
   },
   courseImage: {
     Architecture: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',
@@ -867,8 +868,7 @@ module.exports = {
     Physics: 'Picture_by_MainFieldOfStudy_05_Physics.jpg',
     'Industrial Management': 'Picture_by_MainFieldOfStudy_06_Industrial_Management.jpg',
     'Information Technology': 'Picture_by_MainFieldOfStudy_07_Information_Technology.jpg',
-    'Information and Communication Technology':
-      'Picture_by_MainFieldOfStudy_08_Information_Communication.jpg',
+    'Information and Communication Technology': 'Picture_by_MainFieldOfStudy_08_Information_Communication.jpg',
     'Chemical Science and Engineering': 'Picture_by_MainFieldOfStudy_09_Chemical_Science.jpg',
     'Chemistry and Chemical Engineering': 'Picture_by_MainFieldOfStudy_10_Chemistry_Chemical.jpg',
     Mathematics: 'Picture_by_MainFieldOfStudy_11_Mathematics.jpg',
@@ -886,6 +886,6 @@ module.exports = {
     Technology: 'Picture_by_MainFieldOfStudy_23_Technology.jpg',
     'Engineering and Management': 'Picture_by_MainFieldOfStudy_24_Engineering_Management.jpg',
     'Technology and Learning': 'Picture_by_MainFieldOfStudy_25_Technology_Learning.jpg',
-    default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg'
-  }
+    default: 'Picture_by_MainFieldOfStudy_26_Default_picture.jpg',
+  },
 }

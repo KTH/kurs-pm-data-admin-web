@@ -154,40 +154,13 @@ $white: #fff;
     word-break: break-word;
   }
 }
-.card.collapsible.white {
-  margin-bottom: 20px; //0.2em;
-  .card-body {
-    padding: 1em 0;
-    background-color: $light-yellow;
-    @media (min-width: 768px) {
-      display: flex;
-      flex-direction: row;
-      span:last-of-type {
-        align-self: flex-start;
-        height: 100%;
-        margin-left: 0.5em;
-        span {
-          margin: 0;
-          padding: 0;
-        }
-      }
-    }
-  }
-  & > .card-header {
-    h4 {
-      margin-left: -0.7em;
-      & > a {
-        color: $blue-link;
-      }
-    }
-  }
-  p {
-    margin-bottom: 0;
-  }
-  & + p {
-    margin-bottom: 15px;
-  }
-}
+// details.guidance-per-content {
+//   background-color: $light-yellow;
+//   margin-left: '10px';
+//   margin-right: '10px';
+//   padding-bottom: '20px';
+//   // width: '1000px'
+// }
 
 //person
 .person {
@@ -200,6 +173,7 @@ $white: #fff;
 
 .kip-container {
   padding-top: 2em;
+  margin-bottom: 4.5em;
   width: 100%;
   .progress-bar-container.row {
     margin: 0;
@@ -230,6 +204,7 @@ $white: #fff;
     margin-top: 50px;
   }
   .space-around-border {
+    //TODO: REMOVE AFTER NEW LAYOUT IS READY
     margin-top: 20px;
     .memo-content {
       padding-top: 20px;
@@ -246,6 +221,43 @@ $white: #fff;
       margin-bottom: 0;
     }
   }
+  .tab-bar-container .nav.nav-tabs {
+    border-bottom: solid 1px $grey;
+
+    .nav-link {
+      padding-right: 1.06em;
+      padding-left: 1.06em;
+      // större kontrasten
+      border-color: $grey;
+
+      &.active {
+        font-weight: 700 !important;
+        border-bottom: none;
+      }
+      &[aria-selected='false'] {
+        border-bottom: solid 1px $grey;
+        padding-bottom: 7.4px;
+        // color: #fff !important;
+        // background-color: $grey;
+      }
+    }
+  }
+  // .memo-content.tab-content {
+  //   //row
+  //   // margin-bottom: 0;
+  //   // padding: inherit 0;
+  //   // padding-top: 80px;
+  //   &:first-of-type {
+  //     padding-top: 0;
+  //   }
+  //   & > h2:first-child {
+  //     margin-top: 0;
+  //   }
+  //   .col {
+  //     margin-bottom: 0;
+  //   }
+  // }
+  //.sections-list-80 FOR LIST VIEW
   .sections-list-80 {
     //row
     margin-bottom: 0;
@@ -285,7 +297,7 @@ $white: #fff;
   .first-15 {
     padding-top: 15px;
   }
-  .separator {
+  .vertical-separator {
     max-width: 15%;
   }
 
@@ -307,7 +319,7 @@ $white: #fff;
   }
 }
 
-.Add--New--Title--And--Info {
+.Added--New--Title--And--Info {
   & > .section-info {
     margin-top: 50px;
     margin-bottom: 0; //editor is open
@@ -328,7 +340,8 @@ $white: #fff;
 //BUTTONS STYLES
 .control-buttons {
   @extend %column;
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid $grey;
+  padding-bottom: 25px;
   // padding-top: 1.5em;
 
   @media (min-width: 768px) {
@@ -365,10 +378,11 @@ $white: #fff;
 }
 
 .memo-content {
-  border-top: 1px solid $borderGrey;
+  //TODO: REMOVE AFTER TAB READY
+  border-left: 1px solid $grey;
   padding-bottom: 12em;
 
-  & + .separator {
+  & + .vertical-separator {
     border-right: 1px solid $borderGrey;
     border-top: 1px solid $borderGrey;
     margin-right: 50px;
@@ -402,25 +416,120 @@ $white: #fff;
   }
 }
 
+//Edit page
+//tabs
+#sectionsTabPanel {
+  a {
+    @extend %short-text-font-style;
+  }
+}
+//Edit content
+.memo-container > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.white-space-under-tabs {
+  // under sticky tab white space
+  height: 30px;
+  border-right: 1px solid $grey;
+  border-left: 1px solid $grey;
+}
+.memo-content.tab-content {
+  // border-top: 1px solid $borderGrey;
+  padding-bottom: 5em;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
+  & + .vertical-separator {
+    border-right: 1px solid $borderGrey;
+    border-top: none;
+    margin-right: 50px;
+  }
+  &:first-of-type {
+    padding-top: 0;
+  }
+  & > h2:first-child {
+    margin-top: 0;
+  }
+  .col {
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-bottom: -29px;
+  }
+  .tab-pane {
+    padding-top: 0;
+    border-color: $grey;
+  }
+  .title-and-info {
+    margin-top: 35px; //h3 15px + 34.88px
+  }
+  p,
+  ul,
+  span {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  ul {
+    margin-top: 1em;
+    padding-left: 20px;
+  }
+  span:first-of-type h2 {
+    margin-top: 0;
+  }
+  .section-info + span > p {
+    // max-width: 730px;
+    margin-top: 1em;
+  }
+  .title-and-info + p {
+    font-weight: 900;
+  }
+  .details-about-each-section {
+    margin-top: 3em;
+  }
+}
+
 .sticky-overview {
+  @extend %bordered-area;
+  border-color: $grey;
+  border-top-right-radius: 0;
+  border-left: none;
+  border-bottom: none;
   padding-left: 0;
+
+  #mainMenu {
+    margin-top: 10px;
+  }
+
+  // .progress-title {
+  //   //TODO: REMOVE mobil view, hide title 'Rubriker/Headers'
+  //   display: none !important;
+  // }
+
+  @media (min-width: 992px) {
+    #mainMenu.col {
+      max-width: 250px;
+    }
+    #mainMenu.col.navbar {
+      padding-top: 28px;
+    }
+    .progress-title {
+      display: flex !important;
+    }
+  }
+
   .content-overview {
+    // margin-top: 40px;
     .nav-link-to-content-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .card-body {
-      @extend %bordered-area;
-    }
-    .card.collapsible.blue {
-      margin-top: 30px; //1.8em;
-      &:first-of-type {
-        margin-top: 0 !important;
-      }
-      .card-header.withTrigger > a::before {
-        margin-left: 0.5em;
-      }
+
+    svg {
+      // visibility, eye icon
+      margin-left: 15px;
     }
   }
 }
@@ -428,7 +537,7 @@ $white: #fff;
 span.section-info {
   @extend %row;
   justify-content: space-between;
-  padding-top: 10px; // = 20px + button
+  padding-top: 10px; // + button = 20px
   .mandatory {
     margin-top: 5px; //  = 20px
   }
@@ -476,6 +585,9 @@ a.nav-link {
     margin-right: 30px; //1.25em;
     &:last-of-type {
       margin-right: 0;
+    }
+    p {
+      @extend %short-text-font-style;
     }
   }
 }
@@ -768,12 +880,15 @@ sup {
 }
 
 //tiny mce editor
-
+$personal-menu-height: 41px;
+$tab-menu-height: 35px;
+$tab-menu-top-bottom-padding: 40px;
+$editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bottom-padding;
 .memo-content {
   .tox.tox-tinymce.tox-tinymce--toolbar-sticky-on {
-    padding-top: 41px;
+    padding-top: $editor-menu-offset;
     .tox-editor-header {
-      margin-top: 41px;
+      margin-top: $editor-menu-offset;
     }
   }
 }

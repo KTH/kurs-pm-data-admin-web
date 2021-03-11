@@ -1,19 +1,19 @@
 'use strict'
 
-// Load .env file in development mode
-const nodeEnv = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()
-if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
-  require('dotenv').config()
-} else if (!process.env.SERVICE_PUBLISH) {
-  // This is an ANSIBLE machine which doesn't set env-vars atm
-  // so read localSettings.js which we now use to fake env-vars
-  // because it already exists in our Ansible setup.
-  require('./config/localSettings')
-}
+require('dotenv').config()
 
+const log = require('kth-node-log')
 const config = require('./server/configuration').server
 const server = require('./server/server')
-const log = require('kth-node-log')
+
+const packageFile = require('./package.json')
+
+// catches uncaught exceptions
+process.on('uncaughtException', err => {
+  log.error('APPLICATION EXIT - uncaught exception in ', packageFile.name)
+  log.error('Uncaught Exception', { err })
+  process.exit(1)
+})
 
 /* ****************************
  * ******* SERVER START *******
@@ -28,5 +28,5 @@ module.exports = server.start({
   ca: config.ssl.ca,
   cert: config.ssl.cert,
   port: config.port,
-  logger: log
+  logger: log,
 })

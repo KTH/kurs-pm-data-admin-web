@@ -1,16 +1,11 @@
-<script>
-  window.__initialState__ = {{{initialState}}}
-</script>
-{{!-- <script src="/static/tinymce.min.js"></script> --}}
-
+<script>{{{compressedStoreCode}}}</script>
 
 <!--{{prefixScript '/static/app.js' 'scripts'}}-->
 
-<div class="col">
-  {{#if error}}
+{{#if error}}
+  <main id="mainContent">
     <p>Error: {{error}}</p>
-  {{else}}
-    <div id="app">{{{html}}}</div>
-  {{/if}}
-</div>
-
+  </main>
+{{else}}
+  <div id="app">{{{html}}}</div>
+{{/if}}

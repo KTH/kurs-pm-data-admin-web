@@ -1,52 +1,75 @@
+<style>
+  .about tr td:first-child {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+  }
+</style>
 <h1>About {{{appName}}}</h1>
-<hr/>
+<hr />
 <table class="about">
   <tr>
-    <td><b>Application version:</b></td>
+    <td>Application Version:</td>
     <td>{{{appVersion}}}</td>
   </tr>
-  <tr class="odd">
-    <td><b>Application description:</b></td>
+  <tr>
+    <td>Application Description:</td>
     <td>{{{appDescription}}}</td>
   </tr>
   <tr>
-    <td><b>Jenkins build id:</b></td>
-    <td>{{{jenkinsBuild}}}</td>
-  </tr>
-  <tr class="odd">
-    <td><b>Git branch:</b></td>
+    <td>Git Branch:</td>
     <td>{{{gitBranch}}}</td>
   </tr>
   <tr>
-    <td><b>Git commit hash:</b></td>
+    <td>Git Commit Hash:</td>
     <td>{{{gitCommit}}}</td>
   </tr>
-  <tr class="odd">
-    <td><b>Build date:</b></td>
-    <td>{{{jenkinsBuildDate}}}</td>
+  <tr>
+    <td>Jenkins Build ID:</td>
+    <td>{{{jenkinsBuild}}}</td>
   </tr>
   <tr>
-    <td><b>Language:</b></td>
+    <td>Jenkins Build Date:</td>
+    <td>{{{jenkinsBuildDate}}}</td>
+  </tr>
+  {{#if language}}
+  <tr>
+    <td>Language:</td>
     <td>{{{language}}}</td>
   </tr>
+  {{/if}}
 </table>
-<hr/>
-<table>
-<tr>
-  <td><b>Docker Name:</b></td>
-  <td>{{{dockerName}}}</td>
-</tr>
-<tr class="odd">
-  <td><b>Docker Version:</b></td>
-  <td>{{{dockerVersion}}}</td>
-</tr>
+<hr />
+<table class="about">
+  <tr>
+    <td>Docker Name:</td>
+    <td>{{{dockerName}}}</td>
+  </tr>
+  <tr>
+    <td>Docker Version:</td>
+    <td>{{{dockerVersion}}}</td>
+  </tr>
+  <tr>
+    <td>Started:</td>
+    <td>{{{started}}}</td>
+  </tr>
+  <tr>
+    <td>Hostname:</td>
+    <td>{{{hostname}}}</td>
+  </tr>
 </table>
-
-<dl>
-  <dt>System:</dt>
-  <dd>
-    <a href="{{ withProxyPrefixPath '/_monitor' }}">Monitor</a> |
-    <a href="/robots.txt">robots.txt</a>
-  </dd>
-</dl>
+<hr />
+<p>
+  {{#if monitorUri}}
+  <a href="{{monitorUri}}">Monitor</a>
+  {{else}}
+  <a href="{{ withProxyPrefixPath '/_monitor' }}">Monitor</a>
+  {{/if}}
+  <span>|</span>
+  {{#if robotsUri}}
+  <a href="{{robotsUri}}">robots.txt</a>
+  {{else}}
+  <a href="/robots.txt">robots.txt</a>
+  {{/if}}
+</p>
 <!-- env: {{env}} -->

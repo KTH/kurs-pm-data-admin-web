@@ -14,11 +14,11 @@ const styles = {
   }
 }
 
-const ProgressTitle = ({ id, text }) => (
+const ProgressTitle = ({ id, text, style }) => (
   <span style={styles.span} className="progress-title">
     <h2 id={id}>{text.title}</h2>
     <InfoModalButton
-      style={styles.btnInfoModal}
+      style={{ ...styles.btnInfoModal, ...style }}
       modalId={id + '-infoModal'}
       modalLabels={{
         header: text.title,
@@ -35,7 +35,8 @@ ProgressTitle.propTypes = {
     title: PropTypes.string,
     intro: PropTypes.string,
     info: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  style: PropTypes.objectOf(PropTypes.string)
 }
 
 export default ProgressTitle

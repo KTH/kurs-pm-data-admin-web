@@ -15,14 +15,25 @@ const colWidthByProgress = {
 }
 
 const ControlPanel = (props) => {
-  const { chosenMemoEndPoint, langIndex, onCancel, onRemove, onSubmit, progress } = props // onSubmit = onForward
+  const {
+    chosenMemoEndPoint,
+    langIndex,
+    onCancel,
+    onRemove,
+    onSubmit,
+    progress,
+    openAlertIdUntilFixed
+  } = props // onSubmit = onForward
   const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished } = props
-  const { actionModals, buttons } = i18n.messages[langIndex]
+  const { actionModals, alerts, buttons } = i18n.messages[langIndex]
   const progressNum = Number(progress) || 1
 
   return (
     <Row className="control-buttons subsection-30" data-testid="buttons-control-panel">
       <Row className="w-100 my-0 mx-auto">
+        <Alert data-testid="alert-empty-data" color="danger" isOpen={!!openAlertIdUntilFixed}>
+          {alerts[openAlertIdUntilFixed] || ''}
+        </Alert>
         <Alert data-testid="alert-save-data" color={alertColor} isOpen={!!alertIsOpen}>
           {alertText}
         </Alert>
@@ -63,7 +74,7 @@ const ControlPanel = (props) => {
       </Col>
       {progressNum === 2 && (
         <Col sm={colWidthByProgress[progressNum].secondCol} className="btn-middle">
-          <Button onClick={onSave} color="secondary">
+          <Button onClick={() => onSave()} color="secondary">
             {isDraftOfPublished ? buttons.save : buttons.saveDraft}
           </Button>
         </Col>
@@ -138,7 +149,8 @@ ControlPanel.propTypes = {
   alertText: PropTypes.string,
   alertColor: PropTypes.string,
   onBack: PropTypes.func,
-  isDraftOfPublished: PropTypes.bool
+  isDraftOfPublished: PropTypes.bool,
+  openAlertIdUntilFixed: PropTypes.string
 }
 
 ControlPanel.defaultProps = {
