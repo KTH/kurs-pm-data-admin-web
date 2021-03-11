@@ -818,6 +818,7 @@ module.exports = {
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
+    mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
   },
   courseHeaderLabels: {
     adminLinkLabel: 'Administrera Om kursen',
