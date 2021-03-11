@@ -1,7 +1,8 @@
 import React from 'react'
 import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
-import i18n from '../../../../i18n'
 import PropTypes from 'prop-types'
+
+import i18n from '../../../../i18n'
 
 export const ContentHead = ({ contentId, memoLangIndex, userLangIndex }) => {
   const { memoTitlesByMemoLang, buttons } = i18n.messages[memoLangIndex]
@@ -9,15 +10,9 @@ export const ContentHead = ({ contentId, memoLangIndex, userLangIndex }) => {
 
   const titleAndInfo = {
     header: memoTitlesByMemoLang[contentId],
-    body: memoInfoByUserLang[contentId].body
+    body: memoInfoByUserLang[contentId].body,
   }
-  return (
-    <TitleAndInfoModal
-      modalId={contentId}
-      titleAndInfo={titleAndInfo}
-      btnClose={buttons.btnClose}
-    />
-  )
+  return <TitleAndInfoModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
 }
 
 export const ExtraHeaderHead = ({ header, contentId, memoLangIndex, userLangIndex }) => {
@@ -26,26 +21,20 @@ export const ExtraHeaderHead = ({ header, contentId, memoLangIndex, userLangInde
 
   const titleAndInfo = {
     header,
-    body: memoInfoByUserLang[contentId].body
+    body: memoInfoByUserLang[contentId].body,
   }
-  return (
-    <TitleAndInfoModal
-      modalId={contentId}
-      titleAndInfo={titleAndInfo}
-      btnClose={buttons.btnClose}
-    />
-  )
+  return <TitleAndInfoModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
 }
 
 ContentHead.propTypes = {
   contentId: PropTypes.string.isRequired,
-  memoLangIndex: PropTypes.number.isRequired,
-  userLangIndex: PropTypes.number.isRequired
+  memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
+  userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
 }
 
 ExtraHeaderHead.propTypes = {
   contentId: PropTypes.string.isRequired,
-  memoLangIndex: PropTypes.number.isRequired,
+  memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
   header: PropTypes.string.isRequired,
-  userLangIndex: PropTypes.number.isRequired
+  userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
 }

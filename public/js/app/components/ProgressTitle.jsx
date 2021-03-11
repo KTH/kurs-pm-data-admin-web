@@ -6,12 +6,12 @@ const styles = {
   span: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   btnInfoModal: {
     // /specific for this project
-    marginTop: '.7em'
-  }
+    marginTop: '.7em',
+  },
 }
 
 const ProgressTitle = ({ id, text, style }) => (
@@ -23,7 +23,7 @@ const ProgressTitle = ({ id, text, style }) => (
       modalLabels={{
         header: text.title,
         body: text.intro || text.info,
-        btnClose: 'Close'
+        btnClose: 'Close',
       }}
     />
   </span>
@@ -34,9 +34,12 @@ ProgressTitle.propTypes = {
   text: PropTypes.shape({
     title: PropTypes.string,
     intro: PropTypes.string,
-    info: PropTypes.string
+    info: PropTypes.string,
   }).isRequired,
-  style: PropTypes.objectOf(PropTypes.string)
+  style: PropTypes.objectOf(PropTypes.string),
+}
+ProgressTitle.defaultProps = {
+  style: {},
 }
 
 export default ProgressTitle
