@@ -3,26 +3,28 @@ import { Provider } from 'mobx-react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
+import { MobxStoreProvider } from '../../public/js/app/mobx'
+
 import i18n from '../../i18n'
 
 import CreateNewMemo from '../../public/js/app/pages/CreateNewMemo'
-import mockRouterStore from '../mocks/RouterStore'
-import mockRouterStoreWithDraftMemos from '../mocks/RouterStoreWithDraftMemos'
+import mockApplicationStore from '../mocks/ApplicationStore'
+import mockApplicationStoreWithDraftMemos from '../mocks/AppStoreWithDraftMemos'
 import translations from '../mocks/translations'
 
 const CreateNewMemoPage = ({ ...rest }) => (
   <StaticRouter>
-    <Provider routerStore={mockRouterStore}>
+    <MobxStoreProvider initCallback={() => mockApplicationStore}>
       <CreateNewMemo {...rest} />
-    </Provider>
+    </MobxStoreProvider>
   </StaticRouter>
 )
 
 const CreateNewMemoPageWithSavedDrafts = ({ ...rest }) => (
   <StaticRouter>
-    <Provider routerStore={mockRouterStoreWithDraftMemos}>
+    <MobxStoreProvider initCallback={() => mockApplicationStoreWithDraftMemos}>
       <CreateNewMemo {...rest} />
-    </Provider>
+    </MobxStoreProvider>
   </StaticRouter>
 )
 const { buttons: buttonsSV } = translations.sv
@@ -160,7 +162,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       const roundNames = [
         'Autumn 2020-1 (Start date 26/10/2020, English)',
         'Autumn 2020-2 (Start date 24/08/2020, English)',
-        'CBIOT1 m.fl. (Start date 30/10/2020, Swedish)'
+        'CBIOT1 m.fl. (Start date 30/10/2020, Swedish)',
       ]
       roundNames.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     })
@@ -176,7 +178,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       const roundNames = [
         'HT 2020-1 (Startdatum 2020-10-26, Engelska)',
         'HT 2020-2 (Startdatum 2020-08-24, Engelska)',
-        'CBIOT1 m.fl. (Startdatum 2020-10-30, Svenska)'
+        'CBIOT1 m.fl. (Startdatum 2020-10-30, Svenska)',
       ]
       roundNames.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     })
@@ -192,7 +194,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       const roundNames = [
         'Spring 2021-1 (Start date 22/03/2021, English)',
         'Spring 2021-2 (Start date 18/01/2021, English)',
-        'CBIOT1 m.fl. (Start date 20/03/2021, Swedish)'
+        'CBIOT1 m.fl. (Start date 20/03/2021, Swedish)',
       ]
       roundNames.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     })
@@ -208,7 +210,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       const roundNames = [
         'VT 2021-1 (Startdatum 2021-03-22, Engelska)',
         'VT 2021-2 (Startdatum 2021-01-18, Engelska)',
-        'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)'
+        'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)',
       ]
       roundNames.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     })
@@ -275,9 +277,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
 
     await waitFor(() => {
       expect(getByTestId('actionType')).toHaveTextContent('create')
-      expect(getByTestId('newMemoName')).toHaveTextContent(
-        'Spring 2021-2 (Start date 18/01/2021, English)'
-      )
+      expect(getByTestId('newMemoName')).toHaveTextContent('Spring 2021-2 (Start date 18/01/2021, English)')
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
       expect(getByTestId('sortedRoundIds')).toHaveTextContent('2')
     })
@@ -303,9 +303,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
 
     await waitFor(() => {
       expect(getByTestId('actionType')).toHaveTextContent('create')
-      expect(getByTestId('newMemoName')).toHaveTextContent(
-        'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)'
-      )
+      expect(getByTestId('newMemoName')).toHaveTextContent('CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)')
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('sv')
       expect(getByTestId('sortedRoundIds')).toHaveTextContent('3')
     })
@@ -362,9 +360,7 @@ test('create a new draft with one round, with correct name (use shortName) in sw
 
   await waitFor(() => {
     expect(getByTestId('actionType')).toHaveTextContent('create')
-    expect(getByTestId('newMemoName')).toHaveTextContent(
-      'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)'
-    )
+    expect(getByTestId('newMemoName')).toHaveTextContent('CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)')
     expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('sv')
     expect(getByTestId('sortedRoundIds')).toHaveTextContent('3')
   })
@@ -379,7 +375,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, have some sa
     const draftNames = [
       'Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)',
       'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)',
-      'Spring 2021-2 (Start date 18/01/2021, English)'
+      'Spring 2021-2 (Start date 18/01/2021, English)',
     ]
     draftNames.map((draftName, i) => expect(labelDrafts[i]).toHaveTextContent(draftName))
   })

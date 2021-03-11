@@ -16,7 +16,7 @@ const VisibilityInfo = ({
   onToggleVisibleInMemo,
   onToggleVisibleEditor,
   sectionType,
-  userLangIndex
+  userLangIndex,
 }) => {
   const dataOrigin = contentParam(contentId, 'source')
 
@@ -41,7 +41,7 @@ const VisibilityInfo = ({
               <div className="form-check form-group">
                 <input
                   className="form-check-input"
-                  data-testid="checkbox-visibility"
+                  data-testid={`checkbox-visibility-${contentId}`}
                   type="checkbox"
                   id={'visibilityFor' + contentId}
                   name="visibleInMemo"
@@ -85,12 +85,12 @@ VisibilityInfo.propTypes = {
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   onToggleVisibleEditor: PropTypes.func,
   sectionType: PropTypes.string.isRequired, // add default
-  userLangIndex: PropTypes.number.isRequired
+  userLangIndex: PropTypes.number.isRequired,
 }
 
 VisibilityInfo.defaultProps = {
   isEditorOpen: null,
-  onToggleVisibleEditor: null
+  onToggleVisibleEditor: null,
 }
 
 export default VisibilityInfo

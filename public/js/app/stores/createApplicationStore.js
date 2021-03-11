@@ -216,7 +216,7 @@ async function showAvailableSemesterRounds(chosenSemester, testUsedRounds = [], 
     const result = await axios.get(`${thisHost}${SERVICE_URL.API}used-rounds/${this.courseCode}/${chosenSemester}`)
     if (result) {
       if (result.status >= 400) {
-        return 'ERROR-RouterStore.js-showAvailableSemesterRounds-' + result.status
+        return 'ERROR-createApplicationStore.js-showAvailableSemesterRounds-' + result.status
       }
       const { usedRoundsThisSemester } = result.data
 
@@ -224,7 +224,7 @@ async function showAvailableSemesterRounds(chosenSemester, testUsedRounds = [], 
     }
   } catch (error) {
     if (error.response) {
-      throw new Error('RouterStore.js-showAvailableSemesterRounds-' + error.message)
+      throw new Error('createApplicationStore.js-showAvailableSemesterRounds-' + error.message)
     }
     throw error
   }
@@ -248,7 +248,7 @@ async function postNewMemo(actionType, copyFromMemoEndPoint, body, isTest = fals
     return result
   } catch (error) {
     if (error.response) {
-      throw new Error('RouterStore.js-postNewMemo-' + error.message)
+      throw new Error('createApplicationStore.js-postNewMemo-' + error.message)
     }
     throw error
   }
@@ -270,7 +270,7 @@ async function updateDraft(body, isTest = false) {
     return resultAfterUpdate
   } catch (error) {
     if (error.response) {
-      throw new Error('RouterStore.js-updateDraft-' + error.message)
+      throw new Error('createApplicationStore.js-updateDraft-' + error.message)
     }
     throw error
   }

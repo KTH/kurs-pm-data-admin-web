@@ -1,9 +1,11 @@
 import mockMiniKoppsObj from './miniKoppsObjs'
 import mockMiniMemos from './miniMemos'
-import RouterStore from '../../public/js/app/stores/RouterStore'
+import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
+
+const applicationStore = createApplicationStore()
 
 const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
-  const newMemo = await realRouterStore.createNewMemo(action, copyFrom, body, isTest) //function exist
+  const newMemo = await applicationStore.createNewMemo(action, copyFrom, body, isTest) //function exist
   const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
   //Example where data saves
   const objToSave = {
@@ -14,17 +16,15 @@ const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
     memoName,
     semester,
     status: 'draft',
-    version: '1'
+    version: '1',
   }
-  mockRouterStore.miniMemos.draftsWithNoActivePublishedVer.push(objToSave)
+  mockApplicationStore.miniMemos.draftsWithNoActivePublishedVer.push(objToSave)
 
   return newMemo
 }
 
-const realRouterStore = new RouterStore()
-
-const mockRouterStore = {
-  ...realRouterStore,
+const mockApplicationStore = {
+  ...applicationStore,
   courseCode: 'EF1111',
   langAbbr: 'en',
   langIndex: 0,
@@ -34,26 +34,26 @@ const mockRouterStore = {
   miniMemos: {
     draftsOfPublishedMemos: [],
     draftsWithNoActivePublishedVer: [],
-    sortedPublishedForAllYears: []
+    sortedPublishedForAllYears: [],
   },
   miniKoppsObj: mockMiniKoppsObj,
   browserConfig: {
-    storageUri: ''
+    storageUri: '',
   },
   createNewMemo(action, copyFrom, body) {
     return tempSaveNewDraft(action, copyFrom, body, true)
   },
 
   showAvailableSemesterRounds(semester) {
-    return realRouterStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
+    return applicationStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
     // return new Promise((resolve, reject) => {
     //   resolve({ status: 200 })
     // })
   },
 
   updateDraft(body) {
-    return realRouterStore.updateDraft(body, true)
-  }
+    return applicationStore.updateDraft(body, true)
+  },
 }
 
-export default mockRouterStore
+export default mockApplicationStore

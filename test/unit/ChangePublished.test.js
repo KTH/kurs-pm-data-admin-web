@@ -1,21 +1,17 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
+import { MobxStoreProvider } from '../../public/js/app/mobx'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
 import i18n from '../../i18n'
 
 import ChangePublished from '../../public/js/app/pages/ChangePublished'
-import mockRouterStore from '../mocks/RouterStore'
-import mockRouterStoreWithAllMemos from '../mocks/RouterStoreWithAllMemos'
+import mockApplicationStore from '../mocks/ApplicationStore'
+import mockApplicationStoreWithAllMemos from '../mocks/AppStoreWithAllMemos'
 import translations from '../mocks/translations'
 
 const { buttons, sectionsLabels, pageTitles } = translations.en
-const {
-  buttons: buttonsSV,
-  pageTitles: pageTitlesSV,
-  sectionsLabels: sectionsLabelsSV
-} = translations.sv
+const { buttons: buttonsSV, pageTitles: pageTitlesSV, sectionsLabels: sectionsLabelsSV } = translations.sv
 
 const { alerts, info, pagesCreateNewPm } = i18n.messages[0]
 const { alerts: alertsSV, info: infoSV, pagesCreateNewPm: pagesCreateNewPmSV } = i18n.messages[1]
@@ -23,17 +19,17 @@ const { getAllByRole, getAllByTestId, getByTestId, getByText } = screen
 
 const ChangedPublishedEmpty = ({ ...rest }) => (
   <StaticRouter>
-    <Provider routerStore={mockRouterStore}>
+    <MobxStoreProvider initCallback={() => mockApplicationStore}>
       <ChangePublished {...rest} />
-    </Provider>
+    </MobxStoreProvider>
   </StaticRouter>
 )
 
 const ChangedPublishedWithData = ({ ...rest }) => (
   <StaticRouter>
-    <Provider routerStore={mockRouterStoreWithAllMemos}>
+    <MobxStoreProvider initCallback={() => mockApplicationStoreWithAllMemos}>
       <ChangePublished {...rest} />
-    </Provider>
+    </MobxStoreProvider>
   </StaticRouter>
 )
 
@@ -97,9 +93,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     expect(publishedMemosLabels[0]).toHaveTextContent(
       'Autumn 2019-2 (Start date 28/10/2019, English) (has unpublished changes)'
     )
-    expect(publishedMemosLabels[1]).toHaveTextContent(
-      'Autumn 2019-2 (Start date 26/08/2019, English)'
-    )
+    expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26/08/2019, English)')
     expect(publishedMemosLabels[2]).toHaveTextContent('CDATA (Startdatum 2020-03-16, Svenska)')
   })
 
@@ -110,9 +104,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     expect(publishedMemosLabels[0]).toHaveTextContent(
       'Autumn 2019-2 (Start date 28/10/2019, English) (finns opublicerade ändringar)'
     )
-    expect(publishedMemosLabels[1]).toHaveTextContent(
-      'Autumn 2019-2 (Start date 26/08/2019, English)'
-    )
+    expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26/08/2019, English)')
     expect(publishedMemosLabels[2]).toHaveTextContent('CDATA (Startdatum 2020-03-16, Svenska)')
   })
 

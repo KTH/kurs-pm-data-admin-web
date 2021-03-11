@@ -1,13 +1,15 @@
 import mockMiniKoppsObj from './miniKoppsObjs'
 import mockMiniMemos from './miniMemos'
-import RouterStore from '../../public/js/app/stores/RouterStore'
 import usedRounds from './mockUsedRounds'
 
-const realRouterStore = new RouterStore()
+import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
+
+const applicationStore = createApplicationStore()
+
 const { draftsWithNoActivePublishedVer } = mockMiniMemos
 
-const mockRouterStoreWithDraftMemos = {
-  ...realRouterStore,
+const mockApplicationStoreWithDraftMemos = {
+  ...applicationStore,
   courseCode: 'EF1111',
   langAbbr: 'en',
   langIndex: 0,
@@ -18,17 +20,13 @@ const mockRouterStoreWithDraftMemos = {
     draftsOfPublishedMemos: [],
     draftsWithNoActivePublishedVer,
     publishedWithNoActiveDraft: [],
-    sortedPublishedForAllYears: []
+    sortedPublishedForAllYears: [],
   },
   miniKoppsObj: mockMiniKoppsObj,
 
   showAvailableSemesterRounds(semester) {
-    return realRouterStore.showAvailableSemesterRounds(
-      semester,
-      usedRounds[semester],
-      mockMiniKoppsObj
-    )
-  }
+    return applicationStore.showAvailableSemesterRounds(semester, usedRounds[semester], mockMiniKoppsObj)
+  },
 }
 
-export default mockRouterStoreWithDraftMemos
+export default mockApplicationStoreWithDraftMemos

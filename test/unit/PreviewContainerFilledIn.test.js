@@ -1,40 +1,36 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import i18n from '../../i18n'
 import { StaticRouter } from 'react-router'
+import { MobxStoreProvider } from '../../public/js/app/mobx'
+
 import translations from '../mocks/translations'
 import PreviewContainer from '../../public/js/app/pages/PreviewContainer'
-import mockRouterStoreWithChosenMemo from '../mocks/RouterStoreWithChosenMemo'
+import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
 import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoData'
 
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
 
 const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
-  const updatedRouterStore = {
-    ...mockRouterStoreWithChosenMemo(
-      'DRAFT_OF_PUBLISHED',
-      'filledInAndVisible',
-      memoLang,
-      userLang
-    ),
+  const updatedApplicationStore = {
+    ...mockApplicationStoreWithChosenMemo('DRAFT_OF_PUBLISHED', 'filledInAndVisible', memoLang, userLang),
     koppsFreshData: {
-      courseMainSubjects: ''
+      courseMainSubjects: '',
     },
     browserConfig: { imageStorageUri: 'localhost://' },
     imageFromAdmin: '',
     noMemoData: () => false,
     memoDatas: [],
-    activeMemoEndPoint: (id) => false,
-    roundIds: []
+    activeMemoEndPoint: id => false,
+    roundIds: [],
   }
   return (
     <StaticRouter>
-      <Provider routerStore={updatedRouterStore}>
+      <MobxStoreProvider initCallback={() => updatedApplicationStore}>
         <PreviewContainer {...rest} />
-      </Provider>
+      </MobxStoreProvider>
     </StaticRouter>
   )
 }
@@ -45,14 +41,14 @@ const {
   labelFacts,
   labelLinks,
   orderedFilledInAndVisible,
-  sectionsLabels
+  sectionsLabels,
 } = translations.en
 
 describe('Component <PreviewContainer> to display filled in draft of published memo. All memo data is filled in and visible. memoLang="en" userLang="sv"', () => {
   beforeEach(() => {
     render(<PreviewPublishedMemo memoLang="en" userLang="sv" />)
   })
-  test('renders a course memo', (done) => {
+  test('renders a course memo', done => {
     done()
   })
 
@@ -68,14 +64,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
     expect(allH2Headers.length).toBe(6)
-    const expectedh2ds = [
-      'Granska kurs-PM som sida',
-      contentAndOutcomes,
-      prep,
-      reqToFinal,
-      extra,
-      contacts
-    ]
+    const expectedh2ds = ['Granska och publicera', contentAndOutcomes, prep, reqToFinal, extra, contacts]
     expectedh2ds.map((h2, index) => expect(allH2Headers[index]).toHaveTextContent(h2))
   })
 
@@ -105,7 +94,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       labelContacts.courseCoordinatorTitle,
       labelContacts.teacherTitle,
       labelContacts.teacherAssistantsTitle,
-      labelContacts.examinerTitle
+      labelContacts.examinerTitle,
     ]
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
@@ -126,7 +115,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       'Print or save',
       'Redigera',
       'Avbryt',
-      'Publicera'
+      'Publicera',
     ]
     expectedBtns.map((btn, index) => expect(allBtns[index]).toHaveTextContent(btn))
   })
@@ -150,7 +139,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       'Syllabus EF1111 (Spring 2019-Spring 2020)',
       'Before and during a course',
       'Contact persons and student counselling',
-      `Rights and responsibilities`
+      `Rights and responsibilities`,
     ]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
   })
@@ -189,7 +178,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('get memo standard content', async () => {
     const standardheadersContent = Object.values(generatedStandardMemoData(true, '', ''))
-    standardheadersContent.map((content) => {
+    standardheadersContent.map(content => {
       expect(getByText(content)).toBeInTheDocument()
     })
   })

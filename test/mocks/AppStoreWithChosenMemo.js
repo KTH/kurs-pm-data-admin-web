@@ -1,14 +1,14 @@
 import mockMiniKoppsObj from './miniKoppsObjs'
 import memoTypes from './memoData/memoTypes'
-import RouterStore from '../../public/js/app/stores/RouterStore'
 import usedRounds from './mockUsedRounds'
+import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
 
-const realRouterStore = new RouterStore()
+const applicationStore = createApplicationStore()
 
-const setMemoBasicInfoTest = (props) => ({
+const setMemoBasicInfoTest = props => ({
   memoEndPoint: props.memoEndPoint.toUpperCase() || '',
   memoLangAbbr: props.memoCommonLangAbbr || 'sv',
-  semester: props.semester || ''
+  semester: props.semester || '',
 })
 const reducedKoppsData = {
   en: {
@@ -18,8 +18,8 @@ const reducedKoppsData = {
     titleOther: 'Projekt i plasmafysik',
     syllabusValid: {
       validFromTerm: 20191,
-      validUntilTerm: 20201
-    }
+      validUntilTerm: 20201,
+    },
   },
   sv: {
     credits: '9.0',
@@ -28,12 +28,12 @@ const reducedKoppsData = {
     titleOther: 'Project in Plasma Physics',
     syllabusValid: {
       validFromTerm: 20191,
-      validUntilTerm: 20201
-    }
-  }
+      validUntilTerm: 20201,
+    },
+  },
 }
 
-const mockRouterStoreWithChosenMemo = (
+const mockApplicationStoreWithChosenMemo = (
   memoType = 'DRAFT_NEW_MEMO',
   contentType = 'freshEmpty',
   memoLang = 'en',
@@ -42,7 +42,7 @@ const mockRouterStoreWithChosenMemo = (
   const mockedMemoData = memoTypes[memoType][memoLang][contentType]
   const updateStoreWith = memoType && contentType ? setMemoBasicInfoTest(mockedMemoData) : {}
   const routerWithMemoData = {
-    ...realRouterStore,
+    ...applicationStore,
     courseCode: 'EF1111',
     courseTitle: '',
     langAbbr: userLang,
@@ -51,10 +51,10 @@ const mockRouterStoreWithChosenMemo = (
     memoEndPoint: '',
     rounds: [],
     ...updateStoreWith,
-    memoData: { ...mockedMemoData, ...reducedKoppsData[userLang] }
+    memoData: { ...mockedMemoData, ...reducedKoppsData[userLang] },
   }
 
   return routerWithMemoData
 }
 
-export default mockRouterStoreWithChosenMemo
+export default mockApplicationStoreWithChosenMemo

@@ -3,18 +3,20 @@ import { Provider } from 'mobx-react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
+import { MobxStoreProvider } from '../../public/js/app/mobx'
+
 import i18n from '../../i18n'
 import {
   getNumOfEditableStandardContent,
   getOnlyStandardHeaders,
   getHeadersByType,
-  typeOfThisHeader
+  typeOfThisHeader,
 } from '../../public/js/app/util/fieldsByType.js'
 
 import MemoContainer from '../../public/js/app/pages/MemoContainer'
 
 import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoData'
-import mockRouterStoreWithChosenMemo from '../mocks/RouterStoreWithChosenMemo'
+import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
 import translations from '../mocks/translations'
 
@@ -24,7 +26,7 @@ const { notIncludedInMemoYet, pageTitles } = translations.sv
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
 
 const EditPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
-  const updatedRouterStore = mockRouterStoreWithChosenMemo(
+  const updatedRouterStore = mockApplicationStoreWithChosenMemo(
     'DRAFT_OF_PUBLISHED',
     'filledInAndVisible',
     memoLang,
@@ -32,9 +34,9 @@ const EditPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
   )
   return (
     <StaticRouter>
-      <Provider routerStore={updatedRouterStore}>
+      <MobxStoreProvider initCallback={() => updatedRouterStore}>
         <MemoContainer {...rest} />
-      </Provider>
+      </MobxStoreProvider>
     </StaticRouter>
   )
 }
@@ -43,7 +45,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   beforeEach(() => {
     render(<EditPublishedMemo memoLang="en" userLang="sv" />)
   })
-  test('renders a page with a new draft of a new memo', (done) => {
+  test('renders a page with a new draft of a new memo', done => {
     done()
   })
   test('get memo standard content which should be in text formremove some fields(like equipment', async () => {
@@ -60,7 +62,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     await delete standardheadersContent.scheduleDetails
     await delete standardheadersContent.literature
     const textContent = Object.values(standardheadersContent)
-    textContent.map((content) => {
+    textContent.map(content => {
       expect(getByText(content)).toBeInTheDocument()
     })
   })
@@ -80,9 +82,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   })
 
   test('renders alert about kopps data were updated', () => {
-    const alert = getByText(
-      'Kursplans-information och kontaktinformation har uppdaterats automatiskt.'
-    )
+    const alert = getByText('Kursplans-information och kontaktinformation har uppdaterats automatiskt.')
     expect(alert).toBeInTheDocument()
   })
 
@@ -101,13 +101,13 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     expect(allCloseEditorBtn.length).toBe(8)
   })
 
-  test('All section with editor are visible', async (done) => {
+  test('All section with editor are visible', async done => {
     const allEditors = getAllByTestId('standard-editor')
     expect(allEditors.length).toBe(8)
     done()
   })
 
-  test('All section with editor are visible', async (done) => {
+  test('All section with editor are visible', async done => {
     const allEditors = getAllByTestId('standard-editor')
     expect(allEditors[0]).toHaveTextContent(
       `Visa vägledningUnder rubriken "Detaljplanering" beskriver du vilka läraktiviteter eller examinationstillfällen som har planerats under kursen. Använd med fördel en tabell för att på ett överblickbart sätt beskriva aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Systemet skapar en tabell med tre kolumner åt dig där du kan skriva i kursomgångens läraktiviteter. Du kan anpassa denna tabell genom att t.ex. lägga till rader, lägga till kolumner, eller ersätta den med en tabell från Word. Ett enkelt och tydligt sätt är att beskriva detaljplanering genom att för varje läraktivitet eller examination ange typ av aktivitet, aktivitetens innehåll och vilka förberedelser som studenten behöver göra. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse. Länka gärna till instruktioner och material för kursomgången i Canvas, men var uppmärksam på att länkar från tidigare kurs-PM som kopierats till detta kurs-PM kan vara ogiltiga. Testa därför länkar till andra webbsidor innan publicering. Följande Detaljplanering är ett exempel från kurs HI1027: [Infoga exempel på tabell] Om du beskrivit kursens olika läraktiviteter under rubriken "Läraktiviteter" rekommenderas att använda samma terminologi för att studenterna ska se den röda träden genom detta kurs-PM. Om det är någon aktivitet som är särskilt viktigt för studenten att förbereda kan det understrykas genom att beskriva det i rubriken "Särskilda förberedelser".`
@@ -135,7 +135,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
       prep,
       reqToFinal,
       extra,
-      contacts
+      contacts,
     ]
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
@@ -146,22 +146,14 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
 
     expect(allH2Headers.length).toBe(7)
     // expect(allH2Headers[0]).toHaveTextContent()
-    const expectedh2ds = [
-      'Redigera kurs-PM',
-      'Rubriker',
-      contentAndOutcomes,
-      prep,
-      reqToFinal,
-      extra,
-      contacts
-    ]
+    const expectedh2ds = ['Redigera kurs-PM', 'Rubriker', contentAndOutcomes, prep, reqToFinal, extra, contacts]
     expectedh2ds.map((h2, index) => expect(allH2Headers[index]).toHaveTextContent(h2))
   })
 
   test('check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders()
     expect(headers.length).toBe(27)
-    headers.map((headerId) => {
+    headers.map(headerId => {
       const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
       expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
     })
@@ -171,7 +163,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     const contentType = 'mandatory'
     const headers = getHeadersByType(contentType)
     expect(headers.length).toBe(9)
-    headers.map((contentId) => {
+    headers.map(contentId => {
       const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
       expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
     })
@@ -181,7 +173,7 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     const contentType = 'mandatoryForSome'
     const headers = getHeadersByType(contentType)
     expect(headers.length).toBe(2)
-    headers.map((contentId) => {
+    headers.map(contentId => {
       const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
       expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
     })
@@ -190,10 +182,10 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
   test('renders checkbox, check they are checked in because memo content is all visible, standard + extra headers', async () => {
     const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')
     expect(checkboxIncludeInMemo.length).toBe(26)
-    checkboxIncludeInMemo.map((ch) => expect(ch.checked).toBeTruthy())
+    checkboxIncludeInMemo.map(ch => expect(ch.checked).toBeTruthy())
   })
 
-  test('renders checkbox which are checked and check it to reveal message about include in msg', async (done) => {
+  test('renders checkbox which are checked and check it to reveal message about include in msg', async done => {
     const { section: sectionIsNotIncluded } = notIncludedInMemoYet
     //Läraktiviteter - Learning activities
     const checkExclude = getAllByTestId('checkbox-visibility')[0]
@@ -201,15 +193,13 @@ describe('Component <MemoContainer> Edit published. A New draft of a PUBLISHED m
     await waitFor(() => {
       expect(checkExclude.checked).toBeFalsy()
       expect(getByText(sectionIsNotIncluded)).toBeInTheDocument()
-      const learningActivitiesText = getByTestId(
-        `optional-and-excluded-but-with-content-section-learningActivities`
-      )
+      const learningActivitiesText = getByTestId(`optional-and-excluded-but-with-content-section-learningActivities`)
       expect(learningActivitiesText).toHaveTextContent(sectionIsNotIncluded)
     })
     done()
   })
 
-  test('renders alert about result of saving data', async (done) => {
+  test('renders alert about result of saving data', async done => {
     //Detailed plan
     const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[1]
     fireEvent.click(checkboxIncludeInMemo)
