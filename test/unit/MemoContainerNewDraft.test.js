@@ -35,7 +35,7 @@ const EditFreshDraftOfNewMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) 
   return (
     <StaticRouter>
       <MobxStoreProvider initCallback={() => updatedRouterStore}>
-        <MemoContainer activeTab={sectionExam} {...rest} />
+        <MemoContainer initialActiveTab={sectionExam} {...rest} />
       </MobxStoreProvider>
     </StaticRouter>
   )
