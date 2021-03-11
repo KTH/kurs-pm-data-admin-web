@@ -104,7 +104,7 @@ function NewSectionEditor(props) {
       }
       if (hasEmptyTitle) {
         setEmptyTitleErrorLabel(true)
-        props.onAlert('errorEmptyTitle', 'danger')
+        props.onAlert('errorEmptyHeading', 'danger')
 
         return false
       }
@@ -139,7 +139,7 @@ function NewSectionEditor(props) {
           <Form className={showEmptyTitleErrorLabel ? 'error-area' : ''}>
             <FormGroup className="title">
               <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
-                {sourceInfo.addNewTitle}
+                {sourceInfo.addNewHeading}
               </Label>
               <Input
                 className="form-control"
@@ -151,7 +151,7 @@ function NewSectionEditor(props) {
               />
               {showEmptyTitleErrorLabel && (
                 <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
-                  {sourceInfo.errorEmptyTitle}
+                  {sourceInfo.errorEmptyHeading}
                 </Label>
               )}
             </FormGroup>
@@ -165,7 +165,7 @@ function NewSectionEditor(props) {
             onBlur={onSaveByThisContentId}
           />
           <ActionModalButton
-            btnLabel={buttons.btnRemoveHeader}
+            btnLabel={buttons.btnRemoveHeading}
             modalId={`beforeRemoving-${contentId}-${uKey}`}
             type="remove"
             modalLabels={actionModals.newSectionRemove}
