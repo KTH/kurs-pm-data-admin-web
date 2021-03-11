@@ -1,27 +1,19 @@
 import React from 'react'
 import { Alert } from 'reactstrap'
 import PropTypes from 'prop-types'
-import UpperAlertRow from './UpperAlertRow'
 import { ActionModalButton } from '@kth/kth-kip-style-react-components'
 import axios from 'axios'
 import i18n from '../../../../../i18n'
+import UpperAlertRow from './UpperAlertRow'
+
 import { SERVICE_URL } from '../../util/constants'
 
-const AlertDraftOfPublished = ({
-  courseCode,
-  memoEndPoint,
-  memoVersion,
-  publishDate,
-  onAlert,
-  userLangIndex
-}) => {
+const AlertDraftOfPublished = ({ courseCode, memoEndPoint, memoVersion, publishDate, onAlert, userLangIndex }) => {
   const { actionModals, alerts } = i18n.messages[userLangIndex]
 
   const rebuildDraftOfPublished = async () => {
     try {
-      const resultAfterDelete = await axios.delete(
-        `${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`
-      )
+      const resultAfterDelete = await axios.delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
       if (resultAfterDelete.status >= 400) {
         onAlert('errWhileDeleting', 'danger')
 
@@ -54,8 +46,7 @@ const AlertDraftOfPublished = ({
         {`${alerts.infoStartAgain} `}
         <ActionModalButton
           btnLabel={`${alerts.linkToRefreshData} (${
-            new Date(publishDate).toLocaleString(userLangIndex === 0 ? 'en-US' : 'sv-SE') ||
-            'version:' + memoVersion
+            new Date(publishDate).toLocaleString(userLangIndex === 0 ? 'en-US' : 'sv-SE') || 'version:' + memoVersion
           })`}
           modalId="rebuildDraft"
           type="actionLink"
@@ -68,12 +59,12 @@ const AlertDraftOfPublished = ({
 }
 
 AlertDraftOfPublished.propTypes = {
-  courseCode: PropTypes.string,
-  memoEndPoint: PropTypes.string,
+  courseCode: PropTypes.string.isRequired,
+  memoEndPoint: PropTypes.string.isRequired,
   memoVersion: PropTypes.number.isRequired,
-  onAlert: PropTypes.func,
-  publishDate: PropTypes.string,
-  userLangIndex: PropTypes.number
+  onAlert: PropTypes.func.isRequired,
+  publishDate: PropTypes.string.isRequired,
+  userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
 }
 
 export default AlertDraftOfPublished
