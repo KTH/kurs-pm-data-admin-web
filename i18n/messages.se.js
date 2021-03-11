@@ -727,28 +727,6 @@ module.exports = {
     },
     summaryIntroductionHelp: {
       titleMain: 'Introduktion och hjälp',
-      startInfo: `<p>Innan du skapar ditt kurs-PM behöver du förståelse för kursinformation i stort och kurs-PM i synnerhet. 
-      Du kan även behöva se över ditt upplägg i Canvas så det fungerar bra i hop med kurs-PM. </p>`,
-      aboutMemo: {
-        title: 'Vad är ett kurs-PM?',
-        details:
-          '<p>Kurs-PM är planen för kursomgångens genomförande. Ett kurs-PM ska hjälpa studenterna att förbereda och planera för kursens genomförande. Kurs-PM innehåller information om kursens mål, läraktiviteter, förberedelser, detaljer om examination och kontakter. Det ska också inkludera information om studentens rättigheter och skyldigheter på kursen. Ett kurs-PM guidar studenten och möjliggör att kursen kan genomföras på ett effektivt och ändamålsenligt sätt.</p>',
-      },
-      aboutKursinformation: {
-        title: 'Olika delar av kursinformation',
-        details: `<p>Delar av den information som visas på Om kursen hämtas från olika källor. En källa är utbildningsdatabasen Kopps, där kurstillfällen, kursens kursplan och ”kursgemensamma uppgifter” finns. Även när du arbetar med ditt kurs-PM hämtas vissa av dessa uppgifter från Kopps till ditt kurs-PM.</p>
-          <p>Finns beskrivande text för kursen inlagd i Kopps visas den på Om kursen, kursansvarig och examinator kan dock lägga in en annan beskrivande text via Om kursens administrationsverktyg ”Administrera om kursen”.</p>
-          <p>En annan källa är Ladok, där information om bland annat förstagångsregistrerade studenter och resultat för tidigare kursomgångar finns.</p>
-          <p>På Om kursen ska även kursens kursanalyser laddas upp.</p>`,
-      },
-      aboutHelpInCanvasAndMemo: {
-        title: 'Få hjälp med att strukturera information i Canvas och Kurs-PM',
-        details: '',
-      },
-      mainContinue: `<p>På denna sida hittar du introduktion för varje avsnitt och rubrik. Börja med att förstå de olika delarna i ett kurs-PM. Det gör du genom att gå igenom de olika flikarna/ tabbarna som delar in kurs-PM:et i avsnitt. Under varje flik finns en expanderbar länk som förklarar vad avsnittet syftar till och vilka rubriker som hör hit.</p>
-      <p>I respektive flik finns det olika rubriker, vissa är obligatoriska och vissa kan du själv välja om du vill ha med eller inte. Under redigering av kurs-PM kan du för respektive rubrik läsa i i-ikonen bredvid rubriken; vad rubriken handlar om, hur den hjälper studenter och hur innehållet redigeras.</p>
-      <p>Det finns också möjlighet att lägga till egna rubriker, men tänk på att i så stor utsträckning som möjligt använda de rubriker som finns. Detta eftersom att rubrikerna är framtagna utifrån KTH skolor och studenters behov och att studenter önskar igenkänning mellan kurser.</p>
-      <p>Om du valt att redigera en rubrik har du möjlighet att expandera ”Visa vägledning” för att få vägledning hur du ska skriva innehåll under rubriken.</p>`,
     },
   },
   alerts: {
@@ -771,13 +749,12 @@ module.exports = {
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
     linkToRefreshData: 'återgå till senaste publicerade versionen av kurs-PM ',
-    removedAddedContent: 'Tillagd rubrik har tagits bort',
-    removedEmptyContent: 'Tillagd rubrik har tagits bort eftersom det saknas rubrik och innehåll',
+    removedAddedHeading: 'Tillagd rubrik har tagits bort',
+    removedEmptyHeading: 'Tillagd rubrik har tagits bort eftersom det saknas rubrik och innehåll',
     syllabusUpdated:
       'Information från kursplan och kontaktinformation har uppdaterats med den senaste giltiga informationen i utkastet nedan.',
     warnFillInCommentAboutChanges:
       'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
-    warnNameNewSection: 'Du behöver ange ett namn på den tillagda rubriken (se markering i rött)',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersätta befintligt kurs-PM (se "Välj kursomgång" nedan)',
   },
