@@ -1,13 +1,14 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import { observer } from 'mobx-react'
-import { useStore } from '../mobx'
 import { HashLink as Link } from 'react-router-hash-link'
 import { FaRegEyeSlash } from 'react-icons/fa'
-import { sections, isRequired } from '../util/fieldsByType'
-import i18n from '../../../../i18n'
-import ProgressTitle from './ProgressTitle'
 import PropTypes from 'prop-types'
+import { useStore } from '../mobx'
+
+import { sections, isRequired } from '../util/fieldsByType'
+
+import i18n from '../../../../i18n'
 
 const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
   if (isRequired(contentId)) {
@@ -28,6 +29,7 @@ const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
 }
 
 function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard }) {
+  console.log('visiblesOfStandard', visiblesOfStandard)
   const { memoData } = useStore()
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 
@@ -91,7 +93,7 @@ MainMenu.propTypes = {
 SectionMenu.propTypes = {
   activeTab: PropTypes.string.isRequired,
   children: PropTypes.node,
-  memoLangIndex: PropTypes.number.isRequired,
+  memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
   visiblesOfStandard: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool])),
 }
 
@@ -99,4 +101,4 @@ SectionMenu.defaultProps = {
   children: '',
 }
 
-export default SectionMenu
+export default observer(SectionMenu)
