@@ -35,7 +35,6 @@ const BreadCrumbs = ({ labels, courseCode }) => (
 )
 
 BreadCrumbs.propTypes = {
-  // eslint-disable-next-line react/require-default-props
   courseCode: PropTypes.string.isRequired,
   labels: PropTypes.shape({
     aboutCourse: PropTypes.string.isRequired,

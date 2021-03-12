@@ -10,6 +10,8 @@ $blue-link: #006cb7;
 $red: #e01f28;
 $white: #fff;
 
+$btn-link-height: 20px;
+
 %bordered-area {
   border: 1px solid $borderGrey;
   border-radius: 0.25rem;
@@ -626,6 +628,7 @@ label + label {
 .breadcrumb-item button {
   padding: 0;
   vertical-align: baseline;
+  height: $btn-link-height;
 }
 
 /*Course header in preview */
@@ -657,6 +660,9 @@ label + label {
     &:hover {
       color: #000000;
     }
+  }
+  .btn.btn-link {
+    height: $btn-link-height;
   }
   p {
     button {
