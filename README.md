@@ -141,6 +141,62 @@ UG_REDIS_URI=team-studam-ref-redis-193.redis.cache.windows.net:[port],password=[
 APPINSIGHTS_INSTRUMENTATIONKEY=[Azure, Application insights, Instrumentation Key, can be found in Overview]
 ```
 
+## Editor TinyMce
+
+In `tinymce` catalog located tinymce api to make load of editor faster and to customize some translations/texts.
+
+### Edited English and Swedish translations for editor's buttons
+Translations for swedish translations located in `tinymce > langs > sv_SE.js`
+It was customized:
+- `'Header 4': 'Rubrik 4'` was changed to `Heading: 'Rubrik'`
+- `Paragraph: 'Avsnitt'` was changed to `'Body text': 'Brödtext'`
+
+To make this changes viable, in the configuration of block_formats was changed to:
+  ```block_formats: 'Body text=p;Heading=h4',```
+and define `language` if it is Swedish it will be: `sv_SE`
+
+### KTH and local Style in editor
+In `js > app > util > editorInitConf.js` defined `content_css: '/kursinfoadmin/kurs-pm-data/static/app.css'`
+It uses local parsed app.css (from local node-web.scss). 
+
+### Configuration and used plugins
+ Configuration is in `js > app > util > editorInitConf.js`
+ 
+```
+const table = {
+  table_default_attributes: {
+    border: '0',
+  },
+  table_default_styles: {},
+  content_css: '/kursinfoadmin/kurs-pm-data/static/app.css',
+}
+
+const editorConf = language => ({
+  menubar: false,
+  toolbar_mode: 'wrap',
+  toolbar_sticky: true,
+  plugins: [
+    'advlist autolink autoresize lists link charmap preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'table paste code help wordcount',
+  ],
+  ...table,
+  language,
+  toolbar1: `code | undo redo | formatselect | bold italic underline subscript superscript charmap |
+        searchreplace | link | fullscreen `,
+  toolbar2: `bullist numlist outdent indent | table | removeformat | help`,
+  block_formats: 'Body text=p;Heading=h4',
+})
+```
+- `toolbar_sticky: true` is to make editor meny to be on top of editor if it's longer then screan.
+- `toolbar_mode: 'wrap'`. Wrap toolbar into two rows.
+- `toolbar1` and `toolbar2` defines which buttons to display on 1st and 2nd rows.
+- `content_css` is needed mostly to style tables and fonts
+- `block_formats` user can create only Paragraphs and headers-h4 inside editor.
+- `table_default_styles` is to cancel default styles of tables
+- `table_default_attributes` is to make border invisible via `border: '0'`
+- `language` is needed only for Swedish translations: sv_SE. Otherwise it is 'null'.
+
 ## Author
 
 👤 **KTH**
