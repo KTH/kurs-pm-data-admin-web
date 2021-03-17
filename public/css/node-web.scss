@@ -283,6 +283,7 @@ $btn-link-height: 20px;
         margin: 0;
         padding: 0;
         font-size: inherit;
+        vertical-align: top;
       }
     }
     &:last-child {
@@ -417,9 +418,6 @@ $btn-link-height: 20px;
   }
   .title-and-info + p {
     font-weight: 900;
-  }
-  .details-about-each-section {
-    margin-top: 3em;
   }
 }
 
@@ -619,6 +617,10 @@ label + label {
   border-right: 2px solid $borderGrey;
 }
 
+.btn.btn-link {
+  height: $btn-link-height;
+}
+
 /* Breadcrumbs in preview */
 
 .breadcrumb {
@@ -628,7 +630,6 @@ label + label {
 .breadcrumb-item button {
   padding: 0;
   vertical-align: baseline;
-  height: $btn-link-height;
 }
 
 /*Course header in preview */
@@ -660,9 +661,6 @@ label + label {
     &:hover {
       color: #000000;
     }
-  }
-  .btn.btn-link {
-    height: $btn-link-height;
   }
   p {
     button {
