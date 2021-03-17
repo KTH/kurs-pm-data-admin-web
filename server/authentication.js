@@ -1,10 +1,11 @@
 'use strict'
 
 const passport = require('passport')
-const config = require('./configuration').server
 const log = require('kth-node-log')
 const CasStrategy = require('kth-node-passport-cas').Strategy
 const { GatewayStrategy } = require('kth-node-passport-cas')
+const { System } = require('./controllers')
+const { server: config } = require('./configuration')
 
 /**
  * Passport will maintain persistent login sessions. In order for persistent sessions to work, the authenticated
@@ -80,17 +81,15 @@ module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas
     ldapConfig: config.ldap,
     ldapClient,
     proxyPrefixPath: config.proxyPrefixPath.uri,
-    unpackLdapUser: (ldapUser, pgtIou) => {
-      return {
-        username: ldapUser.ugUsername,
-        displayName: ldapUser.displayName,
-        email: ldapUser.mail,
-        pgtIou,
-        // This is where you can set custom roles
-        memberOf: getGroups(ldapUser), // memberOf important for requireRole
-        isSuperUser: hasGroup(config.auth.superuserGroup, ldapUser),
-      }
-    },
+    unpackLdapUser: (ldapUser, pgtIou) => ({
+      username: ldapUser.ugUsername,
+      displayName: ldapUser.displayName,
+      email: ldapUser.mail,
+      pgtIou,
+      // This is where you can set custom roles
+      memberOf: getGroups(ldapUser), // memberOf important for requireRole
+      isSuperUser: hasGroup(config.auth.superuserGroup, ldapUser),
+    }),
   }
 )
 
@@ -121,6 +120,7 @@ function _hasThisTypeGroup(courseCode, courseInitials, ldapUser, employeeType) {
 // eslint-disable-next-line func-names
 module.exports.requireRole = function () {
   // TODO:Different roles for selling text and course development
+  // eslint-disable-next-line prefer-rest-params
   const roles = Array.prototype.slice.call(arguments)
 
   return async function _hasCourseAcceptedRoles(req, res, next) {
@@ -138,13 +138,13 @@ module.exports.requireRole = function () {
     const hasAuthorizedRole = roles.reduce((prev, curr) => prev || userCourseRoles[curr], false)
 
     if (!hasAuthorizedRole) {
-      const error = new Error(
-        'Du har inte behörighet att redigera Kursinformationssidan eftersom du inte är inlagd i KOPPS som examinator eller kursansvarig för kursen. \
+      const infoAboutAuth = {
+        status: 403,
+        message: `Du har inte behörighet att redigera Kursinformationssidan eftersom du inte är inlagd i KOPPS som examinator eller kursansvarig för kursen. \
         Se förteckning över KOPPS-administratörer som kan hjälpa dig att lägga in dig på rätt roll för din kurs. \
-        https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459'
-      )
-      error.status = 403
-      return next(error)
+        https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459`,
+      }
+      return System.final(infoAboutAuth, req, res)
     }
     return next()
   }
