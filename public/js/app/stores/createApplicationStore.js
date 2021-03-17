@@ -53,7 +53,7 @@ function createApplicationStore() {
     /**
      * @property {boolean} rebuilDraftFromPublishedVer
      */
-    rebuilDraftFromPublishedVer: observable.box(false),
+    rebuilDraftFromPublishedVer: false,
     /**
      * @property {boolean} showError
      */

@@ -29,7 +29,6 @@ const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
 }
 
 function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard }) {
-  console.log('visiblesOfStandard', visiblesOfStandard)
   const { memoData } = useStore()
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 

@@ -84,7 +84,7 @@ CourseFacts.propTypes = {
   departmentName: PropTypes.string,
   memoData: PropTypes.shape({
     memoName: PropTypes.string,
-    languageOfInstructions: PropTypes.oneOf(['Swedish', 'Svenska', 'English', 'Engelska']),
+    languageOfInstructions: PropTypes.oneOf(['', 'Swedish', 'Svenska', 'English', 'Engelska']),
   }),
   labels: PropTypes.objectOf(PropTypes.string).isRequired,
 }
