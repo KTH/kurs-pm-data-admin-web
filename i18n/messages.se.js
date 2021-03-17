@@ -491,14 +491,10 @@ module.exports = {
     {
       title: 'Redigera kurs-PM',
       intro: '',
-      info:
-        'I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.',
     },
     {
       title: 'Granska och publicera',
       intro: '',
-      info:
-        'I detta steg (3 av 3) visas hur kurs-PM kommer att se ut som webbsida. Kurs-PM kan också granskas som PDF. Här finns finns möjlighet att gå tillbaka för att redigera kurs-PM, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller att publicera kurs-PM som en undersida till: Om kursen / Förbereda och gå kurs.',
     },
   ],
   pagesChangePublishedPm: [
@@ -511,14 +507,10 @@ module.exports = {
     {
       title: 'Redigera kurs-PM',
       intro: '',
-      info:
-        'I detta steg (2 av 3) ska du redigera kurs-PM. Kurs-PM sparas automatiskt under redigeringen. Du kan längst ner på sidan välja att granska kurs-PM som PDF, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller gå vidare till nästa steg där det finns möjlighet att granska kurs-PM som en webbsida innan du väljer att publicera.',
     },
     {
       title: 'Granska och publicera',
       intro: '',
-      info:
-        'I detta steg (3 av 3) visas hur kurs-PM kommer att se ut som webbsida. Kurs-PM kan också granskas som PDF. Här finns finns möjlighet att gå tillbaka för att redigera kurs-PM, avsluta med ett sparat utkast (för att fortsätta redigering senare) eller att publicera kurs-PM som en undersida till: Om kursen / Förbereda och gå kurs.',
     },
   ],
   sectionsLabels: {

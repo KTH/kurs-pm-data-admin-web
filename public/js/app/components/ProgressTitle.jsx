@@ -1,5 +1,4 @@
 import React from 'react'
-import { InfoModalButton } from '@kth/kth-kip-style-react-components'
 import PropTypes from 'prop-types'
 
 const styles = {
@@ -14,18 +13,23 @@ const styles = {
   },
 }
 
-const ProgressTitle = ({ id, text, style }) => (
+const ProgressTitle = (
+  { id, text } // style, withInfoModal
+) => (
   <span style={styles.span} className="progress-title">
     <h2 id={id}>{text.title}</h2>
-    <InfoModalButton
-      style={{ ...styles.btnInfoModal, ...style }}
-      modalId={id + '-infoModal'}
-      modalLabels={{
-        header: text.title,
-        body: text.intro || text.info,
-        btnClose: 'Close',
-      }}
-    />
+    {/* TODO: clean it after moving to component library */}
+    {/* {withInfoModal && (
+      <InfoModalButton
+        style={{ ...styles.btnInfoModal, ...style }}
+        modalId={id + '-infoModal'}
+        modalLabels={{
+          header: text.title,
+          body: text.intro || text.info,
+          btnClose: 'Close',
+        }}
+      />
+    )} */}
   </span>
 )
 
@@ -36,10 +40,12 @@ ProgressTitle.propTypes = {
     intro: PropTypes.string,
     info: PropTypes.string,
   }).isRequired,
-  style: PropTypes.objectOf(PropTypes.string),
+  // style: PropTypes.objectOf(PropTypes.string),
+  // withInfoModal: PropTypes.bool,
 }
-ProgressTitle.defaultProps = {
-  style: {},
-}
+// ProgressTitle.defaultProps = {
+//   style: {},
+//   withInfoModal: false,
+// }
 
 export default ProgressTitle

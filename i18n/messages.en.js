@@ -500,15 +500,11 @@ module.exports = {
     {
       title: 'Edit course memo',
       intro: '',
-      info:
-        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.',
     },
     {
       title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
       It is possible to go back to make adjustments, to save a draft or publish the information.`,
-      info:
-        'In this step (3 of 3) you can review the course memo as it will look on the published web page. It is also possible to review the course memo as a PDF. You can return to the previous page if you want to continue editing the course memo, or you can end your work with this draft and return to it another time. If you publish this course memo it will be visible as a sub page to About the course / Prepare and take course.',
     },
   ],
   pagesChangePublishedPm: [
@@ -520,15 +516,11 @@ module.exports = {
     {
       title: 'Edit course memo',
       intro: '',
-      info:
-        'Compose your course memo in this step (2 of 3). Your changes to this course memo are automatically saved while you are editing the course memo. On the bottom of this web page you can preview the course memo as a PDF, you can exit (to continue editing this course memo another time) or proceed to the next page to preview the course memo as a web page before you decide to publish it.',
     },
     {
       title: 'Review and publish',
       intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
       It is possible to go back to make adjustments, to save a draft or publish the information.`,
-      info:
-        'In this step (3 of 3) you can review the course memo as it will look on the published web page. It is also possible to review the course memo as a PDF. You can return to the previous page if you want to continue editing the course memo, or you can end your work with this draft and return to it another time. If you publish this course memo it will be visible as a sub page to About the course / Prepare and take course.',
     },
   ],
   sectionsLabels: {
