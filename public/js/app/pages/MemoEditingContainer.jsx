@@ -14,7 +14,6 @@ import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComm
 import AlertSuccessCopiedMemo from '../components/alerts/AlertSuccessCopiedMemo'
 import AlertSuccessRebuild from '../components/alerts/AlertSuccessRebuild'
 import CollapseMemoIntroduction from '../components/details/CollapseMemoIntroduction'
-import CollapseSectionDetails from '../components/details/CollapseSectionDetails'
 import PageHead from '../components/PageHead'
 import CommentChangesTextarea from '../components/editors/CommentChangesTextarea'
 import ControlPanel from '../components/ControlPanel'
@@ -332,10 +331,6 @@ function MemoContainer(props) {
         // scrollUp
       >
         <span id={'section-header-' + id} />
-        <CollapseSectionDetails
-          title={`${sectionsSummary.about} ${sectionsLabelsInUserLang[id]}`}
-          details={sectionsSummary[id]}
-        />
         {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
           overlay windows from other section's editors */}
