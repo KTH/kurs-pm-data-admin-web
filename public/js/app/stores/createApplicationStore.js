@@ -67,7 +67,7 @@ function createApplicationStore() {
     /**
      * @property {string} sellingText
      */
-    sellingText: observable.box(''),
+    sellingText: '',
     /**
      * @property {string} imageFromAdmin
      */
@@ -133,7 +133,6 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 }
 
 function setVisibilityOfStandard(contentId, value) {
-  console.log('setVisibilityOfStandard', contentId, ' value ', value)
   this.memoData.visibleInMemo[contentId] = value
 }
 

@@ -101,9 +101,8 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('Get buttons and check it is name', async () => {
     const allBtns = getAllByRole('button')
-    expect(allBtns.length).toBe(13)
+    expect(allBtns.length).toBe(12)
     const expectedBtns = [
-      '', //Info icon
       breadCrumbLabels.university,
       breadCrumbLabels.student,
       breadCrumbLabels.directory,
