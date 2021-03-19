@@ -211,9 +211,18 @@ const typeOfHeader = contentId => context[contentId].type || ''
 
 const allStandardHeadersAndSubHd = () => [].concat(...sections.map(({ content }) => content)).sort()
 
-const getOnlyStandardHeaders = () => [...allStandardHeadersAndSubHd().filter(id => !contentParam(id, 'hasParentTitle'))]
+const getOnlyStandardHeaders = sectionId => {
+  const sectionContent = sections.find(({ id }) => id === sectionId)
+
+  return [...sectionContent.content.filter(id => !contentParam(id, 'hasParentTitle'))]
+}
 
 const getHeadersByType = headerType => [...allStandardHeadersAndSubHd().filter(id => context[id].type === headerType)]
+
+const getSectionHeadersByType = (headerType, sectionId) => {
+  const sectionContent = sections.find(({ id }) => id === sectionId)
+  return [...sectionContent.content.filter(id => context[id].type === headerType)]
+}
 
 // const getAlwaysRequiredButNotEditable = () => [
 //   ...allStandardHeadersAndSubHd().filter((id) => context[id].type === 'mandatory')
@@ -246,6 +255,7 @@ module.exports = {
   getNumOfEditableStandardContent,
   getNumOfStandardHeadersAndSubHd,
   getHeadersByType,
+  getSectionHeadersByType,
   getOnlyStandardHeaders,
   sections,
   isRequired,

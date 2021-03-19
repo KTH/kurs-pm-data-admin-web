@@ -321,15 +321,10 @@ function MemoContainer(props) {
   /* GENERAL VIEW OF ALL MEMO HEADERS WITH TEXT OR EDITOR */
 
   const renderTabSections = () => {
-    const { buttons, sectionsLabels: sectionsLabelsInUserLang, sectionsSummary } = i18n.messages[userLangIndex]
+    const { buttons } = i18n.messages[userLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
-      <TabSection
-        key={'tab-content-for-section-' + id}
-        isActive={activeTab === id}
-        sectionId={id}
-        // scrollUp
-      >
+      <TabSection key={'tab-content-for-section-' + id} isActive={activeTab === id} sectionId={id}>
         <span id={'section-header-' + id} />
         {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
