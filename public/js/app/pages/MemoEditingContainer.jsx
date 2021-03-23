@@ -38,6 +38,7 @@ function MemoContainer(props) {
   const store = useStore()
   const {
     courseCode,
+    closeEmptyHeadingErrorMessage,
     langIndex: userLangIndex,
     memoData,
     memoEndPoint,
@@ -49,8 +50,8 @@ function MemoContainer(props) {
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
   const [activeTab, setActiveTab] = useState(initialActiveTab || sections[0].id)
-  const [checkAllExtra, setCheckAllExtra] = useState(false) // check all extra content groups
-  const [checkOneContentId, setCheckOneContentId] = useState('') // check specific extra content group
+  const [needToCheckAllExtraHeading, setNeedToCheckAllExtraHeading] = useState(false) // check all extra content groups
+  const [contentIdWithMissingHeading, setContentIdWithMissingHeading] = useState('') // check specific extra content group
   const [openAlertIdUntilFixed, setOpenAlertIdUntilFixed] = useState('')
 
   const { commentAboutMadeChanges, lastPublishedVersionPublishDate, memoName, version, visibleInMemo } = memoData
@@ -68,12 +69,11 @@ function MemoContainer(props) {
     // check if it is time to hide red alert about empty titles of extra section
     // console.log('check all sections has title')
     const hasAllExtraHeadingsNamed = store.checkAllSectionsHasTitles()
-    console.log('check all sections has title', hasAllExtraHeadingsNamed)
 
     if (hasAllExtraHeadingsNamed && !!openAlertIdUntilFixed) {
       setOpenAlertIdUntilFixed('')
     }
-  })
+  }, [closeEmptyHeadingErrorMessage])
 
   useEffect(() => {
     store.cleanUpAllEmptyExtraContent()
@@ -205,7 +205,7 @@ function MemoContainer(props) {
     const canBeSwitched = store.checkExtraTitlesForSectionId(extraHeadersId)
     if (canBeSwitched) {
       setActiveTab(nextSectionId)
-      setCheckOneContentId('')
+      setContentIdWithMissingHeading('')
       setTimeout(() => {
         const startOfSection = document.getElementById(`section-header-${nextSectionId}`)
         if (startOfSection) {
@@ -215,7 +215,7 @@ function MemoContainer(props) {
 
       onAutoSave()
     } else {
-      setCheckOneContentId(extraHeadersId)
+      setContentIdWithMissingHeading(extraHeadersId)
       // Show alert below after scroll is done
       onToastAlert('errorEmptyHeading', 'danger', 500)
     }
@@ -254,7 +254,7 @@ function MemoContainer(props) {
   const handleBtnSaveAndMove = async (nextUrl = '') => {
     const hasAllExtraHeadingsNamed = store.checkAllSectionsHasTitles()
     if (!hasAllExtraHeadingsNamed) {
-      setCheckAllExtra(true)
+      setNeedToCheckAllExtraHeading(true)
       // Show alert below after scroll is done
       onToastAlert('errorEmptyHeading', 'danger', 500)
       return false
@@ -358,7 +358,7 @@ function MemoContainer(props) {
                   uKey={uKey}
                   onAlert={onToastAlert}
                   onSave={onSave}
-                  showError={checkOneContentId === extraHeaderTitle || checkAllExtra}
+                  showError={contentIdWithMissingHeading === extraHeaderTitle || needToCheckAllExtraHeading}
                 />
               ))}
             {extraHeaderTitle && (
