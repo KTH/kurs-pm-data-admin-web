@@ -16,12 +16,14 @@ import editorConf from '../../util/editorInitConf'
 
 function ExtraHeadingEditor(props) {
   const store = useStore()
+  // observer needed for dirtyEditor
+  // and when heading is added/deleted
   const { langIndex: userLangIndex, memoLangAbbr, memoData, dirtyEditor } = store
 
   const { currentIndex, contentId, menuId, showError, uKey } = props
 
-  const extraContent = memoData[contentId][currentIndex] || []
-  const { title, htmlContent, visibleInMemo } = extraContent
+  const [localExtraContent, setLocalExtraContent] = useState(memoData[contentId][currentIndex] || {})
+  const { title, htmlContent, visibleInMemo } = localExtraContent
 
   const hasEmptyHeading = !!(title.length === 0)
   const hasEmptyText = !!(htmlContent.length === 0)
@@ -34,17 +36,16 @@ function ExtraHeadingEditor(props) {
 
   useEffect(() => {
     // fast reaction to parent prop showError change when user clicked switch tab/submit
-    if (showError && !showEmptyHeadingErrorLabel) {
-      setEmptyHeadingErrorLabel(true)
+    if (showError && showEmptyHeadingErrorLabel) {
       const sectionElement = document.getElementById(menuId)
       sectionElement.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [showError, showEmptyHeadingErrorLabel])
+  }, [showEmptyHeadingErrorLabel])
 
   useEffect(() => {
     // check if hasEmptyHeading error is fixed and update state
     setEmptyHeadingErrorLabel(hasEmptyHeading && !hasEmptyText)
-  }, [title, htmlContent])
+  }, [showError, title, htmlContent])
 
   useEffect(() => {
     // decides to (keep) editor open if title it empty
@@ -52,29 +53,8 @@ function ExtraHeadingEditor(props) {
   }, [hasEmptyHeading])
 
   useEffect(() => {
-    store.checkTitleExist(contentId, currentIndex, hasEmptyHeading, hasEmptyText)
-  }, [title])
-
-  useEffect(() => {
-    store.setDirtyEditor(uKey)
-  }, [title, htmlContent, visibleInMemo])
-
-  const setNewContent = editorContent => {
-    store.setMemoExtraContent(contentId, currentIndex, 'htmlContent', editorContent.trim())
-  }
-
-  const setNewHeading = event => {
-    event.preventDefault()
-    const newTitle = event.target.value.trim()
-    store.setMemoExtraContent(contentId, currentIndex, 'title', newTitle)
-  }
-
-  const onRemoveThisContent = (wasEmpty = false) => {
-    store.setDirtyEditor(uKey)
-    store.removeExtraContent(contentId, currentIndex)
-    if (wasEmpty) props.onAlert('removedEmptyHeading', 'success', 500)
-    else props.onAlert('removedAddedHeading', 'success', 500)
-  }
+    store.setExtraContentProps(contentId, currentIndex, hasEmptyHeading, hasEmptyText)
+  }, [title, htmlContent])
 
   const onSaveByThisContentId = () => {
     const latestMemoData = store.memoData[contentId]
@@ -85,7 +65,40 @@ function ExtraHeadingEditor(props) {
     store.setDirtyEditor('')
   }
 
+  useEffect(() => {
+    store.setDirtyEditor(uKey)
+    // store.setMemoExtraContent(contentId, currentIndex, localExtraContent)
+
+    // return () => onSaveByThisContentId()
+  }, [title, htmlContent, visibleInMemo])
+
+  const setNewContent = editorContent => {
+    const newState = { ...localExtraContent, htmlContent: editorContent.trim() }
+    setLocalExtraContent(newState)
+    store.setMemoExtraContent(contentId, currentIndex, 'htmlContent', editorContent.trim())
+  }
+
+  const setNewHeading = event => {
+    event.preventDefault()
+    const newTitle = event.target.value.trim()
+    const newState = { ...localExtraContent, title: newTitle }
+    setLocalExtraContent(newState)
+
+    store.setMemoExtraContent(contentId, currentIndex, 'title', newTitle)
+  }
+
+  const onRemoveThisContent = (wasEmpty = false) => {
+    store.setDirtyEditor(uKey)
+    store.removeExtraContent(contentId, currentIndex)
+    onSaveByThisContentId()
+    if (wasEmpty) props.onAlert('removedEmptyHeading', 'success', 500)
+    else props.onAlert('removedAddedHeading', 'success', 500)
+  }
+
   const toggleVisibleInMemo = () => {
+    const newState = { ...localExtraContent, visibleInMemo: !visibleInMemo }
+    setLocalExtraContent(newState)
+
     store.setMemoExtraContent(contentId, currentIndex, 'visibleInMemo', !visibleInMemo)
     onSaveByThisContentId()
   }
