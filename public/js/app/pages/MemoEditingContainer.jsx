@@ -66,7 +66,10 @@ function MemoContainer(props) {
 
   useEffect(() => {
     // check if it is time to hide red alert about empty titles of extra section
+    // console.log('check all sections has title')
     const hasAllExtraHeadingsNamed = store.checkAllSectionsHasTitles()
+    console.log('check all sections has title', hasAllExtraHeadingsNamed)
+
     if (hasAllExtraHeadingsNamed && !!openAlertIdUntilFixed) {
       setOpenAlertIdUntilFixed('')
     }
@@ -84,8 +87,7 @@ function MemoContainer(props) {
         search: '',
       })
     }
-    // eslint-disable-next-line no-use-before-define
-    onScrollIntoView()
+    // onScrollIntoView()
   }, [])
 
   const courseSubHeader = () => {
@@ -175,15 +177,15 @@ function MemoContainer(props) {
 
   const onAutoSave = (data = store.memoData) => onSave(data, 'autoSaved') // save precisely this editor content by contentId
 
-  const onScrollIntoView = () => {
-    if (window.location.hash) {
-      const id = window.location.hash.replace('#', '')
-      const { scrollIntoView } = document.getElementById(id)
-      if (scrollIntoView) {
-        scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }
-    }
-  }
+  // const onScrollIntoView = () => {
+  //   if (window.location.hash) {
+  //     const id = window.location.hash.replace('#', '')
+  //     const { scrollIntoView } = document.getElementById(id)
+  //     if (scrollIntoView) {
+  //       scrollIntoView({ behavior: 'smooth', block: 'center' })
+  //     }
+  //   }
+  // }
 
   // Function for adding new titles with a content
   const onAddNewExtraContent = extraHeaderTitle => {
@@ -241,8 +243,8 @@ function MemoContainer(props) {
     } else {
       visible = false
     }
-    store.setVisibilityOfStandard(contentHeader, !visible)
-    onAutoSave({ visibleInMemo: !visible })
+    const returnNewVibisility = store.setVisibilityOfStandard(contentHeader, !visible)
+    onAutoSave({ visibleInMemo: returnNewVibisility })
   }
 
   /** * Conrol Panel ** */
