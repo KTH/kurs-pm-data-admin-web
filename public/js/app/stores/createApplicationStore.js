@@ -55,9 +55,9 @@ function createApplicationStore() {
      */
     rebuilDraftFromPublishedVer: false,
     /**
-     * @property {boolean} showError
+     * @property {boolean} closeEmptyHeadingErrorMessage
      */
-    showError: observable.box(false),
+    closeEmptyHeadingErrorMessage: observable.box(true),
     /**
      * @property {object} extraContentState
      */
@@ -82,9 +82,8 @@ function createApplicationStore() {
      * @property {string} thisHostBaseUrl
      */
     thisHostBaseUrl: observable.box(null),
-    checkTitleExist: action(checkTitleExist),
+    setExtraContentProps: action(setExtraContentProps),
     removeExtraContent: action(removeExtraContent),
-    stopAndShowError: action(stopAndShowError),
     checkExtraTitlesForSectionId: action(checkExtraTitlesForSectionId),
     checkAllSectionsHasTitles: action(checkAllSectionsHasTitles),
     cleanUpAllEmptyExtraContent: action(cleanUpAllEmptyExtraContent),
@@ -119,6 +118,7 @@ function setMemoByContentId(contentId, value) {
 
 function setMemoExtraContent(contentId, currentIndex = null, contextId = null, value = null) {
   this.memoData[contentId][currentIndex][contextId] = value
+  // this.memoData[contentId][currentIndex] = value
 }
 function setNewEmptyExtraContent(extraHeaderTitle) {
   const newSection = {
@@ -134,26 +134,27 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 
 function setVisibilityOfStandard(contentId, value) {
   this.memoData.visibleInMemo[contentId] = value
+  return this.memoData.visibleInMemo
 }
 
-function checkTitleExist(contentId, currentIndex, hasEmptyHeading, hasEmptyText) {
+function setExtraContentProps(contentId, currentIndex, hasEmptyHeading, hasEmptyText) {
   const hasEmptyHeadingAndText = hasEmptyText && hasEmptyHeading
 
   this.extraContentState[contentId][currentIndex] = {
     hasEmptyHeadingAndText,
-    hasEmptyText,
-    hasEmptyHeading,
-    canFinish: !hasEmptyHeading || hasEmptyHeadingAndText,
+    canFinish: hasEmptyHeadingAndText || !hasEmptyHeading,
   }
+
+  this.checkAllSectionsHasTitles()
 }
 
 function removeExtraContent(contentId, currentIndex) {
   this.memoData[contentId].splice(currentIndex, 1)
 }
 
-function stopAndShowError() {
-  this.showError = true
-}
+// function closeError() {
+//   this.closeError = true
+// }
 
 function cleanUpAllEmptyExtraContent(contentId) {
   const { extraContentState } = this
@@ -181,7 +182,7 @@ function checkAllSectionsHasTitles() {
     ({ extraHeaderTitle }) => this.checkExtraTitlesForSectionId(extraHeaderTitle) === false
   )
   const canBeFinished = !(filterEmpty.length > 0)
-
+  this.closeEmptyHeadingErrorMessage = canBeFinished
   return canBeFinished
 }
 
