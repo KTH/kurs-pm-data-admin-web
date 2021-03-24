@@ -121,8 +121,10 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   })
 
   test('tab: contentAndOutcomes. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
-    const openBtn = getAllByTestId('btn-open-editor')
-    expect(openBtn.length).toBe(2)
+    expect(getByTestId('btn-open-editor-learningActivities')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-scheduleDetails')).toBeInTheDocument()
+    expect(screen.queryByTestId('btn-open-editor-courseContent')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-open-editor-learningOutcomes')).not.toBeInTheDocument()
   })
 
   test('tab: contentAndOutcomes. check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
@@ -151,7 +153,6 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   })
 
   test('tab: contentAndOutcomes. renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
-    const { mandatoryForSome: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'contentAndOutcomes')
     expect(headers.length).toBe(0)
@@ -189,6 +190,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     const { section: sectionIsEmpty } = sourceInfo.noInfoYet
     //Läraktiviteter - Learning activities
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-learningActivities')
+    expect(checkboxIncludeInMemo.checked).toBeFalsy()
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
       expect(checkboxIncludeInMemo.checked).toBeTruthy()
@@ -202,9 +204,23 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     const { section: sectionIsEmpty } = sourceInfo.noInfoYet
     //Detailed plan
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-scheduleDetails')
+    expect(checkboxIncludeInMemo.checked).toBeFalsy()
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
       expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: contentAndOutcomes. Check if button edit/close editor works. If no content exist then scheduleDetails should be closed in the beginning.', async () => {
+    //Detailed plan
+
+    const editorOpenBtn = screen.queryByTestId('btn-open-editor-scheduleDetails')
+    expect(editorOpenBtn).toBeInTheDocument()
+
+    fireEvent.click(editorOpenBtn)
+    await waitFor(() => {
+      const close = screen.queryByTestId('btn-close-editor-scheduleDetails')
+      expect(close).toBeInTheDocument()
     })
   })
 
@@ -249,15 +265,15 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
 
   test('tab: contentAndOutcomes. render a correct number of infos about data origin and source info ', () => {
     expect(getAllByText('from course syllabus').length).toBe(2)
-    // expect(getAllByText('from common course information').length).toBe(1)
-    // expect(getAllByText('Fetched from course round information').length).toBe(3)
+    expect(screen.queryByText('from common course information')).not.toBeInTheDocument()
+    expect(screen.queryByText('Fetched from course round information')).not.toBeInTheDocument()
   })
 
   test('tab: contentAndOutcomes. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Always included').length).toBe(2)
     expect(getAllByText('Include').length).toBe(2)
-    // expect(getAllByText('Included for some courses').length).toBe(0)
-    // expect(getAllByText('Include additional section').length).toBe(1)
+    expect(screen.queryByText('Included for some courses')).not.toBeInTheDocument()
+    expect(screen.queryByText('Include additional section')).not.toBeInTheDocument()
   })
 })
 
@@ -349,9 +365,17 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
-    const openBtn = getAllByTestId('btn-open-editor')
-    // const expectedNumOfEditable = getNumOfEditableStandardContent()
-    expect(openBtn.length).toBe(5)
+    expect(getByTestId('btn-open-editor-preparations')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-literature')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-equipment')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-software')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-permanentDisabilitySubSection')).toBeInTheDocument()
+
+    expect(screen.queryByTestId('btn-open-editor-prerequisites')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-open-editor-permanentDisability')).not.toBeInTheDocument()
+
+    expect(screen.queryByTestId('btn-close-editor-prerequisites')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-close-editor-permanentDisability')).not.toBeInTheDocument()
   })
 
   test('tab: prep. check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
@@ -364,7 +388,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(headers.length).toBe(6)
     headers.map(headerId => {
       const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
-      expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
+      expect(contentAndMenyHd.length).toBe(2)
     })
   })
 
@@ -657,9 +681,9 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   })
 
   test('tab: examinations. Click button Redigera and reveal section with collapse and editor', async done => {
-    fireEvent.click(getAllByText('Redigera')[1])
+    fireEvent.click(getAllByText('Redigera')[1]) // click on gradingCriteria
     await waitFor(() => {
-      expect(getByTestId('standard-editor')).toBeInTheDocument()
+      expect(getByTestId('standard-editor-gradingCriteria')).toBeInTheDocument()
     })
     done()
   })
@@ -773,9 +797,19 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
   })
 
-  test('tab: contacts. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
-    const openBtn = getAllByTestId('btn-open-editor')
-    expect(openBtn.length).toBe(2)
+  test('tab: contacts. Check which fields have edit/close buttons and which not', async () => {
+    expect(getByTestId('btn-open-editor-communicationDuringCourse')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-otherContacts')).toBeInTheDocument()
+
+    expect(screen.queryByTestId('btn-open-editor-courseCoordinator')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-open-editor-teacher')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-open-editor-teacherAssistants')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-open-editor-examiner')).not.toBeInTheDocument()
+
+    expect(screen.queryByTestId('btn-close-editor-courseCoordinator')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-close-editor-teacher')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-close-editor-teacherAssistants')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-close-editor-examiner')).not.toBeInTheDocument()
   })
 
   test('tab: contacts. check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
@@ -834,34 +868,54 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
     expect(dynamicSections.length).toBe(2)
   })
 
-  // test('tab: contacts. renders checkbox, check they are not checked in because memo content is empty', async () => {
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')
-  //   expect(checkboxIncludeInMemo.length).toBe(18)
-  //   checkboxIncludeInMemo.map(ch => expect(ch.checked).toBeFalsy())
-  // })
+  //communicationDuringCourse
+  test('tab: contacts. Renders "communicationDuringCourse" checkbox which are not checked and check it to reveal message about empty content', async () => {
+    const { section: sectionIsEmpty } = sourceInfo.noInfoYet
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-communicationDuringCourse')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      expect(getByText(sectionIsEmpty)).toBeInTheDocument()
+      const text = getByTestId('text-for-memo-optionalEditable-communicationDuringCourse')
+      expect(text).toHaveTextContent(sectionIsEmpty)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
 
-  // test('tab: contacts. renders checkbox which are not checked and check it to reveal message about empty content', async () => {
-  //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-  //   //Läraktiviteter - Learning activities
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[0]
-  //   fireEvent.click(checkboxIncludeInMemo)
-  //   await waitFor(() => {
-  //     expect(checkboxIncludeInMemo.checked).toBeTruthy()
-  //     expect(getByText(sectionIsEmpty)).toBeInTheDocument()
-  //     const learningActivitiesText = getAllByTestId('text-for-memo-optionalEditable-learningActivities')[0]
-  //     expect(learningActivitiesText).toHaveTextContent(sectionIsEmpty)
-  //   })
-  // })
+  //otherContacts
+  test('tab: contacts. Renders "otherContacts" checkbox which are not checked and check it to reveal message about empty content', async () => {
+    const { section: sectionIsEmpty } = sourceInfo.noInfoYet
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-otherContacts')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      expect(getByText(sectionIsEmpty)).toBeInTheDocument()
+      const text = getByTestId('text-for-memo-optionalEditable-otherContacts')
+      expect(text).toHaveTextContent(sectionIsEmpty)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
 
-  // test('tab: contacts. renders alert about result of saving data', async () => {
-  //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-  //   //Detailed plan
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[1]
-  //   fireEvent.click(checkboxIncludeInMemo)
-  //   await waitFor(() => {
-  //     expect(getByTestId('alert-save-data')).toBeInTheDocument()
-  //   })
-  // })
+  //checkbox-visibility-teacherAssistants
+  test('tab: contacts. Renders "teacherAssistants" checkbox which are not checked and check it to reveal message about empty content', async () => {
+    const { optional: optionalIsEmpty } = sourceInfo.nothingFetched
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-teacherAssistants')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      const text = getByTestId('text-for-memo-optional-teacherAssistants')
+      expect(text).toHaveTextContent(optionalIsEmpty)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: contacts. renders alert about result of saving data', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-teacherAssistants')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(getByTestId('alert-save-data')).toHaveTextContent('Something went wrong. Contact IT Support.')
+    })
+  })
 
   test('tab: contacts. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
