@@ -621,6 +621,10 @@ label + label {
   height: $btn-link-height;
 }
 
+#menu-link-directory.btn.btn-link {
+  height: 50px;
+}
+
 /* Breadcrumbs in preview */
 
 .breadcrumb {
