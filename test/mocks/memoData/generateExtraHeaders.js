@@ -4,7 +4,7 @@ const visibleHeaders = headerId => {
   const twovisibleHeaders = ['First header', 'Second header'].map((title, index) => {
     const readableContent = `Html content for section ${title}`
     return {
-      uKey: Math.random().toString(),
+      uKey: title.split(' ').join(''),
       title: `Created by user ${title} for section ${headerId}`,
       htmlContent: `<p>${readableContent}</p>`,
       readContentExistsONLYforTest: readableContent,
