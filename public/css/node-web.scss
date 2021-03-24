@@ -828,7 +828,8 @@ div.tox.tox-tinymce {
 
 //===STYLES FOR EDITOR AND PLAIN TEXT, SHOULD NOT HAVE PARENT CLASSES, BUT BE GLOBAL===
 p,
-ul {
+ul,
+ol {
   @extend %long-text-font-style;
 }
 table {
