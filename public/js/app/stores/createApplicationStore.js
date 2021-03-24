@@ -15,29 +15,29 @@ function createApplicationStore() {
      * @property {string} dirtyEditor
      * @property {string} semester
      */
-    courseCode: observable.box(null),
+    courseCode: null,
     dirtyEditor: observable.box(''),
-    semester: observable.box(null),
+    semester: null,
     /**
      * @property {object} koppsFreshData
      */
-    koppsFreshData: observable.box({}),
+    koppsFreshData: {},
     /**
      * @property {number} langIndex
      */
-    langIndex: observable.box(0),
+    langIndex: 0,
     /**
      * @property {string} langAbbr
      */
-    langAbbr: observable.box('en'),
+    langAbbr: 'en',
     /**
      * @property {object} miniKoppsObj
      */
-    miniKoppsObj: observable.box({}),
+    miniKoppsObj: {},
     /**
      * @property {string} memoEndPoint
      */
-    memoEndPoint: observable.box(null),
+    memoEndPoint: null,
     /**
      * @property {string} memoLangAbbr
      */
@@ -49,7 +49,7 @@ function createApplicationStore() {
     /**
      * @property {object} miniMemos
      */
-    miniMemos: observable.box({}),
+    miniMemos: {},
     /**
      * @property {boolean} rebuilDraftFromPublishedVer
      */
@@ -75,13 +75,13 @@ function createApplicationStore() {
     /**
      * @property {object} browserConfig
      */
-    browserConfig: observable.box(null),
-    paths: observable.box(null),
-    apiHost: observable.box(null),
+    browserConfig: null,
+    paths: null,
+    apiHost: null,
     /**
      * @property {string} thisHostBaseUrl
      */
-    thisHostBaseUrl: observable.box(null),
+    thisHostBaseUrl: null,
     setExtraContentProps: action(setExtraContentProps),
     removeExtraContent: action(removeExtraContent),
     checkExtraTitlesForSectionId: action(checkExtraTitlesForSectionId),
