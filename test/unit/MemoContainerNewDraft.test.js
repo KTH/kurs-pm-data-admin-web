@@ -94,13 +94,13 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
       'Information about Course contents',
       'Information about Intended learning outcomes',
       'Information about Learning activities',
-      null,
+      'Edit Learning activities',
       'Information about Detailed plan',
+      'Edit Detailed plan',
       null,
       null,
       null,
-      null,
-      'cancel',
+      'Exit (save draft)',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -305,19 +305,19 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     const expectedAriaLabels = [
       'Information about Recommended prerequisites',
       'Information about Specific preparations',
-      null,
+      'Edit Specific preparations',
       'Information about Literature',
-      null,
+      'Edit Literature',
       'Information about Equipment',
-      null,
+      'Edit Equipment',
       'Information about Software',
-      null,
+      'Edit Software',
       'Information about Support for students with disabilities',
+      'Edit Support for students with disabilities',
       null,
       null,
       null,
-      null,
-      'cancel',
+      'Exit (save draft)',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -717,16 +717,16 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     expect(allButtons.length).toBe(12)
     const expectedAriaLabels = [
       'Information about Communication during course',
-      null,
+      'Edit Communication during course',
       'Information about Course coordinator',
       'Information about Teacher',
       'Information about Teacher assistants',
       'Information about Examiner',
       'Information about Other contacts',
+      'Edit Other contacts',
       null,
       null,
-      null,
-      'cancel',
+      'Exit (save draft)',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))

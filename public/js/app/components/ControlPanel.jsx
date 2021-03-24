@@ -83,6 +83,7 @@ const ControlPanel = props => {
             />
           ))) || (
           <ActionModalButton
+            aria-label={progressNum === 1 ? buttons.btnFinish : buttons.btnSaveAndFinish}
             btnLabel={progressNum === 1 ? buttons.btnFinish : buttons.btnSaveAndFinish}
             modalId="cancelThisAction"
             type="cancel"

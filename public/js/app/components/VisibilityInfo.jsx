@@ -22,9 +22,8 @@ const VisibilityInfo = ({
   const isHeaderInConf = !!context[contentId]
 
   const { isEditable } = context[contentId] || false
-  const { sourceInfo, buttons } = i18n.messages[userLangIndex]
+  const { sourceInfo, buttons, memoTitlesByMemoLang: memoTitles } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
-
   return (
     <span className="section-info word-break">
       <span>
@@ -66,6 +65,9 @@ const VisibilityInfo = ({
       </span>
       {(!isHeaderInConf || isEditable) && (
         <Button
+          aria-label={`${isEditorOpen ? buttons.closeEditor : buttons.edit} ${
+            memoTitles[contentId] || memoTitles[contentId.substring(0, contentId.length - 10)]
+          }`}
           className="mb-0 mt-0"
           onClick={() => onToggleVisibleEditor()}
           data-testid={isEditorOpen ? 'btn-close-editor' : 'btn-open-editor'}

@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "@kth/kth-kip-style-react-components": "0.1.1",
+    "@kth/kth-kip-style-react-components": "0.1.2",
     "@tinymce/tinymce-react": "^3.10.4",
     "applicationinsights": "^1.8.10",
     "axios": "^0.21.1",
