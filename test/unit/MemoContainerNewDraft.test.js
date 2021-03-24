@@ -90,7 +90,19 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   test('renders all buttons', async () => {
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(11)
-    const expectedAriaLabels = ['Info', 'Info', 'Info', null, 'Info', null, null, null, null, 'cancel', null]
+    const expectedAriaLabels = [
+      'Information about Course contents',
+      'Information about Intended learning outcomes',
+      'Information about Learning activities',
+      null,
+      'Information about Detailed plan',
+      null,
+      null,
+      null,
+      null,
+      'cancel',
+      null,
+    ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
       '',
@@ -291,16 +303,16 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(16)
     const expectedAriaLabels = [
-      'Info',
-      'Info',
+      'Information about Recommended prerequisites',
+      'Information about Specific preparations',
       null,
-      'Info',
+      'Information about Literature',
       null,
-      'Info',
+      'Information about Equipment',
       null,
-      'Info',
+      'Information about Software',
       null,
-      'Info',
+      'Information about Support for students with disabilities',
       null,
       null,
       null,
@@ -703,7 +715,20 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
   test('renders all buttons', async () => {
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(12)
-    const expectedAriaLabels = ['Info', null, 'Info', 'Info', 'Info', 'Info', 'Info', null, null, null, 'cancel', null]
+    const expectedAriaLabels = [
+      'Information about Communication during course',
+      null,
+      'Information about Course coordinator',
+      'Information about Teacher',
+      'Information about Teacher assistants',
+      'Information about Examiner',
+      'Information about Other contacts',
+      null,
+      null,
+      null,
+      'cancel',
+      null,
+    ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
       '',
