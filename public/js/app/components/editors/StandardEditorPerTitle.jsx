@@ -76,7 +76,7 @@ function StandardEditorPerTitle(props) {
         userLangIndex={userLangIndex}
       />
       {isOpen && (
-        <span data-testid="standard-editor">
+        <span data-testid={`standard-editor-${contentId}`}>
           <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
           <Editor
             id={'editorFor' + contentId}

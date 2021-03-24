@@ -52,6 +52,7 @@ const mockApplicationStoreWithChosenMemo = (
     rounds: [],
     ...updateStoreWith,
     memoData: { ...mockedMemoData, ...reducedKoppsData[userLang] },
+    extraContentState: { extraHeaders1: [], extraHeaders2: [], extraHeaders3: [], extraHeaders4: [] },
   }
 
   return routerWithMemoData

@@ -121,7 +121,6 @@ function ExtraHeadingEditor(props) {
     setOpenStatus(!isOpen)
     return true
   }
-
   return (
     <span id={menuId} className="Added--New--Title--And--Info">
       {!isOpen && (
@@ -143,7 +142,7 @@ function ExtraHeadingEditor(props) {
         userLangIndex={userLangIndex}
       />
       {isOpen && (
-        <span>
+        <span data-testid={`extra-content-editor-${contentId}-${uKey}`}>
           <Form className={showEmptyHeadingErrorLabel ? 'error-area' : ''}>
             <FormGroup className="title">
               <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>

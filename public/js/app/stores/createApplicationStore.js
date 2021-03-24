@@ -139,7 +139,6 @@ function setVisibilityOfStandard(contentId, value) {
 
 function setExtraContentProps(contentId, currentIndex, hasEmptyHeading, hasEmptyText) {
   const hasEmptyHeadingAndText = hasEmptyText && hasEmptyHeading
-
   this.extraContentState[contentId][currentIndex] = {
     hasEmptyHeadingAndText,
     canFinish: hasEmptyHeadingAndText || !hasEmptyHeading,

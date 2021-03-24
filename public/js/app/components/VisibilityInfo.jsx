@@ -70,7 +70,7 @@ const VisibilityInfo = ({
           }`}
           className="mb-0 mt-0"
           onClick={() => onToggleVisibleEditor()}
-          data-testid={isEditorOpen ? 'btn-close-editor' : 'btn-open-editor'}
+          data-testid={isEditorOpen ? `btn-close-editor-${contentId}` : `btn-open-editor-${contentId}`}
         >
           {isEditorOpen ? buttons.closeEditor : buttons.edit}
         </Button>

@@ -432,7 +432,7 @@ function MemoContainer(props) {
                 activeTabId={activeTab}
                 onClick={onChangeTab}
                 sections={sections}
-                sectionsLabels={i18n.messages[memoLangIndex].sectionsLabels}
+                sectionsLabels={sectionsLabels}
               />
               <div className="white-space-under-tabs" />
             </div>
