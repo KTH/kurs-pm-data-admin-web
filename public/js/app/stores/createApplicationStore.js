@@ -71,7 +71,7 @@ function createApplicationStore() {
     /**
      * @property {string} imageFromAdmin
      */
-    imageFromAdmin: observable.box(''),
+    imageFromAdmin: '',
     /**
      * @property {object} browserConfig
      */
