@@ -494,7 +494,7 @@ module.exports = {
       intro: `Choose a semester and a course offering for the course memo to be published (step 1 of 3). 
       You can choose to start from a completely empty KTH course memo template or start from a copy of a course memo from a previous course offering. 
       In the next step (2 of 3) you can edit the course memo. 
-      Preview the course memo in the last step (3 of 3) and then publish it on the course site “About the course” for the chosen semester and course offering.
+      Preview the course memo in the last step (3 of 3) and then publish it as a subpage to “Prepare and take course”.
       `,
     },
     {
@@ -503,8 +503,7 @@ module.exports = {
     },
     {
       title: 'Review and publish',
-      intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
-      It is possible to go back to make adjustments, to save a draft or publish the information.`,
+      intro: '',
     },
   ],
   pagesChangePublishedPm: [
@@ -519,8 +518,7 @@ module.exports = {
     },
     {
       title: 'Review and publish',
-      intro: `In this step (3 of 3) a preview of the course memo data with course data is presented as it will be published on the page .... 
-      It is possible to go back to make adjustments, to save a draft or publish the information.`,
+      intro: '',
     },
   ],
   sectionsLabels: {

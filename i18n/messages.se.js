@@ -486,7 +486,7 @@ module.exports = {
     {
       title: 'Välj kursomgång',
       intro: `Börja med att välja kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. 
-      I sista steget (3 av 3) ges möjlighet att först granska kurs-PM och sedan publicera det som en undersida till: Om kursen [kurskod]/Förbereda och gå kurs.`,
+      I sista steget (3 av 3) ges möjlighet att först granska kurs-PM och sedan publicera det som en undersida till “Förbereda och gå kurs”.`,
     },
     {
       title: 'Redigera kurs-PM',
@@ -502,7 +502,7 @@ module.exports = {
       title: 'Välj kurs-PM',
       intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
       I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
-      och sedan publicera en ny version av kurs-PM på sidan: Om kursen / Förbereda och gå (kurs-PM)`,
+      och sedan publicera en ny version av kurs-PM på sidan “Förbereda och gå kurs” (kurs-PM)`,
     },
     {
       title: 'Redigera kurs-PM',
