@@ -50,17 +50,17 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
         await render(<EditFreshDraftOfNewMemo activeTab="contentAndOutcomes" memoLang="en" userLang="en" />)
       })
   )
-  test('renders a page with a new draft of a new memo', done => {
+  test('tab: contentAndOutcomes. renders a page with a new draft of a new memo', done => {
     done()
   })
 
-  test('renders main header h1, page name', () => {
+  test('tab: contentAndOutcomes. renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
   })
 
-  test('renders main subheader h4 (course name)(en) and other menu h4', () => {
+  test('tab: contentAndOutcomes. renders main subheader h4 (course name)(en) and other menu h4', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(3)
@@ -68,7 +68,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
-  test('renders main header h2 (page name) in user lang(sv)', () => {
+  test('tab: contentAndOutcomes. renders main header h2 (page name) in user lang(sv)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -76,7 +76,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     expect(allH2Headers[0]).toHaveTextContent('Edit course memo')
   })
 
-  test('renders memo sections headers in memo lang (en) in tab pane', () => {
+  test('tab: contentAndOutcomes. renders memo sections headers in memo lang (en) in tab pane', () => {
     const allTabs = getAllByRole('tab')
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -87,7 +87,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     })
   })
 
-  test('renders all buttons', async () => {
+  test('tab: contentAndOutcomes. renders all buttons', async () => {
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(11)
     const expectedAriaLabels = [
@@ -120,18 +120,17 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
   })
 
-  test('renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
+  test('tab: contentAndOutcomes. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
     const openBtn = getAllByTestId('btn-open-editor')
-    // const expectedNumOfEditable = getNumOfEditableStandardContent()
     expect(openBtn.length).toBe(2)
   })
 
-  test('check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
+  test('tab: contentAndOutcomes. check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
     const msgs = getAllByTestId('msg-text-about-empty')
     expect(msgs.length).toBe(2)
   })
 
-  test('check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+  test('tab: contentAndOutcomes. check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('contentAndOutcomes')
     expect(headers.length).toBe(4)
     headers.map(headerId => {
@@ -140,7 +139,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     })
   })
 
-  test('renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
+  test('tab: contentAndOutcomes. renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
     const { mandatory: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatory'
     const headers = getSectionHeadersByType(contentType, 'contentAndOutcomes')
@@ -151,14 +150,14 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     })
   })
 
-  test('renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
+  test('tab: contentAndOutcomes. renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
     const { mandatoryForSome: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'contentAndOutcomes')
     expect(headers.length).toBe(0)
   })
 
-  test('renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content', async () => {
+  test('tab: contentAndOutcomes. renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content', async () => {
     const { mandatoryAndEditable: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'contentAndOutcomes')
@@ -169,74 +168,68 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     })
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
+  test('tab: contentAndOutcomes. renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
     const contentType = 'optionalEditable'
     const headersAndSubHds = getSectionHeadersByType(contentType, 'contentAndOutcomes')
     expect(headersAndSubHds.length).toBe(2)
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and non-editable and have no content (not included as well)', async () => {
+  test('tab: contentAndOutcomes. renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and non-editable and have no content (not included as well)', async () => {
     const contentType = 'optional'
     const headersAndSubHds = getSectionHeadersByType(contentType, 'contentAndOutcomes')
     expect(headersAndSubHds.length).toBe(0)
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
+  test('tab: contentAndOutcomes. renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
     const dynamicSections = getAllByTestId(`dynamic-empty-content-and-not-included`)
     expect(dynamicSections.length).toBe(2)
   })
 
-  // test('renders checkbox, check they are not checked in because memo content is empty', async () => {
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')
-  //   expect(checkboxIncludeInMemo.length).toBe(18)
-  //   checkboxIncludeInMemo.map(ch => expect(ch.checked).toBeFalsy())
-  // })
+  test('tab: contentAndOutcomes. renders "Learning activities" checkbox which are not checked and check it to reveal message about empty content', async () => {
+    const { section: sectionIsEmpty } = sourceInfo.noInfoYet
+    //Läraktiviteter - Learning activities
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-learningActivities')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      expect(getByText(sectionIsEmpty)).toBeInTheDocument()
+      const learningActivitiesText = getByTestId('text-for-memo-optionalEditable-learningActivities')
+      expect(learningActivitiesText).toHaveTextContent(sectionIsEmpty)
+    })
+  })
 
-  // test('renders checkbox which are not checked and check it to reveal message about empty content', async () => {
-  //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-  //   //Läraktiviteter - Learning activities
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[0]
-  //   fireEvent.click(checkboxIncludeInMemo)
-  //   await waitFor(() => {
-  //     expect(checkboxIncludeInMemo.checked).toBeTruthy()
-  //     expect(getByText(sectionIsEmpty)).toBeInTheDocument()
-  //     const learningActivitiesText = getAllByTestId('text-for-memo-optionalEditable-learningActivities')[0]
-  //     expect(learningActivitiesText).toHaveTextContent(sectionIsEmpty)
-  //   })
-  // })
+  test('tab: contentAndOutcomes. renders alert about result of saving data', async () => {
+    const { section: sectionIsEmpty } = sourceInfo.noInfoYet
+    //Detailed plan
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-scheduleDetails')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
 
-  // test('renders alert about result of saving data', async () => {
-  //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-  //   //Detailed plan
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[1]
-  //   fireEvent.click(checkboxIncludeInMemo)
-  //   await waitFor(() => {
-  //     expect(getByTestId('alert-save-data')).toBeInTheDocument()
-  //   })
-  // })
-
-  test('check texts of buttons in control panel it is different for Create new', async () => {
+  test('tab: contentAndOutcomes. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
     expect(getByText('Save draft')).toBeInTheDocument()
     expect(getByText('Exit (save draft)')).toBeInTheDocument()
     expect(getByText('Preview')).toBeInTheDocument()
   })
 
-  test('Click button Save draft', async () => {
+  test('tab: contentAndOutcomes. Click button Save draft', async () => {
     fireEvent.click(getByText('Save draft'))
     await waitFor(() => {
       expect(getByTestId('alert-save-data')).toBeInTheDocument()
     })
   })
 
-  test('Click button Save draft', async () => {
+  test('tab: contentAndOutcomes. Click button Save draft', async () => {
     fireEvent.click(getAllByText('Edit')[0])
     await waitFor(() => {
       expect(getByText('Close edit mode')).toBeInTheDocument()
     })
   })
 
-  test('Click button Edit and render collapse with detailed info about header', async done => {
+  test('tab: contentAndOutcomes. Click button Edit and render collapse with detailed info about header', async done => {
     fireEvent.click(getAllByText('Edit')[1])
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
@@ -244,14 +237,27 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     done()
   })
 
-  test('get memo name', async () => {
+  test('tab: contentAndOutcomes. get memo name', async () => {
     expect(
       getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
     ).toBeInTheDocument()
   })
 
-  test('get memo semester', async () => {
+  test('tab: contentAndOutcomes. get memo semester', async () => {
     expect(getByText('Autumn 2020')).toBeInTheDocument()
+  })
+
+  test('tab: contentAndOutcomes. render a correct number of infos about data origin and source info ', () => {
+    expect(getAllByText('from course syllabus').length).toBe(2)
+    // expect(getAllByText('from common course information').length).toBe(1)
+    // expect(getAllByText('Fetched from course round information').length).toBe(3)
+  })
+
+  test('tab: contentAndOutcomes. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
+    expect(getAllByText('Always included').length).toBe(2)
+    expect(getAllByText('Include').length).toBe(2)
+    // expect(getAllByText('Included for some courses').length).toBe(0)
+    // expect(getAllByText('Include additional section').length).toBe(1)
   })
 })
 
@@ -262,17 +268,17 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
         await render(<EditFreshDraftOfNewMemo activeTab="prep" memoLang="en" userLang="en" />)
       })
   )
-  test('renders a page with a new draft of a new memo', done => {
+  test('tab: prep. renders a page with a new draft of a new memo', done => {
     done()
   })
 
-  test('renders main header h1, page name', () => {
+  test('tab: prep. renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
   })
 
-  test('renders main subheader h4 (course name)(en) and other menu h4', () => {
+  test('tab: prep. renders main subheader h4 (course name)(en) and other menu h4', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(3)
@@ -280,7 +286,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
-  test('renders main header h2 (page name) in user lang(sv)', () => {
+  test('tab: prep. renders main header h2 (page name) in user lang(sv)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -288,7 +294,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(allH2Headers[0]).toHaveTextContent('Edit course memo')
   })
 
-  test('renders memo sections headers in memo lang (en) in tab pane', () => {
+  test('tab: prep. renders memo sections headers in memo lang (en) in tab pane', () => {
     const allTabs = getAllByRole('tab')
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -299,7 +305,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     })
   })
 
-  test('renders all buttons', async () => {
+  test('tab: prep. renders all buttons', async () => {
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(16)
     const expectedAriaLabels = [
@@ -342,18 +348,18 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
   })
 
-  test('renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
+  test('tab: prep. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
     const openBtn = getAllByTestId('btn-open-editor')
     // const expectedNumOfEditable = getNumOfEditableStandardContent()
     expect(openBtn.length).toBe(5)
   })
 
-  test('check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
+  test('tab: prep. check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
     const msgs = getAllByTestId('msg-text-about-empty')
     expect(msgs.length).toBe(2)
   })
 
-  test('check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+  test('tab: prep. check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('prep')
     expect(headers.length).toBe(6)
     headers.map(headerId => {
@@ -362,7 +368,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     })
   })
 
-  test('renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
+  test('tab: prep. renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
     const { mandatory: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatory'
     const headers = getSectionHeadersByType(contentType, 'prep')
@@ -373,18 +379,14 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     })
   })
 
-  test('renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
+  test('tab: prep. renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
     const { mandatoryForSome: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'prep')
     expect(headers.length).toBe(0)
-    // headers.map(contentId => {
-    //   const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-    //   expect(hdContent).toHaveTextContent(emptyTextMsg)
-    // })
   })
 
-  test('renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content', async () => {
+  test('tab: prep. renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content', async () => {
     const { mandatoryAndEditable: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'prep')
@@ -395,74 +397,115 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     })
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
+  test('tab: prep. renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
     const contentType = 'optionalEditable'
     const headersAndSubHds = getSectionHeadersByType(contentType, 'prep')
     expect(headersAndSubHds.length).toBe(3)
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and non-editable and have no content (not included as well)', async () => {
+  test('tab: prep. renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and non-editable and have no content (not included as well)', async () => {
     const contentType = 'optional'
     const headersAndSubHds = getSectionHeadersByType(contentType, 'prep')
     expect(headersAndSubHds.length).toBe(1)
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
+  test('tab: prep. renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
     const dynamicSections = getAllByTestId(`dynamic-empty-content-and-not-included`)
     expect(dynamicSections.length).toBe(4)
   })
 
-  // test('renders checkbox, check they are not checked in because memo content is empty', async () => {
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')
-  //   expect(checkboxIncludeInMemo.length).toBe(18)
-  //   checkboxIncludeInMemo.map(ch => expect(ch.checked).toBeFalsy())
-  // })
+  test('tab: prep. information about empty optional (non-editable) content is not visible because it is not included in memo (checkbox is empy)', async () => {
+    const { optional: optionalIsEmpty } = sourceInfo.nothingFetched
+    const invisibleMsgForOptional = getAllByText(optionalIsEmpty)
+    invisibleMsgForOptional.map(msg => expect(msg).not.toBeVisible())
+  })
 
-  // test('renders checkbox which are not checked and check it to reveal message about empty content', async () => {
-  //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-  //   //Läraktiviteter - Learning activities
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[0]
-  //   fireEvent.click(checkboxIncludeInMemo)
-  //   await waitFor(() => {
-  //     expect(checkboxIncludeInMemo.checked).toBeTruthy()
-  //     expect(getByText(sectionIsEmpty)).toBeInTheDocument()
-  //     const learningActivitiesText = getAllByTestId('text-for-memo-optionalEditable-learningActivities')[0]
-  //     expect(learningActivitiesText).toHaveTextContent(sectionIsEmpty)
-  //   })
-  // })
+  test('tab: prep. renders "prerequisites" checkbox which are not checked and check it to reveal message about empty content for optional header', async () => {
+    const { nothingFetched } = sourceInfo
+    //prerequisites
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-prerequisites')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      const prerequisitesText = getByTestId('text-for-memo-optional-prerequisites')
+      expect(prerequisitesText).toHaveTextContent(nothingFetched.optional)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
 
-  // test('renders alert about result of saving data', async () => {
-  //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-  //   //Detailed plan
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[1]
-  //   fireEvent.click(checkboxIncludeInMemo)
-  //   await waitFor(() => {
-  //     expect(getByTestId('alert-save-data')).toBeInTheDocument()
-  //   })
-  // })
+  test('tab: prep. renders "preparations" checkbox which are not checked and check it to reveal message about empty content for optionalEditable header', async () => {
+    const { section: emptyTextMsg } = sourceInfo.noInfoYet
+    //preparations
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-preparations')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      // expect(getByText(nothingFetched)).toBeInTheDocument()
+      const preparationsText = getByTestId('text-for-memo-optionalEditable-preparations')
+      expect(preparationsText).toHaveTextContent(emptyTextMsg)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
 
-  test('check texts of buttons in control panel it is different for Create new', async () => {
+  test('tab: prep. renders "equipment" checkbox which are not checked and check it to reveal message about empty content for optionalEditable header', async () => {
+    const { section: emptyTextMsg } = sourceInfo.noInfoYet
+    //equipment
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-equipment')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      const equipment = getByTestId('text-for-memo-optionalEditable-equipment')
+      expect(equipment).toHaveTextContent(emptyTextMsg)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: prep. renders "software" checkbox which are not checked and check it to reveal message about empty content for optionalEditable header', async () => {
+    const { section: emptyTextMsg } = sourceInfo.noInfoYet
+    //equipment
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-software')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+      const equipment = getByTestId('text-for-memo-optionalEditable-software')
+      expect(equipment).toHaveTextContent(emptyTextMsg)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: prep. renders alert about result of saving data for subsection for permanentDisabilitySubSection', async () => {
+    const { section: sectionIsEmpty } = sourceInfo.noInfoYet
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-permanentDisabilitySubSection')
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      const text = getByTestId('text-for-memo-optionalEditable-permanentDisabilitySubSection')
+      expect(text).toHaveTextContent(sectionIsEmpty)
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: prep. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
     expect(getByText('Save draft')).toBeInTheDocument()
     expect(getByText('Exit (save draft)')).toBeInTheDocument()
     expect(getByText('Preview')).toBeInTheDocument()
   })
 
-  test('Click button Save draft', async () => {
+  test('tab: prep. Click button Save draft', async () => {
     fireEvent.click(getByText('Save draft'))
     await waitFor(() => {
       expect(getByTestId('alert-save-data')).toBeInTheDocument()
     })
   })
 
-  test('Click button Save draft', async () => {
+  test('tab: prep. Click button Save draft', async () => {
     fireEvent.click(getAllByText('Edit')[0])
     await waitFor(() => {
       expect(getByText('Close edit mode')).toBeInTheDocument()
     })
   })
 
-  test('Click button Edit and render collapse with detailed info about header', async done => {
+  test('tab: prep. Click button Edit and render collapse with detailed info about header', async done => {
     fireEvent.click(getAllByText('Edit')[1])
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
@@ -470,14 +513,24 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     done()
   })
 
-  test('get memo name', async () => {
+  test('tab: prep. get memo name', async () => {
     expect(
       getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
     ).toBeInTheDocument()
   })
 
-  test('get memo semester', async () => {
+  test('tab: prep. get memo semester', async () => {
     expect(getByText('Autumn 2020')).toBeInTheDocument()
+  })
+
+  test('tab: prep. render a correct number of infos about data origin and source info ', () => {
+    expect(getAllByText('from common course information').length).toBe(1)
+  })
+
+  test('tab: prep. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
+    expect(getAllByText('Always included').length).toBe(2)
+    expect(getAllByText('Include').length).toBe(4)
+    expect(getAllByText('Include additional section').length).toBe(1)
   })
 })
 
@@ -489,17 +542,17 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
       })
   )
 
-  test('renders a page with a new draft of a new memo', done => {
+  test('tab: examinations. renders a page with a new draft of a new memo', done => {
     done()
   })
 
-  test('renders main header h1, page name', () => {
+  test('tab: examinations. renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent(pageTitlesSV.new)
   })
 
-  test('renders main subheader h4 (course name)(sv) and other menu h4', () => {
+  test('tab: examinations. renders main subheader h4 (course name)(sv) and other menu h4', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(3)
@@ -507,7 +560,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
-  test('renders main header h2 (page name) in user lang(sv)', () => {
+  test('tab: examinations. renders main header h2 (page name) in user lang(sv)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -515,7 +568,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     expect(allH2Headers[0]).toHaveTextContent('Redigera kurs-PM')
   })
 
-  test('renders memo sections headers in memo lang (en) in tab pane', () => {
+  test('tab: examinations. renders memo sections headers in memo lang (en) in tab pane', () => {
     const allTabs = getAllByRole('tab')
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -527,7 +580,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('(memo=EN) check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+  test('tab: examinations. (memo=EN) check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('reqToFinal')
     expect(headers.length).toBe(9)
     headers.map(headerId => {
@@ -536,7 +589,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('(userLang=sv) <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
+  test('tab: examinations. (userLang=sv) <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
     const { mandatory: emptyTextMsg } = sourceInfoSV.nothingFetched
     const contentType = 'mandatory'
     const headers = getSectionHeadersByType(contentType, 'reqToFinal')
@@ -548,50 +601,25 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   })
 
   //mandatoryForSome
-  // test('(userLang=sv) renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
-  //   const { mandatoryForSome: emptyTextMsg } = sourceInfoSV.nothingFetched
-  //   const contentType = 'mandatoryForSome'
-  //   const headers = getSectionHeadersByType(contentType, 'reqToFinal')
-  //   expect(headers.length).toBe(2)
-  //   headers.map(contentId => {
-  //     const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-  //     expect(hdContent).toHaveTextContent(emptyTextMsg)
-  //   })
-  // })
+  test('tab: examinations. (userLang=sv) renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
+    const { mandatoryForSome: emptyTextMsg } = sourceInfoSV.nothingFetched
+    const contentType = 'mandatoryForSome'
+    const headers = getSectionHeadersByType(contentType, 'reqToFinal')
+    expect(headers.length).toBe(1)
+    headers.map(contentId => {
+      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+      expect(hdContent).toHaveTextContent(emptyTextMsg)
+    })
+  })
 
-  //this is only for literature
-  test('(userLang=sv) renders <StandardEditorPerTitle> , all editable standard mandatory headers have a correct message about an empty content', async () => {
+  test('tab: examinations. (userLang=sv) renders <StandardEditorPerTitle> , all editable standard mandatory headers have a correct message about an empty content', async () => {
     const { mandatoryAndEditable: emptyTextMsg } = sourceInfoSV.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'reqToFinal')
     expect(headers.length).toBe(0)
-    // headers.map(contentId => {
-    //   const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-    //   expect(hdContent).toHaveTextContent(emptyTextMsg)
-    // })
   })
 
-  // test('(userLang=sv) information about empty optional (non-editable) content is not visible because it is not included in memo (checkbox is empy)', async () => {
-  //   const { optional: optionalIsEmpty } = sourceInfoSV.nothingFetched
-  //   const invisibleMsgForOptional = getAllByText(optionalIsEmpty)
-  //   invisibleMsgForOptional.map(msg => expect(msg).not.toBeVisible())
-  // })
-
-  //TODO: -MOVE TO SECTION WHERE prerequisites shown
-  // test('(userLang=sv) information about empty optional (non-editable) content becomes visible wheck checkbox clicked', async () => {
-  //   const { optional: optionalIsEmpty } = sourceInfoSV.nothingFetched
-  //   //Rekommenderade förkunskaper - prerequisites
-  //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[2]
-  //   fireEvent.click(checkboxIncludeInMemo)
-  //   await waitFor(() => {
-  //     expect(checkboxIncludeInMemo.checked).toBeTruthy()
-  //     expect(getAllByText(optionalIsEmpty)[0]).toBeVisible()
-  //     const prerequisites = getAllByTestId('text-for-memo-optional-prerequisites')[0]
-  //     expect(prerequisites).toHaveTextContent(optionalIsEmpty)
-  //   })
-  // })
-
-  test('(userLang=sv) renders checkbox which are not checked and check it to reveal message about empty optionalEditable content', async () => {
+  test('tab: examinations. (userLang=sv) renders checkbox which are not checked and check it to reveal message about empty optionalEditable content', async () => {
     const { section: sectionIsEmpty } = sourceInfoSV.noInfoYet
     //gradingCriteria
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-gradingCriteria')
@@ -604,14 +632,14 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('(userLang=sv) check texts of buttons in control panel it is different for Create new', async () => {
+  test('tab: examinations. (userLang=sv) check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Välj kursomgång')).toBeInTheDocument()
     expect(getByText('Spara utkast')).toBeInTheDocument()
     expect(getByText('Avsluta med utkast')).toBeInTheDocument()
     expect(getByText('Granska')).toBeInTheDocument()
   })
 
-  test('Click button Spara utkast', async () => {
+  test('tab: examinations. Click button Spara utkast', async () => {
     fireEvent.click(getByText('Spara utkast'))
     await waitFor(() => {
       expect(getByTestId('alert-save-data')).toBeInTheDocument()
@@ -621,14 +649,14 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('Click button Redigera', async () => {
+  test('tab: examinations. Click button Redigera', async () => {
     fireEvent.click(getAllByText('Redigera')[0])
     await waitFor(() => {
       expect(getByText('Stäng redigeringsläge')).toBeInTheDocument()
     })
   })
 
-  test('Click button Redigera and reveal section with collapse and editor', async done => {
+  test('tab: examinations. Click button Redigera and reveal section with collapse and editor', async done => {
     fireEvent.click(getAllByText('Redigera')[1])
     await waitFor(() => {
       expect(getByTestId('standard-editor')).toBeInTheDocument()
@@ -636,7 +664,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     done()
   })
 
-  test('Click button Redigera and render collapse with detailed info about header', async done => {
+  test('tab: examinations. Click button Redigera and render collapse with detailed info about header', async done => {
     fireEvent.click(getAllByText('Redigera')[1])
     await waitFor(() => {
       expect(getByText('Visa vägledning')).toBeInTheDocument()
@@ -644,23 +672,21 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     done()
   })
 
-  test('(memoLang=en) get memo name', async () => {
+  test('tab: examinations. (memoLang=en) get memo name', async () => {
     expect(
       getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
     ).toBeInTheDocument()
   })
 
-  test('(userLang=sv) get memo semester', async () => {
+  test('tab: examinations. (userLang=sv) get memo semester', async () => {
     expect(getByText('HT 2020')).toBeInTheDocument()
   })
 
-  test('render a correct number of infos about data origin and source info ', () => {
+  test('tab: examinations. render a correct number of infos about data origin and source info ', () => {
     expect(getAllByText('från kursplan').length).toBe(4)
-    // expect(getAllByText('från kursgemensam information').length).toBe(2)
-    // expect(getAllByText('från kurstillfällesinformation').length).toBe(3)
   })
 
-  test('render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
+  test('tab: examinations. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
     expect(getAllByText('Inkludera').length).toBe(5)
     expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
@@ -668,24 +694,24 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   })
 })
 
-describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft of a NEW memo. Memo in English, user interface in English', () => {
+describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draft of a NEW memo. Memo in English, user interface in English', () => {
   beforeEach(
     async () =>
       await act(async () => {
         await render(<EditFreshDraftOfNewMemo activeTab="contacts" memoLang="en" userLang="en" />)
       })
   )
-  test('renders a page with a new draft of a new memo', done => {
+  test('tab: contacts. renders a page with a new draft of a new memo', done => {
     done()
   })
 
-  test('renders main header h1, page name', () => {
+  test('tab: contacts. renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
   })
 
-  test('renders main subheader h4 (course name)(en) and other menu h4', () => {
+  test('tab: contacts. renders main subheader h4 (course name)(en) and other menu h4', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(3)
@@ -693,7 +719,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
-  test('renders main header h2 (page name) in user lang(sv)', () => {
+  test('tab: contacts. renders main header h2 (page name) in user lang(sv)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -701,7 +727,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     expect(allH2Headers[0]).toHaveTextContent('Edit course memo')
   })
 
-  test('renders memo sections headers in memo lang (en) in tab pane', () => {
+  test('tab: contacts. renders memo sections headers in memo lang (en) in tab pane', () => {
     const allTabs = getAllByRole('tab')
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -712,7 +738,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     })
   })
 
-  test('renders all buttons', async () => {
+  test('tab: contacts. renders all buttons', async () => {
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(12)
     const expectedAriaLabels = [
@@ -747,17 +773,17 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
   })
 
-  test('renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
+  test('tab: contacts. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
     const openBtn = getAllByTestId('btn-open-editor')
     expect(openBtn.length).toBe(2)
   })
 
-  test('check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
+  test('tab: contacts. check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
     const msgs = getAllByTestId('msg-text-about-empty')
     expect(msgs.length).toBe(4)
   })
 
-  test('check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+  test('tab: contacts. check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('contacts')
     expect(headers.length).toBe(6)
     headers.map(headerId => {
@@ -766,7 +792,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     })
   })
 
-  test('renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
+  test('tab: contacts. renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
     const { mandatory: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatory'
     const headers = getSectionHeadersByType(contentType, 'contacts')
@@ -777,52 +803,44 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     })
   })
 
-  test('renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
+  test('tab: contacts. renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
     const { mandatoryForSome: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'contacts')
     expect(headers.length).toBe(0)
-    // headers.map(contentId => {
-    //   const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-    //   expect(hdContent).toHaveTextContent(emptyTextMsg)
-    // })
   })
 
-  test('renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content', async () => {
+  test('tab: contacts. renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content', async () => {
     const { mandatoryAndEditable: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'contacts')
     expect(headers.length).toBe(0)
-    // headers.map(contentId => {
-    //   const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-    //   expect(hdContent).toHaveTextContent(emptyTextMsg)
-    // })
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
+  test('tab: contacts. renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
     const contentType = 'optionalEditable'
     const headersAndSubHds = getSectionHeadersByType(contentType, 'contacts')
     expect(headersAndSubHds.length).toBe(2)
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and non-editable and have no content (not included as well)', async () => {
+  test('tab: contacts. renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and non-editable and have no content (not included as well)', async () => {
     const contentType = 'optional'
     const headersAndSubHds = getSectionHeadersByType(contentType, 'contacts')
     expect(headersAndSubHds.length).toBe(1)
   })
 
-  test('renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
+  test('tab: contacts. renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
     const dynamicSections = getAllByTestId(`dynamic-empty-content-and-not-included`)
     expect(dynamicSections.length).toBe(2)
   })
 
-  // test('renders checkbox, check they are not checked in because memo content is empty', async () => {
+  // test('tab: contacts. renders checkbox, check they are not checked in because memo content is empty', async () => {
   //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')
   //   expect(checkboxIncludeInMemo.length).toBe(18)
   //   checkboxIncludeInMemo.map(ch => expect(ch.checked).toBeFalsy())
   // })
 
-  // test('renders checkbox which are not checked and check it to reveal message about empty content', async () => {
+  // test('tab: contacts. renders checkbox which are not checked and check it to reveal message about empty content', async () => {
   //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
   //   //Läraktiviteter - Learning activities
   //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[0]
@@ -835,7 +853,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
   //   })
   // })
 
-  // test('renders alert about result of saving data', async () => {
+  // test('tab: contacts. renders alert about result of saving data', async () => {
   //   const { section: sectionIsEmpty } = sourceInfo.noInfoYet
   //   //Detailed plan
   //   const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility')[1]
@@ -845,28 +863,28 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
   //   })
   // })
 
-  test('check texts of buttons in control panel it is different for Create new', async () => {
+  test('tab: contacts. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
     expect(getByText('Save draft')).toBeInTheDocument()
     expect(getByText('Exit (save draft)')).toBeInTheDocument()
     expect(getByText('Preview')).toBeInTheDocument()
   })
 
-  test('Click button Save draft', async () => {
+  test('tab: contacts. Click button Save draft', async () => {
     fireEvent.click(getByText('Save draft'))
     await waitFor(() => {
       expect(getByTestId('alert-save-data')).toBeInTheDocument()
     })
   })
 
-  test('Click button Save draft', async () => {
+  test('tab: contacts. Click button Save draft', async () => {
     fireEvent.click(getAllByText('Edit')[0])
     await waitFor(() => {
       expect(getByText('Close edit mode')).toBeInTheDocument()
     })
   })
 
-  test('Click button Edit and render collapse with detailed info about header', async done => {
+  test('tab: contacts. Click button Edit and render collapse with detailed info about header', async done => {
     fireEvent.click(getAllByText('Edit')[1])
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
@@ -874,13 +892,26 @@ describe('Active tab contacts. Component <MemoContainer> Edit. A New fresh draft
     done()
   })
 
-  test('get memo name', async () => {
+  test('tab: contacts. get memo name', async () => {
     expect(
       getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
     ).toBeInTheDocument()
   })
 
-  test('get memo semester', async () => {
+  test('tab: contacts. get memo semester', async () => {
     expect(getByText('Autumn 2020')).toBeInTheDocument()
+  })
+
+  test('tab: contacts. render a correct number of infos about data origin and source info ', () => {
+    // expect(getAllByText('from course syllabus').length).toBe(4)
+    expect(getAllByText('from common course information').length).toBe(1)
+    // expect(getAllByText('Fetched from course round information').length).toBe(3)
+  })
+
+  test('tab: contacts. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
+    expect(getAllByText('Always included').length).toBe(3)
+    expect(getAllByText('Include').length).toBe(3)
+    // expect(getAllByText('Included for some courses').length).toBe(0)
+    // expect(getAllByText('Include additional section').length).toBe(2)
   })
 })

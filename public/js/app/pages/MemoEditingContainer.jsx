@@ -117,10 +117,12 @@ function MemoContainer(props) {
   const onAlert = (alertTranslationId, alertNewColor = 'success', onTimeout = 0) => {
     const translationId =
       isDraftOfPublished && alertTranslationId === 'autoSaved' ? 'autoSavedTemporary' : alertTranslationId
-
-    setTimeout(() => {
-      setAlert({ alertIsOpen: true, alertText: alerts[translationId], alertNewColor })
-    }, onTimeout)
+    const newAlertState = { alertIsOpen: true, alertText: alerts[translationId], alertNewColor }
+    if (process.env.NODE_ENV !== 'test') {
+      setTimeout(() => {
+        setAlert(newAlertState)
+      }, onTimeout)
+    } else setAlert(newAlertState)
   }
 
   const offAlert = () => {
