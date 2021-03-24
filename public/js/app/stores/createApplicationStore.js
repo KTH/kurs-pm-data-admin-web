@@ -133,7 +133,7 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 }
 
 function setVisibilityOfStandard(contentId, value) {
-  this.memoData.visibleInMemo[contentId] = value
+  this.memoData.visibleInMemo = { ...this.memoData.visibleInMemo, [contentId]: value } // to make state change noticeable
   return this.memoData.visibleInMemo
 }
 

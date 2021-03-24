@@ -18,6 +18,7 @@
     "test-new-memo": "NODE_ENV=test jest ./test/unit/CreateNewMemo.test.js",
     "test-pub-memo": "NODE_ENV=test jest ./test/unit/ChangePublished.test.js",
     "test-edit-new": "NODE_ENV=test jest ./test/unit/MemoContainerNewDraft.test.js",
+    "test-edit-published": "NODE_ENV=test jest ./test/unit/MemoContainerPublished.test.js",
     "test:watch": "NODE_ENV=test jest --watch",
     "test:notify": "NODE_ENV=test jest --watch --notify",
     "vendor": "parcel build  ./public/js/vendor.js",
