@@ -22,23 +22,23 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
             <li>Samlat på en tillgänglig sida,</li>
             <li>Nåbar, tillsammans med kursrummet, från fliken “Kurser” i Personliga menyn.</li>
           </ul>
-          <p>Du gör så att detblirtydligt och effektivt för studenter att ta till sig information, genom att:</p>
+          <p>Du gör så att det blir tydligt och effektivt för studenter att ta till sig information, genom att:</p>
           <ul>
-            <li>Flytta information från kursrummet till kurs-PM (istället för att dupliceraden),</li>
+            <li>Flytta information från kursrummet till kurs-PM (istället för att duplicera den),</li>
             <li>Se över om du behöver göra om kursupplägget (se “Mer hjälp” nedan),</li>
             <li>Publicera kurs-PM i god tid innan kursstart så att studenter hinner förbereda sig</li>
           </ul>
           <h3>Kom i gång snabbt</h3>
           <ol>
             <li>Bläddra igenom alla tabbar/ flikar för att se vilka rubriker som finns</li>
-            <li>Gå till sista steget “Granska” för att förstå hur ett färdigt kurs-PMser ut.</li>
+            <li>Gå till sista steget “Granska” för att förstå hur ett färdigt kurs-PM ser ut.</li>
             <li>Klicka på i-ikon vid varje rubrik för att förstå vad rubriken syftar till.</li>
             <li>
               När du valt att “Redigera” klickar du på “Visa vägledning” för att få guidning i hur du skriver innehåll
               under den specifika rubriken.
             </li>
             <li>
-              När du arbetet klart, välj “Avsluta med utkast” eller “Granska” för att fortsätta tillpublicering. Ditt
+              När du arbetet klart, välj “Avsluta med utkast” eller “Granska” för att fortsätta till publicering. Ditt
               kurs-PM har sparats automatiskt.
             </li>
           </ol>
@@ -55,7 +55,7 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
           </p>
           <p>
             Hjälp med struktur och innehåll i kurs-PM och kursrum, kontakta:
-            <a href="mailto:it-support@kth.se">it-support@kth.se</a>
+            <a href="mailto:it-support@kth.se"> it-support@kth.se</a>
           </p>
         </div>
       )) || (
@@ -109,7 +109,7 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
           </p>
           <p>
             Help with structure and content in course memo and course room, contact:
-            <a href="mailto:it-support@kth.se">it-support@kth.se</a>
+            <a href="mailto:it-support@kth.se"> it-support@kth.se</a>
           </p>
         </div>
       )}
