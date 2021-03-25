@@ -26,8 +26,6 @@ const translations = {
       goToRounds: 'Choose course offering',
       save_and_cancel: 'Save draft and cancel',
       btn_copy: 'Copy link to preview',
-      btn_switch_view_single: 'Switch to “Single View”',
-      btn_switch_view_scroll: 'Switch to “Scroll View”',
       showGuidance: 'Show guidance',
     },
     labelContacts: {
@@ -149,8 +147,6 @@ const translations = {
       goToRounds: 'Välj kursomgång',
       save_and_cancel: 'Spara utkast och avsluta',
       btn_copy: 'Kopiera länk till utkast',
-      btn_switch_view_single: 'Ändra till ”Fokus-vy”',
-      btn_switch_view_scroll: 'Ändra till ”Översikts-vy”',
       showGuidance: 'Visa vägledning',
     },
     notIncludedInMemoYet: {

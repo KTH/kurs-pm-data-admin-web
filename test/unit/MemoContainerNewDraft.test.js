@@ -77,14 +77,20 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   })
 
   test('tab: contentAndOutcomes. renders memo sections headers in memo lang (en) in tab pane', () => {
-    const allTabs = getAllByRole('tab')
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const allInactiveTab = getAllByRole('tab', { selected: false })
+    expect(allInactiveTab.length).toBe(4)
 
-    expect(allTabs.length).toBe(5)
-    const expectedtabs = [contentAndOutcomes, prep, reqToFinal, extra, contacts] //todo test tabs instead
-    expectedtabs.map((tabTitle, index) => {
-      expect(allTabs[index]).toHaveTextContent(tabTitle)
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const expectedInactiveTitles = [prep, reqToFinal, extra, contacts]
+
+    expectedInactiveTitles.map((tabTitle, index) => {
+      expect(allInactiveTab[index]).toHaveTextContent(tabTitle)
     })
+
+    const activeTab = screen.getByRole('tab', { selected: true })
+    expect(activeTab).toHaveTextContent(contentAndOutcomes)
+
+    expect(activeTab.className).toBe('nav-link active')
   })
 
   test('tab: contentAndOutcomes. renders all buttons', async () => {
@@ -311,14 +317,20 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. renders memo sections headers in memo lang (en) in tab pane', () => {
-    const allTabs = getAllByRole('tab')
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const allInactiveTab = getAllByRole('tab', { selected: false })
+    expect(allInactiveTab.length).toBe(4)
 
-    expect(allTabs.length).toBe(5)
-    const expectedtabs = [contentAndOutcomes, prep, reqToFinal, extra, contacts] //todo test tabs instead
-    expectedtabs.map((tabTitle, index) => {
-      expect(allTabs[index]).toHaveTextContent(tabTitle)
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const expectedInactiveTitles = [contentAndOutcomes, reqToFinal, extra, contacts]
+
+    expectedInactiveTitles.map((tabTitle, index) => {
+      expect(allInactiveTab[index]).toHaveTextContent(tabTitle)
     })
+
+    const activeTab = screen.getByRole('tab', { selected: true })
+    expect(activeTab).toHaveTextContent(prep)
+
+    expect(activeTab.className).toBe('nav-link active')
   })
 
   test('tab: prep. renders all buttons', async () => {
@@ -410,7 +422,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(headers.length).toBe(0)
   })
 
-  test('tab: prep. renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content', async () => {
+  test('tab: prep. renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content and closed editor', async () => {
     const { mandatoryAndEditable: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'prep')
@@ -566,17 +578,17 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
       })
   )
 
-  test('tab: examinations. renders a page with a new draft of a new memo', done => {
+  test('tab: reqToFinal examinations. renders a page with a new draft of a new memo', done => {
     done()
   })
 
-  test('tab: examinations. renders main header h1, page name', () => {
+  test('tab: reqToFinal examinations. renders main header h1, page name', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent(pageTitlesSV.new)
   })
 
-  test('tab: examinations. renders main subheader h4 (course name)(sv) and other menu h4', () => {
+  test('tab: reqToFinal examinations. renders main subheader h4 (course name)(sv) and other menu h4', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(3)
@@ -584,7 +596,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
-  test('tab: examinations. renders main header h2 (page name) in user lang(sv)', () => {
+  test('tab: reqToFinal examinations. renders main header h2 (page name) in user lang(sv)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
@@ -592,19 +604,24 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     expect(allH2Headers[0]).toHaveTextContent('Redigera kurs-PM')
   })
 
-  test('tab: examinations. renders memo sections headers in memo lang (en) in tab pane', () => {
-    const allTabs = getAllByRole('tab')
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+  test('tab: reqToFinal examinations. renders memo sections headers in memo lang (en) in tab pane', () => {
+    const allInactiveTab = getAllByRole('tab', { selected: false })
+    expect(allInactiveTab.length).toBe(4)
 
-    expect(allTabs.length).toBe(5)
-    const expectedtabs = [contentAndOutcomes, prep, reqToFinal, extra, contacts] //todo test tabs instead
-    // const expectedh2ds = ['Redigera kurs-PM']
-    expectedtabs.map((tabTitle, index) => {
-      expect(allTabs[index]).toHaveTextContent(tabTitle)
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const expectedInactiveTitles = [contentAndOutcomes, prep, extra, contacts]
+
+    expectedInactiveTitles.map((tabTitle, index) => {
+      expect(allInactiveTab[index]).toHaveTextContent(tabTitle)
     })
+
+    const activeTab = screen.getByRole('tab', { selected: true })
+    expect(activeTab).toHaveTextContent(reqToFinal)
+
+    expect(activeTab.className).toBe('nav-link active')
   })
 
-  test('tab: examinations. (memo=EN) check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+  test('tab: reqToFinal examinations. (memo=EN) check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('reqToFinal')
     expect(headers.length).toBe(9)
     headers.map(headerId => {
@@ -613,7 +630,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('tab: examinations. (userLang=sv) <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
+  test('tab: reqToFinal examinations. (userLang=sv) <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
     const { mandatory: emptyTextMsg } = sourceInfoSV.nothingFetched
     const contentType = 'mandatory'
     const headers = getSectionHeadersByType(contentType, 'reqToFinal')
@@ -625,7 +642,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   })
 
   //mandatoryForSome
-  test('tab: examinations. (userLang=sv) renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
+  test('tab: reqToFinal examinations. (userLang=sv) renders <SectionForNonEditable>, all standard headers which are mandatory for some courses and non-editable have a correct message about an empty content', async () => {
     const { mandatoryForSome: emptyTextMsg } = sourceInfoSV.nothingFetched
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'reqToFinal')
@@ -636,14 +653,14 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('tab: examinations. (userLang=sv) renders <StandardEditorPerTitle> , all editable standard mandatory headers have a correct message about an empty content', async () => {
+  test('tab: reqToFinal examinations. (userLang=sv) renders <StandardEditorPerTitle> , all editable standard mandatory headers have a correct message about an empty content', async () => {
     const { mandatoryAndEditable: emptyTextMsg } = sourceInfoSV.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'reqToFinal')
     expect(headers.length).toBe(0)
   })
 
-  test('tab: examinations. (userLang=sv) renders checkbox which are not checked and check it to reveal message about empty optionalEditable content', async () => {
+  test('tab: reqToFinal examinations. (userLang=sv) renders checkbox which are not checked and check it to reveal message about empty optionalEditable content', async () => {
     const { section: sectionIsEmpty } = sourceInfoSV.noInfoYet
     //gradingCriteria
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-gradingCriteria')
@@ -656,14 +673,14 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('tab: examinations. (userLang=sv) check texts of buttons in control panel it is different for Create new', async () => {
+  test('tab: reqToFinal examinations. (userLang=sv) check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Välj kursomgång')).toBeInTheDocument()
     expect(getByText('Spara utkast')).toBeInTheDocument()
     expect(getByText('Avsluta med utkast')).toBeInTheDocument()
     expect(getByText('Granska')).toBeInTheDocument()
   })
 
-  test('tab: examinations. Click button Spara utkast', async () => {
+  test('tab: reqToFinal examinations. Click button Spara utkast', async () => {
     fireEvent.click(getByText('Spara utkast'))
     await waitFor(() => {
       expect(getByTestId('alert-save-data')).toBeInTheDocument()
@@ -673,14 +690,14 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('tab: examinations. Click button Redigera', async () => {
+  test('tab: reqToFinal examinations. Click button Redigera', async () => {
     fireEvent.click(getAllByText('Redigera')[0])
     await waitFor(() => {
       expect(getByText('Stäng redigeringsläge')).toBeInTheDocument()
     })
   })
 
-  test('tab: examinations. Click button Redigera and reveal section with collapse and editor', async done => {
+  test('tab: reqToFinal examinations. Click button Redigera and reveal section with collapse and editor', async done => {
     fireEvent.click(getAllByText('Redigera')[1]) // click on gradingCriteria
     await waitFor(() => {
       expect(getByTestId('standard-editor-gradingCriteria')).toBeInTheDocument()
@@ -688,7 +705,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     done()
   })
 
-  test('tab: examinations. Click button Redigera and render collapse with detailed info about header', async done => {
+  test('tab: reqToFinal examinations. Click button Redigera and render collapse with detailed info about header', async done => {
     fireEvent.click(getAllByText('Redigera')[1])
     await waitFor(() => {
       expect(getByText('Visa vägledning')).toBeInTheDocument()
@@ -696,21 +713,21 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     done()
   })
 
-  test('tab: examinations. (memoLang=en) get memo name', async () => {
+  test('tab: reqToFinal examinations. (memoLang=en) get memo name', async () => {
     expect(
       getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
     ).toBeInTheDocument()
   })
 
-  test('tab: examinations. (userLang=sv) get memo semester', async () => {
+  test('tab: reqToFinal examinations. (userLang=sv) get memo semester', async () => {
     expect(getByText('HT 2020')).toBeInTheDocument()
   })
 
-  test('tab: examinations. render a correct number of infos about data origin and source info ', () => {
+  test('tab: reqToFinal examinations. render a correct number of infos about data origin and source info ', () => {
     expect(getAllByText('från kursplan').length).toBe(4)
   })
 
-  test('tab: examinations. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
+  test('tab: reqToFinal examinations. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
     expect(getAllByText('Inkludera').length).toBe(5)
     expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
@@ -752,14 +769,20 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   })
 
   test('tab: contacts. renders memo sections headers in memo lang (en) in tab pane', () => {
-    const allTabs = getAllByRole('tab')
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const allInactiveTab = getAllByRole('tab', { selected: false })
+    expect(allInactiveTab.length).toBe(4)
 
-    expect(allTabs.length).toBe(5)
-    const expectedtabs = [contentAndOutcomes, prep, reqToFinal, extra, contacts] //todo test tabs instead
-    expectedtabs.map((tabTitle, index) => {
-      expect(allTabs[index]).toHaveTextContent(tabTitle)
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const expectedInactiveTitles = [contentAndOutcomes, prep, reqToFinal, extra]
+
+    expectedInactiveTitles.map((tabTitle, index) => {
+      expect(allInactiveTab[index]).toHaveTextContent(tabTitle)
     })
+
+    const activeTab = screen.getByRole('tab', { selected: true })
+    expect(activeTab).toHaveTextContent(contacts)
+
+    expect(activeTab.className).toBe('nav-link active')
   })
 
   test('tab: contacts. renders all buttons', async () => {
