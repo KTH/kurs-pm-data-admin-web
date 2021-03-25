@@ -510,7 +510,7 @@ module.exports = {
     {
       title: 'Choose a course memo',
       intro: `Start by choosing the course memo you want to change (step 1 of 3). Edit the chosen course memo in the next step (2 of 3). 
-      Review the new version of the course memo in the last step (3 of 3) and then publish it on the page About the course / Prepare and take course.`,
+      Review the new version of the course memo in the last step (3 of 3) and then publish it as a subpage to “Prepare and take course”.`,
     },
     {
       title: 'Edit course memo',
@@ -528,22 +528,8 @@ module.exports = {
     extra: 'Further information',
     contacts: 'Contact',
   },
-  sectionsSummary: {
-    about: 'About',
-    contentAndOutcomes:
-      'Rubriker under Innehåll och lärandemål syftar dels till att övergripande beskriva innehåll och lärandemål för kursen (hämtas från kursplanen) dels till att mer detaljerat beskriva vilka läraktiviteter som ingår i kursen. Sist har du möjlighet att skapa en detaljplanering.',
-    prep:
-      'Rubriker under Förbereda inför kursstart syftar till att informera studenten om vilka förberedelser som studenten bör göra innan kursstart. Utöver vilken kurslitteratur som ingår kan till exempel en specifik programvara eller annan utrustning komma att användas under kursen',
-    reqToFinal:
-      'Rubriker under Examination och slutförande syftar till att tydliggöra för studenten hur examinationen kommer att genomföras och hur betygsättningen genomförs. Till exempel kan studenten få information möjlighet till komplettering, plussning och ersättningsuppgifter.',
-    extra:
-      'Rubriker under Ytterligare information syftar till att beskriva andra föreskrifter i kursplanen som inte ryms under övriga rubriker i kursplanen. Dessutom kan man här beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser samt eventuella ändringar som har införts till denna kursomgång.',
-    contacts:
-      'Rubriker under Kontakter syftar till att informera studenten om hur kommunikationen med lärare och annan relevant personal inför och under kursomgångens genomförande sker. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer effektiv för både studenter och lärare på kursen.',
-  },
   pageTitles: {
     new: 'Create and publish course memo',
-    // draft: 'Publish course memo draft',
     published: 'Edit published course memo',
     preview: 'Create and publish course memo',
   },
@@ -630,8 +616,6 @@ module.exports = {
     choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
       label: 'Choose semester',
-      // body:
-      //   '<p>Choose what semester the course offering starts in. If the course offering stretches over several semesters then choose the first semester.</p>'
     },
     chooseRound: {
       header: 'Choose course offering',
@@ -700,8 +684,6 @@ module.exports = {
     goToRounds: 'Choose course offering',
     save_and_cancel: 'Save draft and cancel',
     btn_copy: 'Copy link to preview',
-    btn_switch_view_single: 'Switch to “Single View”',
-    btn_switch_view_scroll: 'Switch to “Scroll View”',
     showGuidance: 'Show guidance',
   },
   extraInfo: {
@@ -718,7 +700,6 @@ module.exports = {
 		<p>An eye covered with slash indicates that the heading with its content will not be included in the published course memo.</p>`,
     },
     labelStartDate: 'Start date',
-    // hasSavedDraft: 'Has a published course memo',
     mandatory: 'Mandatory',
     memoLanguage: {
       label: 'Language of memo',
@@ -730,7 +711,7 @@ module.exports = {
       2: 'Autumn ',
     },
     summaryIntroductionHelp: {
-      titleMain: 'Introduktion och hjälp',
+      titleMain: 'Introduction and instructions',
     },
   },
   alerts: {
@@ -753,8 +734,8 @@ module.exports = {
     infoStartAgain: 'There are unpublished changes in this course memo. You can',
     linkToRefreshData:
       'reset the contents in this draft to the contents of the latest published version of this course memo',
-    removedAddedHeading: '(TRANSLATE TO EN) Tillagd rubrik har tagits bort',
-    removedEmptyHeading: '(TRANSLATE TO EN) Tillagd rubrik har tagits bort eftersom det saknas rubrik och innehåll',
+    removedAddedHeading: 'Added heading has been deleted',
+    removedEmptyHeading: 'Added heading has been deleted because it did not have any heading and content',
     syllabusUpdated:
       'Information from course syllabus and contact information have been updated with the most recent information in the draft below.',
     warnFillInCommentAboutChanges:

@@ -520,22 +520,8 @@ module.exports = {
     extra: 'Ytterligare information',
     contacts: 'Kontakter',
   },
-  sectionsSummary: {
-    about: 'Om',
-    contentAndOutcomes:
-      'Rubriker under Innehåll och lärandemål syftar dels till att övergripande beskriva innehåll och lärandemål för kursen (hämtas från kursplanen) dels till att mer detaljerat beskriva vilka läraktiviteter som ingår i kursen. Sist har du möjlighet att skapa en detaljplanering.',
-    prep:
-      'Rubriker under Förbereda inför kursstart syftar till att informera studenten om vilka förberedelser som studenten bör göra innan kursstart. Utöver vilken kurslitteratur som ingår kan till exempel en specifik programvara eller annan utrustning komma att användas under kursen',
-    reqToFinal:
-      'Rubriker under Examination och slutförande syftar till att tydliggöra för studenten hur examinationen kommer att genomföras och hur betygsättningen genomförs. Till exempel kan studenten få information möjlighet till komplettering, plussning och ersättningsuppgifter.',
-    extra:
-      'Rubriker under Ytterligare information syftar till att beskriva andra föreskrifter i kursplanen som inte ryms under övriga rubriker i kursplanen. Dessutom kan man här beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser samt eventuella ändringar som har införts till denna kursomgång.',
-    contacts:
-      'Rubriker under Kontakter syftar till att informera studenten om hur kommunikationen med lärare och annan relevant personal inför och under kursomgångens genomförande sker. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer effektiv för både studenter och lärare på kursen.',
-  },
   pageTitles: {
     new: 'Skapa och publicera kurs-PM',
-    // draft: 'Publicera kurs-PM utkast',
     published: 'Ändra publicerat kurs-PM',
     preview: 'Skapa och publicera kurs-PM',
   },
@@ -685,8 +671,6 @@ module.exports = {
     goToRounds: 'Välj kursomgång',
     save_and_cancel: 'Spara utkast och avsluta',
     btn_copy: 'Kopiera länk till utkast',
-    btn_switch_view_single: 'Ändra till ”Fokus-vy”',
-    btn_switch_view_scroll: 'Ändra till ”Översikts-vy”',
     showGuidance: 'Visa vägledning',
   },
   extraInfo: {
