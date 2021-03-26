@@ -85,7 +85,7 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
           <h3>Get started quickly </h3>
           <ol>
             <li>Look through all tabs to see which headings are available.</li>
-            <li>Go to the last step, “Review,” to get a sense of a completed course memo.</li>
+            <li>Go to the last step, “Preview”, to get a sense of a completed course memo.</li>
             <li>Click on the i-icon next to each heading to understand the heading’s intended use.</li>
             <li>
               Once you have chosen to “Edit,” click on “Show guidance” for guidance on how to write content under the
