@@ -410,7 +410,9 @@ function MemoContainer(props) {
       <Row key="section-of-header" className="sections-headers">
         <Col lg="7">
           <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} style={{ marginBottom: '30px' }} />
-          <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} landAbbr={userLangAbbr} />
+          {!isDraftOfPublished && (
+            <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} landAbbr={userLangAbbr} />
+          )}
         </Col>
       </Row>
       <StickyContainer className="memo-container">
