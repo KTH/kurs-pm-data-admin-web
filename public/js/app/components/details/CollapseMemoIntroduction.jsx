@@ -14,7 +14,7 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
             genomförande.
           </p>
           <p>
-            Studenter har varit med i arbetet med att ta fram mallen för kurs-PM.Det är viktigt för studenter att känna
+            Studenter har varit med i arbetet med att ta fram mallen för kurs-PM. Det är viktigt för studenter att känna
             igen sig mellan kurser och att kursinformationen är tillgänglig. Därför är kurs-PM:
           </p>
           <ul>
@@ -26,16 +26,16 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
           <ul>
             <li>Flytta information från kursrummet till kurs-PM (istället för att duplicera den),</li>
             <li>Se över om du behöver göra om kursupplägget (se “Mer hjälp” nedan),</li>
-            <li>Publicera kurs-PM i god tid innan kursstart så att studenter hinner förbereda sig</li>
+            <li>Publicera kurs-PM i god tid innan kursstart så att studenter hinner förbereda sig.</li>
           </ul>
           <h3>Kom i gång snabbt</h3>
           <ol>
-            <li>Bläddra igenom alla tabbar/ flikar för att se vilka rubriker som finns</li>
-            <li>Gå till sista steget “Granska” för att förstå hur ett färdigt kurs-PM ser ut.</li>
-            <li>Klicka på i-ikon vid varje rubrik för att förstå vad rubriken syftar till.</li>
+            <li>Bläddra igenom alla tabbar/ flikar för att se vilka rubriker som finns,</li>
+            <li>Gå till sista steget “Granska och publicera” för att förstå hur ett färdigt kurs-PM ser ut,</li>
+            <li>Klicka på i-ikon vid varje rubrik för att förstå vad rubriken syftar till,</li>
             <li>
               När du valt att “Redigera” klickar du på “Visa vägledning” för att få guidning i hur du skriver innehåll
-              under den specifika rubriken.
+              under den specifika rubriken,
             </li>
             <li>
               När du arbetet klart, välj “Avsluta med utkast” eller “Granska” för att fortsätta till publicering. Ditt
@@ -68,7 +68,7 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
           </p>
           <ul>
             <li>Based on a well-tuned template,</li>
-            <li>Published on an accessible page</li>
+            <li>Published on an accessible page,</li>
             <li>Accessible from “Courses” in the Personal menu.</li>
           </ul>
           <p>You make it clear and efficient for students to absorb information when you:</p>
@@ -82,14 +82,14 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
             </li>
             <li>Publish the course memo well in advance of the course start so that students have time to prepare.</li>
           </ul>
-          <h3>Get started quickly </h3>
+          <h3>Get started quickly</h3>
           <ol>
-            <li>Look through all tabs to see which headings are available.</li>
-            <li>Go to the last step, “Preview”, to get a sense of a completed course memo.</li>
-            <li>Click on the i-icon next to each heading to understand the heading’s intended use.</li>
+            <li>Look through all tabs to see which headings are available,</li>
+            <li>Go to the last step, “Preview and publish”, to get a sense of a completed course memo,</li>
+            <li>Click on the i-icon next to each heading to understand the heading’s intended use,</li>
             <li>
               Once you have chosen to “Edit,” click on “Show guidance” for guidance on how to write content under the
-              specific heading.
+              specific heading,
             </li>
             <li>
               When you have finished, select “Exit (save draft)”or “Preview” to proceed to the publish step. Your course
