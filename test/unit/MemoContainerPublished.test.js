@@ -64,13 +64,8 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   test('tab: contentAndOutcomes (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(10)
-    const expectedh3ds = [
-      'Hur blir ditt kurs-PM bra för studenter?',
-      'Kom i gång snabbt',
-      'Mer hjälp?',
-      ...orderedFilledInAndVisible.slice(0, 6),
-    ]
+    expect(allH3Headers.length).toBe(7)
+    const expectedh3ds = [...orderedFilledInAndVisible.slice(0, 6)]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
@@ -399,13 +394,8 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   test('tab: prep (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(12)
-    const expectedh3ds = [
-      'Hur blir ditt kurs-PM bra för studenter?',
-      'Kom i gång snabbt',
-      'Mer hjälp?',
-      ...orderedFilledInAndVisible.slice(6, 14),
-    ]
+    expect(allH3Headers.length).toBe(9)
+    const expectedh3ds = [...orderedFilledInAndVisible.slice(6, 14)]
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
