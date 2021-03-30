@@ -352,7 +352,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(getByTestId('text-about-changes')).toBeInTheDocument()
   })
 
-  xtest('tab: contentAndOutcomes (draft of published). render correct number of text about data origin and source info ', () => {
+  test('tab: contentAndOutcomes (draft of published). render correct number of text about data origin and source info ', () => {
     expect(getAllByText('från kursplan').length).toBe(2)
     expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
     expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
@@ -1224,7 +1224,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   })
 
   // data-xtestid="btn-open-editor-extraHeaders4-0.13108128127030394"
-  xtest('tab: extra (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
+  test('tab: extra (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
     const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders4-Firstheader')
     expect(firstExtraEditor).not.toBeInTheDocument()
     const firstExtraText = screen.queryByText('Html content for section First header')
