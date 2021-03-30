@@ -43,7 +43,9 @@ const EditPublishedMemo = ({ activeTab, memoLang = 'en', userLang = 'en', ...res
     </StaticRouter>
   )
 }
-
+/*******************************************/
+/**** contentAndOutcomes *******************/
+/*******************************************/
 describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit published. A New draft of a PUBLISHED memo. All data is filled in and visible. Memo in English, user interface in Swedish', () => {
   beforeEach(
     async () =>
@@ -190,21 +192,12 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'contentAndOutcomes')
     expect(headers.length).toBe(0)
-    // headers.map(contentId => {
-    //   const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-    //   expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
-    // })
   })
 
   test('tab: contentAndOutcomes (draft of published). renders <StandardEditorPerTitle>, there are no standard headers mandatory and editable', async () => {
-    // const { mandatoryAndEditable: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'contentAndOutcomes')
     expect(headers.length).toBe(0)
-    // headers.map(contentId => {
-    //   const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-    //   expect(hdContent).toHaveTextContent(emptyTextMsg)
-    // })
   })
 
   test('tab: contentAndOutcomes (draft of published). renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
@@ -373,7 +366,9 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   })
 })
 
-/**** Förbereda inför kurstart ***** */
+/*******************************************/
+/**** Förbereda inför kurstart *************/
+/*******************************************/
 describe('Active tab prep. Component <MemoContainer> Edit published. A New draft of a PUBLISHED memo. All data is filled in and visible. Memo in English, user interface in Swedish', () => {
   beforeEach(
     async () =>
@@ -520,14 +515,9 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'prep')
     expect(headers.length).toBe(0)
-    // headers.map(contentId => {
-    //   const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-    //   expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
-    // })
   })
 
   test('tab: prep (draft of published). renders <StandardEditorPerTitle>, literature is a standard header, mandatory and editable, will have open editor because it has content', async () => {
-    // const { mandatoryAndEditable: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'prep')
     expect(headers.length).toBe(1)
@@ -542,7 +532,6 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     const contentType = 'optionalEditable'
     const headersAndSubHds = getSectionHeadersByType(contentType, 'prep')
     expect(headersAndSubHds.length).toBe(3)
-    console.log(headersAndSubHds)
     const preparationsText = getByTestId(`text-for-memo-${contentType}-preparations`)
     expect(preparationsText).toHaveTextContent('Some test data for section preparations')
     const equipmentOpenEditor = getByTestId(`standard-editor-equipment`)
@@ -607,7 +596,6 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   })
 
   test('tab: prep (draft of published). Renders "literature" close editor button, then click it to close editor and show text from editor', async () => {
-    //Läraktiviteter - Learning activities
     const closeLiterature = getByTestId('btn-close-editor-literature')
     expect(closeLiterature).toBeInTheDocument()
 
@@ -723,5 +711,799 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expect(getAllByText('Inkludera').length).toBe(6)
     expect(screen.queryByText('Inkluderas för vissa kurser')).not.toBeInTheDocument()
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(1)
+  })
+})
+
+/*******************************************/
+/**** Examination  reqToFinal **************/
+/*******************************************/
+describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New draft of a PUBLISHED memo. All data is filled in and visible. Memo in English, user interface in Swedish', () => {
+  beforeEach(
+    async () =>
+      await act(async () => {
+        await render(<EditPublishedMemo activeTab="reqToFinal" memoLang="en" userLang="sv" />)
+      })
+  )
+  test('tab: reqToFinal (draft of published). renders a page with a new draft of a new memo', done => {
+    done()
+  })
+
+  test('tab: reqToFinal (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
+    const allH3Headers = getAllByRole('heading', { level: 3 })
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    expect(allH3Headers.length).toBe(12)
+    const expectedh3ds = [...orderedFilledInAndVisible.slice(14, 25)]
+    expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
+  })
+
+  test('tab: reqToFinal (draft of published). renders collapse for help-text for all editors because they are open', () => {
+    const allHelpTextBtns = getAllByText('Visa vägledning')
+    expect(allHelpTextBtns.length).toBe(4)
+  })
+
+  test('tab: reqToFinal (draft of published). All edit buttons have label Stäng redigeringsläge', async () => {
+    const allCloseEditorBtn = getAllByText('Stäng redigeringsläge')
+    expect(allCloseEditorBtn.length).toBe(4)
+  })
+
+  test('tab: reqToFinal (draft of published). renders memo sections headers in memo lang in tab pane', () => {
+    const allInactiveTab = getAllByRole('tab', { selected: false })
+    expect(allInactiveTab.length).toBe(4)
+
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const expectedInactiveTitles = [contentAndOutcomes, prep, extra, contacts]
+
+    expectedInactiveTitles.map((tabTitle, index) => {
+      expect(allInactiveTab[index]).toHaveTextContent(tabTitle)
+    })
+
+    const activeTab = screen.getByRole('tab', { selected: true })
+    expect(activeTab).toHaveTextContent(reqToFinal)
+
+    expect(activeTab.className).toBe('nav-link active')
+  })
+
+  test('tab: reqToFinal (draft of published). renders all buttons', async () => {
+    const allButtons = getAllByRole('button')
+    expect(allButtons.length).toBe(27)
+    const expectedAriaLabels = [
+      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'Information about Grading scale',
+      'Information about Examination',
+      'Stäng redigeringsläge Examination',
+      'Information about Other requirements for final grade',
+      'Information about Grading criteria/assessment criteria',
+      'Redigera Målrelaterade betygskriterier/bedömningskriterier',
+      'Information about Opportunity to complete the requirements via supplementary examination',
+      'Stäng redigeringsläge Möjlighet till komplettering',
+      'Information about Opportunity to raise an approved grade via renewed examination',
+      'Stäng redigeringsläge Möjlighet till plussning',
+      'Information about Alternatives to missed activities or tasks',
+      'Redigera Möjlighet till ersättningsuppgifter',
+      'Information about Reporting of exam results',
+      'Redigera Resultatrapportering',
+      'Information about Ethical approach',
+      'Stäng redigeringsläge Etiskt förhållningssätt',
+      'Information about Created by user First header for section extraHeaders3',
+      'Redigera undefined', // fix header in extra rubrik
+      'Information about Created by user Second header for section extraHeaders3',
+      'Redigera undefined', // fix header in extra rubrik
+      null,
+      'Information about Made changes',
+      null,
+      null,
+      'Avbryt',
+      null,
+    ]
+    allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
+
+    //testa       'Lägg till rubrik till Preparations before course start',
+    //  'återgå till senaste publicerade versionen av kurs-PM (Invalid Date)',
+  })
+
+  test('tab: reqToFinal (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+    const headers = getOnlyStandardHeaders('reqToFinal')
+    expect(headers.length).toBe(9)
+    headers.map(headerId => {
+      const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
+      expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct content', async () => {
+    const contentType = 'mandatory'
+    const headers = getSectionHeadersByType(contentType, 'reqToFinal')
+    expect(headers.length).toBe(3)
+    headers.map(contentId => {
+      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). renders <SectionForNonEditable>, there are one standard header which are mandatory for some courses and non-editable', async () => {
+    const contentType = 'mandatoryForSome'
+    const headers = getSectionHeadersByType(contentType, 'reqToFinal')
+    expect(headers.length).toBe(1)
+    headers.map(contentId => {
+      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). renders <StandardEditorPerTitle>, no fields which are mandatory and can be edited', async () => {
+    const contentType = 'mandatoryAndEditable'
+    const headers = getSectionHeadersByType(contentType, 'reqToFinal')
+    expect(headers.length).toBe(0)
+  })
+
+  test('tab: reqToFinal (draft of published). renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
+    const contentType = 'optionalEditable'
+    const headersAndSubHds = getSectionHeadersByType(contentType, 'reqToFinal')
+    expect(headersAndSubHds.length).toBe(4)
+
+    const examinationSubSectionEditor = getByTestId(`standard-editor-examinationSubSection`)
+    expect(examinationSubSectionEditor).toBeInTheDocument()
+    const gradingCriteriaText = getByTestId(`text-for-memo-${contentType}-gradingCriteria`)
+    expect(gradingCriteriaText).toBeInTheDocument()
+
+    const possibilityToCompletionEditor = getByTestId(`standard-editor-possibilityToCompletion`)
+    expect(possibilityToCompletionEditor).toBeInTheDocument()
+
+    const possibilityToAdditionEditor = getByTestId(`standard-editor-possibilityToAddition`)
+    expect(possibilityToAdditionEditor).toBeInTheDocument()
+
+    const possibilityToCompensate = getByTestId(`text-for-memo-${contentType}-possibilityToCompensate`)
+    expect(possibilityToCompensate).toHaveTextContent('Some test data for section possibilityToCompensate')
+
+    const reportingResults = getByTestId(`text-for-memo-${contentType}-reportingResults`)
+    expect(reportingResults).toHaveTextContent('Some test data for section reportingResults')
+
+    const ethicalApproachSubSection = getByTestId(`standard-editor-ethicalApproachSubSection`)
+    expect(ethicalApproachSubSection).toBeInTheDocument()
+  })
+
+  test('tab: reqToFinal (draft of published). renders <StandardEditorPerTitle>, check the text of prerequisites which is optional and non-editable is visible', async () => {
+    const contentType = 'optional' // prerequisites
+    const headersAndSubHds = getSectionHeadersByType(contentType, 'reqToFinal')
+    expect(headersAndSubHds.length).toBe(0)
+  })
+
+  test('tab: reqToFinal (draft of published). renders <StandardEditorPerTitle>, no message about emptiness of optional (non-editable + editable)', async () => {
+    const dynamicSections = queryAllByTestId(`dynamic-empty-content-and-not-included`)
+    expect(dynamicSections.length).toBe(0)
+  })
+
+  test('tab: reqToFinal (draft of published). Check if content from other tab, is not visible in this section', async done => {
+    const inactiveTabEditor = screen.queryByTestId('standard-editor-learningActivities')
+    expect(inactiveTabEditor).not.toBeInTheDocument()
+    const inactiveTabEditorcourseContent = screen.queryByTestId('standard-editor-courseContent')
+    expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
+    done()
+  })
+
+  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" checkbox which are checked and shows filled in content', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-examinationSubSection')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    const visibleEditor = queryByTestId('btn-close-editor-examinationSubSection')
+    expect(visibleEditor).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" open editor and tries to close it after pressing button "close"', async () => {
+    const editorCloseBtn = getByTestId('btn-close-editor-examinationSubSection')
+    expect(editorCloseBtn).toBeInTheDocument()
+
+    fireEvent.click(editorCloseBtn)
+    await waitFor(() => {
+      const editorOpenBtn = getByTestId('btn-open-editor-examinationSubSection')
+      const visibleText = queryByTestId('text-for-memo-optionalEditable-examinationSubSection')
+      expect(visibleText).toBeInTheDocument()
+    })
+    fireEvent.click(getByTestId('checkbox-visibility-examinationSubSection'))
+    await waitFor(() => {
+      const filledInButNotIncludedMsg = queryByTestId(
+        'optional-and-excluded-but-with-content-subSection-examinationSubSection'
+      )
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). Renders "gradingCriteria" closed editor and tries to change visibility and then open it after pressing button "open"', async () => {
+    const visibleText = queryByTestId('text-for-memo-optionalEditable-gradingCriteria')
+    expect(visibleText).toBeInTheDocument()
+
+    fireEvent.click(getByTestId('checkbox-visibility-gradingCriteria'))
+    await waitFor(() => {
+      const filledInButNotIncludedMsg = queryByTestId('optional-and-excluded-but-with-content-section-gradingCriteria')
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+    })
+    const editorOpenBtn = getByTestId('btn-open-editor-gradingCriteria')
+
+    fireEvent.click(editorOpenBtn)
+    await waitFor(() => {
+      const editorCloseBtn = getByTestId('btn-close-editor-gradingCriteria')
+      expect(editorCloseBtn).toBeInTheDocument()
+    })
+  })
+
+  //ethicalApproachSubSection
+  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" checkbox which are checked and shows filled in content', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-ethicalApproachSubSection')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    const visibleEditor = queryByTestId('btn-close-editor-ethicalApproachSubSection')
+    expect(visibleEditor).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" open editor and tries to close it after pressing button "close"', async () => {
+    const editorCloseBtn = getByTestId('btn-close-editor-ethicalApproachSubSection')
+    expect(editorCloseBtn).toBeInTheDocument()
+
+    fireEvent.click(editorCloseBtn)
+    await waitFor(() => {
+      const editorOpenBtn = getByTestId('btn-open-editor-ethicalApproachSubSection')
+      const visibleText = queryByTestId('text-for-memo-optionalEditable-ethicalApproachSubSection')
+      expect(visibleText).toBeInTheDocument()
+    })
+    fireEvent.click(getByTestId('checkbox-visibility-ethicalApproachSubSection'))
+    await waitFor(() => {
+      const filledInButNotIncludedMsg = queryByTestId(
+        'optional-and-excluded-but-with-content-subSection-ethicalApproachSubSection'
+      )
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+    })
+  })
+
+  //possibilityToCompletion
+
+  test('tab: reqToFinal (draft of published). Renders "possibilityToCompletion" checkbox which are checked and shows filled in content', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-possibilityToCompletion')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    const visibleEditor = queryByTestId('btn-close-editor-possibilityToCompletion')
+    expect(visibleEditor).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). Renders "possibilityToCompletion" as an open editor and tries to change visibility and to close it by pressing a button "close"', async () => {
+    const editorCloseBtn = getByTestId('btn-close-editor-possibilityToCompletion')
+    expect(editorCloseBtn).toBeInTheDocument()
+
+    fireEvent.click(editorCloseBtn)
+    await waitFor(() => {
+      const editorOpenBtn = getByTestId('btn-open-editor-possibilityToCompletion')
+      const visibleText = queryByTestId('text-for-memo-optionalEditable-possibilityToCompletion')
+      expect(visibleText).toBeInTheDocument()
+    })
+    fireEvent.click(getByTestId('checkbox-visibility-possibilityToCompletion'))
+    await waitFor(() => {
+      const filledInButNotIncludedMsg = queryByTestId(
+        'optional-and-excluded-but-with-content-section-possibilityToCompletion'
+      )
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+    })
+  })
+
+  // data-xtestid="btn-open-editor-extraHeaders3-0.13108128127030394"
+  test('tab: reqToFinal (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
+    const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders3-Firstheader')
+    expect(firstExtraEditor).not.toBeInTheDocument()
+    const firstExtraText = screen.queryByText('Html content for section First header')
+    expect(firstExtraText).toBeInTheDocument()
+
+    const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders3-Firstheader')
+    expect(firstExtraOpenBtn).toBeInTheDocument()
+
+    const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders3-Secondheader')
+    expect(secondExtraEditor).not.toBeInTheDocument()
+    const secondExtraText = screen.queryByText('Html content for section Second header')
+    expect(secondExtraText).toBeInTheDocument()
+    const secondExtraEditorOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders3-Secondheader')
+    expect(secondExtraEditorOpenBtn).toBeInTheDocument()
+    done()
+  })
+
+  // data-xtestid="btn-open-editor-extraHeaders2-0.13108128127030394"
+  test('tab: reqToFinal (draft of published). Open both extra headers editors', async done => {
+    const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders3-Firstheader')
+
+    fireEvent.click(firstExtraOpenBtn)
+    await waitFor(() => {
+      expect(screen.queryByTestId('btn-close-editor-extraHeaders3-Firstheader')).toBeInTheDocument()
+      const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders3-Firstheader')
+      expect(firstExtraEditor).toBeInTheDocument()
+    })
+
+    fireEvent.click(screen.getByTestId('btn-open-editor-extraHeaders3-Secondheader'))
+    await waitFor(() => {
+      expect(screen.queryByTestId('btn-close-editor-extraHeaders3-Secondheader')).toBeInTheDocument()
+      const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders3-Secondheader')
+      expect(secondExtraEditor).toBeInTheDocument()
+    })
+
+    done()
+  })
+
+  test('tab: reqToFinal (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
+    expect(getByText('Välj kurs-PM')).toBeInTheDocument()
+    expect(getByText('Spara')).toBeInTheDocument()
+    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Granska')).toBeInTheDocument()
+  })
+
+  test('tab: reqToFinal (draft of published). Click button Spara', async () => {
+    fireEvent.click(getByText('Spara'))
+    await waitFor(() => {
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: reqToFinal (draft of published). render correct number of text about data origin and source info ', () => {
+    expect(getAllByText('från kursplan').length).toBe(4)
+    expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
+    expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
+  })
+
+  test('tab: reqToFinal (draft of published). render correct number of include label, standard + extra headers', () => {
+    expect(getAllByText('Inkluderas alltid').length).toBe(3)
+    expect(getAllByText('Inkludera').length).toBe(7)
+    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
+    expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(2)
+  })
+})
+/*******************************************/
+/**** Ytterligare Information  extra *******/
+/*******************************************/
+describe('Active tab extra. Component <MemoContainer> Edit published. A New draft of a PUBLISHED memo. All data is filled in and visible. Memo in English, user interface in Swedish', () => {
+  beforeEach(
+    async () =>
+      await act(async () => {
+        await render(<EditPublishedMemo activeTab="extra" memoLang="en" userLang="sv" />)
+      })
+  )
+  test('tab: extra (draft of published). renders a page with a new draft of a new memo', done => {
+    done()
+  })
+
+  test('tab: extra (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
+    const allH3Headers = getAllByRole('heading', { level: 3 })
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    expect(allH3Headers.length).toBe(5)
+    const expectedh3ds = [...orderedFilledInAndVisible.slice(25, 27)]
+    expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
+  })
+
+  test('tab: extra (draft of published). renders no collapse and no buttons to close editor for help-text for all editors because they are open', () => {
+    const allHelpTextBtns = screen.queryByText('Visa vägledning')
+    expect(allHelpTextBtns).not.toBeInTheDocument()
+    const allCloseEditorBtn = screen.queryByText('Stäng redigeringsläge')
+    expect(allCloseEditorBtn).not.toBeInTheDocument()
+  })
+
+  test('tab: extra (draft of published). renders memo sections headers in memo lang in tab pane', () => {
+    const allInactiveTab = getAllByRole('tab', { selected: false })
+    expect(allInactiveTab.length).toBe(4)
+
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const expectedInactiveTitles = [contentAndOutcomes, prep, reqToFinal, contacts]
+
+    expectedInactiveTitles.map((tabTitle, index) => {
+      expect(allInactiveTab[index]).toHaveTextContent(tabTitle)
+    })
+
+    const activeTab = screen.getByRole('tab', { selected: true })
+    expect(activeTab).toHaveTextContent(extra)
+
+    expect(activeTab.className).toBe('nav-link active')
+  })
+
+  test('tab: extra (draft of published). renders all buttons', async () => {
+    const allButtons = getAllByRole('button')
+    expect(allButtons.length).toBe(14)
+    const expectedAriaLabels = [
+      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'Information about Additional regulations',
+      'Information about Changes of the course before this course offering',
+      'Redigera Ändringar inför denna kursomgång',
+      'Information about Created by user First header for section extraHeaders4',
+      'Redigera undefined', // fix header in extra rubrik
+      'Information about Created by user Second header for section extraHeaders4',
+      'Redigera undefined', // fix header in extra rubrik
+      null,
+      'Information about Made changes',
+      null,
+      null,
+      'Avbryt',
+      null,
+    ]
+    allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
+
+    //testa       'Lägg till rubrik till Preparations before course start',
+    //  'återgå till senaste publicerade versionen av kurs-PM (Invalid Date)',
+  })
+
+  test('tab: extra (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+    const headers = getOnlyStandardHeaders('extra')
+    expect(headers.length).toBe(2)
+    headers.map(headerId => {
+      const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
+      expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
+    })
+  })
+
+  test('tab: extra (draft of published). renders <SectionForNonEditable>, there is no mandatory (non-editable) fields', async () => {
+    const contentType = 'mandatory'
+    const headers = getSectionHeadersByType(contentType, 'extra')
+    expect(headers.length).toBe(0)
+  })
+
+  test('tab: extra (draft of published). renders <SectionForNonEditable>, there are one standard header which are mandatory for some courses and non-editable', async () => {
+    const contentType = 'mandatoryForSome'
+    const headers = getSectionHeadersByType(contentType, 'extra')
+    expect(headers.length).toBe(1)
+    headers.map(contentId => {
+      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
+    })
+  })
+
+  test('tab: extra (draft of published). renders <StandardEditorPerTitle>, no fields which are mandatory and can be edited', async () => {
+    const contentType = 'mandatoryAndEditable'
+    const headers = getSectionHeadersByType(contentType, 'extra')
+    expect(headers.length).toBe(0)
+  })
+
+  test('tab: extra (draft of published). renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
+    const contentType = 'optionalEditable'
+    const headersAndSubHds = getSectionHeadersByType(contentType, 'extra')
+    expect(headersAndSubHds.length).toBe(1)
+
+    const infoForReregisteredStudents = getByTestId(`text-for-memo-${contentType}-infoForReregisteredStudents`)
+    expect(infoForReregisteredStudents).toBeInTheDocument()
+
+    const infoForReregisteredStudentsEditor = getByTestId(`btn-open-editor-infoForReregisteredStudents`)
+    expect(infoForReregisteredStudentsEditor).toBeInTheDocument()
+  })
+
+  test('tab: extra (draft of published). renders <StandardEditorPerTitle>, check the text of prerequisites which is optional and non-editable is visible', async () => {
+    const contentType = 'optional' // prerequisites
+    const headersAndSubHds = getSectionHeadersByType(contentType, 'extra')
+    expect(headersAndSubHds.length).toBe(0)
+  })
+
+  test('tab: extra (draft of published). renders <StandardEditorPerTitle>, no message about emptiness of optional (non-editable + editable)', async () => {
+    const dynamicSections = queryAllByTestId(`dynamic-empty-content-and-not-included`)
+    expect(dynamicSections.length).toBe(0)
+  })
+
+  test('tab: extra (draft of published). Check if content from other tab, is not visible in this section', async done => {
+    const inactiveTabEditor = screen.queryByTestId('standard-editor-learningActivities')
+    expect(inactiveTabEditor).not.toBeInTheDocument()
+    const inactiveTabEditorcourseContent = screen.queryByTestId('standard-editor-courseContent')
+    expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
+    done()
+  })
+
+  test('tab: extra (draft of published). Renders "infoForReregisteredStudents" checkbox which are checked and shows filled in content as a text', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-infoForReregisteredStudents')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    const closedEditor = queryByTestId('btn-open-editor-infoForReregisteredStudents')
+    expect(closedEditor).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+      const filledInButNotIncludedMsg = queryByTestId(
+        'optional-and-excluded-but-with-content-section-infoForReregisteredStudents'
+      )
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  // data-xtestid="btn-open-editor-extraHeaders4-0.13108128127030394"
+  xtest('tab: extra (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
+    const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders4-Firstheader')
+    expect(firstExtraEditor).not.toBeInTheDocument()
+    const firstExtraText = screen.queryByText('Html content for section First header')
+    expect(firstExtraText).toBeInTheDocument()
+
+    const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders4-Firstheader')
+    expect(firstExtraOpenBtn).toBeInTheDocument()
+
+    const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders4-Secondheader')
+    expect(secondExtraEditor).not.toBeInTheDocument()
+    const secondExtraText = screen.queryByText('Html content for section Second header')
+    expect(secondExtraText).toBeInTheDocument()
+    const secondExtraEditorOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders4-Secondheader')
+    expect(secondExtraEditorOpenBtn).toBeInTheDocument()
+    done()
+  })
+
+  // data-xtestid="btn-open-editor-extraHeaders4-0.13108128127030394"
+  test('tab: extra (draft of published). Open both extra headers editors', async done => {
+    const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders4-Firstheader')
+
+    fireEvent.click(firstExtraOpenBtn)
+    await waitFor(() => {
+      expect(screen.queryByTestId('btn-close-editor-extraHeaders4-Firstheader')).toBeInTheDocument()
+      const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders4-Firstheader')
+      expect(firstExtraEditor).toBeInTheDocument()
+    })
+
+    fireEvent.click(screen.getByTestId('btn-open-editor-extraHeaders4-Secondheader'))
+    await waitFor(() => {
+      expect(screen.queryByTestId('btn-close-editor-extraHeaders4-Secondheader')).toBeInTheDocument()
+      const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders4-Secondheader')
+      expect(secondExtraEditor).toBeInTheDocument()
+    })
+
+    done()
+  })
+
+  test('tab: extra (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
+    expect(getByText('Välj kurs-PM')).toBeInTheDocument()
+    expect(getByText('Spara')).toBeInTheDocument()
+    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Granska')).toBeInTheDocument()
+  })
+
+  test('tab: extra (draft of published). Click button Spara', async () => {
+    fireEvent.click(getByText('Spara'))
+    await waitFor(() => {
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: extra (draft of published). render correct number of text about data origin and source info ', () => {
+    expect(getAllByText('från kursplan').length).toBe(1)
+    expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
+    expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
+  })
+
+  test('tab: extra (draft of published). render correct number of include label, standard + extra headers', () => {
+    expect(screen.queryByText('Inkluderas alltid')).not.toBeInTheDocument()
+    expect(getAllByText('Inkludera').length).toBe(3)
+    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
+    expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
+  })
+})
+/*******************************************/
+/**** Kontakter  contacts ******************/
+/*******************************************/
+describe('Active tab contacts. Component <MemoContainer> Edit published. A New draft of a PUBLISHED memo. All data is filled in and visible. Memo in English, user interface in Swedish', () => {
+  beforeEach(
+    async () =>
+      await act(async () => {
+        await render(<EditPublishedMemo activeTab="contacts" memoLang="en" userLang="sv" />)
+      })
+  )
+  test('tab: contacts (draft of published). renders a page with a new draft of a new memo', done => {
+    done()
+  })
+
+  test('tab: contacts (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
+    const allH3Headers = getAllByRole('heading', { level: 3 })
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    expect(allH3Headers.length).toBe(7)
+  })
+
+  test('tab: contacts (draft of published). renders no collapse and no buttons to close editor for help-text for all editors because they are open', () => {
+    const allHelpTextBtns = screen.queryByText('Visa vägledning')
+    expect(allHelpTextBtns).not.toBeInTheDocument()
+    const allCloseEditorBtn = screen.queryByText('Stäng redigeringsläge')
+    expect(allCloseEditorBtn).not.toBeInTheDocument()
+  })
+
+  test('tab: contacts (draft of published). renders memo sections headers in memo lang in tab pane', () => {
+    const allInactiveTab = getAllByRole('tab', { selected: false })
+    expect(allInactiveTab.length).toBe(4)
+
+    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const expectedInactiveTitles = [contentAndOutcomes, prep, reqToFinal, extra]
+
+    expectedInactiveTitles.map((tabTitle, index) => {
+      expect(allInactiveTab[index]).toHaveTextContent(tabTitle)
+    })
+
+    const activeTab = screen.getByRole('tab', { selected: true })
+    expect(activeTab).toHaveTextContent(contacts)
+
+    expect(activeTab.className).toBe('nav-link active')
+  })
+
+  test('tab: contacts (draft of published). renders all buttons', async () => {
+    const allButtons = getAllByRole('button')
+    expect(allButtons.length).toBe(14)
+    const expectedAriaLabels = [
+      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'Information about Communication during course',
+      'Redigera Kommunikation i kursen',
+      'Information about Course coordinator',
+      'Information about Teacher',
+      'Information about Teacher assistants',
+      'Information about Examiner',
+      'Information about Other contacts',
+      'Redigera Övriga kontakter',
+      'Information about Made changes',
+      null,
+      null,
+      'Avbryt',
+      null,
+    ]
+    allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
+  })
+
+  test('tab: contacts (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
+    const headers = getOnlyStandardHeaders('contacts')
+    expect(headers.length).toBe(6)
+    headers.map(headerId => {
+      const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
+      expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
+    })
+  })
+
+  test('tab: contacts (draft of published). renders <SectionForNonEditable>, there is no mandatory (non-editable) fields', async () => {
+    const contentType = 'mandatory'
+    const headers = getSectionHeadersByType(contentType, 'contacts')
+    expect(headers.length).toBe(3)
+    headers.map(contentId => {
+      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
+    })
+  })
+
+  test('tab: contacts (draft of published). renders <SectionForNonEditable>, there are one standard header which are mandatory for some courses and non-editable', async () => {
+    const contentType = 'mandatoryForSome'
+    const headers = getSectionHeadersByType(contentType, 'contacts')
+    expect(headers.length).toBe(0)
+  })
+
+  test('tab: contacts (draft of published). renders <StandardEditorPerTitle>, no fields which are mandatory and can be edited', async () => {
+    const contentType = 'mandatoryAndEditable'
+    const headers = getSectionHeadersByType(contentType, 'contacts')
+    expect(headers.length).toBe(0)
+  })
+
+  test('tab: contacts (draft of published). renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and editable and have no content (not included as well)', async () => {
+    const contentType = 'optionalEditable'
+    const headersAndSubHds = getSectionHeadersByType(contentType, 'contacts')
+    expect(headersAndSubHds.length).toBe(2)
+
+    const communicationDuringCourse = getByTestId(`text-for-memo-${contentType}-communicationDuringCourse`)
+    expect(communicationDuringCourse).toBeInTheDocument()
+
+    const communicationDuringCourseEditor = getByTestId(`btn-open-editor-communicationDuringCourse`)
+    expect(communicationDuringCourseEditor).toBeInTheDocument()
+
+    const otherContacts = getByTestId(`text-for-memo-${contentType}-otherContacts`)
+    expect(otherContacts).toBeInTheDocument()
+
+    const otherContactsEditor = getByTestId(`btn-open-editor-otherContacts`)
+    expect(otherContactsEditor).toBeInTheDocument()
+  })
+
+  test('tab: contacts (draft of published). renders <StandardEditorPerTitle>, check the text of prerequisites which is optional and non-editable is visible', async () => {
+    const contentType = 'optional'
+    const headersAndSubHds = getSectionHeadersByType(contentType, 'contacts')
+    expect(headersAndSubHds.length).toBe(1)
+    const teacherAssistants = getByTestId(`text-for-memo-${contentType}-teacherAssistants`)
+    expect(teacherAssistants).toBeInTheDocument()
+    expect(teacherAssistants).toHaveTextContent('Some test data for section teacherAssistants')
+  })
+
+  test('tab: contacts (draft of published). renders <StandardEditorPerTitle>, no message about emptiness of optional (non-editable + editable)', async () => {
+    const dynamicSections = queryAllByTestId(`dynamic-empty-content-and-not-included`)
+    expect(dynamicSections.length).toBe(0)
+  })
+
+  test('tab: contacts (draft of published). Check if content from other tab, is not visible in this section', async done => {
+    const inactiveTabEditor = screen.queryByTestId('standard-editor-learningActivities')
+    expect(inactiveTabEditor).not.toBeInTheDocument()
+    const inactiveTabEditorcourseContent = screen.queryByTestId('standard-editor-courseContent')
+    expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
+    done()
+  })
+
+  test('tab: contacts (draft of published). Renders "communicationDuringCourse" checkbox which are checked and shows filled in content as a text', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-communicationDuringCourse')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    const closedEditor = queryByTestId('btn-open-editor-communicationDuringCourse')
+    expect(closedEditor).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+      const filledInButNotIncludedMsg = queryByTestId(
+        'optional-and-excluded-but-with-content-section-communicationDuringCourse'
+      )
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: contacts (draft of published). Renders "otherContacts" checkbox which are checked and shows filled in content as a text', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-otherContacts')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    const closedEditor = queryByTestId('btn-open-editor-otherContacts')
+    expect(closedEditor).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+      const filledInButNotIncludedMsg = queryByTestId('optional-and-excluded-but-with-content-section-otherContacts')
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: contacts (draft of published). Renders "teacherAssistants" checkbox which are checked and shows filled in content as a text', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-teacherAssistants')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    const text = queryByTestId('text-for-memo-optional-teacherAssistants')
+    expect(text).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+      const filledInButNotIncludedMsg = queryByTestId('text-for-memo-optional-teacherAssistants')
+      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: contacts (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
+    expect(getByText('Välj kurs-PM')).toBeInTheDocument()
+    expect(getByText('Spara')).toBeInTheDocument()
+    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Granska')).toBeInTheDocument()
+  })
+
+  test('tab: contacts (draft of published). Click button Spara', async () => {
+    fireEvent.click(getByText('Spara'))
+    await waitFor(() => {
+      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    })
+  })
+
+  test('tab: contacts (draft of published). render correct number of text about data origin and source info ', () => {
+    expect(screen.queryByText('från kursplan')).not.toBeInTheDocument()
+    expect(getAllByText('från kursgemensam information').length).toBe(1)
+    expect(getAllByText('från kurstillfällesinformation').length).toBe(3)
+  })
+
+  test('tab: contacts (draft of published). render correct number of include label, standard + extra headers', () => {
+    expect(getAllByText('Inkluderas alltid').length).toBe(3)
+    expect(getAllByText('Inkludera').length).toBe(3)
+    expect(screen.queryByText('Inkluderas för vissa kurser')).not.toBeInTheDocument()
+    expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
 })
