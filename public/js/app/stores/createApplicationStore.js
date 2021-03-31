@@ -138,7 +138,7 @@ function setVisibilityOfStandard(contentId, value) {
 }
 
 function setExtraContentProps(contentId, currentIndex, hasEmptyHeading, hasEmptyText) {
-  const hasEmptyHeadingAndText = hasEmptyText && hasEmptyHeading
+  const hasEmptyHeadingAndText = (hasEmptyText && hasEmptyHeading) || true
   this.extraContentState[contentId][currentIndex] = {
     hasEmptyHeadingAndText,
     canFinish: hasEmptyHeadingAndText || !hasEmptyHeading,
@@ -151,16 +151,14 @@ function removeExtraContent(contentId, currentIndex) {
   this.memoData[contentId].splice(currentIndex, 1)
 }
 
-// function closeError() {
-//   this.closeError = true
-// }
-
-function cleanUpAllEmptyExtraContent(contentId) {
+function cleanUpAllEmptyExtraContent(extraHeadersId) {
   const { extraContentState } = this
-  if (!extraContentState || !extraContentState[contentId]) return true
+  if (!extraContentState || !extraContentState[extraHeadersId]) return true
 
-  extraContentState[contentId].forEach(({ hasEmptyHeadingAndText }, currentIndex) => {
-    if (hasEmptyHeadingAndText) this.removeExtraContent(contentId, currentIndex)
+  extraContentState[extraHeadersId].forEach(({ hasEmptyHeadingAndText }, currentIndex) => {
+    if (hasEmptyHeadingAndText) {
+      this.removeExtraContent(extraHeadersId, currentIndex)
+    }
   })
   return true
 }

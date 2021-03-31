@@ -77,10 +77,6 @@ function MemoContainer(props) {
   }, [closeEmptyHeadingErrorMessage])
 
   useEffect(() => {
-    store.cleanUpAllEmptyExtraContent()
-  }, [activeTab])
-
-  useEffect(() => {
     const { history } = props
 
     if (history) {
@@ -88,7 +84,6 @@ function MemoContainer(props) {
         search: '',
       })
     }
-    // onScrollIntoView()
   }, [])
 
   const courseSubHeader = () => {
@@ -215,6 +210,7 @@ function MemoContainer(props) {
           startOfSection.scrollIntoView({ behavior: 'smooth', block: 'center' })
         }
       }, 400)
+      store.cleanUpAllEmptyExtraContent(extraHeadersId)
 
       onAutoSave()
     } else {
