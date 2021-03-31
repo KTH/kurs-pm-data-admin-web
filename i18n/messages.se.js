@@ -11,7 +11,7 @@ module.exports = {
     /**
      * Error messages
      */
-
+    error_have_not_rights: 'Du har inte behörighet att redigera Kursinformationssidan.',
     error_not_found: 'Tyvärr kunde vi inte hitta sidan du söker',
     error_generic: 'Något gick fel på servern, var god försök igen senare',
 

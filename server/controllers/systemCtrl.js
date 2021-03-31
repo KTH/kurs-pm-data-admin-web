@@ -57,6 +57,8 @@ function _getFriendlyErrorMessage(lang, statusCode) {
   switch (statusCode) {
     case 404:
       return i18n.message('error_not_found', lang)
+    case 403:
+      return i18n.message('error_have_not_rights', lang)
     default:
       return i18n.message('error_generic', lang)
   }

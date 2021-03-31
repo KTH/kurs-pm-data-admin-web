@@ -14,6 +14,8 @@ module.exports = {
 
     error_not_found: "Sorry, we can't find your requested page",
     error_generic: 'Something went wrong on the server, please try again later.',
+    error_have_not_rights:
+      'It is missing teacher, examiner or course coordinator rights to edit the Course Information page.',
 
     /**
      * Message keys
