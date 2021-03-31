@@ -42,8 +42,12 @@ CommentChangesTextarea.propTypes = {
   }).isRequired,
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
-  textAboutChanges: PropTypes.string.isRequired,
+  textAboutChanges: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+}
+
+CommentChangesTextarea.defaultProps = {
+  textAboutChanges: '',
 }
 
 export default CommentChangesTextarea

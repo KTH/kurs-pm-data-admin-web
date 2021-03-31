@@ -140,6 +140,7 @@ function ExtraHeadingEditor(props) {
         isEditorOpen={isOpen}
         onToggleVisibleEditor={onToggleVisibleEditor}
         userLangIndex={userLangIndex}
+        contentName={title}
       />
       {isOpen && (
         <span data-testid={`extra-content-editor-${contentId}-${uKey}`}>

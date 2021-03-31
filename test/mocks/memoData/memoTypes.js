@@ -48,6 +48,8 @@ const memoTypes = {
           validFromTerm: 20191,
           validUntilTerm: 20201,
         },
+        version: 2,
+        lastPublishedVersionPublishDate: 'Wed Jul 01 2019 13:37:34 GMT+0000 (Coordinated Universal Time)',
       },
       // filledInAndInvisible: {
       //   _id: draftsOfPublishedMemos[0].memoId,
