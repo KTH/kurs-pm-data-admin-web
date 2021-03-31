@@ -3,6 +3,8 @@ import { Provider } from 'mobx-react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router'
+import { act } from 'react-dom/test-utils'
+
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
 import i18n from '../../i18n'
@@ -36,40 +38,52 @@ const { getAllByRole, getAllByTestId, getByTestId } = screen
 
 describe('Component <CreateNewMemo> Create and publish course memo, initial state, no memo created yet.', () => {
   // beforeEach(() => render(<CreateNewMemoPage langAbbr="en" langIndex={0} />))
-  test('renders without props', () => {
-    render(<CreateNewMemoPage />)
+  test('renders without props', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage />)
+    })
   })
 
-  test('renders main header h1, page name', () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  test('renders main header h1, page name', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const allH2Headers = getAllByRole('heading', { level: 1 })
     expect(allH2Headers.length).toBe(1)
     expect(allH2Headers[0]).toHaveTextContent(pageTitlesEN.new)
   })
 
-  test('renders main subheader h4, course name. English.', () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  test('renders main subheader h4, course name. English.', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const allH2Headers = getAllByRole('heading', { level: 4 })
     expect(allH2Headers.length).toBe(1)
     expect(allH2Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
-  test('renders main header h1, course name. Swedish.', () => {
-    render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+  test('renders main header h1, course name. Swedish.', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    })
     const allH2Headers = getAllByRole('heading', { level: 4 })
     expect(allH2Headers.length).toBe(1)
     expect(allH2Headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
   })
 
-  test('renders main header h2, Choose course offering', () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  test('renders main header h2, Choose course offering', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const allH2Headers = getAllByRole('heading', { level: 2 })
     expect(allH2Headers.length).toBe(1)
     expect(allH2Headers[0]).toHaveTextContent(info.createNew)
   })
 
-  test('renders two visible headers h3', () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  test('renders two visible headers h3', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const allH3Headers = getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(2)
     expect(allH3Headers[0]).toHaveTextContent(info.chooseSavedDraft)
@@ -77,7 +91,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders only three buttons if nothing pressed yet', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const startButtons = getAllByRole('button')
     expect(startButtons.length).toBe(3)
     expect(startButtons[0]).toHaveTextContent('')
@@ -86,7 +102,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders alert if nothning is chosen and button Edit is pressed', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const editButton = screen.getByText(buttons.edit)
     fireEvent.click(editButton)
     await waitFor(() => {
@@ -95,16 +113,20 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     })
   })
 
-  test('renders text if no drafts is in the list and no semester is chosen', () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  test('renders text if no drafts is in the list and no semester is chosen', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     expect(screen.getByText(info.noSavedDrafts)).toBeVisible()
     const selectInput = getByTestId('select-terms')
     expect(selectInput).toHaveDisplayValue(info.chooseSemester.label)
     expect(getByTestId('new-course-offering')).toHaveStyle(`display: none;`)
   })
 
-  test('renders select options have focus.', () => {
-    render(<CreateNewMemoPage />)
+  test('renders select options have focus.', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage />)
+    })
     const selectInput = getByTestId('select-terms')
     selectInput.focus()
     expect(selectInput).toHaveFocus()
@@ -112,22 +134,28 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(selectInput).not.toHaveFocus()
   })
 
-  test('renders select options for course semesters in English.', () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  test('renders select options for course semesters in English.', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const semesters = getAllByRole('option')
     const semesterEnglish = ['Spring 2021', 'Autumn 2020', 'Spring 2020', 'Autumn 2019']
     semesters.map((s, i) => expect(s).toHaveTextContent(semesterEnglish[i]))
   })
 
-  test('renders select options for course semesters in Swedish.', () => {
-    render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+  test('renders select options for course semesters in Swedish.', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    })
     const semestersSw = getAllByRole('option')
     const semesterSwedish = ['VT 2021', 'HT 2020', 'VT 2020', 'HT 2019']
     semestersSw.map((s, i) => expect(s).toHaveTextContent(semesterSwedish[i]))
   })
 
   test('renders select options can be selected.', async () => {
-    render(<CreateNewMemoPage />)
+    await act(async () => {
+      await render(<CreateNewMemoPage />)
+    })
     const selectInput = getByTestId('select-terms')
     await fireEvent.change(selectInput, { target: { value: '20202' } })
     let options = getAllByTestId('select-option')
@@ -137,7 +165,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders checkboxes for all available rounds with value equals ladokRoundId of each course round', async () => {
-    render(<CreateNewMemoPage />)
+    await act(async () => {
+      await render(<CreateNewMemoPage />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20202' } })
 
@@ -152,7 +182,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders in user language: english, list of available autumn course offerings.', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20202' } })
 
@@ -169,7 +201,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders in user language: swedish, list of available autumn course offerings.', async () => {
-    render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20202' } })
     await waitFor(() => {
@@ -185,7 +219,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders in user language: swedish, list of available spring course offerings.', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
@@ -201,7 +237,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders in user language: swedish, list of available spring course offerings.', async () => {
-    render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
@@ -217,7 +255,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders a copy section when a course offering(s) are chosen and no published memo is available as a template memo', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
@@ -244,7 +284,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders only three buttons if checkbox pressed but no saved drafts are chosen', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
@@ -258,7 +300,10 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('create a new draft with one round, with correct name (use shortName) in english because round language is english', async () => {
-    render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    // render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    })
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
@@ -284,7 +329,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('create a new draft with one round, with correct name (use shortName) in swedish because round language is Swedish', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
     const selectInput = getByTestId('select-terms')
     const editButton = screen.getByText(buttons.edit)
     fireEvent.change(selectInput, { target: { value: '20211' } })
@@ -310,7 +357,10 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('create a new draft with two rounds, with correct name (use shortName) in english because one of rounds has language: Swedish', async () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    })
+    // render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     const editButton = screen.getByText(buttons.edit)
     fireEvent.change(selectInput, { target: { value: '20202' } })
@@ -341,7 +391,10 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
 })
 
 test('create a new draft with one round, with correct name (use shortName) in swedish because round language is Swedish', async () => {
-  render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  // render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  await act(async () => {
+    await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+  })
   const selectInput = getByTestId('select-terms')
   const editButton = screen.getByText(buttons.edit)
   fireEvent.change(selectInput, { target: { value: '20211' } })
@@ -367,7 +420,12 @@ test('create a new draft with one round, with correct name (use shortName) in sw
 })
 
 describe('Component <CreateNewMemo> Create and publish course memo, have some saved drafts.', () => {
-  beforeEach(() => render(<CreateNewMemoPageWithSavedDrafts langAbbr="sv" langIndex={1} />))
+  beforeEach(
+    async () =>
+      await act(async () => {
+        await render(<CreateNewMemoPageWithSavedDrafts langAbbr="sv" langIndex={1} />)
+      })
+  )
 
   test('render a list of saved drafts', async () => {
     const labelDrafts = getAllByTestId('label-saved-draft-radio')

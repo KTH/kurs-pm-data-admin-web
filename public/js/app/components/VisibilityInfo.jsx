@@ -16,6 +16,7 @@ const VisibilityInfo = ({
   onToggleVisibleEditor,
   sectionType,
   userLangIndex,
+  contentName,
 }) => {
   const dataOrigin = contentParam(contentId, 'source')
 
@@ -66,7 +67,7 @@ const VisibilityInfo = ({
       {(!isHeaderInConf || isEditable) && (
         <Button
           aria-label={`${isEditorOpen ? buttons.closeEditor : buttons.edit} ${
-            memoTitles[contentId] || memoTitles[contentId.substring(0, contentId.length - 10)]
+            memoTitles[contentId] || memoTitles[contentId.substring(0, contentId.length - 10)] || contentName
           }`}
           className="mb-0 mt-0"
           onClick={() => onToggleVisibleEditor()}
@@ -81,6 +82,7 @@ const VisibilityInfo = ({
 
 VisibilityInfo.propTypes = {
   contentId: PropTypes.string.isRequired,
+  contentName: PropTypes.string,
   isEditorOpen: PropTypes.bool,
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
@@ -92,6 +94,7 @@ VisibilityInfo.propTypes = {
 VisibilityInfo.defaultProps = {
   isEditorOpen: null,
   onToggleVisibleEditor: null,
+  contentName: '',
 }
 
 export default VisibilityInfo

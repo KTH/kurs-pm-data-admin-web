@@ -128,7 +128,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(17)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information about Course contents',
       'Information about Intended learning outcomes',
       'Information about Learning activities',
@@ -136,9 +136,9 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       'Information about Detailed plan', //TODO: add ariaLang
       'Stäng redigeringsläge Detaljplanering',
       'Information about Created by user First header for section extraHeaders1',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user First header for section extraHeaders1', // fix header in extra rubrik
       'Information about Created by user Second header for section extraHeaders1',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user Second header for section extraHeaders1', // fix header in extra rubrik
       null,
       'Information about Made changes',
       null,
@@ -148,7 +148,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
-      'återgå till senaste publicerade versionen av kurs-PM (Invalid Date)',
+      'återgå till senaste publicerade versionen av kurs-PM (2019-07-01 15:37:34)',
       '',
       '',
       '',
@@ -441,7 +441,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(22)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information about Recommended prerequisites',
       'Information about Specific preparations',
       'Redigera Särskilda förberedelser',
@@ -454,9 +454,9 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
       'Information about Support for students with disabilities',
       'Stäng redigeringsläge Stöd för studenter med funktionsnedsättning',
       'Information about Created by user First header for section extraHeaders2',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user First header for section extraHeaders2', // fix header in extra rubrik
       'Information about Created by user Second header for section extraHeaders2',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user Second header for section extraHeaders2', // fix header in extra rubrik
       null,
       'Information about Made changes',
       null,
@@ -466,7 +466,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
-      'återgå till senaste publicerade versionen av kurs-PM (Invalid Date)',
+      'återgå till senaste publicerade versionen av kurs-PM (2019-07-01 15:37:34)',
       '',
       '',
       'Redigera',
@@ -767,7 +767,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(27)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information about Grading scale',
       'Information about Examination',
       'Stäng redigeringsläge Examination',
@@ -785,9 +785,9 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       'Information about Ethical approach',
       'Stäng redigeringsläge Etiskt förhållningssätt',
       'Information about Created by user First header for section extraHeaders3',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user First header for section extraHeaders3', // fix header in extra rubrik
       'Information about Created by user Second header for section extraHeaders3',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user Second header for section extraHeaders3', // fix header in extra rubrik
       null,
       'Information about Made changes',
       null,
@@ -798,7 +798,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
 
     //testa       'Lägg till rubrik till Preparations before course start',
-    //  'återgå till senaste publicerade versionen av kurs-PM (Invalid Date)',
+    //  'återgå till senaste publicerade versionen av kurs-PM (2019-07-01 15:37:34)',
   })
 
   test('tab: reqToFinal (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
@@ -1121,14 +1121,14 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(14)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information about Additional regulations',
       'Information about Changes of the course before this course offering',
       'Redigera Ändringar inför denna kursomgång',
       'Information about Created by user First header for section extraHeaders4',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user First header for section extraHeaders4',
       'Information about Created by user Second header for section extraHeaders4',
-      'Redigera undefined', // fix header in extra rubrik
+      'Redigera Created by user Second header for section extraHeaders4',
       null,
       'Information about Made changes',
       null,
@@ -1139,7 +1139,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
 
     //testa       'Lägg till rubrik till Preparations before course start',
-    //  'återgå till senaste publicerade versionen av kurs-PM (Invalid Date)',
+    //  'återgå till senaste publicerade versionen av kurs-PM (2019-07-01 15:37:34)',
   })
 
   test('tab: extra (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
@@ -1338,7 +1338,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
     const allButtons = getAllByRole('button')
     expect(allButtons.length).toBe(14)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (Invalid Date)',
+      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information about Communication during course',
       'Redigera Kommunikation i kursen',
       'Information about Course coordinator',
