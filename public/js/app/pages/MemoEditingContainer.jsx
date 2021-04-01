@@ -19,8 +19,8 @@ import CommentChangesTextarea from '../components/editors/CommentChangesTextarea
 import ControlPanel from '../components/ControlPanel'
 import ExtraHeadingEditor from '../components/editors/ExtraHeadingEditor'
 import StandardSectionOrEditor from '../components/StandardSectionOrEditor'
-import TabPanel from '../components/TabPanel'
-import TabSection from '../components/TabSection'
+import TabNav from '../components/TabNav'
+import TabContent from '../components/TabContent'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
@@ -31,7 +31,7 @@ const TAB_TOP_MARGIN = 20
 const TAB_HEIGHT_WITH_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN}px`
 const PERSONAL_MENU_HEIGHT = 41
 const MINUS_PERSONAL_MENU_HEIGHT = 0 - PERSONAL_MENU_HEIGHT
-const OVERVIEW_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN + PERSONAL_MENU_HEIGHT + 4}px`
+const OVERVIEW_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN + PERSONAL_MENU_HEIGHT + 24}px`
 const STICKY_BOTTOM_OFFSEST = PERSONAL_MENU_HEIGHT + 10
 
 function MemoContainer(props) {
@@ -85,6 +85,16 @@ function MemoContainer(props) {
       })
     }
   }, [])
+
+  // useEffect(() => {
+  //   if (window.location.hash) {
+  //     const id = window.location.hash.replace('#', '')
+  //     const { scrollIntoView } = document.getElementById(id)
+  //     if (scrollIntoView) {
+  //       scrollIntoView({ behavior: 'smooth', block: 'center' })
+  //     }
+  //   }
+  // }, [window.location.hash])
 
   const courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = memoData
@@ -325,7 +335,7 @@ function MemoContainer(props) {
     const { buttons } = i18n.messages[userLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
-      <TabSection key={'tab-content-for-section-' + id} isActive={activeTab === id} sectionId={id}>
+      <TabContent key={'tab-content-for-section-' + id} isActive={activeTab === id} sectionId={id}>
         <span id={'section-header-' + id} />
         {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
@@ -373,7 +383,7 @@ function MemoContainer(props) {
             )}
           </>
         )}
-      </TabSection>
+      </TabContent>
     ))
   }
   return (
@@ -426,7 +436,7 @@ function MemoContainer(props) {
                 },
               }}
             >
-              <TabPanel
+              <TabNav
                 activeTabId={activeTab}
                 onClick={onChangeTab}
                 sections={sections}

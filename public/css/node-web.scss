@@ -400,6 +400,16 @@ $btn-link-height: 20px;
   .title-and-info {
     margin-top: 35px; //h3 15px + 34.88px
   }
+  #contentAndOutcomes-courseContent,
+  #prep-prerequisites,
+  #reqToFinal-gradingScale,
+  #extra-additionalRegulations,
+  #contacts-communicationDuringCourse {
+    .title-and-info {
+      margin-top: 0;
+    }
+  }
+
   p,
   ul,
   span {
@@ -438,9 +448,6 @@ $btn-link-height: 20px;
   @media (min-width: 992px) {
     #mainMenu.col {
       max-width: 250px;
-    }
-    #mainMenu.col.navbar {
-      padding-top: 28px;
     }
     .progress-title {
       display: flex !important;
