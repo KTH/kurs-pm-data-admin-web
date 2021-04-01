@@ -45,7 +45,8 @@ function _renderOnClientSide() {
   // Removed basename because it is causing empty string basename={basename}
   const app = <BrowserRouter>{appFactory(applicationStore)}</BrowserRouter>
   const domElement = document.getElementById('app')
-  ReactDOM.hydrate(app, domElement)
+  // ReactDOM.hydrate(app, domElement)
+  ReactDOM.render(app, domElement)
   // ReactDOM.render(<BrowserRouter>{appFactory(applicationStore)}</BrowserRouter>, domElement)
 }
 
