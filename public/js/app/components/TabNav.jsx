@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TabPanel = ({ activeTabId, onClick, sections, sectionsLabels }) => (
+const TabNav = ({ activeTabId, onClick, sections, sectionsLabels }) => (
   <div className="tab-bar-container row">
     <div className="col">
-      <ul className="nav nav-tabs" id="sectionsTabPanel" role="tablist">
+      <ul className="nav nav-tabs sectionsTabNav" role="tablist">
         {sections.map(({ id }) => (
           <li className="nav-item" key={'header-' + id}>
             <a
@@ -28,7 +28,7 @@ const TabPanel = ({ activeTabId, onClick, sections, sectionsLabels }) => (
     </div>
   </div>
 )
-TabPanel.propTypes = {
+TabNav.propTypes = {
   activeTabId: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   sections: PropTypes.arrayOf(
@@ -42,4 +42,4 @@ TabPanel.propTypes = {
   sectionsLabels: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
-export default TabPanel
+export default TabNav
