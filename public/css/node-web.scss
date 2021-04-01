@@ -353,7 +353,7 @@ $btn-link-height: 20px;
 
 //Edit page
 //tabs
-#sectionsTabPanel {
+.sectionsTabNav {
   a {
     @extend %short-text-font-style;
   }
@@ -371,6 +371,7 @@ $btn-link-height: 20px;
 }
 .memo-content.tab-content {
   // border-top: 1px solid $borderGrey;
+  border-left: 1px solid $grey;
   padding-bottom: 5em;
   border-right: none;
   border-bottom: none;
