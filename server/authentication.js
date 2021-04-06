@@ -4,7 +4,6 @@ const passport = require('passport')
 const log = require('kth-node-log')
 const CasStrategy = require('kth-node-passport-cas').Strategy
 const { GatewayStrategy } = require('kth-node-passport-cas')
-const { System } = require('./controllers')
 const { server: config } = require('./configuration')
 
 /**
@@ -138,13 +137,13 @@ module.exports.requireRole = function () {
     const hasAuthorizedRole = roles.reduce((prev, curr) => prev || userCourseRoles[curr], false)
 
     if (!hasAuthorizedRole) {
-      const infoAboutAuth = {
+      return next({
         status: 403,
-        message: `Du har inte behörighet att redigera Kursinformationssidan eftersom du inte är inlagd i KOPPS som examinator eller kursansvarig för kursen. \
+        showMessage: true,
+        message: `Du har inte behörighet att redigera Kursinformationssidan eftersom du inte är inlagd i KOPPS som examinator, lärare eller kursansvarig för kursen. \
         Se förteckning över KOPPS-administratörer som kan hjälpa dig att lägga in dig på rätt roll för din kurs. \
         https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459`,
-      }
-      return System.final(infoAboutAuth, req, res)
+      })
     }
     return next()
   }

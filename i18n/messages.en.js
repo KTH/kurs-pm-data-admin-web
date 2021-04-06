@@ -14,8 +14,8 @@ module.exports = {
 
     error_not_found: "Sorry, we can't find your requested page",
     error_generic: 'Something went wrong on the server, please try again later.',
-    error_have_not_rights:
-      'It is missing teacher, examiner or course coordinator rights to edit the Course Information page.',
+    error_have_not_rights: `Missing permission to edit the Course Information page because you are not registered in KOPPS as an examiner, teacher or course coordinator for the course. \
+         See a list of KOPPS administrators who can help you get into the right role for your course. `,
 
     /**
      * Message keys

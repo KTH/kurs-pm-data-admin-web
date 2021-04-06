@@ -1,0 +1,26 @@
+<!-- javascript for this view. -->
+{{#extend 'scripts'}}
+<script>
+  window.StatusCode = ({{status}} || 500)
+</script>
+{{/extend}}
+
+<div class="errorMain">
+  {{{blocks.image}}}
+  <h1>{{status}}</h1>
+  {{#if showMessage }}
+  <p>{{friendly}}</p>
+  <p><a target="_blank" rel="noreferrer"
+      href="https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459">https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459</a>
+  </p>
+  {{else}}
+  <h3>{{friendly}}</h3>
+  {{/if}}
+
+  <div class="card card-body bg-light">
+    <p class="kthLovesGeeks">HTTP {{status}}: {{message}}</p>
+    {{#if error.stack}}
+    <pre>{{error.stack}}</pre>
+    {{/if}}
+  </div>
+</div>
