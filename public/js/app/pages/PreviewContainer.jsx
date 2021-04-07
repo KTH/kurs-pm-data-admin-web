@@ -107,7 +107,9 @@ const renderAllSections = ({ memoData }) => {
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
-          <p>{EMPTY[memoLanguageIndex]}</p>
+          <p>
+            <i>{EMPTY[memoLanguageIndex]}</i>
+          </p>
         </section>
       )
     }
@@ -129,7 +131,7 @@ const renderAllSections = ({ memoData }) => {
             }
 
             if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
-              contentHtml = EMPTY[memoLanguageIndex]
+              contentHtml = `<p><i>${EMPTY[memoLanguageIndex]}</i></p>`
             } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
               visibleInMemo = false
             } else if (!contentHtml) {

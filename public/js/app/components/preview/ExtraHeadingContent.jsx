@@ -3,6 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ExtraHeaderHead } from './ContentHead'
+import { EMPTY } from '../../util/constants'
 
 function ExtraHeadingContent(props) {
   const {
@@ -25,7 +26,7 @@ function ExtraHeadingContent(props) {
         visibleInMemo && (
           <span
             dangerouslySetInnerHTML={{
-              __html: (contentForEditor !== '' && contentForEditor) || '',
+              __html: (contentForEditor !== '' && contentForEditor) || `<p><i>${EMPTY[memoLanguageIndex]}</i></p>`,
             }}
           />
         )}
