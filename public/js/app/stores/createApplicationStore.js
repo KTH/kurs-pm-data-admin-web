@@ -138,10 +138,9 @@ function setVisibilityOfStandard(contentId, value) {
 }
 
 function setExtraContentProps(contentId, currentIndex, hasEmptyHeading, hasEmptyText) {
-  const hasEmptyHeadingAndText = (hasEmptyText && hasEmptyHeading) || true
   this.extraContentState[contentId][currentIndex] = {
-    hasEmptyHeadingAndText,
-    canFinish: hasEmptyHeadingAndText || !hasEmptyHeading,
+    hasEmptyHeadingAndText: !!(hasEmptyText && hasEmptyHeading),
+    canFinish: !(hasEmptyHeading && !hasEmptyText),
   }
 
   this.checkAllSectionsHasTitles()
@@ -152,10 +151,9 @@ function removeExtraContent(contentId, currentIndex) {
 }
 
 function cleanUpAllEmptyExtraContent(extraHeadersId) {
-  const { extraContentState } = this
-  if (!extraContentState || !extraContentState[extraHeadersId]) return true
+  if (!this.extraContentState || !this.extraContentState[extraHeadersId]) return true
 
-  extraContentState[extraHeadersId].forEach(({ hasEmptyHeadingAndText }, currentIndex) => {
+  this.extraContentState[extraHeadersId].forEach(({ hasEmptyHeadingAndText }, currentIndex) => {
     if (hasEmptyHeadingAndText) {
       this.removeExtraContent(extraHeadersId, currentIndex)
     }
