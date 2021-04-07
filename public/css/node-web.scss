@@ -370,7 +370,6 @@ $btn-link-height: 20px;
   border-left: 1px solid $grey;
 }
 .memo-content.tab-content {
-  // border-top: 1px solid $borderGrey;
   border-left: 1px solid $grey;
   padding-bottom: 5em;
   border-right: none;
@@ -407,6 +406,9 @@ $btn-link-height: 20px;
   #contacts-communicationDuringCourse {
     .title-and-info {
       margin-top: 0;
+      h3 {
+        margin-top: 10px;
+      }
     }
   }
 
@@ -442,7 +444,7 @@ $btn-link-height: 20px;
   padding-left: 0;
 
   #mainMenu {
-    margin-top: 10px;
+    margin-top: 0;
   }
 
   @media (min-width: 992px) {
@@ -471,7 +473,7 @@ $btn-link-height: 20px;
 span.section-info {
   @extend %row;
   justify-content: space-between;
-  padding-top: 10px; // + button = 20px
+  padding-top: 1rem; // + button = 20px
   .mandatory {
     margin-top: 5px; //  = 20px
   }
