@@ -37,7 +37,7 @@ async function _getCourseEmployees(apiMemoData) {
   try {
     const { assistants, teachers, examiner, responsibles } = redisKeys(courseCode, semester, ladokRoundIds)
     log.info(
-      '-------------------=> _getCourseEmployees for all memos course rounds with keys: ',
+      '_getCourseEmployees for all memos course rounds with keys: ',
       assistants,
       teachers,
       examiner,
@@ -51,7 +51,39 @@ async function _getCourseEmployees(apiMemoData) {
       .mget(responsibles) // [2]
       .mget(assistants) // [3]
       .execAsync()
-    log.info('Ug Redis fetched correctly, example >>> Teachers: ', arrWithStringifiedArrays[1])
+    log.info(
+      ' Ug Redis fetched correctly,  number of teachers: ',
+      arrWithStringifiedArrays[0].length,
+      ' for course ',
+      courseCode,
+      ' for semester ',
+      semester
+    )
+    log.info(
+      ' Ug Redis, examiners: ',
+      arrWithStringifiedArrays[1].length,
+      ' for course ',
+      courseCode,
+      ' for semester ',
+      semester
+    )
+    log.info(
+      ' Ug Redis, responsibles: ',
+      arrWithStringifiedArrays[2].length,
+      ' for course ',
+      courseCode,
+      ' for semester ',
+      semester
+    )
+    log.info(
+      ' Ug Redis, assistants: ',
+      arrWithStringifiedArrays[3].length,
+      ' for course ',
+      courseCode,
+      ' for semester ',
+      semester
+    )
+
     const flatArrWithHtmlStr = arrWithStringifiedArrays.map(perTypeStringifiedArr => {
       const thisTypeAllRoundsEmployees = perTypeStringifiedArr.flatMap(perRoundStr => JSON.parse(perRoundStr))
       /* Remove duplicates */
@@ -65,7 +97,7 @@ async function _getCourseEmployees(apiMemoData) {
       teacherAssistants: flatArrWithHtmlStr[3],
     }
   } catch (err) {
-    log.error('Exception from ugRedis - multi', { error: err })
+    log.error('Exception from ugRedis - multi getCourseEmployees', { error: err })
     return err
   }
 }
