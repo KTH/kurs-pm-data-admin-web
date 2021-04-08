@@ -80,15 +80,17 @@ module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas
     ldapConfig: config.ldap,
     ldapClient,
     proxyPrefixPath: config.proxyPrefixPath.uri,
-    unpackLdapUser: (ldapUser, pgtIou) => ({
-      username: ldapUser.ugUsername,
-      displayName: ldapUser.displayName,
-      email: ldapUser.mail,
-      pgtIou,
-      // This is where you can set custom roles
-      memberOf: getGroups(ldapUser), // memberOf important for requireRole
-      isSuperUser: hasGroup(config.auth.superuserGroup, ldapUser),
-    }),
+    unpackLdapUser(ldapUser, pgtIou) {
+      return {
+        username: ldapUser.ugUsername,
+        displayName: ldapUser.displayName,
+        email: ldapUser.mail,
+        pgtIou,
+        // This is where you can set custom roles
+        memberOf: getGroups(ldapUser), // memberOf important for requireRole
+        isSuperUser: hasGroup(config.auth.superuserGroup, ldapUser),
+      }
+    },
   }
 )
 
