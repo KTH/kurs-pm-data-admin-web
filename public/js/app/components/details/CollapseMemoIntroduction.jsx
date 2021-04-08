@@ -45,7 +45,7 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
           <h3>Mer hjälp?</h3>
           <p>
             <a
-              href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/anvandarmanual"
+              href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/anvandarmanual-om-kursen"
               target="_blank"
               className="external-link"
               rel="noreferrer"
@@ -99,7 +99,7 @@ const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
           <h3>Need more help?</h3>
           <p>
             <a
-              href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/anvandarmanual"
+              href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/anvandarmanual-om-kursen"
               target="_blank"
               className="external-link"
               rel="noreferrer"
