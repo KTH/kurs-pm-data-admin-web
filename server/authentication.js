@@ -4,7 +4,10 @@ const passport = require('passport')
 const log = require('kth-node-log')
 const CasStrategy = require('kth-node-passport-cas').Strategy
 const { GatewayStrategy } = require('kth-node-passport-cas')
+const language = require('kth-node-web-common/lib/language')
+
 const { server: config } = require('./configuration')
+const i18n = require('../i18n')
 
 /**
  * Passport will maintain persistent login sessions. In order for persistent sessions to work, the authenticated
@@ -125,6 +128,8 @@ module.exports.requireRole = function () {
   const roles = Array.prototype.slice.call(arguments)
 
   return async function _hasCourseAcceptedRoles(req, res, next) {
+    const lang = language.getLanguage(res)
+
     const ldapUser = req.session.authUser || {}
     const courseCode = req.params.courseCode.toUpperCase()
     const courseInitials = req.params.courseCode.slice(0, 2).toUpperCase()
@@ -142,9 +147,10 @@ module.exports.requireRole = function () {
       return next({
         status: 403,
         showMessage: true,
-        message: `Du har inte behörighet att redigera Kursinformationssidan eftersom du inte är inlagd i KOPPS som examinator, lärare eller kursansvarig för kursen. \
-        Se förteckning över KOPPS-administratörer som kan hjälpa dig att lägga in dig på rätt roll för din kurs. \
-        https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459`,
+        message: i18n.message('message_have_not_rights', lang),
+        // message: `Du har inte behörighet att redigera Kursinformationssidan eftersom du inte är inlagd i KOPPS som examinator, lärare eller kursansvarig för kursen. \
+        // Se förteckning över KOPPS-administratörer som kan hjälpa dig att lägga in dig på rätt roll för din kurs. \
+        // https://intra.kth.se/utbildning/utbildningsadministr/kopps/koppsanvandare-1.33459`,
       })
     }
     return next()
