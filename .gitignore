@@ -38,4 +38,4 @@ dist
 *.env
 
 # KTH Node Web Common imported files
-server/views/layouts/errorLayout.handlebars
+# server/views/layouts/errorLayout.handlebars
