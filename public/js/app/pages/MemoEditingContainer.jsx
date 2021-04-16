@@ -214,12 +214,6 @@ function MemoContainer(props) {
     if (canBeSwitched) {
       setActiveTab(nextSectionId)
       setContentIdWithMissingHeading('')
-      setTimeout(() => {
-        const startOfSection = document.getElementById(`section-header-${nextSectionId}`)
-        if (startOfSection) {
-          startOfSection.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
-      }, 400)
       store.cleanUpAllEmptyExtraContent(extraHeadersId)
 
       onAutoSave()
