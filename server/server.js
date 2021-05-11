@@ -182,12 +182,10 @@ const oidc = new OpenIDConnect(server, passport, {
   failureRedirect: _addProxy(''),
   // eslint-disable-next-line no-unused-vars
   extendUser: (user, claims) => {
-    const { kthid, memberOf } = claims
+    const { memberOf } = claims
 
     // eslint-disable-next-line no-param-reassign
     user.isSuperUser = hasGroup(config.auth.superuserGroup, user)
-    // eslint-disable-next-line no-param-reassign
-    user.ugKthid = kthid
     // eslint-disable-next-line no-param-reassign
     user.memberOf = memberOf
   },
@@ -285,6 +283,7 @@ appRoute.delete(
 appRoute.get(
   'memo.getContent',
   _addProxy('/published/:courseCode'),
+  oidc.login,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.getCourseOptionsPage
 )
