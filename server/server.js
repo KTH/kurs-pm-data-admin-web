@@ -147,39 +147,57 @@ const { languageHandler } = require('kth-node-web-common/lib/language')
 server.use(config.proxyPrefixPath.uri, languageHandler)
 
 /* ******************************
- * ******* AUTHENTICATION *******
- * ******************************
- */
+ ***** AUTHENTICATION - OIDC ****
+ ****************************** */
+
 const passport = require('passport')
-// const ldapClient = require('./adldapClient')
-const {
-  authLoginHandler,
-  authCheckHandler,
-  logoutHandler,
-  pgtCallbackHandler,
-  serverLogin,
-  getServerGatewayLogin,
-} = require('kth-node-passport-cas').routeHandlers({
-  casLoginUri: _addProxy('/login'),
-  casGatewayUri: _addProxy('/loginGateway'),
-  proxyPrefixPath: config.proxyPrefixPath.uri,
-  server,
-})
-const { redirectAuthenticatedUserHandler } = require('./authentication')
+
 server.use(passport.initialize())
 server.use(passport.session())
 
-const authRoute = AppRouter()
-authRoute.get('cas.login', _addProxy('/login'), authLoginHandler, redirectAuthenticatedUserHandler)
-authRoute.get('cas.gateway', _addProxy('/loginGateway'), authCheckHandler, redirectAuthenticatedUserHandler)
-authRoute.get('cas.logout', _addProxy('/logout'), logoutHandler)
-// Optional pgtCallback (use config.cas.pgtUrl?)
-authRoute.get('cas.pgtCallback', _addProxy('/pgtCallback'), pgtCallbackHandler)
-server.use('/', authRoute.getRouter())
+passport.serializeUser((user, done) => {
+  if (user) {
+    done(null, user)
+  } else {
+    done()
+  }
+})
 
-// Convenience methods that should really be removed
-server.login = serverLogin
-server.gatewayLogin = getServerGatewayLogin
+passport.deserializeUser((user, done) => {
+  if (user) {
+    done(null, user)
+  } else {
+    done()
+  }
+})
+
+const { OpenIDConnect, hasGroup } = require('@kth/kth-node-passport-oidc')
+
+const oidc = new OpenIDConnect(server, passport, {
+  ...config.oidc,
+  callbackLoginRoute: _addProxy('/auth/login/callback'),
+  callbackLogoutRoute: _addProxy('/auth/logout/callback'),
+  callbackSilentLoginRoute: _addProxy('/auth/silent/callback'),
+  defaultRedirect: _addProxy(''),
+  failureRedirect: _addProxy(''),
+  // eslint-disable-next-line no-unused-vars
+  extendUser: (user, claims) => {
+    const { kthid, memberOf } = claims
+
+    // eslint-disable-next-line no-param-reassign
+    user.isSuperUser = hasGroup(config.auth.superuserGroup, user)
+    // eslint-disable-next-line no-param-reassign
+    user.ugKthid = kthid
+    // eslint-disable-next-line no-param-reassign
+    user.memberOf = memberOf
+  },
+})
+
+// eslint-disable-next-line no-unused-vars
+server.get(_addProxy('/login'), oidc.login, (req, res, next) => res.redirect(_addProxy('')))
+
+// eslint-disable-next-line no-unused-vars
+server.get(_addProxy('/logout'), oidc.logout)
 
 /* ******************************
  * ******* CORTINA BLOCKS *******
@@ -214,7 +232,7 @@ server.use(
  */
 const { ChooseMemoStartPoint, MemoContent, PreviewContent, System } = require('./controllers')
 
-const { requireRole } = require('./authentication')
+const { requireRole } = require('./requireRole')
 
 // System routes
 const systemRoute = AppRouter()
@@ -266,16 +284,15 @@ appRoute.delete(
 
 appRoute.get(
   'memo.getContent',
-  _addProxy('/published/:courseCode'), // /:courseCode/:semester/:memoEndPoint*
-  serverLogin,
+  _addProxy('/published/:courseCode'),
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.getCourseOptionsPage
 )
 
 appRoute.get(
   'memo.getContent',
-  _addProxy('/:courseCode/:memoEndPoint'), // /:courseCode/:semester/:memoEndPoint*
-  serverLogin,
+  _addProxy('/:courseCode/:memoEndPoint'),
+  oidc.login,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   MemoContent.renderMemoEditorPage
 )
@@ -283,7 +300,7 @@ appRoute.get(
 appRoute.get(
   'memo.getPreviewContent',
   _addProxy('/:courseCode/:memoEndPoint/preview'),
-  serverLogin,
+  oidc.login,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   PreviewContent.renderMemoPreviewPage
 )
@@ -291,7 +308,7 @@ appRoute.get(
 appRoute.get(
   'memo.chooseRounds',
   _addProxy('/:courseCode/'),
-  serverLogin,
+  oidc.login,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.getCourseOptionsPage
 )
@@ -299,11 +316,9 @@ appRoute.get(
 appRoute.get(
   'system.gateway',
   _addProxy('/gateway'),
-  getServerGatewayLogin('/'),
+  oidc.silentLogin,
   requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser'),
   ChooseMemoStartPoint.getCourseOptionsPage
-
-  // MemoContent.renderMemoEditorPage
 )
 
 server.use('/', appRoute.getRouter())
