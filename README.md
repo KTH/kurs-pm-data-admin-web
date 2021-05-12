@@ -5,7 +5,7 @@
 The new administraion site makes it possible to create and manage course memos.
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
-![Prerequisite](https://img.shields.io/badge/node-14.0.0-blue.svg)
+![Prerequisite](https://img.shields.io/badge/node-14.2.0-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 ## Introduction
@@ -32,11 +32,13 @@ Application is fetching/saving data from/to [https://github.com/KTH/kurs-pm-data
 
 ## Prerequisites
 
-- Node.js 14.0.0
+- Node.js 14.2.0
+
+Because OICD library is compatible only with node 12.0.0 or > 14.2.0
 
 ### Secrets for Development
 
-Secrets during local development are ALWAYS stored in a `.env`-file in the root of your project. This file should be in .gitignore. It needs to contain at least ldap connection URI and password in order for authentication to work properly.
+Secrets during local development are ALWAYS stored in a `.env`-file in the root of your project. This file should be in .gitignore.
 
 ```
 KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data
@@ -44,9 +46,9 @@ KURS_PM_DATA_API_KEY=[generated in kurs-pm-data-admin-api key for admin page]
 KURS_INFO_API_URI=https://api-r.referens.sys.kth.se/api/kursinfo
 KURS_INFO_API_KEY=[generated in kursinfo-api key for public pages, just for image displaying and selling text]
 REDIS_URI=[redis connection string, azure]
-LDAP_BASE=OU=UG,DC=[ref],DC=ug,DC=kth,DC=se
-LDAP_URI=ldaps://[ldap username]@[ref].ug.kth.se@ldap.[ref].ug.kth.se
-LDAP_PASSWORD=[ldap password]
+OIDC_APPLICATION_ID=<FROM ADFS>
+OIDC_CLIENT_SECRET=<FROM ADFS>
+OIDC_TOKEN_SECRET=<Random string>
 SESSION_SECRET=[generate session secret]
 SESSION_KEY=kurs-pm-data-admin-web.pid
 UG_REDIS_URI=team-studam-ref-redis-193.redis.cache.windows.net:[port],password=[password],ssl=True,abortConnect=False
@@ -132,9 +134,9 @@ KURS_PM_DATA_API_KEY=[generated in kurs-pm-data-admin-api key for admin page]
 KURS_INFO_API_URI=https://api-r.referens.sys.kth.se/api/kursinfo
 KURS_INFO_API_KEY=[generated in kursinfo-api key for public pages, just for image displaying and selling text]
 REDIS_URI=[redis connection string, azure]
-LDAP_BASE=OU=UG,DC=[ref],DC=ug,DC=kth,DC=se
-LDAP_URI=ldaps://[ldap username]@[ref].ug.kth.se@ldap.[ref].ug.kth.se
-LDAP_PASSWORD=[ldap password]
+OIDC_APPLICATION_ID=<FROM ADFS>
+OIDC_CLIENT_SECRET=<FROM ADFS>
+OIDC_TOKEN_SECRET=<Random string>
 SESSION_SECRET=[generate session secret]
 SESSION_KEY=kurs-pm-data-admin-web.pid
 UG_REDIS_URI=team-studam-ref-redis-193.redis.cache.windows.net:[port],password=[password],ssl=True,abortConnect=False
@@ -146,22 +148,26 @@ APPINSIGHTS_INSTRUMENTATIONKEY=[Azure, Application insights, Instrumentation Key
 In `tinymce` catalog located tinymce api to make load of editor faster and to customize some translations/texts.
 
 ### Edited English and Swedish translations for editor's buttons
+
 Translations for swedish translations located in `tinymce > langs > sv_SE.js`
 It was customized:
+
 - `'Header 4': 'Rubrik 4'` was changed to `Heading: 'Rubrik'`
 - `Paragraph: 'Avsnitt'` was changed to `'Body text': 'Brödtext'`
 
 To make this changes viable, in the configuration of block_formats was changed to:
-  ```block_formats: 'Body text=p;Heading=h4',```
+`block_formats: 'Body text=p;Heading=h4',`
 and define `language` if it is Swedish it will be: `sv_SE`
 
 ### KTH and local Style in editor
+
 In `js > app > util > editorInitConf.js` defined `content_css: '/kursinfoadmin/kurs-pm-data/static/app.css'`
-It uses local parsed app.css (from local node-web.scss). 
+It uses local parsed app.css (from local node-web.scss).
 
 ### Configuration and used plugins
- Configuration is in `js > app > util > editorInitConf.js`
- 
+
+Configuration is in `js > app > util > editorInitConf.js`
+
 ```
 const table = {
   table_default_attributes: {
@@ -188,6 +194,7 @@ const editorConf = language => ({
   block_formats: 'Body text=p;Heading=h4',
 })
 ```
+
 - `toolbar_sticky: true` is to make editor meny to be on top of editor if it's longer then screan.
 - `toolbar_mode: 'wrap'`. Wrap toolbar into two rows.
 - `toolbar1` and `toolbar2` defines which buttons to display on 1st and 2nd rows.

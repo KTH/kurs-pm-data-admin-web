@@ -2,9 +2,6 @@
 /* eslint-env mocha */
 /* eslint-disable no-unused-expressions */
 
-process.env.LDAP_URI = 'ldaps://mockuser@mockdomain.com@mockldapdomain.com'
-process.env.LDAP_PASSWORD = 'mockldappassword'
-
 const { expect } = require('chai')
 const nock = require('nock')
 const mockery = require('mockery')
@@ -17,15 +14,11 @@ mockLogger.init = () => {}
 mockery.registerMock('kth-node-log', mockLogger)
 mockery.enable({
   warnOnReplace: false,
-  warnOnUnregistered: false
+  warnOnUnregistered: false,
 })
 
 const paths = require('../mocks/apipaths.json')
-const api = nock('http://localhost:3001/api/node')
-  .get('/_paths')
-  .reply(200, paths)
-  .get('/_checkAPIkey')
-  .reply(200, {})
+const api = nock('http://localhost:3001/api/node').get('/_paths').reply(200, paths).get('/_checkAPIkey').reply(200, {})
 
 xdescribe('Index page', () => {
   before(done => {
@@ -38,7 +31,7 @@ xdescribe('Index page', () => {
   it('should get the index page', done => {
     api.get('/v1/data/123').reply(200, {
       id: '123',
-      name: 'asdasd'
+      name: 'asdasd',
     })
 
     const ctrl = require('../../server/controllers/sampleCtrl')
