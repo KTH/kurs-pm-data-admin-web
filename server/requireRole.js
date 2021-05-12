@@ -24,7 +24,7 @@ function _hasThisTypeGroup(courseCode, courseInitials, user, employeeType) {
 
 // eslint-disable-next-line func-names
 module.exports.requireRole = (...roles) =>
-  async function _hasCourseAcceptedRoles(req, res, next) {
+  function _hasCourseAcceptedRoles(req, res, next) {
     const lang = language.getLanguage(res)
 
     const user = req.session.passport.user || {}
