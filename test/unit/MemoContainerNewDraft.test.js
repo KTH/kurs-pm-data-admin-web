@@ -251,12 +251,11 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     })
   })
 
-  test('tab: contentAndOutcomes. Click button Edit and render collapse with detailed info about header', async done => {
+  test('tab: contentAndOutcomes. Click button Edit and render collapse with detailed info about header', async () => {
     fireEvent.click(getAllByText('Edit')[1])
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
     })
-    done()
   })
 
   test('tab: contentAndOutcomes. get memo name', async () => {
@@ -541,12 +540,11 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     })
   })
 
-  test('tab: prep. Click button Edit and render collapse with detailed info about header', async done => {
+  test('tab: prep. Click button Edit and render collapse with detailed info about header', async () => {
     fireEvent.click(getAllByText('Edit')[1])
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
     })
-    done()
   })
 
   test('tab: prep. get memo name', async () => {
@@ -697,20 +695,18 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     })
   })
 
-  test('tab: reqToFinal examinations. Click button Redigera and reveal section with collapse and editor', async done => {
+  test('tab: reqToFinal examinations. Click button Redigera and reveal section with collapse and editor', async () => {
     fireEvent.click(getAllByText('Redigera')[1]) // click on gradingCriteria
     await waitFor(() => {
       expect(getByTestId('standard-editor-gradingCriteria')).toBeInTheDocument()
     })
-    done()
   })
 
-  test('tab: reqToFinal examinations. Click button Redigera and render collapse with detailed info about header', async done => {
+  test('tab: reqToFinal examinations. Click button Redigera and render collapse with detailed info about header', async () => {
     fireEvent.click(getAllByText('Redigera')[1])
     await waitFor(() => {
       expect(getByText('Visa vägledning')).toBeInTheDocument()
     })
-    done()
   })
 
   test('tab: reqToFinal examinations. (memoLang=en) get memo name', async () => {
@@ -961,12 +957,11 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
     })
   })
 
-  test('tab: contacts. Click button Edit and render collapse with detailed info about header', async done => {
+  test('tab: contacts. Click button Edit and render collapse with detailed info about header', async () => {
     fireEvent.click(getAllByText('Edit')[1])
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
     })
-    done()
   })
 
   test('tab: contacts. get memo name', async () => {
