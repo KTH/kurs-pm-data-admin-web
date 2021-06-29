@@ -2,117 +2,264 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CollapseDetails } from '@kth/kth-kip-style-react-components'
 
-const CollapseMemoIntroduction = ({ translate, landAbbr }) => {
+const Introduction = ({ langAbbr }) =>
+  langAbbr === 'sv' ? (
+    <>
+      <h3>Hur blir ditt kurs-PM bra för studenter?</h3>
+      <p>
+        Kurs-PM ska vara den övergripande planen som hjälper studenter att förbereda sig och planera för kursens
+        genomförande, både innan kursstart och under kursens gång.
+      </p>
+      <p>
+        Studenter har varit med i arbetet med att ta fram mallen för kurs-PM. Det är viktigt för studenter att känna
+        igen sig mellan kurser och att kursinformationen är tillgänglig. Därför är kurs-PM:
+      </p>
+      <ul>
+        <li>Samlat på en tillgänglig sida,</li>
+        <li>Byggt utifrån en väl avstämd struktur/mall,</li>
+        <li>Nåbar, tillsammans med kursrummet, från fliken &rdquo;Kurser&rdquo; i Personliga menyn.</li>
+      </ul>
+      <p>För att det ska bli tydligt och effektivt för studenter att ta till sig information är det viktigt att du:</p>
+      <ul>
+        <li>Flyttar information från kursrummet till kurs-PM (istället för att duplicera den),</li>
+        <li>Se över om du behöver göra om strukturen i kursrummet,</li>
+        <li>Publicerar kurs-PM i god tid innan kursstart så att studenter hinner förbereda sig,</li>
+        <li>
+          Länka till ditt kurs-PM från kursrummet, se&nbsp;
+          <a
+            href="https://www-edit.sys.kth.se/preview/www/2.9631/2.8043/2.84758/2.93755/2.93757/1.1059436?l=sv_SE"
+            target="_blank"
+            className="external-link"
+            rel="noreferrer"
+          >
+            Funktionen Kursöversikt i Canvas
+          </a>
+        </li>
+      </ul>
+      <p>
+        Bakgrund, se&nbsp;
+        <a
+          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/kurs-pm-1.1079198"
+          target="_blank"
+          className="external-link"
+          rel="noreferrer"
+        >
+          Kurs-PM
+        </a>
+      </p>
+    </>
+  ) : (
+    <>
+      <h3>How to create a course memo that is functional for the students</h3>
+      <p>
+        The course memo is the plan that helps students prepare and plan to take the course, both before and after the
+        course.
+      </p>
+      <p>
+        Students were involved in developing the template for the course memo. It is vital for students that the course
+        information is uniform and accessible for all courses. Therefore, the course memo is:
+      </p>
+      <ul>
+        <li>Published on an accessible page,</li>
+        <li>Based on a well-tuned structure/template,</li>
+        <li>Accessible from “Courses” in the Personal menu.</li>
+      </ul>
+      <p>To make it clear and efficient for students to absorb information, please:</p>
+      <ul>
+        <li>
+          Move information that belongs in a course memo, from the course room to the course memo (instead of
+          duplicating it),
+        </li>
+        <li>Reflect on whether you should change the course room structure,</li>
+        <li>Publish the course memo well in advance of the course start so that students have time to prepare,</li>
+        <li>
+          Add a link to the course memo in the course room. See&nbsp;
+          <a
+            href="https://www-edit.sys.kth.se/preview/www/2.9631/2.8043/2.84758/2.93755/2.93757/1.1059436?l=en_GB"
+            target="_blank"
+            className="external-link"
+            rel="noreferrer"
+          >
+            The Syllabus function in Canvas
+          </a>
+        </li>
+      </ul>
+      <p>
+        Background, see&nbsp;
+        <a
+          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/kurs-pm-1.1079198"
+          target="_blank"
+          className="external-link"
+          rel="noreferrer"
+        >
+          Kurs-PM (only in Swedish)
+        </a>
+      </p>
+    </>
+  )
+
+Introduction.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
+const GetStarted = ({ langAbbr }) =>
+  langAbbr === 'sv' ? (
+    <>
+      <h3>Kom i gång snabbt</h3>
+      <ol>
+        <li>Bläddra igenom alla tabbar/flikar för att se vilka rubriker som finns,</li>
+        <li>Gå till sista steget &rdquo;Granska och publicera&rdquo; för att förstå hur ett färdigt kurs-PM ser ut,</li>
+        <li>Klicka på i-ikon vid varje rubrik för att förstå vad rubriken syftar till,</li>
+        <li>
+          När du valt att &rdquo;Redigera&rdquo; klickar du på &rdquo;Visa vägledning&rdquo; för att få guidning i hur
+          du skriver innehåll under den specifika rubriken,
+        </li>
+        <li>
+          När du arbetet klart, välj &rdquo;Avsluta med utkast&rdquo; eller &rdquo;Granska&rdquo; för att fortsätta till
+          publicering. Ditt kurs-PM har sparats automatiskt.
+        </li>
+      </ol>
+    </>
+  ) : (
+    <>
+      <h3>Get started quickly</h3>
+      <ol>
+        <li>Look through all tabs to see which headings are available,</li>
+        <li>Go to the last step, &ldquo;Preview and publish,&rdquo; to get a sense of a completed course memo,</li>
+        <li>Click on the i-icon next to each heading to understand the heading’s intended use,</li>
+        <li>
+          Once you have chosen to &ldquo;Edit,&rdquo; click on &ldquo;Show guidance&rdquo; for guidance on how to write
+          content under the specific heading,
+        </li>
+        <li>
+          When you have finished, select &ldquo;Exit (save draft)&rdquo; or &ldquo;Preview&rdquo; to proceed to the
+          publish step. Your course memo was automatically saved.
+        </li>
+      </ol>
+    </>
+  )
+
+GetStarted.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
+const InformStudents = ({ langAbbr }) =>
+  langAbbr === 'sv' ? (
+    <>
+      <h3>Informera dina studenter om gjorda ändringar</h3>
+      <p>
+        Informera dina studenter om att du har gjort ändringar i ditt kurs-PM. Ange också vad du har ändrat. Det är
+        alltid den senaste versionen av ditt kurs-PM som visas på sidan &rdquo;Förbereda och gå kurs&rdquo;. På sidan
+        Arkiv visas alla versioner av ett kurs-PM.
+      </p>
+    </>
+  ) : (
+    <>
+      <h3>Inform your students of changes made</h3>
+      <p>
+        Inform your students that you have made changes to your course memo. Also, specify what you have changed. It is
+        always the latest version of your course memo that appears on the &ldquo;Prepare and take a course&rdquo; page.
+        The Archive page displays all versions of a course memo.
+      </p>
+    </>
+  )
+
+InformStudents.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
+const MoreHelp = ({ langAbbr }) =>
+  langAbbr === 'sv' ? (
+    <>
+      <h3>Mer hjälp?</h3>
+      <p>
+        <a
+          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/mallen-och-rubriker-i-kurs-pm-1.1079196"
+          target="_blank"
+          className="external-link"
+          rel="noreferrer"
+        >
+          Mallen och rubriker i kurs-PM
+        </a>
+      </p>
+      <p>
+        <a
+          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/detaljerade-instruktioner-for-kurs-pm-1.1085586"
+          target="_blank"
+          className="external-link"
+          rel="noreferrer"
+        >
+          Detaljerade instruktioner för kurs-PM
+        </a>
+      </p>
+      <p>
+        Hjälp med struktur och innehåll i kurs-PM och kursrum, kontakta:&nbsp;
+        <a href="mailto:it-support@kth.se"> it-support@kth.se</a>
+      </p>
+    </>
+  ) : (
+    <>
+      <h3>Need more help?</h3>
+      <p>
+        <a
+          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/mallen-och-rubriker-i-kurs-pm-1.1079196"
+          target="_blank"
+          className="external-link"
+          rel="noreferrer"
+        >
+          Mallen och rubriker i kurs-PM (only in Swedish)
+        </a>
+      </p>
+      <p>
+        <a
+          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/detaljerade-instruktioner-for-kurs-pm-1.1085586"
+          target="_blank"
+          className="external-link"
+          rel="noreferrer"
+        >
+          Detaljerade instruktioner för kurs-PM (only in Swedish)
+        </a>
+      </p>
+      <p>
+        Help with structure and content in course memo and course room, contact:&nbsp;
+        <a href="mailto:it-support@kth.se"> it-support@kth.se</a>
+      </p>
+    </>
+  )
+
+MoreHelp.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
+const HelpEdit = ({ langAbbr }) => (
+  <div>
+    <Introduction langAbbr={langAbbr} />
+    <InformStudents langAbbr={langAbbr} />
+    <MoreHelp langAbbr={langAbbr} />
+  </div>
+)
+
+HelpEdit.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
+const HelpCreate = ({ langAbbr }) => (
+  <div>
+    <Introduction langAbbr={langAbbr} />
+    <GetStarted langAbbr={langAbbr} />
+    <MoreHelp langAbbr={langAbbr} />
+  </div>
+)
+
+HelpCreate.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
+const CollapseMemoIntroduction = ({ translate, langAbbr, isDraftOfPublished }) => {
   const { titleMain } = translate
   return (
     <CollapseDetails ariaLabel={titleMain} title={titleMain} yellow>
-      {(landAbbr === 'sv' && (
-        <div>
-          <h3>Hur blir ditt kurs-PM bra för studenter?</h3>
-          <p>
-            Kurs-PM ska vara den övergripande planen som hjälper studenter att förbereda sig och planera för kursens
-            genomförande.
-          </p>
-          <p>
-            Studenter har varit med i arbetet med att ta fram mallen för kurs-PM. Det är viktigt för studenter att känna
-            igen sig mellan kurser och att kursinformationen är tillgänglig. Därför är kurs-PM:
-          </p>
-          <ul>
-            <li>Byggt utifrån en väl avstämd mall,</li>
-            <li>Samlat på en tillgänglig sida,</li>
-            <li>Nåbar, tillsammans med kursrummet, från fliken “Kurser” i Personliga menyn.</li>
-          </ul>
-          <p>Du gör så att det blir tydligt och effektivt för studenter att ta till sig information, genom att:</p>
-          <ul>
-            <li>Flytta information från kursrummet till kurs-PM (istället för att duplicera den),</li>
-            <li>Se över om du behöver göra om kursupplägget (se “Mer hjälp” nedan),</li>
-            <li>Publicera kurs-PM i god tid innan kursstart så att studenter hinner förbereda sig.</li>
-          </ul>
-          <h3>Kom i gång snabbt</h3>
-          <ol>
-            <li>Bläddra igenom alla tabbar/ flikar för att se vilka rubriker som finns,</li>
-            <li>Gå till sista steget “Granska och publicera” för att förstå hur ett färdigt kurs-PM ser ut,</li>
-            <li>Klicka på i-ikon vid varje rubrik för att förstå vad rubriken syftar till,</li>
-            <li>
-              När du valt att “Redigera” klickar du på “Visa vägledning” för att få guidning i hur du skriver innehåll
-              under den specifika rubriken,
-            </li>
-            <li>
-              När du arbetet klart, välj “Avsluta med utkast” eller “Granska” för att fortsätta till publicering. Ditt
-              kurs-PM har sparats automatiskt.
-            </li>
-          </ol>
-          <h3>Mer hjälp?</h3>
-          <p>
-            <a
-              href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/anvandarmanual-om-kursen"
-              target="_blank"
-              className="external-link"
-              rel="noreferrer"
-            >
-              Användarmanual Om kursen
-            </a>
-          </p>
-          <p>
-            Hjälp med struktur och innehåll i kurs-PM och kursrum, kontakta:
-            <a href="mailto:it-support@kth.se"> it-support@kth.se</a>
-          </p>
-        </div>
-      )) || (
-        <div>
-          <h3>How to create a course memo that is functional for the students</h3>
-          <p>The course memo is the overall plan that helps students to prepare and plan for taking the course.</p>
-          <p>
-            Students were involved in developing the template for the course memo. It is important for students that the
-            course information is uniform and accessible for all courses. Therefore, the course memo is:
-          </p>
-          <ul>
-            <li>Based on a well-tuned template,</li>
-            <li>Published on an accessible page,</li>
-            <li>Accessible from “Courses” in the Personal menu.</li>
-          </ul>
-          <p>You make it clear and efficient for students to absorb information when you:</p>
-          <ul>
-            <li>
-              Move information that belongs in a course memo, from the course room to the course memo (instead of
-              duplicating it),
-            </li>
-            <li>
-              Reflect on whether you should change parts of how the course is structured (see “Need more help” below),
-            </li>
-            <li>Publish the course memo well in advance of the course start so that students have time to prepare.</li>
-          </ul>
-          <h3>Get started quickly</h3>
-          <ol>
-            <li>Look through all tabs to see which headings are available,</li>
-            <li>Go to the last step, “Preview and publish”, to get a sense of a completed course memo,</li>
-            <li>Click on the i-icon next to each heading to understand the heading’s intended use,</li>
-            <li>
-              Once you have chosen to “Edit,” click on “Show guidance” for guidance on how to write content under the
-              specific heading,
-            </li>
-            <li>
-              When you have finished, select “Exit (save draft)”or “Preview” to proceed to the publish step. Your course
-              memo was automatically saved.
-            </li>
-          </ol>
-          <h3>Need more help?</h3>
-          <p>
-            <a
-              href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/anvandarmanual-om-kursen"
-              target="_blank"
-              className="external-link"
-              rel="noreferrer"
-            >
-              User manual About course (only in Swedish)
-            </a>
-          </p>
-          <p>
-            Help with structure and content in course memo and course room, contact:
-            <a href="mailto:it-support@kth.se"> it-support@kth.se</a>
-          </p>
-        </div>
-      )}
+      {isDraftOfPublished ? <HelpEdit langAbbr={langAbbr} /> : <HelpCreate langAbbr={langAbbr} />}
     </CollapseDetails>
   )
 }
@@ -121,7 +268,8 @@ CollapseMemoIntroduction.propTypes = {
   translate: PropTypes.shape({
     titleMain: PropTypes.string.isRequired,
   }).isRequired,
-  landAbbr: PropTypes.oneOf(['en', 'sv']).isRequired,
+  langAbbr: PropTypes.oneOf(['en', 'sv']).isRequired,
+  isDraftOfPublished: PropTypes.bool.isRequired,
 }
 
 export default CollapseMemoIntroduction
