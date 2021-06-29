@@ -180,6 +180,7 @@ function MemoContainer(props) {
       return result
     } catch (error) {
       onToastAlert('errWhileSaving', 'danger')
+      return null
     }
   }
 
@@ -414,9 +415,11 @@ function MemoContainer(props) {
       >
         <Col lg="7">
           <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
-          {!isDraftOfPublished && (
-            <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} landAbbr={userLangAbbr} />
-          )}
+          <CollapseMemoIntroduction
+            translate={extraInfo.summaryIntroductionHelp}
+            langAbbr={userLangAbbr}
+            isDraftOfPublished={isDraftOfPublished}
+          />
         </Col>
       </Row>
       <StickyContainer className="memo-container">
