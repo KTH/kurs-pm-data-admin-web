@@ -66,10 +66,9 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   test('tab: contentAndOutcomes (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(10)
+    expect(allH3Headers.length).toBe(7)
     const expectedh3ds = [...orderedFilledInAndVisible.slice(0, 6)]
-    const withoutHelpH3Headers = [...allH3Headers.slice(3)]
-    expectedh3ds.map((h3, index) => expect(withoutHelpH3Headers[index]).toHaveTextContent(h3))
+    expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
   test('tab: contentAndOutcomes (draft of published). renders alert about kopps data were updated', () => {
@@ -385,10 +384,9 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   test('tab: prep (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(12)
+    expect(allH3Headers.length).toBe(9)
     const expectedh3ds = [...orderedFilledInAndVisible.slice(6, 14)]
-    const withoutHelpH3Headers = [...allH3Headers.slice(3)]
-    expectedh3ds.map((h3, index) => expect(withoutHelpH3Headers[index]).toHaveTextContent(h3))
+    expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
   test('tab: prep (draft of published). renders collapse for help-text for all editors because they are open', () => {
@@ -724,10 +722,9 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   test('tab: reqToFinal (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(15)
-    const expectedh3ds = [...orderedFilledInAndVisible.slice(14, 2)]
-    const withoutHelpH3Headers = [...allH3Headers.slice(3)]
-    expectedh3ds.map((h3, index) => expect(withoutHelpH3Headers[index]).toHaveTextContent(h3))
+    expect(allH3Headers.length).toBe(12)
+    const expectedh3ds = [...orderedFilledInAndVisible.slice(14, 25)]
+    expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
   test('tab: reqToFinal (draft of published). renders collapse for help-text for all editors because they are open', () => {
@@ -1078,10 +1075,9 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(8)
+    expect(allH3Headers.length).toBe(5)
     const expectedh3ds = [...orderedFilledInAndVisible.slice(25, 27)]
-    const withoutHelpH3Headers = [...allH3Headers.slice(3)]
-    expectedh3ds.map((h3, index) => expect(withoutHelpH3Headers[index]).toHaveTextContent(h3))
+    expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
   test('tab: extra (draft of published). renders no collapse and no buttons to close editor for help-text for all editors because they are open', () => {
@@ -1294,7 +1290,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
   test('tab: contacts (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(10)
+    expect(allH3Headers.length).toBe(7)
   })
 
   test('tab: contacts (draft of published). renders no collapse and no buttons to close editor for help-text for all editors because they are open', () => {
