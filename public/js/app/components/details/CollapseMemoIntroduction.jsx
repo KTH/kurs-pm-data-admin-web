@@ -22,10 +22,10 @@ const Introduction = ({ langAbbr }) =>
       <p>För att det ska bli tydligt och effektivt för studenter att ta till sig information är det viktigt att du:</p>
       <ul>
         <li>Flyttar information från kursrummet till kurs-PM (istället för att duplicera den),</li>
-        <li>Se över om du behöver göra om strukturen i kursrummet,</li>
+        <li>Ser över om du behöver göra om strukturen i kursrummet,</li>
         <li>Publicerar kurs-PM i god tid innan kursstart så att studenter hinner förbereda sig,</li>
         <li>
-          Länka till ditt kurs-PM från kursrummet, se&nbsp;
+          Länkar till ditt kurs-PM från kursrummet, se&nbsp;
           <a
             href="https://www-edit.sys.kth.se/preview/www/2.9631/2.8043/2.84758/2.93755/2.93757/1.1059436?l=sv_SE"
             target="_blank"
@@ -82,17 +82,18 @@ const Introduction = ({ langAbbr }) =>
           >
             The Syllabus function in Canvas
           </a>
+          {' for more information.'}
         </li>
       </ul>
       <p>
         Background, see&nbsp;
         <a
-          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/kurs-pm-1.1079198"
+          href="https://intra.kth.se/en/utbildning/utbildningsadministr/om-kursen/kurs-pm/kurs-pm-1.1079198"
           target="_blank"
           className="external-link"
           rel="noreferrer"
         >
-          Kurs-PM (only in Swedish)
+          Course memo
         </a>
       </p>
     </>
@@ -150,7 +151,7 @@ const InformStudents = ({ langAbbr }) =>
       <p>
         Informera dina studenter om att du har gjort ändringar i ditt kurs-PM. Ange också vad du har ändrat. Det är
         alltid den senaste versionen av ditt kurs-PM som visas på sidan &rdquo;Förbereda och gå kurs&rdquo;. På sidan
-        Arkiv visas alla versioner av ett kurs-PM.
+        &rdquo;Arkiv&rdquo; visas alla versioner av ett kurs-PM.
       </p>
     </>
   ) : (
@@ -159,7 +160,7 @@ const InformStudents = ({ langAbbr }) =>
       <p>
         Inform your students that you have made changes to your course memo. Also, specify what you have changed. It is
         always the latest version of your course memo that appears on the &ldquo;Prepare and take a course&rdquo; page.
-        The Archive page displays all versions of a course memo.
+        The &ldquo;Archive&rdquo; page displays all versions of a course memo.
       </p>
     </>
   )
@@ -202,22 +203,22 @@ const MoreHelp = ({ langAbbr }) =>
       <h3>Need more help?</h3>
       <p>
         <a
-          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/mallen-och-rubriker-i-kurs-pm-1.1079196"
+          href="https://intra.kth.se/en/utbildning/utbildningsadministr/om-kursen/kurs-pm/mallen-och-rubriker-i-kurs-pm-1.1079196"
           target="_blank"
           className="external-link"
           rel="noreferrer"
         >
-          Mallen och rubriker i kurs-PM (only in Swedish)
+          The template and headings for course memo
         </a>
       </p>
       <p>
         <a
-          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/detaljerade-instruktioner-for-kurs-pm-1.1085586"
+          href="https://intra.kth.se/en/utbildning/utbildningsadministr/om-kursen/kurs-pm/detaljerade-instruktioner-for-kurs-pm-1.1085586"
           target="_blank"
           className="external-link"
           rel="noreferrer"
         >
-          Detaljerade instruktioner för kurs-PM (only in Swedish)
+          Detailed instructions for course memo
         </a>
       </p>
       <p>
