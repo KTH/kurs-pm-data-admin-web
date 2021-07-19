@@ -113,7 +113,9 @@ module.exports = {
     sessionOptions: {
       // do not set session secret here!!
       cookie: {
-        secure: safeGet(() => getEnv('SESSION_SECURE_COOKIE', false) === 'true'),
+        secure: String(getEnv('SESSION_SECURE_COOKIE', false)).toLowerCase() === 'true',
+        path: getEnv('SERVICE_PUBLISH', '/kursinfoadmin/kurs-pm-data'),
+        sameSite: getEnv('SESSION_SAME_SITE_COOKIE', 'Lax'),
       },
       proxy: safeGet(() => getEnv('SESSION_TRUST_PROXY', true) === 'true'),
     },
