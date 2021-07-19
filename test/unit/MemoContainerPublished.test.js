@@ -217,18 +217,16 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(dynamicSections.length).toBe(0)
   })
 
-  test('tab: contentAndOutcomes (draft of published). learningActivities editor is not visible', async done => {
+  test('tab: contentAndOutcomes (draft of published). learningActivities editor is not visible', async () => {
     const editor = screen.queryByTestId('standard-editor-learningActivities')
     expect(editor).not.toBeInTheDocument()
-    done()
   })
 
-  test('tab: contentAndOutcomes (draft of published). scheduleDetails editor is visible', async done => {
+  test('tab: contentAndOutcomes (draft of published). scheduleDetails editor is visible', async () => {
     const openEditor = getByTestId('standard-editor-scheduleDetails')
     expect(openEditor).toHaveTextContent(
       `Visa vägledningUnder rubriken "Detaljplanering" beskriver du vilka läraktiviteter eller examinationstillfällen som har planerats under kursen. Använd med fördel en tabell för att på ett överblickbart sätt beskriva aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Systemet skapar en tabell med tre kolumner åt dig där du kan skriva i kursomgångens läraktiviteter. Du kan anpassa denna tabell genom att t.ex. lägga till rader, lägga till kolumner, eller ersätta den med en tabell från Word. Ett enkelt och tydligt sätt är att beskriva detaljplanering genom att för varje läraktivitet eller examination ange typ av aktivitet, aktivitetens innehåll och vilka förberedelser som studenten behöver göra. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse. Länka gärna till instruktioner och material för kursomgången i Canvas, men var uppmärksam på att länkar från tidigare kurs-PM som kopierats till detta kurs-PM kan vara ogiltiga. Testa därför länkar till andra webbsidor innan publicering. Följande Detaljplanering är ett exempel från kurs HI1027: [Infoga exempel på tabell] Om du beskrivit kursens olika läraktiviteter under rubriken "Läraktiviteter" rekommenderas att använda samma terminologi för att studenterna ska se den röda träden genom detta kurs-PM. Om det är någon aktivitet som är särskilt viktigt för studenten att förbereda kan det understrykas genom att beskriva det i rubriken "Särskilda förberedelser".`
     )
-    done()
   })
 
   test('tab: contentAndOutcomes (draft of published). Renders "Learning activities" checkbox which are checked and shows filled in content, then check it to show message about excluded though filled content', async () => {
@@ -287,7 +285,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   })
 
   // data-testid="btn-open-editor-extraHeaders1-0.13108128127030394"
-  test('tab: contentAndOutcomes (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
+  test('tab: contentAndOutcomes (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async () => {
     const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders1-Firstheader')
     expect(firstExtraEditor).not.toBeInTheDocument()
     const firstExtraText = screen.queryByText('Html content for section First header')
@@ -302,11 +300,10 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(secondExtraText).toBeInTheDocument()
     const secondExtraEditorOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders1-Secondheader')
     expect(secondExtraEditorOpenBtn).toBeInTheDocument()
-    done()
   })
 
   // data-testid="btn-open-editor-extraHeaders1-0.13108128127030394"
-  test('tab: contentAndOutcomes (draft of published). Open both extra headers editors', async done => {
+  test('tab: contentAndOutcomes (draft of published). Open both extra headers editors', async () => {
     const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders1-Firstheader')
 
     fireEvent.click(firstExtraOpenBtn)
@@ -322,8 +319,6 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders1-Secondheader')
       expect(secondExtraEditor).toBeInTheDocument()
     })
-
-    done()
   })
 
   test('tab: contentAndOutcomes (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
@@ -555,10 +550,9 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expect(dynamicSections.length).toBe(0)
   })
 
-  test('tab: prep (draft of published). Check if content from other tab, is not visible in this section', async done => {
+  test('tab: prep (draft of published). Check if content from other tab, is not visible in this section', async () => {
     const inactiveTabEditor = screen.queryByTestId('standard-editor-learningActivities')
     expect(inactiveTabEditor).not.toBeInTheDocument()
-    done()
   })
 
   test('tab: prep. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
@@ -647,7 +641,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   })
 
   // data-testid="btn-open-editor-extraHeaders2-0.13108128127030394"
-  test('tab: prep (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
+  test('tab: prep (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async () => {
     const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders2-Firstheader')
     expect(firstExtraEditor).not.toBeInTheDocument()
     const firstExtraText = screen.queryByText('Html content for section First header')
@@ -662,11 +656,10 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expect(secondExtraText).toBeInTheDocument()
     const secondExtraEditorOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders2-Secondheader')
     expect(secondExtraEditorOpenBtn).toBeInTheDocument()
-    done()
   })
 
   // data-testid="btn-open-editor-extraHeaders2-0.13108128127030394"
-  test('tab: prep (draft of published). Open both extra headers editors', async done => {
+  test('tab: prep (draft of published). Open both extra headers editors', async () => {
     const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders2-Firstheader')
 
     fireEvent.click(firstExtraOpenBtn)
@@ -682,8 +675,6 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
       const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders2-Secondheader')
       expect(secondExtraEditor).toBeInTheDocument()
     })
-
-    done()
   })
 
   test('tab: prep (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
@@ -873,12 +864,11 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     expect(dynamicSections.length).toBe(0)
   })
 
-  test('tab: reqToFinal (draft of published). Check if content from other tab, is not visible in this section', async done => {
+  test('tab: reqToFinal (draft of published). Check if content from other tab, is not visible in this section', async () => {
     const inactiveTabEditor = screen.queryByTestId('standard-editor-learningActivities')
     expect(inactiveTabEditor).not.toBeInTheDocument()
     const inactiveTabEditorcourseContent = screen.queryByTestId('standard-editor-courseContent')
     expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
-    done()
   })
 
   test('tab: reqToFinal (draft of published). Renders "examinationSubSection" checkbox which are checked and shows filled in content', async () => {
@@ -1005,7 +995,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   })
 
   // data-xtestid="btn-open-editor-extraHeaders3-0.13108128127030394"
-  test('tab: reqToFinal (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
+  test('tab: reqToFinal (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async () => {
     const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders3-Firstheader')
     expect(firstExtraEditor).not.toBeInTheDocument()
     const firstExtraText = screen.queryByText('Html content for section First header')
@@ -1020,11 +1010,10 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     expect(secondExtraText).toBeInTheDocument()
     const secondExtraEditorOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders3-Secondheader')
     expect(secondExtraEditorOpenBtn).toBeInTheDocument()
-    done()
   })
 
   // data-xtestid="btn-open-editor-extraHeaders2-0.13108128127030394"
-  test('tab: reqToFinal (draft of published). Open both extra headers editors', async done => {
+  test('tab: reqToFinal (draft of published). Open both extra headers editors', async () => {
     const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders3-Firstheader')
 
     fireEvent.click(firstExtraOpenBtn)
@@ -1040,8 +1029,6 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders3-Secondheader')
       expect(secondExtraEditor).toBeInTheDocument()
     })
-
-    done()
   })
 
   test('tab: reqToFinal (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
@@ -1196,12 +1183,11 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     expect(dynamicSections.length).toBe(0)
   })
 
-  test('tab: extra (draft of published). Check if content from other tab, is not visible in this section', async done => {
+  test('tab: extra (draft of published). Check if content from other tab, is not visible in this section', async () => {
     const inactiveTabEditor = screen.queryByTestId('standard-editor-learningActivities')
     expect(inactiveTabEditor).not.toBeInTheDocument()
     const inactiveTabEditorcourseContent = screen.queryByTestId('standard-editor-courseContent')
     expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
-    done()
   })
 
   test('tab: extra (draft of published). Renders "infoForReregisteredStudents" checkbox which are checked and shows filled in content as a text', async () => {
@@ -1224,7 +1210,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   })
 
   // data-xtestid="btn-open-editor-extraHeaders4-0.13108128127030394"
-  test('tab: extra (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async done => {
+  test('tab: extra (draft of published). both extraHeader editors are not visible, but their editor buttons are visibile', async () => {
     const firstExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders4-Firstheader')
     expect(firstExtraEditor).not.toBeInTheDocument()
     const firstExtraText = screen.queryByText('Html content for section First header')
@@ -1239,11 +1225,10 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     expect(secondExtraText).toBeInTheDocument()
     const secondExtraEditorOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders4-Secondheader')
     expect(secondExtraEditorOpenBtn).toBeInTheDocument()
-    done()
   })
 
   // data-xtestid="btn-open-editor-extraHeaders4-0.13108128127030394"
-  test('tab: extra (draft of published). Open both extra headers editors', async done => {
+  test('tab: extra (draft of published). Open both extra headers editors', async () => {
     const firstExtraOpenBtn = screen.queryByTestId('btn-open-editor-extraHeaders4-Firstheader')
 
     fireEvent.click(firstExtraOpenBtn)
@@ -1259,8 +1244,6 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
       const secondExtraEditor = screen.queryByTestId('extra-content-editor-extraHeaders4-Secondheader')
       expect(secondExtraEditor).toBeInTheDocument()
     })
-
-    done()
   })
 
   test('tab: extra (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
@@ -1419,12 +1402,11 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
     expect(dynamicSections.length).toBe(0)
   })
 
-  test('tab: contacts (draft of published). Check if content from other tab, is not visible in this section', async done => {
+  test('tab: contacts (draft of published). Check if content from other tab, is not visible in this section', async () => {
     const inactiveTabEditor = screen.queryByTestId('standard-editor-learningActivities')
     expect(inactiveTabEditor).not.toBeInTheDocument()
     const inactiveTabEditorcourseContent = screen.queryByTestId('standard-editor-courseContent')
     expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
-    done()
   })
 
   test('tab: contacts (draft of published). Renders "communicationDuringCourse" checkbox which are checked and shows filled in content as a text', async () => {
