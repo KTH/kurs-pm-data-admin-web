@@ -11,6 +11,7 @@
     "uri": "git+https://github.com/KTH/kurs-pm-data-admin-web.git"
   },
   "scripts": {
+    "prepare": "husky install",
     "lint": "eslint . && prettier-eslint --list-different **/*.js",
     "lint:new": "eslint \"public/**/*.{js,jsx}\" --quiet",
     "test": "NODE_ENV=test jest",
@@ -90,7 +91,7 @@
     "concurrently": "^6.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.23.0",
-    "husky": "^4.3.8",
+    "husky": "^7.0.0",
     "jest": "^27.0.6",
     "jest-extended": "^0.11.5",
     "mockery": "^2.1.0",
@@ -108,12 +109,6 @@
   },
   "jshintConfig": {
     "maxerr": 5
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "pre-push": "npm run test"
-    }
   },
   "prettier": {
     "arrowParens": "avoid",
