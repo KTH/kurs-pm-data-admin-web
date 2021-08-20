@@ -89,7 +89,7 @@ const otherContacts = (memoData, labels) =>
   )
 
 const CourseContacts = ({ styleId = null, memoData = {}, labels = {} }) => {
-  const { visibleInMemo } = memoData
+  const { visibleInMemo } = memoData || {}
   const {
     communicationDuringCourse: isCommunicationWTVisible,
     otherContacts: isOtherContactsVisible,
