@@ -88,25 +88,34 @@ const otherContacts = (memoData, labels) =>
     </>
   )
 
-const CourseContacts = ({ styleId = null, memoData = {}, labels = {} }) => (
-  <section id={styleId} aria-labelledby="memo-contacts">
-    <h2 id="memo-contacts" className="preview-info">
-      {labels.courseContactsTitle}
-    </h2>
-    <div className="preview-info-box text-break">
-      {communicationWithTeachers(memoData, labels)}
-      {courseCoordinator(memoData, labels)}
-      {teacher(memoData, labels)}
-      {teacherAssistants(memoData, labels)}
-      {examiner(memoData, labels)}
-      {otherContacts(memoData, labels)}
-    </div>
-  </section>
-)
+const CourseContacts = ({ styleId = null, memoData = {}, labels = {} }) => {
+  const { visibleInMemo } = memoData
+  const {
+    communicationDuringCourse: isCommunicationWTVisible,
+    otherContacts: isOtherContactsVisible,
+    teacherAssistants: isTeacherAssistantsVisible,
+  } = visibleInMemo
+  return (
+    <section id={styleId} aria-labelledby="memo-contacts">
+      <h2 id="memo-contacts" className="preview-info">
+        {labels.courseContactsTitle}
+      </h2>
+      <div className="preview-info-box text-break">
+        {isCommunicationWTVisible && communicationWithTeachers(memoData, labels)}
+        {courseCoordinator(memoData, labels)}
+        {teacher(memoData, labels)}
+        {isTeacherAssistantsVisible && teacherAssistants(memoData, labels)}
+        {examiner(memoData, labels)}
+        {isOtherContactsVisible && otherContacts(memoData, labels)}
+      </div>
+    </section>
+  )
+}
 
 CourseContacts.propTypes = {
   styleId: PropTypes.string.isRequired,
   memoData: PropTypes.shape({
+    visibleInMemo: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool])),
     communicationDuringCourse: PropTypes.string,
     courseCoordinator: PropTypes.string,
     examiner: PropTypes.string,
