@@ -124,11 +124,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expect(otherContacts).toBeInTheDocument()
   })
 
-  test('Get Comment about changes if it renders', async () => {
-    const otherContacts = getByText(labelContacts.otherContactsTitle)
-    expect(otherContacts).toBeInTheDocument()
-  })
-
   test('Get all link names if it renders', async () => {
     const allLinks = getAllByRole('link')
     expect(allLinks.length).toBe(6)

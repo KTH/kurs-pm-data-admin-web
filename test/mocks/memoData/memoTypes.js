@@ -51,14 +51,21 @@ const memoTypes = {
         version: 2,
         lastPublishedVersionPublishDate: 'Wed Jul 01 2019 13:37:34 GMT+0000 (Coordinated Universal Time)',
       },
-      // filledInAndInvisible: {
-      //   _id: draftsOfPublishedMemos[0].memoId,
-      //   courseCode: 'EF1111',
-      //   ...generatedStandardMemoData(true),
-      //   ...generatedExtraHeaders(true),
-      //   ...generatedStandardVisibility(false, false),
-      //   ...draftsOfPublishedMemos[0]
-      // }
+      filledInAndInvisible: {
+        _id: draftsOfPublishedMemos[0].memoId,
+        courseCode: 'EF1111',
+        courseTitle: 'EF1111 Project in Plasma Physics 9.0 credits',
+        ...generatedStandardMemoData(true),
+        ...generatedExtraHeaders(true),
+        ...generatedStandardVisibility(false, false),
+        ...draftsOfPublishedMemos[0],
+        syllabusValid: {
+          validFromTerm: 20191,
+          validUntilTerm: 20201,
+        },
+        version: 2,
+        lastPublishedVersionPublishDate: 'Wed Jul 01 2019 13:37:34 GMT+0000 (Coordinated Universal Time)',
+      },
     },
     sv: { filledInAndVisible: {} },
   },
