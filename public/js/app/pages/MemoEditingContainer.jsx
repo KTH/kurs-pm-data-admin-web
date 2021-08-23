@@ -407,16 +407,14 @@ function MemoContainer(props) {
       )}
       <AlertSuccessCopiedMemo eventFromParams={eventFromParams} alertMsg={alerts.syllabusUpdated} />
       <AlertErrorMissingComment isError={isError} alertMsg={alerts.warnFillInCommentAboutChanges} />
-      <Row
-        key="section-of-header"
-        className="sections-headers"
-        style={isDraftOfPublished ? { marginBottom: '1.875rem' } : {}}
-      >
+      <Row key="section-of-header" className="sections-headers" style={{ marginBottom: '1.875rem' }}>
         <Col lg="7">
           <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
-          {!isDraftOfPublished && (
-            <CollapseMemoIntroduction translate={extraInfo.summaryIntroductionHelp} landAbbr={userLangAbbr} />
-          )}
+          <CollapseMemoIntroduction
+            translate={extraInfo.summaryIntroductionHelp}
+            isDraftOfPublished={isDraftOfPublished}
+            langAbbr={userLangAbbr}
+          />
         </Col>
       </Row>
       <StickyContainer className="memo-container">
