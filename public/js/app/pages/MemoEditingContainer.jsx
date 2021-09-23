@@ -285,8 +285,7 @@ function MemoContainer(props) {
       isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
     }&term=${semester}&name=${memoName || memoEndPoint}`
 
-    if (!isDraftOfPublished)
-      return handleBtnSaveAndMove(`${SERVICE_URL.courseMemoAdmin}${courseCode}/${memoEndPoint}/preview`)
+    if (!isDraftOfPublished) return handleBtnSaveAndMove(startAdminPageUrl)
 
     /* If it is a draft of published version, draft will be deleted */
     try {
