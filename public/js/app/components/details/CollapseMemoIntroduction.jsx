@@ -62,7 +62,7 @@ const Introduction = ({ langAbbr }) =>
       <ul>
         <li>Published on an accessible page,</li>
         <li>Based on a well-tuned structure/template,</li>
-        <li>Accessible from “Courses” in the Personal menu.</li>
+        <li>Accessible, along with the course room, from “Courses” in the Personal menu.</li>
       </ul>
       <p>To make it clear and efficient for students to absorb information, please:</p>
       <ul>
