@@ -204,6 +204,17 @@ const editorConf = language => ({
 - `table_default_attributes` is to make border invisible via `border: '0'`
 - `language` is needed only for Swedish translations: sv_SE. Otherwise it is 'null'.
 
+### Set up your development environment on Windows
+
+To be able to run desktop Linux apps(Ansible Vault or other) on Windows 10 and be able to use Bash commands or tools with and/or plan to deploy to a Linux server or use Docker containers from VSCode we need Linux distribution (ie. Ubuntu) running on the Windows Subsystem for Linux (WSL). Latest version of Windows allows us to do that by installing WLS 2.
+Here is everything you need to do to get there.
+
+- Install Windows Subsystem for Linux (WSL), including a Linux distribution (like Ubuntu) and make sure it is running in WSL 2 mode.(https://docs.microsoft.com/en-us/windows/wsl/install)
+- Install the Microsoft Terminal app to start exploring your newly-installed Ubuntu.(https://www.microsoft.com/sv-se/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab)
+- Change in VSCode in Terminal settings your default shell to wsl.
+
+Now you are able to use Bash commands or tools.
+
 ## Author
 
 👤 **KTH**

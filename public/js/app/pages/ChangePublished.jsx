@@ -68,7 +68,7 @@ function ChangePublished(props) {
   }
 
   const onSubmit = async () => {
-    if (!hasMemos) return setAlarm('danger', 'errNoInPublishedChosen')
+    if (!hasMemos || chosenMemo == '') return setAlarm('danger', 'errNoInPublishedChosen')
     const goToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${chosenMemo || ''}`
 
     const memosProps = await memosToEdit.find(published => published.memoEndPoint === chosenMemo)
