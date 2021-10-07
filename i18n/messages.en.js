@@ -731,7 +731,7 @@ module.exports = {
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errNoChosenTemplate:
       'You must choose a course memo to copy (marked with red down below) to proceed to "Create and publish course memo".',
-    errNoInPublishedChosen: 'You must choose a course memo to go to Edit',
+    errNoInPublishedChosen: 'You have to select a course memo to be able to proceed to Edit',
     errWhileSaving: 'Something went wrong. Contact IT Support.',
     errWhileDeleting: 'Cannot delete draft. Try again later and contact IT Support if the problem remains.',
     infoAboutFreshData: 'Information from course syllabus and contact information has automatically been updated.',
