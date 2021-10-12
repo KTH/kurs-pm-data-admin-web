@@ -95,7 +95,7 @@ Preview course memo http://localhost:3000/kursinfoadmin/kurs-pm-data/BB2290/BB22
 
 ### Debug in Visual Studio Code
 It's possible to use debugging options available in Visual Studio Code
-Add to .vscode file launch.json:
+Add a file `launch.json` to `.vscode` directory :
 - *Microsoft*
 ```json
 {
@@ -161,9 +161,9 @@ docker-compose up
 
 Status:
 
-To monitor status: http://localhost:3000/kursinfoadmin/kurs-pm-data/\_monitor
+To monitor status: http://localhost:3000/kursinfoadmin/kurs-pm-data/_monitor
 
-To see branch information: http://localhost:3000/kursinfoadmin/kurs-pm-data/\_about
+To see branch information: http://localhost:3000/kursinfoadmin/kurs-pm-data/_about
 
 To see more detailed behaviour in project used application insights: f.e., kursinfo-web-stage-application-insights-kthse
 
