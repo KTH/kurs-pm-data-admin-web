@@ -77,7 +77,7 @@ npm install concurrently
 
 ### Usage
 
-Start the service on [http://localhost:3000/kursinfoadmin/kurs-pm-data/:courseCode](http://localhost:3001/api/kurs-pm-data/swagger).
+Start the service on [http://localhost:3000/kursinfoadmin/kurs-pm-data/:courseCode](http://localhost:3000/kursinfoadmin/kurs-pm-data/:courseCode).
 
 ```sh
 npm run start-dev
@@ -165,7 +165,7 @@ To monitor status: http://localhost:3000/kursinfoadmin/kurs-pm-data/_monitor
 
 To see branch information: http://localhost:3000/kursinfoadmin/kurs-pm-data/_about
 
-To see more detailed behaviour in project used application insights: f.e., kursinfo-web-stage-application-insights-kthse
+To see more detailed behaviour in project used application insights: f.e., `kursinfo-web-stage-application-insights-kthse`
 
 ## Deploy in Stage
 
@@ -177,7 +177,7 @@ The deployment process is described in [Build, release, deploy](https://confluen
 ansible-vault edit secrets.env
 ```
 
-Password find in gsv-key vault
+Password find in gsv-key vault. More information you can find in confluence.
 
 ### Configure secrets.env
 
