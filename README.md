@@ -56,13 +56,26 @@ UG_REDIS_URI=team-studam-ref-redis-193.redis.cache.windows.net:[port],password=[
 
 These settings are also available in an `env.in` file.
 
-## Install
+### Install
+
+First time you might need to use options `--ignore-scripts` because of npm resolutions:
+```sh
+npm install --ignore-scripts
+```
+or 
 
 ```sh
 npm install
+
+```
+You might need to install as well:
+
+```sh
+npm install cross-env
+npm install concurrently
 ```
 
-## Usage
+### Usage
 
 Start the service on [http://localhost:3000/kursinfoadmin/kurs-pm-data/:courseCode](http://localhost:3001/api/kurs-pm-data/swagger).
 
@@ -79,6 +92,46 @@ Editor to fill in course memo http://localhost:3000/kursinfoadmin/kurs-pm-data/B
 Preview course memo http://localhost:3000/kursinfoadmin/kurs-pm-data/BB2290/BB229020191-1/preview
 
 `BB229020191-1` är memoEndPoint which is used as a bookmark for a course memo even if its data changed, draft is created, published, edited an so on.
+
+### Debug in Visual Studio Code
+It's possible to use debugging options available in Visual Studio Code
+Add to .vscode file launch.json:
+- *Microsoft*
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",           
+            "request": "launch",
+            "name": "Debug kurs-pm-data-admin-web",
+            "program": "${workspaceFolder}\\app.js",
+            "envFile": "${workspaceFolder}\\.env",
+            "env": {
+              "NODE_ENV": "development"
+            }
+        }
+    ]
+}
+```
+- _Mac, Unix and so on_
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",           
+            "request": "launch",
+            "name": "Debug kurs-pm-data-admin-web",
+            "program": "${workspaceFolder}/app.js",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+              "NODE_ENV": "development"
+            }
+        }
+    ]
+}
+```
 
 ## In production
 
