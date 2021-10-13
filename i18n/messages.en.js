@@ -763,7 +763,7 @@ module.exports = {
   sideMenuLabels: {
     directory: 'Course and programme directory',
     aboutCourse: 'About course',
-    beforeChoosingCourse: 'Before choosing course',
+    beforeChoosingCourse: 'Before course selection',
     courseMemo: 'Prepare and take course',
     finishCourse: 'Finish course',
     courseDevelopment: 'Course development',
