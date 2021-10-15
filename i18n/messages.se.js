@@ -527,7 +527,6 @@ module.exports = {
   pageTitles: {
     new: 'Skapa och publicera kurs-PM',
     published: 'Ändra publicerat kurs-PM',
-    preview: 'Skapa och publicera kurs-PM',
   },
   actionModals: {
     changeLadokRoundIds: {

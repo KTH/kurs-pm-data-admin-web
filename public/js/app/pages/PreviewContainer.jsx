@@ -297,7 +297,7 @@ function PreviewContainer(props) {
   return (
     <Container className="kip-container preview-container" fluid>
       <Row>
-        <PageTitle id="mainHeading" pageTitle={pageTitles.preview}>
+        <PageTitle id="mainHeading" pageTitle={isDraftOfPublished ? pageTitles.published : pageTitles.new}>
           {courseTitle}
         </PageTitle>
       </Row>
