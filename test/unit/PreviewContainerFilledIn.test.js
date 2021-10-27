@@ -55,7 +55,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   test('renders and check all headers on the place', () => {
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(2)
-    expect(allH1Headers[0]).toHaveTextContent('Skapa och publicera kurs-PM')
+    expect(allH1Headers[0]).toHaveTextContent('Ändra publicerat kurs-PM')
     expect(allH1Headers[1]).toHaveTextContent('Course memo HT 2019-1')
   })
 

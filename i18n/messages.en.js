@@ -537,7 +537,6 @@ module.exports = {
   pageTitles: {
     new: 'Create and publish course memo',
     published: 'Edit published course memo',
-    preview: 'Create and publish course memo',
   },
   actionModals: {
     changeLadokRoundIds: {
