@@ -108,7 +108,7 @@ const ControlPanel = props => {
             btnLabel={buttons.publish}
             modalId="publish"
             type="submit"
-            modalLabels={actionModals.infoPublish}
+            modalLabels={isDraftOfPublished ? actionModals.infoPublished : actionModals.infoPublish}
             onConfirm={onSubmit}
           />
         )}

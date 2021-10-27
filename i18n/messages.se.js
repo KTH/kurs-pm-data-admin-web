@@ -123,7 +123,7 @@ module.exports = {
       <p><b>Informationen hjälper studenten</b> att planera och förbereda kursens genomförande beroende på innehållet under "Övriga föreskrifter".</p>
       <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Övriga föreskrifter kan ändras eftersom informationen är en del av kursplanen. 
       Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
-      <p>Om det inte finns något innehåll kommer rubriken inte visas i det publicerade kurs-PM:et.</p>`,
+      <p><b>Om det inte finns något innehåll</b> kommer rubriken inte visas i det publicerade kurs-PM:et.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Gjorda ändringar</b> utgör en logg av de ändringar som gjorts i ett publicerat kurs-PM. Informationen kommer inte att visas publikt. Gjorda ändringar ska innefatta kort vilka rubriker som ändrats och varför det ändrats. Systemet sparar datum och tidpunkt för varje publicerad ändring.</p>
@@ -134,7 +134,7 @@ module.exports = {
     communicationDuringCourse: {
       body: `<p><b>Kommunikation i kursen</b> </p>
 			<p><b>Informationen hjälper studenten</b> att förstå hur den ska kommunicera med lärare och annan relevant personal inför och under kursomgångens genomförande. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer  effektiv för både studenter och lärare på kursen.</p>
-			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Kommunikation i kursen" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Kommunikation i kursen" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Kommunikation i kursen" beskriver du kortfattat hur kommunikation ska gå till inför och under kursomgångens genomförande. Du kan t.ex. hänvisa till nämnda lärare innan kursens start och till Canvas för kommunikation under kursens gång. Om olika frågor ska kommuniceras på olika sätt kan du övergripande beskriva hur man ska kommunicera om respektive fråga.</p>
 			<p>Skriv inte kontaktinformation under denna rubrik. Referera istället till kontaktinformationen under rubrikerna "Kursansvarig", "Lärare", "Lärarassistenter", "Examinator" och "Övriga kontakter".</p>
 			<p>Om det inte finns anledning att informera om kommunikation i kursen för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
@@ -157,8 +157,9 @@ module.exports = {
       body: `<p><b>Etiskt förhållningssätt</b> beskriver KTH:s etiska värdegrund under studier samt instruktioner om vad som är tillåtet och inte tillåtet under kursomgångens genomförande.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilka etiska värderingar som gäller på kursen, vilka skyldigheter den har och vilket reglemente den har att rätta sig efter under kursomgångens genomförande. 
       Tydligt beskrivna etiska riktlinjer ökar studentens förtroende för KTH:s utbildning och hjälper den att undvika brott mot kursens värdegrund och reglemente.</p>
+      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehållnedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
       <p><b>Redigera kursspecifikt innehåll</b> genom att klicka på knappen "Redigera”. Ange information om etiskt förhållningssätt i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
     },
     ethicalApproachSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
@@ -183,7 +184,7 @@ module.exports = {
       Om det finns generell information om utrustning på kursen i Kopps kommer den informationen att hämtas automatiskt till detta kurs-PM. 
       Du kan ändra informationen för detta kurs-PM, men det kommer inte att automatiskt överföras till Kopps eller till något annat kurs-PM. 
       Generell information om "Utrustning" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. 
-      Båda länkarna öppnas i ny flik. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Båda länkarna öppnas i ny flik. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Utrustning" beskriver du vilken utrustning som studenten behöver för att genomföra kursen, men som inte tillhandahålls av KTH. 
       Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om utrustning i Kopps. 
       Du kan välja att behålla den hämtade informationen eller beskriva utrustning som är specifik för denna kursomgång. 
@@ -193,10 +194,10 @@ module.exports = {
     examination: {
       body: `<p><b>Examination</b> beskriver hur kursen examineras och detaljer om de examinerande momenten.</p>
       <p><b>Informationen hjälper studenten</b> att planera kursomgångens genomförande och att förbereda sig inför kursomgångens olika examinationsmoment.</p>
-      <p><b>Innehållet redigeras</b> dels i utbildningsdatabaserna Ladok och Kopps avseende de fasta texterna. Normalt sett kan den fasta texten inte ändras. Det finns tydliga riktlinjer för hur examination kan ändras eftersom informationen är en del av kursplanen. 
+      <p><b>Innehållet redigeras</b> dels i kursplanen i Kopps (den fasta texten överst) och dels i detta kurs-PM genom att inkludera ett ytterligare avsnitt (se Redigera examinationsdetaljer nedan). Normalt sett kan den fasta texten inte ändras. Det finns tydliga riktlinjer för hur examination kan ändras eftersom informationen är en del av kursplanen. 
       Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
-      <p><b>Redigera examinationsdetaljer</b> genom att ange information om examinationens moduler i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      <p><b>Redigera examinationsdetaljer</b> genom att klicka på knappen "Redigera”. Ange information om examinationens moduler i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
     },
     examinationSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
@@ -251,7 +252,7 @@ module.exports = {
     gradingCriteria: {
       body: `<p><b>Målrelaterade betygskriterier/bedömningskriterier</b> ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål.</p>
       <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna/bedömningskriterierna relaterar till lärandemålen och med det vad den behöver göra och kunna för att uppnå respektive betyg på kursen. Att tydligt beskriva betygskriterierna bidrar även till att motivera studenten.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Målrelaterade betygskriterier/bedömningskriterier" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Målrelaterade betygskriterier/bedömningskriterier" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Betygskriterierna ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål, där godkänt betyg ska innebära en grundläggande uppfyllelse av målen. Betygskriterier för högre nivåer kan exempelvis gälla kvaliteten på utförandet, svårighetsgraden, hur olika delar av kursinnehållet kombineras och nivå i Blooms taxonomi.</p>
       <p>Examinationen ska vara tydligt kopplad till betygskriterierna. Om det finns flera examinationsmoment i kursen ska det i anslutning till betygskriterierna framgå vilka lärandemål som examineras i vilket examinationsmoment, hur slutbetyget vägs ihop av delbetyg och hur delbetyg vägs ihop av delbedömningar efter betygskriterierna.</p>
       <p>Läs mer om betygskriterier/bedömningskriterier och hitta konkreta exempel på 
@@ -269,7 +270,7 @@ module.exports = {
       Informationen kan också uppmärksamma omregistrerade studenter på förändringar från föregående kursomgångar den behöver ta hänsyn till.
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
       Ange information om ändringar inför denna kursomgång i inmatningsfältet och klicka på "Inkludera" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Ändringar inför denna kursomgång" beskriver du vilka ändringar som gjorts på kursen inför denna kursomgång. 
       Det kan också vara viktigt att beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser som hjälper studenten att prioritera i sin planering och sina förberedelser inför kursomgången. 
       Kurs-PM är ett av flera sätt att informera studenter om resultaten från kursvärderingar och kursanalyser samt eventuella beslut om åtgärder som följer av det.</p>
@@ -281,7 +282,7 @@ module.exports = {
       <p><b>Informationen hjälper studenten</b> att förstå och planera inför kursomgångens aktiviteter och med det göra rätt förberedelser i rätt tid. 
       Innebörden av en viss typ av läraktivitet kan ha olika innebörd på olika kurser. Med väl beskrivna läraktiviteter kan studenten därför få rätt förväntningar på varje typ av läraktivitet.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om läraktiviteter i inmatningsfältet och klicka i "Inkludera" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Läraktiviteter" beskriver du vilka typer av läraktiviteter som är planerade under kursomgången. Ge de olika typerna ett intuitivt och gärna vedertaget begrepp som du sedan använder konsekvent senare i detta kurs-PM. Beskriv vad de olika typerna av läraktiviteter innebär på just denna kursomgång, kortfattat hur de går till och vad som är bra för studenten att känna till om läraktiviteten. 
       Du kan också beskriva hur omfattande läraktiviteterna är i fråga om antal och tid, men också hur de är fördelade över kursomgångens studietid.</p>
       <p>Kursens pedagogiska upplägg kan också beskrivas under "Läraktiviteter" om det har betydelse för studentens planering och förberedelse av kursomgången.
@@ -302,9 +303,9 @@ module.exports = {
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
       Ange information om "Kurslitteratur" i inmatningsfältet. Om det finns kursgemensamma uppgifter om kurslitteratur i Kopps kommer den informationen hämtas automatiskt till nya kurs-PM. 
       Du kan välja att behålla den informationen i detta kurs-PM eller skriva ny information som endast gäller den kursomgång som detta kurs-PM skrivs för. 
-      Information som skrivs för detta kurs-PM kommer inte att automatiskt överföras till Kopps eller något annan kurs-PM. 
+      Information som skrivs för detta kurs-PM kommer inte att automatiskt överföras till Kopps eller något annat kurs-PM.
       Generell information om "Kurslitteratur" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Kurslitteratur" beskriver du vilken kurslitteratur som används i denna kursomgång. 
       Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om kurslitteratur i Kopps. 
       Du kan välja att behålla den hämtade informationen eller skriva kurslitteratur specifikt för kursomgången som detta kurs-PM gäller för. 
@@ -320,7 +321,7 @@ module.exports = {
     otherContacts: {
       body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med inför, under eller efter kursomgången och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare etc.</p>
 			<p><b>Informationen hjälper studenten</b> att förstå vem och hur den ska kontakta angående frågor eller synpunkter som inte ska adresseras rollerna examinator, kursansvarig, lärare eller lärarassistenter.</p>
-			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Övriga kontakter" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Övriga kontakter" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Övriga kontakter" beskriver du vilka personer eller funktioner som kan vara relevanta att kontakta under kursomgången. Ange namn, mailadress och/eller telefonnummer. Beskriv kortfattat vilka frågor eller synpunkter de kan kontaktas om.</p>
 			<p>Kontakter som redan är beskrivna under rubriker "Examinator", "Kursansvarig", "Lärare" och "Lärarassistenter" ska inte återupprepas under denna rubrik.</p>
 			<p>Om övriga kontakter inte är relevanta för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
@@ -330,14 +331,16 @@ module.exports = {
       <p><b>Informationen hjälper studenten</b> att planera och förbereda kursens genomförande beroende på innehållet under "Övriga krav för slutbetyg".</p>
       <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. 
       Det finns tydliga riktlinjer för hur "Övriga krav för slutbetyg" kan ändras eftersom informationen är en del av kursplanen. 
-      Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
+      Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
+      <p><b>Om det inte finns något innehåll</b> kommer rubrikeninte visas i det publicerade kurs-PM:et.</p>`,
     },
     permanentDisability: {
       body: `<p><b>Stöd för studenter med funktionsnedsättning</b> beskriver vilka rättigheter och möjligheter som finns för studenter med funktionsnedsättning. Informationen beskriver vilket stöd de kan väntas få under kursomgången och hur de går tillväga för att få stödet.</p>
       <p><b>Informationen hjälper studenten</b> med funktionsnedsättning att förstå hur de kan få rätt stöd för att genomföra kursomgången. 
       Med tydlig information om stöd kan studenter med funktionsnedsättning känna sig trygg och ha förtroende för att den kommer kunna genomföra kursomgången efter sina förutsättningar.</p>
+      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehållnedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
       <p><b>Redigera kursspecifikt innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Stöd för studenter med funktionsnedsättning" i inmatningsfältetoch klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p><b></b></p>
@@ -359,7 +362,7 @@ module.exports = {
       Du kan välja att behålla den informationen i detta kurs-PM eller skriva ny information som endast gäller den kursomgång som detta kurs-PM skrivs för. 
       Information som skrivs för detta kurs-PM kommer inte att automatiskt överföras till Kopps eller något annan kurs-PM. 
       Generell information om "Möjlighet till plussning" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Möjlighet till plussning" beskriver du om det finns möjlighet till plussning på denna kursomgång och i så fall vilka villkor som gäller för det och hur studenten ansöker om att få plussa.</p>
       <p>Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om möjlighet till plussning i Kopps. Du kan välja att behålla den hämtade informationen eller skriva möjlighet till plussning specifikt för kursomgången som detta kurs-PM gäller för. 
       Du kan då ersätta den hämtade texten med text som anges i inmatningsfältet.</p>
@@ -376,7 +379,7 @@ module.exports = {
       Du kan välja att behålla den informationen i detta kurs-PM eller skriva ny information som endast gäller den kursomgång som detta kurs-PM skrivs för. 
       Information som skrivs för detta kurs-PM kommer inte att automatiskt överföras till Kopps eller något annan kurs-PM. 
       Generell information om "Möjlighet till komplettering" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. 
-      Båda länkarna öppnas i ny flik. Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Båda länkarna öppnas i ny flik. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Möjlighet till komplettering" beskriver du om det finns möjlighet till komplettering på denna kursomgång och i så fall vilka villkor som gäller för det. 
       Beskriv också vad som gäller för momenten på kursen. För moment med betygsskala A-F måste möjlighet till komplettering från Fx till godkänt. För moment med betygsskala P/F kan det erbjudas av examinator.</p>
       <p>Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om möjlighet till komplettering i Kopps. 
@@ -391,7 +394,7 @@ module.exports = {
       Tydligt beskriven information om möjlighet till ersättningsuppgifter ökar även rättssäkerheten.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Visa i kurs-PM”. 
       Ange information om möjlighet till ersättningsuppgifter i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Möjlighet till ersättningsuppgifter" beskriver du om det finns möjlighet till ersättningsuppgifter på kursomgången. 
       Om det är möjligt så beskriver du vad som gäller om studenten missar ett obligatoriskt moment under kursomgången. 
       Det kan vara i fallet då studenten missar en aktivitet med obligatorisk närvaro eller uteblivet studiebesök.</p>
@@ -404,7 +407,7 @@ module.exports = {
       repetera kunskap från "Särskild behörighet", repetera särskilt viktiga delar av "Rekommenderade förkunskaper", installera programvara och liknande.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
       Ange information om "Särskilda förberedelser" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Särskilda förberedelser" kan du understryka vad som är särskilt viktigt eller fördelaktigt för studenten att förbereda sig på. Här kan du beskriva vad som är viktigt för studenten att veta och göra inför kursomgångens start. 
       Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna att beställa viss kurslitteratur i tid eller installera programvara m.m.</p>
       <p>Förberedelser i allmänhet ska beskrivas under "Läraktiviteter" om det gäller generella förberedelser inför kursomgångens olika aktivitetstyper eller under "Detaljplanering" om det gäller specifika förberedelser och läsanvisningar inför varje aktivitet i kursomgången. 
@@ -425,7 +428,7 @@ module.exports = {
       För studenten är det också viktigt att känna trygghet i att den kommer vara berättigad till fortsatt studiemedel.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
       Ange information om resultatrapportering i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Resultatrapportering" beskriver du det som studenten behöver veta om registrering av resultat på examination och resultat på hela kursen. 
       Beskriv var och när studenten kan förväntas hitta resultat på examinationsmoment och resultat på hela kursen. Informationen är särskilt viktig för studenten om resultatrapportering på denna kursomgång skiljer sig från ordinarie rutiner, t.ex. om kursomgången går över flera terminer eller om resultat på hela kursen kan dröja längre än normalt. 
       Studenten ska normalt sett kunna förvänta sig att få resultat senast tre veckor eller femton arbetsdagar efter provtillfället.</p>
@@ -439,7 +442,7 @@ module.exports = {
       Med en tydlig detaljplanering kan studenten se när i ordningen varje läraktivitet eller examinationstillfälle infaller och med det göra rätt förberedelser vid rätt tidpunkt under kursens genomförande.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
       Ange information om "Detaljplanering" i inmatningsfältet och klicka i "Inkludera" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Detaljplanering" beskriver du vilka läraktiviteter eller examinationstillfällen som har planerats under kursen. 
       Använd med fördel en tabell för att på ett överblickbart sätt beskriva aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. 
       Systemet skapar en tabell med tre kolumner åt dig där du kan skriva i kursomgångens läraktiviteter. 
@@ -461,7 +464,7 @@ module.exports = {
       <p><b>Informationen hjälper studenten</b> att få tillgång till rätt programvara för att kunna genomföra kursomgången på ett effektivt sätt.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
       Ange information om "Programvara" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
+      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
       help: `<p>Under rubriken "Programvara" skriver du vilken programvara med version av programvara som eventuellt används under kursomgången. 
       Ange även referenser eller webblänkar till var programvaran finns att hämta, instruktioner och installationsanvisningar om sådana finns på annan plats. 
       Ange annars instruktioner och installationsanvisningar under denna rubrik.</p>
@@ -490,7 +493,7 @@ module.exports = {
     {
       title: 'Välj kursomgång',
       intro: `Börja med att välja kursomgång för det kurs-PM som ska publiceras (steg 1 av 3). I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. 
-      I sista steget (3 av 3) ges möjlighet att först granska kurs-PM och sedan publicera det som en undersida till “Förbereda och gå kurs”.`,
+      I sista steget (3 av 3) ges möjlighet att först granska kurs-PM och sedan publicera det som en undersida till: Om kursen/ Förbereda och gå kurs.`,
     },
     {
       title: 'Redigera kurs-PM',
@@ -504,9 +507,9 @@ module.exports = {
   pagesChangePublishedPm: [
     {
       title: 'Välj kurs-PM',
-      intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3). 
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM 
-      och sedan publicera en ny version av kurs-PM på sidan “Förbereda och gå kurs” (kurs-PM)`,
+      intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3).
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM
+      och sedan publicera en ny version av kurs-pm på sidan: Om kursen/ Förbereda, gå kurs.`,
     },
     {
       title: 'Redigera kurs-PM',
@@ -538,7 +541,7 @@ module.exports = {
     },
     infoCancel: {
       header: 'Att tänka på innan du avbryter!',
-      body: `Detta utkast kommer att raderas. Den senaste publicerade versionen av detta kurs-PM kommer att förbli oförändrat.
+      body: `Ändringar kommer att raderas om du avbryter och den senaste publicerade versionen av detta kurs-PM kommer att vara oförändrad.
         <br/>
         <br/>
         Vill du fortsätta att avbryta?`,
@@ -571,7 +574,16 @@ module.exports = {
     },
     infoPublish: {
       header: 'Att tänka på innan du publicerar!',
-      body: `Publicering kommer att ske på sidan Kurs-PM för vald termin och kursomgång.
+      body: `Kurs-PM kommer att publiceras som en undersida till: Om kursen/ Förbereda och gå kurs.
+        <br/>
+        <br/>
+        Vill du fortsätta att publicera?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt publicera',
+    },
+    infoPublished: {
+      header: 'Att tänka på innan du publicerar!',
+      body: `En ny version av Kurs-PM kommer att publiceras som en undersida till: Om kursen /Förbereda och gå kurs.
         <br/>
         <br/>
         Vill du fortsätta att publicera?`,
@@ -590,7 +602,7 @@ module.exports = {
       header: 'Att tänka på innan du ta bort en tillagd rubrik!',
       body: `Rubriken med innehåll kommer att raderas och kan inte återskapas.
       <br/><br/>
-      Vill du fortsätta radera den tillagd rubriken?`,
+      Vill du fortsätta att radera den tillagda rubriken?`,
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt radera',
     },
@@ -625,11 +637,11 @@ module.exports = {
         infoText: 'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast',
       },
       availableRounds: {
-        label: 'Markera ett eller flera kurstillfällen som ingår i kursomgången',
+        label: 'Markera ett eller flera kurstillfällen som ingår i kursomgången:',
         infoText: 'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast',
       },
       existedDrafts: {
-        label: 'Välj det utkast du vill fortsätta att redigera',
+        label: 'Välj det utkast du vill fortsätta att redigera:',
         infoText: 'Utkasten listade är sparade men ej publicerade',
       },
       publishedMemos: {
@@ -719,12 +731,12 @@ module.exports = {
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
     errNoChosenTemplate:
-      'Du måste välja ett kurs-PM att kopiera (se röd markering nedan) för att kunna gå vidare till "Skapa och publicera kurs-PM"',
+      'Du måste välja ett kurs-PM att kopiera (se röd markering nedan) för att kunna gå vidare till "Redigera kurs-PM"',
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileDeleting:
       'Det gick inte att ta bort utkasten på grund av systemfel. Försök igen eller kontakta IT-support.',
     errWhileSaving: 'Det gick inte att spara utkast på grund av systemfel. Försök igen eller kontakta IT-support.',
-    infoAboutFreshData: 'Kursplans-information och kontaktinformation har uppdaterats automatiskt.',
+    infoAboutFreshData: 'Information som hämtas från kursplan och kontakter har uppdaterats automatiskt.',
     // Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.
     infoRebuildDraft: 'Kurs-PM nedan har återställts till den senaste publicerade versionen.',
     infoStartAgain: 'Det finns ändringar som ej publicerats. Du kan',
@@ -734,7 +746,7 @@ module.exports = {
     syllabusUpdated:
       'Information från kursplan och kontaktinformation har uppdaterats med den senaste giltiga informationen i utkastet nedan.',
     warnFillInCommentAboutChanges:
-      'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till “Granska och publicera”',
+      'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till: Granska och publicera',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersätta befintligt kurs-PM (se "Välj kursomgång" nedan)',
   },

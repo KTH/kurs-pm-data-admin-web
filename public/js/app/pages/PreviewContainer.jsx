@@ -257,9 +257,9 @@ function PreviewContainer(props) {
         memoEndPoint,
       })
       .then(() => {
-        window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&term=${semester}&name=${encodeURIComponent(
-          memoName
-        )}`
+        window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub&ver=${
+          isDraftOfPublished && new Date(memoData.lastChangeDate).toLocaleString(langIndex === 0 ? 'en-US' : 'sv-SE')
+        }&term=${semester}&name=${encodeURIComponent(memoName)}`
       })
       // eslint-disable-next-line no-console
       .catch(error => console.log(error))
