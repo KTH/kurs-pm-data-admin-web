@@ -730,7 +730,7 @@ module.exports = {
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
     errNoChosenTemplate:
-      'Du måste välja ett kurs-PM att kopiera (se röd markering nedan) för att kunna gå vidare till "Redigera kurs-PM"',
+      'Du måste välja ett kurs-PM att kopiera (se röd markering nedan) för att kunna gå vidare till: Redigera kurs-PM',
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileDeleting:
       'Det gick inte att ta bort utkasten på grund av systemfel. Försök igen eller kontakta IT-support.',

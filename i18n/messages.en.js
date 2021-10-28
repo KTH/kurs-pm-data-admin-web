@@ -500,7 +500,7 @@ module.exports = {
       intro: `Choose a semester and a course offering for the course memo to be published (step 1 of 3). 
       You can choose to start from a completely empty KTH course memo template or start from a copy of a course memo from a previous course offering. 
       In the next step (2 of 3) you can edit the course memo. 
-      Preview the course memo in the last step (3 of 3) and then publish it as a subpage to “Prepare and take course”.
+      Preview the course memo in the last step (3 of 3) and then publish it as a subpage to Aboute course/Prepare and take course.
       `,
     },
     {
@@ -516,7 +516,7 @@ module.exports = {
     {
       title: 'Choose a course memo',
       intro: `Start by choosing the course memo you want to change (step 1 of 3). Edit the chosen course memo in the next step (2 of 3). 
-      Review the new version of the course memo in the last step (3 of 3) and then publish it as a subpage to “Prepare and take course”.`,
+      Review the new version of the course memo in the last step (3 of 3) and then publish it as a subpage to Aboute course/Prepare and take course.`,
     },
     {
       title: 'Edit course memo',
@@ -588,6 +588,15 @@ module.exports = {
       btnClose: 'No, go back',
       btnConfirm: 'Yes, publish',
     },
+    infoPublished: {
+      header: 'To be aware of before publishing!',
+      body: `The information will be published on the page Course memo for the chosen semester and course offering.
+        <br/> 
+        <br/> 
+        Do you want to publish?`,
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, publish',
+    },
     infoRemove: {
       header: 'To be aware of before deleting this draft!',
       body: `Deleting the draft cannot be undone. The draft will be lost.
@@ -630,7 +639,7 @@ module.exports = {
       A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. 
       Several administrative course instances are grouped to one course offering.</p>`,
       addRounds: {
-        label: 'Select the course offering(s) to include in memo',
+        label: 'Select the course offering(s) to include in memo:',
         infoText: 'The following administrative course instances have no published course memo or draft',
       },
       availableRounds: {
@@ -638,7 +647,7 @@ module.exports = {
         infoText: 'The following administrative course instances have no published course memo or draft',
       },
       existedDrafts: {
-        label: 'Select a draft and click on the button Edit to continue edit the draft',
+        label: 'Select a draft and click on the button Edit to continue edit the draft:',
         infoText: 'The following course offerings have drafts that are not yet published',
       },
       publishedMemos: {
@@ -729,7 +738,7 @@ module.exports = {
     errNoChosen:
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errNoChosenTemplate:
-      'You must choose a course memo to copy (marked with red down below) to proceed to "Create and publish course memo".',
+      'You must choose a course memo to copy (marked with red down below) to proceed to: Edit course memo.',
     errNoInPublishedChosen: 'You have to select a course memo to be able to proceed to Edit',
     errWhileSaving: 'Something went wrong. Contact IT Support.',
     errWhileDeleting: 'Cannot delete draft. Try again later and contact IT Support if the problem remains.',
