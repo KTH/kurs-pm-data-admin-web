@@ -257,11 +257,11 @@ function PreviewContainer(props) {
         memoEndPoint,
       })
       .then(() => {
-        window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=pub${
+        window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=${isDraftOfPublished ? 'pub_changed' : 'pub'}${
           isDraftOfPublished
             ? `&ver=${new Date(memoData.lastChangeDate).toLocaleString(langIndex === 0 ? 'en-US' : 'sv-SE')}`
             : ''
-        }&term=${semester}&name=${encodeURIComponent(memoName)}`
+        }&term=${semester}&name=${encodeURIComponent(memoName)}&memoendpoint=${memoEndPoint}`
       })
       // eslint-disable-next-line no-console
       .catch(error => console.log(error))

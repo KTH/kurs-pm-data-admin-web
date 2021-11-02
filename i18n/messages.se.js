@@ -157,7 +157,7 @@ module.exports = {
       body: `<p><b>Etiskt förhållningssätt</b> beskriver KTH:s etiska värdegrund under studier samt instruktioner om vad som är tillåtet och inte tillåtet under kursomgångens genomförande.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilka etiska värderingar som gäller på kursen, vilka skyldigheter den har och vilket reglemente den har att rätta sig efter under kursomgångens genomförande. 
       Tydligt beskrivna etiska riktlinjer ökar studentens förtroende för KTH:s utbildning och hjälper den att undvika brott mot kursens värdegrund och reglemente.</p>
-      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehållnedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
+      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehåll nedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
       <p><b>Redigera kursspecifikt innehåll</b> genom att klicka på knappen "Redigera”. Ange information om etiskt förhållningssätt i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
       Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
     },
@@ -332,13 +332,13 @@ module.exports = {
       <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. 
       Det finns tydliga riktlinjer för hur "Övriga krav för slutbetyg" kan ändras eftersom informationen är en del av kursplanen. 
       Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
-      <p><b>Om det inte finns något innehåll</b> kommer rubrikeninte visas i det publicerade kurs-PM:et.</p>`,
+      <p><b>Om det inte finns något innehåll</b> kommer rubriken inte visas i det publicerade kurs-PM:et.</p>`,
     },
     permanentDisability: {
       body: `<p><b>Stöd för studenter med funktionsnedsättning</b> beskriver vilka rättigheter och möjligheter som finns för studenter med funktionsnedsättning. Informationen beskriver vilket stöd de kan väntas få under kursomgången och hur de går tillväga för att få stödet.</p>
       <p><b>Informationen hjälper studenten</b> med funktionsnedsättning att förstå hur de kan få rätt stöd för att genomföra kursomgången. 
       Med tydlig information om stöd kan studenter med funktionsnedsättning känna sig trygg och ha förtroende för att den kommer kunna genomföra kursomgången efter sina förutsättningar.</p>
-      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehållnedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
+      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehåll nedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
       <p><b>Redigera kursspecifikt innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Stöd för studenter med funktionsnedsättning" i inmatningsfältetoch klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
       Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel om hur det kan presenteras.</p>`,
     },
@@ -508,8 +508,7 @@ module.exports = {
     {
       title: 'Välj kurs-PM',
       intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3).
-      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM
-      och sedan publicera en ny version av kurs-pm på sidan: Om kursen/ Förbereda, gå kurs.`,
+      I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM och sedan publicera en ny version av kurs-PM på sidan: Om kursen/ Förbereda och gå kurs.`,
     },
     {
       title: 'Redigera kurs-PM',

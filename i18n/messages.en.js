@@ -135,7 +135,7 @@ module.exports = {
       <p><b>Contents can be edited</b> in Kopps. 
       Changes of "Additional regulations" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
       Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
-      <p>If there is no content the heading will not be visible in the published course memo.</p>`,
+      <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>
@@ -146,7 +146,7 @@ module.exports = {
     communicationDuringCourse: {
       body: `<p><b>Communication during course</b> describes how the student should communicate with the teachers and the other personnel before and during the course offering. Communication during course also describes who to contact regarding the most common questions and issues.</p>
 		<p><b>The information helps the student</b> to understand how to communicate on this course. Information in this section makes the communication more efficient on this course and reduces the number of unnecessary questions.</p>
-		<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Communication during course" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+		<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Communication during course" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe how to communicate before and during this course offering in the section "Communication during course". For example, you can refer to the teachers regarding questions before start of the course and to Canvas for dialogue during the course. If you want different types of questions to be handled differently, describe the different ways to communicate in short.</p>
 		<p>Don´t write contact information in this section. Instead you refer to the sections "Course coordinator", "Teacher", "Teacher assistants", "Examiner" and "Other contacts".</p>
 		<p>Uncheck "Include heading" if there is no reason to inform about communication during course.</p>`,
@@ -168,8 +168,9 @@ module.exports = {
       body: `<p><b>Ethical approach</b> describes the KTH ethical values during studies and what is allowed and what is not allowed during this course offering.</p>
       <p><b>The information helps the student</b> to know what ethical values, rights and obligations to relate to during the studies. 
       Clearly expressed ethical values increases the student´s trust for the education and helps the student to avoid breaking the regulations.</p>
+      <p><b>The content can be edited by</b> including an additional section (see Edit the course specific contents). The upper text is fixed and is a part of the template for course memo.</p>
       <p><b>Edit the course specific contents</b> by clicking on the button "Edit". Enter information about "Ethical approach" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
     },
     ethicalApproachSubSection: {
       body: 'It is important for students because they can plan their studies....',
@@ -192,7 +193,7 @@ module.exports = {
       Any general information about equipment on this course in Kopps is automatically fetched to this course memo. You can edit that information, but it will only be changed for this particular course offering and course memo. 
       It will not be automatically transferred to Kopps or any other course memo. 
       General information about "Equipment" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the equipment that is necessary to take the course, but is not provided by KTH in the "Equipment" section. 
       Pencils and other writing materials is not treated as equipment.</p>
       <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
@@ -208,10 +209,10 @@ module.exports = {
     examination: {
       body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course component.</p>
       <p><b>The information helps the student</b> to plan for taking the course. It also helps the student to prepare for and plan for each of the examination session on this course offering.</p>
-      <p><b>Edit the contents of the fixed texts</b> in Ladok and Kopps. Normally it is not possible to change the fixed texts of Examination because the information is part of the legally binding course syllabus. 
+      <p><b>The content can be edited</b> partly in the course syllabus in Kopps (the fixed text at the top) and partly in this course memo, by including an additional section. Normally it is not possible to change the fixed texts of Examination because the information is part of the legally binding course syllabus. 
       Read more about changing contents of course syllabus on the page <a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
       <p><b>Edit the contents of examination details</b> by clicking on the button "Edit". Enter information about "Examination" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
     },
     examinationSubSection: {
       body: 'It is important for students because they can plan their studies....',
@@ -263,7 +264,7 @@ module.exports = {
         It helps the student to understand what he or she must do and have the knowledge about to achieve each grade on the course. 
         Clearly expressed grading criteria and assessment criteria also motivate the student.</p>
         <p><b>Edit the contents </b> by clicking on the button "Edit". Enter information about "Grading criteria/assessment criteria" and check "Include heading" to make the information visible on the published course memo. 
-        Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+        Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Grading criteria/assessment criteria shall connect the grading scale to levels of achievment of the intended learning outcomes, where a passed grade corresponds to a basic achievemnt of the intended learning outcomes. 
       Grading criteria/assessment criteria for a higher grade may concern the quality of the performance, the difficulty, how parts of the course contents are combined and the level in the Bloom´s taxonomy. 
       The examination shall be clarly connected to the criterias. If there is more than one course component in the course, it must be explicit what intended learning outcome that is examined in what course component. 
@@ -283,7 +284,7 @@ module.exports = {
       This is especially important for re-registered students who needs to be informed about any important differences to the previous course offering. 
       Describing the changes is a good way to show the students that the course development is important and that it actually helps to improve the course.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Changes of the course before this course offering" and check "Include" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
       Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
       The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
@@ -296,7 +297,7 @@ module.exports = {
       Each activity type may have different meanings on different courses. Well described learning activities sets the right expectations on each type of activity.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". 
       Enter information about learning activities and check "Include" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the planned types of learning activities on the course in the section "Learning activities". 
       Use an established term for each type and repeat the term throughout the course memo. 
       Describe what the learning activity means for this particular course and what is important for the student to know about it. 
@@ -323,7 +324,7 @@ module.exports = {
       You can edit that information, but it will only be changed for this particular course offering and course memo. 
       It will not be automatically transferred to Kopps or any other course memo. 
       General information about "Literature" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the compulsory course literature on this course in the "Literature" section. 
       If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
       You can choose to keep that information, or you can enter information about course literature that is valid only to this course offering. 
@@ -338,7 +339,7 @@ module.exports = {
     otherContacts: {
       body: `<p><b>Other contacts</b> describes the contact details to personnel and functions, other than the contacts mentioned above, the students may have to contact before or during this course offering. Course administrators, lab supervisors and project supervisors are examples of "Other contacts".</p>
 			<p><b>The information helps the student</b> to under stand who and how the student shall contact regarding questions and issues not relevant to the roles and contacts on this course offering mentioned above.</p>
-			<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Other contacts" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+			<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Other contacts" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the contact details to personnel and functions other than the contacts mentioned above. Enter name, mail address and phone number. Describe in short the questions and issues each contact handles.</p>
 			<p>Contacts already mentioned in the "Course coordinator", "Teacher", "Teacher assistants" and "Examiner" sections should not be repeated in this section.</p>
 			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`,
@@ -347,17 +348,17 @@ module.exports = {
       body: `<p><b>Other requirements for final grade</b> describes additional requirements for a final grade than written in the "Examination" section for the course, for example attendance requirements.</p>
       <p><b>The information helps the student,</b> depending on the contents of "Other requirements for final grade", to plan and prepare for their studies.</p>
       <p><b>Contents can be edited</b> in Kopps. Changes of "Other requirements for final grade" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>`,
+      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>
+      <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
     },
     permanentDisability: {
       body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. 
       The information describes the rights and the possibilities for students with different types of needs and how they can apply for compensatory support.</p>
       <p><b>The information helps the student</b> with disabilities to know if he or she is entitled for compensatory support during the studies on this course. With help from this information the students with disabilities will have the confidence to take the course based on their own capabilities. </p>
-      <p>It is not possible to edit the general part of "Support for students with disabilities". 
-      It is a fixed heading and will be included in all course memos.</p>
+      <p><b>The content can be edited by</b> including an additional section (see Edit the course specific contents). The upper text is fixed and is a part of the template for course memo.</p>
       <p><b>Edit the course specific contents</b> by clicking on the button "Edit". 
       Enter information about "Support for students with disabilities" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p> </p>
@@ -381,7 +382,7 @@ module.exports = {
       Any general information about opportunity to raise an approved grade via renewed examination on this course in Kopps is automatically fetched to new course memos. 
       You can edit that information, but it will only be changed for this particular course offering and course memo. It will not be automatically transferred to Kopps or any other course memo. 
       General information about "Opportunity to raise an approved grade via renewed examination" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe if it is possible to raise an approved grade via renewed examination on this course in this section and the terms for that. Also describe how the student can apply for a renewed examination.</p>
       <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
       You can choose to keep that information, or you can enter information about the opportunity to raise an approved grade via renewed examination that is valid only to this course offering. 
@@ -397,7 +398,7 @@ module.exports = {
       Any general information about opportunity to complete the requirements via supplementary examination on this course in Kopps is automatically fetched to new course memos. 
       You can edit that information, but it will only be changed for this particular course offering and course memo. It will not be automatically transferred to Kopps or any other course memo. 
       General information about "Opportunity to complete the requirements via supplementary examination" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe if it is possible to complete the requirements via supplementary examination on this course in this section and terms for that. 
       Also describe if it is possible to complete the requirements via supplementary examination on each module/item.  
       All modules/items in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to passed. 
@@ -412,7 +413,7 @@ module.exports = {
       body: `<p><b>Alternatives to missed activities or tasks</b> describes if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
       <p><b>The information helps the student</b> to understand what will happen if he or she gets sick. It will also help the student to plan the course in parallel with other commitments, like another course. With information about alternatives to missed activities or tasks the student can easily prioritize all the activities.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe if alternatives to missed activities or tasks are possible on this course in the "Alternatives to missed activities or tasks" section. 
       If it is possible, describe the alternatives in the case when students miss a mandatory activity or task, for example if the student miss a mandatory study visit.</p>
       <p>Remember that any other examination format than the ordinary must be written in the "Examination comment" section of the course syllabus.</p>
@@ -423,7 +424,7 @@ module.exports = {
       <p><b>The information helps the student</b> to plan for and prepare for the course, for example by ordering the course literature, 
       rehearse specific theories from "Specific prerequisites", rehears parts from "Recommended prerequisites", install software etc.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Specific preparations" and check "Include heading" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the most important preparations for the students in the "Specific preparations" section. 
       Write things that are important to know or to do before the start of the course. 
       That could be ordering the course literature, rehearse specific theories from "Specific prerequisites", rehears parts from "Recommended prerequisites", install software etc.</p>
@@ -442,7 +443,7 @@ module.exports = {
       It is also important for the student to know if he or she is entitled to student grants and loans.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". 
       Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe what the student needs to know about reporting of exam results in this section. 
       Describe where and when the student can find the results, both for modules and the final grade on the course. 
       It is particularly important to describe this if the routines differs from other courses, for example if the results will be reported later than what is expected. 
@@ -456,7 +457,7 @@ module.exports = {
       A clear plan illustrates the order of the activities on the course and that makes it easy for the student to do proper preparations with the right timing.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". 
       Enter information about the detailed plan and check "Include" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the planned learning activities and examination in the "Detailed plan" section. It is common to use a table to represent the plan. 
       A table illustrates the order of the activities, its content, and what preparations that is recommended prior to each activity. 
       If you have chosen to create and publish a new course memo this form will automatically provide you with a table with three columns. 
@@ -479,7 +480,7 @@ module.exports = {
       Software should also include instructions or references and web links to instructions that describes where the software is found and how it is installed.</p>
       <p><b>The information helps the student</b> to get access to the correct software that is neceasary to complete the course.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Software" and check "Include heading" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel for further guidance on what and how to write the contents.</p>`,
+      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
       help: `<p>Describe the software that is used in the course in the "Software" section. Include references or web links to resources where the software can be downloaded from and where to find installation instructions.</p>
       <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`,
     },
@@ -515,8 +516,7 @@ module.exports = {
   pagesChangePublishedPm: [
     {
       title: 'Choose a course memo',
-      intro: `Start by choosing the course memo you want to change (step 1 of 3). Edit the chosen course memo in the next step (2 of 3). 
-      Review the new version of the course memo in the last step (3 of 3) and then publish it as a subpage to Aboute course/Prepare and take course.`,
+      intro: `Start by selecting the course memo you want to change (step 1 of 3). In the next step (2 of 3) you will be able to edit the course memo. In the last step (3 of 3) you can review the course memo and then publish it as a new version on the page: About course/Prepare and take course.`,
     },
     {
       title: 'Edit course memo',
@@ -547,7 +547,7 @@ module.exports = {
     },
     infoCancel: {
       header: 'To be aware of before cancelling!',
-      body: `This draft will be deleted. The last published version of this course memo will remain unchanged.
+      body: `The changes made in this course memo will be deleted if you cancel. The last published version of this course memo will remain unchanged.
         <br/>
         <br/>
         Do you want to cancel?`,
@@ -581,7 +581,7 @@ module.exports = {
     },
     infoPublish: {
       header: 'To be aware of before publishing!',
-      body: `The information will be published on the page Course memo for the chosen semester and course offering.
+      body: `The information will be published as a subpage at: About course/Prepare and take course.
         <br/> 
         <br/> 
         Do you want to publish?`,
@@ -590,7 +590,7 @@ module.exports = {
     },
     infoPublished: {
       header: 'To be aware of before publishing!',
-      body: `The information will be published on the page Course memo for the chosen semester and course offering.
+      body: `A new version of the course memo will be published as a subpage at: About course/Prepare and take course.
         <br/> 
         <br/> 
         Do you want to publish?`,
@@ -607,11 +607,11 @@ module.exports = {
       btnConfirm: 'Yes, delete',
     },
     newSectionRemove: {
-      header: 'To be aware of before deleting this header!',
+      header: 'To be aware of before deleting this heaöding!',
       body: `Deleting the heading and its content cannot be undone. The added section will be lost.
       <br/>
       <br/>
-      Do you want do delete this header and its content?`,
+      Do you want do delete this heading and its content?`,
       btnClose: 'No, go back',
       btnConfirm: 'Yes, delete',
     },
@@ -753,7 +753,7 @@ module.exports = {
     syllabusUpdated:
       'Information from course syllabus and contact information have been updated with the most recent information in the draft below.',
     warnFillInCommentAboutChanges:
-      'You must comment the changes to this course memo in the "Made changes" field (marked in red).',
+      'You need to fill in the required fields (marked in red below) to proceed to: Edit course memo',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
   },
