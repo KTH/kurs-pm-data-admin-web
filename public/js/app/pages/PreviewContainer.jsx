@@ -261,7 +261,9 @@ function PreviewContainer(props) {
           isDraftOfPublished
             ? `&ver=${new Date(memoData.lastChangeDate).toLocaleString(langIndex === 0 ? 'en-US' : 'sv-SE')}`
             : ''
-        }&term=${semester}&name=${encodeURIComponent(memoName)}&memoendpoint=${memoEndPoint}`
+        }&term=${semester}&name=${encodeURIComponent(
+          memoName
+        )}&memoendpoint=${memoEndPoint}&ladokRound=${ladokRoundIds}`
       })
       // eslint-disable-next-line no-console
       .catch(error => console.log(error))
