@@ -116,7 +116,7 @@ const context = {
     isEditable: true,
     isRequired: false,
   },
-  preparations: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Förbereda inför kursstart
+  preparations: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Förberedelser inför kursstart
   prerequisites: {
     openIfContent: true,
     type: 'optional',
@@ -151,7 +151,7 @@ const sections = [
   },
   {
     id: 'prep',
-    title: 'Förbereda inför kursstart',
+    title: 'Förberedelser inför kursstart',
     content: [
       'prerequisites',
       'preparations',

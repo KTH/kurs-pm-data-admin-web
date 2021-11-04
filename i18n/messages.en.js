@@ -607,7 +607,7 @@ module.exports = {
       btnConfirm: 'Yes, delete',
     },
     newSectionRemove: {
-      header: 'To be aware of before deleting this heaöding!',
+      header: 'To be aware of before deleting this heading!',
       body: `Deleting the heading and its content cannot be undone. The added section will be lost.
       <br/>
       <br/>

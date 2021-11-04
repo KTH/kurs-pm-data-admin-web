@@ -160,7 +160,7 @@ const translations = {
     },
     sectionsLabels: {
       contentAndOutcomes: 'Innehåll och lärandemål',
-      prep: 'Förbereda inför kursstart',
+      prep: 'Förberedelser inför kursstart',
       reqToFinal: 'Examination och slutförande',
       extra: 'Ytterligare information',
       contacts: 'Kontakter',
