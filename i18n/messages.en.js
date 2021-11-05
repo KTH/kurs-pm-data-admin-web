@@ -58,7 +58,7 @@ module.exports = {
     page_header_heading_course_round: 'Course offering',
   },
   sourceInfo: {
-    addNewHeading: 'Name header',
+    addNewHeading: 'Name heading',
     fetched: 'Fetched', // IF NOT EDITABLE
     '(c)': 'from common course information',
     '(r)': 'from course round information',
@@ -820,7 +820,7 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab',
   },
   courseHeaderLabels: {
-    adminLinkLabel: 'Administrate About course information',
+    adminLinkLabel: 'Administer About course information',
     linkOpensInNewTab: 'Link will open in new tab',
   },
   courseImage: {

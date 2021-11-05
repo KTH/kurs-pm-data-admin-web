@@ -128,7 +128,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const allLinks = getAllByRole('link')
     expect(allLinks.length).toBe(6)
     const expectedLinks = [
-      'Administrate About course information',
+      'Administer About course information',
       labelLinks.courseMemoArchiveLabel,
       'Syllabus EF1111 (Spring 2019-Spring 2020)',
       'Before and during a course',
