@@ -37,7 +37,7 @@ module.exports = {
 
     lang_block_id: '1.871898',
     locale_text: 'This page in English',
-    main_site_name: 'Administrate About the course ',
+    main_site_name: 'Administer About the course ',
     site_name: 'Administration of Course Memos',
     host_name: 'KTH',
     skip_to_main_content: 'Skip to main content',
