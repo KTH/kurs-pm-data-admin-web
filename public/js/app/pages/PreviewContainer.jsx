@@ -189,8 +189,18 @@ function PreviewContainer(props) {
   // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
 
-  const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
-  const { courseCode, courseTitle, semester = '', ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName } = memoData
+  const {
+    courseCode,
+    courseTitle,
+    semester = '',
+    ladokRoundIds,
+    memoCommonLangAbbr,
+    memoEndPoint,
+    memoName,
+    version,
+  } = memoData
+  const isDraftOfPublished = Number(version) > FIRST_VERSION
+
   const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } = i18n.messages[
     langIndex
   ]
@@ -259,11 +269,13 @@ function PreviewContainer(props) {
       .then(() => {
         window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=${isDraftOfPublished ? 'pub_changed' : 'pub'}${
           isDraftOfPublished
-            ? `&ver=${new Date(memoData.lastChangeDate).toLocaleString(langIndex === 0 ? 'en-US' : 'sv-SE')}`
+            ? `&ver=${version} - ${new Date(memoData.lastChangeDate).toLocaleString(
+                langIndex === 0 ? 'en-US' : 'sv-SE'
+              )}`
             : ''
         }&term=${semester}&name=${encodeURIComponent(
           memoName
-        )}&memoendpoint=${memoEndPoint}&ladokRound=${ladokRoundIds}`
+        )}&memoendpoint=${memoEndPoint}&ladokRound=${ladokRoundIds.join('-')}`
       })
       // eslint-disable-next-line no-console
       .catch(error => console.log(error))
