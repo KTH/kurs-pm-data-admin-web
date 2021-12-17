@@ -9,7 +9,7 @@ import Popup from './Popup'
 import { adminLink } from '../../util/links'
 
 const CourseHeader = ({ courseMemo = '', courseCode = '', courseTitle = '', labels = {}, language = 'sv' }) => {
-  const { adminLinkLabel, linkOpensInNewTab } = labels
+  const { adminLinkLabel, linkOpensInNewTab, label_edit_link_info } = labels
   return (
     <>
       <Row>
@@ -25,14 +25,14 @@ const CourseHeader = ({ courseMemo = '', courseCode = '', courseTitle = '', labe
           <a
             id="admin-link"
             className="course-header-admin-link"
-            title={adminLinkLabel}
-            href={adminLink(courseCode, language)}
-            target="_blank"
+            title={label_edit_link_info}
+            /* href={adminLink(courseCode, language)}
+            target="_blank" */
             rel="noopener noreferrer"
           >
             {adminLinkLabel}
           </a>
-          <Popup header={adminLinkLabel} body={linkOpensInNewTab} targetId="admin-link" />
+          <Popup header={adminLinkLabel} body={label_edit_link_info} targetId="admin-link" />
         </Col>
       </Row>
     </>

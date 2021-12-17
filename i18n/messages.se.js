@@ -812,6 +812,7 @@ module.exports = {
   },
   courseHeaderLabels: {
     adminLinkLabel: 'Administrera Om kursen',
+    label_edit_link_info: 'Länk fungerar inte i granska-läge',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
   },
   courseImage: {
