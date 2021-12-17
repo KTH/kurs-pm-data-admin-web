@@ -126,7 +126,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('Get all link names if it renders', async () => {
     const allLinks = getAllByRole('link')
-    expect(allLinks.length).toBe(6)
+    expect(allLinks.length).toBe(5)
     const expectedLinks = [
       'Administer About course information',
       labelLinks.courseMemoArchiveLabel,

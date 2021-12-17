@@ -15,6 +15,7 @@
     "lint": "eslint . && prettier-eslint --list-different **/*.js",
     "lint:new": "eslint \"public/**/*.{js,jsx}\" --quiet",
     "test": "NODE_ENV=test jest",
+    "test-win": "cross-env NODE_ENV=test jest",
     "test-preview": "NODE_ENV=test jest ./test/unit/PreviewContainerFilledIn.test.js --watch --notify",
     "test-new-memo": "NODE_ENV=test jest ./test/unit/CreateNewMemo.test.js --watch --notify",
     "test-pub-memo": "NODE_ENV=test jest ./test/unit/ChangePublished.test.js --watch --notify",
