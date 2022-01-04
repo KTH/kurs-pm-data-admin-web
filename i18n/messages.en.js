@@ -820,7 +820,7 @@ module.exports = {
     linkOpensInNewTab: 'Link will open in new tab',
   },
   courseHeaderLabels: {
-    adminLinkLabel: 'Administer About course information',
+    adminLinkLabel: 'Administer About course',
     label_edit_link_info: 'Link does not work in review mode',
     linkOpensInNewTab: 'Link will open in new tab',
   },
