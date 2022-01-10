@@ -128,7 +128,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const allLinks = getAllByRole('link')
     expect(allLinks.length).toBe(5)
     const expectedLinks = [
-      'Administer About course',
       labelLinks.courseMemoArchiveLabel,
       'Syllabus EF1111 (Spring 2019-Spring 2020)',
       'Before and during a course',
@@ -138,16 +137,14 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
   })
 
+  test('Get Admin link name ', async () => {
+    const adminLinkName = getByText('Administer About course')
+    expect(adminLinkName).toBeInTheDocument()
+  })
+
   test('Get Syllabus link names ', async () => {
     const syllabusName = getByText('Syllabus EF1111 (Spring 2019-Spring 2020)')
     expect(syllabusName).toBeInTheDocument()
-  })
-
-  test('Syllabus link have a correct href', async () => {
-    const syllabusLinks = getAllByRole('link')[2]
-    expect(syllabusLinks.href).toStrictEqual(
-      'http://localhost/kurs-pm/syllabus/pdf/EF1111/20191/en?documentName=EF1111-20191'
-    )
   })
 
   test('get memo name twice as memo name and as course offerings name', async () => {

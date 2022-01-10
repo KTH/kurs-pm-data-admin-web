@@ -109,7 +109,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const allLinks = getAllByRole('link')
     expect(allLinks.length).toBe(5)
     const expectedLinks = [
-      'Administer About course',
       labelLinks.courseMemoArchiveLabel,
       'Syllabus EF1111 (Spring 2019-Spring 2020)',
       'Before and during a course',
@@ -117,6 +116,11 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       `Rights and responsibilities`,
     ]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
+  })
+
+  test('Get Admin link name ', async () => {
+    const adminLinkName = getByText('Administer About course')
+    expect(adminLinkName).toBeInTheDocument()
   })
 
   test('Get Syllabus link names ', async () => {
