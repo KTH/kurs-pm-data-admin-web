@@ -501,7 +501,7 @@ module.exports = {
       intro: `Choose a semester and a course offering for the course memo to be published (step 1 of 3). 
       You can choose to start from a completely empty KTH course memo template or start from a copy of a course memo from a previous course offering. 
       In the next step (2 of 3) you can edit the course memo. 
-      Preview the course memo in the last step (3 of 3) and then publish it as a subpage to Aboute course/Prepare and take course.
+      Preview the course memo in the last step (3 of 3) and then publish it as a subpage to About course/Prepare and take course.
       `,
     },
     {
