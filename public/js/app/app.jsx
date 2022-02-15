@@ -14,11 +14,13 @@ import ChangePublished from './pages/ChangePublished'
 import CreateNewMemo from './pages/CreateNewMemo'
 import MemoEditingContainer from './pages/MemoEditingContainer'
 import PreviewContainer from './pages/PreviewContainer'
+import EditorsForTest from './components/editors/test/EditorsForTest'
 
 function appFactory(applicationStore) {
   return (
     <MobxStoreProvider initCallback={() => applicationStore}>
       <Switch>
+        <Route exact path="/kursinfoadmin/kurs-pm-data/_test_editor" component={EditorsForTest} />
         <Route exact path="/kursinfoadmin/kurs-pm-data/published/:courseCode/" component={ChangePublished} />
         <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={CreateNewMemo} />
         <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint" component={MemoEditingContainer} />

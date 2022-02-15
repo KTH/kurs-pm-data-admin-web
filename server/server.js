@@ -228,7 +228,7 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { ChooseMemoStartPoint, MemoContent, PreviewContent, System } = require('./controllers')
+const { ChooseMemoStartPoint, MemoContent, PreviewContent, EditorsForTest, System } = require('./controllers')
 
 const { requireRole } = require('./requireRole')
 
@@ -242,7 +242,9 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+  appRoute.get('memo.testEditor', _addProxy('/_test_editor'), EditorsForTest.getPage)
+}
 appRoute.post(
   'memo.api.updateCreatedDraft',
   _addProxy('/internal-api/draft-updates/:courseCode/:memoEndPoint'),
