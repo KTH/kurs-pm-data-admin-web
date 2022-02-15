@@ -86,16 +86,6 @@ function MemoContainer(props) {
     }
   }, [])
 
-  // useEffect(() => {
-  //   if (window.location.hash) {
-  //     const id = window.location.hash.replace('#', '')
-  //     const { scrollIntoView } = document.getElementById(id)
-  //     if (scrollIntoView) {
-  //       scrollIntoView({ behavior: 'smooth', block: 'center' })
-  //     }
-  //   }
-  // }, [window.location.hash])
-
   const courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = memoData
 
@@ -184,16 +174,6 @@ function MemoContainer(props) {
   }
 
   const onAutoSave = (data = store.memoData) => onSave(data, 'autoSaved') // save precisely this editor content by contentId
-
-  // const onScrollIntoView = () => {
-  //   if (window.location.hash) {
-  //     const id = window.location.hash.replace('#', '')
-  //     const { scrollIntoView } = document.getElementById(id)
-  //     if (scrollIntoView) {
-  //       scrollIntoView({ behavior: 'smooth', block: 'center' })
-  //     }
-  //   }
-  // }
 
   // Function for adding new titles with a content
   const onAddNewExtraContent = extraHeaderTitle => {
@@ -340,7 +320,7 @@ function MemoContainer(props) {
                 key={'standard' + contentId}
                 contentId={contentId}
                 sectionId={id}
-                initialValue={memoData[contentId]}
+                htmlContent={memoData[contentId]}
                 memoLangIndex={memoLangIndex}
                 onToggleVisibleInMemo={toggleStandardVisibleInMemo}
                 checkVisibility={checkVisibility}
