@@ -10,4 +10,5 @@ module.exports = {
   MemoContent: require('./memoCtrl'),
   ChooseMemoStartPoint: require('./choiceOptionsCtrl'),
   PreviewContent: require('./previewCtrl'),
+  EditorsForTest: require('./editorsForTestCtrl'),
 }
