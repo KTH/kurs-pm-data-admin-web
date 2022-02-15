@@ -4,7 +4,8 @@
 
 The new administraion site makes it possible to create and manage course memos.
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-4.0.0-blue.svg?cacheSeconds=2592000)
+![TinyMce version (locally)](https://img.shields.io/badge/TinyMce-5.10.3%20(2022--02--09)-brightgreen)
 ![Prerequisite](https://img.shields.io/badge/node-14.2.0-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
@@ -149,6 +150,14 @@ npm run start
 npm run test
 ```
 
+## Run Cypress tests
+
+Run concurrently
+
+```sh
+npm run start-dev
+npm run cypress:open
+```
 ## Use 🐳
 
 Copy `docker-compose.yml.in` to `docker-compose.yml` and make necessary changes, if any.
@@ -197,8 +206,24 @@ APPINSIGHTS_INSTRUMENTATIONKEY=[Azure, Application insights, Instrumentation Key
 ```
 
 ## Editor TinyMce
+![TinyMce version (locally)](https://img.shields.io/badge/TinyMce-5.10.3%20(2022--02--09)-brightgreen)
+![@tinymce/tinymce-react](https://img.shields.io/badge/%40tinymce%2Ftinymce--react-%22%5E3.13.0%22-yellowgreen)
 
-In `tinymce` catalog located tinymce api to make load of editor faster and to customize some translations/texts.
+### Dependencies
+
+> IMPORTANT! If @tinymce/tinymce-react is updated then a self-hosted version of TinyMce might need an update as well
+> "@tinymce/tinymce-react": "^3.13.0",
+> TinyMce version: 5.10.3
+
+### How to update a local TinyMce (self-hosted)
+
+In *`tinymce`* catalog located tinymce api
+- it makes the load of editors faster and more robust
+
+1. Download TinyMCE Dev Package (.zip). Read about it https://www.tiny.cloud/docs/general-configuration-guide/advanced-install/#self-hostedinstall
+2. Unzip TinyMCE Dev Package and go to `js/tinymce`
+3. Copy all folders into tinymce folder, **EXCEPT** `langs` folder. *`langs`* includes **customized Swedish translations/texts.**
+ 
 
 ### Edited English and Swedish translations for editor's buttons
 
@@ -245,6 +270,7 @@ const editorConf = language => ({
         searchreplace | link | fullscreen `,
   toolbar2: `bullist numlist outdent indent | table | removeformat | help`,
   block_formats: 'Body text=p;Heading=h4',
+  tinymceScriptSrc: '/kursinfoadmin/kurs-pm-data/static/tinymce/tinymce.min.js',
 })
 ```
 
@@ -256,6 +282,7 @@ const editorConf = language => ({
 - `table_default_styles` is to cancel default styles of tables
 - `table_default_attributes` is to make border invisible via `border: '0'`
 - `language` is needed only for Swedish translations: sv_SE. Otherwise it is 'null'.
+- `tinymceScriptSrc` path to a local TinyMce js file
 
 ### Set up your development environment on Windows
 
