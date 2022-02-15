@@ -6,7 +6,7 @@ import { context } from '../util/fieldsByType'
 
 const StandardSectionOrEditor = ({
   contentId,
-  initialValue,
+  htmlContent,
   sectionId,
   onToggleVisibleInMemo,
   memoLangIndex,
@@ -17,14 +17,14 @@ const StandardSectionOrEditor = ({
   const menuId = sectionId + '-' + contentId
   // eslint-disable-next-line react/destructuring-assignment
   const { isEditable, isRequired } = context[contentId]
-  const visibleInMemo = isRequired ? true : checkVisibility(contentId, initialValue)
+  const visibleInMemo = isRequired ? true : checkVisibility(contentId, htmlContent)
 
   return isEditable ? (
     <StandardEditorPerTitle
       contentId={contentId}
       menuId={menuId}
       key={contentId}
-      htmlContent={initialValue}
+      htmlContent={htmlContent}
       onToggleVisibleInMemo={onToggleVisibleInMemo}
       visibleInMemo={visibleInMemo}
       onSave={onSave}
@@ -37,7 +37,7 @@ const StandardSectionOrEditor = ({
       key={contentId}
       visibleInMemo={visibleInMemo}
       onToggleVisibleInMemo={onToggleVisibleInMemo}
-      html={initialValue}
+      html={htmlContent}
       userLangIndex={userLangIndex}
     />
   )
@@ -45,7 +45,7 @@ const StandardSectionOrEditor = ({
 StandardSectionOrEditor.propTypes = {
   checkVisibility: PropTypes.func.isRequired,
   contentId: PropTypes.string.isRequired,
-  initialValue: PropTypes.string.isRequired, // PropTypes.oneOfType([PropTypes.func, PropTypes.objectOf]),
+  htmlContent: PropTypes.string.isRequired, // PropTypes.oneOfType([PropTypes.func, PropTypes.objectOf]),
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
   onSave: PropTypes.func.isRequired,
   sectionId: PropTypes.string.isRequired,

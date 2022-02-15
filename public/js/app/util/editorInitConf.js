@@ -22,6 +22,7 @@ const editorConf = language => ({
         searchreplace | link | fullscreen `,
   toolbar2: `bullist numlist outdent indent | table | removeformat | help`,
   block_formats: 'Body text=p;Heading=h4',
+  tinymceScriptSrc: '/kursinfoadmin/kurs-pm-data/static/tinymce/tinymce.min.js',
 })
 
 export default editorConf
