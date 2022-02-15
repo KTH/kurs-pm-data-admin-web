@@ -212,8 +212,9 @@ APPINSIGHTS_INSTRUMENTATIONKEY=[Azure, Application insights, Instrumentation Key
 ### Dependencies
 
 > IMPORTANT! If @tinymce/tinymce-react is updated then a self-hosted version of TinyMce might need an update as well
-> "@tinymce/tinymce-react": "^3.13.0",
-> TinyMce version: 5.10.3
+
+- "@tinymce/tinymce-react": "^3.13.0",
+- TinyMce version: 5.10.3
 
 ### How to update a local TinyMce (self-hosted)
 
