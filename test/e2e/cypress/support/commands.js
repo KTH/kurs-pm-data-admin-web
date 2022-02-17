@@ -22,8 +22,8 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 //
 
-Cypress.Commands.add('getTinyMce', tinyMceId => {
-  cy.window()
-    .then(win => win.tinymce.editors[tinyMceId])
-    .then(cy.wrap)
-})
+// Cypress.Commands.add('getTinyMce', tinyMceId => {
+//   cy.window()
+//     .then(win => win.tinymce.editors[tinyMceId])
+//     .then(cy.wrap)
+// })
