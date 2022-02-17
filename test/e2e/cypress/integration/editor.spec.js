@@ -28,7 +28,7 @@ describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
       .its('0.contentDocument.body')
       .contains('Examination will be edited next week after examination day'))
 
-  it('Check if a new sentence is added to the initial text', () =>
+  it.skip('Check if a new sentence is added to the initial text', () =>
     cy
       .get('iframe')
       .its('0.contentDocument.body')
@@ -62,7 +62,7 @@ describe('Test a standard TinyMce editor with a local state, <StandardEditorWith
       .its('0.contentDocument.body')
       .contains('Examination Content For A Second Editor'))
 
-  it('Check if a new sentence is added to the initial text', () => {
+  it.skip('Check if a new sentence is added to the initial text', () => {
     const addText = 'Additional content for a second editor'
 
     cy.get('iframe[id="editorForexaminationSubSection_ifr"]')
@@ -100,7 +100,7 @@ describe('Show a TinyMce editor (not plain-text section) with a store state, <St
       .its('0.contentDocument.body')
       .contains('Literature Content For A Third Editor with Store State'))
 
-  it('Check if a new sentence is added to the initial text', () => {
+  it.skip('Check if a new sentence is added to the initial text', () => {
     const addText = 'Additional content for a literature editor'
 
     cy.get('iframe[id="editorForliterature_ifr"]')
