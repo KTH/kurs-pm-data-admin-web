@@ -11,11 +11,12 @@
     "uri": "git+https://github.com/KTH/kurs-pm-data-admin-web.git"
   },
   "scripts": {
-    "cypress:open": "NODE_ENV=development cypress open",
-    "cy:run:chrome": "npx cypress run --browser chrome",
-    "cy:run:ff": "npx cypress run  --browser firefox",
-    "cy:run:edge": "npx cypress run  --browser edge",
-    "cy:run:electron": "npx cypress run  --browser electron",
+    "cy:open": "NODE_ENV=development cypress open -C cypress/cypress.env.json",
+    "cy:run": "npx cypress run -C cypress/cypress.env.json --browser chrome",
+    "cy:run:chrome": "npx cypress run -C cypress/cypress.env.json --browser chrome",
+    "cy:run:ff": "npx cypress run -C cypress/cypress.env.json --browser firefox",
+    "cy:run:edge": "npx cypress run -C cypress/cypress.env.json --browser edge",
+    "cy:run:electron": "npx cypress run -C cypress/cypress.env.json --browser electron",
     "cy:run:tests": "bash -c 'NODE_ENV=development concurrently --kill-others \"npm run build-dev\" \"npm run cy:run:chrome\"'",
     "prepare": "husky install",
     "lint": "eslint . && prettier-eslint --list-different **/*.js",
