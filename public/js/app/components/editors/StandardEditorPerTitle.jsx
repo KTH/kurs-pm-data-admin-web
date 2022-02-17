@@ -80,7 +80,7 @@ function StandardEditorPerTitle(props) {
           <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
           <Editor
             id={'editorFor' + contentId}
-            initialValue={htmlContent}
+            value={htmlContent}
             init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
             onEditorChange={updateMemoContent}
             onBlur={onBlur}
