@@ -32,7 +32,9 @@ describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
     cy
       .get('iframe')
       .its('0.contentDocument.body')
-      .type('. For an additional info, look at a course page')
+      .type('. ')
+      .type('For an additional info')
+      .type(', look at a course page')
       .contains(
         'Examination will be edited next week after examination day. For an additional info, look at a course page'
       ))
@@ -61,12 +63,19 @@ describe('Test a standard TinyMce editor with a local state, <StandardEditorWith
       .contains('Examination Content For A Second Editor'))
 
   it('Check if a new sentence is added to the initial text', () => {
-    const addText = '. Additional content for a second editor'
+    const addText = 'Additional content for a second editor'
 
     cy.get('iframe[id="editorForexaminationSubSection_ifr"]')
       .its('0.contentDocument.body')
+      .type('. ')
       .type(addText)
-      .contains(`Examination Content For A Second Editor${addText}`)
+      .type('!')
+      .contains(`Examination Content For A Second Editor. ${addText}!`)
+
+    cy.get('iframe[id="editorForexaminationSubSection_ifr"]')
+      .its('0.contentDocument.body')
+      .type(' End of test!')
+      .contains(`Examination Content For A Second Editor. ${addText}! End of test!`)
   })
 })
 
@@ -98,6 +107,12 @@ describe('Show a TinyMce editor (not plain-text section) with a store state, <St
       .its('0.contentDocument.body')
       .type('. ')
       .type(addText)
-      .contains(`Literature Content For A Third Editor with Store State. ${addText}`)
+      .type('!')
+      .contains(`Literature Content For A Third Editor with Store State. ${addText}!`)
+
+    cy.get('iframe[id="editorForliterature_ifr"]')
+      .its('0.contentDocument.body')
+      .type(' End of test.')
+      .contains(`Literature Content For A Third Editor with Store State. ${addText}! End of test.`)
   })
 })
