@@ -18,5 +18,8 @@ app.use((req, res) => {
   // console.log('Caught request on path', req.url)
   res.send('')
 })
+process.on('SIGTERM', () => {
+  process.exit(0)
+})
 
 app.listen(config.host.port, config.host.address)

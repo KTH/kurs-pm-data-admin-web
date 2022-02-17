@@ -1,19 +1,18 @@
 version: '3.7'
 
 services:
+  redis:
+    image: redis:6.2.3
+    ports:
+      - '6379'
   mock-api:
     build: ./cypress/mock-api
     ports:
-      - '3001:3000'
-
-  redis:
-    image: redis:6.0.9
-    ports:
-      - '6379'
-
+      - '3001'
   web:
     image: $LOCAL_IMAGE_ID
     environment:
+      API_KEYS: '?name=devClient&apiKey=1234&scope=write&scope=read'
       SESSION_USE_REDIS: 'false'
       SERVICE_PUBLISH: '/kursinfoadmin/kurs-pm-data'
       SERVER_PORT: '3000'
@@ -22,20 +21,20 @@ services:
       LOGGING_LEVEL: 'error'
       LOG_LEVEL: 'error'
       LOGGING_ACCESS_LOG: 'false'
-      KURS_PM_DATA_API_URI: 'http://mock-api:3000/kurs-pm'
+      KURS_PM_DATA_API_URI: 'http://mock-api:3001/kurs-pm'
       KURS_PM_DATA_API_KEY: 'secretpassword'
-      KURS_INFO_API_URI: 'http://mock-api:3000/kursinfo'
+      KURS_INFO_API_URI: 'http://mock-api:3001/kursinfo'
       KURS_INFO_API_KEY: 'secretpassword'
-      KURSPLAN_API_URI: 'http://mock-api:3000/kursplan'
+      KURSPLAN_API_URI: 'http://mock-api:3001/kursplan'
       KURSPLAN_API_KEY: 'secretpassword'
-      REDIS_URI: 'redis://redis:6379'
-      KOPPS_URI: 'http://mock-api:3000/kopps/'
-      CM_HOST_URL: 'http://mock-api:3000/cm/'
+      REDIS_URI: 'redis://redis'
+      KOPPS_URI: 'http://mock-api:3001/kopps/'
+      CM_HOST_URL: 'http://mock-api:3001/cm/'
     ports:
-      - '3000:3000'
+      - '3000'
     depends_on:
-      - mock-api
       - redis
+      - mock-api
 
   cypress:
     build: ./cypress
