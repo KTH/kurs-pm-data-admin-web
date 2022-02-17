@@ -1,6 +1,6 @@
 {
   "pluginsFile": false,
-  "supportFile": false,
+  "supportFile": "test/e2e/cypress/support/index.js",
   "video": false,
   "screenshots": false
 }
