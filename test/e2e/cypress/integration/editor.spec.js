@@ -7,7 +7,7 @@
 // https://on.cypress.io/writing-first-test
 
 describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
-  beforeEach(() => cy.visit('http://localhost:3000/kursinfoadmin/kurs-pm-data/_test_editor/'))
+  beforeEach(() => cy.visit('/_test_editor'))
 
   it('Check if iframe of the editor shows', () =>
     cy.get('iframe[id="editorFor-examinationSubSection-simple_ifr"]').should('exist'))
@@ -34,7 +34,7 @@ describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
 })
 
 describe('Test a standard TinyMce editor with a local state, <StandardEditorWithTitleAndLocalState />', () => {
-  beforeEach(() => cy.visit('http://localhost:3000/kursinfoadmin/kurs-pm-data/_test_editor/'))
+  beforeEach(() => cy.visit('/_test_editor'))
 
   it('Check if iframe of the editor shows', () =>
     cy.get('iframe[id="editorForexaminationSubSection_ifr"]').should('exist'))
@@ -61,7 +61,7 @@ describe('Test a standard TinyMce editor with a local state, <StandardEditorWith
 })
 
 describe('Show a TinyMce editor (not plain-text section) with a store state, <StandardSectionOrEditor />', () => {
-  beforeEach(() => cy.visit('http://localhost:3000/kursinfoadmin/kurs-pm-data/_test_editor/'))
+  beforeEach(() => cy.visit('/_test_editor'))
 
   it('Check if iframe of the editor shows', () => cy.get('iframe[id="editorForliterature_ifr"]').should('exist'))
 
