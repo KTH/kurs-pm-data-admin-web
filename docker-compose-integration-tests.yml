@@ -32,6 +32,9 @@ services:
       UG_REDIS_URI: 'redis://redis:6379/'
       KOPPS_URI: 'http://mock-api:3001/kopps/'
       CM_HOST_URL: 'http://mock-api:3001/cm/'
+      OIDC_APPLICATION_ID: 'oidcid'
+      OIDC_CLIENT_SECRET: 'oidcsecret'
+      OIDC_TOKEN_SECRET: 'oidctoken'
     ports:
       - '3000'
     depends_on:
