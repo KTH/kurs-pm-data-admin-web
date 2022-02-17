@@ -6,7 +6,7 @@ services:
     ports:
       - '6379'
   mock-api:
-    build: ./cypress/mock-api
+    build: ./test/mock-api
     ports:
       - '3001'
   web:
@@ -42,7 +42,7 @@ services:
       - mock-api
 
   cypress:
-    build: ./cypress
+    build: ./test/e2e
     environment:
       - CYPRESS_baseUrl=http://web:3000/kursinfoadmin/kurs-pm-data/
     depends_on:
