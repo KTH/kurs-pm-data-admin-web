@@ -14,6 +14,7 @@
 /tinymce/themes/silver/theme.min.js
 /tinymce/tinymce.min.js
 /tinymce
+/docker-compose-integration-tests.yml
 ./public/js/lib/firebug-lite/build/chrome-extension/firebug-lite.js
 ./public/js/lib/firebug-lite/build/firebug-lite-beta.js
 ./public/js/lib/firebug-lite/build/firebug-lite-debug.js
