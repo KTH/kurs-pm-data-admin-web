@@ -12,7 +12,12 @@ describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
   it('Check if iframe of the editor shows', () =>
     cy.get('iframe[id="editorFor-examinationSubSection-simple_ifr"]').should('exist'))
 
-  it('Check if tinyMce editor exists', () => cy.getTinyMce('editorFor-examinationSubSection-simple').should('exist'))
+  it('Check if tinyMce editor exists', () =>
+    cy
+      .window()
+      .then(win => win.tinymce.editors['editorFor-examinationSubSection-simple'])
+      .then(cy.wrap)
+      .should('exist'))
 
   it('Check if tinyMce editor is not empty', () =>
     cy.get('iframe').its('0.contentDocument.body').should('not.be.empty'))
@@ -39,7 +44,12 @@ describe('Test a standard TinyMce editor with a local state, <StandardEditorWith
   it('Check if iframe of the editor shows', () =>
     cy.get('iframe[id="editorForexaminationSubSection_ifr"]').should('exist'))
 
-  it('Check if tinyMce editor exists', () => cy.getTinyMce('editorFor-examinationSubSection').should('exist'))
+  it('Check if tinyMce editor exists', () =>
+    cy
+      .window()
+      .then(win => win.tinymce.editors['editorFor-examinationSubSection'])
+      .then(cy.wrap)
+      .should('exist'))
 
   it('Check if tinyMce editor is not empty', () =>
     cy.get('iframe[id="editorForexaminationSubSection_ifr"]').its('0.contentDocument.body').should('not.be.empty'))
@@ -65,7 +75,12 @@ describe('Show a TinyMce editor (not plain-text section) with a store state, <St
 
   it('Check if iframe of the editor shows', () => cy.get('iframe[id="editorForliterature_ifr"]').should('exist'))
 
-  it('Check if tinyMce editor exists', () => cy.getTinyMce('editorFor-literature').should('exist'))
+  it('Check if tinyMce editor exists', () =>
+    cy
+      .window()
+      .then(win => win.tinymce.editors['editorFor-literature'])
+      .then(cy.wrap)
+      .should('exist'))
 
   it('Check if tinyMce editor is not empty', () =>
     cy.get('iframe[id="editorForliterature_ifr"]').its('0.contentDocument.body').should('not.be.empty'))
