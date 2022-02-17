@@ -37,7 +37,7 @@ services:
       - mock-api
       - redis
 
-  artillery:
+  cypress:
     build: ./cypress
     environment:
       - CYPRESS_baseUrl=http://web:3000/kursinfoadmin/kurs-pm-data/
