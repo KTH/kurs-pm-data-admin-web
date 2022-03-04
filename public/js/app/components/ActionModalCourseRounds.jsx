@@ -68,10 +68,11 @@ function ActionModalCourseRounds(props) {
   }
 
   async function fetchMatchingRounds(newMemo) {
+    const { semester } = newMemo
     const newAvailableRounds = await store.showAvailableSemesterRounds(semester)
     const allNewRounds = await fetchThisTermRounds(miniKoppsObj, newMemo || memo)
-    const compatible = await isLangCompatible(availableRounds, memoCommonLangAbbr)
-    const checkIfShowSaveBtn = availableRounds && availableRounds.length > 0 && compatible
+    const compatible = await isLangCompatible(newAvailableRounds, memoCommonLangAbbr)
+    const checkIfShowSaveBtn = newAvailableRounds && newAvailableRounds.length > 0 && compatible
     setRoundsGroup({
       allRounds: allNewRounds,
       availableRounds: newAvailableRounds,
