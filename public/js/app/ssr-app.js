@@ -3,7 +3,7 @@
 // @ts-check
 
 import React from 'react'
-import { StaticRouter } from 'react-router'
+import { StaticRouter } from 'react-router-dom/server'
 import { enableStaticRendering } from 'mobx-react'
 import ReactDOMServer from 'react-dom/server'
 
