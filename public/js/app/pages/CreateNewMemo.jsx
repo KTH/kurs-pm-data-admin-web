@@ -4,7 +4,9 @@
 import React, { useState, useEffect } from 'react'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
+
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
@@ -20,7 +22,7 @@ import {
   fetchParameters,
 } from '../util/helpers'
 import ControlPanel from '../components/ControlPanel'
-import SectionTitleAndInfoModal from '../components/SectionTitleAndInfoModal'
+import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
 import i18n from '../../../../i18n'
 
 function CreateNewMemo(props) {
@@ -243,11 +245,9 @@ function CreateNewMemo(props) {
   return (
     <Container className="kip-container" style={{ marginBottom: '115px' }}>
       <Row id="scroll-here-if-alert">
-        <PageTitle id="mainHeading" pageTitle={pageTitles.new}>
-          <span role="heading" aria-level="4">
-            {course && combinedCourseName(courseCode, course, langAbbr)}
-          </span>
-        </PageTitle>
+        <PageHeading id="mainHeading" subHeading={course && combinedCourseName(courseCode, course, langAbbr)}>
+          {pageTitles.new}
+        </PageHeading>
       </Row>
 
       <ProgressBar active={1} pages={pagesCreateNewPm} />
@@ -267,7 +267,7 @@ function CreateNewMemo(props) {
           <Col>
             {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
             <div className="subsection-30">
-              <SectionTitleAndInfoModal
+              <SectionHeadingAsteriskModal
                 modalId="choose-course-round"
                 titleAndInfo={info.chooseRound}
                 btnClose={buttons.btnClose}

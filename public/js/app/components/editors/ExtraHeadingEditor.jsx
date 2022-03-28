@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
-import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
 import PropTypes from 'prop-types'
 

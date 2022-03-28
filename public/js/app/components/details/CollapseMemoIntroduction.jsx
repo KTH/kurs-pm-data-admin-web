@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CollapseDetails } from '@kth/kth-kip-style-react-components'
+import { CollapseDetails } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 const Introduction = ({ langAbbr }) =>
   langAbbr === 'sv' ? (

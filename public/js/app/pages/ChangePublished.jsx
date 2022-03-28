@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
+
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
@@ -103,11 +105,9 @@ function ChangePublished(props) {
   return (
     <Container className="kip-container" style={{ marginBottom: '115px' }}>
       <Row id="scroll-here-if-alert">
-        <PageTitle id="mainHeading" pageTitle={pageTitles.published}>
-          <span role="heading" aria-level="4">
-            {course && combinedCourseName(courseCode, course, langAbbr)}
-          </span>
-        </PageTitle>
+        <PageHeading id="mainHeading" subHeading={course && combinedCourseName(courseCode, course, langAbbr)}>
+          {pageTitles.published}
+        </PageHeading>
       </Row>
 
       <ProgressBar active={1} pages={pagesChangePublishedPm} />

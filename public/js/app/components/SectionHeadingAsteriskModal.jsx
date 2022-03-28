@@ -1,5 +1,5 @@
 import React from 'react'
-import { InfoModalButton } from '@kth/kth-kip-style-react-components'
+import { InfoModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
 
 const styles = {
@@ -16,7 +16,7 @@ const styles = {
     marginBottom: '0',
   },
 }
-const SectionTitleAndInfoModal = ({ modalId, titleAndInfo, btnClose, children }) => {
+const SectionHeadingAsteriskModal = ({ modalId, titleAndInfo, btnClose, children }) => {
   const { header } = titleAndInfo
   const infoModalLabels = {
     ...titleAndInfo,
@@ -37,7 +37,7 @@ const SectionTitleAndInfoModal = ({ modalId, titleAndInfo, btnClose, children })
   )
 }
 
-SectionTitleAndInfoModal.propTypes = {
+SectionHeadingAsteriskModal.propTypes = {
   modalId: PropTypes.string.isRequired,
   titleAndInfo: PropTypes.PropTypes.shape({
     header: PropTypes.string.isRequired,
@@ -47,9 +47,9 @@ SectionTitleAndInfoModal.propTypes = {
   children: PropTypes.node,
 }
 
-SectionTitleAndInfoModal.defaultProps = {
+SectionHeadingAsteriskModal.defaultProps = {
   children: '',
   btnClose: 'Close',
 }
 
-export default SectionTitleAndInfoModal
+export default SectionHeadingAsteriskModal

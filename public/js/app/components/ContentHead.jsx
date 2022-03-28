@@ -1,5 +1,5 @@
 import React from 'react'
-import { TitleAndInfoModal } from '@kth/kth-kip-style-react-components'
+import { HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
 
 import i18n from '../../../../i18n'
@@ -12,7 +12,7 @@ export const ContentHead = ({ contentId, memoLangIndex, userLangIndex }) => {
     header: memoTitlesByMemoLang[contentId],
     body: memoInfoByUserLang[contentId].body,
   }
-  return <TitleAndInfoModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
+  return <HeadingAsteriskModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
 }
 
 export const ExtraHeaderHead = ({ header, contentId, memoLangIndex, userLangIndex }) => {
@@ -23,7 +23,7 @@ export const ExtraHeaderHead = ({ header, contentId, memoLangIndex, userLangInde
     header,
     body: memoInfoByUserLang[contentId].body,
   }
-  return <TitleAndInfoModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
+  return <HeadingAsteriskModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
 }
 
 ContentHead.propTypes = {

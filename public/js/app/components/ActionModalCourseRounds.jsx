@@ -4,7 +4,7 @@
 /* eslint-disable react/no-danger */
 import React, { useState, useEffect } from 'react'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
-import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'

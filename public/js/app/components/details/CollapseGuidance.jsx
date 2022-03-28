@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CollapseDetails } from '@kth/kth-kip-style-react-components'
+import { CollapseDetails } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 
 const CollapseGuidance = ({ ariaLabel = '', title, details }) => (
   <CollapseDetails
