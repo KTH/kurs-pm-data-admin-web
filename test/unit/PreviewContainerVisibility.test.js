@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import i18n from '../../i18n'
-import { StaticRouter } from 'react-router'
+import { StaticRouter } from 'react-router-dom/server'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
 import translations from '../mocks/translations'
@@ -35,14 +35,8 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
   )
 }
 
-const {
-  breadCrumbLabels,
-  labelContacts,
-  labelFacts,
-  labelLinks,
-  orderedFilledInAndVisible,
-  sectionsLabels,
-} = translations.en
+const { breadCrumbLabels, labelContacts, labelFacts, labelLinks, orderedFilledInAndVisible, sectionsLabels } =
+  translations.en
 
 describe('Component <PreviewContainer> to display filled in draft of published memo. All memo data is filled in and only optional data must be invisible. memoLang="en" userLang="sv"', () => {
   beforeEach(() => {
