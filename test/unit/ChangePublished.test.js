@@ -2,7 +2,7 @@ import React from 'react'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { StaticRouter } from 'react-router'
+import { StaticRouter } from 'react-router-dom/server'
 import i18n from '../../i18n'
 
 import ChangePublished from '../../public/js/app/pages/ChangePublished'
@@ -45,18 +45,18 @@ describe('Component <ChangedPublished> Edit published course memo with empty lis
     expect(allH1Headers[0]).toHaveTextContent(pageTitles.published)
   })
 
-  test('renders main subheader h4, course name. English.', () => {
+  test('renders main subheader, course name. English.', () => {
     render(<ChangedPublishedEmpty langAbbr="en" langIndex={0} />)
-    const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(1)
-    expect(allH4Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
   test('renders main header h1, course name. Swedish.', () => {
     render(<ChangedPublishedEmpty langAbbr="sv" langIndex={1} />)
-    const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(1)
-    expect(allH4Headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('renders main header h2, Choose course offering', () => {

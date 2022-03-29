@@ -18,18 +18,6 @@ const ProgressTitle = (
 ) => (
   <span style={styles.span} className="progress-title">
     <h2 id={id}>{text.title}</h2>
-    {/* TODO: clean it after moving to component library */}
-    {/* {withInfoModal && (
-      <InfoModalButton
-        style={{ ...styles.btnInfoModal, ...style }}
-        modalId={id + '-infoModal'}
-        modalLabels={{
-          header: text.title,
-          body: text.intro || text.info,
-          btnClose: 'Close',
-        }}
-      />
-    )} */}
   </span>
 )
 

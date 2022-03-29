@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 // Sass
 import '../../css/node-web.scss'
@@ -19,17 +19,17 @@ import EditorsForTest from './components/editors/test/EditorsForTest'
 function appFactory(applicationStore) {
   return (
     <MobxStoreProvider initCallback={() => applicationStore}>
-      <Switch>
-        <Route exact path="/kursinfoadmin/kurs-pm-data/_test_editor" component={EditorsForTest} />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/published/:courseCode/" component={ChangePublished} />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" component={CreateNewMemo} />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint" component={MemoEditingContainer} />
+      <Routes>
+        <Route exact path="/kursinfoadmin/kurs-pm-data/_test_editor" element={<EditorsForTest />} />
+        <Route exact path="/kursinfoadmin/kurs-pm-data/published/:courseCode/" element={<ChangePublished />} />
+        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" element={<CreateNewMemo />} />
+        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint" element={<MemoEditingContainer />} />
         <Route
           exact
           path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint/preview"
-          component={PreviewContainer}
+          element={<PreviewContainer />}
         />
-      </Switch>
+      </Routes>
     </MobxStoreProvider>
   )
 }

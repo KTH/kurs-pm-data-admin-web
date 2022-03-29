@@ -3,7 +3,7 @@
 import React from 'react'
 
 import { Alert, Row, Col, Button } from 'reactstrap'
-import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
 import ActionModalCourseRounds from './ActionModalCourseRounds'
 

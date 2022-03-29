@@ -1,7 +1,7 @@
 'use strict'
 
-const log = require('kth-node-log')
-const language = require('kth-node-web-common/lib/language')
+const log = require('@kth/log')
+const language = require('@kth/kth-node-web-common/lib/language')
 const { safeGet } = require('safe-utils')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 const apis = require('../api')

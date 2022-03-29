@@ -3,7 +3,9 @@ import { observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 import axios from 'axios'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
+
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 import i18n from '../../../../i18n'
@@ -360,12 +362,12 @@ function MemoContainer(props) {
     ))
   }
   return (
-    <Container className="kip-container">
+    <Container className="kip-container" fluid>
       {/* /* style={{ marginBottom: '110px' }} */}
       <Row key="pageHeader" id="scroll-here-if-alert">
-        <PageTitle id="mainHeading" pageTitle={isDraftOfPublished ? pageTitles.published : pageTitles.new}>
-          {courseSubHeader()}
-        </PageTitle>
+        <PageHeading id="mainHeading" subHeading={courseSubHeader()}>
+          {isDraftOfPublished ? pageTitles.published : pageTitles.new}
+        </PageHeading>
       </Row>
       <ProgressBar active={PROGRESS} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={userLangIndex} />

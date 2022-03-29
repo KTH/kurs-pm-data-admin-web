@@ -1,16 +1,13 @@
 'use strict'
 
-/**
- * System controller for functions such as /about and /monitor
- */
 const os = require('os')
 
-const log = require('kth-node-log')
+const errorHandler = require('@kth/kth-node-web-common/lib/error')
 const { getPaths } = require('kth-node-express-routing')
-const language = require('kth-node-web-common/lib/language')
-const registry = require('component-registry').globalRegistry
-const { IHealthCheck } = require('kth-node-monitor').interfaces
-
+const language = require('@kth/kth-node-web-common/lib/language')
+const monitorSystems = require('@kth/monitor')
+const log = require('@kth/log')
+const redis = require('kth-node-redis')
 const version = require('../../config/version')
 const i18n = require('../../i18n')
 const packageFile = require('../../package.json')
@@ -133,8 +130,8 @@ function _about(req, res) {
     gitBranch: JSON.stringify(version.gitBranch),
     gitCommit: JSON.stringify(version.gitCommit),
     jenkinsBuild: JSON.stringify(version.jenkinsBuild),
-    jenkinsBuildDate: /^\d{4}-/.test(version.jenkinsBuildDate)
-      ? _simpleDate(new Date(version.jenkinsBuildDate))
+    jenkinsBuildDate: version.jenkinsBuild
+      ? _simpleDate(new Date(parseInt(version.jenkinsBuild, 10) * 1000))
       : JSON.stringify(version.jenkinsBuildDate),
     dockerName: JSON.stringify(version.dockerName),
     dockerVersion: JSON.stringify(version.dockerVersion),
@@ -148,44 +145,38 @@ function _about(req, res) {
 /* GET /_monitor
  * Monitor page
  */
-function _monitor(req, res) {
-  const apiConfig = config.nodeApi
-
-  // Check APIs
-  const subSystems = Object.keys(api).map(apiKey => {
-    const apiHealthUtil = registry.getUtility(IHealthCheck, 'kth-node-api')
-    return apiHealthUtil.status(api[apiKey], {
-      required: apiConfig[apiKey].required,
-    })
-  })
-
-  // If we need local system checks, such as memory or disk, we would add it here.
-  // Make sure it returns a promise which resolves with an object containing:
-  // {statusCode: ###, message: '...'}
-  // The property statusCode should be standard HTTP status codes.
-  const localSystems = Promise.resolve({ statusCode: 200, message: 'OK' })
-
-  /* -- You will normally not change anything below this line -- */
-
-  // Determine system health based on the results of the checks above. Expects
-  // arrays of promises as input. This returns a promise
-  const systemHealthUtil = registry.getUtility(IHealthCheck, 'kth-node-system-check')
-  const systemStatus = systemHealthUtil.status(localSystems, subSystems)
-
-  systemStatus
-    .then(status => {
-      // Return the result either as JSON or text
-      if (req.headers.accept === 'application/json') {
-        const outp = systemHealthUtil.renderJSON(status)
-        res.status(status.statusCode).json(outp)
-      } else {
-        const outp = systemHealthUtil.renderText(status)
-        res.type('text').status(status.statusCode).send(outp)
-      }
-    })
-    .catch(err => {
-      res.type('text').status(500).send(err)
-    })
+async function _monitor(req, res) {
+  try {
+    const apiConfig = config.nodeApi
+    await monitorSystems(req, res, [
+      ...(api
+        ? Object.keys(api).map(apiKey => ({
+            key: apiKey,
+            required: apiConfig[apiKey].required,
+            endpoint: api[apiKey],
+          }))
+        : []),
+      {
+        key: 'redis',
+        required: true,
+        redis,
+        options: config.session.redisOptions,
+      },
+      // If we need local system checks, such as memory or disk, we would add it here.
+      // Make sure it returns an object containing:
+      // {key: 'local', isResolved: true, statusCode: ###, message: '...'}
+      // The property statusCode should be standard HTTP status codes.
+      {
+        key: 'local',
+        isResolved: true,
+        message: '- local system checks: OK',
+        statusCode: 200,
+      },
+    ])
+  } catch (error) {
+    log.error('Monitor failed', error)
+    res.status(500).end()
+  }
 }
 
 /* GET /robots.txt

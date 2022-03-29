@@ -1,14 +1,15 @@
 'use strict'
 
-const log = require('kth-node-log')
-const config = require('./configuration').server
+const log = require('@kth/log')
 const redis = require('kth-node-redis')
-const connections = require('kth-node-api-call').Connections
+const connections = require('@kth/api-call').Connections
+const config = require('./configuration').server
 
 const opts = {
   log,
   redis,
   timeout: 30000,
+  retryOnESOCKETTIMEDOUT: true,
   checkAPIs: true, // performs api-key checks against the apis, if a "required" check fails, the app will exit. Required apis are specified in the config
 }
 

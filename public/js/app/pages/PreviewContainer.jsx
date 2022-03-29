@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { Container, Row, Col } from 'reactstrap'
-import { PageTitle, ProgressBar } from '@kth/kth-kip-style-react-components'
+import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
+
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
@@ -201,9 +203,8 @@ function PreviewContainer(props) {
   } = memoData
   const isDraftOfPublished = Number(version) > FIRST_VERSION
 
-  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } = i18n.messages[
-    langIndex
-  ]
+  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } =
+    i18n.messages[langIndex]
   const {
     coursePresentationLabels,
     courseFactsLabels,
@@ -311,9 +312,9 @@ function PreviewContainer(props) {
   return (
     <Container className="kip-container preview-container" fluid>
       <Row>
-        <PageTitle id="mainHeading" pageTitle={isDraftOfPublished ? pageTitles.published : pageTitles.new}>
-          {courseTitle}
-        </PageTitle>
+        <PageHeading id="mainHeading" subHeading={courseTitle}>
+          {isDraftOfPublished ? pageTitles.published : pageTitles.new}
+        </PageHeading>
       </Row>
       <ProgressBar active={progress} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
@@ -388,8 +389,6 @@ function PreviewContainer(props) {
           onBack={onBack}
           onCancel={onFinish}
           progress={progress}
-          // alertText={alertText}
-          // alertIsOpen={alertIsOpen}
           isDraftOfPublished={isDraftOfPublished}
         />
       </Container>

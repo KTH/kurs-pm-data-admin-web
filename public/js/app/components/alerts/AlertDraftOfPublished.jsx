@@ -1,7 +1,7 @@
 import React from 'react'
 import { Alert } from 'reactstrap'
 import PropTypes from 'prop-types'
-import { ActionModalButton } from '@kth/kth-kip-style-react-components'
+import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import axios from 'axios'
 import i18n from '../../../../../i18n'
 import UpperAlertRow from './UpperAlertRow'
