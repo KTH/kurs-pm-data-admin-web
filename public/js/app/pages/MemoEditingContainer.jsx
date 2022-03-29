@@ -362,7 +362,7 @@ function MemoContainer(props) {
     ))
   }
   return (
-    <Container className="kip-container">
+    <Container className="kip-container" fluid>
       {/* /* style={{ marginBottom: '110px' }} */}
       <Row key="pageHeader" id="scroll-here-if-alert">
         <PageHeading id="mainHeading" subHeading={courseSubHeader()}>

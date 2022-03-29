@@ -103,7 +103,7 @@ function ChangePublished(props) {
     }, 500)
   }
   return (
-    <Container className="kip-container" style={{ marginBottom: '115px' }}>
+    <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
       <Row id="scroll-here-if-alert">
         <PageHeading id="mainHeading" subHeading={course && combinedCourseName(courseCode, course, langAbbr)}>
           {pageTitles.published}
@@ -139,7 +139,7 @@ function ChangePublished(props) {
                     id="choose-existed-memo"
                   >
                     {memosToEdit.map(({ memoName, memoEndPoint, status }) => (
-                      <FormGroup className="form-select" key={'memo' + memoEndPoint}>
+                      <FormGroup className="form-check" key={'memo' + memoEndPoint}>
                         <Input
                           type="radio"
                           id={memoEndPoint}

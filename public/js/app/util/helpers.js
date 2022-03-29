@@ -2,6 +2,7 @@
 const i18n = require('../../../../i18n')
 
 export const combinedCourseName = (courseCode, course, langAbbr) => {
+  if (!course) return ''
   const { credits, creditUnitAbbr, title } = course
   const creditsStandard = credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
   const localeCredits =

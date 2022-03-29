@@ -243,7 +243,7 @@ function CreateNewMemo(props) {
   }
 
   return (
-    <Container className="kip-container" style={{ marginBottom: '115px' }}>
+    <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
       <Row id="scroll-here-if-alert">
         <PageHeading id="mainHeading" subHeading={course && combinedCourseName(courseCode, course, langAbbr)}>
           {pageTitles.new}
@@ -283,7 +283,7 @@ function CreateNewMemo(props) {
                     id="choose-existed-memo"
                   >
                     {existingDrafts.map(({ memoName, memoEndPoint }) => (
-                      <FormGroup className="form-select" key={'draftType' + (memoEndPoint || Math.random())}>
+                      <FormGroup className="form-check" key={'draftType' + (memoEndPoint || Math.random())}>
                         <Input
                           type="radio"
                           data-testid="radio-choose-saved-draft"
@@ -400,7 +400,7 @@ function CreateNewMemo(props) {
                 <Label htmlFor="choose-action">{info.createFrom.labelBasedOn}</Label>
                 <Form id="choose-action">
                   {['basedOnStandard', 'basedOnAnotherMemo'].map(templateType => (
-                    <FormGroup className="form-select" key={templateType}>
+                    <FormGroup className="form-check" key={templateType}>
                       <Input
                         type="radio"
                         id={templateType}
@@ -431,7 +431,7 @@ function CreateNewMemo(props) {
                       id="choose-previously-published-memo"
                     >
                       {allPublishedCourseMemos.map(({ memoName, memoEndPoint }) => (
-                        <FormGroup className="form-select" key={'published' + memoEndPoint}>
+                        <FormGroup className="form-check" key={'published' + memoEndPoint}>
                           <Input
                             type="radio"
                             id={memoEndPoint}

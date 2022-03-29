@@ -389,8 +389,6 @@ function PreviewContainer(props) {
           onBack={onBack}
           onCancel={onFinish}
           progress={progress}
-          // alertText={alertText}
-          // alertIsOpen={alertIsOpen}
           isDraftOfPublished={isDraftOfPublished}
         />
       </Container>

@@ -172,6 +172,7 @@ $btn-link-height: 20px;
   width: 100%;
   .progress-bar-container.row {
     margin: 0;
+    margin-top: 50px;
     div {
       &:first-of-type {
         text-align: left;
@@ -184,9 +185,6 @@ $btn-link-height: 20px;
         padding-right: 0;
       }
     }
-  }
-  .container.First--Step--Choose--Parameters {
-    padding: 0 0 50px 0;
   }
   .title-and-info > h3 {
     margin-top: 15px;
@@ -228,7 +226,18 @@ $btn-link-height: 20px;
       }
     }
   }
+  .fixed-bottom.container {
+    padding-left: 0;
+    padding-right: 0;
+    .control-buttons {
+      width: 103%;
 
+      @media (min-width: 768px) {
+        margin-left: -1.05em;
+        width: 103%;
+      }
+    }
+  }
   //.sections-list-80 FOR LIST VIEW
   .sections-list-80 {
     //row
@@ -310,12 +319,13 @@ $btn-link-height: 20px;
   }
 }
 
-//BUTTONS STYLES
+// general BUTTONS STYLES
 .control-buttons {
   @extend %column;
   border-top: 1px solid $grey;
   padding-bottom: 25px;
-  // padding-top: 1.5em;
+  background-color: white;
+  width: 100%;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -514,6 +524,16 @@ a.nav-link {
   justify-content: space-between;
 }
 
+h1#page-heading {
+  margin-top: 50px;
+  margin-left: 0.25em !important;
+}
+
+.page-sub-heading {
+  margin-left: 0.7em !important;
+  margin-bottom: 30px;
+}
+
 .page-header-wrapper {
   display: flex;
   margin: 0;
@@ -553,15 +573,13 @@ a.nav-link {
 }
 /* Select course offerings checkboxes and radiooxes */
 div.container.First--Step--Choose--Parameters {
+  padding: 0 0 50px 0;
+  margin: -0.1em;
   form {
-    //adapting for error red border
-    margin-left: -0.3em;
-
     .form-group {
       margin-left: 0.3em;
     }
     &.Existed--Memos {
-      margin-left: -0.3em;
       .form-group {
         margin-left: 1.6em;
       }
@@ -570,21 +588,10 @@ div.container.First--Step--Choose--Parameters {
       font-weight: normal;
     }
   }
-  // label + label {
-  //   font-weight: normal;
-  //   padding-bottom: 0.7em;
-  //   display: block;
-  // }
 
   .right-block-for-extra {
     border-left: 1px solid $borderGrey;
     padding-left: 30px;
-  }
-  .Start--Creating--From--Template--Or--Copy,
-  .Start--Creating--From--Copy {
-    .form-group.form-select {
-      margin-left: 1.6em;
-    }
   }
 }
 
@@ -614,7 +621,11 @@ label + label {
     padding-top: 0.5rem;
   }
 }
-
+.modal-body {
+  p {
+    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+  }
+}
 .error-area {
   outline: solid 1px $red !important;
   outline-offset: 10px;
