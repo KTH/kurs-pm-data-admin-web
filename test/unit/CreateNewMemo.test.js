@@ -29,7 +29,7 @@ const CreateNewMemoPageWithSavedDrafts = ({ ...rest }) => (
     </MobxStoreProvider>
   </StaticRouter>
 )
-const { buttons: buttonsSV } = translations.sv
+const { buttons: buttonsSV, pageTitles: pageTitlesSV } = translations.sv
 const { pageTitles: pageTitlesEN, buttons } = translations.en
 
 const { alerts, info, pagesCreateNewPm } = i18n.messages[0]
@@ -48,36 +48,45 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     })
-    const allH2Headers = getAllByRole('heading', { level: 1 })
-    expect(allH2Headers.length).toBe(1)
-    expect(allH2Headers[0]).toHaveTextContent(pageTitlesEN.new)
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent(pageTitlesEN.new)
   })
 
-  test('renders main subheader h4, course name. English.', async () => {
+  test('renders main subheader, course name. English.', async () => {
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     })
-    const allH2Headers = getAllByRole('heading', { level: 4 })
-    expect(allH2Headers.length).toBe(1)
-    expect(allH2Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+    const headers = getAllByRole('presentation')
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
-  test('renders main header h1, course name. Swedish.', async () => {
+  test('renders main header h1, page name. Swedish', async () => {
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     })
-    const allH2Headers = getAllByRole('heading', { level: 4 })
-    expect(allH2Headers.length).toBe(1)
-    expect(allH2Headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent(pageTitlesSV.new)
+  })
+
+  test('renders main subheader, course name. Swedish.', async () => {
+    await act(async () => {
+      await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    })
+    const headers = getAllByRole('presentation')
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('renders main header h2, Choose course offering', async () => {
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     })
-    const allH2Headers = getAllByRole('heading', { level: 2 })
-    expect(allH2Headers.length).toBe(1)
-    expect(allH2Headers[0]).toHaveTextContent(info.createNew)
+    const headers = getAllByRole('heading', { level: 2 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent(info.createNew)
   })
 
   test('renders two visible headers h3', async () => {

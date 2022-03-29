@@ -70,7 +70,13 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
-  test('renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers), ', () => {
+  test('tab: contentAndOutcomes (draft of published). renders main subheader (course name)(en)', () => {
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+  })
+
+  test('renders h4 for help text and other menu h4 (menu headers), ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     expect(allH4Headers.length).toBe(16)
     const expectedhds = [

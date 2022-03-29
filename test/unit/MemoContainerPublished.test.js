@@ -110,11 +110,17 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(allCloseEditorBtn.length).toBe(1)
   })
 
-  test('tab: contentAndOutcomes (draft of published). renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers), ', () => {
+  test('tab: contentAndOutcomes (draft of published). renders main subheader (course name)(sv)', () => {
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
+  })
+
+  test('tab: contentAndOutcomes (draft of published). renders h4 for help text and other menu h4 (menu headers), ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH4Headers.length).toBe(3)
-    const expectedhds = ['EF1111 Project in Plasma Physics 9.0 hp', 'Termin', 'Kursomgång']
+    expect(allH4Headers.length).toBe(2)
+    const expectedhds = ['Termin', 'Kursomgång']
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
@@ -421,11 +427,17 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expect(allCloseEditorBtn.length).toBe(3)
   })
 
+  test('tab: prep (draft of published). renders main subheader (course name)(sv)', () => {
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
+  })
+
   test('tab: prep (draft of published). renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers), ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH4Headers.length).toBe(3)
-    const expectedhds = ['EF1111 Project in Plasma Physics 9.0 hp', 'Termin', 'Kursomgång']
+    expect(allH4Headers.length).toBe(2)
+    const expectedhds = ['Termin', 'Kursomgång']
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 

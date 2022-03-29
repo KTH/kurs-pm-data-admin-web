@@ -60,12 +60,18 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
   })
 
-  test('tab: contentAndOutcomes. renders main subheader h4 (course name)(en) and other menu h4', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
+  test('tab: contentAndOutcomes. renders main subheader (course name)(en)', () => {
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+  })
+
+  test('tab: contentAndOutcomes. renders menu h4', () => {
+    const subheader = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH4Headers.length).toBe(3)
-    const expectedhds = ['EF1111 Project in Plasma Physics 9.0 credits', 'Semester', 'Course offering']
-    expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
+    expect(subheader.length).toBe(2)
+    const expectedhds = ['Semester', 'Course offering']
+    expectedhds.map((h4, index) => expect(subheader[index]).toHaveTextContent(h4))
   })
 
   test('tab: contentAndOutcomes. renders main header h2 (page name) in user lang(sv)', () => {
@@ -299,12 +305,18 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
   })
 
-  test('tab: prep. renders main subheader h4 (course name)(en) and other menu h4', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
+  test('tab: prep. renders main subheader (course name)(en)', () => {
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+  })
+
+  test('tab: prep. renders (en) menu h4', () => {
+    const subheader = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH4Headers.length).toBe(3)
-    const expectedhds = ['EF1111 Project in Plasma Physics 9.0 credits', 'Semester', 'Course offering']
-    expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
+    expect(subheader.length).toBe(2)
+    const expectedhds = ['Semester', 'Course offering']
+    expectedhds.map((h4, index) => expect(subheader[index]).toHaveTextContent(h4))
   })
 
   test('tab: prep. renders main header h2 (page name) in user lang(sv)', () => {
@@ -586,12 +598,18 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     expect(allH1Headers[0]).toHaveTextContent(pageTitlesSV.new)
   })
 
-  test('tab: reqToFinal examinations. renders main subheader h4 (course name)(sv) and other menu h4', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
+  test('tab: reqToFinal examinations. renders main subheader (course name)(sv)', () => {
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('Skapa och publicera kurs-PMEF1111 Project in Plasma Physics 9.0 hp')
+  })
+
+  test('tab: reqToFinal examinations. renders (sv) menu h4', () => {
+    const subheader = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH4Headers.length).toBe(3)
-    const expectedhds = ['EF1111 Project in Plasma Physics 9.0 hp', 'Termin', 'Kursomgång']
-    expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
+    expect(subheader.length).toBe(2)
+    const expectedhds = ['Termin', 'Kursomgång']
+    expectedhds.map((h4, index) => expect(subheader[index]).toHaveTextContent(h4))
   })
 
   test('tab: reqToFinal examinations. renders main header h2 (page name) in user lang(sv)', () => {
@@ -748,12 +766,18 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
   })
 
-  test('tab: contacts. renders main subheader h4 (course name)(en) and other menu h4', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
+  test('tab: contactss. renders main subheader (course name)(en)', () => {
+    const subheader = getAllByRole('presentation')
+    expect(subheader.length).toBe(1)
+    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+  })
+
+  test('tab: contacts. renders main subheader (course name)(en) menu h4', () => {
+    const subheader = getAllByRole('heading', { level: 4 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH4Headers.length).toBe(3)
-    const expectedhds = ['EF1111 Project in Plasma Physics 9.0 credits', 'Semester', 'Course offering']
-    expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
+    expect(subheader.length).toBe(2)
+    const expectedhds = ['Semester', 'Course offering']
+    expectedhds.map((h4, index) => expect(subheader[index]).toHaveTextContent(h4))
   })
 
   test('tab: contacts. renders main header h2 (page name) in user lang(sv)', () => {
