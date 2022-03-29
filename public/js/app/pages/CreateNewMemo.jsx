@@ -268,6 +268,7 @@ function CreateNewMemo(props) {
             {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
             <div className="subsection-30">
               <SectionHeadingAsteriskModal
+                langAbbr={langAbbr}
                 modalId="choose-course-round"
                 titleAndInfo={info.chooseRound}
                 btnClose={buttons.btnClose}

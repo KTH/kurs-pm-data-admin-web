@@ -1,5 +1,5 @@
 import React from 'react'
-import { InfoModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import { HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
 
 const styles = {
@@ -16,24 +16,20 @@ const styles = {
     marginBottom: '0',
   },
 }
-const SectionHeadingAsteriskModal = ({ modalId, titleAndInfo, btnClose, children }) => {
+const SectionHeadingAsteriskModal = ({ langAbbr, modalId, titleAndInfo, btnClose, children }) => {
   const { header } = titleAndInfo
-  const infoModalLabels = {
-    ...titleAndInfo,
-    btnClose,
-  }
+
   return (
-    <span className="section-title-and-info" style={styles.span}>
-      <h2 data-testid={modalId + '-section-heading'} style={styles.h2}>
-        {header}
-        <InfoModalButton
-          style={styles.btnInfoModal}
-          modalId={modalId + '-section-infoModal'}
-          modalLabels={infoModalLabels}
-        />
-      </h2>
+    <HeadingAsteriskModal
+      headingTag="h2"
+      langAbbr={langAbbr}
+      modalId={modalId}
+      titleAndInfo={titleAndInfo}
+      btnClose={btnClose}
+      withModal
+    >
       {children}
-    </span>
+    </HeadingAsteriskModal>
   )
 }
 

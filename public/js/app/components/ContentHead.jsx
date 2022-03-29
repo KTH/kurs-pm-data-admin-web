@@ -4,15 +4,27 @@ import PropTypes from 'prop-types'
 
 import i18n from '../../../../i18n'
 
+const getInfoModalAriaLabel = (langIndex, header) =>
+  langIndex === 1 ? `Information om ${header}` : `Information about ${header}`
+
 export const ContentHead = ({ contentId, memoLangIndex, userLangIndex }) => {
   const { memoTitlesByMemoLang, buttons } = i18n.messages[memoLangIndex]
   const { memoInfoByUserLang } = i18n.messages[userLangIndex]
-
   const titleAndInfo = {
     header: memoTitlesByMemoLang[contentId],
     body: memoInfoByUserLang[contentId].body,
   }
-  return <HeadingAsteriskModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
+  const ariaLabel = getInfoModalAriaLabel(userLangIndex, titleAndInfo.header)
+
+  return (
+    <HeadingAsteriskModal
+      modalBtnAriaLabel={ariaLabel}
+      modalId={contentId}
+      titleAndInfo={titleAndInfo}
+      btnClose={buttons.btnClose}
+      withModal
+    />
+  )
 }
 
 export const ExtraHeaderHead = ({ header, contentId, memoLangIndex, userLangIndex }) => {
@@ -23,7 +35,17 @@ export const ExtraHeaderHead = ({ header, contentId, memoLangIndex, userLangInde
     header,
     body: memoInfoByUserLang[contentId].body,
   }
-  return <HeadingAsteriskModal modalId={contentId} titleAndInfo={titleAndInfo} btnClose={buttons.btnClose} />
+  const ariaLabel = getInfoModalAriaLabel(userLangIndex, header)
+
+  return (
+    <HeadingAsteriskModal
+      modalBtnAriaLabel={ariaLabel}
+      modalId={contentId}
+      titleAndInfo={titleAndInfo}
+      btnClose={buttons.btnClose}
+      withModal
+    />
+  )
 }
 
 ContentHead.propTypes = {
