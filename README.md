@@ -33,7 +33,7 @@ Application is fetching/saving data from/to [https://github.com/KTH/kurs-pm-data
 
 ## Prerequisites
 
-- Node.js 14.2.0
+- Node.js 16
 
 Because OICD library is compatible only with node 12.0.0 or > 14.2.0
 
@@ -60,10 +60,6 @@ These settings are also available in an `env.in` file.
 ### Install
 
 First time you might need to use options `--ignore-scripts` because of npm resolutions:
-```sh
-npm install --ignore-scripts
-```
-or 
 
 ```sh
 npm install
