@@ -26,11 +26,10 @@ import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskMod
 import i18n from '../../../../i18n'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint) {
-  const { search } = window.location
+  if (!existingDraftEndPoint) return
+  const { href, search } = window.location
   const matchSearch = `memoEndPoint=${existingDraftEndPoint}`
   if (search && search.includes(matchSearch)) {
-    const { href } = window.location
-
     const searchLeftovers = `${search}`.replace(matchSearch, '')
     let url = `${href}`
 
