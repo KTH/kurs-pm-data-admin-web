@@ -17,8 +17,6 @@ const styles = {
   },
 }
 const SectionHeadingAsteriskModal = ({ langAbbr, modalId, titleAndInfo, btnClose, children }) => {
-  const { header } = titleAndInfo
-
   return (
     <HeadingAsteriskModal
       headingTag="h2"

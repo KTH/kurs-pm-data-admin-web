@@ -35,20 +35,23 @@ async function getCourseOptionsPage(req, res, next) {
     const lang = language.getLanguage(res) || 'sv'
     const langIndex = lang === 'en' ? 0 : 1
     const { courseCode } = req.params
+    const { memoEndPoint: memoEndPointFromQuery = null } = req.query
+
     // STORE MANIPULATIONS
     const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
-    applicationStore.setMemoBasicInfo({
-      courseCode,
-      memoEndPoint: req.query.memoEndPoint || '',
-    })
 
     applicationStore.miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
 
     applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
       courseCode,
+    })
+
+    applicationStore.setMemoBasicInfo({
+      courseCode,
+      memoEndPoint: memoEndPointFromQuery || '',
     })
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
