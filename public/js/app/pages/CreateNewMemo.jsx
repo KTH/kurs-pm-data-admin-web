@@ -25,6 +25,22 @@ import ControlPanel from '../components/ControlPanel'
 import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
 import i18n from '../../../../i18n'
 
+function cleanMemoEndPointInSearchParams(existingDraftEndPoint) {
+  const { search } = window.location
+  const matchSearch = `memoEndPoint=${existingDraftEndPoint}`
+  if (search && search.includes(matchSearch)) {
+    const { href } = window.location
+
+    const searchLeftovers = `${search}`.replace(matchSearch, '')
+    let url = `${href}`
+
+    if (searchLeftovers === '?') url = url.replace(`?${matchSearch}`, '')
+    else url = url.replace(`${matchSearch}`, '')
+
+    window.history.replaceState({}, '', url)
+  }
+}
+
 function CreateNewMemo(props) {
   const store = useStore()
   const {
@@ -69,12 +85,7 @@ function CreateNewMemo(props) {
   const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
 
   useEffect(() => {
-    const { history } = props
-    if (history) {
-      history.push({
-        search: '',
-      })
-    }
+    cleanMemoEndPointInSearchParams(chosen.existingDraftEndPoint)
   }, [])
 
   useEffect(() => {
