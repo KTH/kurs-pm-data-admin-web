@@ -51,16 +51,6 @@ const pdfLink = labels => (
     <Button id="print-pm-link" color="link">
       {labels.linkCourseMemoPrint}
     </Button>
-    {/* <ActionModalButton
-      type="actionLink"
-      modalId="print-link"
-      btnLabel={labels.courseMemoPrint}
-      modalLabels={{
-        header: labels.courseMemoPrint,
-        body: labels.courseMemoModal,
-        btnClose: labels.btnCloseModal
-      }}
-    /> */}
     <FaPrint className="pdf-icon" />
     <Popup header={labels.courseMemoPrint} body={labels.courseMemoModal} targetId="print-pm-link" />
   </span>
