@@ -45,6 +45,23 @@ const _sliceTermsArrByPrevTerm = allTerms => {
   return finalTerms
 }
 
+async function getCourseSchool(courseCode) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}`
+  try {
+    const { body: course, statusCode } = await client.getAsync({ uri, useCache: true })
+    if (!course || statusCode !== 200) return 'kopps_get_fails'
+
+    const { school } = course
+    if (!school) return 'missing_school_code'
+    const { code } = school
+    if (!code) return 'missing_school_code'
+    return code
+  } catch (err) {
+    return err
+  }
+}
+
 async function getKoppsCourseRoundTerms(courseCode) {
   // step 1
   const { client } = api.koppsApi
@@ -228,6 +245,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 module.exports = {
   koppsApi: api,
+  getCourseSchool,
   getKoppsCourseRoundTerms,
   getSyllabus,
 }
