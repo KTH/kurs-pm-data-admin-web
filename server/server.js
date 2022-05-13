@@ -171,7 +171,7 @@ passport.deserializeUser((user, done) => {
   }
 })
 
-const { OpenIDConnect, hasGroup } = require('@kth/kth-node-passport-oidc')
+const { OpenIDConnect } = require('@kth/kth-node-passport-oidc')
 
 const oidc = new OpenIDConnect(server, passport, {
   ...config.oidc,
@@ -286,7 +286,14 @@ appRoute.get(
   'memo.getContent',
   _addProxy('/published/:courseCode'),
   oidc.login,
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser', 'isSchoolAdmin'),
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   ChooseMemoStartPoint.getCourseOptionsPage
 )
 
@@ -294,7 +301,14 @@ appRoute.get(
   'memo.getContent',
   _addProxy('/:courseCode/:memoEndPoint'),
   oidc.login,
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser', 'isSchoolAdmin'),
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   MemoContent.renderMemoEditorPage
 )
 
@@ -302,7 +316,14 @@ appRoute.get(
   'memo.getPreviewContent',
   _addProxy('/:courseCode/:memoEndPoint/preview'),
   oidc.login,
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser', 'isSchoolAdmin'),
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   PreviewContent.renderMemoPreviewPage
 )
 
@@ -310,7 +331,14 @@ appRoute.get(
   'memo.chooseRounds',
   _addProxy('/:courseCode/'),
   oidc.login,
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser', 'isSchoolAdmin'),
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   ChooseMemoStartPoint.getCourseOptionsPage
 )
 
@@ -318,7 +346,14 @@ appRoute.get(
   'system.gateway',
   _addProxy('/gateway'),
   oidc.silentLogin,
-  requireRole('isCourseResponsible', 'isCourseTeacher', 'isExaminator', 'isSuperUser', 'isSchoolAdmin'),
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   ChooseMemoStartPoint.getCourseOptionsPage
 )
 
