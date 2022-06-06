@@ -30,7 +30,7 @@ const translations = {
     },
     labelContacts: {
       courseContactsTitle: 'Contacts',
-      communicationWithTeachersTitle: 'Communication With Teachers',
+      communicationWithTeachersTitle: 'Communication during course',
       courseCoordinatorTitle: 'Course Coordinator',
       teacherTitle: 'Teacher',
       teacherAssistantsTitle: 'Teacher Assistants',
