@@ -46,7 +46,7 @@ module.exports = {
     lang_block_id: '1.871898',
     locale_text: 'Denna sida på svenska',
     main_site_name: 'Administrera Om kursen ',
-    site_name: 'Administration av kurs-PM',
+    site_name: 'Administrera Om kursen',
     host_name: 'KTH',
     skip_to_main_content: 'Hoppa till huvudinnehållet',
 

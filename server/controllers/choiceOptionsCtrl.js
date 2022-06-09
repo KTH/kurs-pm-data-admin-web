@@ -65,7 +65,7 @@ async function getCourseOptionsPage(req, res, next) {
       title: i18n.messages[langIndex].messages.site_name,
       lang,
       kursinfoadmin: {
-        title: i18n.messages[langIndex].messages.main_site_name + courseCode,
+        title: i18n.messages[langIndex].messages.main_site_name,
         url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode,
       },
       languageLink: {

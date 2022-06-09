@@ -100,10 +100,10 @@ async function renderMemoEditorPage(req, res, next) {
     res.render('memo/index', {
       compressedStoreCode,
       html,
-      title: userLang === 'sv' ? 'Administration av kurs-PM' : 'Administration of course memos',
+      title: userLang === 'sv' ? 'Administrera Om kursen' : 'Administer About course',
       // initialState: JSON.stringify(hydrateStores(renderProps)),
       kursinfoadmin: {
-        title: i18n.messages[langIndex].messages.main_site_name + courseCode,
+        title: i18n.messages[langIndex].messages.main_site_name,
         url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode,
       },
       languageLink: {

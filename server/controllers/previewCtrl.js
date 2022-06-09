@@ -76,10 +76,10 @@ async function renderMemoPreviewPage(req, res, next) {
       compressedStoreCode,
       html,
       kursinfoadmin: {
-        title: i18n.messages[langIndex].messages.main_site_name + courseCode,
+        title: i18n.messages[langIndex].messages.main_site_name,
         url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode,
       },
-      title: userLang === 'sv' ? 'Förhandsgranskning av kurs-PM' : 'Preview of course memos',
+      title: userLang === 'sv' ? 'Administrera Om kursen' : 'Administer About course',
       lang: userLang,
       languageLink: {
         title: i18n.messages[langIndex === 0 ? 1 : 0].messages.locale_text,
