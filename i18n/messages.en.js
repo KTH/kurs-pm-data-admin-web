@@ -147,8 +147,7 @@ module.exports = {
       <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
     },
     commentAboutMadeChanges: {
-      body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>
-      <p><b>The section helps KTH</b> to find and understand the changes made to a published course memo.</p>`,
+      body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>`,
       help: `<p></p>
       <p></p>`,
     },
