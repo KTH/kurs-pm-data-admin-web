@@ -32,7 +32,7 @@ const translations = {
       courseContactsTitle: 'Contacts',
       communicationWithTeachersTitle: 'Communication during course',
       courseCoordinatorTitle: 'Course Coordinator',
-      teacherTitle: 'Teacher',
+      teacherTitle: 'Teachers',
       teacherAssistantsTitle: 'Teacher Assistants',
       examinerTitle: 'Examiner',
       otherContactsTitle: 'Other Contacts',
@@ -79,7 +79,7 @@ const translations = {
       reportingResults: 'Reporting of exam results',
       scheduleDetails: 'Detailed plan',
       software: 'Software',
-      teacher: 'Teacher',
+      teacher: 'Teachers',
       teacherAssistants: 'Teacher assistants',
     },
     orderedFilledInAndVisible: [

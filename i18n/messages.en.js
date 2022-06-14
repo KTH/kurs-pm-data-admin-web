@@ -820,7 +820,7 @@ module.exports = {
     courseContactsTitle: 'Contacts',
     communicationWithTeachersTitle: 'Communication during course',
     courseCoordinatorTitle: 'Course Coordinator',
-    teacherTitle: 'Teacher',
+    teacherTitle: 'Teachers',
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',

@@ -1365,7 +1365,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
       'Information about Communication during course',
       'Redigera Kommunikation i kursen',
       'Information about Course coordinator',
-      'Information about Teacher',
+      'Information about Teachers',
       'Information about Teacher assistants',
       'Information about Examiner',
       'Information about Other contacts',
