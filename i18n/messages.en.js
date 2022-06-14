@@ -132,7 +132,7 @@ module.exports = {
     reportingResults: 'Reporting of exam results',
     scheduleDetails: 'Detailed plan',
     software: 'Software',
-    teacher: 'Teacher',
+    teacher: 'Teachers',
     teacherAssistants: 'Teacher assistants',
   },
   memoInfoByUserLang: {
