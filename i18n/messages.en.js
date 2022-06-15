@@ -46,8 +46,8 @@ module.exports = {
 
     lang_block_id: '1.871898',
     locale_text: 'This page in English',
-    main_site_name: 'Administer About the course ',
-    site_name: 'Administration of Course Memos',
+    main_site_name: 'Administer About course ',
+    site_name: 'Administer About course',
     host_name: 'KTH',
     skip_to_main_content: 'Skip to main content',
 
@@ -132,7 +132,7 @@ module.exports = {
     reportingResults: 'Reporting of exam results',
     scheduleDetails: 'Detailed plan',
     software: 'Software',
-    teacher: 'Teacher',
+    teacher: 'Teachers',
     teacherAssistants: 'Teacher assistants',
   },
   memoInfoByUserLang: {
@@ -147,8 +147,7 @@ module.exports = {
       <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
     },
     commentAboutMadeChanges: {
-      body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>
-      <p><b>The section helps KTH</b> to find and understand the changes made to a published course memo.</p>`,
+      body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>`,
       help: `<p></p>
       <p></p>`,
     },
@@ -819,9 +818,9 @@ module.exports = {
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',
-    communicationWithTeachersTitle: 'Communication With Teachers',
+    communicationWithTeachersTitle: 'Communication during course',
     courseCoordinatorTitle: 'Course Coordinator',
-    teacherTitle: 'Teacher',
+    teacherTitle: 'Teachers',
     teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',

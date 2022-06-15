@@ -33,7 +33,7 @@
     "test": "NODE_ENV=test jest --testPathIgnorePatterns=test/e2e",
     "test:mockapi": "docker-compose -f test/mock-api/docker-compose.yml up --build --force-recreate",
     "test-integration-in-docker": "ID=$(docker build -q .) && LOCAL_IMAGE_ID=$ID docker-compose -f docker-compose-integration-tests.yml up --build --abort-on-container-exit --always-recreate-deps --force-recreate",
-    "test-win": "cross-env NODE_ENV=test jest",
+    "test-win": "cross-env NODE_ENV=test jest --testPathIgnorePatterns=test/e2e",
     "test-preview": "NODE_ENV=test jest ./test/unit/PreviewContainerFilledIn.test.js --watch --notify",
     "test-new-memo": "NODE_ENV=test jest ./test/unit/CreateNewMemo.test.js --watch --notify",
     "test-pub-memo": "NODE_ENV=test jest ./test/unit/ChangePublished.test.js --watch --notify",

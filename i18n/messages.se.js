@@ -46,7 +46,7 @@ module.exports = {
     lang_block_id: '1.871898',
     locale_text: 'Denna sida på svenska',
     main_site_name: 'Administrera Om kursen ',
-    site_name: 'Administration av kurs-PM',
+    site_name: 'Administrera Om kursen',
     host_name: 'KTH',
     skip_to_main_content: 'Hoppa till huvudinnehållet',
 
@@ -136,8 +136,7 @@ module.exports = {
       <p><b>Om det inte finns något innehåll</b> kommer rubriken inte visas i det publicerade kurs-PM:et.</p>`,
     },
     commentAboutMadeChanges: {
-      body: `<p><b>Gjorda ändringar</b> utgör en logg av de ändringar som gjorts i ett publicerat kurs-PM. Informationen kommer inte att visas publikt. Gjorda ändringar ska innefatta kort vilka rubriker som ändrats och varför det ändrats. Systemet sparar datum och tidpunkt för varje publicerad ändring.</p>
-      <p><b>Rubriken hjälper KTH</b> att lättare hitta och förstå vilka ändringar som gjorts i ett publicerat kurs-PM.</p>`,
+      body: `<p><b>Gjorda ändringar</b> utgör en logg av de ändringar som gjorts i ett publicerat kurs-PM. Informationen kommer inte att visas publikt. Gjorda ändringar ska innefatta kort vilka rubriker som ändrats och varför det ändrats. Systemet sparar datum och tidpunkt för varje publicerad ändring.</p>`,
       help: `<p></p>
       <p></p>`,
     },

@@ -812,7 +812,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
       'Information about Communication during course',
       'Edit Communication during course',
       'Information about Course coordinator',
-      'Information about Teacher',
+      'Information about Teachers',
       'Information about Teacher assistants',
       'Information about Examiner',
       'Information about Other contacts',

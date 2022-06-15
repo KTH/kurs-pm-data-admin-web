@@ -24,7 +24,7 @@ COPY ["webpack.config.js", "webpack.config.js"]
 RUN apk stats && \
     chmod a+rx build.sh && \
     apk add --no-cache bash && \
-    apk add --no-cache --virtual .gyp-dependencies python2 make g++ util-linux && \
+    apk add --no-cache --virtual .gyp-dependencies python3 make g++ util-linux && \
     npm ci --unsafe-perm && \
     npm run build && \
     npm prune --production && \
