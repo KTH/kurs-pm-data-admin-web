@@ -461,27 +461,9 @@ module.exports = {
     scheduleDetails: {
       body: `<p><b>Detailed plan</b> is an overview of the learning activities and examinations on the course, preferably in a chronological order. 
       The detailed plan contains information about each activity and what preparations that are recommended prior to each activity.</p>
-      <p><b>The information helps the student</b> to plan for the studies and take the course effeciently. 
-      A clear plan illustrates the order of the activities on the course and that makes it easy for the student to do proper preparations with the right timing.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about the detailed plan and check "Include" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
-      help: `<p>Describe the planned learning activities and examination in the "Detailed plan" section. It is common to use a table to represent the plan. 
-      A table illustrates the order of the activities, its content, and what preparations that is recommended prior to each activity. 
-      If you have chosen to create and publish a new course memo this form will automatically provide you with a table with three columns. 
-      You can complete the table with information about the activities. You can add or remove columns by your own choice or simply replace the table with another table from Word by copy/paste.</p>
-      <p>A simple but distinct format is to describe the detailed plan with three parts; the type of activity, a description of its content and a description of what preparations that is recommended. 
-      Preparations is often described as references to literature or web pages, but it could also be practical instructions like installation of software. 
-      Insert links to more detailed instructions and material for this course offering in Canvas. Make sure the links leads to the right page. 
-      A course memo that is copied from a previously published course memo may contain links to web pages and materials that is not relevant for this course offering. 
-      It is therefore recommended to test the links before publishing.</p>
-      <br/>
-      <p>The following detailed plan is an example from course EQ2400:
-      [infoga exempel på tabell]</p>
-      <br/>
-      <p>It is recommended to use the same terminology as defined in the "Learning activities" section. 
-      A coherent course memo makes it easier for students to recognize the concepts and to understand the course memo as a whole.</p>
-      <p>If there are preparations that are particularly important, you can highlight them in the "Specific preparations" section in this course memo.</p>`,
+      <p><b>The information helps the student</b> to plan for their studies.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about the detailed plan and check "Include". Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance on how to write the content.</p>`,
+      help: `<p>Describe the planned learning activities and examination in the Detailed plan section. It is preferable to use a table to represent the plan. Describe the order of the activities, their content, and what preparations that is recommended prior to each activity. Preparations are often described as references to literature or web pages, but they could also be practical.</p>`,
     },
     software: {
       body: `<p><b>Software</b> describes what software and what version of the software that is used on the course. 

@@ -447,25 +447,9 @@ module.exports = {
       body: `<p><b>Detaljplanering</b> är en översikt av kursomgångens planerade läraktiviteter och examinationstillfällen. 
       Detaljplanering är företrädesvis listad i kronologisk ordning. 
       "Detaljplanering" innehåller information om aktiviteterna och vad studenten behöver förbereda inför varje aktivitet.</p>
-      <p><b>Information hjälper studenten</b> att planera sina studier och genomföra kursomgången på ett effektivt sätt. 
-      Med en tydlig detaljplanering kan studenten se när i ordningen varje läraktivitet eller examinationstillfälle infaller och med det göra rätt förberedelser vid rätt tidpunkt under kursens genomförande.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
-      Ange information om "Detaljplanering" i inmatningsfältet och klicka i "Inkludera" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
-      help: `<p>Under rubriken "Detaljplanering" beskriver du vilka läraktiviteter eller examinationstillfällen som har planerats under kursen. 
-      Använd med fördel en tabell för att på ett överblickbart sätt beskriva aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. 
-      Systemet skapar en tabell med tre kolumner åt dig där du kan skriva i kursomgångens läraktiviteter. 
-      Du kan anpassa denna tabell genom att t.ex. lägga till rader, lägga till kolumner, eller ersätta den med en tabell från Word.</p>
-      <p>Ett enkelt och tydligt sätt är att beskriva detaljplanering genom att för varje läraktivitet eller examination ange typ av aktivitet, aktivitetens innehåll och vilka förberedelser som studenten behöver göra. 
-      Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse. 
-      Länka gärna till instruktioner och material för kursomgången i Canvas, men var uppmärksam på att länkar från tidigare kurs-PM som kopierats till detta kurs-PM kan vara ogiltiga. 
-      Testa därför länkar till andra webbsidor innan publicering.</p>
-      <br/>
-      <p>Följande Detaljplanering är ett exempel från kurs HI1027:
-      [Infoga exempel på tabell]</p>
-      <br/>
-      <p>Om du beskrivit kursens olika läraktiviteter under rubriken "Läraktiviteter" rekommenderas att använda samma terminologi för att studenterna ska se den röda träden genom detta kurs-PM.</p>
-      <p>Om det är någon aktivitet som är särskilt viktigt för studenten att förbereda kan det understrykas genom att beskriva det i rubriken "Särskilda förberedelser".</p>`,
+      <p><b>Information hjälper studenten</b> att planera sina studier och genomföra kursomgången på ett effektivt sätt.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om Detaljplanering i inmatningsfältet och klicka i "Inkludera". Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
+      help: `<p>Under Detaljplanering beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Använd med fördel en tabell, och beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse.</p>`,
     },
     software: {
       body: `<p><b>Programvara</b> beskriver vilken programvara och version av programvaran som ska användas under kursomgången. 

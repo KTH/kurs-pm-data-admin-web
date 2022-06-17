@@ -86,7 +86,7 @@ async function renderMemoEditorPage(req, res, next) {
       ...(await getCourseEmployees(apiMemoData)),
     }
 
-    const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData, memoLangAbbr)
+    const defaultAndMemoApiValues = '' //await combineDefaultValues(apiMemoData, koppsFreshData, memoLangAbbr)
     const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
     const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
 
