@@ -5,8 +5,6 @@ const language = require('@kth/kth-node-web-common/lib/language')
 const { safeGet } = require('safe-utils')
 const apis = require('../api')
 
-const { combineScheduleValues } = require('../defaultValues')
-
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getSyllabus } = require('../koppsApi')
@@ -17,20 +15,12 @@ const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
 const combineDefaultValues = (freshMemoData, koppsFreshData, memoLangAbbr) => {
-  const {
-    examinationSubSection,
-    equipment,
-    scheduleDetails,
-    literature,
-    possibilityToCompletion,
-    possibilityToAddition,
-  } = freshMemoData
+  const { examinationSubSection, equipment, literature, possibilityToCompletion, possibilityToAddition } = freshMemoData
   const updatedWithDefaults = {
     ...freshMemoData,
     examinationSubSection: examinationSubSection || koppsFreshData.examinationModules || '',
     // eslint-disable-next-line no-use-before-define
     equipment: equipment || koppsFreshData.equipmentTemplate || '',
-    scheduleDetails: scheduleDetails || combineScheduleValues(koppsFreshData.schemaUrls, memoLangAbbr) || '',
     literature: literature || koppsFreshData.literatureTemplate || '',
     possibilityToCompletion: possibilityToCompletion || koppsFreshData.possibilityToCompletionTemplate || '',
     possibilityToAddition: possibilityToAddition || koppsFreshData.possibilityToAdditionTemplate || '',

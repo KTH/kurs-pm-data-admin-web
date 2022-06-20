@@ -446,8 +446,8 @@ module.exports = {
     scheduleDetails: {
       body: `<p><b>Detaljplanering</b> är en översikt av kursomgångens planerade läraktiviteter och examinationstillfällen. 
       Detaljplanering är företrädesvis listad i kronologisk ordning. 
-      "Detaljplanering" innehåller information om aktiviteterna och vad studenten behöver förbereda inför varje aktivitet.</p>
-      <p><b>Information hjälper studenten</b> att planera sina studier och genomföra kursomgången på ett effektivt sätt.</p>
+      Detaljplanering innehåller information om aktiviteterna och vad studenten behöver förbereda inför varje aktivitet.</p>
+      <p><b>Informationen hjälper studenten</b> att planera sina studier och genomföra kursomgången på ett effektivt sätt.</p>
       <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om Detaljplanering i inmatningsfältet och klicka i "Inkludera". Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
       help: `<p>Under Detaljplanering beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Använd med fördel en tabell, och beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse.</p>`,
     },
