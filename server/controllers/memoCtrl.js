@@ -15,12 +15,20 @@ const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
 const combineDefaultValues = (freshMemoData, koppsFreshData, memoLangAbbr) => {
-  const { examinationSubSection, equipment, literature, possibilityToCompletion, possibilityToAddition } = freshMemoData
+  const {
+    examinationSubSection,
+    equipment,
+    scheduleDetails,
+    literature,
+    possibilityToCompletion,
+    possibilityToAddition,
+  } = freshMemoData
   const updatedWithDefaults = {
     ...freshMemoData,
     examinationSubSection: examinationSubSection || koppsFreshData.examinationModules || '',
     // eslint-disable-next-line no-use-before-define
     equipment: equipment || koppsFreshData.equipmentTemplate || '',
+    scheduleDetails: scheduleDetails || '',
     literature: literature || koppsFreshData.literatureTemplate || '',
     possibilityToCompletion: possibilityToCompletion || koppsFreshData.possibilityToCompletionTemplate || '',
     possibilityToAddition: possibilityToAddition || koppsFreshData.possibilityToAdditionTemplate || '',
@@ -76,7 +84,7 @@ async function renderMemoEditorPage(req, res, next) {
       ...(await getCourseEmployees(apiMemoData)),
     }
 
-    const defaultAndMemoApiValues = '' //await combineDefaultValues(apiMemoData, koppsFreshData, memoLangAbbr)
+    const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData, memoLangAbbr)
     const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
     const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
 
