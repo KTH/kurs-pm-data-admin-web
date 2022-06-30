@@ -64,7 +64,7 @@
     "kth-node-configuration": "^2.0.10",
     "kth-node-express-routing": "^2.0.12",
     "kth-node-i18n": "^1.0.12",
-    "kth-node-redis": "^3.1.38",
+    "kth-node-redis": "^3.1.42",
     "kth-style": "^6.0.25",
     "mobx": "^6.3.13",
     "mobx-react": "^7.2.1",
