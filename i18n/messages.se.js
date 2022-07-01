@@ -786,11 +786,11 @@ module.exports = {
     inDevelopment: 'Under utveckling',
   },
   courseLinksLabels: {
-    linkHeaderTitle: 'Student på KTH',
-    beforeAndDuringACourse: 'Inför och under en kurs',
-    contactPersonsAndStudentCounselling: 'Studievägledare och kanslier',
-    rightsAndResponsibilities: 'Rättigheter och skyldigheter',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
+    linkHeaderTitle: 'Relaterad information',
+    administrateYouStudy: 'Administrera dina studier',
+    courseAndExamination: 'Kurs och examination',
+    rightsAndResponsibilities: 'Rättigheter och skyldigheter',
   },
   courseContactsLabels: {
     courseContactsTitle: 'Kontakter',

@@ -18,9 +18,9 @@ function linkToSyllabus(courseCode, validFromTerm, language) {
 function courseLinks(language) {
   const languagePath = language === 'en' ? 'en/' : ''
   return {
-    beforeAndDuringACourse: `https://www.kth.se/${languagePath}student/kurs/infor-och-under-en-kurs`,
-    contactPersonsAndStudentCounselling: `https://www.kth.se/${languagePath}student/studievagledning-kontakt`,
-    rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studentliv/studentratt`,
+    administrateYouStudy: `https://www.kth.se/${languagePath}student/studier/administrera/administrera-dina-studier-1.1143032`,
+    courseAndExamination: `https://www.kth.se/${languagePath}student/studier/kurs`,
+    rightsAndResponsibilities: `https://www.kth.se/${languagePath}student/studier/rattigheter-och-skyldigheter/rattigheter-och-skyldigheter-1.1148520`,
   }
 }
 

@@ -87,8 +87,6 @@ export const emptyCheckboxes = className => {
 }
 
 export const sortRoundAndKoppsInfo = (roundKopps, prevSortedInfo) => {
-  // addRoundAndInfo
-  // const { firstTuitionDate, ladokRoundId, language, shortName } = koppsMiniObj
   const { ladokRoundId } = roundKopps
   const { sortedRoundIds, sortedKoppsInfo } = prevSortedInfo
   sortedRoundIds.push(ladokRoundId)

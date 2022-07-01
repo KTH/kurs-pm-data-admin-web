@@ -792,11 +792,11 @@ module.exports = {
     inDevelopment: 'In development',
   },
   courseLinksLabels: {
-    linkHeaderTitle: 'Student at KTH',
-    beforeAndDuringACourse: 'Before and during a course',
-    contactPersonsAndStudentCounselling: 'Contact persons and student counselling',
-    rightsAndResponsibilities: 'Rights and responsibilities',
     linkOpensInNewTab: 'Link will open in new tab',
+    linkHeaderTitle: 'Related information',
+    administrateYouStudy: 'Administrate your studies',
+    courseAndExamination: 'Course and examination',
+    rightsAndResponsibilities: 'Rights and responsibilities',
   },
   courseContactsLabels: {
     courseContactsTitle: 'Contacts',
