@@ -10,7 +10,7 @@ const CourseLinks = ({ language, labels }) => (
   <aside className="preview-info-box text-break">
     <h4>{labels.linkHeaderTitle}</h4>
     {['rightsAndResponsibilities', 'courseAndExamination', 'administrateYouStudy'].map(linkTitle => (
-      <p key={`paragraph-for-link-{linkTitle}`}>
+      <p key={`paragraph-for-link-${linkTitle}`}>
         <a
           id={`link-${linkTitle}`}
           title={labels[linkTitle]}
