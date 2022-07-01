@@ -26,7 +26,7 @@ async function publishMemoByEndPoint(req, res, next) {
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API trying to publish a new memo: ', apiResponse.message)
     }
-    log.info('New memo was published in kursinfo api for course memo with memoEndPoint:', memoEndPoint)
+    log.info('New memo was published in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
     return res.json(apiResponse)
   } catch (err) {
     log.error('Error in publishMemoByEndPoint', { error: err })

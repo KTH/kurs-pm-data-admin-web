@@ -129,7 +129,7 @@ async function updateContentByEndpoint(req, res, next) {
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API: ', apiResponse.message)
     }
-    log.info('Memo contents was updated in kursinfo api for memo: ', memoEndPoint)
+    log.info('Memo contents was updated in kurs-pm-data-api for memo: ', memoEndPoint)
     return res.json(apiResponse)
   } catch (err) {
     log.error('Error in updateContentByEndpoint', { error: err })

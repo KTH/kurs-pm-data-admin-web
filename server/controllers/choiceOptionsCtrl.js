@@ -113,7 +113,7 @@ async function createDraftByMemoEndPoint(req, res, next) {
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API trying to create a new draft: ', apiResponse.message)
     }
-    log.info('New memo draft was created in kursinfo api for course memo with memoEndPoint:', memoEndPoint)
+    log.info('New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
     return res.json(apiResponse)
   } catch (err) {
     log.error('Error in createDraftCopyOfPublishedMemo', { error: err })
@@ -128,7 +128,7 @@ async function removeMemoDraft(req, res, next) {
     if (safeGet(() => apiResponse.message)) {
       log.debug('Error from API trying to delete a draft: ', apiResponse.message)
     }
-    log.info('Memo contents was deleted in kursinfo api for course memo with memoEndPoint:', memoEndPoint)
+    log.info('Memo contents was deleted in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
     return res.json(apiResponse)
   } catch (err) {
     log.error('Error in deleting of a draft', { err })
