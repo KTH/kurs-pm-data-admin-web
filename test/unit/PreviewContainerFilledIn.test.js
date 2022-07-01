@@ -89,7 +89,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       labelLinks.versionTitle,
       labelLinks.courseMemoPrint,
       labelLinks.syllabus,
-      'Student at KTH',
+      'Related information',
       labelContacts.communicationWithTeachersTitle,
       labelContacts.courseCoordinatorTitle,
       labelContacts.teacherTitle,
@@ -130,9 +130,9 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const expectedLinks = [
       labelLinks.courseMemoArchiveLabel,
       'Syllabus EF1111 (Spring 2019-Spring 2020)',
-      'Before and during a course',
-      'Contact persons and student counselling',
-      `Rights and responsibilities`,
+      'Rights and responsibilities',
+      'Course and examination',
+      `Administrate your studies`,
     ]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
   })
