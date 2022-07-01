@@ -47,7 +47,7 @@
     "@kth/api-call": "^4.0.36",
     "@kth/kth-node-passport-oidc": "^4.1.6",
     "@kth/kth-node-web-common": "^7.0.11",
-    "@kth/kth-reactstrap": "^0.4.53",
+    "@kth/kth-reactstrap": "^0.4.54",
     "@kth/log": "^4.0.1",
     "@kth/monitor": "^3.0.23",
     "@kth/server": "^4.0.1",
