@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+  NoCourseCodeCtrl: require('./noCourseCodeCtrl'),
   System: require('./systemCtrl'),
   MemoContent: require('./memoCtrl'),
   ChooseMemoStartPoint: require('./choiceOptionsCtrl'),
