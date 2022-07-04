@@ -102,7 +102,9 @@ async function renderMemoEditorPage(req, res, next) {
       // initialState: JSON.stringify(hydrateStores(renderProps)),
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name,
-        url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode,
+        url: `${server.hostUrl}${
+          server.hostUrl.includes('.se/') ? '' : '/'
+        }€{'kursinfoadmin/kurser/kurs/'}${courseCode}`,
       },
       languageLink: {
         title: i18n.messages[translateTo].messages.locale_text,

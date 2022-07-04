@@ -77,7 +77,9 @@ async function renderMemoPreviewPage(req, res, next) {
       html,
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name,
-        url: server.hostUrl + '/kursinfoadmin/kurser/kurs/' + courseCode,
+        url: `${server.hostUrl}${
+          server.hostUrl.includes('.se/') ? '' : '/'
+        }€{'kursinfoadmin/kurser/kurs/'}${courseCode}`,
       },
       title: userLang === 'sv' ? 'Administrera Om kursen' : 'Administer About course',
       lang: userLang,
