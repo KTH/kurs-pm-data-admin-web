@@ -156,9 +156,9 @@ function _combineExamInfo(examModules, selectedSyllabus) {
 function _getPermanentDisabilityTemplate(language) {
   const message = {
     en: `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
-    <p><a href="https://www.kth.se/en/student/studentliv/funktionsnedsattning">Funka - compensatory support for students with disabilities</a></p>`,
+    <p><a href="https://www.kth.se/en/student/stod/studier/funktionsnedsattning/funka">Funka - compensatory support for students with disabilities</a></p>`,
     sv: `<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-  <p><a href="https://www.kth.se/student/studentliv/funktionsnedsattning">Funka- stöd för studenter med funktionsnedsättningar</a></p>`,
+  <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>`,
   }
   return message[language]
 }
