@@ -107,7 +107,7 @@
     "jest-extended": "^2.0.0",
     "mini-css-extract-plugin": "^2.6.1",
     "mockery": "^2.1.0",
-    "nock": "^13.2.8",
+    "nock": "^13.2.9",
     "node-mocks-http": "^1.11.0",
     "node-notifier": "^10.0.1",
     "nodemon": "^2.0.19",
