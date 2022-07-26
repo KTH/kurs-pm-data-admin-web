@@ -50,7 +50,7 @@
     "@kth/kth-reactstrap": "^0.4.54",
     "@kth/log": "^4.0.4",
     "@kth/monitor": "^3.0.24",
-    "@kth/server": "^4.0.2",
+    "@kth/server": "^4.0.3",
     "@kth/session": "^3.0.3",
     "@tinymce/tinymce-react": "^3.13.0",
     "applicationinsights": "^2.3.3",
