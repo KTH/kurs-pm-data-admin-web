@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.18.6",
-    "@kth/api-call": "^4.0.38",
+    "@kth/api-call": "^4.0.39",
     "@kth/kth-node-passport-oidc": "^4.1.7",
     "@kth/kth-node-web-common": "^7.0.11",
     "@kth/kth-reactstrap": "^0.4.54",
