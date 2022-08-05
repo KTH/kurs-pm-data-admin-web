@@ -46,7 +46,7 @@ const context = {
   },
   examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   examinationSubSection: {
-    openIfContent: true,
+    openIfContent: false,
     isEditable: true,
     isRequired: false,
     hasParentTitle: true,

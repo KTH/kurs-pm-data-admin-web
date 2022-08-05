@@ -135,7 +135,9 @@ function _getExamModules(body, semester, roundLang) {
   if (examinationSets[matchingExamSetKey] && examinationSets[matchingExamSetKey].examinationRounds.length > 0) {
     examinationSets[matchingExamSetKey].examinationRounds.map(exam => {
       const credits = exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
-      titles += `<h4>${exam.title} ( ${exam.examCode} )</h4>`
+      titles += `<h4>${exam.examCode} - ${exam.title}, ${
+        language === 0 ? credits : credits.toString().replace('.', ',')
+      }</h4>`
       liStrs += `<li>${exam.examCode} - ${exam.title}, ${
         language === 0 ? credits : credits.toString().replace('.', ',')
       } ${language === 0 ? 'credits' : creditUnitAbbr}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${

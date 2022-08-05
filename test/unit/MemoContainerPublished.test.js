@@ -766,12 +766,12 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
 
   test('tab: reqToFinal (draft of published). renders collapse for help-text for all editors because they are open', () => {
     const allHelpTextBtns = getAllByText('Visa vägledning')
-    expect(allHelpTextBtns.length).toBe(4)
+    expect(allHelpTextBtns.length).toBe(3)
   })
 
   test('tab: reqToFinal (draft of published). All edit buttons have label Stäng redigeringsläge', async () => {
     const allCloseEditorBtn = getAllByText('Stäng redigeringsläge')
-    expect(allCloseEditorBtn.length).toBe(4)
+    expect(allCloseEditorBtn.length).toBe(3)
   })
 
   test('tab: reqToFinal (draft of published). renders memo sections headers in memo lang in tab pane', () => {
@@ -798,7 +798,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information about Grading scale',
       'Information about Examination',
-      'Stäng redigeringsläge Examination',
+      'Redigera Examination',
       'Information about Other requirements for final grade',
       'Information about Grading criteria/assessment criteria',
       'Redigera Målrelaterade betygskriterier/bedömningskriterier',
@@ -869,8 +869,6 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const headersAndSubHds = getSectionHeadersByType(contentType, 'reqToFinal')
     expect(headersAndSubHds.length).toBe(4)
 
-    const examinationSubSectionEditor = getByTestId(`standard-editor-examinationSubSection`)
-    expect(examinationSubSectionEditor).toBeInTheDocument()
     const gradingCriteriaText = getByTestId(`text-for-memo-${contentType}-gradingCriteria`)
     expect(gradingCriteriaText).toBeInTheDocument()
 
@@ -908,37 +906,14 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
   })
 
-  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" checkbox which are checked and shows filled in content', async () => {
-    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-examinationSubSection')
-    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" closed editor and tries to open it after pressing button "edit"', async () => {
+    const editorOpenBtn = getByTestId('btn-open-editor-examinationSubSection')
+    expect(editorOpenBtn).toBeInTheDocument()
 
-    const visibleEditor = queryByTestId('btn-close-editor-examinationSubSection')
-    expect(visibleEditor).toBeInTheDocument()
-
-    fireEvent.click(checkboxIncludeInMemo)
+    fireEvent.click(editorOpenBtn)
     await waitFor(() => {
-      expect(checkboxIncludeInMemo.checked).toBeFalsy()
-
-      expect(getByTestId('alert-save-data')).toBeInTheDocument()
-    })
-  })
-
-  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" open editor and tries to close it after pressing button "close"', async () => {
-    const editorCloseBtn = getByTestId('btn-close-editor-examinationSubSection')
-    expect(editorCloseBtn).toBeInTheDocument()
-
-    fireEvent.click(editorCloseBtn)
-    await waitFor(() => {
-      const editorOpenBtn = getByTestId('btn-open-editor-examinationSubSection')
-      const visibleText = queryByTestId('text-for-memo-optionalEditable-examinationSubSection')
-      expect(visibleText).toBeInTheDocument()
-    })
-    fireEvent.click(getByTestId('checkbox-visibility-examinationSubSection'))
-    await waitFor(() => {
-      const filledInButNotIncludedMsg = queryByTestId(
-        'optional-and-excluded-but-with-content-subSection-examinationSubSection'
-      )
-      expect(filledInButNotIncludedMsg).toBeInTheDocument()
+      const editorCloseBtn = getByTestId('btn-close-editor-examinationSubSection')
+      expect(editorCloseBtn).toBeInTheDocument()
     })
   })
 
