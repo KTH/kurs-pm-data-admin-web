@@ -9,7 +9,7 @@
 describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
   beforeEach(() => cy.visit('/_test_editor'))
 
-  it('Check if iframe of the editor shows', () =>
+  it.skip('Check if iframe of the editor shows', () =>
     cy.get('iframe[id="editorFor-examinationSubSection-simple_ifr"]').should('exist'))
 
   it('Check if tinyMce editor exists', () =>
@@ -19,10 +19,10 @@ describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
       .then(cy.wrap)
       .should('exist'))
 
-  it('Check if tinyMce editor is not empty', () =>
+  it.skip('Check if tinyMce editor is not empty', () =>
     cy.get('iframe').its('0.contentDocument.body').should('not.be.empty'))
 
-  it('Check if the editor shows a correct initial value', () =>
+  it.skip('Check if the editor shows a correct initial value', () =>
     cy
       .get('iframe')
       .its('0.contentDocument.body')
@@ -43,7 +43,7 @@ describe('Test TinyMce simple editor <EditorSimpleElement>', () => {
 describe('Test a standard TinyMce editor with a local state, <StandardEditorWithTitleAndLocalState />', () => {
   beforeEach(() => cy.visit('/_test_editor'))
 
-  it('Check if iframe of the editor shows', () =>
+  it.skip('Check if iframe of the editor shows', () =>
     cy.get('iframe[id="editorForexaminationSubSection_ifr"]').should('exist'))
 
   it('Check if tinyMce editor exists', () =>
@@ -53,10 +53,10 @@ describe('Test a standard TinyMce editor with a local state, <StandardEditorWith
       .then(cy.wrap)
       .should('exist'))
 
-  it('Check if tinyMce editor is not empty', () =>
+  it.skip('Check if tinyMce editor is not empty', () =>
     cy.get('iframe[id="editorForexaminationSubSection_ifr"]').its('0.contentDocument.body').should('not.be.empty'))
 
-  it('Check if the editor shows a correct initial value', () =>
+  it.skip('Check if the editor shows a correct initial value', () =>
     cy
       .get('iframe[id="editorForexaminationSubSection_ifr"]')
       .its('0.contentDocument.body')
