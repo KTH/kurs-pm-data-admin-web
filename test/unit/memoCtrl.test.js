@@ -44,7 +44,7 @@ describe('Contol functions for combining data', () => {
   test('Update fetch data with default data from kopps if some api data has no values', done => {
     const emptyApiData = mockedApi()
     const memoLangAbbr = 'en'
-    const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates, memoLangAbbr)
+    const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates)
     const {
       examinationSubSection,
       equipment,
@@ -65,7 +65,7 @@ describe('Contol functions for combining data', () => {
   test('Update fetch data with default data from kopps if some api data has no values', done => {
     const filledInApiData = mockedApi(true)
     const memoLangAbbr = 'en'
-    const updatedMemoData = memoCtrl.combineDefaultValues(filledInApiData, mockedKoppsTemplates, memoLangAbbr)
+    const updatedMemoData = memoCtrl.combineDefaultValues(filledInApiData, mockedKoppsTemplates)
     const {
       examinationSubSection,
       equipment,
