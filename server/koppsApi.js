@@ -94,8 +94,7 @@ const _combineStartEndDates = (sortedSyllabuses, indexOf) => {
 }
 
 function findSyllabus(body, semester) {
-  // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
-  const { publicSyllabusVersions } = body
+  const { publicSyllabusVersions = [] } = body
   const sortedSyllabusesByTerms = publicSyllabusVersions.sort(
     (a, b) => Number(b.validFromTerm.term) - Number(a.validFromTerm.term)
   )
@@ -105,7 +104,7 @@ function findSyllabus(body, semester) {
 
   const validUntilTerm = _combineStartEndDates(sortedSyllabusesByTerms, syllabusIndex)
 
-  const { courseSyllabus, validFromTerm } = syllabusContent
+  const { courseSyllabus = {}, validFromTerm = {} } = syllabusContent
 
   const selectedFields = {
     learningOutcomes: courseSyllabus.goals || '',
@@ -123,7 +122,7 @@ function findSyllabus(body, semester) {
   return selectedFields
 }
 
-function _getExamModules(body, semester, roundLang) {
+function _parseExamModules(body, semester, roundLang) {
   const { course = {}, examinationSets = {}, formattedGradeScales = {} } = body
   const { creditUnitAbbr = '' } = course
   const sortedDescExamTerms = Object.keys(examinationSets).sort((a, b) => Number(b) - Number(a))
@@ -135,26 +134,33 @@ function _getExamModules(body, semester, roundLang) {
   let liStrs = ''
   examinationRounds.forEach(exam => {
     let { credits: examCredits = '' } = exam
+    const { examCode = '', title = '', gradeScaleCode = '' } = exam
     examCredits = examCredits.toString().length === 1 ? examCredits + '.0' : examCredits
     const localeCredits = language === 0 ? examCredits : examCredits.toString().replace('.', ',')
     const localeCreditUnitAbbr = language === 0 ? 'credits' : creditUnitAbbr
-    const examTitle = `${exam.examCode} - ${exam.title}, ${localeCredits} ${localeCreditUnitAbbr}`
-    titles += `<h4>${examTitle}</h4>`
-    liStrs += `<li>${examTitle}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
-      formattedGradeScales[exam.gradeScaleCode]
-    }</li>`
+    let examTitle = examCode || title ? `${examCode} ${examCode && title ? '-' : ''} ${title}` : ''
+    examTitle = examTitle ? `${examTitle}${localeCredits ? `, ${localeCredits} ${localeCreditUnitAbbr}` : ''}` : ''
+
+    titles += examTitle ? `<h4>${examTitle}</h4>` : ''
+    liStrs += examTitle
+      ? `<li>${examTitle}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
+          formattedGradeScales[gradeScaleCode]
+        }</li>`
+      : ''
   })
   return { titles, liStrs }
 }
 
 function _combineExamInfo(examModules, selectedSyllabus) {
-  const examModulesHtmlList = `<p><ul>${examModules.liStrs}</ul></p>`
-  const examination = `${examModulesHtmlList}<p>${selectedSyllabus.examComments}</p>`
-  const examinationModules = examModules.titles
+  const { liStrs = '', titles = '' } = examModules
+  const { examComments = '' } = selectedSyllabus
+  const examModulesHtmlList = liStrs ? `<p><ul>${liStrs}</ul></p>` : ''
+  const examination = `${examModulesHtmlList}${examComments ? `<p>${examComments}</p>` : ''}`
+  const examinationModules = titles
   return { examination, examinationModules }
 }
 
-function _getPermanentDisabilityTemplate(language) {
+function _choosePermanentDisabilityTemplate(language = 'sv') {
   const message = {
     en: `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
     <p><a href="https://www.kth.se/en/student/stod/studier/funktionsnedsattning/funka">Funka - compensatory support for students with disabilities</a></p>`,
@@ -181,17 +187,15 @@ function _getCourseMainSubjects(body) {
 
 function _getCommonInfo(resBody) {
   // step 2
-  const { course: c } = resBody
-  const gradingScale = `<p>${resBody.formattedGradeScales[c.gradeScaleCode]}</p>`
-  const schemaUrls = resBody.roundInfos
-    .filter(roundInfo => roundInfo.schemaUrl !== undefined)
-    .map(({ schemaUrl }) => schemaUrl)
+  const { course: c = {}, roundInfos = [], formattedGradeScales = {} } = resBody
+  const gradingScale = c.gradeScaleCode ? `<p>${formattedGradeScales[c.gradeScaleCode]}</p>` : ''
+  const schemaUrls = roundInfos.filter(roundInfo => roundInfo.schemaUrl !== undefined).map(({ schemaUrl }) => schemaUrl)
   const isCreditNotStandard =
     c.credits && c.credits.toString().indexOf('.') < 0 && c.credits.toString().indexOf(',') < 0
   return {
     credits: isCreditNotStandard ? c.credits + '.0' : c.credits || '',
     creditUnitAbbr: c.creditUnitAbbr || '',
-    gradingScale: gradingScale || '',
+    gradingScale,
     title: c.title || '',
     titleOther: c.titleOther || '',
     prerequisites: c.prerequisites || '',
@@ -216,28 +220,35 @@ async function _getDetailedInformation(courseCode, language = 'sv') {
   }
 }
 
+function parseSyllabus(body, semester, language = 'sv') {
+  if (!body || !semester) return {}
+  const selectedSyllabus = findSyllabus(body, semester)
+  const commonInfo = _getCommonInfo(body)
+  const examModules = _parseExamModules(body, semester, language)
+  const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
+  const permanentDisability = _choosePermanentDisabilityTemplate(language)
+  const departmentName = _getDepartment(body)
+  const recruitmentText = _getRecruitmentText(body)
+  const courseMainSubjects = _getCourseMainSubjects(body)
+
+  return {
+    ...commonInfo,
+    ...combinedExamInfo,
+    ...selectedSyllabus,
+    permanentDisability,
+    departmentName,
+    recruitmentText,
+    courseMainSubjects,
+  }
+}
+
 async function getSyllabus(courseCode, semester, language = 'sv') {
   try {
     const detailedInformation = await _getDetailedInformation(courseCode, language)
     const { body } = detailedInformation
-    const selectedSyllabus = findSyllabus(body, semester)
-    const commonInfo = _getCommonInfo(body)
-    const examModules = _getExamModules(body, semester, language)
-    const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
-    const permanentDisability = _getPermanentDisabilityTemplate(language)
-    const departmentName = _getDepartment(body)
-    const recruitmentText = _getRecruitmentText(body)
-    const courseMainSubjects = _getCourseMainSubjects(body)
+    const formattedSyllabus = parseSyllabus(body, semester, language)
 
-    return {
-      ...commonInfo,
-      ...combinedExamInfo,
-      ...selectedSyllabus,
-      permanentDisability,
-      departmentName,
-      recruitmentText,
-      courseMainSubjects,
-    }
+    return formattedSyllabus
   } catch (err) {
     log.debug('Kopps is not available', err)
     return err
@@ -250,4 +261,5 @@ module.exports = {
   getKoppsCourseRoundTerms,
   getSyllabus,
   findSyllabus,
+  parseSyllabus,
 }
