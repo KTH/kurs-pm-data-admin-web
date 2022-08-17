@@ -93,7 +93,7 @@ const _combineStartEndDates = (sortedSyllabuses, indexOf) => {
   return validUntilTerm
 }
 
-function _getSelectedSyllabus(body, semester) {
+function findSyllabus(body, semester) {
   // TODO: Maybe add to be sure check if it is correct syllabus by looking at validFromTerm.term === semester
   const { publicSyllabusVersions } = body
   const sortedSyllabusesByTerms = publicSyllabusVersions.sort(
@@ -124,27 +124,26 @@ function _getSelectedSyllabus(body, semester) {
 }
 
 function _getExamModules(body, semester, roundLang) {
-  const { examinationSets, formattedGradeScales } = body
-  const { creditUnitAbbr } = body.course
+  const { course = {}, examinationSets = {}, formattedGradeScales = {} } = body
+  const { creditUnitAbbr = '' } = course
   const sortedDescExamTerms = Object.keys(examinationSets).sort((a, b) => Number(b) - Number(a))
   const matchingExamSetKey = sortedDescExamTerms.find(examTerm => Number(examTerm) <= Number(semester))
+  const { examinationRounds = [] } = examinationSets[matchingExamSetKey] ? examinationSets[matchingExamSetKey] : {}
 
   const language = roundLang === 'en' ? 0 : 1
   let titles = ''
   let liStrs = ''
-  if (examinationSets[matchingExamSetKey] && examinationSets[matchingExamSetKey].examinationRounds.length > 0) {
-    examinationSets[matchingExamSetKey].examinationRounds.map(exam => {
-      const credits = exam.credits && exam.credits.toString().length === 1 ? exam.credits + '.0' : exam.credits
-      titles += `<h4>${exam.examCode} - ${exam.title}, ${
-        language === 0 ? credits : credits.toString().replace('.', ',')
-      } ${language === 0 ? 'credits' : creditUnitAbbr}</h4>`
-      liStrs += `<li>${exam.examCode} - ${exam.title}, ${
-        language === 0 ? credits : credits.toString().replace('.', ',')
-      } ${language === 0 ? 'credits' : creditUnitAbbr}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
-        formattedGradeScales[exam.gradeScaleCode]
-      }</li>`
-    })
-  }
+  examinationRounds.forEach(exam => {
+    let { credits: examCredits = '' } = exam
+    examCredits = examCredits.toString().length === 1 ? examCredits + '.0' : examCredits
+    const localeCredits = language === 0 ? examCredits : examCredits.toString().replace('.', ',')
+    const localeCreditUnitAbbr = language === 0 ? 'credits' : creditUnitAbbr
+    const examTitle = `${exam.examCode} - ${exam.title}, ${localeCredits} ${localeCreditUnitAbbr}`
+    titles += `<h4>${examTitle}</h4>`
+    liStrs += `<li>${examTitle}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
+      formattedGradeScales[exam.gradeScaleCode]
+    }</li>`
+  })
   return { titles, liStrs }
 }
 
@@ -221,7 +220,7 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
   try {
     const detailedInformation = await _getDetailedInformation(courseCode, language)
     const { body } = detailedInformation
-    const selectedSyllabus = _getSelectedSyllabus(body, semester)
+    const selectedSyllabus = findSyllabus(body, semester)
     const commonInfo = _getCommonInfo(body)
     const examModules = _getExamModules(body, semester, language)
     const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
@@ -250,4 +249,5 @@ module.exports = {
   getCourseSchool,
   getKoppsCourseRoundTerms,
   getSyllabus,
+  findSyllabus,
 }

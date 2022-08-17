@@ -14,7 +14,7 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
-const combineDefaultValues = (freshMemoData, koppsFreshData, memoLangAbbr) => {
+const combineDefaultValues = (freshMemoData, koppsFreshData) => {
   const {
     examinationSubSection,
     equipment,
@@ -47,9 +47,10 @@ const removeTemplatesFromKoppsFreshData = async koppsFreshData => {
   return koppsFreshData
 }
 
-const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => {
-  return { ...defaultAndMemoApiValues, ...cleanKoppsFreshData }
-}
+const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => ({
+  ...defaultAndMemoApiValues,
+  ...cleanKoppsFreshData,
+})
 
 async function renderMemoEditorPage(req, res, next) {
   try {
@@ -84,7 +85,7 @@ async function renderMemoEditorPage(req, res, next) {
       ...(await getCourseEmployees(apiMemoData)),
     }
 
-    const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData, memoLangAbbr)
+    const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
     const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
     const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
 
@@ -93,11 +94,11 @@ async function renderMemoEditorPage(req, res, next) {
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
     const { uri: proxyPrefix } = server.proxyPrefixPath
-    const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
+    const view = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
     res.render('memo/index', {
       compressedStoreCode,
-      html,
+      html: view,
       title: userLang === 'sv' ? 'Administrera Om kursen' : 'Administer About course',
       // initialState: JSON.stringify(hydrateStores(renderProps)),
       kursinfoadmin: {
