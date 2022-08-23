@@ -89,6 +89,7 @@ function createApplicationStore() {
     cleanUpAllEmptyExtraContent: action(cleanUpAllEmptyExtraContent),
     setCourseTitle: action(setCourseTitle),
     setDirtyEditor: action(setDirtyEditor),
+    setExaminationModules: action(setExaminationModules),
     setMemoBasicInfo: action(setMemoBasicInfo),
     setMemoByContentId: action(setMemoByContentId),
     setMemoExtraContent: action(setMemoExtraContent),
@@ -135,6 +136,18 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 function setVisibilityOfStandard(contentId, value) {
   this.memoData.visibleInMemo = { ...this.memoData.visibleInMemo, [contentId]: value } // to make state change noticeable
   return this.memoData.visibleInMemo
+}
+
+function _isEmptyAndVisible(visibleInMemo, html = '') {
+  const trimmedHtml = html.trim()
+  if (visibleInMemo && !trimmedHtml) return true
+  return false
+}
+
+function setExaminationModules(isInVisibleMemo) {
+  const { examinationModules, examinationSubSection } = this.memoData
+  if (_isEmptyAndVisible(isInVisibleMemo, examinationSubSection))
+    this.setMemoByContentId('examinationSubSection', examinationModules)
 }
 
 function setExtraContentProps(contentId, currentIndex, hasEmptyHeading, hasEmptyText) {

@@ -220,15 +220,18 @@ function MemoContainer(props) {
     return isInVisibleMemo
   }
 
-  const toggleStandardVisibleInMemo = contentHeader => {
+  const toggleStandardVisibleInMemo = contentId => {
     const prevVisibleInMemo = { ...store.memoData.visibleInMemo }
     let visible
     if (prevVisibleInMemo) {
-      visible = contentHeader in prevVisibleInMemo ? prevVisibleInMemo[contentHeader] : false
+      visible = contentId in prevVisibleInMemo ? prevVisibleInMemo[contentId] : false
     } else {
       visible = false
     }
-    const returnNewVibisility = store.setVisibilityOfStandard(contentHeader, !visible)
+    const newVisibility = !visible
+    const returnNewVibisility = store.setVisibilityOfStandard(contentId, newVisibility)
+    if (contentId === 'examinationSubSection') store.setExaminationModules(newVisibility)
+
     onAutoSave({ visibleInMemo: returnNewVibisility })
   }
 
