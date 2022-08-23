@@ -4,9 +4,8 @@ import PropTypes from 'prop-types'
 import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import axios from 'axios'
 import i18n from '../../../../../i18n'
-import UpperAlertRow from './UpperAlertRow'
-
 import { SERVICE_URL } from '../../util/constants'
+import UpperAlertRow from './UpperAlertRow'
 
 const AlertDraftOfPublished = ({ courseCode, memoEndPoint, memoVersion, publishDate, onAlert, userLangIndex }) => {
   const { actionModals, alerts } = i18n.messages[userLangIndex]

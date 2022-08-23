@@ -152,11 +152,10 @@ function _parseExamModules(body, semester, roundLang) {
 }
 
 function _combineExamInfo(examModules, selectedSyllabus) {
-  const { liStrs = '', titles = '' } = examModules
+  const { liStrs = '', titles: examinationModules = '' } = examModules
   const { examComments = '' } = selectedSyllabus
   const examModulesHtmlList = liStrs ? `<p><ul>${liStrs}</ul></p>` : ''
   const examination = `${examModulesHtmlList}${examComments ? `<p>${examComments}</p>` : ''}`
-  const examinationModules = titles
   return { examination, examinationModules }
 }
 

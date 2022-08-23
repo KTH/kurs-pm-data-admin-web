@@ -42,7 +42,7 @@ const VisibilityInfo = ({
                   className="form-check-input"
                   data-testid={`checkbox-visibility-${contentId}`}
                   type="checkbox"
-                  id={'visibilityFor' + contentId}
+                  id={'visibility-for-' + contentId}
                   name="visibleInMemo"
                   onClick={() => onToggleVisibleInMemo(contentId)}
                   defaultChecked={visibleInMemo || false}
@@ -51,7 +51,7 @@ const VisibilityInfo = ({
                 <label
                   className="form-control-label"
                   data-testid="label-visibility"
-                  htmlFor={'visibilityFor' + contentId}
+                  htmlFor={'visibility-for-' + contentId}
                   style={{ fontSize: '1rem' }}
                 >
                   {' '}

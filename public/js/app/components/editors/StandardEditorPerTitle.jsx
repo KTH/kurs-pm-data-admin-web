@@ -79,7 +79,7 @@ function StandardEditorPerTitle(props) {
         <span data-testid={`standard-editor-${contentId}`}>
           <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
           <Editor
-            id={'editorFor' + contentId}
+            id={'editor-for-' + contentId}
             value={htmlContent}
             init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
             onEditorChange={updateMemoContent}

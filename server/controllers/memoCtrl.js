@@ -15,17 +15,9 @@ const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
 const combineDefaultValues = (freshMemoData, koppsFreshData) => {
-  const {
-    examinationSubSection,
-    equipment,
-    scheduleDetails,
-    literature,
-    possibilityToCompletion,
-    possibilityToAddition,
-  } = freshMemoData
+  const { equipment, scheduleDetails, literature, possibilityToCompletion, possibilityToAddition } = freshMemoData
   const updatedWithDefaults = {
     ...freshMemoData,
-    examinationSubSection: examinationSubSection || koppsFreshData.examinationModules || '',
     // eslint-disable-next-line no-use-before-define
     equipment: equipment || koppsFreshData.equipmentTemplate || '',
     scheduleDetails: scheduleDetails || '',
@@ -52,13 +44,20 @@ const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => ({
   ...cleanKoppsFreshData,
 })
 
+async function mergeKoppsAndMemoData(koppsFreshData, apiMemoData) {
+  const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
+  const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
+  const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
+  return newMemoData
+}
+
 async function renderMemoEditorPage(req, res, next) {
   try {
     const userLang = language.getLanguage(res) || 'sv'
     const langIndex = userLang === 'en' ? 0 : 1
     const translateTo = userLang === 'en' ? 1 : 0
     const { courseCode, memoEndPoint } = req.params
-    const { action } = req.query
+    const { action = '' } = req.query
     // STORE MANIPULATIONS
     const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
     const applicationStore = createStore()
@@ -67,7 +66,7 @@ async function renderMemoEditorPage(req, res, next) {
     const { semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
 
-    applicationStore.rebuilDraftFromPublishedVer = !!action
+    applicationStore.rebuilDraftFromPublishedVer = action === 'rebuild'
 
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 
@@ -81,15 +80,11 @@ async function renderMemoEditorPage(req, res, next) {
     })
 
     const koppsFreshData = {
-      ...(await getSyllabus(courseCode, semester, apiMemoData.memoCommonLangAbbr || userLang)),
+      ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoData)),
     }
 
-    const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
-    const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
-    const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
-
-    applicationStore.memoData = newMemoData
+    applicationStore.memoData = await mergeKoppsAndMemoData(koppsFreshData, apiMemoData)
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
@@ -142,7 +137,7 @@ async function updateContentByEndpoint(req, res, next) {
 
 module.exports = {
   combineDefaultValues,
-  refreshMemoData,
+  mergeKoppsAndMemoData,
   renderMemoEditorPage,
   removeTemplatesFromKoppsFreshData,
   updateContentByEndpoint,

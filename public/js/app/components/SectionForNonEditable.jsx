@@ -3,11 +3,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { typeOfHeader } from '../util/fieldsByType'
+import i18n from '../../../../i18n'
 import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
-
-import i18n from '../../../../i18n'
-import { typeOfHeader } from '../util/fieldsByType'
 
 const SectionForNonEditable = ({
   contentId,

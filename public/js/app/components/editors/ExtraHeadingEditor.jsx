@@ -166,7 +166,7 @@ function ExtraHeadingEditor(props) {
           </Form>
           <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
           <Editor
-            id={`editorFor${contentId}-${uKey}`}
+            id={`editor-for-${contentId}-${uKey}`}
             value={htmlContent}
             init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
             onEditorChange={setNewContent}
