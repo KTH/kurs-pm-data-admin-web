@@ -4,7 +4,7 @@ const defaultVisibilities = {
   additionalRegulations: 'defaultTrue',
   ethicalApproachSubSection: 'defaultTrue',
   equipment: 'defaultTrue',
-  examinationSubSection: 'defaultTrue',
+  examinationSubSection: false,
   permanentDisabilitySubSection: 'defaultTrue',
   possibilityToAddition: 'defaultTrue',
   possibilityToCompletion: 'defaultTrue',

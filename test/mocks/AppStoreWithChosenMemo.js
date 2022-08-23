@@ -53,6 +53,7 @@ const mockApplicationStoreWithChosenMemo = (
     ...updateStoreWith,
     memoData: { ...mockedMemoData, ...reducedKoppsData[userLang] },
     extraContentState: { extraHeaders1: [], extraHeaders2: [], extraHeaders3: [], extraHeaders4: [] },
+    examinationModules: '<h4>INL1 - Inlämningsuppgifter, 3,5 hp</h4>',
   }
 
   return routerWithMemoData

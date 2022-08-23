@@ -747,6 +747,18 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
     expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(2)
   })
+
+  test('tab: reqToFinal examinationSubSection. Visibility checkbox and text.', async () => {
+    const { section: sectionIsEmpty } = sourceInfoSV.noInfoYet
+
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-examinationSubSection')
+    expect(checkboxIncludeInMemo.checked).toBeFalsy()
+    expect(screen.queryByTestId('text-for-memo-optionalEditable-examinationSubSection')).not.toBeInTheDocument()
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeTruthy()
+    })
+  })
 })
 
 describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draft of a NEW memo. Memo in English, user interface in English', () => {

@@ -869,6 +869,9 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const headersAndSubHds = getSectionHeadersByType(contentType, 'reqToFinal')
     expect(headersAndSubHds.length).toBe(4)
 
+    const examinationSubSectionEditorInactive = queryByTestId(`standard-editor-examinationSubSection`)
+    expect(examinationSubSectionEditorInactive).not.toBeInTheDocument()
+
     const gradingCriteriaText = getByTestId(`text-for-memo-${contentType}-gradingCriteria`)
     expect(gradingCriteriaText).toBeInTheDocument()
 
@@ -906,14 +909,34 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     expect(inactiveTabEditorcourseContent).not.toBeInTheDocument()
   })
 
-  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" closed editor and tries to open it after pressing button "edit"', async () => {
+  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" closed editor, then opens it after pressing button "edit"', async () => {
     const editorOpenBtn = getByTestId('btn-open-editor-examinationSubSection')
     expect(editorOpenBtn).toBeInTheDocument()
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-examinationSubSection')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+
+    expect(getByText(/Some test data for section examinationSubSection/i)).toBeInTheDocument()
 
     fireEvent.click(editorOpenBtn)
     await waitFor(() => {
       const editorCloseBtn = getByTestId('btn-close-editor-examinationSubSection')
       expect(editorCloseBtn).toBeInTheDocument()
+      expect(screen.queryByTestId('text-for-memo-optionalEditable-examinationSubSection')).not.toBeInTheDocument()
+
+      fireEvent.click(editorCloseBtn)
+    })
+
+    expect(getByText(/Some test data for section examinationSubSection/i)).toBeInTheDocument()
+  })
+
+  test('tab: reqToFinal (draft of published). Renders "examinationSubSection" visibility checkbox and text.', async () => {
+    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-examinationSubSection')
+    expect(checkboxIncludeInMemo.checked).toBeTruthy()
+    expect(getByText(/Some test data for section examinationSubSection/i)).toBeInTheDocument()
+
+    fireEvent.click(checkboxIncludeInMemo)
+    await waitFor(() => {
+      expect(checkboxIncludeInMemo.checked).toBeFalsy()
     })
   })
 

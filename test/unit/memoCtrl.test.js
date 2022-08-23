@@ -41,7 +41,7 @@ jest.mock('../../server/koppsApi', () => ({}))
 const memoCtrl = require('../../server/controllers/memoCtrl')
 
 describe('Contol functions for combining data', () => {
-  test('Update fetch data with default data from kopps if some api data has no values', done => {
+  test('Update fetch data with default data from kopps if some api data has no values, except examinationSubSection', done => {
     const emptyApiData = mockedApi()
     const memoLangAbbr = 'en'
     const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates)
@@ -53,7 +53,7 @@ describe('Contol functions for combining data', () => {
       possibilityToCompletion,
       possibilityToAddition,
     } = updatedMemoData
-    expect(examinationSubSection).toBe(mockedKoppsTemplates.examinationModules)
+    expect(examinationSubSection).toBe(emptyApiData.examinationSubSection)
     expect(equipment).toBe(mockedKoppsTemplates.equipmentTemplate)
     expect(literature).toBe(mockedKoppsTemplates.literatureTemplate)
     expect(possibilityToCompletion).toBe(mockedKoppsTemplates.possibilityToCompletionTemplate)
@@ -91,5 +91,43 @@ describe('Contol functions for combining data', () => {
     expect(newKoppsData.possibilityToAdditionTemplate).toBe(undefined)
 
     done()
+  })
+
+  test('Merge kopps data and api data, memo api data replaces kopps data', async () => {
+    const newKoppsData = await memoCtrl.mergeKoppsAndMemoData(mockedKoppsTemplates, mockedApi(true))
+    expect(newKoppsData).toMatchInlineSnapshot(`
+      Object {
+        "equipment": "Text saved by user in section in Equipment section",
+        "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
+        "examinationSubSection": "Text saved by user in section in Examination subsection",
+        "literature": "Text saved by user in Literature section",
+        "possibilityToAddition": "Text saved by user in Opportunity to raise an approved grade via renewed examination section",
+        "possibilityToCompletion": "Text saved by user in Opportunity to complete the requirements via supplementary examination section",
+        "scheduleDetails": "Text saved by user in Detailed plan section",
+        "schemaUrls": Array [
+          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
+          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
+        ],
+      }
+    `)
+  })
+
+  test('Merge kopps data and api data, memo api has empty values', async () => {
+    const newKoppsData = await memoCtrl.mergeKoppsAndMemoData(mockedKoppsTemplates, mockedApi(false))
+    expect(newKoppsData).toMatchInlineSnapshot(`
+      Object {
+        "equipment": "",
+        "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
+        "examinationSubSection": "",
+        "literature": "",
+        "possibilityToAddition": "",
+        "possibilityToCompletion": "",
+        "scheduleDetails": "",
+        "schemaUrls": Array [
+          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
+          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
+        ],
+      }
+    `)
   })
 })
