@@ -9,7 +9,7 @@ import StandardSectionOrEditor from '../../StandardSectionOrEditor'
 const swedishUserLangAbbr = 'sv_SE'
 
 const EditorSimpleElement = () => {
-  const editorLabel = 'editorFor-examinationSubSection-simple'
+  const editorLabel = 'editor-for-examinationSubSection-simple'
 
   const htmlContentForSimpleEditor = '<p>Examination will be edited next week after examination day</p>'
 
@@ -28,8 +28,8 @@ const EditorSimpleElement = () => {
   )
 }
 const StandardEditorWithTitleAndLocalState = () => {
-  const contentId = 'examinationSubSection'
-  const htmlContent = '<p> Examination Content For A Second Editor </p>'
+  const contentId = 'ethicalApproachSubSection'
+  const htmlContent = '<p> Ethical Approach Content For A Second Editor </p>'
 
   const [typedData, setTypedData] = React.useState(htmlContent)
   const handleUpdate = value => {

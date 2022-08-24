@@ -22,7 +22,7 @@ const VisibilityInfo = ({
 
   const isHeaderInConf = !!context[contentId]
 
-  const { isEditable } = context[contentId] || false
+  const { isEditable = false } = context[contentId] || {}
   const { sourceInfo, buttons, memoTitlesByMemoLang: memoTitles } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
   return (
