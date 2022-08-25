@@ -104,7 +104,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expect(allLinks.length).toBe(5)
     const expectedLinks = [
       labelLinks.courseMemoArchiveLabel,
-      'Syllabus EF1111 (Spring 2019-Spring 2020)',
+      'Syllabus Spring 2019',
       'Rights and responsibilities',
       'Course and examination',
       `Administrate your studies`,
@@ -118,7 +118,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   })
 
   test('Get Syllabus link names ', async () => {
-    const syllabusName = getByText('Syllabus EF1111 (Spring 2019-Spring 2020)')
+    const syllabusName = getByText('Syllabus Spring 2019')
     expect(syllabusName).toBeInTheDocument()
   })
 })

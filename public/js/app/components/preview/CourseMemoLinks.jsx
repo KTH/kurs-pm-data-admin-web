@@ -62,6 +62,7 @@ const syllabusLink = (language, labels, courseCode, syllabusValid) => {
     language,
     validFromTerm || ''
   )}-${seasonStr(language, validUntilTerm || '')})`
+  const fromSyllabusLabel = `${labels.syllabusLinkStart} ${seasonStr(language, validFromTerm)}`
   return (
     <>
       <h4>{labels.syllabus}</h4>
@@ -77,7 +78,7 @@ const syllabusLink = (language, labels, courseCode, syllabusValid) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {syllabusLinkLabel}
+          {fromSyllabusLabel}
         </a>
         <Popup header={labels.syllabus} body={labels.linkOpensInNewTab} targetId="syllabus-link" />
       </p>
