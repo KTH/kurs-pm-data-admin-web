@@ -103,7 +103,7 @@ function ExtraHeadingEditor(props) {
     onSaveByThisContentId()
   }
 
-  const onToggleVisibleEditor = () => {
+  function toggleEditor() {
     if (isOpen) {
       if (hasEmptyHeading && hasEmptyText) {
         onRemoveThisContent(true)
@@ -138,7 +138,7 @@ function ExtraHeadingEditor(props) {
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={toggleVisibleInMemo}
         isEditorOpen={isOpen}
-        onToggleVisibleEditor={onToggleVisibleEditor}
+        onToggleEditor={toggleEditor}
         userLangIndex={userLangIndex}
         contentName={title}
       />
