@@ -138,15 +138,15 @@ function setVisibilityOfStandard(contentId, value) {
   return this.memoData.visibleInMemo
 }
 
-function _isEmptyAndVisible(visibleInMemo, html = '') {
+function _isValidAndEmpty(isValid, html = '') {
   const trimmedHtml = html.trim()
-  if (visibleInMemo && !trimmedHtml) return true
+  if (isValid && !trimmedHtml) return true
   return false
 }
 
-function setExaminationModules(isInVisibleMemo) {
+function setExaminationModules(isValid) {
   const { examinationModules, examinationSubSection } = this.memoData
-  if (_isEmptyAndVisible(isInVisibleMemo, examinationSubSection))
+  if (_isValidAndEmpty(isValid, examinationSubSection))
     this.setMemoByContentId('examinationSubSection', examinationModules)
 }
 
