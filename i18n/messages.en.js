@@ -523,6 +523,7 @@ module.exports = {
     reqToFinal: 'Examination and completion',
     extra: 'Further information',
     contacts: 'Contact',
+    asterisk: 'Headings denoted with an asterisk ( * ) is retrieved from the course syllabus version ',
   },
   pageTitles: {
     new: 'Create and publish course memo',

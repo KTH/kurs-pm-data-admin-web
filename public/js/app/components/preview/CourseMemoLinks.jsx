@@ -91,7 +91,6 @@ const CourseMemoLinks = ({ language, labels, memoData = {}, syllabusValid = {} }
     {version(language, labels, memoData.lastChangeDate)}
     {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels)}
-    {syllabusLink(language, labels, memoData.courseCode, syllabusValid)}
   </div>
 )
 

@@ -67,7 +67,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers), ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(13) //16
+    expect(allH4Headers.length).toBe(12) //16
     const expectedhds = [
       'Termin',
       'Kursomgång',
@@ -77,7 +77,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       labelFacts.roundsTitle,
       labelLinks.versionTitle,
       labelLinks.courseMemoPrint,
-      labelLinks.syllabus,
       'Related information',
       labelContacts.courseCoordinatorTitle,
       labelContacts.teacherTitle,
@@ -101,10 +100,9 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('Get all link names if it renders', async () => {
     const allLinks = getAllByRole('link')
-    expect(allLinks.length).toBe(5)
+    expect(allLinks.length).toBe(4)
     const expectedLinks = [
       labelLinks.courseMemoArchiveLabel,
-      'Syllabus Spring 2019',
       'Rights and responsibilities',
       'Course and examination',
       `Administrate your studies`,
@@ -115,10 +113,5 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   test('Get Admin link name ', async () => {
     const adminLinkName = getByText('Administer About course')
     expect(adminLinkName).toBeInTheDocument()
-  })
-
-  test('Get Syllabus link names ', async () => {
-    const syllabusName = getByText('Syllabus Spring 2019')
-    expect(syllabusName).toBeInTheDocument()
   })
 })

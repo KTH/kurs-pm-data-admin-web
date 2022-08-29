@@ -518,6 +518,7 @@ module.exports = {
     reqToFinal: 'Examination och slutförande',
     extra: 'Ytterligare information',
     contacts: 'Kontakter',
+    asterisk: 'Rubriker markerade med en asterisk ( * ) kommer från kursplan version ',
   },
   pageTitles: {
     new: 'Skapa och publicera kurs-PM',

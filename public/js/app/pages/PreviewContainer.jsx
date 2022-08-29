@@ -24,7 +24,7 @@ import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
 import i18n from '../../../../i18n'
 import { context, sections } from '../util/fieldsByType'
-import { concatMemoName } from '../util/helpers'
+import { concatMemoName, seasonStr } from '../util/helpers'
 import {
   FIRST_VERSION,
   EMPTY,
@@ -200,10 +200,11 @@ function PreviewContainer(props) {
     memoEndPoint,
     memoName,
     version,
+    syllabusValid,
   } = memoData
   const isDraftOfPublished = Number(version) > FIRST_VERSION
 
-  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } =
+  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels, sectionsLabels } =
     i18n.messages[langIndex]
   const {
     coursePresentationLabels,
@@ -219,6 +220,7 @@ function PreviewContainer(props) {
     store.koppsFreshData.courseMainSubjects,
     store.memoLanguage
   )
+  const { validFromTerm } = syllabusValid
   const allSections = renderAllSections(store)
   const courseImageUrl = `${browserConfig.imageStorageUri}${courseImage}`
 
@@ -342,6 +344,9 @@ function PreviewContainer(props) {
                 introText={sellingText || ''}
                 labels={coursePresentationLabels}
               />
+              <p>
+                {sectionsLabels.asterisk} {seasonStr(langIndex, validFromTerm)}
+              </p>
               {allSections}
             </Col>
             <Col lg="4" className="preview-content-right">
