@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { context } from '../util/fieldsByType'
 import StandardEditorPerTitle from './editors/StandardEditorPerTitle'
 import SectionForNonEditable from './SectionForNonEditable'
-import { context } from '../util/fieldsByType'
 
 const StandardSectionOrEditor = ({
   contentId,

@@ -45,7 +45,7 @@ function StandardEditorPerTitle(props) {
     store.setDirtyEditor(contentId)
   }
 
-  const onBlur = () => {
+  function onBlur() {
     const { dirtyEditor } = store
     if (dirtyEditor === contentId) {
       props.onSave({ [contentId]: store.memoData[contentId] }, 'autoSaved')
@@ -53,12 +53,15 @@ function StandardEditorPerTitle(props) {
     store.setDirtyEditor('')
   }
 
-  const toggleVisibleInMemo = () => {
+  function toggleVisibleInMemo() {
     props.onToggleVisibleInMemo(contentId)
   }
 
-  const onToggleVisibleEditor = () => {
-    setOpenStatus(!isOpen)
+  function toggleEditor() {
+    const isOpenNext = !isOpen
+    if (contentId === 'examinationSubSection') store.setExaminationModules(isOpenNext)
+
+    setOpenStatus(isOpenNext)
   }
 
   return (
@@ -72,7 +75,7 @@ function StandardEditorPerTitle(props) {
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={toggleVisibleInMemo}
         isEditorOpen={isOpen}
-        onToggleVisibleEditor={onToggleVisibleEditor}
+        onToggleEditor={toggleEditor}
         userLangIndex={userLangIndex}
       />
       {isOpen && (

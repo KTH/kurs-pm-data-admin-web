@@ -13,7 +13,7 @@ const VisibilityInfo = ({
   visibleInMemo,
   isEditorOpen,
   onToggleVisibleInMemo,
-  onToggleVisibleEditor,
+  onToggleEditor,
   sectionType,
   userLangIndex,
   contentName,
@@ -70,7 +70,7 @@ const VisibilityInfo = ({
             memoTitles[contentId] || memoTitles[contentId.substring(0, contentId.length - 10)] || contentName
           }`}
           className="mb-0 mt-0"
-          onClick={() => onToggleVisibleEditor()}
+          onClick={() => onToggleEditor()}
           data-testid={isEditorOpen ? `btn-close-editor-${contentId}` : `btn-open-editor-${contentId}`}
         >
           {isEditorOpen ? buttons.closeEditor : buttons.edit}
@@ -86,14 +86,14 @@ VisibilityInfo.propTypes = {
   isEditorOpen: PropTypes.bool,
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
-  onToggleVisibleEditor: PropTypes.func,
+  onToggleEditor: PropTypes.func,
   sectionType: PropTypes.string.isRequired, // add default
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
 }
 
 VisibilityInfo.defaultProps = {
   isEditorOpen: null,
-  onToggleVisibleEditor: null,
+  onToggleEditor: null,
   contentName: '',
 }
 
