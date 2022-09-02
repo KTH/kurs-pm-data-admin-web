@@ -154,18 +154,18 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(allButtons.length).toBe(17)
     const expectedAriaLabels = [
       'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
-      'Information about Course contents',
-      'Information about Intended learning outcomes',
-      'Information about Learning activities',
+      'Information om Course contents',
+      'Information om Intended learning outcomes',
+      'Information om Learning activities',
       'Redigera Läraktiviteter',
-      'Information about Detailed plan', //TODO: add ariaLang
+      'Information om Detailed plan', //TODO: add ariaLang
       'Stäng redigeringsläge Detaljplanering',
-      'Information about Created by user First header for section extraHeaders1',
+      'Information om Created by user First header for section extraHeaders1',
       'Redigera Created by user First header for section extraHeaders1', // fix header in extra rubrik
-      'Information about Created by user Second header for section extraHeaders1',
+      'Information om Created by user Second header for section extraHeaders1',
       'Redigera Created by user Second header for section extraHeaders1', // fix header in extra rubrik
       null,
-      'Information about Made changes',
+      'Information om Made changes',
       null,
       null,
       'Avbryt',
@@ -471,23 +471,23 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expect(allButtons.length).toBe(22)
     const expectedAriaLabels = [
       'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
-      'Information about Recommended prerequisites',
-      'Information about Specific preparations',
+      'Information om Recommended prerequisites',
+      'Information om Specific preparations',
       'Redigera Särskilda förberedelser',
-      'Information about Literature',
+      'Information om Literature',
       'Stäng redigeringsläge Kurslitteratur',
-      'Information about Equipment', //TODO: add ariaLang
+      'Information om Equipment', //TODO: add ariaLang
       'Stäng redigeringsläge Utrustning',
-      'Information about Software',
+      'Information om Software',
       'Redigera Programvara',
-      'Information about Support for students with disabilities',
+      'Information om Support for students with disabilities',
       'Stäng redigeringsläge Stöd för studenter med funktionsnedsättning',
-      'Information about Created by user First header for section extraHeaders2',
+      'Information om Created by user First header for section extraHeaders2',
       'Redigera Created by user First header for section extraHeaders2', // fix header in extra rubrik
-      'Information about Created by user Second header for section extraHeaders2',
+      'Information om Created by user Second header for section extraHeaders2',
       'Redigera Created by user Second header for section extraHeaders2', // fix header in extra rubrik
       null,
-      'Information about Made changes',
+      'Information om Made changes',
       null,
       null,
       'Avbryt',
@@ -796,28 +796,28 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     expect(allButtons.length).toBe(27)
     const expectedAriaLabels = [
       'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
-      'Information about Grading scale',
-      'Information about Examination',
+      'Information om Grading scale',
+      'Information om Examination',
       'Redigera Examination',
-      'Information about Other requirements for final grade',
-      'Information about Grading criteria/assessment criteria',
+      'Information om Other requirements for final grade',
+      'Information om Grading criteria/assessment criteria',
       'Redigera Målrelaterade betygskriterier/bedömningskriterier',
-      'Information about Opportunity to complete the requirements via supplementary examination',
+      'Information om Opportunity to complete the requirements via supplementary examination',
       'Stäng redigeringsläge Möjlighet till komplettering',
-      'Information about Opportunity to raise an approved grade via renewed examination',
+      'Information om Opportunity to raise an approved grade via renewed examination',
       'Stäng redigeringsläge Möjlighet till plussning',
-      'Information about Alternatives to missed activities or tasks',
+      'Information om Alternatives to missed activities or tasks',
       'Redigera Möjlighet till ersättningsuppgifter',
-      'Information about Reporting of exam results',
+      'Information om Reporting of exam results',
       'Redigera Resultatrapportering',
-      'Information about Ethical approach',
+      'Information om Ethical approach',
       'Stäng redigeringsläge Etiskt förhållningssätt',
-      'Information about Created by user First header for section extraHeaders3',
+      'Information om Created by user First header for section extraHeaders3',
       'Redigera Created by user First header for section extraHeaders3', // fix header in extra rubrik
-      'Information about Created by user Second header for section extraHeaders3',
+      'Information om Created by user Second header for section extraHeaders3',
       'Redigera Created by user Second header for section extraHeaders3', // fix header in extra rubrik
       null,
-      'Information about Made changes',
+      'Information om Made changes',
       null,
       null,
       'Avbryt',
@@ -1110,7 +1110,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(8)
+    expect(allH3Headers.length).toBe(7)
     const expectedh3ds = introductionHeaders.sv
       .concat(informStudentsHeaders.sv)
       .concat(moreHelpHeaders.sv)
@@ -1144,18 +1144,17 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
 
   test('tab: extra (draft of published). renders all buttons', async () => {
     const allButtons = getAllByRole('button')
-    expect(allButtons.length).toBe(14)
+    expect(allButtons.length).toBe(13)
     const expectedAriaLabels = [
       'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
-      'Information about Additional regulations',
-      'Information about Changes of the course before this course offering',
+      'Information om Changes of the course before this course offering',
       'Redigera Ändringar inför denna kursomgång',
-      'Information about Created by user First header for section extraHeaders4',
+      'Information om Created by user First header for section extraHeaders4',
       'Redigera Created by user First header for section extraHeaders4',
-      'Information about Created by user Second header for section extraHeaders4',
+      'Information om Created by user Second header for section extraHeaders4',
       'Redigera Created by user Second header for section extraHeaders4',
       null,
-      'Information about Made changes',
+      'Information om Made changes',
       null,
       null,
       'Avbryt',
@@ -1169,7 +1168,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
 
   test('tab: extra (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('extra')
-    expect(headers.length).toBe(2)
+    expect(headers.length).toBe(1)
     headers.map(headerId => {
       const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
       expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
@@ -1185,11 +1184,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). renders <SectionForNonEditable>, there are one standard header which are mandatory for some courses and non-editable', async () => {
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'extra')
-    expect(headers.length).toBe(1)
-    headers.map(contentId => {
-      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
-    })
+    expect(headers.length).toBe(0)
   })
 
   test('tab: extra (draft of published). renders <StandardEditorPerTitle>, no fields which are mandatory and can be edited', async () => {
@@ -1299,7 +1294,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   })
 
   test('tab: extra (draft of published). render correct number of text about data origin and source info ', () => {
-    expect(getAllByText('från kursplan').length).toBe(1)
+    expect(screen.queryByText('från kursplan')).not.toBeInTheDocument()
     expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
     expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
   })
@@ -1307,7 +1302,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(screen.queryByText('Inkluderas alltid')).not.toBeInTheDocument()
     expect(getAllByText('Inkludera').length).toBe(3)
-    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
+    expect(screen.queryByText(/Inkluderas för vissa kurser/i)).not.toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
 })
@@ -1360,15 +1355,15 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
     expect(allButtons.length).toBe(14)
     const expectedAriaLabels = [
       'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
-      'Information about Communication during course',
+      'Information om Communication during course',
       'Redigera Kommunikation i kursen',
-      'Information about Course coordinator',
-      'Information about Teachers',
-      'Information about Teacher assistants',
-      'Information about Examiner',
-      'Information about Other contacts',
+      'Information om Course coordinator',
+      'Information om Teachers',
+      'Information om Teacher assistants',
+      'Information om Examiner',
+      'Information om Other contacts',
       'Redigera Övriga kontakter',
-      'Information about Made changes',
+      'Information om Made changes',
       null,
       null,
       'Avbryt',

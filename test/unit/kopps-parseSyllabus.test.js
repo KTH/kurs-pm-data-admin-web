@@ -193,8 +193,7 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
   const foundSyllabus = parseSyllabus(courseML1616, '20212')
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20192)
   expect(foundSyllabus).toMatchInlineSnapshot(`
-    Object {
-      "additionalRegulations": "",
+    {
       "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
       "courseMainSubjects": "Teknik",
       "creditUnitAbbr": "hp",
@@ -210,15 +209,15 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
-      "schemaUrls": Array [
+      "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
       ],
-      "syllabusValid": Object {
+      "syllabusValid": {
         "validFromTerm": 20192,
         "validUntilTerm": 20221,
       },
@@ -236,8 +235,7 @@ test('parse the latest syllabus 20222 for 20222', () => {
   expect(foundSyllabus.credits).toBe(7.5)
 
   expect(foundSyllabus).toMatchInlineSnapshot(`
-    Object {
-      "additionalRegulations": "",
+    {
       "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
       "courseMainSubjects": "Teknik",
       "creditUnitAbbr": "hp",
@@ -253,15 +251,15 @@ test('parse the latest syllabus 20222 for 20222', () => {
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
-      "schemaUrls": Array [
+      "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
       ],
-      "syllabusValid": Object {
+      "syllabusValid": {
         "validFromTerm": 20222,
         "validUntilTerm": "",
       },
@@ -275,8 +273,7 @@ test('parse the latest syllabus 20222 for 20231', () => {
   const foundSyllabus = parseSyllabus(courseML1616, '20222', 'sv')
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20222)
   expect(foundSyllabus).toMatchInlineSnapshot(`
-    Object {
-      "additionalRegulations": "",
+    {
       "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
       "courseMainSubjects": "Teknik",
       "creditUnitAbbr": "hp",
@@ -292,15 +289,15 @@ test('parse the latest syllabus 20222 for 20231', () => {
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
-      "schemaUrls": Array [
+      "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
       ],
-      "syllabusValid": Object {
+      "syllabusValid": {
         "validFromTerm": 20222,
         "validUntilTerm": "",
       },

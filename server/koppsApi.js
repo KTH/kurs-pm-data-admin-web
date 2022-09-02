@@ -109,7 +109,6 @@ function findSyllabus(body, semester) {
   const selectedFields = {
     learningOutcomes: courseSyllabus.goals || '',
     courseContent: courseSyllabus.content || '',
-    additionalRegulations: courseSyllabus.additionalRegulations || '',
     ethicalApproach: courseSyllabus.ethicalApproach || '',
     examComments: courseSyllabus.examComments || '',
     otherRequirementsForFinalGrade: courseSyllabus.reqsForFinalGrade || '',

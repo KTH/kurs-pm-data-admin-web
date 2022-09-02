@@ -27,7 +27,6 @@ module.exports = {
         '<p>Vektorer, matriser, linj&#228;ra ekvationssystem, Gausselimination, vektorgeometri med skal&#228;rprodukt och vektorprodukt, determinanter, vektorrum, linj&#228;rt oberoende, baser, basbyten, linj&#228;r avbildning, minsta-kvadratmetoden, egenv&#228;rden, egenvektorer, kvadratiska former, ortogonalitet, inre-produktrum, Gram-Schmidts metod.</p>',
       learningOutcomes:
         '<p>Efter genomg&#229;ngen kurs ska studenten kunna</p><ul><li> <p>Anv&#228;nda begrepp, satser och metoder f&#246;r att l&#246;sa, och presentera l&#246;sningen av, problem inom de delar av linj&#228;r algebra som beskrivs av kursinneh&#229;llet.</p></li><li> <p>L&#228;sa och tillgodog&#246;ra sig matematisk text.</p></li></ul>',
-      additionalRegulations: '',
       gradingScale: '<p>A, B, C, D, E, FX, F</p>',
       ethicalApproach:
         '<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>',

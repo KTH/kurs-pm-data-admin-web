@@ -96,7 +96,7 @@ describe('Contol functions for combining data', () => {
   test('Merge kopps data and api data, memo api data replaces kopps data', async () => {
     const newKoppsData = await memoCtrl.mergeKoppsAndMemoData(mockedKoppsTemplates, mockedApi(true))
     expect(newKoppsData).toMatchInlineSnapshot(`
-      Object {
+      {
         "equipment": "Text saved by user in section in Equipment section",
         "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
         "examinationSubSection": "Text saved by user in section in Examination subsection",
@@ -104,7 +104,7 @@ describe('Contol functions for combining data', () => {
         "possibilityToAddition": "Text saved by user in Opportunity to raise an approved grade via renewed examination section",
         "possibilityToCompletion": "Text saved by user in Opportunity to complete the requirements via supplementary examination section",
         "scheduleDetails": "Text saved by user in Detailed plan section",
-        "schemaUrls": Array [
+        "schemaUrls": [
           "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
           "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
         ],
@@ -115,7 +115,7 @@ describe('Contol functions for combining data', () => {
   test('Merge kopps data and api data, memo api has empty values', async () => {
     const newKoppsData = await memoCtrl.mergeKoppsAndMemoData(mockedKoppsTemplates, mockedApi(false))
     expect(newKoppsData).toMatchInlineSnapshot(`
-      Object {
+      {
         "equipment": "",
         "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
         "examinationSubSection": "",
@@ -123,7 +123,7 @@ describe('Contol functions for combining data', () => {
         "possibilityToAddition": "",
         "possibilityToCompletion": "",
         "scheduleDetails": "",
-        "schemaUrls": Array [
+        "schemaUrls": [
           "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
           "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
         ],

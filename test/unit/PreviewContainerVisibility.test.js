@@ -49,8 +49,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   test('renders main header H3 (content) in user lang(sv),  and memo only extra sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(8) //29
-    // const expectedh3ds = orderedFilledInAndVisible
+    expect(allH3Headers.length).toBe(8)
     const expectedh3ds = [
       'Created by user First header for section extraHeaders1',
       'Created by user Second header for section extraHeaders1',

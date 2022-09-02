@@ -65,7 +65,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   test('renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(29)
+    expect(allH3Headers.length).toBe(28)
     const expectedh3ds = orderedFilledInAndVisible
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
