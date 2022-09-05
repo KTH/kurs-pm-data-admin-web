@@ -194,6 +194,7 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20192)
   expect(foundSyllabus).toMatchInlineSnapshot(`
     {
+      "additionalRegulations": "",
       "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
       "courseMainSubjects": "Teknik",
       "creditUnitAbbr": "hp",
@@ -236,6 +237,7 @@ test('parse the latest syllabus 20222 for 20222', () => {
 
   expect(foundSyllabus).toMatchInlineSnapshot(`
     {
+      "additionalRegulations": "",
       "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
       "courseMainSubjects": "Teknik",
       "creditUnitAbbr": "hp",
@@ -274,6 +276,7 @@ test('parse the latest syllabus 20222 for 20231', () => {
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20222)
   expect(foundSyllabus).toMatchInlineSnapshot(`
     {
+      "additionalRegulations": "",
       "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
       "courseMainSubjects": "Teknik",
       "creditUnitAbbr": "hp",

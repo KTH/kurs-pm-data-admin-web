@@ -49,6 +49,7 @@ test('choose a correct syllabus for course ML1616', () => {
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20192)
   expect(foundSyllabus).toMatchInlineSnapshot(`
     {
+      "additionalRegulations": "",
       "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
       "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
       "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning. Examinator f&#229;r medge annan examinationsform vid omexamination av enstaka studenter.</p>",
@@ -131,6 +132,7 @@ test('choose an older syllabus for course EF1111, semester 20182', () => {
   expect(sullabusFor20182.syllabusValid.validUntilTerm).toBe(20182)
   expect(sullabusFor20182).toMatchInlineSnapshot(`
     {
+      "additionalRegulations": "",
       "courseContent": "<p>Projektarbetet kan inkludera</p><ul><li>behandling av laboratoriedata</li><li>design av enmatteknik</li><li>litteraturs&#246;kning och sammanfattning av ett specifikt omr&#229;de</li><li>programmering av databehandling och presentationsverktyg</li></ul>",
       "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
       "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.",
@@ -145,12 +147,13 @@ test('choose an older syllabus for course EF1111, semester 20182', () => {
 })
 
 test('choose the latest syllabus for course EF1111 semester 20221', () => {
-  const sullabusFor20221 = findSyllabus(syllabussesEF1111, '20221')
-  expect(sullabusFor20221.syllabusValid.validFromTerm).toBe(20191)
-  expect(sullabusFor20221.syllabusValid.validUntilTerm).toBe('')
+  const syllabusFor20221 = findSyllabus(syllabussesEF1111, '20221')
+  expect(syllabusFor20221.syllabusValid.validFromTerm).toBe(20191)
+  expect(syllabusFor20221.syllabusValid.validUntilTerm).toBe('')
 
-  expect(sullabusFor20221).toMatchInlineSnapshot(`
+  expect(syllabusFor20221).toMatchInlineSnapshot(`
     {
+      "additionalRegulations": "",
       "courseContent": "<p>Projektarbetet kan inkludera</p><ul><li>behandling av laboratoriedata</li><li>design av enmatteknik</li><li>litteraturs&#246;kning och sammanfattning av ett specifikt omr&#229;de</li><li>programmering av databehandling och presentationsverktyg</li></ul>",
       "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
       "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.",

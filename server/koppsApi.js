@@ -107,6 +107,7 @@ function findSyllabus(body, semester) {
   const { courseSyllabus = {}, validFromTerm = {} } = syllabusContent
 
   const selectedFields = {
+    additionalRegulations: courseSyllabus.additionalRegulations || '',
     learningOutcomes: courseSyllabus.goals || '',
     courseContent: courseSyllabus.content || '',
     ethicalApproach: courseSyllabus.ethicalApproach || '',

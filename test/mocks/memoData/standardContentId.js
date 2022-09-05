@@ -1,6 +1,7 @@
 import { allStandardHeadersAndSubHd } from '../../../public/js/app/util/fieldsByType'
 
 const standardMemoContent = [
+  'additionalRegulations',
   'communicationDuringCourse',
   'courseContent',
   'courseCoordinator',

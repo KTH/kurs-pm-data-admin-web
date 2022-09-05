@@ -1,6 +1,7 @@
 import standardMemoContent from './standardContentId'
 
 const defaultVisibilities = {
+  additionalRegulations: 'defaultTrue',
   ethicalApproachSubSection: 'defaultTrue',
   equipment: 'defaultTrue',
   examinationSubSection: false,

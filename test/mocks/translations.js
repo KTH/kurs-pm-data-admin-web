@@ -49,6 +49,7 @@ const translations = {
       syllabus: 'Syllabus',
     },
     memoTitlesByMemoLang: {
+      additionalRegulations: 'Additional regulations',
       commentAboutMadeChanges: 'Made changes',
       communicationDuringCourse: 'Communication during course',
       courseContent: 'Course contents',
@@ -107,6 +108,7 @@ const translations = {
       'Ethical approach',
       'Created by user First header for section extraHeaders3',
       'Created by user Second header for section extraHeaders3',
+      'Additional regulations',
       'Changes of the course before this course offering',
       'Created by user First header for section extraHeaders4',
       'Created by user Second header for section extraHeaders4',

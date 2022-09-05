@@ -1110,7 +1110,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-    expect(allH3Headers.length).toBe(7)
+    expect(allH3Headers.length).toBe(8)
     const expectedh3ds = introductionHeaders.sv
       .concat(informStudentsHeaders.sv)
       .concat(moreHelpHeaders.sv)
@@ -1144,9 +1144,10 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
 
   test('tab: extra (draft of published). renders all buttons', async () => {
     const allButtons = getAllByRole('button')
-    expect(allButtons.length).toBe(13)
+    expect(allButtons.length).toBe(14)
     const expectedAriaLabels = [
       'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
+      'Information om Additional regulations',
       'Information om Changes of the course before this course offering',
       'Redigera Ändringar inför denna kursomgång',
       'Information om Created by user First header for section extraHeaders4',
@@ -1168,8 +1169,9 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
 
   test('tab: extra (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('extra')
-    expect(headers.length).toBe(1)
+    expect(headers.length).toBe(2)
     headers.map(headerId => {
+      console.log('headerId', headerId)
       const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
       expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
     })
@@ -1184,7 +1186,11 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). renders <SectionForNonEditable>, there are one standard header which are mandatory for some courses and non-editable', async () => {
     const contentType = 'mandatoryForSome'
     const headers = getSectionHeadersByType(contentType, 'extra')
-    expect(headers.length).toBe(0)
+    expect(headers.length).toBe(1)
+    headers.map(contentId => {
+      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
+    })
   })
 
   test('tab: extra (draft of published). renders <StandardEditorPerTitle>, no fields which are mandatory and can be edited', async () => {
@@ -1294,7 +1300,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   })
 
   test('tab: extra (draft of published). render correct number of text about data origin and source info ', () => {
-    expect(screen.queryByText('från kursplan')).not.toBeInTheDocument()
+    expect(screen.getByText('från kursplan')).toBeInTheDocument()
     expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
     expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
   })
@@ -1302,7 +1308,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(screen.queryByText('Inkluderas alltid')).not.toBeInTheDocument()
     expect(getAllByText('Inkludera').length).toBe(3)
-    expect(screen.queryByText(/Inkluderas för vissa kurser/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/Inkluderas för vissa kurser/i)).toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
 })

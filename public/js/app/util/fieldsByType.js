@@ -14,6 +14,12 @@
  */
 
 const context = {
+  additionalRegulations: {
+    type: 'mandatoryForSome',
+    isEditable: false,
+    isRequired: true,
+    source: '(s)',
+  },
   courseContent: {
     type: 'mandatory',
     isEditable: false,
@@ -178,7 +184,7 @@ const sections = [
   {
     id: 'extra',
     title: 'Ytterligare Information',
-    content: ['infoForReregisteredStudents'],
+    content: ['additionalRegulations', 'infoForReregisteredStudents'],
     extraHeaderTitle: 'extraHeaders4',
   },
   {
