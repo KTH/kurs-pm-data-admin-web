@@ -429,9 +429,9 @@ module.exports = {
       <p>Uncheck "Include heading" if there is no reason to inform about specific preparations on this course.</p>`,
     },
     prerequisites: {
-      body: `<p><b>Recommended prerequisites</b> describe what the teacher expects the student to know before the start of the course.</p>
-      <p><b>The information helps the student</b> to understand what knowledge that is important to take this course. Well defined "Recommended prerequisites" makes it easy for the student to rehears the right theories, models etc. in time for the start of this course offering.</p>
-      <p><b>Edit the contents</b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. The information is administered by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>.</p>`,
+      body: `<p><b>Recommended prerequisites</b> describes what the teacher expects the student to know before the start of the course.</p>
+      <p><b>The information helps the students</b> tto understand what knowledge is important to be updated on when the course starts.</p>
+      <p><b>The contents is edited </b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. Both links open in a new tab.</p>`,
     },
     reportingResults: {
       body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering is registered and reported. 
