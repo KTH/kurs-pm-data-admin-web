@@ -288,13 +288,9 @@ module.exports = {
       <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`,
     },
     learningActivities: {
-      body: `<p><b>Learning activities</b> describes the types of planned activities on the course and what is important to know about each learning activity. 
-      For example, learning activities defines what a seminar or a laboration is on this particular course.</p>
-      <p><b>The information helps the student</b> to understand the activities and to do the necessary preparations prior to the activity. 
-      Each activity type may have different meanings on different courses. Well described learning activities sets the right expectations on each type of activity.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about learning activities and check "Include" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Learning activities</b> describe the different types of activities on the course, and what the student needs to know about each type of activity. Learning activities define what a seminar, a lesson, or a laboratory is on this particular course.</p>
+      <p><b>The information helps the student</b> to do the necessary preparations. Each activity type may have different meanings in different courses.</p>
+      <p><b>Edit the contents</b> bby clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the planned types of learning activities on the course in the section "Learning activities". 
       Use an established term for each type and repeat the term throughout the course memo. 
       Describe what the learning activity means for this particular course and what is important for the student to know about it. 
