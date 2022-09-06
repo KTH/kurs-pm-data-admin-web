@@ -103,9 +103,18 @@ module.exports = {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
       expireTime: getEnv('KOPPS_API_CACHE_EXPIRE_TIME', 60 * 60), // 60 minuteS
     },
-    ugRedis: {
-      redis: unpackRedisConfig('UG_REDIS_URI', devRedis),
-    },
+  },
+
+  // UG API auth properties
+  ugAuth: {
+    authTokenURL: getEnv('UG_REST_AUTH_API_TOKEN_URI', null),
+    authClientId: getEnv('UG_REST_AUTH_CLIENT_ID', null),
+    authClientSecret: getEnv('UG_REST_AUTH_CLIENT_SECRET', null),
+  },
+  // ug redis api base url
+  ugRestApiURL: {
+    url: getEnv('UG_REST_API_URI', null),
+    key: getEnv('UG_REST_API_SUBSCRIPTION_KEY', null),
   },
 
   // Session
