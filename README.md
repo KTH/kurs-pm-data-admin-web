@@ -111,8 +111,8 @@ Add a file `launch.json` to `.vscode` directory :
       "type": "node",
       "request": "launch",
       "name": "Debug kurs-pm-data-admin-web",
-      "program": "${workspaceFolder}\\app.js",
-      "envFile": "${workspaceFolder}\\.env",
+      "program": "${workspaceFolder}/app.js",
+      "envFile": "${workspaceFolder}/.env",
       "env": {
         "NODE_ENV": "development"
       }
