@@ -412,11 +412,8 @@ module.exports = {
     },
     preparations: {
       body: `<p><b>Särskilda förberedelser</b> beskriver vad som är särskilt viktigt för studenten att veta och göra inför kursomgångens start.</p>
-      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande, t.ex. genom att köpa kurslitteratur i tid, 
-      repetera kunskap från "Särskild behörighet", repetera särskilt viktiga delar av "Rekommenderade förkunskaper", installera programvara och liknande.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
-      Ange information om "Särskilda förberedelser" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
       help: `<p>Under rubriken "Särskilda förberedelser" kan du understryka vad som är särskilt viktigt eller fördelaktigt för studenten att förbereda sig på. Här kan du beskriva vad som är viktigt för studenten att veta och göra inför kursomgångens start. 
       Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna att beställa viss kurslitteratur i tid eller installera programvara m.m.</p>
       <p>Förberedelser i allmänhet ska beskrivas under "Läraktiviteter" om det gäller generella förberedelser inför kursomgångens olika aktivitetstyper eller under "Detaljplanering" om det gäller specifika förberedelser och läsanvisningar inför varje aktivitet i kursomgången. 
