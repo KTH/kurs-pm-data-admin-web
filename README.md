@@ -209,8 +209,13 @@ OIDC_CLIENT_SECRET=<FROM ADFS>
 OIDC_TOKEN_SECRET=<Random string>
 SESSION_SECRET=[generate session secret]
 SESSION_KEY=kurs-pm-data-admin-web.pid
-UG_REDIS_URI=team-studam-ref-redis-193.redis.cache.windows.net:[port],password=[password],ssl=True,abortConnect=False
 APPINSIGHTS_INSTRUMENTATIONKEY=[Azure, Application insights, Instrumentation Key, can be found in Overview]
+/* Connection Properties of UG Rest Api to fetch names of course staff */
+UG_REST_AUTH_API_TOKEN_URI=https://<LOGIN_HOST>/adfs/oauth2/token
+UG_REST_AUTH_CLIENT_ID=<FROM AZURE KEYVAULT>
+UG_REST_AUTH_CLIENT_SECRET=<FROM AZURE KEYVAULT>
+UG_REST_API_URI=https://<UG_URL>
+UG_REST_API_SUBSCRIPTION_KEY=<FROM AZURE INTEGRAL OR KEYVAULT>
 ```
 
 ## Editor TinyMce
