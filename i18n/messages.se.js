@@ -184,16 +184,9 @@ module.exports = {
       <p>Om det inte finns anledning att informera om etiska riktlinjer som är specifik för eller extra relevant i denna  kursomgång låter du den andra redigerbara sektionen vara tom.</p>`,
     },
     equipment: {
-      body: `<p><b>Utrustning</b> beskriver vilken utrustning som normalt behövs för att kunna följa kursomgången och som inte tillhandahålls av KTH. 
-      Skrivdon och litteratur räknas inte till utrustning.</p>
-      <p><b>Informationen hjälper studenten</b> att införskaffa rätt utrustning inför kursomgångens start. 
-      Därför bör uppgifterna finnas tillgängliga minst 8 veckor före kursstart.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
-      Ange information om "Utrustning" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Om det finns generell information om utrustning på kursen i Kopps kommer den informationen att hämtas automatiskt till detta kurs-PM. 
-      Du kan ändra informationen för detta kurs-PM, men det kommer inte att automatiskt överföras till Kopps eller till något annat kurs-PM. 
-      Generell information om "Utrustning" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. 
-      Båda länkarna öppnas i ny flik. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången. Skrivdon och litteratur räknas inte till utrustning.</p>
+      <p><b>Informationen hjälper studenten</b> att införskaffa rätt utrustning inför kursomgångens start.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Om det finns kursgemensamma uppgifter om utrustning i Kopps kommer den informationen att hämtas automatiskt till ditt kurs-PM. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
       help: `<p>Under rubriken "Utrustning" beskriver du vilken utrustning som studenten behöver för att genomföra kursen, men som inte tillhandahålls av KTH. 
       Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om utrustning i Kopps. 
       Du kan välja att behålla den hämtade informationen eller beskriva utrustning som är specifik för denna kursomgång. 

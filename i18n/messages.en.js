@@ -192,16 +192,9 @@ module.exports = {
       <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`,
     },
     equipment: {
-      body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. 
-      Pencils and other writing materials is not treated as equipment.</p>
-      <p><b>The information helps the student</b> to obtain the necessary equipment before the start of the course offering. 
-      Information about euipment should be available at least eight weeks before start of the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about "Equipment" and check "Include section" to make the information visible on the published course memo. 
-      Any general information about equipment on this course in Kopps is automatically fetched to this course memo. You can edit that information, but it will only be changed for this particular course offering and course memo. 
-      It will not be automatically transferred to Kopps or any other course memo. 
-      General information about "Equipment" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. Literature and writing materials not seen as equipment.</p>
+      <p><b>The information helps the student</b> to obtain the necessary equipment before the start of the course offering.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about equipment in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the equipment that is necessary to take the course, but is not provided by KTH in the "Equipment" section. 
       Pencils and other writing materials is not treated as equipment.</p>
       <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
