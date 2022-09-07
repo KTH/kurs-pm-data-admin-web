@@ -452,12 +452,9 @@ module.exports = {
       help: `<p>Under Detaljplanering beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Använd med fördel en tabell, och beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse.</p>`,
     },
     software: {
-      body: `<p><b>Programvara</b> beskriver vilken programvara och version av programvaran som ska användas under kursomgången. 
-      Om nödvändigt ska Programvara även innefatta instruktioner alternativt referenser och webblänkar till instruktioner om var programvara hittas och hur den installeras.</p>
+      body: `<p><b>Programvara</b> beskriver vilken programvara och version av programvaran som ska användas under kursomgången.</p>
       <p><b>Informationen hjälper studenten</b> att få tillgång till rätt programvara för att kunna genomföra kursomgången på ett effektivt sätt.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
-      Ange information om "Programvara" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
       help: `<p>Under rubriken "Programvara" skriver du vilken programvara med version av programvara som eventuellt används under kursomgången. 
       Ange även referenser eller webblänkar till var programvaran finns att hämta, instruktioner och installationsanvisningar om sådana finns på annan plats. 
       Ange annars instruktioner och installationsanvisningar under denna rubrik.</p>
