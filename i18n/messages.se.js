@@ -203,10 +203,9 @@ module.exports = {
     examination: {
       body: `<p><b>Examination</b> beskriver hur kursen examineras och detaljer om de examinerande momenten.</p>
       <p><b>Informationen hjälper studenten</b> att planera kursomgångens genomförande och att förbereda sig inför kursomgångens olika examinationsmoment.</p>
-      <p><b>Innehållet redigeras</b> dels i kursplanen i Kopps (den fasta texten överst) och dels i detta kurs-PM genom att inkludera ett ytterligare avsnitt (se Redigera examinationsdetaljer nedan). Normalt sett kan den fasta texten inte ändras. Det finns tydliga riktlinjer för hur examination kan ändras eftersom informationen är en del av kursplanen. 
-      Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
-      <p><b>Redigera examinationsdetaljer</b> genom att klicka på knappen "Redigera”. Ange information om examinationens moduler i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      <p><b>Innehållet redigeras</b> dels i kursplanen i Kopps (den fasta texten överst) och dels i detta kurs-PM, genom att lägga till ett ytterligare stycke om examination.</p>
+      <p>Det finns tydliga riktlinjer för hur Examination kan ändras eftersom informationen är en del av kursplanen. Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
+      <p>Lägg till ett ytterligare stycke om examination genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
     },
     examinationSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
