@@ -86,7 +86,7 @@ async function getAllGroupsAlongWithMembersRelatedToCourse(
   log.info('Successfully fetched groups along with members', {
     courseCode,
     semester,
-    requestStartTime: getCurrentDateTime(),
+    requestEndTime: getCurrentDateTime(),
   })
   return groupDetails
 }
