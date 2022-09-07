@@ -46,9 +46,18 @@ const createPersonHtml = personList => {
  * @param teachers Teachers group name
  * @param examiners Examiners group name
  * @param responsibles Responsibles group name
+ * @param courseCode Course code is needed for logs
+ * @param semester Semester is needed for logs
  * @returns Will return groups along with members from ug rest api.
  */
-async function getAllGroupsAlongWithMembersRelatedToCourse(assistants, teachers, examiners, responsibles) {
+async function getAllGroupsAlongWithMembersRelatedToCourse(
+  assistants,
+  teachers,
+  examiners,
+  responsibles,
+  courseCode,
+  semester
+) {
   const { url, key } = serverConfig.ugRestApiURL
   const { authTokenURL, authClientId, authClientSecret } = serverConfig.ugAuth
   const ugConnectionProperties = {
@@ -72,19 +81,25 @@ async function getAllGroupsAlongWithMembersRelatedToCourse(assistants, teachers,
   if (responsibles.length) {
     filterData.push(responsibles[0])
   }
-  log.info('Started fetching data of groups along with members from UG Rest Api at ', getCurrentDateTime())
-  log.info('Fetching groups along with members')
-  log.info('Using Filter Query Data', { filterData })
-  log.info('Using Filter Operator:', 'in')
+  log.info('Going to fetch groups along with members', { courseCode, semester, requestStartTime: getCurrentDateTime() })
   const groupDetails = await ugRestApiHelper.getUGGroups('name', 'in', filterData, true)
-  log.info('Successfully fetched data of groups along with members from UG Rest Api at ', getCurrentDateTime())
-  log.info('Successfully fetched groups data along with members')
-  log.info('Filter Query Data Used', { filterData })
-  log.info('Filter Operator Used :', 'in')
+  log.info('Successfully fetched groups along with members', {
+    courseCode,
+    semester,
+    requestStartTime: getCurrentDateTime(),
+  })
   return groupDetails
 }
 
-const generateEmployeeObjectFromGroups = (groupsAlongWithMembers, assistants, teachers, examiners, responsibles) => {
+const generateEmployeeObjectFromGroups = (
+  groupsAlongWithMembers,
+  assistants,
+  teachers,
+  examiners,
+  responsibles,
+  courseCode,
+  semester
+) => {
   // now need to filter groups according to above mentioned groups
   const employee = {
     teacher: '',
@@ -97,6 +112,14 @@ const generateEmployeeObjectFromGroups = (groupsAlongWithMembers, assistants, te
     if (assistantGroup) {
       const flatArrWithHtmlStr = createPersonHtml(assistantGroup.members)
       employee.teacherAssistants = flatArrWithHtmlStr
+      log.info(
+        ' Ug Rest Api, assistants: ',
+        assistantGroup.members.length,
+        ' for course ',
+        courseCode,
+        ' for semester ',
+        semester
+      )
     }
   }
   if (teachers.length) {
@@ -104,6 +127,14 @@ const generateEmployeeObjectFromGroups = (groupsAlongWithMembers, assistants, te
     if (teachersGroup) {
       const flatArrWithHtmlStr = createPersonHtml(teachersGroup.members)
       employee.teacher = flatArrWithHtmlStr
+      log.info(
+        ' Ug Rest Api fetched correctly,  number of teachers: ',
+        teachersGroup.members.length,
+        ' for course ',
+        courseCode,
+        ' for semester ',
+        semester
+      )
     }
   }
   if (examiners.length) {
@@ -111,6 +142,14 @@ const generateEmployeeObjectFromGroups = (groupsAlongWithMembers, assistants, te
     if (examinersGroup) {
       const flatArrWithHtmlStr = createPersonHtml(examinersGroup.members)
       employee.examiner = flatArrWithHtmlStr
+      log.info(
+        ' Ug Rest Api, examiners: ',
+        examinersGroup.members.length,
+        ' for course ',
+        courseCode,
+        ' for semester ',
+        semester
+      )
     }
   }
   if (responsibles.length) {
@@ -118,6 +157,14 @@ const generateEmployeeObjectFromGroups = (groupsAlongWithMembers, assistants, te
     if (responsiblesGroup) {
       const flatArrWithHtmlStr = createPersonHtml(responsiblesGroup.members)
       employee.courseCoordinator = flatArrWithHtmlStr
+      log.info(
+        ' Ug Rest Api, responsibles: ',
+        responsiblesGroup.members.length,
+        ' for course ',
+        courseCode,
+        ' for semester ',
+        semester
+      )
     }
   }
   return employee
@@ -140,9 +187,19 @@ async function _getCourseEmployees(apiMemoData) {
       assistants,
       teachers,
       examiners,
-      responsibles
+      responsibles,
+      courseCode,
+      semester
     )
-    return generateEmployeeObjectFromGroups(groupsAlongWithMembers, assistants, teachers, examiners, responsibles)
+    return generateEmployeeObjectFromGroups(
+      groupsAlongWithMembers,
+      assistants,
+      teachers,
+      examiners,
+      responsibles,
+      courseCode,
+      semester
+    )
   } catch (err) {
     log.info('Exception from UG Rest API - multi', { error: err })
     return err
