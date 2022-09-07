@@ -345,11 +345,8 @@ module.exports = {
     },
     permanentDisability: {
       body: `<p><b>Stöd för studenter med funktionsnedsättning</b> beskriver vilka rättigheter och möjligheter som finns för studenter med funktionsnedsättning. Informationen beskriver vilket stöd de kan väntas få under kursomgången och hur de går tillväga för att få stödet.</p>
-      <p><b>Informationen hjälper studenten</b> med funktionsnedsättning att förstå hur de kan få rätt stöd för att genomföra kursomgången. 
-      Med tydlig information om stöd kan studenter med funktionsnedsättning känna sig trygg och ha förtroende för att den kommer kunna genomföra kursomgången efter sina förutsättningar.</p>
-      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehåll nedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
-      <p><b>Redigera kursspecifikt innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Stöd för studenter med funktionsnedsättning" i inmatningsfältetoch klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      <p><b>Informationen hjälper studenten</b> med funktionsnedsättning att förstå hur de kan få rätt stöd för att genomföra kursomgången.</p>
+      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt. Den övre texten under rubriken är fast och tillhör mallen för kurs-PM. Klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p><b></b></p>
