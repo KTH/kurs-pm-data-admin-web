@@ -16,6 +16,12 @@ const groupNames = (courseCode, semester, ladokRoundIds) => ({
   ), // edu.courses.SF.SF1624.20191.1.assistants
 })
 
+const _removeDublicates = personListWithDublicates =>
+  personListWithDublicates
+    .map(person => JSON.stringify(person))
+    .filter((person, index, self) => self.indexOf(person) === index)
+    .map(personStr => JSON.parse(personStr))
+
 const getCurrentDateTime = () => {
   const today = new Date()
   const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
@@ -110,7 +116,8 @@ const generateEmployeeObjectFromGroups = (
   if (assistants.length) {
     const assistantGroup = groupsAlongWithMembers.find(x => x.name === assistants[0])
     if (assistantGroup) {
-      const flatArrWithHtmlStr = createPersonHtml(assistantGroup.members)
+      const uniqueMembers = _removeDublicates(assistantGroup.members)
+      const flatArrWithHtmlStr = createPersonHtml(uniqueMembers)
       employee.teacherAssistants = flatArrWithHtmlStr
       log.info(
         ' Ug Rest Api, assistants: ',
@@ -125,7 +132,8 @@ const generateEmployeeObjectFromGroups = (
   if (teachers.length) {
     const teachersGroup = groupsAlongWithMembers.find(x => x.name === teachers[0])
     if (teachersGroup) {
-      const flatArrWithHtmlStr = createPersonHtml(teachersGroup.members)
+      const uniqueMembers = _removeDublicates(teachersGroup.members)
+      const flatArrWithHtmlStr = createPersonHtml(uniqueMembers)
       employee.teacher = flatArrWithHtmlStr
       log.info(
         ' Ug Rest Api fetched correctly,  number of teachers: ',
@@ -140,7 +148,8 @@ const generateEmployeeObjectFromGroups = (
   if (examiners.length) {
     const examinersGroup = groupsAlongWithMembers.find(x => x.name === examiners[0])
     if (examinersGroup) {
-      const flatArrWithHtmlStr = createPersonHtml(examinersGroup.members)
+      const uniqueMembers = _removeDublicates(examinersGroup.members)
+      const flatArrWithHtmlStr = createPersonHtml(uniqueMembers)
       employee.examiner = flatArrWithHtmlStr
       log.info(
         ' Ug Rest Api, examiners: ',
@@ -155,7 +164,8 @@ const generateEmployeeObjectFromGroups = (
   if (responsibles.length) {
     const responsiblesGroup = groupsAlongWithMembers.find(x => x.name === responsibles[0])
     if (responsiblesGroup) {
-      const flatArrWithHtmlStr = createPersonHtml(responsiblesGroup.members)
+      const uniqueMembers = _removeDublicates(responsiblesGroup.members)
+      const flatArrWithHtmlStr = createPersonHtml(uniqueMembers)
       employee.courseCoordinator = flatArrWithHtmlStr
       log.info(
         ' Ug Rest Api, responsibles: ',
