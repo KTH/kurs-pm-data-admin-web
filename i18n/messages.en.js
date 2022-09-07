@@ -338,13 +338,9 @@ module.exports = {
       <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
     },
     permanentDisability: {
-      body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. 
-      The information describes the rights and the possibilities for students with different types of needs and how they can apply for compensatory support.</p>
-      <p><b>The information helps the student</b> with disabilities to know if he or she is entitled for compensatory support during the studies on this course. With help from this information the students with disabilities will have the confidence to take the course based on their own capabilities. </p>
-      <p><b>The content can be edited by</b> including an additional section (see Edit the course specific contents). The upper text is fixed and is a part of the template for course memo.</p>
-      <p><b>Edit the course specific contents</b> by clicking on the button "Edit". 
-      Enter information about "Support for students with disabilities" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. The information describes what support they can be expected to receive during the course and how they go about getting the support.</p>
+      <p><b>The information helps students with disabilities</b> to understand how they can get the right support to complete the course.</p>
+      <p><b>Edit the contents</b> by including an additional section. The first text under the heading is fixed and is a part of the template for the course memo. Click on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p> </p>
