@@ -442,11 +442,9 @@ module.exports = {
       help: `<p>Describe the planned learning activities and examination in the Detailed plan section. It is preferable to use a table to represent the plan. Describe the order of the activities, their content, and what preparations that is recommended prior to each activity. Preparations are often described as references to literature or web pages, but they could also be practical.</p>`,
     },
     software: {
-      body: `<p><b>Software</b> describes what software and what version of the software that is used on the course. 
-      Software should also include instructions or references and web links to instructions that describes where the software is found and how it is installed.</p>
-      <p><b>The information helps the student</b> to get access to the correct software that is neceasary to complete the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Software" and check "Include heading" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Software</b> describes what software and what version of the software that is used on the course.</p>
+      <p><b>The information helps the student</b> to get access to the correct software that is necessary to complete the course.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the software that is used in the course in the "Software" section. Include references or web links to resources where the software can be downloaded from and where to find installation instructions.</p>
       <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`,
     },
