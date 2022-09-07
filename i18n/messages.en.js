@@ -209,11 +209,10 @@ module.exports = {
     },
     examination: {
       body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course component.</p>
-      <p><b>The information helps the student</b> to plan for taking the course. It also helps the student to prepare for and plan for each of the examination session on this course offering.</p>
-      <p><b>The content can be edited</b> partly in the course syllabus in Kopps (the fixed text at the top) and partly in this course memo, by including an additional section. Normally it is not possible to change the fixed texts of Examination because the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page <a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
-      <p><b>Edit the contents of examination details</b> by clicking on the button "Edit". Enter information about "Examination" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      <p><b>The information helps the student</b> to plan for taking the course. It also helps the student to prepare for and plan for each of the examination sessions on this course offering.</p>
+      <p><b>The content can be edited</b> in the course syllabus in Kopps (the fixed text at the top) and in this course memo, by including an additional section.</p>
+      <p>Changes in Examination are restricted by regulations since the information is part of the legally binding course syllabus. Read more about changing the contents of the course syllabus on the page <a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
+      <p>Include an additional section by clicking on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
     },
     examinationSubSection: {
       body: 'It is important for students because they can plan their studies....',
