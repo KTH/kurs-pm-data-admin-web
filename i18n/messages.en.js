@@ -316,16 +316,8 @@ module.exports = {
     },
     literature: {
       body: `<p><b>Literature</b> describes the compulsory course literature on this course offering.</p>
-      <p><b>The information helps the student</b> to obtain the necessary literature before the start of the course offering. 
-      For students with disablities it is important to know about the compulsory course literature before the course to get it as talking books. 
-      The information should therefore be available at least eight weeks before start of the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about "Literature" and check "Include section" to make the information visible on the published course memo. 
-      Any general information about literature on this course in Kopps is automatically fetched to new course memos. 
-      You can edit that information, but it will only be changed for this particular course offering and course memo. 
-      It will not be automatically transferred to Kopps or any other course memo. 
-      General information about "Literature" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      <p><b>The information helps the student</b> to obtain the necessary literature before the start of the course offering. For students with disabilities, it is important to know about the compulsory course literature before the course start, to get it as talking books.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include". If there is information about literature in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the compulsory course literature on this course in the "Literature" section. 
       If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
       You can choose to keep that information, or you can enter information about course literature that is valid only to this course offering. 
