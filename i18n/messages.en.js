@@ -259,12 +259,9 @@ module.exports = {
 			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
     },
     gradingCriteria: {
-      body: `<p><b>Grading criteria/assessment criteria</b> shall connect the grading scale to levels of achievement of the intended learning outcomes.</p>
-        <p><b>The information helps the student</b> to understand how the grading criteria and assessment criteria relate to the intended learning outcomes. 
-        It helps the student to understand what he or she must do and have the knowledge about to achieve each grade on the course. 
-        Clearly expressed grading criteria and assessment criteria also motivate the student.</p>
-        <p><b>Edit the contents </b> by clicking on the button "Edit". Enter information about "Grading criteria/assessment criteria" and check "Include heading" to make the information visible on the published course memo. 
-        Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Grading criteria/assessment criteria</b> specify the requirements that the student must meet for the different grades and shall be designed based on the course syllabus objectives.</p>
+        <p><b>The information helps the student</b> to understand how the grading criteria and assessment criteria relate to the intended learning outcomes. It helps the student to understand what he or she must do and have the knowledge about to achieve each grade on the course.</p>
+        <p><b>Edit the contents </b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Grading criteria/assessment criteria shall connect the grading scale to levels of achievment of the intended learning outcomes, where a passed grade corresponds to a basic achievemnt of the intended learning outcomes. 
       Grading criteria/assessment criteria for a higher grade may concern the quality of the performance, the difficulty, how parts of the course contents are combined and the level in the Bloom´s taxonomy. 
       The examination shall be clarly connected to the criterias. If there is more than one course component in the course, it must be explicit what intended learning outcome that is examined in what course component. 
