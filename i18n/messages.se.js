@@ -337,16 +337,9 @@ module.exports = {
       <p>Om det inte finns anledning att informera om stöd för studenter med funktionsnedsättning som gäller specifikt denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
     },
     possibilityToAddition: {
-      body: `<p><b>Möjlighet till plussning</b> beskriver om plussning är möjligt på kursomgången, eventuella villkor för plussning och hur plussning går till på kursomgången. 
-      KTH:s skolor ska tillåta studenter att plussa betyg på kurs eller kursmoment så långt det befinns lämpligt.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång, villkoren som gäller och i så fall hur studenten ska gå till väga för att plussa betyget.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. 
-      Ange information om "Möjlighet till plussning" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Om det finns kursgemensamma uppgifter om möjlighet till plussning i Kopps kommer den informationen hämtas automatiskt till nya kurs-PM. 
-      Du kan välja att behålla den informationen i detta kurs-PM eller skriva ny information som endast gäller den kursomgång som detta kurs-PM skrivs för. 
-      Information som skrivs för detta kurs-PM kommer inte att automatiskt överföras till Kopps eller något annan kurs-PM. 
-      Generell information om "Möjlighet till plussning" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      body: `<p><b>Möjlighet till plussning</b> beskriver om plussning är möjligt på kursomgången, eventuella villkor för plussning och hur plussning går till på kursomgången.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Om det finns kursgemensamma uppgifter om Möjlighet till plussning i Kopps kommer den informationen att hämtas automatiskt till ditt kurs-PM. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
       help: `<p>Under rubriken "Möjlighet till plussning" beskriver du om det finns möjlighet till plussning på denna kursomgång och i så fall vilka villkor som gäller för det och hur studenten ansöker om att få plussa.</p>
       <p>Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om möjlighet till plussning i Kopps. Du kan välja att behålla den hämtade informationen eller skriva möjlighet till plussning specifikt för kursomgången som detta kurs-PM gäller för. 
       Du kan då ersätta den hämtade texten med text som anges i inmatningsfältet.</p>
@@ -354,16 +347,9 @@ module.exports = {
       Om du trots det inte vill ha med "Möjlighet till plussning" i detta kurs-PM låter du rubriken vara dold.</p>`,
     },
     possibilityToCompletion: {
-      body: `<p><b>Möjlighet till komplettering</b> beskriver om det finns möjlighet till komplettering på denna kursomgång och om komplettering kan göras endast till betyg E eller till högre betyg. 
-      Alla moment i en kurs som vid examinationen använder en graderad prestations- eller betygsskala ska kunna kompletteras från Fx till godkänt. 
-      För moment där betygen Godkänt/Underkänt (P/F) ges, kan komplettering erbjudas om examinator finner det lämpligt.</p>
+      body: `<p><b>Möjlighet till komplettering</b> beskriver om det finns möjlighet till komplettering på denna kursomgång och om komplettering kan göras endast till betyg E eller till högre betyg.</p>
       <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till komplettering på denna kursomgång och i så fall villkoren för komplettering på denna kursomgång.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Möjlighet till komplettering" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Om det finns kursgemensamma uppgifter om möjlighet till komplettering i Kopps kommer den informationen hämtas automatiskt till nya kurs-PM. 
-      Du kan välja att behålla den informationen i detta kurs-PM eller skriva ny information som endast gäller den kursomgång som detta kurs-PM skrivs för. 
-      Information som skrivs för detta kurs-PM kommer inte att automatiskt överföras till Kopps eller något annan kurs-PM. 
-      Generell information om "Möjlighet till komplettering" på kursen ändras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. 
-      Båda länkarna öppnas i ny flik. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Om det finns kursgemensamma uppgifter om Möjlighet till komplettering i Kopps kommer den informationen att hämtas automatiskt till ditt kurs-PM. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
       help: `<p>Under rubriken "Möjlighet till komplettering" beskriver du om det finns möjlighet till komplettering på denna kursomgång och i så fall vilka villkor som gäller för det. 
       Beskriv också vad som gäller för momenten på kursen. För moment med betygsskala A-F måste möjlighet till komplettering från Fx till godkänt. För moment med betygsskala P/F kan det erbjudas av examinator.</p>
       <p>Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om möjlighet till komplettering i Kopps. 
