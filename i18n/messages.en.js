@@ -330,11 +330,10 @@ module.exports = {
 			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`,
     },
     otherRequirementsForFinalGrade: {
-      body: `<p><b>Other requirements for final grade</b> describes additional requirements for a final grade than written in the "Examination" section for the course, for example attendance requirements.</p>
-      <p><b>The information helps the student,</b> depending on the contents of "Other requirements for final grade", to plan and prepare for their studies.</p>
-      <p><b>Contents can be edited</b> in Kopps. Changes of "Other requirements for final grade" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>
-      <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
+      body: `<p><b>Other requirements for final grade</b> describes additional requirements for a final grade in addition to what is stated under Examination, for example attendance requirements.</p>
+      <p><b>The information helps the student</b> to plan and prepare for their studies.</p>
+      <p><b>Contents can be edited</b> in Kopps. Changes of "Other requirements for final grade" is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>
+      <p><b>If there is no content in the course syllabus</b> the heading will not be visible in your course memo.</p>`,
     },
     permanentDisability: {
       body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. The information describes what support they can be expected to receive during the course and how they go about getting the support.</p>
