@@ -173,12 +173,9 @@ module.exports = {
 	  <p><b>Edit the contents</b> in Kopps. Course coordinator is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     ethicalApproach: {
-      body: `<p><b>Ethical approach</b> describes the KTH ethical values during studies and what is allowed and what is not allowed during this course offering.</p>
-      <p><b>The information helps the student</b> to know what ethical values, rights and obligations to relate to during the studies. 
-      Clearly expressed ethical values increases the student´s trust for the education and helps the student to avoid breaking the regulations.</p>
-      <p><b>The content can be edited by</b> including an additional section (see Edit the course specific contents). The upper text is fixed and is a part of the template for course memo.</p>
-      <p><b>Edit the course specific contents</b> by clicking on the button "Edit". Enter information about "Ethical approach" and check "Include additional section" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Ethical approach</b> describes KTH's ethical values.</p>
+      <p><b>The information helps the student</b> to know what ethical values, rights and obligations to relate to during the studies. Clearly expressed ethical values increases the student´s trust for KTH.</p>
+      <p><b>Edit the contents</b> by including an additional section. The first text under the heading is fixed and is a part of the template for the course memo. Click on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
     },
     ethicalApproachSubSection: {
       body: 'It is important for students because they can plan their studies....',

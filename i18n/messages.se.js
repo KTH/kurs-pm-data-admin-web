@@ -163,12 +163,9 @@ module.exports = {
 	  <p><b>Innehållet redigeras</b> i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. Kursansvarig ändras av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik.</p>`,
     },
     ethicalApproach: {
-      body: `<p><b>Etiskt förhållningssätt</b> beskriver KTH:s etiska värdegrund under studier samt instruktioner om vad som är tillåtet och inte tillåtet under kursomgångens genomförande.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå vilka etiska värderingar som gäller på kursen, vilka skyldigheter den har och vilket reglemente den har att rätta sig efter under kursomgångens genomförande. 
-      Tydligt beskrivna etiska riktlinjer ökar studentens förtroende för KTH:s utbildning och hjälper den att undvika brott mot kursens värdegrund och reglemente.</p>
-      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt (se Redigera kursspecifikt innehåll nedan). Den övre texten är fast och tillhör mallen för kurs-PM (inkluderas för alla kurser).</p>
-      <p><b>Redigera kursspecifikt innehåll</b> genom att klicka på knappen "Redigera”. Ange information om etiskt förhållningssätt i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      body: `<p><b>Etiskt förhållningssätt</b> beskriver KTH:s etiska värdegrund.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå vilka etiska värderingar som gäller på kursen, vilka skyldigheter den har och vilket reglemente den har att rätta sig efter under kursomgångens genomförande. Tydligt beskrivna etiska riktlinjer ökar studentens förtroende för KTH.</p>
+      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt. Den övre texten under rubriken är fast och tillhör mallen för kurs-PM. Klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
     },
     ethicalApproachSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
