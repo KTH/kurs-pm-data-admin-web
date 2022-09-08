@@ -185,7 +185,7 @@ module.exports = {
       <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`,
     },
     equipment: {
-      body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. Literature and writing materials not seen as equipment.</p>
+      body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. Literature and writing materials are not seen as equipment.</p>
       <p><b>The information helps the student</b> to obtain the necessary equipment before the start of the course offering.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about equipment in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the equipment that is necessary to take the course, but is not provided by KTH in the "Equipment" section. 
