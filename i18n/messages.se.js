@@ -68,7 +68,7 @@ module.exports = {
     errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: 'Inkluderas alltid',
-    mandatoryForSome: 'Inkluderas för vissa kurser',
+    mandatoryForSome: 'Inkluderas när innehåll finns i kursplan',
     includeInMemo: {
       section: 'Inkludera',
       subSection: 'Inkludera ytterligare avsnitt',

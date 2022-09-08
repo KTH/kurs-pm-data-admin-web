@@ -6,7 +6,7 @@ import { FaRegEyeSlash } from 'react-icons/fa'
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
-import { sections, isRequired } from '../util/fieldsByType'
+import { isRequired } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 
@@ -29,7 +29,7 @@ const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
 }
 
 function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard }) {
-  const { memoData } = useStore()
+  const { sections, memoData } = useStore()
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 
   const activeSection = sections.find(({ id }) => id === activeTab)

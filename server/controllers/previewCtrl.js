@@ -52,7 +52,7 @@ async function renderMemoPreviewPage(req, res, next) {
     })
     applicationStore.memoDatas = allApiMemoData
     applicationStore.memoData = apiMemoData
-    const { semester, memoCommonLangAbbr } = apiMemoData
+    const { ladokRoundIds, semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
     applicationStore.setMemoBasicInfo({
       courseCode,
@@ -60,21 +60,23 @@ async function renderMemoPreviewPage(req, res, next) {
       semester: '',
       memoLangAbbr,
     })
-    applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
+    applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, ladokRoundIds, memoLangAbbr)
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     const { recruitmentText } = applicationStore.koppsFreshData
     applicationStore.sellingText = resolveSellingText(sellingText, recruitmentText, memoLangAbbr)
     applicationStore.imageFromAdmin = imageInfo
 
+    await applicationStore.setSectionsStructure()
+
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
     const { uri: proxyPrefix } = server.proxyPrefixPath
-    const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
+    const view = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
     res.render('preview/index', {
       compressedStoreCode,
-      html,
+      html: view,
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name,
         url: `${server.hostUrl}${

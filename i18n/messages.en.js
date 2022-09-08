@@ -75,7 +75,7 @@ module.exports = {
     errorEmptyHeading: 'You need to name the header',
     mandatory: 'Always included',
     mandatoryAndEditable: 'Always included',
-    mandatoryForSome: 'Included for some courses',
+    mandatoryForSome: 'Included when there is content in the course syllabus',
     includeInMemo: {
       section: 'Include',
       subSection: 'Include additional section',
