@@ -23,7 +23,7 @@ import Section from '../components/preview/Section'
 import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
 import i18n from '../../../../i18n'
-import { context, sections } from '../util/fieldsByType'
+import { context } from '../util/fieldsByType'
 import { concatMemoName, seasonStr } from '../util/helpers'
 import {
   FIRST_VERSION,
@@ -39,8 +39,7 @@ const PROGRESS = 3
 // Logic copied from kursinfo-web
 export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
   // TODO Cleanup translations
-  const englishTranslations = i18n.messages[0]
-  const swedishTranslations = i18n.messages[1]
+  const [englishTranslations, swedishTranslations] = i18n.messages
 
   let courseImage = ''
   // If course administrator has set own picture, use that
@@ -64,7 +63,7 @@ export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', lang
   return courseImage
 }
 
-const renderAllSections = ({ memoData }) => {
+const renderAllSections = ({ sections, memoData }) => {
   // TODO Use resolved labels instead
   const memoLanguageIndex = memoData.memoCommonLangAbbr === 'en' ? 0 : 1
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]

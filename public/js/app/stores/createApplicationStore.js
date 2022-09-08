@@ -6,7 +6,7 @@
 import { observable, action } from 'mobx'
 import axios from 'axios'
 import { SERVICE_URL } from '../util/constants'
-import { sections } from '../util/fieldsByType'
+import { sections as defaultSections, getContractEducationStructure } from '../util/fieldsByType'
 
 function createApplicationStore() {
   const store = {
@@ -14,10 +14,12 @@ function createApplicationStore() {
      * @property {string} courseCode
      * @property {string} dirtyEditor
      * @property {string} semester
+     * @property {object} sections
      */
     courseCode: null,
     dirtyEditor: observable.box(''),
     semester: null,
+    sections: defaultSections, // will change it it's UPP - contract education
     /**
      * @property {object} koppsFreshData
      */
@@ -62,7 +64,7 @@ function createApplicationStore() {
      * @property {object} extraContentState
      */
     extraContentState: observable.box(
-      Object.fromEntries(sections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
+      Object.fromEntries(defaultSections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
     ),
     /**
      * @property {string} sellingText
@@ -94,6 +96,7 @@ function createApplicationStore() {
     setMemoByContentId: action(setMemoByContentId),
     setMemoExtraContent: action(setMemoExtraContent),
     setNewEmptyExtraContent: action(setNewEmptyExtraContent),
+    setSectionsStructure: action(setSectionsStructure),
     setVisibilityOfStandard: action(setVisibilityOfStandard),
     _filterOutUsedRounds,
     getThisHost,
@@ -102,6 +105,7 @@ function createApplicationStore() {
     updateDraft: action(updateDraft),
     setBrowserConfig: action(setBrowserConfig),
     doSetLanguageIndex: action(doSetLanguageIndex),
+    updateContractEducationSections: action(updateContractEducationSections),
   }
 
   return store
@@ -131,6 +135,36 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
   this.dirtyEditor = newSection.uKey
 
   this.memoData[extraHeaderTitle] = [...this.memoData[extraHeaderTitle], newSection]
+}
+
+function updateContractEducationSections() {
+  const updatedSections = getContractEducationStructure()
+  if (this.memoData.visibleInMemo) this.memoData.visibleInMemo.additionalRegulations = false
+  this.memoData.additionalRegulations = ''
+  this.memoData.permanentDisability = ''
+  this.memoData.permanentDisabilitySubSection = ''
+  return updatedSections
+}
+
+function checkIfContractEducation(roundsTypes = []) {
+  if (roundsTypes.length === 0) return false
+
+  let isContractEducation = true
+  roundsTypes.forEach(({ code }) => {
+    if (code !== 'UPP') isContractEducation = false
+  })
+  return isContractEducation
+}
+
+function setSectionsStructure() {
+  if (Object.keys(this.memoData).length === 0) {
+    // eslint-disable-next-line no-console
+    console.error('Missing memoData, check if you run this function after memoData were assigned')
+  }
+  const { roundsTypes = [] } = this.memoData
+  const isContractEducation = checkIfContractEducation(roundsTypes)
+
+  this.sections = isContractEducation ? this.updateContractEducationSections() : defaultSections
 }
 
 function setVisibilityOfStandard(contentId, value) {
@@ -186,7 +220,7 @@ function checkExtraTitlesForSectionId(contentId) {
 }
 
 function checkAllSectionsHasTitles() {
-  const filterEmpty = sections.filter(
+  const filterEmpty = this.sections.filter(
     ({ extraHeaderTitle }) => this.checkExtraTitlesForSectionId(extraHeaderTitle) === false
   )
   const canBeFinished = !(filterEmpty.length > 0)

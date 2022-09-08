@@ -31,7 +31,38 @@ const courseML1616 = {
   },
   roundInfos: [
     {
+      round: {
+        ladokRoundId: 1,
+        applicationCodes: [
+          {
+            ladokRoundId: '1',
+            code: 'ORD',
+            name: 'Programutbildning',
+            term: '20222',
+          },
+        ],
+        startTerm: {
+          term: '20222',
+        },
+      },
       schemaUrl: 'https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/',
+    },
+    {
+      round: {
+        ladokRoundId: 2,
+        applicationCodes: [
+          {
+            ladokRoundId: '2',
+            code: 'UPP',
+            name: 'Uppdragsutbildning (ej HST-HPR)',
+            term: '20222',
+          },
+        ],
+        startTerm: {
+          term: '20222',
+        },
+      },
+      schemaUrl: 'https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/',
     },
   ],
   mainSubjects: ['Teknik'],
@@ -190,7 +221,7 @@ const courseML1616 = {
   },
 }
 test('parse an older syllabus 20192 information for 20212 without breaking if TENAs exam credits are missing', () => {
-  const foundSyllabus = parseSyllabus(courseML1616, '20212')
+  const foundSyllabus = parseSyllabus(courseML1616, '20212', ['1', '2'])
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20192)
   expect(foundSyllabus).toMatchInlineSnapshot(`
     {
@@ -210,13 +241,15 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
+      "roundsTypes": [],
       "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
+        "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/",
       ],
       "syllabusValid": {
         "validFromTerm": 20192,
@@ -231,7 +264,7 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
 //20222
 
 test('parse the latest syllabus 20222 for 20222', () => {
-  const foundSyllabus = parseSyllabus(courseML1616, '20222', 'sv')
+  const foundSyllabus = parseSyllabus(courseML1616, '20222', ['1', '2'], 'sv')
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20222)
   expect(foundSyllabus.credits).toBe(7.5)
 
@@ -253,13 +286,28 @@ test('parse the latest syllabus 20222 for 20222', () => {
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
+      "roundsTypes": [
+        {
+          "code": "",
+          "ladokRoundId": 1,
+          "name": "",
+          "semester": "20222",
+        },
+        {
+          "code": "",
+          "ladokRoundId": 2,
+          "name": "",
+          "semester": "20222",
+        },
+      ],
       "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
+        "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/",
       ],
       "syllabusValid": {
         "validFromTerm": 20222,
@@ -272,7 +320,7 @@ test('parse the latest syllabus 20222 for 20222', () => {
 })
 
 test('parse the latest syllabus 20222 for 20231', () => {
-  const foundSyllabus = parseSyllabus(courseML1616, '20222', 'sv')
+  const foundSyllabus = parseSyllabus(courseML1616, '20222', ['1'], 'sv')
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20222)
   expect(foundSyllabus).toMatchInlineSnapshot(`
     {
@@ -292,13 +340,22 @@ test('parse the latest syllabus 20222 for 20231', () => {
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
+      "roundsTypes": [
+        {
+          "code": "",
+          "ladokRoundId": 1,
+          "name": "",
+          "semester": "20222",
+        },
+      ],
       "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
+        "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/",
       ],
       "syllabusValid": {
         "validFromTerm": 20222,

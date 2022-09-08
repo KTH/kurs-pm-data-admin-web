@@ -24,7 +24,7 @@ import StandardSectionOrEditor from '../components/StandardSectionOrEditor'
 import TabNav from '../components/TabNav'
 import TabContent from '../components/TabContent'
 import ProgressTitle from '../components/ProgressTitle'
-import { context, sections, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
+import { context, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
 
 const PROGRESS = 2
@@ -47,6 +47,7 @@ function MemoContainer(props) {
     memoEndPoint,
     memoLangAbbr,
     rebuilDraftFromPublishedVer,
+    sections,
     semester,
   } = store
   const { initialActiveTab } = props // used for test
@@ -148,7 +149,7 @@ function MemoContainer(props) {
   }
 
   const onSave = async (editorContent, alertTranslationId) => {
-    const { syllabusValid, memoCommonLangAbbr, credits, creditUnitAbbr, title } = memoData
+    const { syllabusValid, memoCommonLangAbbr, credits, creditUnitAbbr, title, roundTypes = [] } = memoData
     const { validFromTerm, validUntilTerm } = syllabusValid || {}
     if (syllabusValid)
       syllabusValid.textFromTo =
@@ -160,7 +161,7 @@ function MemoContainer(props) {
       title: { [memoCommonLangAbbr]: title },
     }
     const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
-    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle } // containt kopps old data, or it is empty first time
+    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle, roundTypes } // containt kopps old data, or it is empty first time
     try {
       const result = await store.updateDraft(body)
       if (result.status >= 400) {

@@ -201,6 +201,18 @@ const sections = [
     extraHeaderTitle: null,
   },
 ]
+function filterSectionsContentIds(contentIdsToRemove = []) {
+  return sections.map(section => {
+    const { content } = section
+    section.content = content.filter(contentId => !contentIdsToRemove.includes(contentId))
+    return section
+  })
+}
+
+function getContractEducationStructure() {
+  return filterSectionsContentIds('additionalRegulations', 'permanentDisability', 'permanentDisabilitySubSection')
+}
+
 const getExtraHeaderIdBySectionId = sectionId => sections.find(({ id }) => id === sectionId).extraHeaderTitle || null
 
 const contentParam = (contentId, param) => (context[contentId] && context[contentId][param]) || ''
@@ -224,24 +236,6 @@ const getSectionHeadersByType = (headerType, sectionId) => {
   return [...sectionContent.content.filter(id => context[id].type === headerType)]
 }
 
-// const getAlwaysRequiredButNotEditable = () => [
-//   ...allStandardHeadersAndSubHd().filter((id) => context[id].type === 'mandatory')
-// ]
-
-// const getAlwaysRequiredAndEditable = () => [
-//   ...allStandardHeadersAndSubHd().filter(
-//     (id) =>
-//       context[id] && context[id].type === 'mandatoryAndEditable' && contentParam(id, 'isEditable')
-//   )
-// ]
-
-// const getSometimesRequiredButNotEditable = () => [
-//   ...allStandardHeadersAndSubHd().filter(
-//     (id) =>
-//       context[id] && context[id].type === 'mandatoryForSome' && !contentParam(id, 'isEditable')
-//   )
-// ]
-
 const getNumOfStandardHeadersAndSubHd = () => allStandardHeadersAndSubHd().length
 
 const getNumOfEditableStandardContent = () =>
@@ -251,12 +245,14 @@ module.exports = {
   allStandardHeadersAndSubHd,
   context,
   contentParam,
+  getContractEducationStructure,
   getExtraHeaderIdBySectionId,
   getNumOfEditableStandardContent,
   getNumOfStandardHeadersAndSubHd,
   getHeadersByType,
   getSectionHeadersByType,
   getOnlyStandardHeaders,
+  filterSectionsContentIds,
   sections,
   isRequired,
   typeOfHeader,

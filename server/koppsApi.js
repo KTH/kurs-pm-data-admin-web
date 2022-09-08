@@ -183,6 +183,28 @@ function _getCourseMainSubjects(body) {
   const { mainSubjects } = body
   return mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : ''
 }
+function filterRoundsTypes(body = {}, semester, ladokRoundIds) {
+  const { roundInfos = [] } = body
+
+  const roundsTypes = roundInfos
+    .filter(({ round = {} }) => {
+      const { applicationCodes = [], ladokRoundId = '', startTerm = {} } = round
+      if (!ladokRoundId) return false
+      if (!applicationCodes.length > 0) return false
+      if (ladokRoundIds.includes(ladokRoundId.toString()) && startTerm.term.toString() === semester.toString()) {
+        return true
+      }
+      return false
+    })
+    .map(({ round = {} }) => {
+      const { applicationCodes = [], ladokRoundId = '' } = round
+      const [{ courseRoundType = {}, term }] = applicationCodes
+      // eslint-disable-next-line no-shadow
+      const { code = '', name = '' } = courseRoundType
+      return { ladokRoundId, code, name, semester: term }
+    })
+  return roundsTypes
+}
 
 function _getCommonInfo(resBody) {
   // step 2
@@ -219,7 +241,7 @@ async function _getDetailedInformation(courseCode, language = 'sv') {
   }
 }
 
-function parseSyllabus(body, semester, language = 'sv') {
+function parseSyllabus(body, semester, ladokRoundIds, language = 'sv') {
   if (!body || !semester) return {}
   const selectedSyllabus = findSyllabus(body, semester)
   const commonInfo = _getCommonInfo(body)
@@ -229,6 +251,7 @@ function parseSyllabus(body, semester, language = 'sv') {
   const departmentName = _getDepartment(body)
   const recruitmentText = _getRecruitmentText(body)
   const courseMainSubjects = _getCourseMainSubjects(body)
+  const roundsTypes = filterRoundsTypes(body, semester, ladokRoundIds)
 
   return {
     ...commonInfo,
@@ -238,14 +261,15 @@ function parseSyllabus(body, semester, language = 'sv') {
     departmentName,
     recruitmentText,
     courseMainSubjects,
+    roundsTypes,
   }
 }
 
-async function getSyllabus(courseCode, semester, language = 'sv') {
+async function getSyllabus(courseCode, semester, ladokRoundIds, language = 'sv') {
   try {
     const detailedInformation = await _getDetailedInformation(courseCode, language)
     const { body } = detailedInformation
-    const formattedSyllabus = parseSyllabus(body, semester, language)
+    const formattedSyllabus = parseSyllabus(body, semester, ladokRoundIds, language)
 
     return formattedSyllabus
   } catch (err) {

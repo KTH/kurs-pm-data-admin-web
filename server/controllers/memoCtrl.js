@@ -63,7 +63,7 @@ async function renderMemoEditorPage(req, res, next) {
     const applicationStore = createStore()
 
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
-    const { semester, memoCommonLangAbbr } = apiMemoData
+    const { ladokRoundIds, semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
 
     applicationStore.rebuilDraftFromPublishedVer = action === 'rebuild'
@@ -80,11 +80,13 @@ async function renderMemoEditorPage(req, res, next) {
     })
 
     const koppsFreshData = {
-      ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
+      ...(await getSyllabus(courseCode, semester, ladokRoundIds, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoData)),
     }
 
     applicationStore.memoData = await mergeKoppsAndMemoData(koppsFreshData, apiMemoData)
+
+    await applicationStore.setSectionsStructure()
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
