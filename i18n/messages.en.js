@@ -400,13 +400,9 @@ module.exports = {
       <p><b>The contents is edited </b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>, by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. Both links open in a new tab.</p>`,
     },
     reportingResults: {
-      body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering is registered and reported. 
-      It contains information of where and when the students can see their results on this course.</p>
-      <p><b>The information helps the student</b> to understand where and when they can find their results on this course. With that information the student can take any reexams in considerations. 
-      It is also important for the student to know if he or she is entitled to student grants and loans.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering are registered and reported. It contains information about where and when the students can see their results on this course.</p>
+      <p><b>The information helps the student</b> to understand where and when they can find their results in this course. With that information, the student can take any re-exams into consideration. It is also important for the student to know if he or she is entitled to student grants and loans.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.y</p>`,
       help: `<p>Describe what the student needs to know about reporting of exam results in this section. 
       Describe where and when the student can find the results, both for modules and the final grade on the course. 
       It is particularly important to describe this if the routines differs from other courses, for example if the results will be reported later than what is expected. 
