@@ -360,11 +360,8 @@ module.exports = {
     },
     possibilityToCompensate: {
       body: `<p><b>Möjlighet till ersättningsuppgifter</b> beskriver i första hand om det finns möjlighet till ersättningsuppgifter på kursomgången och i så fall vad som gäller om studenten missar obligatoriska moment.</p>
-      <p><b>Informationen hjälper studenten</b> att planera genomförandet av kursomgången tillsammans med andra åtaganden, som t.ex. en parallell kurs, genom att den lättare kan göra en sammantagen prioritetsordning av samtliga studentens aktiviteter. 
-      Tydligt beskriven information om möjlighet till ersättningsuppgifter ökar även rättssäkerheten.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Visa i kurs-PM”. 
-      Ange information om möjlighet till ersättningsuppgifter i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. 
-      Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      <p><b>Informationen hjälper studenten</b> att planera genomförandet av kursomgången tillsammans med andra åtaganden, som t.ex. en parallell kurs. Tydligt beskriven information om möjlighet till ersättningsuppgifter ökar även rättssäkerheten.</p>
+      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
       help: `<p>Under rubriken "Möjlighet till ersättningsuppgifter" beskriver du om det finns möjlighet till ersättningsuppgifter på kursomgången. 
       Om det är möjligt så beskriver du vad som gäller om studenten missar ett obligatoriskt moment under kursomgången. 
       Det kan vara i fallet då studenten missar en aktivitet med obligatorisk närvaro eller uteblivet studiebesök.</p>

@@ -376,10 +376,9 @@ module.exports = {
       <p>Uncheck "Include heading" if "Opportunity to complete the requirements via supplementary examination" is irrelevant for this course.</p>`,
     },
     possibilityToCompensate: {
-      body: `<p><b>Alternatives to missed activities or tasks</b> describes if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
-      <p><b>The information helps the student</b> to understand what will happen if he or she gets sick. It will also help the student to plan the course in parallel with other commitments, like another course. With information about alternatives to missed activities or tasks the student can easily prioritize all the activities.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Reporting of exam results" and check "Include heading" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Alternatives to missed activities or tasks</b> describe if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
+      <p><b>The information helps the student</b> to plan the course with other commitments. With information about alternatives to missed activities or tasks, the student can prioritize the activities.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe if alternatives to missed activities or tasks are possible on this course in the "Alternatives to missed activities or tasks" section. 
       If it is possible, describe the alternatives in the case when students miss a mandatory activity or task, for example if the student miss a mandatory study visit.</p>
       <p>Remember that any other examination format than the ordinary must be written in the "Examination comment" section of the course syllabus.</p>
