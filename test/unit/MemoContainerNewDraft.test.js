@@ -283,7 +283,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   test('tab: contentAndOutcomes. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Always included').length).toBe(2)
     expect(getAllByText('Include').length).toBe(2)
-    expect(screen.queryByText('Included for some courses')).not.toBeInTheDocument()
+    expect(screen.queryByText('Included when there is content in the course syllabus')).not.toBeInTheDocument()
     expect(screen.queryByText('Include additional section')).not.toBeInTheDocument()
   })
 })
@@ -744,7 +744,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   test('tab: reqToFinal examinations. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
     expect(getAllByText('Inkludera').length).toBe(5)
-    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
+    expect(getAllByText('Inkluderas när innehåll finns i kursplan').length).toBe(1)
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(2)
   })
 
@@ -1019,7 +1019,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   test('tab: contacts. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Always included').length).toBe(3)
     expect(getAllByText('Include').length).toBe(3)
-    // expect(getAllByText('Included for some courses').length).toBe(0)
+    // expect(getAllByText('Included when there is content in the course syllabus').length).toBe(0)
     // expect(getAllByText('Include additional section').length).toBe(2)
   })
 })
