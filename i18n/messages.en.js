@@ -367,15 +367,9 @@ module.exports = {
       <p>If it is not possible to raise an approved grade on this course it is still valuable for student to know that. Uncheck "Include heading" if you despite that don´t want to include the information in this course memo</p>`,
     },
     possibilityToCompletion: {
-      body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes if it is possible to complete the requirements via supplemantary examination and if it possible to raise the grade to E or a higher grade. 
-      All modules/items in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to passed. 
-      Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
-      <p><b>The information helps the student</b> to understand if it is possible to complete the requirements via supplemantary examination and if that is the case, the terms for that.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about the opportunity to complete the requirements via supplementary examination and check "Include heading" to make the information visible on the published course memo. 
-      Any general information about opportunity to complete the requirements via supplementary examination on this course in Kopps is automatically fetched to new course memos. 
-      You can edit that information, but it will only be changed for this particular course offering and course memo. It will not be automatically transferred to Kopps or any other course memo. 
-      General information about "Opportunity to complete the requirements via supplementary examination" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes if it is possible to complete the requirements via supplementary examination and if it possible to raise the grade to E or a higher grade.</p>
+      <p><b>The information helps the student</b> to understand if it is possible to complete the requirements via supplementary examination and if that is the case, the terms for that.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about Opportunity to complete the requirements via supplementary examination in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe if it is possible to complete the requirements via supplementary examination on this course in this section and terms for that. 
       Also describe if it is possible to complete the requirements via supplementary examination on each module/item.  
       All modules/items in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to passed. 
