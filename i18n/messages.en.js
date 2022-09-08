@@ -352,14 +352,9 @@ module.exports = {
       <p>Uncheck "Include section" if there is no course specific information regarding support for students with disabilities preparations on this course.</p>`,
     },
     possibilityToAddition: {
-      body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course, the terms for raising it and how to apply for raising an approved grade. </p>
-      <p><b>The information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination and if that is the case, the terms for that.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". 
-      Enter information about "Opportunity to raise an approved grade via renewed examination" and check "Include heading" to make the information visible on the published course memo. 
-      Any general information about opportunity to raise an approved grade via renewed examination on this course in Kopps is automatically fetched to new course memos. 
-      You can edit that information, but it will only be changed for this particular course offering and course memo. It will not be automatically transferred to Kopps or any other course memo. 
-      General information about "Opportunity to raise an approved grade via renewed examination" on this course is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course and the terms for raising the grade.</p>
+      <p><b>The information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about Opportunity to raise an approved grade via renewed examination in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance. **</p>`,
       help: `<p>Describe if it is possible to raise an approved grade via renewed examination on this course in this section and the terms for that. Also describe how the student can apply for a renewed examination.</p>
       <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
       You can choose to keep that information, or you can enter information about the opportunity to raise an approved grade via renewed examination that is valid only to this course offering. 
