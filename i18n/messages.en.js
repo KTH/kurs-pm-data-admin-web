@@ -269,12 +269,9 @@ module.exports = {
       </p>`,
     },
     infoForReregisteredStudents: {
-      body: `<p><b>Changes of the course before this course offering</b> describes the relevant conclusions from previous course evaluations and course analysis and what changes that have actually been implemented before this course offering.</p>
-      <p><b>The information helps the student</b> to understand what changes of the course that has been made to this course offering.
-      This is especially important for re-registered students who needs to be informed about any important differences to the previous course offering. 
-      Describing the changes is a good way to show the students that the course development is important and that it actually helps to improve the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Changes of the course before this course offering" and check "Include" to make the information visible on the published course memo. 
-      Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Changes of the course before this course offering</b> describe what major changes have been implemented before this course offering.</p>
+      <p><b>The information helps the student</b> to understand what improvements have been made before this course offering. The information can also alert re-registered students to changes from previous course offerings.</p>
+      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
       Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
       The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
