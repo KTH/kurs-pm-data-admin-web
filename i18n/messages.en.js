@@ -137,13 +137,9 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      body: `<p><b>Additional regulations</b> describes regulations in the course syllabus that does not comply with any of the other sections in the course syllabus. 
-      Some examples are if the course is cannot be included in their degree certificate, 
-      if the student is required to perform studies on a different campus than the ordinary, or if the course require expenses other than for literature, stationery and similar.</p>
-      <p><b>The information helps the student</b>, depending on the contents of "Additional regulations", to plan and prepare for their studies.</p>
-      <p><b>Contents can be edited</b> in Kopps. 
-      Changes of "Additional regulations" is restricted by certain regulations since the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
+      body: `<p><b>Additional regulations</b> describe regulations in the course syllabus that does not comply with any of the other sections in the course syllabus.</p>
+      <p><b>The information helps the student</b> to plan and prepare for their studies.</p>
+      <p><b>Contents can be edited</b> in Kopps. Changes in "Additional regulations" is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing the contents of the course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
       <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
     },
     commentAboutMadeChanges: {
