@@ -13,6 +13,12 @@
   (pm)-pm information
  */
 
+const excludedFieldsInContractEducation = [
+  'additionalRegulations',
+  'permanentDisability',
+  'permanentDisabilitySubSection',
+]
+
 const context = {
   additionalRegulations: {
     type: 'mandatoryForSome',
@@ -210,7 +216,7 @@ function filterSectionsContentIds(contentIdsToRemove = []) {
 }
 
 function getContractEducationStructure() {
-  return filterSectionsContentIds('additionalRegulations', 'permanentDisability', 'permanentDisabilitySubSection')
+  return filterSectionsContentIds(excludedFieldsInContractEducation)
 }
 
 const getExtraHeaderIdBySectionId = sectionId => sections.find(({ id }) => id === sectionId).extraHeaderTitle || null
@@ -245,6 +251,7 @@ module.exports = {
   allStandardHeadersAndSubHd,
   context,
   contentParam,
+  excludedFieldsInContractEducation,
   getContractEducationStructure,
   getExtraHeaderIdBySectionId,
   getNumOfEditableStandardContent,

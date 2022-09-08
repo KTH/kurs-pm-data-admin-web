@@ -6,7 +6,11 @@
 import { observable, action } from 'mobx'
 import axios from 'axios'
 import { SERVICE_URL } from '../util/constants'
-import { sections as defaultSections, getContractEducationStructure } from '../util/fieldsByType'
+import {
+  sections as defaultSections,
+  excludedFieldsInContractEducation,
+  getContractEducationStructure,
+} from '../util/fieldsByType'
 
 function createApplicationStore() {
   const store = {
@@ -140,9 +144,9 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 function updateContractEducationSections() {
   const updatedSections = getContractEducationStructure()
   if (this.memoData.visibleInMemo) this.memoData.visibleInMemo.additionalRegulations = false
-  this.memoData.additionalRegulations = ''
-  this.memoData.permanentDisability = ''
-  this.memoData.permanentDisabilitySubSection = ''
+  for (const excludedProp in excludedFieldsInContractEducation) {
+    this.memoData[excludedProp] = ''
+  }
   return updatedSections
 }
 
