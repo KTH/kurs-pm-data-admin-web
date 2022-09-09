@@ -414,9 +414,9 @@ module.exports = {
       <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`,
     },
     teacher: {
-      body: `<p><b>Teacher</b> holds the contact details to the teachers on this course offering.</p>
-      <p><b>The information helps the student</b> to understand who and how the student shall contact the teachers for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Teacher is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Teachers</b> hold the contact details of the teachers during this course offering.</p>
+      <p><b>The information helps the student</b> with contact information for teachers during the course offering.</p>
+	  <p><b>Edit the contents</b> in Kopps. Teachers are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     teacherAssistants: {
       body: `<p><b>Teacher assistants</b> holds the contact details to the teacher assistants on this course offering.</p>
