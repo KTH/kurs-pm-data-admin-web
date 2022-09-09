@@ -208,11 +208,13 @@ const sections = [
   },
 ]
 function filterSectionsContentIds(contentIdsToRemove = []) {
-  return sections.map(section => {
+  const newSections = [...sections] // to avoid changing sections as a constant
+  const finalSections = newSections.map(section => {
     const { content } = section
     section.content = content.filter(contentId => !contentIdsToRemove.includes(contentId))
     return section
   })
+  return finalSections
 }
 
 function getContractEducationStructure() {
