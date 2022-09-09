@@ -18,12 +18,12 @@ function createApplicationStore() {
      * @property {string} courseCode
      * @property {string} dirtyEditor
      * @property {string} semester
-     * @property {object} sections
+     * @property {array} sections
      */
     courseCode: null,
     dirtyEditor: observable.box(''),
     semester: null,
-    sections: defaultSections, // will change it it's UPP - contract education
+    sections: observable.box([]), // will change it it's UPP - contract education
     /**
      * @property {object} koppsFreshData
      */
@@ -160,15 +160,16 @@ function checkIfContractEducation(roundsTypes = []) {
   return isContractEducation
 }
 
-function setSectionsStructure() {
+async function setSectionsStructure() {
   if (Object.keys(this.memoData).length === 0) {
     // eslint-disable-next-line no-console
     console.error('Missing memoData, check if you run this function after memoData were assigned')
   }
   const { roundsTypes = [] } = this.memoData
+
   const isContractEducation = checkIfContractEducation(roundsTypes)
 
-  this.sections = isContractEducation ? this.updateContractEducationSections() : defaultSections
+  this.sections = isContractEducation ? await this.updateContractEducationSections() : defaultSections
 }
 
 function setVisibilityOfStandard(contentId, value) {
