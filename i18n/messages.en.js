@@ -148,9 +148,9 @@ module.exports = {
       <p></p>`,
     },
     communicationDuringCourse: {
-      body: `<p><b>Communication during course</b> describes how the student should communicate with the teachers and the other personnel before and during the course offering. Communication during course also describes who to contact regarding the most common questions and issues.</p>
-		<p><b>The information helps the student</b> to understand how to communicate on this course. Information in this section makes the communication more efficient on this course and reduces the number of unnecessary questions.</p>
-		<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Communication during course" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Communication during course</b> describes how the student should communicate with the teachers and other personnel before and during the course offering. Communication during course also describes whom to contact regarding the most common questions and issues.</p>
+		<p><b>The information helps the student</b> to understand how to communicate during this course offering. Information in this section makes communication more efficient and reduces the number of unnecessary questions.</p>
+		<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe how to communicate before and during this course offering in the section "Communication during course". For example, you can refer to the teachers regarding questions before start of the course and to Canvas for dialogue during the course. If you want different types of questions to be handled differently, describe the different ways to communicate in short.</p>
 		<p>Don´t write contact information in this section. Instead you refer to the sections "Course coordinator", "Teacher", "Teacher assistants", "Examiner" and "Other contacts".</p>
 		<p>Uncheck "Include heading" if there is no reason to inform about communication during course.</p>`,
@@ -164,9 +164,9 @@ module.exports = {
       <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`,
     },
     courseCoordinator: {
-      body: `<p><b>Course coordinator</b> holds the contact details to the course coordinator on this course offering.</p>
-      <p><b>The information helps the student</b> to understand who and how the student shall contact the course coordinator for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Course coordinator is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Course coordinator</b> holds the contact details of the course coordinator on this course offering.</p>
+      <p><b>The information helps the student</b> with contact information for course coordinators during the course offering.</p>
+	  <p><b>Edit the contents</b> in Kopps. Course coordinators are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Ethical approach</b> describes KTH's ethical values.</p>
