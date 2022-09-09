@@ -300,9 +300,9 @@ module.exports = {
       Rubriken kurslitteratur är obligatorisk i kurs-PM och kommer alltid visas i kurs-PM oavsett om det finns relevant kurslitteratur eller inte på kursomgången.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med inför, under eller efter kursomgången och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare etc.</p>
-			<p><b>Informationen hjälper studenten</b> att förstå vem och hur den ska kontakta angående frågor eller synpunkter som inte ska adresseras rollerna examinator, kursansvarig, lärare eller lärarassistenter.</p>
-			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Övriga kontakter" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med inför, under eller efter kursomgången, och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare etc.</p>
+			<p><b>Informationen hjälper studenten</b> med kontaktuppgifter till personer som kan besvara frågor som inte kan besvaras av examinator, kursansvarig, lärare eller lärarassistenter.</p>
+			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
       help: `<p>Under rubriken "Övriga kontakter" beskriver du vilka personer eller funktioner som kan vara relevanta att kontakta under kursomgången. Ange namn, mailadress och/eller telefonnummer. Beskriv kortfattat vilka frågor eller synpunkter de kan kontaktas om.</p>
 			<p>Kontakter som redan är beskrivna under rubriker "Examinator", "Kursansvarig", "Lärare" och "Lärarassistenter" ska inte återupprepas under denna rubrik.</p>
 			<p>Om övriga kontakter inte är relevanta för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,

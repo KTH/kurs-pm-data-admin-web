@@ -309,9 +309,9 @@ module.exports = {
       <p>If there is no compulsory course literature on this course it is important to mention that to reduce unnecessary questions and to avoid the students go looking for the information elsewhere in vain.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Other contacts</b> describes the contact details to personnel and functions, other than the contacts mentioned above, the students may have to contact before or during this course offering. Course administrators, lab supervisors and project supervisors are examples of "Other contacts".</p>
-			<p><b>The information helps the student</b> to under stand who and how the student shall contact regarding questions and issues not relevant to the roles and contacts on this course offering mentioned above.</p>
-			<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information about "Other contacts" and check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel (after you have clicked the edit-button) for further guidance on how to write the content.</p>`,
+      body: `<p><b>Other contacts</b> describe the contact details of personnel and functions, other than the contacts mentioned above, the students may have to contact before or during this course offering. Course administrators, lab supervisors, and project supervisors are examples of Other contacts.</p>
+			<p><b>The information helps the student</b> with contact information for other functions during the course offering.</p>
+			<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the contact details to personnel and functions other than the contacts mentioned above. Enter name, mail address and phone number. Describe in short the questions and issues each contact handles.</p>
 			<p>Contacts already mentioned in the "Course coordinator", "Teacher", "Teacher assistants" and "Examiner" sections should not be repeated in this section.</p>
 			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`,
