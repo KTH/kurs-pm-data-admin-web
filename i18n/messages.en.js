@@ -196,9 +196,9 @@ module.exports = {
       <p>Uncheck "Include heading" if equipment is irrelevant for this course.</p>`,
     },
     examiner: {
-      body: `<p><b>Examiner</b> holds the contact details to the examiner on this course offering.</p>
-      <p><b>The information helps the student</b> to understand who and how the student shall contact the examiner for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Examiner is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Examiner</b> holds the contact details of the examiner for this course.</p>
+      <p><b>The information helps the student</b> with contact information for examiners during the course offering.</p>
+	  <p><b>Edit the contents</b> in Kopps. Examiners are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     examination: {
       body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course component.</p>
