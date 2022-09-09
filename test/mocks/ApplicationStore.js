@@ -1,7 +1,11 @@
 import mockMiniKoppsObj from './miniKoppsObjs'
 import mockMiniMemos from './miniMemos'
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
-
+import {
+  sections as defaultSections,
+  excludedFieldsInContractEducation,
+  getContractEducationStructure,
+} from '../../public/js/app/util/fieldsByType.js'
 const applicationStore = createApplicationStore()
 
 const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
@@ -19,7 +23,7 @@ const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
     version: '1',
   }
   mockApplicationStore.miniMemos.draftsWithNoActivePublishedVer.push(objToSave)
-
+  await mockApplicationStore.setSectionsStructure()
   return newMemo
 }
 
