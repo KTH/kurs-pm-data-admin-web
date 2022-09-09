@@ -139,9 +139,9 @@ module.exports = {
       <p></p>`,
     },
     communicationDuringCourse: {
-      body: `<p><b>Kommunikation i kursen</b> </p>
-			<p><b>Informationen hjälper studenten</b> att förstå hur den ska kommunicera med lärare och annan relevant personal inför och under kursomgångens genomförande. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer  effektiv för både studenter och lärare på kursen.</p>
-			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information om "Kommunikation i kursen" i inmatningsfältet och klicka i "Inkludera rubrik" för att innehållet ska visas när detta kurs-PM publicerats. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet och exempel på hur det kan presenteras.</p>`,
+      body: `<p><b>Kommunikation i kursen</b> beskriver hur kommunikationen med lärare och annan personal sker under kursomgången. Här kan man även ange vem som ska kontaktas gällande vanliga frågor och ärenden.</p>
+			<p><b>Informationen hjälper studenten</b> att förstå hur den ska kommunicera inför och under kursomgångens genomförande. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer effektiv för både studenter och lärare på kursen.</p>
+			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
       help: `<p>Under rubriken "Kommunikation i kursen" beskriver du kortfattat hur kommunikation ska gå till inför och under kursomgångens genomförande. Du kan t.ex. hänvisa till nämnda lärare innan kursens start och till Canvas för kommunikation under kursens gång. Om olika frågor ska kommuniceras på olika sätt kan du övergripande beskriva hur man ska kommunicera om respektive fråga.</p>
 			<p>Skriv inte kontaktinformation under denna rubrik. Referera istället till kontaktinformationen under rubrikerna "Kursansvarig", "Lärare", "Lärarassistenter", "Examinator" och "Övriga kontakter".</p>
 			<p>Om det inte finns anledning att informera om kommunikation i kursen för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
