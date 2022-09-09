@@ -415,9 +415,9 @@ module.exports = {
 	  <p><b>Innehållet redigeras</b> i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik.</p>`,
     },
     teacherAssistants: {
-      body: `<p><b>Lärarassistenter</b> beskriver kontaktinformation till personer som har rollen lärarassistent på denna kursomgång.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå vem och hur den ska kontakta angående frågor eller synpunkter till lärarassistenter på kursomgången.</p>
-	  <p><b>Innehållet redigeras</b> i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>. Lärarassistenter ändras av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik.</p>`,
+      body: `<p><b>Lärarassistenter</b> innehåller kontaktinformation till personer som har rollen lärarassistent under denna kursomgång.</p>
+      <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till lärarassistenter under kursomgången.</p>
+	  <p><b>Innehållet redigeras</b> i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik. Du väljer själv om kontaktuppgifterna ska inkluderas i ditt kurs-PM eller inte. Vill du inkludera uppgifterna klickar du på i "Inkludera".</p>`,
     },
   },
   pagesCreateNewPm: [

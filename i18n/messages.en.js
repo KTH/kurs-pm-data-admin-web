@@ -421,7 +421,7 @@ module.exports = {
     teacherAssistants: {
       body: `<p><b>Teacher assistants</b> holds the contact details to the teacher assistants on this course offering.</p>
       <p><b>The information helps the student</b> to understand who and how the student shall contact the teacher assistants for questions and other issues.</p>
-	  <p><b>Edit the contents</b> in Kopps. Teacher assistants is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+	  <p><b>Edit the contents</b> in Kopps. Teacher assistants is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs. You choose whether the contact information should be included in your course memo or not. If you want to include the information, click on "Include".</p>`,
     },
   },
   pagesCreateNewPm: [
