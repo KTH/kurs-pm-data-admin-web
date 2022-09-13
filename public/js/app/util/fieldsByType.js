@@ -208,6 +208,7 @@ const sections = [
   },
 ]
 function filterSectionsContentIds(contentIdsToRemove = []) {
+  console.log('----filtering-----')
   const newSections = [...sections] // to avoid changing sections as a constant
   const finalSections = newSections.map(section => {
     const { content } = section
