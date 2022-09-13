@@ -148,7 +148,8 @@ const context = {
   teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Lärare
 }
 
-const sections = [
+// it is a function to avoid accident change of getDefaultSections() somewhere else
+const getDefaultSections = () => [
   {
     id: 'contentAndOutcomes',
     title: 'Innehåll och lärandemål',
@@ -208,13 +209,13 @@ const sections = [
   },
 ]
 function filterSectionsContentIds(contentIdsToRemove = []) {
-  console.log('----filtering-----')
-  const newSections = [...sections] // to avoid changing sections as a constant
+  const newSections = JSON.parse(JSON.stringify(getDefaultSections())) // to avoid changing getDefaultSections() as a constant
   const finalSections = newSections.map(section => {
     const { content } = section
     section.content = content.filter(contentId => !contentIdsToRemove.includes(contentId))
     return section
   })
+
   return finalSections
 }
 
@@ -222,7 +223,8 @@ function getContractEducationStructure() {
   return filterSectionsContentIds(excludedFieldsInContractEducation)
 }
 
-const getExtraHeaderIdBySectionId = sectionId => sections.find(({ id }) => id === sectionId).extraHeaderTitle || null
+const getExtraHeaderIdBySectionId = sectionId =>
+  getDefaultSections().find(({ id }) => id === sectionId).extraHeaderTitle || null
 
 const contentParam = (contentId, param) => (context[contentId] && context[contentId][param]) || ''
 
@@ -230,10 +232,10 @@ const isRequired = contentId => (context[contentId] && context[contentId].isRequ
 
 const typeOfHeader = contentId => context[contentId].type || ''
 
-const allStandardHeadersAndSubHd = () => [].concat(...sections.map(({ content }) => content)).sort()
+const allStandardHeadersAndSubHd = () => [].concat(...getDefaultSections().map(({ content }) => content)).sort()
 
 const getOnlyStandardHeaders = sectionId => {
-  const sectionContent = sections.find(({ id }) => id === sectionId)
+  const sectionContent = getDefaultSections().find(({ id }) => id === sectionId)
 
   return [...sectionContent.content.filter(id => !contentParam(id, 'hasParentTitle'))]
 }
@@ -241,7 +243,7 @@ const getOnlyStandardHeaders = sectionId => {
 const getHeadersByType = headerType => [...allStandardHeadersAndSubHd().filter(id => context[id].type === headerType)]
 
 const getSectionHeadersByType = (headerType, sectionId) => {
-  const sectionContent = sections.find(({ id }) => id === sectionId)
+  const sectionContent = getDefaultSections().find(({ id }) => id === sectionId)
   return [...sectionContent.content.filter(id => context[id].type === headerType)]
 }
 
@@ -263,7 +265,7 @@ module.exports = {
   getSectionHeadersByType,
   getOnlyStandardHeaders,
   filterSectionsContentIds,
-  sections,
+  getDefaultSections,
   isRequired,
   typeOfHeader,
 }

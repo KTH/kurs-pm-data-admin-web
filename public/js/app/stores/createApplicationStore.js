@@ -7,7 +7,7 @@ import { observable, action } from 'mobx'
 import axios from 'axios'
 import { SERVICE_URL } from '../util/constants'
 import {
-  sections as defaultSections,
+  getDefaultSections,
   excludedFieldsInContractEducation,
   getContractEducationStructure,
 } from '../util/fieldsByType'
@@ -68,7 +68,7 @@ function createApplicationStore() {
      * @property {object} extraContentState
      */
     extraContentState: observable.box(
-      Object.fromEntries(defaultSections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
+      Object.fromEntries(getDefaultSections().map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
     ),
     /**
      * @property {string} sellingText
@@ -169,10 +169,7 @@ async function setSectionsStructure() {
 
   const isContractEducation = checkIfContractEducation(roundsTypes)
 
-  this.sections = isContractEducation ? await this.updateContractEducationSections() : [...defaultSections]
-  console.log('isContractEducation', isContractEducation)
-  console.log('this.sections', this.sections[3].content)
-  console.log('defaultSections', defaultSections[3].content)
+  this.sections = isContractEducation ? await this.updateContractEducationSections() : getDefaultSections()
 }
 
 function setVisibilityOfStandard(contentId, value) {
