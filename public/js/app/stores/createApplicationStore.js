@@ -169,7 +169,7 @@ async function setSectionsStructure() {
 
   const isContractEducation = checkIfContractEducation(roundsTypes)
 
-  this.sections = isContractEducation ? await this.updateContractEducationSections() : defaultSections
+  this.sections = isContractEducation ? await this.updateContractEducationSections() : [...defaultSections]
 }
 
 function setVisibilityOfStandard(contentId, value) {
