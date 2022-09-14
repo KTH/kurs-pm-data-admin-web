@@ -57,18 +57,16 @@ async function getCourseOptionsPage(req, res, next) {
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
     const { uri: proxyPrefix } = server.proxyPrefixPath
-    const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
+    const view = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
     res.render('memo/index', {
       compressedStoreCode,
-      html,
+      html: view,
       title: i18n.messages[langIndex].messages.site_name,
       lang,
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name,
-        url: `${server.hostUrl}${
-          server.hostUrl.includes('.se/') ? '' : '/'
-        }€{'kursinfoadmin/kurser/kurs/'}${courseCode}`,
+        url: `${server.hostUrl}${server.hostUrl.includes('.se/') ? '' : '/'}kursinfoadmin/kurser/kurs/${courseCode}`,
       },
       languageLink: {
         title: i18n.messages[langIndex === 0 ? 1 : 0].messages.locale_text,
