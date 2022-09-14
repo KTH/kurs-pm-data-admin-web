@@ -1171,7 +1171,6 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     const headers = getOnlyStandardHeaders('extra')
     expect(headers.length).toBe(2)
     headers.map(headerId => {
-      console.log('headerId', headerId)
       const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
       expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
     })

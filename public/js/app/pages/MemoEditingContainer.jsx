@@ -15,6 +15,7 @@ import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
 import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComment'
 import AlertSuccessCopiedMemo from '../components/alerts/AlertSuccessCopiedMemo'
 import AlertSuccessRebuild from '../components/alerts/AlertSuccessRebuild'
+import AlertMissingDraft from '../components/alerts/AlertMissingDraft'
 import CollapseMemoIntroduction from '../components/details/CollapseMemoIntroduction'
 import PageHead from '../components/PageHead'
 import CommentChangesTextarea from '../components/editors/CommentChangesTextarea'
@@ -50,6 +51,10 @@ function MemoContainer(props) {
     sections,
     semester,
   } = store
+
+  if (!memoData.ladokRoundIds)
+    return <AlertMissingDraft langAbbr={userLangAbbr} langIndex={userLangIndex} courseCode={courseCode} />
+
   const { initialActiveTab } = props // used for test
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })

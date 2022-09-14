@@ -7,7 +7,7 @@ import axios from 'axios'
 import PropTypes from 'prop-types'
 
 import { useStore } from '../mobx'
-
+import AlertMissingDraft from '../components/alerts/AlertMissingDraft'
 import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
 import PageHead from '../components/PageHead'
@@ -186,7 +186,8 @@ const determineContentFlexibility = () => {
 
 function PreviewContainer(props) {
   const store = useStore()
-  const { browserConfig, langIndex, memoData, sellingText = '' } = store
+  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '' } = store
+
   // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
 
@@ -201,6 +202,9 @@ function PreviewContainer(props) {
     version,
     syllabusValid,
   } = memoData
+
+  if (!ladokRoundIds) return <AlertMissingDraft langAbbr={langAbbr} langIndex={langIndex} courseCode={courseCode} />
+
   const isDraftOfPublished = Number(version) > FIRST_VERSION
 
   const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels, sectionsLabels } =
