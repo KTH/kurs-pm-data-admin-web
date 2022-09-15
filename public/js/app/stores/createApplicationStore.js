@@ -143,9 +143,12 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 
 function updateContractEducationSections() {
   const updatedSections = getContractEducationStructure()
-  if (this.memoData.visibleInMemo) this.memoData.visibleInMemo.additionalRegulations = false
-  for (const excludedProp in excludedFieldsInContractEducation) {
+
+  for (const excludedProp of excludedFieldsInContractEducation) {
     this.memoData[excludedProp] = ''
+    if (this.memoData.visibleInMemo) {
+      this.memoData.visibleInMemo[excludedProp] = false
+    }
   }
   return updatedSections
 }
