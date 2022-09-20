@@ -52,7 +52,7 @@ async function renderMemoPreviewPage(req, res, next) {
     })
     applicationStore.memoDatas = allApiMemoData
     applicationStore.memoData = apiMemoData
-    const { ladokRoundIds, semester, memoCommonLangAbbr } = apiMemoData
+    const { semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
     applicationStore.setMemoBasicInfo({
       courseCode,
@@ -60,7 +60,7 @@ async function renderMemoPreviewPage(req, res, next) {
       semester: '',
       memoLangAbbr,
     })
-    applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, ladokRoundIds, memoLangAbbr)
+    applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
 
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     const { recruitmentText } = applicationStore.koppsFreshData

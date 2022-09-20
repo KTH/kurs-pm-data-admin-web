@@ -153,13 +153,8 @@ function updateContractEducationSections() {
   return updatedSections
 }
 
-function checkIfContractEducation(roundsTypes = []) {
-  if (roundsTypes.length === 0) return false
-
-  let isContractEducation = true
-  roundsTypes.forEach(({ code }) => {
-    if (code !== 'UPP') isContractEducation = false
-  })
+function checkIfContractEducation(educationalTypeId) {
+  const isContractEducation = [101992, 101993].includes(educationalTypeId)
   return isContractEducation
 }
 
@@ -168,9 +163,9 @@ async function setSectionsStructure() {
     // eslint-disable-next-line no-console
     console.error('Missing memoData, check if you run this function after memoData were assigned')
   }
-  const { roundsTypes = [] } = this.memoData
+  const { educationalTypeId } = this.memoData
 
-  const isContractEducation = checkIfContractEducation(roundsTypes)
+  const isContractEducation = checkIfContractEducation(educationalTypeId)
 
   this.sections = isContractEducation ? await this.updateContractEducationSections() : getDefaultSections()
 }
