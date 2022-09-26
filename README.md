@@ -5,7 +5,7 @@
 The new administraion site makes it possible to create and manage course memos.
 
 ![Version](https://img.shields.io/badge/version-4.0.0-blue.svg?cacheSeconds=2592000)
-![TinyMce version (locally)](https://img.shields.io/badge/TinyMce-5.10.3%20(2022--02--09)-brightgreen)
+![TinyMce version (locally)](<https://img.shields.io/badge/TinyMce-5.10.3%20(2022--02--09)-brightgreen>)
 ![Prerequisite](https://img.shields.io/badge/node-14.2.0-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
@@ -53,7 +53,7 @@ OIDC_TOKEN_SECRET=<Random string>
 SESSION_SECRET=[generate session secret]
 SESSION_KEY=kurs-pm-data-admin-web.pid
 /* Connection Properties of UG Rest Api to fetch names of course staff */
-UG_REST_AUTH_API_TOKEN_URI=https://<LOGIN_HOST>/adfs/oauth2/token
+UG_REST_AUTH_API_TOKEN_URI=https://<LOGIN_HOST>/adfs/
 UG_REST_AUTH_CLIENT_ID=<FROM AZURE KEYVAULT>
 UG_REST_AUTH_CLIENT_SECRET=<FROM AZURE KEYVAULT>
 UG_REST_API_URI=https://<UG_URL>
@@ -70,6 +70,7 @@ First time you might need to use options `--ignore-scripts` because of npm resol
 npm install
 
 ```
+
 You might need to install as well:
 
 ```sh
@@ -96,42 +97,47 @@ Preview course memo http://localhost:3000/kursinfoadmin/kurs-pm-data/BB2290/BB22
 `BB229020191-1` är memoEndPoint which is used as a bookmark for a course memo even if its data changed, draft is created, published, edited an so on.
 
 ### Debug in Visual Studio Code
+
 It's possible to use debugging options available in Visual Studio Code
 Add a file `launch.json` to `.vscode` directory :
-- *Microsoft*
+
+- _Microsoft_
+
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",           
-            "request": "launch",
-            "name": "Debug kurs-pm-data-admin-web",
-            "program": "${workspaceFolder}\\app.js",
-            "envFile": "${workspaceFolder}\\.env",
-            "env": {
-              "NODE_ENV": "development"
-            }
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug kurs-pm-data-admin-web",
+      "program": "${workspaceFolder}\\app.js",
+      "envFile": "${workspaceFolder}\\.env",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
 }
 ```
+
 - _Mac, Unix and so on_
+
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",           
-            "request": "launch",
-            "name": "Debug kurs-pm-data-admin-web",
-            "program": "${workspaceFolder}/app.js",
-            "envFile": "${workspaceFolder}/.env",
-            "env": {
-              "NODE_ENV": "development"
-            }
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug kurs-pm-data-admin-web",
+      "program": "${workspaceFolder}/app.js",
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
 }
 ```
 
@@ -159,6 +165,7 @@ Run concurrently
 npm run start-dev
 npm run cypress:open
 ```
+
 ## Use 🐳
 
 Copy `docker-compose.yml.in` to `docker-compose.yml` and make necessary changes, if any.
@@ -171,9 +178,9 @@ docker-compose up
 
 Status:
 
-To monitor status: http://localhost:3000/kursinfoadmin/kurs-pm-data/_monitor
+To monitor status: http://localhost:3000/kursinfoadmin/kurs-pm-data/\_monitor
 
-To see branch information: http://localhost:3000/kursinfoadmin/kurs-pm-data/_about
+To see branch information: http://localhost:3000/kursinfoadmin/kurs-pm-data/\_about
 
 To see more detailed behaviour in project used application insights: f.e., `kursinfo-web-stage-application-insights-kthse`
 
@@ -212,7 +219,8 @@ UG_REST_API_SUBSCRIPTION_KEY=<FROM AZURE INTEGRAL OR KEYVAULT>
 ```
 
 ## Editor TinyMce
-![TinyMce version (locally)](https://img.shields.io/badge/TinyMce-5.10.3%20(2022--02--09)-brightgreen)
+
+![TinyMce version (locally)](<https://img.shields.io/badge/TinyMce-5.10.3%20(2022--02--09)-brightgreen>)
 ![@tinymce/tinymce-react](https://img.shields.io/badge/%40tinymce%2Ftinymce--react-%22%5E3.13.0%22-yellowgreen)
 
 ### Dependencies
@@ -224,13 +232,13 @@ UG_REST_API_SUBSCRIPTION_KEY=<FROM AZURE INTEGRAL OR KEYVAULT>
 
 ### How to update a local TinyMce (self-hosted)
 
-In *`tinymce`* catalog located tinymce api
+In _`tinymce`_ catalog located tinymce api
+
 - it makes the load of editors faster and more robust
 
 1. Download TinyMCE Dev Package (.zip). Read about it https://www.tiny.cloud/docs/general-configuration-guide/advanced-install/#self-hostedinstall
 2. Unzip TinyMCE Dev Package and go to `js/tinymce`
-3. Copy all folders into tinymce folder, **EXCEPT** `langs` folder. *`langs`* includes **customized Swedish translations/texts.**
- 
+3. Copy all folders into tinymce folder, **EXCEPT** `langs` folder. _`langs`_ includes **customized Swedish translations/texts.**
 
 ### Edited English and Swedish translations for editor's buttons
 
