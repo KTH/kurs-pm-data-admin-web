@@ -67,19 +67,19 @@ async function renderMemoPreviewPage(req, res, next) {
     applicationStore.sellingText = resolveSellingText(sellingText, recruitmentText, memoLangAbbr)
     applicationStore.imageFromAdmin = imageInfo
 
+    await applicationStore.setSectionsStructure()
+
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
     const { uri: proxyPrefix } = server.proxyPrefixPath
-    const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
+    const view = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
     res.render('preview/index', {
       compressedStoreCode,
-      html,
+      html: view,
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name,
-        url: `${server.hostUrl}${
-          server.hostUrl.includes('.se/') ? '' : '/'
-        }€{'kursinfoadmin/kurser/kurs/'}${courseCode}`,
+        url: `${server.hostUrl}${server.hostUrl.includes('.se/') ? '' : '/'}kursinfoadmin/kurser/kurs/${courseCode}`,
       },
       title: userLang === 'sv' ? 'Administrera Om kursen' : 'Administer About course',
       lang: userLang,

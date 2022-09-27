@@ -56,6 +56,8 @@ const mockApplicationStoreWithChosenMemo = (
     examinationModules: '<h4>INL1 - Inlämningsuppgifter, 3,5 hp</h4>',
   }
 
+  routerWithMemoData.setSectionsStructure()
+
   return routerWithMemoData
 }
 

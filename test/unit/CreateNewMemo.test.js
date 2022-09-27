@@ -22,13 +22,16 @@ const CreateNewMemoPage = ({ ...rest }) => (
   </StaticRouter>
 )
 
-const CreateNewMemoPageWithSavedDrafts = ({ ...rest }) => (
-  <StaticRouter>
-    <MobxStoreProvider initCallback={() => mockApplicationStoreWithDraftMemos}>
-      <CreateNewMemo {...rest} />
-    </MobxStoreProvider>
-  </StaticRouter>
-)
+const CreateNewMemoPageWithSavedDrafts = ({ ...rest }) => {
+  mockApplicationStoreWithDraftMemos.setSectionsStructure()
+  return (
+    <StaticRouter>
+      <MobxStoreProvider initCallback={() => mockApplicationStoreWithDraftMemos}>
+        <CreateNewMemo {...rest} />
+      </MobxStoreProvider>
+    </StaticRouter>
+  )
+}
 const { buttons: buttonsSV, pageTitles: pageTitlesSV } = translations.sv
 const { pageTitles: pageTitlesEN, buttons } = translations.en
 

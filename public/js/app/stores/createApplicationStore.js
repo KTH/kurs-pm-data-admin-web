@@ -6,7 +6,11 @@
 import { observable, action } from 'mobx'
 import axios from 'axios'
 import { SERVICE_URL } from '../util/constants'
-import { sections } from '../util/fieldsByType'
+import {
+  getDefaultSections,
+  excludedFieldsInContractEducation,
+  getContractEducationStructure,
+} from '../util/fieldsByType'
 
 function createApplicationStore() {
   const store = {
@@ -14,10 +18,12 @@ function createApplicationStore() {
      * @property {string} courseCode
      * @property {string} dirtyEditor
      * @property {string} semester
+     * @property {array} sections
      */
     courseCode: null,
     dirtyEditor: observable.box(''),
     semester: null,
+    sections: observable.box([]), // will change it it's UPP - contract education
     /**
      * @property {object} koppsFreshData
      */
@@ -62,7 +68,7 @@ function createApplicationStore() {
      * @property {object} extraContentState
      */
     extraContentState: observable.box(
-      Object.fromEntries(sections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
+      Object.fromEntries(getDefaultSections().map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
     ),
     /**
      * @property {string} sellingText
@@ -94,6 +100,7 @@ function createApplicationStore() {
     setMemoByContentId: action(setMemoByContentId),
     setMemoExtraContent: action(setMemoExtraContent),
     setNewEmptyExtraContent: action(setNewEmptyExtraContent),
+    setSectionsStructure: action(setSectionsStructure),
     setVisibilityOfStandard: action(setVisibilityOfStandard),
     _filterOutUsedRounds,
     getThisHost,
@@ -102,6 +109,7 @@ function createApplicationStore() {
     updateDraft: action(updateDraft),
     setBrowserConfig: action(setBrowserConfig),
     doSetLanguageIndex: action(doSetLanguageIndex),
+    updateContractEducationSections: action(updateContractEducationSections),
   }
 
   return store
@@ -131,6 +139,35 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
   this.dirtyEditor = newSection.uKey
 
   this.memoData[extraHeaderTitle] = [...this.memoData[extraHeaderTitle], newSection]
+}
+
+function updateContractEducationSections() {
+  const updatedSections = getContractEducationStructure()
+
+  for (const excludedProp of excludedFieldsInContractEducation) {
+    this.memoData[excludedProp] = ''
+    if (this.memoData.visibleInMemo) {
+      this.memoData.visibleInMemo[excludedProp] = false
+    }
+  }
+  return updatedSections
+}
+
+function checkIfContractEducation(educationalTypeId) {
+  const isContractEducation = [101992, 101993].includes(educationalTypeId)
+  return isContractEducation
+}
+
+async function setSectionsStructure() {
+  if (Object.keys(this.memoData).length === 0) {
+    // eslint-disable-next-line no-console
+    console.error('Missing memoData, check if you run this function after memoData were assigned')
+  }
+  const { educationalTypeId } = this.memoData
+
+  const isContractEducation = checkIfContractEducation(educationalTypeId)
+
+  this.sections = isContractEducation ? await this.updateContractEducationSections() : getDefaultSections()
 }
 
 function setVisibilityOfStandard(contentId, value) {
@@ -186,7 +223,7 @@ function checkExtraTitlesForSectionId(contentId) {
 }
 
 function checkAllSectionsHasTitles() {
-  const filterEmpty = sections.filter(
+  const filterEmpty = this.sections.filter(
     ({ extraHeaderTitle }) => this.checkExtraTitlesForSectionId(extraHeaderTitle) === false
   )
   const canBeFinished = !(filterEmpty.length > 0)

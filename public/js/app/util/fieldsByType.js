@@ -13,6 +13,12 @@
   (pm)-pm information
  */
 
+const excludedFieldsInContractEducation = [
+  'additionalRegulations',
+  'permanentDisability',
+  'permanentDisabilitySubSection',
+]
+
 const context = {
   additionalRegulations: {
     type: 'mandatoryForSome',
@@ -142,7 +148,8 @@ const context = {
   teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Lärare
 }
 
-const sections = [
+// it is a function to avoid accident change of getDefaultSections() somewhere else
+const getDefaultSections = () => [
   {
     id: 'contentAndOutcomes',
     title: 'Innehåll och lärandemål',
@@ -201,7 +208,23 @@ const sections = [
     extraHeaderTitle: null,
   },
 ]
-const getExtraHeaderIdBySectionId = sectionId => sections.find(({ id }) => id === sectionId).extraHeaderTitle || null
+function filterSectionsContentIds(contentIdsToRemove = []) {
+  const newSections = JSON.parse(JSON.stringify(getDefaultSections())) // to avoid changing getDefaultSections() as a constant
+  const finalSections = newSections.map(section => {
+    const { content } = section
+    section.content = content.filter(contentId => !contentIdsToRemove.includes(contentId))
+    return section
+  })
+
+  return finalSections
+}
+
+function getContractEducationStructure() {
+  return filterSectionsContentIds(excludedFieldsInContractEducation)
+}
+
+const getExtraHeaderIdBySectionId = sectionId =>
+  getDefaultSections().find(({ id }) => id === sectionId).extraHeaderTitle || null
 
 const contentParam = (contentId, param) => (context[contentId] && context[contentId][param]) || ''
 
@@ -209,10 +232,10 @@ const isRequired = contentId => (context[contentId] && context[contentId].isRequ
 
 const typeOfHeader = contentId => context[contentId].type || ''
 
-const allStandardHeadersAndSubHd = () => [].concat(...sections.map(({ content }) => content)).sort()
+const allStandardHeadersAndSubHd = () => [].concat(...getDefaultSections().map(({ content }) => content)).sort()
 
 const getOnlyStandardHeaders = sectionId => {
-  const sectionContent = sections.find(({ id }) => id === sectionId)
+  const sectionContent = getDefaultSections().find(({ id }) => id === sectionId)
 
   return [...sectionContent.content.filter(id => !contentParam(id, 'hasParentTitle'))]
 }
@@ -220,27 +243,9 @@ const getOnlyStandardHeaders = sectionId => {
 const getHeadersByType = headerType => [...allStandardHeadersAndSubHd().filter(id => context[id].type === headerType)]
 
 const getSectionHeadersByType = (headerType, sectionId) => {
-  const sectionContent = sections.find(({ id }) => id === sectionId)
+  const sectionContent = getDefaultSections().find(({ id }) => id === sectionId)
   return [...sectionContent.content.filter(id => context[id].type === headerType)]
 }
-
-// const getAlwaysRequiredButNotEditable = () => [
-//   ...allStandardHeadersAndSubHd().filter((id) => context[id].type === 'mandatory')
-// ]
-
-// const getAlwaysRequiredAndEditable = () => [
-//   ...allStandardHeadersAndSubHd().filter(
-//     (id) =>
-//       context[id] && context[id].type === 'mandatoryAndEditable' && contentParam(id, 'isEditable')
-//   )
-// ]
-
-// const getSometimesRequiredButNotEditable = () => [
-//   ...allStandardHeadersAndSubHd().filter(
-//     (id) =>
-//       context[id] && context[id].type === 'mandatoryForSome' && !contentParam(id, 'isEditable')
-//   )
-// ]
 
 const getNumOfStandardHeadersAndSubHd = () => allStandardHeadersAndSubHd().length
 
@@ -251,13 +256,16 @@ module.exports = {
   allStandardHeadersAndSubHd,
   context,
   contentParam,
+  excludedFieldsInContractEducation,
+  getContractEducationStructure,
   getExtraHeaderIdBySectionId,
   getNumOfEditableStandardContent,
   getNumOfStandardHeadersAndSubHd,
   getHeadersByType,
   getSectionHeadersByType,
   getOnlyStandardHeaders,
-  sections,
+  filterSectionsContentIds,
+  getDefaultSections,
   isRequired,
   typeOfHeader,
 }

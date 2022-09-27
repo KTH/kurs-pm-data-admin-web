@@ -381,7 +381,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   test('tab: contentAndOutcomes (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(2)
     expect(getAllByText('Inkludera').length).toBe(4)
-    expect(screen.queryByText('Inkluderas för vissa kurser')).not.toBeInTheDocument()
+    expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
 })
@@ -734,7 +734,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   test('tab: prep (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(2)
     expect(getAllByText('Inkludera').length).toBe(6)
-    expect(screen.queryByText('Inkluderas för vissa kurser')).not.toBeInTheDocument()
+    expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(1)
   })
 })
@@ -1089,7 +1089,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   test('tab: reqToFinal (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
     expect(getAllByText('Inkludera').length).toBe(7)
-    expect(getAllByText('Inkluderas för vissa kurser').length).toBe(1)
+    expect(getAllByText('Inkluderas när innehåll finns i kursplan').length).toBe(1)
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(2)
   })
 })
@@ -1171,7 +1171,6 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     const headers = getOnlyStandardHeaders('extra')
     expect(headers.length).toBe(2)
     headers.map(headerId => {
-      console.log('headerId', headerId)
       const contentAndMenyHd = getAllByText(memoTitlesByMemoLang[headerId])
       expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
     })
@@ -1308,7 +1307,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(screen.queryByText('Inkluderas alltid')).not.toBeInTheDocument()
     expect(getAllByText('Inkludera').length).toBe(3)
-    expect(screen.getByText(/Inkluderas för vissa kurser/i)).toBeInTheDocument()
+    expect(screen.getByText(/Inkluderas när innehåll finns i kursplan/i)).toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
 })
@@ -1524,7 +1523,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
   test('tab: contacts (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
     expect(getAllByText('Inkludera').length).toBe(3)
-    expect(screen.queryByText('Inkluderas för vissa kurser')).not.toBeInTheDocument()
+    expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
 })

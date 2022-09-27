@@ -31,7 +31,22 @@ const courseML1616 = {
   },
   roundInfos: [
     {
+      round: {
+        ladokRoundId: 1,
+        startTerm: {
+          term: '20222',
+        },
+      },
       schemaUrl: 'https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/',
+    },
+    {
+      round: {
+        ladokRoundId: 2,
+        startTerm: {
+          term: '20222',
+        },
+      },
+      schemaUrl: 'https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/',
     },
   ],
   mainSubjects: ['Teknik'],
@@ -200,6 +215,7 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
       "creditUnitAbbr": "hp",
       "credits": 7.5,
       "departmentName": "ITM/Hållbar produktionsutveckling",
+      "educationalTypeId": null,
       "equipmentTemplate": "",
       "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
       "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning. Examinator f&#229;r medge annan examinationsform vid omexamination av enstaka studenter.</p>",
@@ -210,13 +226,14 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
       "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
+        "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/",
       ],
       "syllabusValid": {
         "validFromTerm": 20192,
@@ -243,6 +260,7 @@ test('parse the latest syllabus 20222 for 20222', () => {
       "creditUnitAbbr": "hp",
       "credits": 7.5,
       "departmentName": "ITM/Hållbar produktionsutveckling",
+      "educationalTypeId": null,
       "equipmentTemplate": "",
       "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
       "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning. Examinator f&#229;r medge annan examinationsform vid omexamination av enstaka studenter.</p><p>TENA &#228;r ett valfritt examinationsmoment f&#246;r att uppn&#229; h&#246;gre betyg &#228;n E p&#229; kursen.</p>",
@@ -253,13 +271,14 @@ test('parse the latest syllabus 20222 for 20222', () => {
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
       "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
+        "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/",
       ],
       "syllabusValid": {
         "validFromTerm": 20222,
@@ -282,6 +301,7 @@ test('parse the latest syllabus 20222 for 20231', () => {
       "creditUnitAbbr": "hp",
       "credits": 7.5,
       "departmentName": "ITM/Hållbar produktionsutveckling",
+      "educationalTypeId": null,
       "equipmentTemplate": "",
       "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
       "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning. Examinator f&#229;r medge annan examinationsform vid omexamination av enstaka studenter.</p><p>TENA &#228;r ett valfritt examinationsmoment f&#246;r att uppn&#229; h&#246;gre betyg &#228;n E p&#229; kursen.</p>",
@@ -292,13 +312,14 @@ test('parse the latest syllabus 20222 for 20231', () => {
       "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
       "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
       "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-      <p><a href=\"https://www.kth.se/student/stod/studier/funktionsnedsattning/funka\">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+      <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
       "possibilityToAdditionTemplate": "",
       "possibilityToCompletionTemplate": "",
       "prerequisites": "",
       "recruitmentText": "",
       "schemaUrls": [
         "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-7/calendar/",
+        "https://www.kth.se/social/course/ML1616/subgroup/ht-2022-tiips-2/calendar/",
       ],
       "syllabusValid": {
         "validFromTerm": 20222,

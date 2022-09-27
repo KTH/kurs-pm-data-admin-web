@@ -183,7 +183,6 @@ function _getCourseMainSubjects(body) {
   const { mainSubjects } = body
   return mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : ''
 }
-
 function _getCommonInfo(resBody) {
   // step 2
   const { course: c = {}, roundInfos = [], formattedGradeScales = {} } = resBody
@@ -194,6 +193,7 @@ function _getCommonInfo(resBody) {
   return {
     credits: isCreditNotStandard ? c.credits + '.0' : c.credits || '',
     creditUnitAbbr: c.creditUnitAbbr || '',
+    educationalTypeId: c.educationalTypeId || null,
     gradingScale,
     title: c.title || '',
     titleOther: c.titleOther || '',

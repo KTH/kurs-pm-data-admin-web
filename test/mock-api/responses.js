@@ -166,20 +166,6 @@ module.exports = {
               creditsP2: 7.5,
             },
           ],
-          applicationCodes: [
-            {
-              applicationCode: '50353',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
-            },
-          ],
           startTerm: {
             term: 20212,
           },
@@ -290,20 +276,6 @@ module.exports = {
                 week: 43,
               },
               creditsP1: 7.5,
-            },
-          ],
-          applicationCodes: [
-            {
-              applicationCode: '51741',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
             },
           ],
           startTerm: {
@@ -445,20 +417,6 @@ module.exports = {
               creditsP2: 7.5,
             },
           ],
-          applicationCodes: [
-            {
-              applicationCode: '51496',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
-            },
-          ],
           startTerm: {
             term: 20212,
           },
@@ -542,20 +500,6 @@ module.exports = {
                 week: 3,
               },
               creditsP2: 7.5,
-            },
-          ],
-          applicationCodes: [
-            {
-              applicationCode: '50791',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
             },
           ],
           startTerm: {
@@ -656,20 +600,6 @@ module.exports = {
               creditsP2: 7.5,
             },
           ],
-          applicationCodes: [
-            {
-              applicationCode: '50719',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
-            },
-          ],
           startTerm: {
             term: 20212,
           },
@@ -755,20 +685,6 @@ module.exports = {
               creditsP2: 7.5,
             },
           ],
-          applicationCodes: [
-            {
-              applicationCode: '50136',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
-            },
-          ],
           startTerm: {
             term: 20212,
           },
@@ -851,20 +767,6 @@ module.exports = {
                 week: 3,
               },
               creditsP2: 7.5,
-            },
-          ],
-          applicationCodes: [
-            {
-              applicationCode: '50096',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
             },
           ],
           startTerm: {
@@ -963,20 +865,6 @@ module.exports = {
                 week: 43,
               },
               creditsP1: 7.5,
-            },
-          ],
-          applicationCodes: [
-            {
-              applicationCode: '50007',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
             },
           ],
           startTerm: {
@@ -1083,20 +971,6 @@ module.exports = {
                 week: 3,
               },
               creditsP2: 7.5,
-            },
-          ],
-          applicationCodes: [
-            {
-              applicationCode: '50081',
-              term: '20212',
-              courseRoundType: {
-                code: 'ORD',
-                name: 'Programutbildning',
-                active: true,
-                category: 'PU',
-              },
-              avgFri: false,
-              admissionRoundCode: 'AKH21',
             },
           ],
           startTerm: {

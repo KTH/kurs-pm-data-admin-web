@@ -23,7 +23,7 @@ function ExtraHeadingEditor(props) {
   const { currentIndex, contentId, menuId, showError, uKey } = props
 
   const [localExtraContent, setLocalExtraContent] = useState(memoData[contentId][currentIndex] || {})
-  const { title, htmlContent, visibleInMemo } = localExtraContent
+  const { title = '', htmlContent = '', visibleInMemo } = localExtraContent
 
   const hasEmptyHeading = !!(title.length === 0)
   const hasEmptyText = !!(htmlContent.length === 0)
