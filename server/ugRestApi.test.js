@@ -1,6 +1,7 @@
 jest.mock('./configuration', () => ({ server: {} }))
 
 const log = require('@kth/log')
+const { faker } = require('@faker-js/faker')
 const ugRestApi = require('./ugRestApi')
 
 jest.mock('@kth/log')
@@ -8,80 +9,44 @@ log.info = jest.fn()
 log.debug = jest.fn()
 log.error = jest.fn()
 
+const userInfoToCheckDuplicate = {
+  email: faker.internet.email(),
+  givenName: faker.name.firstName(),
+  id: faker.datatype.uuid(),
+  surname: faker.name.lastName(),
+}
+
+const users = [
+  {
+    email: faker.internet.email(),
+    givenName: faker.name.firstName(),
+    id: faker.datatype.uuid(),
+    surname: faker.name.lastName(),
+  },
+  {
+    email: faker.internet.email(),
+    givenName: faker.name.firstName(),
+    id: faker.datatype.uuid(),
+    surname: faker.name.lastName(),
+  },
+  {
+    email: faker.internet.email(),
+    givenName: faker.name.firstName(),
+    id: faker.datatype.uuid(),
+    surname: faker.name.lastName(),
+  },
+  userInfoToCheckDuplicate,
+  userInfoToCheckDuplicate,
+]
+
 const groupData = [
   {
     name: 'edu.courses.SF.SF1624.examiner',
-    members: [
-      {
-        email: 'bichel@kth.se',
-        givenName: 'Johannes',
-        kthid: 'u13fzqax',
-        surname: 'Bichel',
-        username: 'bichel',
-      },
-      {
-        email: 'testuge@kth.se',
-        givenName: 'Test UG Gruppeditor',
-        kthid: 'u11fyan6',
-        surname: 'Detectify',
-        username: 'testuge',
-      },
-      {
-        email: 'elenara@kth.se',
-        emailAddress: 'elenara@kth.se',
-        givenName: 'Elena',
-        kthid: 'u1ask19i',
-        phoneHR: '087906682',
-        surname: 'Rakhimova',
-        username: 'elenara',
-      },
-      {
-        email: 'bichel@kth.se',
-        givenName: 'Johannes',
-        kthid: 'u13fzqax',
-        surname: 'Bichel',
-        username: 'bichel',
-      },
-    ],
+    members: users,
   },
   {
     name: 'edu.courses.SF.SF1624.1.courseresponsible',
-    members: [
-      {
-        givenName: 'sabahat',
-        firstName: 'Rao Sabahat Ali',
-        lastName: 'Khan',
-        surname: 'Khan',
-        email: 'sabahat@kth.se',
-        username: 'sabahat',
-      },
-      {
-        email: 'madjidi@kth.se',
-        emailAddress: 'madjidi@kth.se',
-        givenName: 'Payam',
-        kthid: 'u1rw2ong',
-        phoneHR: '087906673',
-        surname: 'Madjidi',
-        username: 'madjidi',
-      },
-      {
-        email: 'jeskla@kth.se',
-        emailAddress: 'jeskla@kth.se',
-        givenName: 'Jessica',
-        kthid: 'u16uygcs',
-        phoneHR: '087906164',
-        surname: 'Klarström',
-        username: 'jeskla',
-      },
-      {
-        givenName: 'sabahat',
-        firstName: 'Rao Sabahat Ali',
-        lastName: 'Khan',
-        surname: 'Khan',
-        email: 'sabahat@kth.se',
-        username: 'sabahat',
-      },
-    ],
+    members: users,
   },
 ]
 
@@ -99,9 +64,9 @@ describe('Check Examiner and responsilbes with duplicate list', () => {
     const { examiner, teacher, responsibles, assistants } = employeeTestData
     expect(teacher).toBeArrayOfSize(0)
     expect(assistants).toBeArrayOfSize(0)
-    expect(examiner).toBeArrayOfSize(3)
-    expect(responsibles).toBeArrayOfSize(3)
-    expect(examiner.filter(x => x.username === 'bichel')).toBeArrayOfSize(1)
-    expect(responsibles.filter(x => x.username === 'sabahat')).toBeArrayOfSize(1)
+    expect(examiner).toBeArrayOfSize(4)
+    expect(responsibles).toBeArrayOfSize(4)
+    expect(examiner.filter(x => x.id === userInfoToCheckDuplicate.id)).toBeArrayOfSize(1)
+    expect(responsibles.filter(x => x.id === userInfoToCheckDuplicate.id)).toBeArrayOfSize(1)
   })
 })
