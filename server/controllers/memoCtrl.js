@@ -9,7 +9,7 @@ const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getSyllabus } = require('../koppsApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
-const { getCourseEmployees } = require('../ugRedisApi')
+const { getCourseEmployees } = require('../ugRestApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
