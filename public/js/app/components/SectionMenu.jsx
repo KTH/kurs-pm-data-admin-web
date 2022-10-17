@@ -10,6 +10,12 @@ import { isRequired } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 
+const scrollWithOffset = el => {
+  const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset
+  const yOffset = -120
+  window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' })
+}
+
 const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
   if (isRequired(contentId)) {
     // Required headers are always visible, don’t show an eye slash icon
@@ -71,7 +77,7 @@ const MainMenu = ({ extraClasses = '', children }) => (
 
 const NavItemLink = ({ id, title, showEyeSlashIcon: showIcon }) => (
   <p className="nav-link-to-content-header">
-    <Link smooth to={'#' + id} scroll={el => el.scrollIntoView({ behavior: 'smooth' })}>
+    <Link smooth to={'#' + id} scroll={el => scrollWithOffset(el)}>
       <span>{title}</span>
     </Link>
     {showIcon && <FaRegEyeSlash className="section_info_visibility_icon" />}
