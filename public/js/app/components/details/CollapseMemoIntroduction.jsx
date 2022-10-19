@@ -27,7 +27,7 @@ const Introduction = ({ langAbbr }) =>
         <li>
           Länkar till ditt kurs-PM från kursrummet, se&nbsp;
           <a
-            href="https://www-edit.sys.kth.se/preview/www/2.9631/2.8043/2.84758/2.93755/2.93757/1.1059436?l=sv_SE"
+            href="https://intra.kth.se/utbildning/systemstod/canvas/guider/kursoversikt-1.1059436"
             target="_blank"
             className="external-link"
             rel="noreferrer"
