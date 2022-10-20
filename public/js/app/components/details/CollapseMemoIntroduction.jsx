@@ -75,7 +75,7 @@ const Introduction = ({ langAbbr }) =>
         <li>
           Add a link to the course memo in the course room. See&nbsp;
           <a
-            href="https://www-edit.sys.kth.se/preview/www/2.9631/2.8043/2.84758/2.93755/2.93757/1.1059436?l=en_GB"
+            href="https://intra.kth.se/en/utbildning/systemstod/canvas/guider/kursoversikt-1.1059436"
             target="_blank"
             className="external-link"
             rel="noreferrer"
