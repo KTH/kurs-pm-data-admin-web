@@ -26,16 +26,16 @@ const { memoTitlesByMemoLang, orderedFilledInAndVisible, sectionsLabels } = tran
 const { notIncludedInMemoYet, pageTitles } = translations.sv
 const { alerts, info, sourceInfo } = i18n.messages[0]
 const introductionHeaders = {
-  sv: ['Hur blir ditt kurs-PM bra för studenter?'],
-  en: ['How to create a course memo that is functional for the students'],
+  sv: ['Vad är kurs-PM?'],
+  en: ['What is a course memo?'],
 }
 const getStartedHeaders = {
   sv: ['Kom i gång snabbt'],
   en: ['Get started quickly'],
 }
 const informStudentsHeaders = {
-  sv: ['Informera dina studenter om gjorda ändringar'],
-  en: ['Inform your students of changes made'],
+  sv: ['Hur blir ditt kurs-PM bra för studenter?'],
+  en: ['How to create a course memo that is functional for the students'],
 }
 const moreHelpHeaders = {
   sv: ['Mer hjälp?'],
