@@ -195,6 +195,7 @@ const HelpEdit = ({ langAbbr }) => (
   <div>
     <Introduction langAbbr={langAbbr} />
     <InformStudents langAbbr={langAbbr} />
+    <GetStarted langAbbr={langAbbr} />
     <MoreHelp langAbbr={langAbbr} />
   </div>
 )
@@ -206,6 +207,7 @@ HelpEdit.propTypes = {
 const HelpCreate = ({ langAbbr }) => (
   <div>
     <Introduction langAbbr={langAbbr} />
+    <InformStudents langAbbr={langAbbr} />
     <GetStarted langAbbr={langAbbr} />
     <MoreHelp langAbbr={langAbbr} />
   </div>
