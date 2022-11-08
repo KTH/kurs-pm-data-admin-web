@@ -112,7 +112,7 @@ const InformStudents = ({ langAbbr }) =>
         <li>
           Add a link to the course memo in the course room. See&nbsp;
           <a
-            href="https://intra.kth.se/utbildning/systemstod/canvas/guider/kursoversikt-1.1059436"
+            href="https://intra.kth.se/en/utbildning/systemstod/canvas/guider/kursoversikt-1.1059436"
             target="_blank"
             className="external-link"
             rel="noreferrer"
@@ -134,7 +134,7 @@ const MoreHelp = ({ langAbbr }) =>
       <h3>Mer hjälp?</h3>
       <p>
         <a
-          href="https://intra.kth.se/en/utbildning/systemstod/om-kursen/kurs-pm/riktilinjer-1.1184855"
+          href="https://intra.kth.se/utbildning/systemstod/om-kursen/kurs-pm/riktilinjer-1.1184855"
           target="_blank"
           className="external-link"
           rel="noreferrer"
@@ -144,7 +144,7 @@ const MoreHelp = ({ langAbbr }) =>
       </p>
       <p>
         <a
-          href="https://intra.kth.se/utbildning/systemstod/om-kursen/kurs-pm/manual/andra-publicerat-kurs-pm-1.1184949"
+          href="https://intra.kth.se/utbildning/systemstod/om-kursen/kurs-pm/manual/skapa-publicera-nytt-1.1184947 "
           target="_blank"
           className="external-link"
           rel="noreferrer"
@@ -172,7 +172,7 @@ const MoreHelp = ({ langAbbr }) =>
       </p>
       <p>
         <a
-          href="https://intra.kth.se/utbildning/systemstod/om-kursen/kurs-pm/manual/andra-publicerat-kurs-pm-1.1184949"
+          href="https://intra.kth.se/en/utbildning/systemstod/om-kursen/kurs-pm/manual/andra-publicerat-kurs-pm-1.1184947"
           target="_blank"
           className="external-link"
           rel="noreferrer"
