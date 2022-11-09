@@ -25,11 +25,34 @@ Introduction.propTypes = {
   langAbbr: PropTypes.string.isRequired,
 }
 
+const IntroductionEdit = ({ langAbbr }) =>
+  langAbbr === 'sv' ? (
+    <>
+      <h3>Kurs-PM versionshanteras</h3>
+      <p>
+        När du gör ändringar av kurs-PM skapas en ny version. Den senaste versionen visas på sidan ”Förbereda och gå
+        kurs”. Alla versioner visas på sidan ”Arkiv”.
+      </p>
+    </>
+  ) : (
+    <>
+      <h3>Course memos exist in different versions</h3>
+      <p>
+        When you make changes to the course memo, a new version is created. The latest version appears on the “Prepare
+        and take a course” page. The “Archive” page displays all versions of a course memo.
+      </p>
+    </>
+  )
+
+IntroductionEdit.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
 const GetStarted = ({ langAbbr }) =>
   langAbbr === 'sv' ? (
     <>
       <h3>Kom i gång snabbt</h3>
-      <ol>
+      <ul>
         <li>Bläddra igenom alla flikar för att se vilka rubriker som finns</li>
         <li>
           Gå till sista steget &rdquo;Granska och publicera&rdquo; för att se hur ditt kurs-PM kommer att se ut när det
@@ -43,21 +66,21 @@ const GetStarted = ({ langAbbr }) =>
           När du är klar, välj &rdquo;Avsluta med utkast&rdquo; eller &rdquo;Granska&rdquo; för att fortsätta till
           publicering.
         </li>
-      </ol>
+      </ul>
     </>
   ) : (
     <>
       <h3>Get started quickly</h3>
-      <ol>
+      <ul>
         <li>Look through all tabs to see which headings are available</li>
-        <li>Go to the last step, &ldquo;Preview and publish,&rdquo; to get a sense of a completed course memo,</li>
+        <li>Go to the last step, &ldquo;Preview and publish,&rdquo; to get a sense of a completed course memo</li>
         <li>Click on the i-icon next to each heading to understand the heading’s intended use</li>
         <li>Click on &ldquo;Show guidance&rdquo; for guidance on how to write content under the specific heading</li>
         <li>
           When you have finished, select &ldquo;Exit (save draft)&rdquo; or &ldquo;Preview&rdquo; to proceed to the
           publish step.
         </li>
-      </ol>
+      </ul>
     </>
   )
 
@@ -87,17 +110,6 @@ const InformStudents = ({ langAbbr }) =>
           </a>
         </li>
       </ul>
-      <p>
-        Bakgrund, se&nbsp;
-        <a
-          href="https://intra.kth.se/utbildning/utbildningsadministr/om-kursen/kurs-pm/kurs-pm-1.1079198"
-          target="_blank"
-          className="external-link"
-          rel="noreferrer"
-        >
-          Kurs-PM
-        </a>
-      </p>
     </>
   ) : (
     <>
@@ -125,6 +137,23 @@ const InformStudents = ({ langAbbr }) =>
   )
 
 InformStudents.propTypes = {
+  langAbbr: PropTypes.string.isRequired,
+}
+
+const InformStudentsEdit = ({ langAbbr }) =>
+  langAbbr === 'sv' ? (
+    <>
+      <h3>Informera dina studenter om gjorda ändringar</h3>
+      <p>Informera dina studenter om att du har gjort ändringar i ditt kurs-PM. Ange också vad du har ändrat.</p>
+    </>
+  ) : (
+    <>
+      <h3>Inform your students of changes made</h3>
+      <p>Inform your students that you have made changes to your course memo. Also, specify what you have changed.</p>
+    </>
+  )
+
+InformStudentsEdit.propTypes = {
   langAbbr: PropTypes.string.isRequired,
 }
 
@@ -193,8 +222,8 @@ MoreHelp.propTypes = {
 
 const HelpEdit = ({ langAbbr }) => (
   <div>
-    <Introduction langAbbr={langAbbr} />
-    <InformStudents langAbbr={langAbbr} />
+    <IntroductionEdit langAbbr={langAbbr} />
+    <InformStudentsEdit langAbbr={langAbbr} />
     <GetStarted langAbbr={langAbbr} />
     <MoreHelp langAbbr={langAbbr} />
   </div>

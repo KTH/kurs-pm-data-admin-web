@@ -29,11 +29,19 @@ const introductionHeaders = {
   sv: ['Vad är kurs-PM?'],
   en: ['What is a course memo?'],
 }
+const introductionEditHeaders = {
+  sv: ['Kurs-PM versionshanteras'],
+  en: ['Edit published course memo'],
+}
 const getStartedHeaders = {
   sv: ['Kom i gång snabbt'],
   en: ['Get started quickly'],
 }
 const informStudentsHeaders = {
+  sv: ['Informera dina studenter om gjorda ändringar'],
+  en: ['Inform your students of changes made'],
+}
+const informStudentsEditHeaders = {
   sv: ['Hur blir ditt kurs-PM bra för studenter?'],
   en: ['How to create a course memo that is functional for the students'],
 }
@@ -83,7 +91,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH3Headers.length).toBe(11)
-    const expectedh3ds = introductionHeaders.sv
+    const expectedh3ds = introductionEditHeaders.sv
       .concat(informStudentsHeaders.sv)
       .concat(getStartedHeaders.sv)
       .concat(moreHelpHeaders.sv)
@@ -411,7 +419,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH3Headers.length).toBe(13)
-    const expectedh3ds = introductionHeaders.sv
+    const expectedh3ds = introductionEditHeaders.sv
       .concat(informStudentsHeaders.sv)
       .concat(getStartedHeaders.sv)
       .concat(moreHelpHeaders.sv)
@@ -759,7 +767,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH3Headers.length).toBe(16)
-    const expectedh3ds = introductionHeaders.sv
+    const expectedh3ds = introductionEditHeaders.sv
       .concat(informStudentsHeaders.sv)
       .concat(getStartedHeaders.sv)
       .concat(moreHelpHeaders.sv)
@@ -1114,7 +1122,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     const allH3Headers = getAllByRole('heading', { level: 3 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH3Headers.length).toBe(9)
-    const expectedh3ds = introductionHeaders.sv
+    const expectedh3ds = introductionEditHeaders.sv
       .concat(informStudentsHeaders.sv)
       .concat(getStartedHeaders.sv)
       .concat(moreHelpHeaders.sv)
