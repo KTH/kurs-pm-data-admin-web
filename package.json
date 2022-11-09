@@ -76,7 +76,7 @@
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
     "react-icons": "^4.3.1",
-    "react-router": "^6.2.2",
+    "react-router": "^6.4.3",
     "react-router-dom": "^6.2.2",
     "react-router-hash-link": "^2.4.3",
     "react-sticky": "^6.0.3",
@@ -85,7 +85,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.18.13",
+    "@babel/core": "^7.20.2",
     "@babel/eslint-parser": "^7.18.9",
     "@babel/plugin-transform-runtime": "^7.19.1",
     "@babel/preset-env": "^7.18.10",
