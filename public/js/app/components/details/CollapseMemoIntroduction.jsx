@@ -157,8 +157,10 @@ InformStudentsEdit.propTypes = {
   langAbbr: PropTypes.string.isRequired,
 }
 
-const MoreHelp = ({ langAbbr }) =>
-  langAbbr === 'sv' ? (
+// eslint-disable-next-line react/prop-types
+const MoreHelp = ({ langAbbr, isDraftOfPublished }) => {
+  const userManual = isDraftOfPublished ? 'andra-publicerat-kurs-pm-1.1184949' : 'skapa-publicera-nytt-1.1184947'
+  return langAbbr === 'sv' ? (
     <>
       <h3>Mer hjälp?</h3>
       <p>
@@ -173,7 +175,7 @@ const MoreHelp = ({ langAbbr }) =>
       </p>
       <p>
         <a
-          href="https://intra.kth.se/utbildning/systemstod/om-kursen/kurs-pm/manual/skapa-publicera-nytt-1.1184947 "
+          href={`https://intra.kth.se/utbildning/systemstod/om-kursen/kurs-pm/manual/${userManual}`}
           target="_blank"
           className="external-link"
           rel="noreferrer"
@@ -201,7 +203,7 @@ const MoreHelp = ({ langAbbr }) =>
       </p>
       <p>
         <a
-          href="https://intra.kth.se/en/utbildning/systemstod/om-kursen/kurs-pm/manual/andra-publicerat-kurs-pm-1.1184947"
+          href={`https://intra.kth.se/en/utbildning/systemstod/om-kursen/kurs-pm/manual/${userManual}`}
           target="_blank"
           className="external-link"
           rel="noreferrer"
@@ -215,22 +217,25 @@ const MoreHelp = ({ langAbbr }) =>
       </p>
     </>
   )
+}
 
 MoreHelp.propTypes = {
   langAbbr: PropTypes.string.isRequired,
+  isDraftOfPublished: PropTypes.bool.isRequired,
 }
 
-const HelpEdit = ({ langAbbr }) => (
+const HelpEdit = ({ langAbbr, isDraftOfPublished }) => (
   <div>
     <IntroductionEdit langAbbr={langAbbr} />
     <InformStudentsEdit langAbbr={langAbbr} />
     <GetStarted langAbbr={langAbbr} />
-    <MoreHelp langAbbr={langAbbr} />
+    <MoreHelp langAbbr={langAbbr} isDraftOfPublished={isDraftOfPublished} />
   </div>
 )
 
 HelpEdit.propTypes = {
   langAbbr: PropTypes.string.isRequired,
+  isDraftOfPublished: PropTypes.bool.isRequired,
 }
 
 const HelpCreate = ({ langAbbr }) => (
@@ -250,7 +255,11 @@ const CollapseMemoIntroduction = ({ translate, langAbbr, isDraftOfPublished }) =
   const { titleMain } = translate
   return (
     <CollapseDetails ariaLabel={titleMain} title={titleMain} yellow>
-      {isDraftOfPublished ? <HelpEdit langAbbr={langAbbr} /> : <HelpCreate langAbbr={langAbbr} />}
+      {isDraftOfPublished ? (
+        <HelpEdit langAbbr={langAbbr} isDraftOfPublished={isDraftOfPublished} />
+      ) : (
+        <HelpCreate langAbbr={langAbbr} />
+      )}
     </CollapseDetails>
   )
 }
