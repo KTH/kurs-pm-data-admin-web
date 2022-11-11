@@ -39,22 +39,7 @@ const AlertDraftOfPublished = ({ courseCode, memoEndPoint, memoVersion, publishD
     }
   }
 
-  return (
-    <UpperAlertRow alertMsg={alerts.infoAboutFreshData || ''} ukey="infoAboutNewData">
-      <Alert key="infoAboutStartingAgain" color="info">
-        {`${alerts.infoStartAgain} `}
-        <ActionModalButton
-          btnLabel={`${alerts.linkToRefreshData} (${
-            new Date(publishDate).toLocaleString(userLangIndex === 0 ? 'en-US' : 'sv-SE') || 'version:' + memoVersion
-          })`}
-          modalId="rebuildDraft"
-          type="actionLink"
-          modalLabels={actionModals.rebuildDraftOfPublished}
-          onConfirm={rebuildDraftOfPublished}
-        />
-      </Alert>
-    </UpperAlertRow>
-  )
+  return <UpperAlertRow alertMsg={alerts.infoAboutFreshData || ''} ukey="infoAboutNewData"></UpperAlertRow>
 }
 
 AlertDraftOfPublished.propTypes = {

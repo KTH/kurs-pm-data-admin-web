@@ -30,7 +30,7 @@ import SectionMenu from '../components/SectionMenu'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 35
-const TAB_TOP_MARGIN = 20
+const TAB_TOP_MARGIN = 15
 const TAB_HEIGHT_WITH_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN}px`
 const PERSONAL_MENU_HEIGHT = 41
 const MINUS_PERSONAL_MENU_HEIGHT = 0 - PERSONAL_MENU_HEIGHT

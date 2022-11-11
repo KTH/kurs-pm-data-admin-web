@@ -104,7 +104,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(alert).toBeInTheDocument()
   })
 
-  test('tab: contentAndOutcomes (draft of published). renders alert about kopps data were updated', () => {
+  xtest('tab: contentAndOutcomes (draft of published). renders alert about kopps data were updated', () => {
     const alert = getByText('Det finns ändringar som ej publicerats. Du kan')
     expect(alert).toBeInTheDocument()
   })
@@ -160,9 +160,8 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
 
   test('tab: contentAndOutcomes (draft of published). renders all buttons', async () => {
     const allButtons = getAllByRole('button')
-    expect(allButtons.length).toBe(17)
+    expect(allButtons.length).toBe(16)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information om Course contents',
       'Information om Intended learning outcomes',
       'Information om Learning activities',
@@ -182,7 +181,6 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
-      'återgå till senaste publicerade versionen av kurs-PM (2019-07-01 15:37:34)',
       '',
       '',
       '',
@@ -478,9 +476,8 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
 
   test('tab: prep (draft of published). renders all buttons', async () => {
     const allButtons = getAllByRole('button')
-    expect(allButtons.length).toBe(22)
+    expect(allButtons.length).toBe(21)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information om Recommended prerequisites',
       'Information om Specific preparations',
       'Redigera Särskilda förberedelser',
@@ -505,7 +502,6 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
-      'återgå till senaste publicerade versionen av kurs-PM (2019-07-01 15:37:34)',
       '',
       '',
       'Redigera',
@@ -804,9 +800,8 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
 
   test('tab: reqToFinal (draft of published). renders all buttons', async () => {
     const allButtons = getAllByRole('button')
-    expect(allButtons.length).toBe(27)
+    expect(allButtons.length).toBe(26)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information om Grading scale',
       'Information om Examination',
       'Redigera Examination',
@@ -1156,9 +1151,8 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
 
   test('tab: extra (draft of published). renders all buttons', async () => {
     const allButtons = getAllByRole('button')
-    expect(allButtons.length).toBe(14)
+    expect(allButtons.length).toBe(13)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information om Additional regulations',
       'Information om Changes of the course before this course offering',
       'Redigera Ändringar inför denna kursomgång',
@@ -1369,9 +1363,8 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). renders all buttons', async () => {
     const allButtons = getAllByRole('button')
-    expect(allButtons.length).toBe(14)
+    expect(allButtons.length).toBe(13)
     const expectedAriaLabels = [
-      'återgå till senaste publicerade versionen av kurs-PM  (2019-07-01 15:37:34)',
       'Information om Communication during course',
       'Redigera Kommunikation i kursen',
       'Information om Course coordinator',
