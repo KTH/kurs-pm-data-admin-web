@@ -200,11 +200,13 @@ function MemoContainer(props) {
   const onChangeTab = nextSectionId => {
     const extraHeadersId = getExtraHeaderIdBySectionId(activeTab)
     const canBeSwitched = store.checkExtraTitlesForSectionId(extraHeadersId)
+    const tabBarContainer = document.getElementsByClassName('memo-container')
+
     if (canBeSwitched) {
       setActiveTab(nextSectionId)
       setContentIdWithMissingHeading('')
       store.cleanUpAllEmptyExtraContent(extraHeadersId)
-
+      tabBarContainer[0].style.height = '100vh'
       onAutoSave()
     } else {
       setContentIdWithMissingHeading(extraHeadersId)
@@ -412,6 +414,7 @@ function MemoContainer(props) {
         <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
           {({ style, isSticky }) => (
             <div
+              id="stickyDiv"
               style={{
                 ...style,
                 ...{
@@ -434,7 +437,7 @@ function MemoContainer(props) {
           )}
         </Sticky>
 
-        <Row>
+        <Row style={{ height: '100vh' }}>
           <Col lg="8" className="memo-content tab-content" id="memoTabContent">
             {renderTabSections()}
           </Col>
