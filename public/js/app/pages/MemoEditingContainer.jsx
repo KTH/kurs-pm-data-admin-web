@@ -206,7 +206,7 @@ function MemoContainer(props) {
       setActiveTab(nextSectionId)
       setContentIdWithMissingHeading('')
       store.cleanUpAllEmptyExtraContent(extraHeadersId)
-      tabBarContainer[0].style.height = '100vh'
+      tabBarContainer[0].style.height = '100%'
       onAutoSave()
     } else {
       setContentIdWithMissingHeading(extraHeadersId)
@@ -437,7 +437,7 @@ function MemoContainer(props) {
           )}
         </Sticky>
 
-        <Row style={{ height: '100vh' }}>
+        <Row className="memo-content-row">
           <Col lg="8" className="memo-content tab-content" id="memoTabContent">
             {renderTabSections()}
           </Col>
