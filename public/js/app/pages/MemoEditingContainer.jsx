@@ -200,13 +200,10 @@ function MemoContainer(props) {
   const onChangeTab = nextSectionId => {
     const extraHeadersId = getExtraHeaderIdBySectionId(activeTab)
     const canBeSwitched = store.checkExtraTitlesForSectionId(extraHeadersId)
-    const tabBarContainer = document.getElementsByClassName('memo-container')
-
     if (canBeSwitched) {
       setActiveTab(nextSectionId)
       setContentIdWithMissingHeading('')
       store.cleanUpAllEmptyExtraContent(extraHeadersId)
-      tabBarContainer[0].style.height = '100%'
       onAutoSave()
     } else {
       setContentIdWithMissingHeading(extraHeadersId)

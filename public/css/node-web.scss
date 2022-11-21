@@ -369,30 +369,8 @@ $btn-link-height: 20px;
 }
 //Edit content
 .memo-content-row {
-  margin-left: 0;
-  margin-right: -1px;
-  height: 100vh;
-  overflow-y: auto;
-  /* width */
-  &::-webkit-scrollbar {
-    width: 1px;
-    background: #ffffff;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: #ffffff;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: #ffffff;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: #ffffff;
-  }
+  margin-left: 0px;
+  margin-right: 0px;
 }
 .white-space-under-tabs {
   // under sticky tab white space
