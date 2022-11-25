@@ -598,7 +598,7 @@ module.exports = {
     noRoundsToAdd:
       'All administrative course instances this semester has a published course memo or a draft of a course memo. Therefore, there is no administrative course instance to add to this course memo. View saved drafts on this page or published course memos on the page "About course memo" for this course.',
     noCourseRoundsAvailable:
-      'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft.',
+      'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft. See drafts or published course memos on the Prepare and take course/Course memo page.',
     noSavedDrafts: 'There are no saved drafts.',
     noSemesterAvailable:
       'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
