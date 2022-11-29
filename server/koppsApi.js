@@ -26,7 +26,64 @@ const koppsConfig = {
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
 /** STEP 1: CHOOSE COURSE ROUNDS TO CREATE A NEW ONE * */
-const _prevTermNumber = () => {
+function getDateOfMondayOfTheWeek(startDate) {
+  const currentDate = new Date(startDate)
+  const first = currentDate.getDate() - currentDate.getDay() + 1
+  const firstMondayOfSpringSemester = new Date(currentDate.setDate(first))
+  return firstMondayOfSpringSemester
+}
+
+function addDays(date, days) {
+  // return date.setDate(date.getDate() + days)
+  const copy = new Date(Number(date))
+  copy.setDate(date.getDate() + days)
+  return copy
+}
+
+function getCurrentTerm(overrideDate) {
+  const JULY = 6
+  const SPRING = 1
+  const FALL = 2
+  const currentDate = overrideDate || new Date()
+  const currentYear = currentDate.getFullYear()
+  const currentMonth = currentDate.getMonth()
+  const currentSemester = currentMonth < JULY ? SPRING : FALL
+  return `${currentYear * 10 + currentSemester}`
+}
+
+function isDateWithinCurrentSemester(checkDate) {
+  // checking if lastTuitionDate is within current semester
+  const currentSemester = getCurrentTerm().slice(-1)
+  const dateToCheck = new Date(checkDate)
+  const today = new Date()
+  const currentYear = today.getFullYear()
+  const startDateOfStartWeekAutumnSemester = `${currentYear}-08-28`
+  // const endDateOfStartWeekAutumnSemester = `${currentYear}-09-03`
+  const startDateOfAutumnSemester = getDateOfMondayOfTheWeek(startDateOfStartWeekAutumnSemester)
+
+  const endDateOfAutumnSemester = addDays(startDateOfAutumnSemester, 140)
+  const startDateOfSpringSemester = addDays(endDateOfAutumnSemester, 1)
+  const endDateOfSpringSemester = addDays(startDateOfSpringSemester, 140)
+
+  if (currentSemester == 2) {
+    if (
+      dateToCheck > startDateOfAutumnSemester ||
+      (dateToCheck > startDateOfAutumnSemester && dateToCheck < endDateOfAutumnSemester)
+    ) {
+      return true
+    }
+  } else {
+    if (
+      dateToCheck > startDateOfSpringSemester ||
+      (dateToCheck > startDateOfSpringSemester && dateToCheck < endDateOfSpringSemester)
+    ) {
+      return true
+    }
+  }
+  return false
+}
+
+/* const _prevTermNumber = () => {
   // step 1
   const SPRING = 1
   const FALL = 2
@@ -35,15 +92,15 @@ const _prevTermNumber = () => {
   const currentMonth = today.getMonth()
   const currentSemester = currentMonth < 7 ? SPRING : FALL
   return Number(`${prevYear}${currentSemester}`)
-}
+} */
 
-const _sliceTermsArrByPrevTerm = allTerms => {
+/* const _sliceTermsArrByPrevTerm = allTerms => {
   // step 1
   const prevTerm = _prevTermNumber()
   const indexForCut = allTerms.findIndex(obj => Number(obj.term) < prevTerm)
   const finalTerms = indexForCut === -1 ? allTerms : allTerms.slice(0, indexForCut)
   return finalTerms
-}
+} */
 
 async function getCourseSchool(courseCode) {
   const { client } = api.koppsApi
@@ -69,11 +126,14 @@ async function getKoppsCourseRoundTerms(courseCode) {
   try {
     const res = await client.getAsync({ uri, useCache: true })
     const { course, termsWithCourseRounds } = res.body
-    const slicedTermsByPrevTerm = _sliceTermsArrByPrevTerm(termsWithCourseRounds)
+
+    const activeTerms = termsWithCourseRounds.filter(term =>
+      isDateWithinCurrentSemester(term.rounds[0].lastTuitionDate)
+    )
 
     return {
       course,
-      lastTermsInfo: slicedTermsByPrevTerm,
+      lastTermsInfo: activeTerms,
     }
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
