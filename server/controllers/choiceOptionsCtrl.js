@@ -44,9 +44,12 @@ async function getCourseOptionsPage(req, res, next) {
     applicationStore.doSetLanguageIndex(lang)
 
     applicationStore.miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
+    const lastTermsInfoLength = applicationStore.miniKoppsObj.lastTermsInfo.length
+    const lastActiveSemester = applicationStore.miniKoppsObj.lastTermsInfo[lastTermsInfoLength - 1].term
 
     applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
       courseCode,
+      semester: lastActiveSemester,
     })
 
     applicationStore.setMemoBasicInfo({
