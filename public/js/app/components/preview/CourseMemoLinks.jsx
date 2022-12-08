@@ -1,6 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react'
-import { FaAsterisk, FaPrint } from 'react-icons/fa'
+import { FaAsterisk } from 'react-icons/fa'
 import { Button } from 'reactstrap'
 import PropTypes from 'prop-types'
 
@@ -51,7 +51,7 @@ const pdfLink = labels => (
     <Button id="print-pm-link" color="link">
       {labels.linkCourseMemoPrint}
     </Button>
-    <FaPrint className="pdf-icon" />
+    <svg className="print-icon" />
     <Popup header={labels.courseMemoPrint} body={labels.courseMemoModal} targetId="print-pm-link" />
   </span>
 )
