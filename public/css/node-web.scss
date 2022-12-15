@@ -219,7 +219,7 @@ $btn-link-height: 20px;
 
       &.active {
         font-weight: 700 !important;
-        border-bottom: none;
+        border-bottom: solid 1px #fff;
       }
       &[aria-selected='false'] {
         border-bottom: solid 1px $grey;
@@ -770,11 +770,20 @@ h2.preview-info {
   }
 }
 
+.print-pm-link {
+  margin: 0;
+  padding: 0;
+  width: max-content;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .print-icon {
   background-image: url(../../node_modules/kth-style/dist/img/kth-style/icons/print-blue.svg);
+  background-repeat: no-repeat;
   height: 20px;
-  width: 20px;
-  margin-left: 0.3rem;
+  width: 25px;
+  margin-right: 0.3rem;
   vertical-align: middle;
 }
 
