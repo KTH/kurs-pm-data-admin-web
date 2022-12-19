@@ -471,12 +471,14 @@ $btn-link-height: 20px;
     .nav-link-to-content-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-    }
-
-    svg {
-      // visibility, eye icon
-      margin-left: 15px;
+      align-items: flex-end;
+      a {
+        width: 13rem;
+      }
+      svg {
+        // visibility, eye icon
+        margin-left: 15px;
+      }
     }
   }
 }
@@ -505,6 +507,13 @@ span.section-info {
 }
 .section_info_visibility_icon {
   @extend %react-icon-basic;
+  background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/eye-off-black.svg');
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  position: absolute;
+  right: 0;
+  height: 20px;
+  width: 25px;
 }
 
 .step-forward,

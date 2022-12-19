@@ -2,7 +2,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { HashLink as Link } from 'react-router-hash-link'
-import { FaRegEyeSlash } from 'react-icons/fa'
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
@@ -80,7 +79,7 @@ const NavItemLink = ({ id, title, showEyeSlashIcon: showIcon }) => (
     <Link smooth to={'#' + id} scroll={el => scrollWithOffset(el)}>
       <span>{title}</span>
     </Link>
-    {showIcon && <FaRegEyeSlash className="section_info_visibility_icon" />}
+    {showIcon && <svg className="section_info_visibility_icon" />}
   </p>
 )
 
