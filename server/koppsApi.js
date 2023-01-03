@@ -83,24 +83,14 @@ function isDateWithinCurrentSemester(checkDate) {
   return false
 }
 
-/* const _prevTermNumber = () => {
-  // step 1
-  const SPRING = 1
-  const FALL = 2
+function isDateInFuture(checkDate) {
+  const dateToCheck = new Date(checkDate)
   const today = new Date()
-  const prevYear = today.getFullYear() - 1
-  const currentMonth = today.getMonth()
-  const currentSemester = currentMonth < 7 ? SPRING : FALL
-  return Number(`${prevYear}${currentSemester}`)
-} */
 
-/* const _sliceTermsArrByPrevTerm = allTerms => {
-  // step 1
-  const prevTerm = _prevTermNumber()
-  const indexForCut = allTerms.findIndex(obj => Number(obj.term) < prevTerm)
-  const finalTerms = indexForCut === -1 ? allTerms : allTerms.slice(0, indexForCut)
-  return finalTerms
-} */
+  if (dateToCheck > today) return true
+
+  return false
+}
 
 async function getCourseSchool(courseCode) {
   const { client } = api.koppsApi
@@ -127,8 +117,9 @@ async function getKoppsCourseRoundTerms(courseCode) {
     const res = await client.getAsync({ uri, useCache: true })
     const { course, termsWithCourseRounds } = res.body
 
-    const activeTerms = termsWithCourseRounds.filter(term =>
-      isDateWithinCurrentSemester(term.rounds[0].lastTuitionDate)
+    const activeTerms = termsWithCourseRounds.filter(
+      term =>
+        isDateWithinCurrentSemester(term.rounds[0].lastTuitionDate) || isDateInFuture(term.rounds[0].lastTuitionDate)
     )
 
     return {
