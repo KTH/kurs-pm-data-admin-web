@@ -29,6 +29,19 @@ async function getUsedDrafts(req, res, next) {
   }
 }
 
+function getMemosParams(courseCode, course = {}) {
+  const { lastTermsInfo = [] } = course
+  const lastTermsInfoLength = lastTermsInfo.length
+  const lastActiveTermsInfo = lastTermsInfoLength > 0 ? lastTermsInfo[lastTermsInfoLength - 1] : {}
+  const { term: lastActiveSemester } = lastActiveTermsInfo
+  const semester = lastActiveSemester ? { semester: lastActiveSemester } : {}
+
+  return {
+    courseCode,
+    ...semester,
+  }
+}
+
 async function getCourseOptionsPage(req, res, next) {
   try {
     // const context = {}
@@ -44,13 +57,9 @@ async function getCourseOptionsPage(req, res, next) {
     applicationStore.doSetLanguageIndex(lang)
 
     applicationStore.miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
-    const lastTermsInfoLength = applicationStore.miniKoppsObj.lastTermsInfo.length
-    const lastActiveSemester = applicationStore.miniKoppsObj.lastTermsInfo[lastTermsInfoLength - 1].term
+    const memoParams = getMemosParams(courseCode, applicationStore.miniKoppsObj)
 
-    applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', {
-      courseCode,
-      semester: lastActiveSemester,
-    })
+    applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', memoParams)
 
     applicationStore.setMemoBasicInfo({
       courseCode,
