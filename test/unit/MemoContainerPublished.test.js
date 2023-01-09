@@ -368,7 +368,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   })
 
   test('tab: contentAndOutcomes (draft of published). get memo name', async () => {
-    expect(getByText('Autumn 2019-2 (Start date 28/10/2019, English)')).toBeInTheDocument()
+    expect(getByText('Autumn 2019-2 (Start date 28 Oct 2019, English)')).toBeInTheDocument()
   })
 
   test('tab: contentAndOutcomes (draft of published). get memo semester', async () => {

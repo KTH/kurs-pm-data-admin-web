@@ -23,6 +23,7 @@ export const seasonStr = (language, semesterRaw) => {
   const langIndex = isLangANumber ? language : convertLangToIndex(language)
   const { extraInfo } = i18n.messages[langIndex]
   const termStringAsSeason = `${extraInfo.season[semesterRaw.toString()[4]]}${semesterRaw.toString().slice(0, 4)}`
+
   return termStringAsSeason
 }
 
@@ -34,6 +35,26 @@ export const getDateFormat = (date, language) => {
   return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
 }
 
+export const formatISODate = (date, lang) => {
+  if (date === '') return null
+  const timestamp = Date.parse(date)
+  const parsedDate = new Date(timestamp)
+  let languageTag // BCP 47 language tag
+  const options = { day: 'numeric', month: 'short', year: 'numeric' }
+  switch (lang) {
+    case 'Svenska':
+    case 'Engelska':
+    case 1:
+    case 'sv':
+      languageTag = 'sv-SE'
+      break
+    default:
+      languageTag = 'en-GB'
+      break
+  }
+  return parsedDate.toLocaleDateString(languageTag, lang === 'sv' ? '' : options)
+}
+
 export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
   const { firstTuitionDate, shortName, ladokRoundId, language } = roundInfo
   const langIndex = langAbbr === 'en' ? 0 : 1
@@ -41,10 +62,10 @@ export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
 
   const seasonOrShortName = shortName ? shortName + ' ' : `${seasonStr(langIndex, semester)}-${ladokRoundId}`
 
-  const startDateAndLanguage = `(${extraInfo.labelStartDate} ${getDateFormat(firstTuitionDate, langAbbr)}, ${
+  const startDateAndLanguage = `(${extraInfo.labelStartDate} ${formatISODate(firstTuitionDate, langAbbr)}, ${
     language[langAbbr]
   })`
-
+  console.log(startDateAndLanguage, ' startDateAndLanguage')
   return `${seasonOrShortName} ${startDateAndLanguage}`
 }
 

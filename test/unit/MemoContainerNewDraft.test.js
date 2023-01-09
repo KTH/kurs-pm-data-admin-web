@@ -266,7 +266,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
 
   test('tab: contentAndOutcomes. get memo name', async () => {
     expect(
-      getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
+      getByText('Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)')
     ).toBeInTheDocument()
   })
 
@@ -561,7 +561,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
 
   test('tab: prep. get memo name', async () => {
     expect(
-      getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
+      getByText('Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)')
     ).toBeInTheDocument()
   })
 
@@ -729,7 +729,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
 
   test('tab: reqToFinal examinations. (memoLang=en) get memo name', async () => {
     expect(
-      getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
+      getByText('Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)')
     ).toBeInTheDocument()
   })
 
@@ -1002,7 +1002,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
 
   test('tab: contacts. get memo name', async () => {
     expect(
-      getByText('Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
+      getByText('Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)')
     ).toBeInTheDocument()
   })
 

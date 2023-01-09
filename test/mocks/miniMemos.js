@@ -8,28 +8,28 @@ const mockMiniMemos = {
       memoName: 'CDATA (Startdatum 2020-03-16, Svenska)',
       semester: '20201',
       status: 'published',
-      version: 1
+      version: 1,
     },
     {
       ladokRoundIds: ['2'],
       memoCommonLangAbbr: 'en',
       memoId: '15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-2',
-      memoName: 'Autumn 2019-2 (Start date 26/08/2019, English)',
+      memoName: 'Autumn 2019-2 (Start date 26 Aug 2019, English)',
       semester: '20192',
       status: 'published',
-      version: '1'
+      version: '1',
     },
     {
       ladokRoundIds: ['1'],
       memoCommonLangAbbr: 'en',
       memoId: 'a15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-1',
-      memoName: 'Autumn 2019-2 (Start date 28/10/2019, English)',
+      memoName: 'Autumn 2019-2 (Start date 28 Oct 2019, English)',
       semester: '20192',
       status: 'published',
-      version: '1'
-    }
+      version: '1',
+    },
   ],
   publishedWithNoActiveDraft: [
     {
@@ -37,10 +37,10 @@ const mockMiniMemos = {
       memoCommonLangAbbr: 'en',
       memoId: '15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-2',
-      memoName: 'Autumn 2019-2 (Start date 26/08/2019, English)',
+      memoName: 'Autumn 2019-2 (Start date 26 Aug 2019, English)',
       semester: '20192',
       status: 'published',
-      version: '1'
+      version: '1',
     },
     {
       ladokRoundIds: ['1'],
@@ -50,8 +50,8 @@ const mockMiniMemos = {
       memoName: 'CDATA (Startdatum 2020-03-16, Svenska)',
       semester: '20201',
       status: 'published',
-      version: 1
-    }
+      version: 1,
+    },
   ],
   draftsOfPublishedMemos: [
     {
@@ -59,11 +59,11 @@ const mockMiniMemos = {
       memoCommonLangAbbr: 'en',
       memoId: 'a15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-1',
-      memoName: 'Autumn 2019-2 (Start date 28/10/2019, English)',
+      memoName: 'Autumn 2019-2 (Start date 28 Oct 2019, English)',
       semester: '20192',
       status: 'draft',
-      version: '2'
-    }
+      version: '2',
+    },
   ],
   draftsWithNoActivePublishedVer: [
     {
@@ -71,11 +71,10 @@ const mockMiniMemos = {
       memoCommonLangAbbr: 'en',
       memoId: 'asd5e84b7ab8bbfe1d77ce0f6c9',
       memoEndPoint: 'EF111120202-2-3',
-      memoName:
-        'Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)',
+      memoName: 'Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)',
       semester: '20202',
       status: 'draft',
-      version: '1'
+      version: '1',
     },
     {
       ladokRoundIds: ['3'],
@@ -85,19 +84,19 @@ const mockMiniMemos = {
       memoName: 'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)',
       semester: '20211',
       status: 'draft',
-      version: '1'
+      version: '1',
     },
     {
       ladokRoundIds: ['2'],
       memoCommonLangAbbr: 'en',
       memoId: 'dfasdfasdfa',
       memoEndPoint: 'EF111120211-2',
-      memoName: 'Spring 2021-2 (Start date 18/01/2021, English)',
+      memoName: 'Spring 2021-2 (Start date 18 Jan 2021, English)',
       semester: '20211',
       status: 'draft',
-      version: '1'
-    }
-  ]
+      version: '1',
+    },
+  ],
 }
 
 export default mockMiniMemos
