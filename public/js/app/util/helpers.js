@@ -23,6 +23,7 @@ export const seasonStr = (language, semesterRaw) => {
   const langIndex = isLangANumber ? language : convertLangToIndex(language)
   const { extraInfo } = i18n.messages[langIndex]
   const termStringAsSeason = `${extraInfo.season[semesterRaw.toString()[4]]}${semesterRaw.toString().slice(0, 4)}`
+
   return termStringAsSeason
 }
 
@@ -30,8 +31,10 @@ export const getDateFormat = (date, language) => {
   if (language === 1 || language === 'Svenska' || language === 'Swedish' || language === 'sv') {
     return date
   }
-  const splitDate = date.split('-')
-  return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
+  const options = { day: 'numeric', month: 'short', year: 'numeric' }
+  const timestamp = Date.parse(date)
+  const parsedDate = new Date(timestamp)
+  return parsedDate.toLocaleDateString('en-GB', options)
 }
 
 export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
@@ -44,7 +47,6 @@ export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
   const startDateAndLanguage = `(${extraInfo.labelStartDate} ${getDateFormat(firstTuitionDate, langAbbr)}, ${
     language[langAbbr]
   })`
-
   return `${seasonOrShortName} ${startDateAndLanguage}`
 }
 

@@ -141,7 +141,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   })
 
   test('get memo name twice as memo name and as course offerings name', async () => {
-    const memoNames = getAllByText('Autumn 2019-2 (Start date 28/10/2019, English)')
+    const memoNames = getAllByText('Autumn 2019-2 (Start date 28 Oct 2019, English)')
     expect(memoNames.length).toBe(2)
   })
 

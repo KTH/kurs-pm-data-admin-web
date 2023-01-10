@@ -91,9 +91,9 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     const publishedMemosLabels = getAllByTestId('label-radio-choose-pub-memo')
     expect(publishedMemosLabels.length).toBe(3)
     expect(publishedMemosLabels[0]).toHaveTextContent(
-      'Autumn 2019-2 (Start date 28/10/2019, English) (has unpublished changes)'
+      'Autumn 2019-2 (Start date 28 Oct 2019, English) (has unpublished changes)'
     )
-    expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26/08/2019, English)')
+    expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26 Aug 2019, English)')
     expect(publishedMemosLabels[2]).toHaveTextContent('CDATA (Startdatum 2020-03-16, Svenska)')
   })
 
@@ -102,9 +102,9 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     const publishedMemosLabels = getAllByTestId('label-radio-choose-pub-memo')
     expect(publishedMemosLabels.length).toBe(3)
     expect(publishedMemosLabels[0]).toHaveTextContent(
-      'Autumn 2019-2 (Start date 28/10/2019, English) (finns opublicerade ändringar)'
+      'Autumn 2019-2 (Start date 28 Oct 2019, English) (finns opublicerade ändringar)'
     )
-    expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26/08/2019, English)')
+    expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26 Aug 2019, English)')
     expect(publishedMemosLabels[2]).toHaveTextContent('CDATA (Startdatum 2020-03-16, Svenska)')
   })
 

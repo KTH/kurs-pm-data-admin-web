@@ -204,9 +204,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       const labels = getAllByTestId('label-checkbox-choose-available-round')
       expect(labels.length).toBe(3)
       const roundNames = [
-        'Autumn 2020-1 (Start date 26/10/2020, English)',
-        'Autumn 2020-2 (Start date 24/08/2020, English)',
-        'CBIOT1 m.fl. (Start date 30/10/2020, Swedish)',
+        'Autumn 2020-1 (Start date 26 Oct 2020, English)',
+        'Autumn 2020-2 (Start date 24 Aug 2020, English)',
+        'CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)',
       ]
       roundNames.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     })
@@ -240,9 +240,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       const labels = getAllByTestId('label-checkbox-choose-available-round')
       expect(labels.length).toBe(3)
       const roundNames = [
-        'Spring 2021-1 (Start date 22/03/2021, English)',
-        'Spring 2021-2 (Start date 18/01/2021, English)',
-        'CBIOT1 m.fl. (Start date 20/03/2021, Swedish)',
+        'Spring 2021-1 (Start date 22 Mar 2021, English)',
+        'Spring 2021-2 (Start date 18 Jan 2021, English)',
+        'CBIOT1 m.fl. (Start date 20 Mar 2021, Swedish)',
       ]
       roundNames.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     })
@@ -334,7 +334,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
 
     await waitFor(() => {
       expect(getByTestId('actionType')).toHaveTextContent('create')
-      expect(getByTestId('newMemoName')).toHaveTextContent('Spring 2021-2 (Start date 18/01/2021, English)')
+      expect(getByTestId('newMemoName')).toHaveTextContent('Spring 2021-2 (Start date 18 Jan 2021, English)')
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
       expect(getByTestId('sortedRoundIds')).toHaveTextContent('2')
     })
@@ -349,7 +349,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
       const roundsLabels = getAllByTestId('label-checkbox-choose-available-round')
-      expect(roundsLabels[2]).toHaveTextContent('CBIOT1 m.fl. (Start date 20/03/2021, Swedish)')
+      expect(roundsLabels[2]).toHaveTextContent('CBIOT1 m.fl. (Start date 20 Mar 2021, Swedish)')
     })
     const rounds = getAllByTestId('checkbox-choose-available-round')
     fireEvent.click(rounds[2])
@@ -378,8 +378,8 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     fireEvent.change(selectInput, { target: { value: '20202' } })
     await waitFor(() => {
       const roundsLabels = getAllByTestId('label-checkbox-choose-available-round')
-      expect(roundsLabels[1]).toBeInTheDocument('Autumn 2020-2 (Start date 24/08/2020, English)')
-      expect(roundsLabels[2]).toHaveTextContent('CBIOT1 m.fl. (Start date 30/10/2020, Swedish)')
+      expect(roundsLabels[1]).toBeInTheDocument('Autumn 2020-2 (Start date 24 Aug 2020, English)')
+      expect(roundsLabels[2]).toHaveTextContent('CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)')
     })
     const rounds = getAllByTestId('checkbox-choose-available-round')
     fireEvent.click(rounds[1])
@@ -394,7 +394,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     await waitFor(() => {
       expect(getByTestId('actionType')).toHaveTextContent('create')
       expect(getByTestId('newMemoName')).toHaveTextContent(
-        'Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)'
+        'Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)'
       )
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
       expect(getByTestId('sortedRoundIds')).toHaveTextContent('2,3')
@@ -412,7 +412,7 @@ test('create a new draft with one round, with correct name (use shortName) in sw
   fireEvent.change(selectInput, { target: { value: '20211' } })
   await waitFor(() => {
     const roundsLabels = getAllByTestId('label-checkbox-choose-available-round')
-    expect(roundsLabels[2]).toHaveTextContent('CBIOT1 m.fl. (Start date 20/03/2021, Swedish)')
+    expect(roundsLabels[2]).toHaveTextContent('CBIOT1 m.fl. (Start date 20 Mar 2021, Swedish)')
   })
   const rounds = getAllByTestId('checkbox-choose-available-round')
   fireEvent.click(rounds[2])
@@ -443,9 +443,9 @@ describe('Component <CreateNewMemo> Create and publish course memo, have some sa
     const labelDrafts = getAllByTestId('label-saved-draft-radio')
     expect(labelDrafts.length).toBe(3)
     const draftNames = [
-      'Autumn 2020-2 (Start date 24/08/2020, English), CBIOT1 m.fl. (Start date 30/10/2020, Swedish)',
+      'Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)',
       'CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)',
-      'Spring 2021-2 (Start date 18/01/2021, English)',
+      'Spring 2021-2 (Start date 18 Jan 2021, English)',
     ]
     draftNames.map((draftName, i) => expect(labelDrafts[i]).toHaveTextContent(draftName))
   })

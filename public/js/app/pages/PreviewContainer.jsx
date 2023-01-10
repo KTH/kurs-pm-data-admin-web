@@ -274,7 +274,7 @@ function PreviewContainer(props) {
       })
       .then(() => {
         const versionStr = encodeURIComponent(
-          `Ver ${version} - ${new Date(memoData.lastChangeDate).toLocaleString(langIndex === 0 ? 'en-US' : 'sv-SE')}`
+          `Ver ${version} - ${new Date(memoData.lastChangeDate).toLocaleString(langIndex === 0 ? 'en-GB' : 'sv-SE')}`
         )
         const publishType = isDraftOfPublished ? 'pub_changed' : 'pub'
         window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=${publishType}&ver=${versionStr}&term=${semester}&name=${encodeURIComponent(
