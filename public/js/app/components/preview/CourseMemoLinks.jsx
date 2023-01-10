@@ -11,8 +11,12 @@ import Popup from './Popup'
 const formatVersion = (language = 'sv', version) => {
   const unixTime = Date.parse(version)
   if (unixTime) {
-    const locale = language === 'sv' ? 'sv-SE' : 'en-US'
-    return new Date(unixTime).toLocaleString(locale)
+    if (language === 'sv') {
+      return new Date(unixTime).toLocaleString('sv-SE')
+    } else {
+      const options = { day: 'numeric', month: 'short', year: 'numeric' }
+      return new Date(unixTime).toLocaleDateString('en-GB', options)
+    }
   }
   return null
 }

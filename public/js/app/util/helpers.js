@@ -31,28 +31,10 @@ export const getDateFormat = (date, language) => {
   if (language === 1 || language === 'Svenska' || language === 'Swedish' || language === 'sv') {
     return date
   }
-  const splitDate = date.split('-')
-  return `${splitDate[2]}/${splitDate[1]}/${splitDate[0]}`
-}
-
-export const formatISODate = (date, lang) => {
-  if (date === '') return null
+  const options = { day: 'numeric', month: 'short', year: 'numeric' }
   const timestamp = Date.parse(date)
   const parsedDate = new Date(timestamp)
-  let languageTag // BCP 47 language tag
-  const options = { day: 'numeric', month: 'short', year: 'numeric' }
-  switch (lang) {
-    case 'Svenska':
-    case 'Engelska':
-    case 1:
-    case 'sv':
-      languageTag = 'sv-SE'
-      break
-    default:
-      languageTag = 'en-GB'
-      break
-  }
-  return parsedDate.toLocaleDateString(languageTag, lang === 'sv' ? '' : options)
+  return parsedDate.toLocaleDateString('en-GB', options)
 }
 
 export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
@@ -62,10 +44,9 @@ export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
 
   const seasonOrShortName = shortName ? shortName + ' ' : `${seasonStr(langIndex, semester)}-${ladokRoundId}`
 
-  const startDateAndLanguage = `(${extraInfo.labelStartDate} ${formatISODate(firstTuitionDate, langAbbr)}, ${
+  const startDateAndLanguage = `(${extraInfo.labelStartDate} ${getDateFormat(firstTuitionDate, langAbbr)}, ${
     language[langAbbr]
   })`
-  console.log(startDateAndLanguage, ' startDateAndLanguage')
   return `${seasonOrShortName} ${startDateAndLanguage}`
 }
 
