@@ -52,24 +52,9 @@ function ActionModalCourseRounds(props) {
 
   const { extraInfo, messages, actionModals, info } = i18n.messages[langIndex]
 
-  useEffect(() => {
-    const mathingMemo = uniqueMemos.find(m => m.memoEndPoint === chosenMemoEndPoint)
-    setMemo(mathingMemo)
-    // eslint-disable-next-line no-use-before-define
-    fetchMatchingRounds(mathingMemo)
-  }, [chosenMemoEndPoint])
-
-  const setAlarm = (type, textName, isOpen) => {
-    setAlert({
-      type,
-      isOpen: isOpen || true,
-      textName,
-    })
-  }
-
   async function fetchMatchingRounds(newMemo) {
-    const { semester } = newMemo
-    const newAvailableRounds = await store.showAvailableSemesterRounds(semester)
+    const { semester: memoSemester } = newMemo
+    const newAvailableRounds = await store.showAvailableSemesterRounds(memoSemester)
     const allNewRounds = await fetchThisTermRounds(miniKoppsObj, newMemo || memo)
     const compatible = await isLangCompatible(newAvailableRounds, memoCommonLangAbbr)
     const checkIfShowSaveBtn = newAvailableRounds && newAvailableRounds.length > 0 && compatible
@@ -77,6 +62,22 @@ function ActionModalCourseRounds(props) {
       allRounds: allNewRounds,
       availableRounds: newAvailableRounds,
       showSaveBtn: checkIfShowSaveBtn,
+    })
+  }
+
+  useEffect(() => {
+    const mathingMemo = uniqueMemos.find(m => m.memoEndPoint === chosenMemoEndPoint)
+    if (mathingMemo) {
+      setMemo(mathingMemo)
+      fetchMatchingRounds(mathingMemo)
+    }
+  }, [chosenMemoEndPoint])
+
+  const setAlarm = (type, textName, isOpen) => {
+    setAlert({
+      type,
+      isOpen: isOpen || true,
+      textName,
     })
   }
 
