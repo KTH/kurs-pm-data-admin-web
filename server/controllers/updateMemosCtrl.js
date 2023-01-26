@@ -27,11 +27,16 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
                   if (round) {
                     const { ladokUID } = round
                     if (ladokUID && ladokUID !== '') {
-                      const { application_code } = await getApplicationFromLadokUID(ladokUID)
+                      if (courseCode === 'SF1626' && ladokRoundId === '7' && semester === '20211') {
+                        log.info('Check')
+                      }
+                      const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
                       totalApplicationCodesFetchedFromKopps++
-                      const applicationCode = applicationCodes.find(x => x === application_code)
-                      if (!applicationCode) {
-                        applicationCodes.push(application_code)
+                      if (round_number.toString() === ladokRoundId.toString()) {
+                        const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
+                        if (!applicationCode) {
+                          applicationCodes.push(application_code)
+                        }
                       }
                     }
                   }
