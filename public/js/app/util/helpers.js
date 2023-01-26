@@ -38,11 +38,11 @@ export const getDateFormat = (date, language) => {
 }
 
 export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
-  const { firstTuitionDate, shortName, ladokRoundId, language } = roundInfo
+  const { firstTuitionDate, shortName, language, applicationCodes } = roundInfo
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { extraInfo } = i18n.messages[langIndex]
 
-  const seasonOrShortName = shortName ? shortName + ' ' : `${seasonStr(langIndex, semester)}-${ladokRoundId}`
+  const seasonOrShortName = shortName ? shortName + ' ' : `${seasonStr(langIndex, semester)}-${applicationCodes[0]}`
 
   const startDateAndLanguage = `(${extraInfo.labelStartDate} ${getDateFormat(firstTuitionDate, langAbbr)}, ${
     language[langAbbr]
@@ -51,12 +51,12 @@ export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
 }
 
 // "Kurs-pm "+ [termin] "-" [kurstillfälleskoder separerade med bindestreck]
-// label + formatted semester + ladokRoundIds
+// label + formatted semester + applicationCodes
 
-export const concatMemoName = (semester, ladokRoundIds, langAbbr = 'sv') => {
+export const concatMemoName = (semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
-  return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${ladokRoundIds.join('-')}`
+  return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${applicationCodes.join('-')}`
 }
 
 export const fetchThisTermRounds = async (miniKoppsObj, memo) => {
@@ -74,9 +74,9 @@ export const uncheckRadioById = chosenId => {
   }
 }
 
-export const emptyCheckboxesByIds = (sortedRoundIds, startOfId) => {
-  sortedRoundIds.map(ladokRoundId => {
-    const checkboxId = `${startOfId}${ladokRoundId}`
+export const emptyCheckboxesByIds = (sortedApplicationCodes, startOfId) => {
+  sortedApplicationCodes.forEach(applicationCode => {
+    const checkboxId = `${startOfId}${applicationCode}`
     document.getElementById(checkboxId).checked = false
   })
 }
@@ -91,21 +91,21 @@ export const emptyCheckboxes = className => {
 }
 
 export const sortRoundAndKoppsInfo = (roundKopps, prevSortedInfo) => {
-  const { ladokRoundId } = roundKopps
-  const { sortedRoundIds, sortedKoppsInfo } = prevSortedInfo
-  sortedRoundIds.push(ladokRoundId)
-  const sortedRounds = sortedRoundIds.sort()
-  const addIndex = sortedRounds.indexOf(ladokRoundId)
+  const { applicationCodes } = roundKopps
+  const { sortedApplicationCodes, sortedKoppsInfo } = prevSortedInfo
+  sortedApplicationCodes.push(applicationCodes[0])
+  const sortedRounds = sortedApplicationCodes.sort()
+  const addIndex = sortedRounds.indexOf(applicationCodes[0])
   sortedKoppsInfo.splice(addIndex, 0, roundKopps)
-  return { sortedRoundIds, sortedKoppsInfo }
+  return { sortedApplicationCodes, sortedKoppsInfo }
 }
 
-export const removeAndSortRoundAndInfo = (ladokRoundId, prevSortedInfo) => {
-  const { sortedRoundIds, sortedKoppsInfo } = prevSortedInfo
-  const removeIndex = sortedRoundIds.indexOf(ladokRoundId)
-  sortedRoundIds.splice(removeIndex, 1)
+export const removeAndSortApplicationAndInfo = (applicationCode, prevSortedInfo) => {
+  const { sortedApplicationCodes, sortedKoppsInfo } = prevSortedInfo
+  const removeIndex = sortedApplicationCodes.indexOf(applicationCode)
+  sortedApplicationCodes.splice(removeIndex, 1)
   sortedKoppsInfo.splice(removeIndex, 1)
-  return { sortedRoundIds, sortedKoppsInfo }
+  return { sortedApplicationCodes, sortedKoppsInfo }
 }
 
 export const fetchParameters = props => {

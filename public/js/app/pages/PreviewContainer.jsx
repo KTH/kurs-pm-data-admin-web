@@ -195,7 +195,7 @@ function PreviewContainer(props) {
     courseCode,
     courseTitle,
     semester = '',
-    ladokRoundIds,
+    applicationCodes,
     memoCommonLangAbbr,
     memoEndPoint,
     memoName,
@@ -203,7 +203,7 @@ function PreviewContainer(props) {
     syllabusValid,
   } = memoData
 
-  if (!ladokRoundIds) return <AlertMissingDraft langAbbr={langAbbr} langIndex={langIndex} courseCode={courseCode} />
+  if (!applicationCodes) return <AlertMissingDraft langAbbr={langAbbr} langIndex={langIndex} courseCode={courseCode} />
 
   const isDraftOfPublished = Number(version) > FIRST_VERSION
 
@@ -232,7 +232,7 @@ function PreviewContainer(props) {
   let active = false
   let courseMemoItems = store.memoDatas.map(m => {
     const id = m.memoEndPoint
-    const label = concatMemoName(m.semester, m.ladokRoundIds, m.memoCommonLangAbbr)
+    const label = concatMemoName(m.semester, m.applicationCodes, m.memoCommonLangAbbr)
     // memoEndPoint is currently displayed
     active = m.memoEndPoint === memoEndPoint
     return {
@@ -246,7 +246,7 @@ function PreviewContainer(props) {
   if (!active) {
     courseMemoItems.push({
       id: store.memoEndPoint,
-      label: concatMemoName(semester, ladokRoundIds, memoCommonLangAbbr),
+      label: concatMemoName(semester, applicationCodes, memoCommonLangAbbr),
       active: true,
       url: `/kurs-pm/${courseCode}/${memoEndPoint}`,
     })
@@ -279,7 +279,7 @@ function PreviewContainer(props) {
         const publishType = isDraftOfPublished ? 'pub_changed' : 'pub'
         window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=${publishType}&ver=${versionStr}&term=${semester}&name=${encodeURIComponent(
           memoName
-        )}&memoendpoint=${memoEndPoint}&ladokRound=${ladokRoundIds.join('-')}`
+        )}&memoendpoint=${memoEndPoint}&ladokRound=${applicationCodes.join('-')}`
       })
       // eslint-disable-next-line no-console
       .catch(error => console.log(error))
@@ -334,7 +334,7 @@ function PreviewContainer(props) {
         </Col>
         <Col lg="9">
           <CourseHeader
-            courseMemo={concatMemoName(semester, ladokRoundIds, memoCommonLangAbbr)}
+            courseMemo={concatMemoName(semester, applicationCodes, memoCommonLangAbbr)}
             courseCode={courseCode}
             courseTitle={courseTitle}
             labels={courseHeaderLabels}

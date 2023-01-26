@@ -52,7 +52,7 @@ function MemoContainer(props) {
     semester,
   } = store
 
-  if (!memoData.ladokRoundIds)
+  if (!memoData.applicationCodes)
     return <AlertMissingDraft langAbbr={userLangAbbr} langIndex={userLangIndex} courseCode={courseCode} />
 
   const { initialActiveTab } = props // used for test

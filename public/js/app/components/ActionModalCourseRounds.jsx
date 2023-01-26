@@ -43,7 +43,7 @@ function ActionModalCourseRounds(props) {
   })
 
   const [memo, setMemo] = useState(() => uniqueMemos.find(m => m.memoEndPoint === chosenMemoEndPoint) || {})
-  const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester, status, version } = memo
+  const { applicationCodes, memoCommonLangAbbr, memoEndPoint, memoName, semester, status, version } = memo
 
   const [roundGroups, setRoundsGroup] = useState({ allRounds: [], availableRounds: [], showSaveBtn: false })
   const { allRounds, availableRounds, showSaveBtn } = roundGroups
@@ -92,10 +92,10 @@ function ActionModalCourseRounds(props) {
     return checkedRounds
   }
 
-  const _koppsInfoForChecked = sortedRoundIds => {
+  const _koppsInfoForChecked = sortedApplicationCodes => {
     const sortedKoppsInfo = []
-    for (let i = 0; i < sortedRoundIds.length; i++) {
-      sortedKoppsInfo.push(allRounds.find(({ ladokRoundId }) => sortedRoundIds[i] === ladokRoundId))
+    for (let i = 0; i < sortedApplicationCodes.length; i++) {
+      sortedKoppsInfo.push(allRounds.find(round => sortedApplicationCodes[i] === round.applicationCodes[0]))
     }
     return sortedKoppsInfo
   }
@@ -105,18 +105,18 @@ function ActionModalCourseRounds(props) {
     const isPublished = status === 'published' || Number(version) > FIRST_VERSION
 
     if (checkedRounds.length > 0) {
-      const sortedRoundIds = await [...ladokRoundIds, ...checkedRounds].sort()
-      const sortedKoppsInfo = await _koppsInfoForChecked(sortedRoundIds)
+      const sortedApplicationCodes = await [...applicationCodes, ...checkedRounds].sort()
+      const sortedKoppsInfo = await _koppsInfoForChecked(sortedApplicationCodes)
 
       const newMemoName = sortedKoppsInfo.map(round => combineMemoName(round, semester, memoCommonLangAbbr)).join(', ')
       const firstDraft = version === FIRST_VERSION && status === 'draft'
-      const newMemoEndPoint = firstDraft ? courseCode + semester + '-' + sortedRoundIds.join('-') : memoEndPoint
+      const newMemoEndPoint = firstDraft ? courseCode + semester + '-' + sortedApplicationCodes.join('-') : memoEndPoint
 
       const newInfo = {
         courseCode,
         memoName: newMemoName,
         memoEndPoint: newMemoEndPoint,
-        ladokRoundIds: sortedRoundIds,
+        applicationCodes: sortedApplicationCodes,
       }
       const apiAction = isPublished ? 'create-draft' : 'draft-updates'
       const urlUpdateOrCreate = `${SERVICE_URL.API}${apiAction}/${courseCode}/${memoEndPoint}`
@@ -173,18 +173,21 @@ function ActionModalCourseRounds(props) {
           <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
           <Form className={`Available--Rounds--To--Add ${alert && alert.isOpen ? 'error-area' : ''}`}>
             {availableRounds.map(round => (
-              <FormGroup className="form-check" id="choose-rounds-list" key={'add' + round.ladokRoundId}>
+              <FormGroup className="form-check" id="choose-rounds-list" key={'add' + round.applicationCodes[0]}>
                 <Input
                   data-testid="checkbox-add-rounds-to-saved-memo"
                   type="checkbox"
-                  id={'addNew' + round.ladokRoundId}
+                  id={'addNew' + round.applicationCodes[0]}
                   name="addNew"
                   className="addNewRounds"
-                  value={round.ladokRoundId}
+                  value={round.applicationCodes[0]}
                   defaultChecked={false}
                   disabled={!canMerge(memoCommonLangAbbr, round)}
                 />
-                <Label data-testid="label-checkbox-add-rounds-to-saved-memo" htmlFor={'addNew' + round.ladokRoundId}>
+                <Label
+                  data-testid="label-checkbox-add-rounds-to-saved-memo"
+                  htmlFor={'addNew' + round.applicationCodes[0]}
+                >
                   {`${combineMemoName(round, semester, langAbbr)}.`}
                   {(!canMerge(memoCommonLangAbbr, round) && <i>{extraInfo.cannotMergeLanguage}</i>) || ''}
                 </Label>

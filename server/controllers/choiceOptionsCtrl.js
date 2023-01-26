@@ -11,6 +11,8 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const i18n = require('../../i18n')
+// No need to merge this method to master
+const { fetchAllMemosAndUpdateMemoWithApplicationCodes } = require('./updateMemosCtrl')
 
 // eslint-disable-next-line consistent-return
 async function getUsedDrafts(req, res, next) {
@@ -55,7 +57,8 @@ async function getCourseOptionsPage(req, res, next) {
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
-
+    // No need to merge this method to master
+    await fetchAllMemosAndUpdateMemoWithApplicationCodes()
     applicationStore.miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
     const memoParams = getMemosParams(courseCode, applicationStore.miniKoppsObj)
 

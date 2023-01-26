@@ -62,7 +62,7 @@ function CreateNewMemo(props) {
   const [chosen, setChosen] = useState({
     existingDraftEndPoint: initialMemoEndPoint || '',
     newMemoName: '',
-    sortedRoundIds: rounds || [],
+    sortedApplicationCodes: rounds || [],
     sortedKoppsInfo: [], // use it for next step
   })
   const [alert, setAlert] = useState({
@@ -95,13 +95,13 @@ function CreateNewMemo(props) {
   }, [semester])
 
   const _cleanUpPrevCheckboxesState = memoEndPoint => {
-    const { sortedRoundIds } = chosen
-    emptyCheckboxesByIds(sortedRoundIds, 'new')
+    const { sortedApplicationCodes } = chosen
+    emptyCheckboxesByIds(sortedApplicationCodes, 'new')
     setAction(memoEndPoint ? 'continue' : '')
     setChosen({
       existingDraftEndPoint: memoEndPoint || '',
       newMemoName: '',
-      sortedRoundIds: [],
+      sortedApplicationCodes: [],
       sortedKoppsInfo: [],
     })
   }
@@ -145,7 +145,7 @@ function CreateNewMemo(props) {
     const { checked, value } = event.target
     const { existingDraftEndPoint } = chosen
     if (existingDraftEndPoint) uncheckRadioById(existingDraftEndPoint)
-    const { sortedRoundIds, sortedKoppsInfo } = checked
+    const { sortedApplicationCodes, sortedKoppsInfo } = checked
       ? sortRoundAndKoppsInfo(chosenRoundObj, chosen)
       : removeAndSortRoundAndInfo(value, chosen)
 
@@ -160,7 +160,7 @@ function CreateNewMemo(props) {
       memoCommonLangAbbr,
       existingDraftEndPoint: '',
       newMemoName,
-      sortedRoundIds,
+      sortedApplicationCodes,
       sortedKoppsInfo,
     })
   }
@@ -203,7 +203,7 @@ function CreateNewMemo(props) {
   }
 
   const onSubmitNew = async () => {
-    const { existingDraftEndPoint, newMemoName, memoCommonLangAbbr, sortedRoundIds } = chosen
+    const { existingDraftEndPoint, newMemoName, memoCommonLangAbbr, sortedApplicationCodes } = chosen
 
     if (action === 'copy' && !copyFromMemoEndPoint) {
       // if chosen to copy but not a template to copy from
@@ -212,7 +212,7 @@ function CreateNewMemo(props) {
       // Draft exists just go to next step
       const continueToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${existingDraftEndPoint}`
       window.location = continueToEditorUrl
-    } else if (sortedRoundIds.length > 0 && !existingDraftEndPoint) {
+    } else if (sortedApplicationCodes.length > 0 && !existingDraftEndPoint) {
       const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
 
       // Create new draft from chosen semester rounds
@@ -221,9 +221,9 @@ function CreateNewMemo(props) {
         courseTitle,
         memoName: newMemoName,
         memoCommonLangAbbr,
-        ladokRoundIds: sortedRoundIds,
+        applicationCodes: sortedApplicationCodes,
         languageOfInstructions: chosen.languageOfInstructions,
-        memoEndPoint: courseCode + semester + '-' + sortedRoundIds.join('-'),
+        memoEndPoint: courseCode + semester + '-' + sortedApplicationCodes.join('-'),
         semester,
       }
 
@@ -377,18 +377,21 @@ function CreateNewMemo(props) {
                         data-testid="form-choose-new"
                         className="form-check"
                         id="choose-from-rounds-list"
-                        key={'new' + round.ladokRoundId}
+                        key={'new' + round.applicationCodes[0]}
                       >
                         <Input
                           type="checkbox"
                           data-testid="checkbox-choose-available-round"
-                          id={'new' + round.ladokRoundId}
+                          id={'new' + round.applicationCodes[0]}
                           name="chooseNew"
-                          value={round.ladokRoundId}
+                          value={round.applicationCodes[0]}
                           onClick={event => onChoiceOfAvailableRounds(event, round)}
                           defaultChecked={false}
                         />
-                        <Label htmlFor={'new' + round.ladokRoundId} data-testid="label-checkbox-choose-available-round">
+                        <Label
+                          htmlFor={'new' + round.applicationCodes[0]}
+                          data-testid="label-checkbox-choose-available-round"
+                        >
                           {/* Namegiving according to user interface language */}
                           {combineMemoName(round, semester, langAbbr)}
                         </Label>
@@ -403,7 +406,7 @@ function CreateNewMemo(props) {
               )}
             </div>
           </Col>
-          {chosen.sortedRoundIds.length > 0 && action !== 'continue' && (
+          {chosen.sortedApplicationCodes.length > 0 && action !== 'continue' && (
             <Col className="right-block-for-extra">
               {/* CREATE FROM EMPTY OF COPY FROM */}
               <div className="Start--Creating--From--Template--Or--Copy">
@@ -477,7 +480,7 @@ function CreateNewMemo(props) {
         <p data-testid="actionType">{action}</p>
         <p data-testid="newMemoName">{chosen.newMemoName}</p>
         <p data-testid="memoCommonLangAbbr">{chosen.memoCommonLangAbbr}</p>
-        <p data-testid="sortedRoundIds">{chosen.sortedRoundIds.join(',')}</p>
+        <p data-testid="sortedApplicationCodes">{chosen.sortedApplicationCodes.join(',')}</p>
       </div>
     </Container>
   )

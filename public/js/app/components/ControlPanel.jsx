@@ -5,9 +5,8 @@ import React from 'react'
 import { Alert, Row, Col, Button } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
-import ActionModalCourseRounds from './ActionModalCourseRounds'
-
 import i18n from '../../../../i18n'
+import ActionModalCourseRounds from './ActionModalCourseRounds'
 
 const colWidthByProgress = {
   1: { firstCol: '6', secondCol: '0', thirdCol: '6' },

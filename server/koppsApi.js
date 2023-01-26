@@ -92,6 +92,42 @@ function isDateInFuture(checkDate) {
   return false
 }
 
+async function getApplicationFromLadokUID(ladokUID) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}courses/offerings/roundnumber?ladokuid=${ladokUID}`
+  log.info('Trying fetch courses application by', { ladokuid: ladokUID, uri, config: config.koppsApi })
+  try {
+    const res = await client.getAsync({ uri, useCache: true })
+    if (res.body) {
+      const { body } = res
+      log.info('Fetched successfully course application for', { ladokuid: ladokUID, uri, config: config.koppsApi })
+      return body
+    }
+    log.warn('Kopps responded with', res.statusCode, res.statusMessage, ` for ladokuid ${ladokUID}`)
+    return {}
+  } catch (err) {
+    log.error('Kopps is not available', err)
+    return []
+  }
+}
+
+// No need to merge this method to master
+async function getAllCourseCodes() {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}courses`
+  try {
+    const { body: courses, statusCode } = await client.getAsync({ uri, useCache: true })
+    if (!courses || statusCode !== 200) return 'kopps_get_fails'
+    const courseCodes = []
+    courses.forEach(({ code }) => {
+      courseCodes.push(code)
+    })
+    return courseCodes
+  } catch (err) {
+    return err
+  }
+}
+
 async function getCourseSchool(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}`
@@ -109,7 +145,7 @@ async function getCourseSchool(courseCode) {
   }
 }
 
-async function getKoppsCourseRoundTerms(courseCode) {
+async function getKoppsCourseRoundTerms(courseCode, fetchApplication = true) {
   // step 1
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
@@ -117,14 +153,27 @@ async function getKoppsCourseRoundTerms(courseCode) {
     const res = await client.getAsync({ uri, useCache: true })
     const { course, termsWithCourseRounds } = res.body
 
-    const activeTerms = termsWithCourseRounds.filter(
+    /*  const activeTerms = termsWithCourseRounds.filter(
       term =>
         isDateWithinCurrentSemester(term.rounds[0].lastTuitionDate) || isDateInFuture(term.rounds[0].lastTuitionDate)
-    )
+    ) */
+
+    if (termsWithCourseRounds && termsWithCourseRounds.length > 0 && fetchApplication) {
+      for await (const term of termsWithCourseRounds) {
+        const { rounds } = term
+        for await (const round of rounds) {
+          const { ladokUID } = round
+          if (ladokUID && ladokUID !== '') {
+            const { application_code } = await getApplicationFromLadokUID(ladokUID)
+            round.applicationCodes = [application_code]
+          }
+        }
+      }
+    }
 
     return {
       course,
-      lastTermsInfo: activeTerms,
+      lastTermsInfo: termsWithCourseRounds,
     }
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
@@ -307,9 +356,11 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 module.exports = {
   koppsApi: api,
+  getAllCourseCodes,
   getCourseSchool,
   getKoppsCourseRoundTerms,
   getSyllabus,
   findSyllabus,
   parseSyllabus,
+  getApplicationFromLadokUID,
 }

@@ -9,10 +9,10 @@ const applicationStore = createApplicationStore()
 
 const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
   const newMemo = await applicationStore.createNewMemo(action, copyFrom, body, isTest) //function exist
-  const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
+  const { applicationCodes, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
   //Example where data saves
   const objToSave = {
-    ladokRoundIds,
+    applicationCodes,
     memoCommonLangAbbr,
     memoId: Math.random(),
     memoEndPoint,
