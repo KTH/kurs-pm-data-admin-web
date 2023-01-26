@@ -20,23 +20,20 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
         const { lastTermsInfo } = await getKoppsCourseRoundTerms(courseCode, false)
         if (lastTermsInfo && lastTermsInfo.length > 0) {
           for await (const { ladokRoundIds, semester, applicationCodes, memoEndPoint } of memoData) {
-            for await (const { rounds, term } of lastTermsInfo) {
-              if (semester.toString() === term.toString()) {
-                for await (const ladokRoundId of ladokRoundIds) {
-                  const round = rounds.find(x => x.ladokRoundId.toString() === ladokRoundId.toString())
-                  if (round) {
-                    const { ladokUID } = round
-                    if (ladokUID && ladokUID !== '') {
-                      if (courseCode === 'SF1626' && ladokRoundId === '7' && semester === '20211') {
-                        log.info('Check')
-                      }
-                      const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
-                      totalApplicationCodesFetchedFromKopps++
-                      if (round_number.toString() === ladokRoundId.toString()) {
-                        const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
-                        if (!applicationCode) {
-                          applicationCodes.push(application_code)
-                        }
+            const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
+            if (lastTermInfo) {
+              const { rounds } = lastTermInfo
+              for await (const ladokRoundId of ladokRoundIds) {
+                const round = rounds.find(x => x.ladokRoundId.toString() === ladokRoundId.toString())
+                if (round) {
+                  const { ladokUID } = round
+                  if (ladokUID && ladokUID !== '') {
+                    const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
+                    totalApplicationCodesFetchedFromKopps++
+                    if (round_number.toString() === ladokRoundId.toString()) {
+                      const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
+                      if (!applicationCode) {
+                        applicationCodes.push(application_code)
                       }
                     }
                   }
