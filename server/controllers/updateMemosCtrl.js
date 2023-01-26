@@ -19,15 +19,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
       if (memoData && memoData.length > 0) {
         const { lastTermsInfo } = await getKoppsCourseRoundTerms(courseCode, false)
         if (lastTermsInfo && lastTermsInfo.length > 0) {
-          for await (const {
-            ladokRoundIds,
-            semester,
-            applicationCodes,
-            memoEndPoint,
-            memoName,
-            status,
-            version,
-          } of memoData) {
+          for await (const { ladokRoundIds, semester, applicationCodes, memoEndPoint, _id } of memoData) {
             const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
             if (lastTermInfo) {
               const { rounds } = lastTermInfo
@@ -50,7 +42,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
             }
             const apiResponse = await changeMemoApiData(
               'updatedMemoById',
-              { memoName, memoEndPoint, courseCode, semester, status, version },
+              { _id },
               {
                 applicationCodes,
               }
