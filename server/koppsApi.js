@@ -26,6 +26,13 @@ const koppsConfig = {
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
 /** STEP 1: CHOOSE COURSE ROUNDS TO CREATE A NEW ONE * */
+function yearBeforeCurrentYear(semester) {
+  const currentYear = new Date().getFullYear()
+  const previousYear = currentYear - 1
+  const yearToCheck = semester.slice(0, 4)
+  return yearToCheck === previousYear.toString() ? true : false
+}
+
 function getDateOfMondayOfTheWeek(startDate) {
   const currentDate = new Date(startDate)
   const first = currentDate.getDate() - currentDate.getDay() + 1
@@ -118,8 +125,10 @@ async function getKoppsCourseRoundTerms(courseCode) {
     const { course, termsWithCourseRounds } = res.body
 
     const activeTerms = termsWithCourseRounds.filter(
-      term =>
-        isDateWithinCurrentSemester(term.rounds[0].lastTuitionDate) || isDateInFuture(term.rounds[0].lastTuitionDate)
+      t =>
+        isDateWithinCurrentSemester(t.rounds[0].lastTuitionDate) ||
+        isDateInFuture(t.rounds[0].lastTuitionDate) ||
+        yearBeforeCurrentYear(t.term)
     )
 
     return {
