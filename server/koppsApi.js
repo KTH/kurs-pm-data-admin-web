@@ -111,23 +111,6 @@ async function getApplicationFromLadokUID(ladokUID) {
   }
 }
 
-// No need to merge this method to master
-async function getAllCourseCodes() {
-  const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}courses`
-  try {
-    const { body: courses, statusCode } = await client.getAsync({ uri, useCache: true })
-    if (!courses || statusCode !== 200) return 'kopps_get_fails'
-    const courseCodes = []
-    courses.forEach(({ code }) => {
-      courseCodes.push(code)
-    })
-    return courseCodes
-  } catch (err) {
-    return err
-  }
-}
-
 async function getCourseSchool(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}`
@@ -145,7 +128,7 @@ async function getCourseSchool(courseCode) {
   }
 }
 
-async function getKoppsCourseRoundTerms(courseCode, fetchApplication = true) {
+async function getKoppsCourseRoundTerms(courseCode) {
   // step 1
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
@@ -153,12 +136,12 @@ async function getKoppsCourseRoundTerms(courseCode, fetchApplication = true) {
     const res = await client.getAsync({ uri, useCache: true })
     const { course, termsWithCourseRounds } = res.body
 
-    /*  const activeTerms = termsWithCourseRounds.filter(
+    const activeTerms = termsWithCourseRounds.filter(
       term =>
         isDateWithinCurrentSemester(term.rounds[0].lastTuitionDate) || isDateInFuture(term.rounds[0].lastTuitionDate)
-    ) */
+    )
 
-    if (termsWithCourseRounds && termsWithCourseRounds.length > 0 && fetchApplication) {
+    if (activeTerms && activeTerms.length > 0) {
       for await (const term of termsWithCourseRounds) {
         const { rounds } = term
         for await (const round of rounds) {
@@ -356,7 +339,6 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 module.exports = {
   koppsApi: api,
-  getAllCourseCodes,
   getCourseSchool,
   getKoppsCourseRoundTerms,
   getSyllabus,

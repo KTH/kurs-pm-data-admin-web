@@ -17,7 +17,7 @@ import {
   emptyCheckboxesByIds,
   seasonStr,
   sortRoundAndKoppsInfo,
-  removeAndSortRoundAndInfo,
+  removeAndSortApplicationAndInfo,
   uncheckRadioById,
   fetchParameters,
 } from '../util/helpers'
@@ -147,7 +147,7 @@ function CreateNewMemo(props) {
     if (existingDraftEndPoint) uncheckRadioById(existingDraftEndPoint)
     const { sortedApplicationCodes, sortedKoppsInfo } = checked
       ? sortRoundAndKoppsInfo(chosenRoundObj, chosen)
-      : removeAndSortRoundAndInfo(value, chosen)
+      : removeAndSortApplicationAndInfo(value, chosen)
 
     const { memoCommonLangAbbr, languageOfInstructions } = _roundsCommonLanguages(sortedKoppsInfo)
     const newMemoName = sortedKoppsInfo // remove
