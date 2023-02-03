@@ -10,8 +10,10 @@ const clientActions = {
   deleteDraftByMemoEndPoint: 'delAsync',
   updateCreatedDraft: 'putAsync',
   // No need to merge these two methods to master
-  updatedMemoById: 'putAsync',
-  getAllMemosByCourseCode: 'getAsync',
+  updatedMemoWithApplicationCodes: 'putAsync',
+  getAllMemos: 'getAsync',
+  getStoredMemoPdfList: 'getAsync',
+  updateStoredPdfMemoWithApplicationCodes: 'putAsync',
 }
 // Gets a list of used round ids for a semester in a course
 async function getMemoApiData(apiFnName, uriParam) {
