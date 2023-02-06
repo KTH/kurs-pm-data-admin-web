@@ -73,6 +73,7 @@ async function _getCourseRoundTermMap(courseCodes) {
 async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
   const failedMemoFilesToUpdate = []
   const memoFilesUpdated = []
+  const memoFilesWithOutApplicationCodes = []
   const allMemoFiles = await getMemoApiData('getStoredMemoPdfList', null)
   if (allMemoFiles && allMemoFiles.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(allMemoFiles)
@@ -96,34 +97,47 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
                 }
               }
             }
+            const apiResponse = await changeMemoApiData(
+              'updateStoredPdfMemoWithApplicationCodes',
+              { _id },
+              { applicationCode }
+            )
+            if (safeGet(() => apiResponse.message)) {
+              log.debug('Error from API trying to update a new memo file: ', apiResponse.message)
+              failedMemoFilesToUpdate.push(memoFile)
+            } else {
+              memoFilesUpdated.push(memoFile)
+            }
+            log.info('New memo file was created in kurs-pm-data-api for course memo with id:', _id)
+          } else {
+            memoFilesWithOutApplicationCodes.push(memoFile)
           }
-        }
-        const apiResponse = await changeMemoApiData(
-          'updateStoredPdfMemoWithApplicationCodes',
-          { _id },
-          { applicationCode }
-        )
-        if (safeGet(() => apiResponse.message)) {
-          log.debug('Error from API trying to update a new memo file: ', apiResponse.message)
-          failedMemoFilesToUpdate.push(memoFile)
         } else {
-          memoFilesUpdated.push(memoFile)
+          memoFilesWithOutApplicationCodes.push(memoFile)
         }
-        log.info('New memo file was created in kurs-pm-data-api for course memo with id:', _id)
       }
     }
   }
-  log.debug('Total fetced memos files', allMemoFiles.length)
-  log.debug('Total memo update calls', memoFilesUpdated.length)
-  log.debug('Total failed memos files', failedMemoFilesToUpdate.length)
+  log.debug('Total fetced memos files', allMemoFiles.length, allMemoFiles)
+  log.debug('Total memo update calls', memoFilesUpdated.length, memoFilesUpdated)
+  log.debug('Total failed memos files', failedMemoFilesToUpdate.length, failedMemoFilesToUpdate)
+  log.debug(
+    'Total memo files without application codes',
+    memoFilesWithOutApplicationCodes,
+    memoFilesWithOutApplicationCodes
+  )
   if (failedMemoFilesToUpdate.length > 0) {
     _exportToCsv('failed_memo_files.csv', failedMemoFilesToUpdate)
+  }
+  if (memoFilesWithOutApplicationCodes.length > 0) {
+    _exportToCsv('memo_files_with_out_application_codes.csv', memoFilesWithOutApplicationCodes)
   }
 }
 
 async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
   const failedMemosToUpdate = []
   const memosUpdated = []
+  const memosWithOutApplicationCodes = []
   const memoData = await getMemoApiData('getAllMemos', null)
   if (memoData && memoData.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(memoData)
@@ -151,31 +165,39 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
                 }
               }
             }
-          }
-          if (courseCode === 'SF1624' && semester.toString() === '20232') {
-            log.debug('Memo', memo)
-          }
-          const apiResponse = await changeMemoApiData(
-            'updatedMemoWithApplicationCodes',
-            { courseCode, semester, memoEndPoint, status },
-            { applicationCodes, ladokRoundIds }
-          )
-          if (safeGet(() => apiResponse.message)) {
-            log.debug('Error from API trying to update a new draft: ', apiResponse.message)
-            failedMemosToUpdate.push(memo)
+            const apiResponse = await changeMemoApiData(
+              'updatedMemoWithApplicationCodes',
+              { courseCode, semester, memoEndPoint, status },
+              { applicationCodes, ladokRoundIds }
+            )
+            if (safeGet(() => apiResponse.message)) {
+              log.debug('Error from API trying to update a new draft: ', apiResponse.message)
+              failedMemosToUpdate.push(memo)
+            } else {
+              memosUpdated.push(memo)
+              log.info(
+                'New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:',
+                memoEndPoint
+              )
+            }
           } else {
-            memosUpdated.push(memo)
-            log.info('New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
+            memosWithOutApplicationCodes.push(memo)
           }
+        } else {
+          memosWithOutApplicationCodes.push(memo)
         }
       }
     }
   }
-  log.debug('Total fetced memos', memoData.length)
-  log.debug('Total memos updated', memosUpdated.length)
-  log.debug('Total failed memos', failedMemosToUpdate.length)
+  log.debug('Total fetced memos', memoData.length, memoData)
+  log.debug('Total memos updated', memosUpdated.length, memosUpdated)
+  log.debug('Total failed memos', failedMemosToUpdate.length, failedMemosToUpdate)
+  log.debug('Total memo without application codes', memosWithOutApplicationCodes, memosWithOutApplicationCodes)
   if (failedMemosToUpdate.length > 0) {
     _exportToCsv('failed_memos.csv', failedMemosToUpdate)
+  }
+  if (memosWithOutApplicationCodes.length > 0) {
+    _exportToCsv('memos_with_out_application_codes.csv', memosWithOutApplicationCodes)
   }
 }
 
