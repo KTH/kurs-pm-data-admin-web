@@ -71,8 +71,9 @@ async function _getCourseRoundTermMap(courseCodes) {
 }
 
 async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
-  const allMemoFiles = await getMemoApiData('getStoredMemoPdfList', null)
   const failedMemoFilesToUpdate = []
+  const memoFilesUpdated = []
+  const allMemoFiles = await getMemoApiData('getStoredMemoPdfList', null)
   if (allMemoFiles && allMemoFiles.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(allMemoFiles)
     if (courseCodes && courseCodes.length > 0) {
@@ -105,11 +106,16 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
         if (safeGet(() => apiResponse.message)) {
           log.debug('Error from API trying to update a new memo file: ', apiResponse.message)
           failedMemoFilesToUpdate.push(memoFile)
+        } else {
+          memoFilesUpdated.push(memoFile)
         }
         log.info('New memo file was created in kurs-pm-data-api for course memo with id:', _id)
       }
     }
   }
+  log.debug('Total fetced memos files', allMemoFiles.length)
+  log.debug('Total memo update calls', memoFilesUpdated.length)
+  log.debug('Total failed memos files', failedMemoFilesToUpdate.length)
   if (failedMemoFilesToUpdate.length > 0) {
     _exportToCsv('failed_memo_files.csv', failedMemoFilesToUpdate)
   }
@@ -117,6 +123,7 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
 
 async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
   const failedMemosToUpdate = []
+  const memosUpdated = []
   const memoData = await getMemoApiData('getAllMemos', null)
   if (memoData && memoData.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(memoData)
@@ -156,12 +163,17 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
           if (safeGet(() => apiResponse.message)) {
             log.debug('Error from API trying to update a new draft: ', apiResponse.message)
             failedMemosToUpdate.push(memo)
+          } else {
+            memosUpdated.push(memo)
+            log.info('New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
           }
-          log.info('New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
         }
       }
     }
   }
+  log.debug('Total fetced memos', memoData.length)
+  log.debug('Total memos updated', memosUpdated.length)
+  log.debug('Total failed memos', failedMemosToUpdate.length)
   if (failedMemosToUpdate.length > 0) {
     _exportToCsv('failed_memos.csv', failedMemosToUpdate)
   }
