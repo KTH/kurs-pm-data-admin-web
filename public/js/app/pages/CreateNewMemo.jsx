@@ -17,7 +17,7 @@ import {
   emptyCheckboxesByIds,
   seasonStr,
   sortRoundAndKoppsInfo,
-  removeAndSortRoundAndInfo,
+  removeAndSortApplicationAndInfo,
   uncheckRadioById,
   fetchParameters,
 } from '../util/helpers'
@@ -40,6 +40,49 @@ function cleanMemoEndPointInSearchParams(existingDraftEndPoint) {
   }
 }
 
+function _exportToCsv(fileName, rows) {
+  if (!rows || !rows.length) {
+    return
+  }
+  const separator = ','
+  const keys = Object.keys(rows[0])
+  const csvData =
+    keys.join(separator) +
+    '\n' +
+    rows
+      .map(row =>
+        keys
+          .map(k => {
+            let cell = row[k] === null || row[k] === undefined ? '' : row[k]
+            cell = cell instanceof Date ? cell.toLocaleString() : cell.toString().replace(/"/g, '""')
+            if (cell.search(/("|,|\n)/g) >= 0) {
+              cell = `"${cell}"`
+            }
+            return cell
+          })
+          .join(separator)
+      )
+      .join('\n')
+
+  const blob = new File([csvData], fileName, { type: 'text/csv;charset=utf-8;' })
+  if (navigator.msSaveBlob) {
+    // IE 10+
+    navigator.msSaveBlob(blob, fileName)
+  } else {
+    const link = document.createElement('a')
+    if (link.download !== undefined) {
+      // Browsers that support HTML5 download attribute
+      const url = URL.createObjectURL(blob)
+      link.setAttribute('href', url)
+      link.setAttribute('download', fileName)
+      link.style.visibility = 'hidden'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+  }
+}
+
 function CreateNewMemo(props) {
   const store = useStore()
   const {
@@ -51,7 +94,20 @@ function CreateNewMemo(props) {
     langIndex: storeLangIndex,
     rounds,
     semester: initialSemester,
+    memosExportMap,
+    memoFilesExportMap,
   } = store
+
+  if (memosExportMap && Object.keys(memosExportMap).length > 0) {
+    Object.keys(memosExportMap).forEach(fileName => {
+      _exportToCsv(fileName, memosExportMap[fileName])
+    })
+  }
+  if (memoFilesExportMap && Object.keys(memoFilesExportMap).length > 0) {
+    Object.keys(memoFilesExportMap).forEach(fileName => {
+      _exportToCsv(fileName, memoFilesExportMap[fileName])
+    })
+  }
   const { langAbbr = storeLangAbbr, langIndex = storeLangIndex } = props
 
   const [semester, setSemester] = useState(initialSemester)
@@ -147,7 +203,7 @@ function CreateNewMemo(props) {
     if (existingDraftEndPoint) uncheckRadioById(existingDraftEndPoint)
     const { sortedApplicationCodes, sortedKoppsInfo } = checked
       ? sortRoundAndKoppsInfo(chosenRoundObj, chosen)
-      : removeAndSortRoundAndInfo(value, chosen)
+      : removeAndSortApplicationAndInfo(value, chosen)
 
     const { memoCommonLangAbbr, languageOfInstructions } = _roundsCommonLanguages(sortedKoppsInfo)
     const newMemoName = sortedKoppsInfo // remove

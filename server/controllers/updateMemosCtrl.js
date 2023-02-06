@@ -5,49 +5,6 @@ const log = require('@kth/log')
 const { getKoppsCourseRoundTerms, getApplicationFromLadokUID } = require('../koppsApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 
-function _exportToCsv(fileName, rows) {
-  if (!rows || !rows.length) {
-    return
-  }
-  const separator = ','
-  const keys = Object.keys(rows[0])
-  const csvData =
-    keys.join(separator) +
-    '\n' +
-    rows
-      .map(row =>
-        keys
-          .map(k => {
-            let cell = row[k] === null || row[k] === undefined ? '' : row[k]
-            cell = cell instanceof Date ? cell.toLocaleString() : cell.toString().replace(/"/g, '""')
-            if (cell.search(/("|,|\n)/g) >= 0) {
-              cell = `"${cell}"`
-            }
-            return cell
-          })
-          .join(separator)
-      )
-      .join('\n')
-
-  const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' })
-  if (navigator.msSaveBlob) {
-    // IE 10+
-    navigator.msSaveBlob(blob, fileName)
-  } else {
-    const link = document.createElement('a')
-    if (link.download !== undefined) {
-      // Browsers that support HTML5 download attribute
-      const url = URL.createObjectURL(blob)
-      link.setAttribute('href', url)
-      link.setAttribute('download', fileName)
-      link.style.visibility = 'hidden'
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-    }
-  }
-}
-
 function _getAllUniqueCourseCodesFromData(data) {
   const courseCodes = []
   data.forEach(({ courseCode }) => {
@@ -71,6 +28,7 @@ async function _getCourseRoundTermMap(courseCodes) {
 }
 
 async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
+  const memoFilesExportMap = {}
   const failedMemoFilesToUpdate = []
   const memoFilesUpdated = []
   const memoFilesWithOutApplicationCodes = []
@@ -118,23 +76,21 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
       }
     }
   }
-  log.info('Total fetced memos files', allMemoFiles.length, allMemoFiles)
-  log.info('Total memo update calls', memoFilesUpdated.length, memoFilesUpdated)
-  log.info('Total failed memos files', failedMemoFilesToUpdate.length, failedMemoFilesToUpdate)
-  log.info(
-    'Total memo files without application codes',
-    memoFilesWithOutApplicationCodes,
-    memoFilesWithOutApplicationCodes
-  )
+  log.info('Total fetced memos files', allMemoFiles.length)
+  log.info('Total memo update calls', memoFilesUpdated.length)
+  log.info('Total failed memos files', failedMemoFilesToUpdate.length)
+  log.info('Total memo files without application codes', memoFilesWithOutApplicationCodes.length)
   if (failedMemoFilesToUpdate.length > 0) {
-    _exportToCsv('failed_memo_files.csv', failedMemoFilesToUpdate)
+    memoFilesExportMap['failed_memo_files.csv'] = failedMemoFilesToUpdate
   }
   if (memoFilesWithOutApplicationCodes.length > 0) {
-    _exportToCsv('memo_files_with_out_application_codes.csv', memoFilesWithOutApplicationCodes)
+    memoFilesExportMap['memo_files_with_out_application_codes.csv'] = memoFilesWithOutApplicationCodes
   }
+  return memoFilesExportMap
 }
 
 async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
+  const memoExportMap = {}
   const failedMemosToUpdate = []
   const memosUpdated = []
   const memosWithOutApplicationCodes = []
@@ -144,7 +100,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
     if (courseCodes && courseCodes.length > 0) {
       const courseRoundTermsMap = await _getCourseRoundTermMap(courseCodes)
       for await (const memo of memoData) {
-        const { courseCode, ladokRoundIds, semester, applicationCodes, memoEndPoint, status } = memo
+        const { courseCode, ladokRoundIds, semester, applicationCodes, memoEndPoint, status: memoStatus } = memo
         const lastTermsInfo = courseRoundTermsMap.get(courseCode)
         if (lastTermsInfo) {
           const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
@@ -167,7 +123,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
             }
             const apiResponse = await changeMemoApiData(
               'updatedMemoWithApplicationCodes',
-              { courseCode, semester, memoEndPoint, status },
+              { courseCode, semester, memoEndPoint, memoStatus },
               { applicationCodes, ladokRoundIds }
             )
             if (safeGet(() => apiResponse.message)) {
@@ -189,16 +145,17 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
       }
     }
   }
-  log.info('Total fetced memos', memoData.length, memoData)
-  log.info('Total memos updated', memosUpdated.length, memosUpdated)
-  log.info('Total failed memos', failedMemosToUpdate.length, failedMemosToUpdate)
-  log.info('Total memo without application codes', memosWithOutApplicationCodes, memosWithOutApplicationCodes)
+  log.info('Total fetced memos', memoData.length)
+  log.info('Total memos updated', memosUpdated.length)
+  log.info('Total failed memos', failedMemosToUpdate.length)
+  log.info('Total memo without application codes', memosWithOutApplicationCodes.length)
   if (failedMemosToUpdate.length > 0) {
-    _exportToCsv('failed_memos.csv', failedMemosToUpdate)
+    memoExportMap['failed_memos.csv'] = failedMemosToUpdate
   }
   if (memosWithOutApplicationCodes.length > 0) {
-    _exportToCsv('memos_with_out_application_codes.csv', memosWithOutApplicationCodes)
+    memoExportMap['memos_with_out_application_codes.csv'] = memosWithOutApplicationCodes
   }
+  return memoExportMap
 }
 
 module.exports = {

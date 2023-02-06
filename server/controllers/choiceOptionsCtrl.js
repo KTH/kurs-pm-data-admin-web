@@ -61,8 +61,8 @@ async function getCourseOptionsPage(req, res, next) {
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
     // No need to merge this method to master
-    await fetchAllMemoFilesAndUpdateWithApplicationCodes()
-    await fetchAllMemosAndUpdateMemoWithApplicationCodes()
+    applicationStore.memoFilesExportMap = await fetchAllMemoFilesAndUpdateWithApplicationCodes()
+    applicationStore.memosExportMap = await fetchAllMemosAndUpdateMemoWithApplicationCodes()
     applicationStore.miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
     const memoParams = getMemosParams(courseCode, applicationStore.miniKoppsObj)
 
