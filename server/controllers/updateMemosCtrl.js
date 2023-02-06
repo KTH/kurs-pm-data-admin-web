@@ -61,9 +61,9 @@ function _getAllUniqueCourseCodesFromData(data) {
 
 async function _getCourseRoundTermMap(courseCodes) {
   const courseRoundTermMap = new Map()
-  log.debug('Total courses to fetch course rounds', courseCodes.length)
+  log.info('Total courses to fetch course rounds', courseCodes.length)
   for await (const courseCode of courseCodes) {
-    log.debug('Fetching course round terms for course: ', courseCode)
+    log.info('Fetching course round terms for course: ', courseCode)
     const { lastTermsInfo } = await getKoppsCourseRoundTerms(courseCode, false)
     courseRoundTermMap.set(courseCode, lastTermsInfo)
   }
@@ -103,7 +103,7 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
               { applicationCode }
             )
             if (safeGet(() => apiResponse.message)) {
-              log.debug('Error from API trying to update a new memo file: ', apiResponse.message)
+              log.info('Error from API trying to update a new memo file: ', apiResponse.message)
               failedMemoFilesToUpdate.push(memoFile)
             } else {
               memoFilesUpdated.push(memoFile)
@@ -118,10 +118,10 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
       }
     }
   }
-  log.debug('Total fetced memos files', allMemoFiles.length, allMemoFiles)
-  log.debug('Total memo update calls', memoFilesUpdated.length, memoFilesUpdated)
-  log.debug('Total failed memos files', failedMemoFilesToUpdate.length, failedMemoFilesToUpdate)
-  log.debug(
+  log.info('Total fetced memos files', allMemoFiles.length, allMemoFiles)
+  log.info('Total memo update calls', memoFilesUpdated.length, memoFilesUpdated)
+  log.info('Total failed memos files', failedMemoFilesToUpdate.length, failedMemoFilesToUpdate)
+  log.info(
     'Total memo files without application codes',
     memoFilesWithOutApplicationCodes,
     memoFilesWithOutApplicationCodes
@@ -171,7 +171,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
               { applicationCodes, ladokRoundIds }
             )
             if (safeGet(() => apiResponse.message)) {
-              log.debug('Error from API trying to update a new draft: ', apiResponse.message)
+              log.info('Error from API trying to update a new draft: ', apiResponse.message)
               failedMemosToUpdate.push(memo)
             } else {
               memosUpdated.push(memo)
@@ -189,10 +189,10 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
       }
     }
   }
-  log.debug('Total fetced memos', memoData.length, memoData)
-  log.debug('Total memos updated', memosUpdated.length, memosUpdated)
-  log.debug('Total failed memos', failedMemosToUpdate.length, failedMemosToUpdate)
-  log.debug('Total memo without application codes', memosWithOutApplicationCodes, memosWithOutApplicationCodes)
+  log.info('Total fetced memos', memoData.length, memoData)
+  log.info('Total memos updated', memosUpdated.length, memosUpdated)
+  log.info('Total failed memos', failedMemosToUpdate.length, failedMemosToUpdate)
+  log.info('Total memo without application codes', memosWithOutApplicationCodes, memosWithOutApplicationCodes)
   if (failedMemosToUpdate.length > 0) {
     _exportToCsv('failed_memos.csv', failedMemosToUpdate)
   }
