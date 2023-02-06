@@ -5,6 +5,49 @@ const log = require('@kth/log')
 const { getKoppsCourseRoundTerms, getApplicationFromLadokUID } = require('../koppsApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 
+function _exportToCsv(fileName, rows) {
+  if (!rows || !rows.length) {
+    return
+  }
+  const separator = ','
+  const keys = Object.keys(rows[0])
+  const csvData =
+    keys.join(separator) +
+    '\n' +
+    rows
+      .map(row =>
+        keys
+          .map(k => {
+            let cell = row[k] === null || row[k] === undefined ? '' : row[k]
+            cell = cell instanceof Date ? cell.toLocaleString() : cell.toString().replace(/"/g, '""')
+            if (cell.search(/("|,|\n)/g) >= 0) {
+              cell = `"${cell}"`
+            }
+            return cell
+          })
+          .join(separator)
+      )
+      .join('\n')
+
+  const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' })
+  if (navigator.msSaveBlob) {
+    // IE 10+
+    navigator.msSaveBlob(blob, fileName)
+  } else {
+    const link = document.createElement('a')
+    if (link.download !== undefined) {
+      // Browsers that support HTML5 download attribute
+      const url = URL.createObjectURL(blob)
+      link.setAttribute('href', url)
+      link.setAttribute('download', fileName)
+      link.style.visibility = 'hidden'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
+  }
+}
+
 function _getAllUniqueCourseCodesFromData(data) {
   const courseCodes = []
   data.forEach(({ courseCode }) => {
@@ -29,6 +72,7 @@ async function _getCourseRoundTermMap(courseCodes) {
 
 async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
   const allMemoFiles = await getMemoApiData('getStoredMemoPdfList', null)
+  const failedMemoFilesToUpdate = []
   if (allMemoFiles && allMemoFiles.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(allMemoFiles)
     if (courseCodes && courseCodes.length > 0) {
@@ -60,17 +104,19 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
         )
         if (safeGet(() => apiResponse.message)) {
           log.debug('Error from API trying to update a new memo file: ', apiResponse.message)
+          failedMemoFilesToUpdate.push(memoFile)
         }
         log.info('New memo file was created in kurs-pm-data-api for course memo with id:', _id)
       }
     }
   }
+  if (failedMemoFilesToUpdate.length > 0) {
+    _exportToCsv('failed_memo_files.csv', failedMemoFilesToUpdate)
+  }
 }
 
 async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
-  let totalMemosToUpdate = 0
-  let totalApplicationCodesFetchedFromKopps = 0
-  const skipMemoMap = new Map()
+  const failedMemosToUpdate = []
   const memoData = await getMemoApiData('getAllMemos', null)
   if (memoData && memoData.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(memoData)
@@ -89,7 +135,6 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
                 const { ladokUID } = round
                 if (ladokUID && ladokUID !== '') {
                   const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
-                  totalApplicationCodesFetchedFromKopps++
                   if (round_number.toString() === ladokRoundId.toString()) {
                     const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
                     if (!applicationCode) {
@@ -100,27 +145,26 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
               }
             }
           }
+          if (courseCode === 'SF1624' && semester.toString() === '20232') {
+            log.debug('Memo', memo)
+          }
           const apiResponse = await changeMemoApiData(
             'updatedMemoWithApplicationCodes',
-            { courseCode, semester, memoEndPoint, ladokRoundIds, status },
-            { applicationCodes }
+            { courseCode, semester, memoEndPoint, status },
+            { applicationCodes, ladokRoundIds }
           )
           if (safeGet(() => apiResponse.message)) {
             log.debug('Error from API trying to update a new draft: ', apiResponse.message)
+            failedMemosToUpdate.push(memo)
           }
           log.info('New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
-          totalMemosToUpdate++
-        } else {
-          skipMemoMap.set(courseCode, { lastTermsInfo, memo })
         }
       }
     }
   }
-  log.debug('All memos have been updated with application codes.', {
-    totalApplicationCodesFetchedFromKopps,
-    totalMemosToUpdate,
-    skipMemoMap,
-  })
+  if (failedMemosToUpdate.length > 0) {
+    _exportToCsv('failed_memos.csv', failedMemosToUpdate)
+  }
 }
 
 module.exports = {
