@@ -86,7 +86,7 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
                 }
                 log.info('New memo file was created in kurs-pm-data-api for course memo with id:', _id)
               } catch (error) {
-                log.error('Error is updating memo file with id: ', _id)
+                log.error('Error in updating memo file ', error)
                 failedMemoFilesToUpdate.push(memoFile)
               }
             } else {
@@ -184,7 +184,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
                   )
                 }
               } catch (error) {
-                log.error('Error is updating memo : ', memo)
+                log.error('Error in updating memo : ', error)
                 failedMemosToUpdate.push(memo)
               }
             } else {
