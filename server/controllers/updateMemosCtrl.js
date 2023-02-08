@@ -55,6 +55,9 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
                       const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
                       if (round_number.toString() === koppsRoundId.toString()) {
                         applicationCode = application_code
+                      } else {
+                        log.debug('Application code not matched for ', memoFile, { application_code })
+                        memoFilesWithOutApplicationCodes.push(memoFile)
                       }
                     } catch (error) {
                       log.error('Error in getting application code of memo file: ', memoFile)
@@ -148,7 +151,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
                       if (round_number.toString() === ladokRoundId.toString()) {
                         const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
                         if (!applicationCode) {
-                          log.info('Applition code pushed to memo: ', { applicationCode }, memo)
+                          log.info('Applition code pushed to memo: ', { application_code }, memo)
                           applicationCodes.push(application_code)
                         } else {
                           log.debug('Application Code already exist in memo', { applicationCode })
