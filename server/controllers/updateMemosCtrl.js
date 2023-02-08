@@ -36,45 +36,76 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
   if (allMemoFiles && allMemoFiles.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(allMemoFiles)
     if (courseCodes && courseCodes.length > 0) {
-      const courseRoundTermsMap = await _getCourseRoundTermMap(courseCodes)
-      for await (const memoFile of allMemoFiles) {
-        let { applicationCode } = memoFile
-        const { _id, courseCode, koppsRoundId, semester } = memoFile
-        const lastTermsInfo = courseRoundTermsMap.get(courseCode)
-        if (lastTermsInfo && lastTermsInfo.length > 0) {
-          const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
-          if (lastTermInfo) {
-            const { rounds } = lastTermInfo
-            const round = rounds.find(x => x.ladokRoundId.toString() === koppsRoundId.toString())
-            if (round) {
-              const { ladokUID } = round
-              if (ladokUID && ladokUID !== '') {
-                const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
-                if (round_number.toString() === koppsRoundId.toString()) {
-                  applicationCode = application_code
+      try {
+        const courseRoundTermsMap = await _getCourseRoundTermMap(courseCodes)
+        for await (const memoFile of allMemoFiles) {
+          let { applicationCode } = memoFile
+          const { _id, courseCode, koppsRoundId, semester } = memoFile
+          const lastTermsInfo = courseRoundTermsMap.get(courseCode)
+          if (lastTermsInfo && lastTermsInfo.length > 0) {
+            const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
+            if (lastTermInfo) {
+              const { rounds } = lastTermInfo
+              if (rounds) {
+                const round = rounds.find(x => x.ladokRoundId.toString() === koppsRoundId.toString())
+                if (round) {
+                  const { ladokUID } = round
+                  if (ladokUID && ladokUID !== '') {
+                    try {
+                      const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
+                      if (round_number.toString() === koppsRoundId.toString()) {
+                        applicationCode = application_code
+                      }
+                    } catch (error) {
+                      log.error('Error in getting application code of memo file: ', memoFile)
+                      memoFilesWithOutApplicationCodes.push(memoFile)
+                    }
+                  } else {
+                    log.debug('LadokUID not found from round:', { round }, { memoFile })
+                    memoFilesWithOutApplicationCodes.push(memoFile)
+                  }
+                } else {
+                  log.debug('No round matched', { koppsRoundId })
+                  memoFilesWithOutApplicationCodes.push(memoFile)
                 }
+              } else {
+                log.debug('No rounds found for ', { semester }, { courseCode })
+                memoFilesWithOutApplicationCodes.push(memoFile)
               }
-            }
-            const apiResponse = await changeMemoApiData(
-              'updateStoredPdfMemoWithApplicationCodes',
-              { _id },
-              { applicationCode }
-            )
-            if (safeGet(() => apiResponse.message)) {
-              log.info('Error from API trying to update a new memo file: ', apiResponse.message)
-              failedMemoFilesToUpdate.push(memoFile)
+              try {
+                const apiResponse = await changeMemoApiData(
+                  'updateStoredPdfMemoWithApplicationCodes',
+                  { _id },
+                  { applicationCode }
+                )
+                if (safeGet(() => apiResponse.message)) {
+                  log.debug('Error from API trying to update a new memo file: ', apiResponse.message)
+                  failedMemoFilesToUpdate.push(memoFile)
+                } else {
+                  memoFilesUpdated.push(memoFile)
+                }
+                log.info('New memo file was created in kurs-pm-data-api for course memo with id:', _id)
+              } catch (error) {
+                log.error('Error is updating memo file with id: ', _id)
+                failedMemoFilesToUpdate.push(memoFile)
+              }
             } else {
-              memoFilesUpdated.push(memoFile)
+              log.debug('Last term info not found for memo file: ', memoFile)
+              memoFilesWithOutApplicationCodes.push(memoFile)
             }
-            log.info('New memo file was created in kurs-pm-data-api for course memo with id:', _id)
           } else {
+            log.debug('Terms not found for memo file: ', memoFile)
             memoFilesWithOutApplicationCodes.push(memoFile)
           }
-        } else {
-          memoFilesWithOutApplicationCodes.push(memoFile)
         }
+      } catch (error) {
+        log.error('Error in preparing memo file object with application code', error)
       }
+    } else {
+      log.debug('No course codes found from memo files.')
     }
+  } else {
+    log.debug('No memo files fetched')
   }
   log.info('Total fetced memos files', allMemoFiles.length)
   log.info('Total memo update calls', memoFilesUpdated.length)
@@ -98,52 +129,81 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
   if (memoData && memoData.length > 0) {
     const courseCodes = _getAllUniqueCourseCodesFromData(memoData)
     if (courseCodes && courseCodes.length > 0) {
-      const courseRoundTermsMap = await _getCourseRoundTermMap(courseCodes)
-      for await (const memo of memoData) {
-        const { courseCode, ladokRoundIds, semester, applicationCodes, memoEndPoint, status: memoStatus } = memo
-        const lastTermsInfo = courseRoundTermsMap.get(courseCode)
-        if (lastTermsInfo) {
-          const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
-          if (lastTermInfo) {
-            const { rounds } = lastTermInfo
-            for await (const ladokRoundId of ladokRoundIds) {
-              const round = rounds.find(x => x.ladokRoundId.toString() === ladokRoundId.toString())
-              if (round) {
-                const { ladokUID } = round
-                if (ladokUID && ladokUID !== '') {
-                  const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
-                  if (round_number.toString() === ladokRoundId.toString()) {
-                    const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
-                    if (!applicationCode) {
-                      applicationCodes.push(application_code)
+      try {
+        const courseRoundTermsMap = await _getCourseRoundTermMap(courseCodes)
+        for await (const memo of memoData) {
+          const { courseCode, ladokRoundIds, semester, applicationCodes, memoEndPoint, status: memoStatus } = memo
+          const lastTermsInfo = courseRoundTermsMap.get(courseCode)
+          if (lastTermsInfo) {
+            const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
+            if (lastTermInfo) {
+              const { rounds } = lastTermInfo
+              for await (const ladokRoundId of ladokRoundIds) {
+                const round = rounds.find(x => x.ladokRoundId.toString() === ladokRoundId.toString())
+                if (round) {
+                  const { ladokUID } = round
+                  if (ladokUID && ladokUID !== '') {
+                    try {
+                      const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
+                      if (round_number.toString() === ladokRoundId.toString()) {
+                        const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
+                        if (!applicationCode) {
+                          log.info('Applition code pushed to memo: ', { applicationCode }, memo)
+                          applicationCodes.push(application_code)
+                        } else {
+                          log.debug('Application Code already exist in memo', { applicationCode })
+                        }
+                      } else {
+                        log.debug('Application code not matched for ', memo, { application_code })
+                        memosWithOutApplicationCodes.push(memo)
+                      }
+                    } catch (error) {
+                      log.error('Error in getting application code of memo: ', memo)
+                      memosWithOutApplicationCodes.push(memo)
                     }
+                  } else {
+                    log.debug('LadokUID not found from round:', { round }, { memo })
+                    memosWithOutApplicationCodes.push(memo)
                   }
                 }
               }
-            }
-            const apiResponse = await changeMemoApiData(
-              'updatedMemoWithApplicationCodes',
-              { courseCode, semester, memoEndPoint, memoStatus },
-              { applicationCodes, ladokRoundIds }
-            )
-            if (safeGet(() => apiResponse.message)) {
-              log.info('Error from API trying to update a new draft: ', apiResponse.message)
-              failedMemosToUpdate.push(memo)
+              try {
+                const apiResponse = await changeMemoApiData(
+                  'updatedMemoWithApplicationCodes',
+                  { courseCode, semester, memoEndPoint, memoStatus },
+                  { applicationCodes, ladokRoundIds }
+                )
+                if (safeGet(() => apiResponse.message)) {
+                  log.info('Error from API trying to update a new draft: ', apiResponse.message)
+                  failedMemosToUpdate.push(memo)
+                } else {
+                  memosUpdated.push(memo)
+                  log.info(
+                    'New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:',
+                    memoEndPoint
+                  )
+                }
+              } catch (error) {
+                log.error('Error is updating memo : ', memo)
+                failedMemosToUpdate.push(memo)
+              }
             } else {
-              memosUpdated.push(memo)
-              log.info(
-                'New memo draft was created in kurs-pm-data-api for course memo with memoEndPoint:',
-                memoEndPoint
-              )
+              log.debug('Last term info not found for memo: ', memo)
+              memosWithOutApplicationCodes.push(memo)
             }
           } else {
+            log.debug('Terms not found for memo : ', memo)
             memosWithOutApplicationCodes.push(memo)
           }
-        } else {
-          memosWithOutApplicationCodes.push(memo)
         }
+      } catch (error) {
+        log.error('Error in preparing memos object with application code', error)
       }
+    } else {
+      log.debug('No course codes found from memos')
     }
+  } else {
+    log.debug('No memos fetched')
   }
   log.info('Total fetced memos', memoData.length)
   log.info('Total memos updated', memosUpdated.length)
