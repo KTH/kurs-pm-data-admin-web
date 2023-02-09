@@ -168,6 +168,9 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
                     log.debug('LadokUID not found from round:', { round }, { memo })
                     memosWithOutApplicationCodes.push(memo)
                   }
+                } else {
+                  log.debug('No round matched', { ladokRoundId })
+                  memosWithOutApplicationCodes.push(memo)
                 }
               }
               try {
