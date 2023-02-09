@@ -176,7 +176,7 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
               try {
                 const apiResponse = await changeMemoApiData(
                   'updatedMemoWithApplicationCodes',
-                  { courseCode, semester, memoEndPoint, memoStatus },
+                  { courseCode, semester, memoEndPoint, status: memoStatus },
                   { applicationCodes, ladokRoundIds }
                 )
                 if (safeGet(() => apiResponse.message)) {
