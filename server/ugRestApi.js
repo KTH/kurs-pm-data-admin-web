@@ -184,7 +184,6 @@ const _getMembersObjectFromGroups = (
 
 // ------- EXAMINATOR AND RESPONSIBLES FROM UG-REST_API: ------- /
 async function _getCourseEmployees(apiMemoData) {
-  return {}
   const { courseCode, semester, ladokRoundIds } = apiMemoData
   try {
     const { assistants, teachers, examiners, responsibles } = _groupNames(courseCode, semester, ladokRoundIds)
