@@ -15,6 +15,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '3',
           firstTuitionDate: '2021-03-20',
           language: { sv: 'Svenska', en: 'Swedish' },
+          applicationCodes: ['3'],
         },
         {
           //used
@@ -22,6 +23,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '2',
           firstTuitionDate: '2021-01-18',
           language: { sv: 'Engelska', en: 'English' },
+          applicationCodes: ['2'],
         },
         {
           //todo: add as course round
@@ -29,6 +31,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '1',
           firstTuitionDate: '2021-03-22',
           language: { sv: 'Engelska', en: 'English' },
+          applicationCodes: ['1'],
         },
       ],
       examinationRounds: [
@@ -88,6 +91,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '3',
           firstTuitionDate: '2020-10-30',
           language: { sv: 'Svenska', en: 'Swedish' },
+          applicationCodes: ['3'],
         },
         {
           // used merged T
@@ -95,12 +99,14 @@ const mockMiniKoppsObj = {
           ladokRoundId: '2',
           firstTuitionDate: '2020-08-24',
           language: { sv: 'Engelska', en: 'English' },
+          applicationCodes: ['2'],
         },
         {
           shortName: '',
           ladokRoundId: '1',
           firstTuitionDate: '2020-10-26',
           language: { sv: 'Engelska', en: 'English' },
+          applicationCodes: ['1'],
         },
       ],
       examinationRounds: [
@@ -160,6 +166,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '2',
           firstTuitionDate: '2020-01-15',
           language: { sv: 'Engelska', en: 'English' },
+          applicationCodes: ['2'],
         },
         {
           //used only published
@@ -167,6 +174,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '1',
           firstTuitionDate: '2020-03-16',
           language: { sv: 'Svenska', en: 'Swedish' },
+          applicationCodes: ['2'],
         },
       ],
       examinationRounds: [
@@ -227,6 +235,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '2',
           firstTuitionDate: '2019-08-26',
           language: { sv: 'Engelska', en: 'English' },
+          applicationCodes: ['2'],
         },
         {
           //used published which have active draft
@@ -234,6 +243,7 @@ const mockMiniKoppsObj = {
           ladokRoundId: '1',
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
+          applicationCodes: ['1'],
         },
       ],
       examinationRounds: [

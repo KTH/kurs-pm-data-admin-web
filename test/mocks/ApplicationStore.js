@@ -1,10 +1,5 @@
-import mockMiniKoppsObj from './miniKoppsObjs'
-import mockMiniMemos from './miniMemos'
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
-import {
-  excludedFieldsInContractEducation,
-  getContractEducationStructure,
-} from '../../public/js/app/util/fieldsByType.js'
+import mockMiniKoppsObj from './miniKoppsObjs'
 const applicationStore = createApplicationStore()
 
 const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
@@ -49,9 +44,6 @@ const mockApplicationStore = {
 
   showAvailableSemesterRounds(semester) {
     return applicationStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
-    // return new Promise((resolve, reject) => {
-    //   resolve({ status: 200 })
-    // })
   },
 
   updateDraft(body) {
