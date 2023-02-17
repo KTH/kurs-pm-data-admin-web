@@ -266,9 +266,9 @@ async function showAvailableSemesterRounds(chosenSemester, testUsedRounds = [], 
       if (result.status >= 400) {
         return 'ERROR-createApplicationStore.js-showAvailableSemesterRounds-' + result.status
       }
-      const { usedRoundsThisSemester } = result.data
+      const { usedApplicationCodesThisSemester } = result.data
 
-      return await this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
+      return await this._filterOutUsedRounds(usedApplicationCodesThisSemester, chosenSemester)
     }
   } catch (error) {
     if (error.response) {
