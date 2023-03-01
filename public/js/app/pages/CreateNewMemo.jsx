@@ -129,24 +129,6 @@ function CreateNewMemo(props) {
     return { memoCommonLangAbbr, languageOfInstructions }
   }
 
-  const _getSortedCourseRoundsIds = (term, applicationCodes, courseRoundTerms) => {
-    const sortedRoundIds = []
-    const selectedCourseRound = courseRoundTerms.find(x => x.term.toString() === term.toString())
-    if (selectedCourseRound) {
-      const { rounds: courseRounds } = selectedCourseRound
-      if (courseRounds && courseRounds.length > 0) {
-        applicationCodes.forEach(applicationCode => {
-          const round = courseRounds.find(x => x.applicationCodes[0] === applicationCode)
-          if (round) {
-            const { ladokRoundId } = round
-            sortedRoundIds.push(ladokRoundId.toString())
-          }
-        })
-      }
-    }
-    return sortedRoundIds.sort()
-  }
-
   function setAlarm(type, textName, isOpen = true) {
     setAlert({
       type,
@@ -238,7 +220,6 @@ function CreateNewMemo(props) {
         courseTitle,
         memoName: newMemoName,
         memoCommonLangAbbr,
-        ladokRoundIds: _getSortedCourseRoundsIds(semester, sortedApplicationCodes, lastTerms),
         applicationCodes: sortedApplicationCodes,
         languageOfInstructions: chosen.languageOfInstructions,
         memoEndPoint: courseCode + semester + '-' + sortedApplicationCodes.join('-'),
