@@ -173,20 +173,34 @@ function ActionModalCourseRounds(props) {
           <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
           <Form className={`Available--Rounds--To--Add ${alert && alert.isOpen ? 'error-area' : ''}`}>
             {availableRounds.map(round => (
-              <FormGroup className="form-check" id="choose-rounds-list" key={'add' + round.applicationCodes[0]}>
+              <FormGroup
+                className="form-check"
+                id="choose-rounds-list"
+                key={
+                  'add' + round.applicationCodes && round.applicationCodes.length > 0 ? round.applicationCodes[0] : ''
+                }
+              >
                 <Input
                   data-testid="checkbox-add-rounds-to-saved-memo"
                   type="checkbox"
-                  id={'addNew' + round.applicationCodes[0]}
+                  id={
+                    'addNew' + round.applicationCodes && round.applicationCodes.length > 0
+                      ? round.applicationCodes[0]
+                      : ''
+                  }
                   name="addNew"
                   className="addNewRounds"
-                  value={round.applicationCodes[0]}
+                  value={round.applicationCodes && round.applicationCodes.length > 0 ? round.applicationCodes[0] : ''}
                   defaultChecked={false}
                   disabled={!canMerge(memoCommonLangAbbr, round)}
                 />
                 <Label
                   data-testid="label-checkbox-add-rounds-to-saved-memo"
-                  htmlFor={'addNew' + round.applicationCodes[0]}
+                  htmlFor={
+                    'addNew' + round.applicationCodes && round.applicationCodes.length > 0
+                      ? round.applicationCodes[0]
+                      : ''
+                  }
                 >
                   {`${combineMemoName(round, semester, langAbbr)}.`}
                   {(!canMerge(memoCommonLangAbbr, round) && <i>{extraInfo.cannotMergeLanguage}</i>) || ''}
