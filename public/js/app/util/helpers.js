@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 const i18n = require('../../../../i18n')
 
 export const combinedCourseName = (courseCode, course, langAbbr) => {
@@ -115,6 +114,5 @@ export const fetchParameters = props => {
     .split('&')
     .map(param => param.split('='))
     .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
-  // }
   return params
 }
