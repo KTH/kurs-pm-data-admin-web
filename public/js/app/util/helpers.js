@@ -37,11 +37,11 @@ export const getDateFormat = (date, language) => {
 }
 
 export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
-  const { firstTuitionDate, shortName, language, applicationCodes } = roundInfo
+  const { firstTuitionDate, shortName, language, applicationCode } = roundInfo
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { extraInfo } = i18n.messages[langIndex]
 
-  const seasonOrShortName = shortName ? shortName + ' ' : `${seasonStr(langIndex, semester)}-${applicationCodes[0]}`
+  const seasonOrShortName = shortName ? shortName + ' ' : `${seasonStr(langIndex, semester)}-${applicationCode}`
 
   const startDateAndLanguage = `(${extraInfo.labelStartDate} ${getDateFormat(firstTuitionDate, langAbbr)}, ${
     language[langAbbr]
@@ -90,11 +90,11 @@ export const emptyCheckboxes = className => {
 }
 
 export const sortRoundAndKoppsInfo = (roundKopps, prevSortedInfo) => {
-  const { applicationCodes } = roundKopps
+  const { applicationCode } = roundKopps
   const { sortedApplicationCodes, sortedKoppsInfo } = prevSortedInfo
-  sortedApplicationCodes.push(applicationCodes[0])
+  sortedApplicationCodes.push(applicationCode)
   const sortedRounds = sortedApplicationCodes.sort()
-  const addIndex = sortedRounds.indexOf(applicationCodes[0])
+  const addIndex = sortedRounds.indexOf(applicationCode)
   sortedKoppsInfo.splice(addIndex, 0, roundKopps)
   return { sortedApplicationCodes, sortedKoppsInfo }
 }

@@ -376,19 +376,19 @@ function CreateNewMemo(props) {
                         data-testid="form-choose-new"
                         className="form-check"
                         id="choose-from-rounds-list"
-                        key={'new' + round.applicationCodes[0]}
+                        key={'new' + round.applicationCode}
                       >
                         <Input
                           type="checkbox"
                           data-testid="checkbox-choose-available-round"
-                          id={'new' + round.applicationCodes[0]}
+                          id={'new' + round.applicationCode}
                           name="chooseNew"
-                          value={round.applicationCodes[0]}
+                          value={round.applicationCode}
                           onClick={event => onChoiceOfAvailableRounds(event, round)}
                           defaultChecked={false}
                         />
                         <Label
-                          htmlFor={'new' + round.applicationCodes[0]}
+                          htmlFor={'new' + round.applicationCode}
                           data-testid="label-checkbox-choose-available-round"
                         >
                           {/* Namegiving according to user interface language */}

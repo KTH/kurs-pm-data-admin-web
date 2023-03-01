@@ -104,13 +104,12 @@ async function getApplicationFromLadokUID(ladokUID) {
   const uri = `${config.koppsApi.basePath}courses/offerings/roundnumber?ladokuid=${ladokUID}`
   log.debug('Trying fetch courses application by', { ladokuid: ladokUID, uri, config: config.koppsApi })
   try {
-    const res = await client.getAsync({ uri, useCache: true })
-    if (res.body) {
-      const { body } = res
+    const { body, statusCode, statusMessage } = await client.getAsync({ uri, useCache: true })
+    if (body) {
       log.debug('Fetched successfully course application for', { ladokuid: ladokUID, uri, config: config.koppsApi })
       return body
     }
-    log.warn('Kopps responded with', res.statusCode, res.statusMessage, ` for ladokuid ${ladokUID}`)
+    log.warn('Kopps responded with', statusCode, statusMessage, ` for ladokuid ${ladokUID}`)
     return {}
   } catch (err) {
     log.error('Kopps is not available', err)
@@ -154,12 +153,12 @@ async function getKoppsCourseRoundTerms(courseCode) {
     // fetch application codes for every round for every term
     if (activeTerms && activeTerms.length > 0) {
       for await (const term of termsWithCourseRounds) {
-        const { rounds } = term
+        const { rounds = [] } = term
         for await (const round of rounds) {
           const { ladokUID } = round
           if (ladokUID && ladokUID !== '') {
             const { application_code } = await getApplicationFromLadokUID(ladokUID)
-            round.applicationCodes = [application_code]
+            round.applicationCode = application_code
           }
         }
       }
@@ -189,7 +188,7 @@ async function getLadokRoundIds(courseCode, semester, applicationCodes) {
     const selectedTerm = termsWithCourseRounds.find(t => t.term.toString() === semester.toString())
     const ladokRoundIds = []
     if (selectedTerm) {
-      const { rounds } = selectedTerm
+      const { rounds = [] } = selectedTerm
       if (rounds && rounds.length > 0) {
         for await (const round of rounds) {
           const { ladokUID, ladokRoundId } = round

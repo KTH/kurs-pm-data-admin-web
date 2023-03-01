@@ -244,7 +244,7 @@ async function _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLas
   return (
     (thisTerm &&
       thisTerm.rounds &&
-      (await thisTerm.rounds.filter(r => !usedRoundsThisTerm.includes(r.applicationCodes[0])).reverse())) ||
+      (await thisTerm.rounds.filter(r => !usedRoundsThisTerm.includes(r.applicationCode)).reverse())) ||
     []
   )
 }
