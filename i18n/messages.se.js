@@ -463,7 +463,7 @@ module.exports = {
     published: 'Ändra publicerat kurs-PM',
   },
   actionModals: {
-    changeLadokRoundIds: {
+    changeLadokRoundApplicationCodes: {
       header: 'Lägg till kurstillfällen',
       body: '',
       btnClose: 'Avbryt',

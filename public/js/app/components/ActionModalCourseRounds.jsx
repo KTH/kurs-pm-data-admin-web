@@ -145,11 +145,11 @@ function ActionModalCourseRounds(props) {
 
   return (
     <ActionModalButton
-      btnLabel={actionModals.changeLadokRoundIds.header}
+      btnLabel={actionModals.changeLadokRoundApplicationCodes.header}
       modalId="addingRounds"
       color="secondary"
       stayOnModal={stayOnModal}
-      modalLabels={actionModals.changeLadokRoundIds}
+      modalLabels={actionModals.changeLadokRoundApplicationCodes}
       onConfirm={(showSaveBtn && onSave) || null}
     >
       <span>
