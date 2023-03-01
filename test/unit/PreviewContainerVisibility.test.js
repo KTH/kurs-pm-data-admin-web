@@ -24,7 +24,6 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
     noMemoData: () => false,
     memoDatas: [],
     activeMemoEndPoint: id => false,
-    roundIds: [],
   }
   return (
     <StaticRouter>
