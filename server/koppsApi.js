@@ -156,8 +156,8 @@ async function getKoppsCourseRoundTerms(courseCode) {
         const { rounds = [] } = term
         for await (const round of rounds) {
           const { ladokUID } = round
-          if (ladokUID && ladokUID !== '') {
-            const { application_code } = await getApplicationFromLadokUID(ladokUID)
+          if (ladokUID) {
+            const { application_code = '' } = await getApplicationFromLadokUID(ladokUID)
             round.applicationCode = application_code
           }
         }
@@ -192,8 +192,8 @@ async function getLadokRoundIds(courseCode, semester, applicationCodes) {
       if (rounds && rounds.length > 0) {
         for await (const round of rounds) {
           const { ladokUID, ladokRoundId } = round
-          if (ladokUID && ladokUID !== '') {
-            const { application_code } = await getApplicationFromLadokUID(ladokUID)
+          if (ladokUID) {
+            const { application_code = '' } = await getApplicationFromLadokUID(ladokUID)
             const index = applicationCodes.findIndex(x => x.toString() === application_code.toString())
             if (index >= 0) {
               ladokRoundIds.push(ladokRoundId)
