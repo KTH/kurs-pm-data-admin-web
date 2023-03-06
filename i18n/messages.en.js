@@ -469,7 +469,7 @@ module.exports = {
     published: 'Edit published course memo',
   },
   actionModals: {
-    changeLadokRoundIds: {
+    changeLadokRoundApplicationCodes: {
       header: 'Add course instances',
       body: '',
       btnClose: 'Cancel',

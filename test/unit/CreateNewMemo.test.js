@@ -40,7 +40,6 @@ const { alerts: alertsSV, info: infoSV, pagesCreateNewPm: pagesCreateNewPmSV } =
 const { getAllByRole, getAllByTestId, getByTestId } = screen
 
 describe('Component <CreateNewMemo> Create and publish course memo, initial state, no memo created yet.', () => {
-  // beforeEach(() => render(<CreateNewMemoPage langAbbr="en" langIndex={0} />))
   test('renders without props', async () => {
     await act(async () => {
       await render(<CreateNewMemoPage />)
@@ -312,7 +311,6 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('create a new draft with one round, with correct name (use shortName) in english because round language is english', async () => {
-    // render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     })
@@ -336,7 +334,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       expect(getByTestId('actionType')).toHaveTextContent('create')
       expect(getByTestId('newMemoName')).toHaveTextContent('Spring 2021-2 (Start date 18 Jan 2021, English)')
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
-      expect(getByTestId('sortedRoundIds')).toHaveTextContent('2')
+      expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('2')
     })
   })
 
@@ -364,7 +362,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
       expect(getByTestId('actionType')).toHaveTextContent('create')
       expect(getByTestId('newMemoName')).toHaveTextContent('CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)')
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('sv')
-      expect(getByTestId('sortedRoundIds')).toHaveTextContent('3')
+      expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('3')
     })
   })
 
@@ -397,13 +395,12 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
         'Autumn 2020-2 (Start date 24 Aug 2020, English), CBIOT1 m.fl. (Start date 30 Oct 2020, Swedish)'
       )
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
-      expect(getByTestId('sortedRoundIds')).toHaveTextContent('2,3')
+      expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('2,3')
     })
   })
 })
 
 test('create a new draft with one round, with correct name (use shortName) in swedish because round language is Swedish', async () => {
-  // render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
   await act(async () => {
     await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
   })
@@ -427,7 +424,7 @@ test('create a new draft with one round, with correct name (use shortName) in sw
     expect(getByTestId('actionType')).toHaveTextContent('create')
     expect(getByTestId('newMemoName')).toHaveTextContent('CBIOT1 m.fl. (Startdatum 2021-03-20, Svenska)')
     expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('sv')
-    expect(getByTestId('sortedRoundIds')).toHaveTextContent('3')
+    expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('3')
   })
 })
 

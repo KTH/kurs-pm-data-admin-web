@@ -32,7 +32,6 @@ const courseML1616 = {
   roundInfos: [
     {
       round: {
-        ladokRoundId: 1,
         startTerm: {
           term: '20222',
         },
@@ -41,7 +40,6 @@ const courseML1616 = {
     },
     {
       round: {
-        ladokRoundId: 2,
         startTerm: {
           term: '20222',
         },

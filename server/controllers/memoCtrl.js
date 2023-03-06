@@ -7,7 +7,7 @@ const apis = require('../api')
 
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
-const { getSyllabus } = require('../koppsApi')
+const { getSyllabus, getLadokRoundIds } = require('../koppsApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
 const serverPaths = require('../server').getPaths()
@@ -79,9 +79,21 @@ async function renderMemoEditorPage(req, res, next) {
       memoLangAbbr,
     })
 
+    /**
+     * This is temporary to fetch only round id for UG Rest Api.
+     * Because UG Rest Api is using ladok round id in its group names still.
+     * So once it gets updated then this will be removed.
+     */
+
+    // start
+    const apiMemoDataDeepCopy = JSON.parse(JSON.stringify(apiMemoData))
+    const { applicationCodes } = apiMemoDataDeepCopy
+
+    apiMemoDataDeepCopy.ladokRoundIds = await getLadokRoundIds(courseCode, semester, applicationCodes)
+    // end
     const koppsFreshData = {
       ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
-      ...(await getCourseEmployees(apiMemoData)),
+      ...(await getCourseEmployees(apiMemoDataDeepCopy)),
     }
 
     applicationStore.memoData = await mergeKoppsAndMemoData(koppsFreshData, apiMemoData)

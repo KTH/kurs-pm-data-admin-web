@@ -244,7 +244,7 @@ async function _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLas
   return (
     (thisTerm &&
       thisTerm.rounds &&
-      (await thisTerm.rounds.filter(r => !usedRoundsThisTerm.includes(r.ladokRoundId)).reverse())) ||
+      (await thisTerm.rounds.filter(r => !usedRoundsThisTerm.includes(r.applicationCode)).reverse())) ||
     []
   )
 }
@@ -266,9 +266,9 @@ async function showAvailableSemesterRounds(chosenSemester, testUsedRounds = [], 
       if (result.status >= 400) {
         return 'ERROR-createApplicationStore.js-showAvailableSemesterRounds-' + result.status
       }
-      const { usedRoundsThisSemester } = result.data
+      const { usedApplicationCodesThisSemester } = result.data
 
-      return await this._filterOutUsedRounds(usedRoundsThisSemester, chosenSemester)
+      return await this._filterOutUsedRounds(usedApplicationCodesThisSemester, chosenSemester)
     }
   } catch (error) {
     if (error.response) {

@@ -99,6 +99,24 @@ function isDateInFuture(checkDate) {
   return false
 }
 
+async function getApplicationFromLadokUID(ladokUID) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}courses/offerings/roundnumber?ladokuid=${ladokUID}`
+  log.debug('Trying fetch courses application by', { ladokuid: ladokUID, uri, config: config.koppsApi })
+  try {
+    const { body, statusCode, statusMessage } = await client.getAsync({ uri, useCache: true })
+    if (body) {
+      log.debug('Fetched successfully course application for', { ladokuid: ladokUID, uri, config: config.koppsApi })
+      return body
+    }
+    log.warn('Kopps responded with', statusCode, statusMessage, ` for ladokuid ${ladokUID}`)
+    return {}
+  } catch (err) {
+    log.error('Kopps is not available', err)
+    return []
+  }
+}
+
 async function getCourseSchool(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}`
@@ -118,6 +136,7 @@ async function getCourseSchool(courseCode) {
 
 async function getKoppsCourseRoundTerms(courseCode) {
   // step 1
+  // fetch course round terms
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
   try {
@@ -130,11 +149,64 @@ async function getKoppsCourseRoundTerms(courseCode) {
         isDateInFuture(t.rounds[0].lastTuitionDate) ||
         yearBeforeCurrentYear(t.term)
     )
+    // step 2
+    // fetch application codes for every round for every term
+    if (activeTerms && activeTerms.length > 0) {
+      for await (const term of termsWithCourseRounds) {
+        const { rounds = [] } = term
+        for await (const round of rounds) {
+          const { ladokUID } = round
+          if (ladokUID) {
+            const { application_code = '' } = await getApplicationFromLadokUID(ladokUID)
+            round.applicationCode = application_code
+          }
+        }
+      }
+    }
 
     return {
       course,
-      lastTermsInfo: activeTerms,
+      lastTermsInfo: termsWithCourseRounds,
     }
+  } catch (err) {
+    log.debug('getKoppsCourseRoundTerms has an error:' + err)
+    return err
+  }
+}
+
+/**
+ * This is temporary method to fetch only round id for UG Rest Api.
+ * Because UG Rest Api is using ladok round id in its group names still.
+ * So once it gets updated then this method will be removed.
+ */
+async function getLadokRoundIds(courseCode, semester, applicationCodes) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
+  try {
+    const { body } = await client.getAsync({ uri, useCache: true })
+    const { termsWithCourseRounds } = body
+    const selectedTerm = termsWithCourseRounds.find(t => t.term.toString() === semester.toString())
+    const ladokRoundIds = []
+    if (selectedTerm) {
+      const { rounds = [] } = selectedTerm
+      if (rounds && rounds.length > 0) {
+        for await (const round of rounds) {
+          const { ladokUID, ladokRoundId } = round
+          if (ladokUID) {
+            const { application_code = '' } = await getApplicationFromLadokUID(ladokUID)
+            const index = applicationCodes.findIndex(x => x.toString() === application_code.toString())
+            if (index >= 0) {
+              ladokRoundIds.push(ladokRoundId)
+              applicationCodes.splice(index, 0)
+            }
+            if (applicationCodes.length === 0) {
+              break
+            }
+          }
+        }
+      }
+    }
+    return ladokRoundIds
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
     return err
@@ -321,4 +393,6 @@ module.exports = {
   getSyllabus,
   findSyllabus,
   parseSyllabus,
+  getApplicationFromLadokUID,
+  getLadokRoundIds,
 }

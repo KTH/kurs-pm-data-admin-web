@@ -1,7 +1,7 @@
 const mockMiniMemos = {
   sortedPublishedForAllYears: [
     {
-      ladokRoundIds: ['1'],
+      applicationCodes: ['1'],
       memoCommonLangAbbr: 'sv',
       memoId: 'lskdijwc9bd06110a37607',
       memoEndPoint: 'EF111120201-1',
@@ -11,7 +11,7 @@ const mockMiniMemos = {
       version: 1,
     },
     {
-      ladokRoundIds: ['2'],
+      applicationCodes: ['2'],
       memoCommonLangAbbr: 'en',
       memoId: '15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-2',
@@ -21,7 +21,7 @@ const mockMiniMemos = {
       version: '1',
     },
     {
-      ladokRoundIds: ['1'],
+      applicationCodes: ['1'],
       memoCommonLangAbbr: 'en',
       memoId: 'a15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-1',
@@ -33,7 +33,7 @@ const mockMiniMemos = {
   ],
   publishedWithNoActiveDraft: [
     {
-      ladokRoundIds: ['2'],
+      applicationCodes: ['2'],
       memoCommonLangAbbr: 'en',
       memoId: '15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-2',
@@ -43,7 +43,7 @@ const mockMiniMemos = {
       version: '1',
     },
     {
-      ladokRoundIds: ['1'],
+      applicationCodes: ['1'],
       memoCommonLangAbbr: 'sv',
       memoId: 'lskdijwc9bd06110a37607',
       memoEndPoint: 'EF111120201-1',
@@ -55,7 +55,7 @@ const mockMiniMemos = {
   ],
   draftsOfPublishedMemos: [
     {
-      ladokRoundIds: ['1'],
+      applicationCodes: ['1'],
       memoCommonLangAbbr: 'en',
       memoId: 'a15e82ef70daab3a6669eef2be',
       memoEndPoint: 'EF111120192-1',
@@ -67,7 +67,7 @@ const mockMiniMemos = {
   ],
   draftsWithNoActivePublishedVer: [
     {
-      ladokRoundIds: ['2', '3'],
+      applicationCodes: ['2', '3'],
       memoCommonLangAbbr: 'en',
       memoId: 'asd5e84b7ab8bbfe1d77ce0f6c9',
       memoEndPoint: 'EF111120202-2-3',
@@ -77,7 +77,7 @@ const mockMiniMemos = {
       version: '1',
     },
     {
-      ladokRoundIds: ['3'],
+      applicationCodes: ['3'],
       memoCommonLangAbbr: 'sv',
       memoId: '5e84b7ab8sddsbbfe1d77ce0f6c9',
       memoEndPoint: 'EF111120211-3',
@@ -87,7 +87,7 @@ const mockMiniMemos = {
       version: '1',
     },
     {
-      ladokRoundIds: ['2'],
+      applicationCodes: ['2'],
       memoCommonLangAbbr: 'en',
       memoId: 'dfasdfasdfa',
       memoEndPoint: 'EF111120211-2',

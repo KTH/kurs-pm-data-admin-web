@@ -1,18 +1,13 @@
-import mockMiniKoppsObj from './miniKoppsObjs'
-import mockMiniMemos from './miniMemos'
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
-import {
-  excludedFieldsInContractEducation,
-  getContractEducationStructure,
-} from '../../public/js/app/util/fieldsByType.js'
+import mockMiniKoppsObj from './miniKoppsObjs'
 const applicationStore = createApplicationStore()
 
 const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
   const newMemo = await applicationStore.createNewMemo(action, copyFrom, body, isTest) //function exist
-  const { ladokRoundIds, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
+  const { applicationCodes, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
   //Example where data saves
   const objToSave = {
-    ladokRoundIds,
+    applicationCodes,
     memoCommonLangAbbr,
     memoId: Math.random(),
     memoEndPoint,
@@ -49,9 +44,6 @@ const mockApplicationStore = {
 
   showAvailableSemesterRounds(semester) {
     return applicationStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
-    // return new Promise((resolve, reject) => {
-    //   resolve({ status: 200 })
-    // })
   },
 
   updateDraft(body) {
