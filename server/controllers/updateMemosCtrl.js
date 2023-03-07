@@ -2,7 +2,7 @@
 
 const { safeGet } = require('safe-utils')
 const log = require('@kth/log')
-const { getKoppsCourseRoundTerms, getApplicationFromLadokUID } = require('../koppsApi')
+const { getKoppsCourseRoundTerms } = require('../koppsApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 
 function _getAllUniqueCourseCodesFromData(data) {
@@ -49,22 +49,11 @@ async function _fetchAllMemoFilesAndUpdateWithApplicationCodes() {
               if (rounds) {
                 const round = rounds.find(x => x.ladokRoundId.toString() === koppsRoundId.toString())
                 if (round) {
-                  const { ladokUID } = round
-                  if (ladokUID && ladokUID !== '') {
-                    try {
-                      const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
-                      if (round_number.toString() === koppsRoundId.toString()) {
-                        applicationCode = application_code
-                      } else {
-                        log.debug('Application code not matched for ', memoFile, { application_code })
-                        memoFilesWithOutApplicationCodes.push(memoFile)
-                      }
-                    } catch (error) {
-                      log.error('Error in getting application code of memo file: ', memoFile)
-                      memoFilesWithOutApplicationCodes.push(memoFile)
-                    }
+                  const { applicationCode: application_code } = round
+                  if (application_code && application_code !== '') {
+                    applicationCode = application_code
                   } else {
-                    log.debug('LadokUID not found from round:', { round }, { memoFile })
+                    log.debug('Application code is empty in round from Kopps', { round }, { memoFile })
                     memoFilesWithOutApplicationCodes.push(memoFile)
                   }
                 } else {
@@ -141,31 +130,20 @@ async function _fetchAllMemosAndUpdateMemoWithApplicationCodes() {
             const lastTermInfo = lastTermsInfo.find(x => x.term.toString() === semester.toString())
             if (lastTermInfo) {
               const { rounds } = lastTermInfo
-              for await (const ladokRoundId of ladokRoundIds) {
+              for (const ladokRoundId of ladokRoundIds) {
                 const round = rounds.find(x => x.ladokRoundId.toString() === ladokRoundId.toString())
                 if (round) {
-                  const { ladokUID } = round
-                  if (ladokUID && ladokUID !== '') {
-                    try {
-                      const { application_code, round_number } = await getApplicationFromLadokUID(ladokUID)
-                      if (round_number.toString() === ladokRoundId.toString()) {
-                        const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
-                        if (!applicationCode) {
-                          log.info('Applition code pushed to memo: ', { application_code }, memo)
-                          applicationCodes.push(application_code)
-                        } else {
-                          log.debug('Application Code already exist in memo', { applicationCode })
-                        }
-                      } else {
-                        log.debug('Application code not matched for ', memo, { application_code })
-                        memosWithOutApplicationCodes.push(memo)
-                      }
-                    } catch (error) {
-                      log.error('Error in getting application code of memo: ', memo)
-                      memosWithOutApplicationCodes.push(memo)
+                  const { applicationCode: application_code } = round
+                  if (application_code && application_code !== '') {
+                    const applicationCode = applicationCodes.find(x => x.toString() === application_code.toString())
+                    if (!applicationCode) {
+                      log.info('Application code pushed to memo: ', { application_code }, memo)
+                      applicationCodes.push(application_code)
+                    } else {
+                      log.debug('Application Code already exist in memo', { applicationCode })
                     }
                   } else {
-                    log.debug('LadokUID not found from round:', { round }, { memo })
+                    log.debug('Application code is empty from Kopps for ', memo, { application_code })
                     memosWithOutApplicationCodes.push(memo)
                   }
                 } else {

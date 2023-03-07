@@ -33,84 +33,6 @@ function getDateOfMondayOfTheWeek(startDate) {
   return firstMondayOfSpringSemester
 }
 
-function addDays(date, days) {
-  // return date.setDate(date.getDate() + days)
-  const copy = new Date(Number(date))
-  copy.setDate(date.getDate() + days)
-  return copy
-}
-
-function getCurrentTerm(overrideDate) {
-  const JULY = 6
-  const SPRING = 1
-  const FALL = 2
-  const currentDate = overrideDate || new Date()
-  const currentYear = currentDate.getFullYear()
-  const currentMonth = currentDate.getMonth()
-  const currentSemester = currentMonth < JULY ? SPRING : FALL
-  return `${currentYear * 10 + currentSemester}`
-}
-
-function isDateWithinCurrentSemester(checkDate) {
-  // checking if lastTuitionDate is within current semester
-  const currentSemester = getCurrentTerm().slice(-1)
-  const dateToCheck = new Date(checkDate)
-  const today = new Date()
-  const currentYear = today.getFullYear()
-  const startDateOfStartWeekAutumnSemester = `${currentYear}-08-28`
-  // const endDateOfStartWeekAutumnSemester = `${currentYear}-09-03`
-  const startDateOfAutumnSemester = getDateOfMondayOfTheWeek(startDateOfStartWeekAutumnSemester)
-
-  const endDateOfAutumnSemester = addDays(startDateOfAutumnSemester, 140)
-  const startDateOfSpringSemester = addDays(endDateOfAutumnSemester, 1)
-  const endDateOfSpringSemester = addDays(startDateOfSpringSemester, 140)
-
-  if (currentSemester == 2) {
-    if (
-      dateToCheck > startDateOfAutumnSemester ||
-      (dateToCheck > startDateOfAutumnSemester && dateToCheck < endDateOfAutumnSemester)
-    ) {
-      return true
-    }
-  } else {
-    if (
-      dateToCheck > startDateOfSpringSemester ||
-      (dateToCheck > startDateOfSpringSemester && dateToCheck < endDateOfSpringSemester)
-    ) {
-      return true
-    }
-  }
-  return false
-}
-
-function isDateInFuture(checkDate) {
-  const dateToCheck = new Date(checkDate)
-  const today = new Date()
-
-  if (dateToCheck > today) return true
-
-  return false
-}
-
-async function getApplicationFromLadokUID(ladokUID) {
-  const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}courses/offerings/roundnumber?ladokuid=${ladokUID}`
-  log.info('Trying fetch courses application by', { ladokuid: ladokUID, uri, config: config.koppsApi })
-  try {
-    const res = await client.getAsync({ uri, useCache: true })
-    if (res.body) {
-      const { body } = res
-      log.info('Fetched successfully course application for', { ladokuid: ladokUID, uri, config: config.koppsApi })
-      return body
-    }
-    log.warn('Kopps responded with', res.statusCode, res.statusMessage, ` for ladokuid ${ladokUID}`)
-    return {}
-  } catch (err) {
-    log.error('Kopps is not available', err)
-    return []
-  }
-}
-
 async function getCourseSchool(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}`
@@ -128,31 +50,13 @@ async function getCourseSchool(courseCode) {
   }
 }
 
-async function getKoppsCourseRoundTerms(courseCode, fetchApplication = true) {
+async function getKoppsCourseRoundTerms(courseCode) {
   // step 1
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
   try {
-    const res = await client.getAsync({ uri, useCache: true })
-    const { course, termsWithCourseRounds } = res.body
-
-    /*  const activeTerms = termsWithCourseRounds.filter(
-      term =>
-        isDateWithinCurrentSemester(term.rounds[0].lastTuitionDate) || isDateInFuture(term.rounds[0].lastTuitionDate)
-    ) */
-
-    if (termsWithCourseRounds && termsWithCourseRounds.length > 0 && fetchApplication) {
-      for await (const term of termsWithCourseRounds) {
-        const { rounds } = term
-        for await (const round of rounds) {
-          const { ladokUID } = round
-          if (ladokUID && ladokUID !== '') {
-            const { application_code } = await getApplicationFromLadokUID(ladokUID)
-            round.applicationCodes = [application_code]
-          }
-        }
-      }
-    }
+    const { body } = await client.getAsync({ uri, useCache: true })
+    const { course, termsWithCourseRounds } = body
 
     return {
       course,
@@ -344,5 +248,4 @@ module.exports = {
   getSyllabus,
   findSyllabus,
   parseSyllabus,
-  getApplicationFromLadokUID,
 }
