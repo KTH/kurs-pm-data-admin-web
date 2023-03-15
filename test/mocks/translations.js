@@ -41,6 +41,7 @@ const translations = {
       languageOfInstructionTitle: 'Language Of Instruction',
       offeredByTitle: 'Offered By',
       roundsTitle: 'Course offering',
+      startdate: 'Start date',
     },
     labelLinks: {
       courseMemoArchiveLabel: 'Course memo archive',

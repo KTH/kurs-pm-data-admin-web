@@ -90,10 +90,9 @@ const syllabusLink = (language, labels, courseCode, syllabusValid) => {
   )
 }
 
-const CourseMemoLinks = ({ language, labels, memoData = {}, syllabusValid = {} }) => (
+const CourseMemoLinks = ({ language, labels, memoData = {} }) => (
   <div className="preview-info-box">
     {version(language, labels, memoData.lastChangeDate)}
-    {archiveLink(language, labels, memoData.courseCode)}
     {pdfLink(labels)}
   </div>
 )

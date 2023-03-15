@@ -3,6 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { linkToSchool } from '../../util/links'
+import { seasonStr } from '../../util/helpers'
+import i18n from '../../../../../i18n'
 import Popup from './Popup'
 
 const formatRounds = rounds => {
@@ -18,6 +20,39 @@ const formatRounds = rounds => {
           <br />
         </span>
       ))}
+    </>
+  )
+}
+
+const formatRoundsShort = memoData => {
+  // Split rounds with comma after end parentheses and then add '),' in display
+  const langIndex = memoData.languageOfInstructions === 'en' ? 0 : 1
+  const { memoName } = memoData
+  const splitRounds = memoName.split('),')
+  const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1,5}/
+
+  return (
+    <>
+      {splitRounds.map((round, thisIndex) => {
+        const shortName = round.split('(')[0].trim().replaceAll('m.fl.', '')
+
+        if (pattern.test(shortName)) {
+          return (
+            <ul key={round}>
+              <li>{`${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
+                memoData.applicationCodes[thisIndex]
+              }`}</li>
+            </ul>
+          )
+        }
+        return (
+          <ul key={round}>
+            <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
+              memoData.applicationCodes[thisIndex]
+            }`}</li>
+          </ul>
+        )
+      })}
     </>
   )
 }
@@ -59,11 +94,11 @@ const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
     </>
   )
 
-const rounds = (labels, memoName) =>
-  memoName ? (
+const rounds = (labels, memoData) =>
+  memoData.memoName ? (
     <>
       <h4>{labels.roundsTitle}</h4>
-      <p>{formatRounds(memoName)}</p>
+      <p>{formatRoundsShort(memoData)}</p>
     </>
   ) : (
     <>
@@ -72,11 +107,28 @@ const rounds = (labels, memoName) =>
     </>
   )
 
+const startDate = (labels, memoName) => {
+  const splitMemoName = memoName.split('(')
+  const startdate = splitMemoName[1].split(',')
+  const sd = startdate[0].split(' ')
+  return sd[1] ? (
+    <>
+      <h4>{labels.startdate}</h4>
+      <p>{sd[1]}</p>
+    </>
+  ) : (
+    <>
+      <h4>{labels.startdate}</h4>
+      <p>{labels.mandatoryFieldMissing}</p>
+    </>
+  )
+}
 const CourseFacts = ({ labels, departmentName = '', memoData = {} }) => (
   <div className="preview-info-box text-break">
-    {offeredBy(labels, departmentName)}
+    {startDate(labels, memoData.memoName)}
+    {rounds(labels, memoData)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
-    {rounds(labels, memoData.memoName)}
+    {offeredBy(labels, departmentName)}
   </div>
 )
 
