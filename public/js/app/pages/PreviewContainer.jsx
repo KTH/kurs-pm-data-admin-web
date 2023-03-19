@@ -186,7 +186,7 @@ const determineContentFlexibility = () => {
 
 function PreviewContainer(props) {
   const store = useStore()
-  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '' } = store
+  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '', miniKoppsObj } = store
 
   // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3

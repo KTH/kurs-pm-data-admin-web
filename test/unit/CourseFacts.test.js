@@ -42,7 +42,7 @@ describe('Component <CourseFacts>', () => {
   test('renders Missing mandatory information if field is empty ', done => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_1_ROUND} />)
     const missing = screen.getAllByText('Missing mandatory information')
-    expect(missing.length).toBe(2)
+    expect(missing.length).toBe(3)
     done()
   })
 

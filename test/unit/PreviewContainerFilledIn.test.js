@@ -49,7 +49,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(2)
     expect(allH1Headers[0]).toHaveTextContent('Ändra publicerat kurs-PM')
-    expect(allH1Headers[1]).toHaveTextContent('Course memo HT 2019')
+    expect(allH1Headers[1]).toHaveTextContent('Course memo Autumn 2019')
   })
 
   test('renders main header h2 (page name) in user lang(sv),  and memo sections headers in memo lang(en)', () => {

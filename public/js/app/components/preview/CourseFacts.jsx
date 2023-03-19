@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { linkToSchool } from '../../util/links'
-import { seasonStr } from '../../util/helpers'
+import { seasonStr, getDateFormat } from '../../util/helpers'
 import i18n from '../../../../../i18n'
 import Popup from './Popup'
 
@@ -26,7 +26,16 @@ const formatRounds = rounds => {
 
 const formatRoundsShort = memoData => {
   // Split rounds with comma after end parentheses and then add '),' in display
-  const langIndex = memoData.languageOfInstructions === 'en' ? 0 : 1
+  const { languageOfInstructions, semester, applicationCodes } = memoData
+  let langIndex = 1
+  if (
+    languageOfInstructions === 0 ||
+    languageOfInstructions === 'Engelska' ||
+    languageOfInstructions === 'English' ||
+    languageOfInstructions === 'en'
+  ) {
+    langIndex = 0
+  }
   const { memoName } = memoData
   const splitRounds = memoName.split('),')
   const pattern = /[a-zA-Z]\w*\s\d{4}[-]\d{1,5}/
@@ -39,17 +48,13 @@ const formatRoundsShort = memoData => {
         if (pattern.test(shortName)) {
           return (
             <ul key={round}>
-              <li>{`${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
-                memoData.applicationCodes[thisIndex]
-              }`}</li>
+              <li>{`${seasonStr(langIndex, semester)}-${applicationCodes[thisIndex]}`}</li>
             </ul>
           )
         }
         return (
           <ul key={round}>
-            <li>{`${shortName} ${seasonStr(i18n.messages[langIndex].extraInfo, memoData.semester)}-${
-              memoData.applicationCodes[thisIndex]
-            }`}</li>
+            <li>{`${shortName} ${seasonStr(langIndex, semester)}-${applicationCodes[thisIndex]}`}</li>
           </ul>
         )
       })}
@@ -107,14 +112,11 @@ const rounds = (labels, memoData) =>
     </>
   )
 
-const startDate = (labels, memoName) => {
-  const splitMemoName = memoName.split('(')
-  const startdate = splitMemoName[1].split(',')
-  const sd = startdate[0].split(' ')
-  return sd[1] ? (
+const startDate = (labels, memoData) =>
+  memoData.roundsStartDate ? (
     <>
       <h4>{labels.startdate}</h4>
-      <p>{sd[1]}</p>
+      <p>{getDateFormat(memoData.roundsStartDate[0])}</p>
     </>
   ) : (
     <>
@@ -122,10 +124,10 @@ const startDate = (labels, memoName) => {
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
-}
+
 const CourseFacts = ({ labels, departmentName = '', memoData = {} }) => (
   <div className="preview-info-box text-break">
-    {startDate(labels, memoData.memoName)}
+    {startDate(labels, memoData)}
     {rounds(labels, memoData)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
     {offeredBy(labels, departmentName)}
