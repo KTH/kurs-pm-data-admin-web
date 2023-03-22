@@ -8,7 +8,7 @@ jest.mock('../../server/configuration', () => ({
   },
 }))
 jest.mock('../../server/api', () => {})
-jest.mock('../../server/Server', () => ({
+jest.mock('../../server/server', () => ({
   getPaths: () => [],
 }))
 
