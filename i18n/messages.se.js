@@ -708,6 +708,7 @@ module.exports = {
     roundsTitle: 'Kursomgång',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
+    startdate: 'Startdatum',
   },
   courseMemoLinksLabels: {
     versionTitle: 'Version kurs-PM',

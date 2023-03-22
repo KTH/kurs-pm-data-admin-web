@@ -715,6 +715,7 @@ module.exports = {
     roundsTitle: 'Course offering',
     mandatoryFieldMissing: 'Missing mandatory information',
     linkOpensInNewTab: 'Link will open in new tab',
+    startdate: 'Start date',
   },
   courseMemoLinksLabels: {
     versionTitle: 'Course memo version',

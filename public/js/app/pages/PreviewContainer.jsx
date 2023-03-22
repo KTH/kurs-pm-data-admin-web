@@ -24,7 +24,7 @@ import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
 import i18n from '../../../../i18n'
 import { context } from '../util/fieldsByType'
-import { concatMemoName, seasonStr } from '../util/helpers'
+import { concatMemoName, seasonStr, concatHeaderMemoName } from '../util/helpers'
 import {
   FIRST_VERSION,
   EMPTY,
@@ -186,7 +186,7 @@ const determineContentFlexibility = () => {
 
 function PreviewContainer(props) {
   const store = useStore()
-  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '' } = store
+  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '', miniKoppsObj } = store
 
   // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
@@ -334,7 +334,7 @@ function PreviewContainer(props) {
         </Col>
         <Col lg="9">
           <CourseHeader
-            courseMemo={concatMemoName(semester, applicationCodes, memoCommonLangAbbr)}
+            courseMemo={concatHeaderMemoName(semester, memoCommonLangAbbr)}
             courseCode={courseCode}
             courseTitle={courseTitle}
             labels={courseHeaderLabels}

@@ -11,11 +11,25 @@ const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseInfo } = require('../kursInfoApi')
 
-const { getSyllabus } = require('../koppsApi')
+const { getSyllabus, getKoppsCourseRoundTerms } = require('../koppsApi')
 const i18n = require('../../i18n')
 
 function resolveSellingText(sellingText, recruitmentText, lang) {
   return sellingText[lang] ? sellingText[lang] : recruitmentText
+}
+
+function fetchStartDates(miniKoppsObj, semester) {
+  const { lastTermsInfo } = miniKoppsObj
+  const thisTermInfo = lastTermsInfo.find(({ term }) => term === semester)
+  const { rounds } = thisTermInfo
+  const roundsStartDate = rounds.map(round => round.firstTuitionDate)
+
+  return roundsStartDate
+}
+function addRoudsStartDate(startDates, memoData) {
+  const newMemoData = { ...memoData, roundsStartDate: startDates }
+
+  return newMemoData
 }
 
 // eslint-disable-next-line consistent-return
@@ -61,12 +75,13 @@ async function renderMemoPreviewPage(req, res, next) {
       memoLangAbbr,
     })
     applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
-
+    const miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
+    const startDates = fetchStartDates(miniKoppsObj, semester)
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     const { recruitmentText } = applicationStore.koppsFreshData
     applicationStore.sellingText = resolveSellingText(sellingText, recruitmentText, memoLangAbbr)
     applicationStore.imageFromAdmin = imageInfo
-
+    applicationStore.memoData = addRoudsStartDate(startDates, applicationStore.memoData)
     await applicationStore.setSectionsStructure()
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)

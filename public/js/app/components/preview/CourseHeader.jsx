@@ -4,9 +4,8 @@ import React from 'react'
 import { Row, Col } from 'reactstrap'
 import PropTypes from 'prop-types'
 
-import Popup from './Popup'
-
 import { adminLink } from '../../util/links'
+import Popup from './Popup'
 
 const CourseHeader = ({ courseMemo = '', courseCode = '', courseTitle = '', labels = {}, language = 'sv' }) => {
   const { adminLinkLabel, linkOpensInNewTab, label_edit_link_info } = labels

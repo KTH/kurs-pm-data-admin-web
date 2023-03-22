@@ -65,14 +65,15 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers), ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(12) //16
+    expect(allH4Headers.length).toBe(13) //16
     const expectedhds = [
       'Termin',
       'Kursomgång',
       'EF1111 Project in Plasma Physics 9.0 credits',
-      labelFacts.offeredByTitle,
-      labelFacts.languageOfInstructionTitle,
+      labelFacts.startdate,
       labelFacts.roundsTitle,
+      labelFacts.languageOfInstructionTitle,
+      labelFacts.offeredByTitle,
       labelLinks.versionTitle,
       labelLinks.courseMemoPrint,
       'Related information',
@@ -98,13 +99,8 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('Get all link names if it renders', async () => {
     const allLinks = getAllByRole('link')
-    expect(allLinks.length).toBe(4)
-    const expectedLinks = [
-      labelLinks.courseMemoArchiveLabel,
-      'Rights and responsibilities',
-      'Course and examination',
-      `Administrate your studies`,
-    ]
+    expect(allLinks.length).toBe(3)
+    const expectedLinks = ['Rights and responsibilities', 'Course and examination', `Administrate your studies`]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
   })
 

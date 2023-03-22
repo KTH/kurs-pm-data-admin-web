@@ -55,7 +55,15 @@ export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
 export const concatMemoName = (semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages
-  return `${memoLabel} ${seasonStr(i18n.messages[langIndex].extraInfo, semester)}-${applicationCodes.join('-')}`
+  return `${memoLabel} ${seasonStr(langIndex, semester)}-${
+    applicationCodes.length > 1 ? `${applicationCodes[0]}...` : applicationCodes[0]
+  }`
+}
+
+export const concatHeaderMemoName = (semester, langAbbr = 'sv') => {
+  const langIndex = langAbbr === 'en' ? 0 : 1
+  const { memoLabel } = i18n.messages[langIndex].messages
+  return `${memoLabel} ${seasonStr(langIndex, semester)}`
 }
 
 export const fetchThisTermRounds = async (miniKoppsObj, memo) => {

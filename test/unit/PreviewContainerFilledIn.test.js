@@ -49,7 +49,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(2)
     expect(allH1Headers[0]).toHaveTextContent('Ändra publicerat kurs-PM')
-    expect(allH1Headers[1]).toHaveTextContent('Course memo HT 2019-1')
+    expect(allH1Headers[1]).toHaveTextContent('Course memo Autumn 2019')
   })
 
   test('renders main header h2 (page name) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
@@ -77,14 +77,15 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('renders h4 for help text and other menu h4 (menu headers), ', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(15)
+    expect(allH4Headers.length).toBe(16)
     const expectedhds = [
       'Termin',
       'Kursomgång',
       'EF1111 Project in Plasma Physics 9.0 credits',
-      labelFacts.offeredByTitle,
-      labelFacts.languageOfInstructionTitle,
+      labelFacts.startdate,
       labelFacts.roundsTitle,
+      labelFacts.languageOfInstructionTitle,
+      labelFacts.offeredByTitle,
       labelLinks.versionTitle,
       labelLinks.courseMemoPrint,
       'Related information',
@@ -124,13 +125,8 @@ describe('Component <PreviewContainer> to display filled in draft of published m
 
   test('Get all link names if it renders', async () => {
     const allLinks = getAllByRole('link')
-    expect(allLinks.length).toBe(4)
-    const expectedLinks = [
-      labelLinks.courseMemoArchiveLabel,
-      'Rights and responsibilities',
-      'Course and examination',
-      `Administrate your studies`,
-    ]
+    expect(allLinks.length).toBe(3)
+    const expectedLinks = ['Rights and responsibilities', 'Course and examination', `Administrate your studies`]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
   })
 
@@ -139,9 +135,9 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expect(adminLinkName).toBeInTheDocument()
   })
 
-  test('get memo name twice as memo name and as course offerings name', async () => {
+  test('get memo name as memo name', async () => {
     const memoNames = getAllByText('Autumn 2019-2 (Start date 28 Oct 2019, English)')
-    expect(memoNames.length).toBe(2)
+    expect(memoNames.length).toBe(1)
   })
 
   test('get memo semester', async () => {
