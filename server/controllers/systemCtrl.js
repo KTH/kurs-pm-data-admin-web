@@ -149,10 +149,10 @@ async function _monitor(req, res) {
     await monitorSystems(req, res, [
       ...(api
         ? Object.keys(api).map(apiKey => ({
-          key: apiKey,
-          required: apiConfig[apiKey].required,
-          endpoint: api[apiKey],
-        }))
+            key: apiKey,
+            required: apiConfig[apiKey].required,
+            endpoint: api[apiKey],
+          }))
         : []),
       {
         key: 'redis',
@@ -169,7 +169,6 @@ async function _monitor(req, res) {
         isResolved: true,
         message: '- local system checks: OK',
         statusCode: 200,
-        testUrl: '/kursinfoadmin/kurs-pm-data'
       },
     ])
   } catch (error) {
