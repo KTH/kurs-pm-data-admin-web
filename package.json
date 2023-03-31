@@ -46,7 +46,7 @@
   "dependencies": {
     "@babel/runtime": "^7.18.9",
     "@kth/api-call": "^4.0.40",
-    "@kth/kth-node-passport-oidc": "^5.0.0",
+    "@kth/kth-node-passport-oidc": "^5.0.3",
     "@kth/kth-node-web-common": "^7.0.15",
     "@kth/kth-reactstrap": "^0.4.64",
     "@kth/log": "^4.0.5",
