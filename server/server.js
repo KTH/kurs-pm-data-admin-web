@@ -258,24 +258,60 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 appRoute.post(
   'memo.api.updateCreatedDraft',
   _addProxy('/internal-api/draft-updates/:courseCode/:memoEndPoint'),
+  oidc.silentLogin,
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   MemoContent.updateContentByEndpoint
 )
 
 appRoute.post(
   'memo.api.copyFromAPublishedMemo',
   _addProxy('/internal-api/create-draft/:courseCode/:memoEndPoint/copyFrom/:anotherMemoEndPoint'),
+  oidc.silentLogin,
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   ChooseMemoStartPoint.createDraftByMemoEndPoint
 )
 
 appRoute.post(
   'memo.api.createDraftByMemoEndPoint',
   _addProxy('/internal-api/create-draft/:courseCode/:memoEndPoint'),
+  oidc.silentLogin,
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   ChooseMemoStartPoint.createDraftByMemoEndPoint
 )
 
 appRoute.post(
   'memo.api.publishMemoByEndPoint',
   _addProxy('/internal-api/publish-memo/:courseCode/:memoEndPoint'),
+  oidc.silentLogin,
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   PreviewContent.publishMemoByEndPoint
 )
 
@@ -283,12 +319,30 @@ appRoute.post(
 appRoute.get(
   'memo.api.getUsedRounds',
   _addProxy('/internal-api/used-rounds/:courseCode/:semester'),
+  oidc.silentLogin,
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   ChooseMemoStartPoint.getUsedRounds
 )
 
 appRoute.delete(
   'memo.api.removeMemoDraft',
   _addProxy('/internal-api/draft-to-remove/:courseCode/:memoEndPoint'),
+  oidc.silentLogin,
+  requireRole(
+    'isCourseResponsible',
+    'isCourseTeacher',
+    'isExaminator',
+    'isKursinfoAdmin',
+    'isSuperUser',
+    'isSchoolAdmin'
+  ),
   ChooseMemoStartPoint.removeMemoDraft
 )
 
