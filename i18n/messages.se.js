@@ -579,6 +579,10 @@ module.exports = {
         infoText: 'Kurs-PM listade är publicerade',
       },
     },
+    chooseMemo: {
+      header: 'Välj kurs-PM',
+      body: `<p>Här visas de kurs-PM som går att ändra. Ett kurs-PM kan ändras upp till ett år efter att kursen avslutades.</p><p>Observera att kurs-PM endast bör ändras i undantagsfall vid uppenbara felaktigheter eller förändringar i kursens upplägg.</p>`,
+    },
     createFrom: {
       labelBasedOn: 'Utgå från:',
       labelAllPrevMemos: 'Välj kurs-PM att kopiera:',
@@ -615,6 +619,7 @@ module.exports = {
     saveDraft: 'Spara utkast',
     publish: 'Publicera',
     goToRounds: 'Välj kursomgång',
+    goToMemos: 'Välj kurs-PM',
     save_and_cancel: 'Spara utkast och avsluta',
     btn_copy: 'Kopiera länk till utkast',
     showGuidance: 'Visa vägledning',

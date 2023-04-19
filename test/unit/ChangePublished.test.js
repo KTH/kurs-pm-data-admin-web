@@ -69,9 +69,10 @@ describe('Component <ChangedPublished> Edit published course memo with empty lis
   test('renders only three buttons if nothing pressed yet', async () => {
     render(<ChangedPublishedEmpty langAbbr="en" langIndex={0} />)
     const startButtons = getAllByRole('button')
-    expect(startButtons.length).toBe(2)
-    expect(startButtons[0]).toHaveTextContent(buttons.cancel)
-    expect(startButtons[1]).toHaveTextContent(buttons.edit)
+    expect(startButtons.length).toBe(3)
+    expect(startButtons[0]).toHaveTextContent('')
+    expect(startButtons[1]).toHaveTextContent(buttons.cancel)
+    expect(startButtons[2]).toHaveTextContent(buttons.edit)
   })
 
   test('renders message if no published memos exists', async () => {

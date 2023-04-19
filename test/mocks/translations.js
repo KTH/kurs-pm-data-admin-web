@@ -27,6 +27,7 @@ const translations = {
       save_and_cancel: 'Save draft and cancel',
       btn_copy: 'Copy link to preview',
       showGuidance: 'Show guidance',
+      addCourseInstances: 'Add course instances',
     },
     labelContacts: {
       courseContactsTitle: 'Contacts',
@@ -149,6 +150,7 @@ const translations = {
       save_and_cancel: 'Spara utkast och avsluta',
       btn_copy: 'Kopiera länk till utkast',
       showGuidance: 'Visa vägledning',
+      addCourseInstances: 'Add course instances',
     },
     notIncludedInMemoYet: {
       section: 'Innehåll finns inlagt. Välj: Inkludera för att visa rubrik med innehåll i kurs-PM',

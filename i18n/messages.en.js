@@ -585,6 +585,10 @@ module.exports = {
         infoText: 'Course memos which are published',
       },
     },
+    chooseMemo: {
+      header: 'Choose course memo',
+      body: `<p>Here you can see the course memos that can be changed. A course memo can be changed up to one year after the course has ended</p><p>Please note that a course memo should only be changed in exceptional cases in the event of obvious inaccuracies or changes in the course structure.</p>`,
+    },
     createFrom: {
       labelBasedOn: 'Start from',
       labelAllPrevMemos: 'Choose course memo to copy:',
@@ -626,6 +630,7 @@ module.exports = {
     saveDraft: 'Save draft',
     publish: 'Publish',
     goToRounds: 'Choose course offering',
+    goToMemos: 'Choose course memo',
     save_and_cancel: 'Save draft and cancel',
     btn_copy: 'Copy link to preview',
     showGuidance: 'Show guidance',

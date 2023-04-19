@@ -11,6 +11,7 @@ import { useStore } from '../mobx'
 
 import { SERVICE_URL } from '../util/constants'
 import ControlPanel from '../components/ControlPanel'
+import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
 import i18n from '../../../../i18n'
 
 import { combinedCourseName, fetchParameters } from '../util/helpers'
@@ -39,7 +40,7 @@ function ChangePublished(props) {
 
   const eventFromParams = urlParams.event || ''
 
-  const { alerts, info, pagesChangePublishedPm, pageTitles } = i18n.messages[langIndex]
+  const { alerts, info, pagesChangePublishedPm, pageTitles, buttons } = i18n.messages[langIndex]
   const { course } = miniKoppsObj
 
   useEffect(() => {
@@ -127,7 +128,13 @@ function ChangePublished(props) {
           <Col>
             {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
             <div className="section-50">
-              <h2>{info.choosePublishedMemo}</h2>
+              <SectionHeadingAsteriskModal
+                langAbbr={langAbbr}
+                modalId="choose-course-memo"
+                titleAndInfo={info.chooseMemo}
+                btnClose={buttons.btnClose}
+              />
+              <p></p>
               {(hasMemos && (
                 <>
                   <Label htmlFor="choose-existed-memo">{info.chooseRound.publishedMemos.label}</Label>
