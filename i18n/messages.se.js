@@ -600,7 +600,7 @@ module.exports = {
     noSemesterAvailable:
       'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-PM för.',
     noPrevPublishedAvailable: 'Det finns inga publicerade kurs-PM tidigare kursomgångar.',
-    noPublishedMemos: 'Det finns inga publicerade kursomgångar för denna termin, föregående eller kommande.',
+    noPublishedMemos: 'Det finns inga publicerade kurs-PM för denna, föregående eller kommande termin.',
   },
   buttons: {
     /** ************ BUTTONS ****************** */

@@ -607,8 +607,7 @@ module.exports = {
     noSemesterAvailable:
       'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
     noPrevPublishedAvailable: 'There are no published course memos for previous course offerings.',
-    noPublishedMemos:
-      'There are no published course memos for this semester, the previous semester or any future semester.',
+    noPublishedMemos: 'There are no published course memos for this, the previous or the upcoming semester.',
   },
   changePublishedInfo: {
     choosePublishedMemo: 'Choose course memo',
