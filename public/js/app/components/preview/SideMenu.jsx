@@ -37,12 +37,7 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => (
             {label}
           </p>
         ) : (
-          <p key={id}>
-            <Button id={id} color="link">
-              {label}
-            </Button>
-            <Popup header={label} body={labels.noLinksInPreview} targetId={id} />
-          </p>
+          ''
         )
       )}
     </div>
