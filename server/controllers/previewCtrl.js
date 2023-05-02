@@ -14,6 +14,17 @@ const { getCourseInfo } = require('../kursInfoApi')
 const { getSyllabus, getKoppsCourseRoundTerms } = require('../koppsApi')
 const i18n = require('../../i18n')
 
+function getCurrentTerm(overrideDate) {
+  const JULY = 6
+  const SPRING = 1
+  const FALL = 2
+  const currentDate = overrideDate || new Date()
+  const currentYear = currentDate.getFullYear()
+  const currentMonth = currentDate.getMonth()
+  const currentSemester = currentMonth < JULY ? SPRING : FALL
+  return `${currentYear * 10 + currentSemester}`
+}
+
 function resolveSellingText(sellingText, recruitmentText, lang) {
   return sellingText[lang] ? sellingText[lang] : recruitmentText
 }
@@ -31,7 +42,93 @@ function addRoudsStartDate(startDates, memoData) {
 
   return newMemoData
 }
+function isDateWithInCurrentOrFutureSemester(startSemesterDate, endSemesterDate) {
+  const currentDate = new Date()
+  const startSemester = new Date(startSemesterDate)
+  const endSemester = new Date(endSemesterDate)
+  if (startSemester.valueOf() >= currentDate.valueOf() || endSemester.valueOf() >= currentDate.valueOf()) {
+    return true
+  }
+  return false
+}
+function removeDuplicates(elements) {
+  return elements.filter((term, index) => elements.indexOf(term) === index)
+}
+function outdatedMemoData(offerings, startSelectionYear, memoData) {
+  // Course memo semester is in current or previous year
+  const memoYear = Math.floor(memoData.semester / 10)
+  if (memoYear >= startSelectionYear && memoData.semester >= getCurrentTerm()) {
+    return false
+  }
 
+  // Course offering in memo has end year later or equal to previous year
+  const offering = offerings.find(offer => {
+    const { rounds } = offer
+    const { term } = offer
+    if (rounds.length > 0) {
+      const { applicationCode = '' } = rounds[0]
+      if (memoData.applicationCodes.includes(applicationCode) && memoData.semester === String(term)) {
+        return offer
+      }
+    }
+  })
+
+  if (offering) {
+    const { rounds } = offering
+    if (rounds.length > 0) {
+      const { lastTuitionDate } = rounds[0]
+      const year = lastTuitionDate.substring(0, 4)
+      const currentDate = new Date()
+      const endSemester = new Date(lastTuitionDate)
+      if (year >= startSelectionYear && endSemester.valueOf() >= currentDate.valueOf()) {
+        return false
+      }
+    }
+  }
+
+  // Course memo does not meet the criteria
+  return true
+}
+function markOutdatedMemoDatas(memoDatas = [], miniKoppsObj) {
+  const { lastTermsInfo } = miniKoppsObj
+
+  if (!Array.isArray(memoDatas)) {
+    log.error('markOutdatedMemoDatas received non-Array memoDatas argument', memoDatas)
+    return []
+  }
+  // for test
+  if (memoDatas.length === 0 || lastTermsInfo.length === 0) {
+    return []
+  }
+
+  const allActiveTerms = lastTermsInfo.filter(r =>
+    isDateWithInCurrentOrFutureSemester(r.rounds[0].firstTuitionDate, r.rounds[0].lastTuitionDate)
+  )
+  const activeYears = removeDuplicates(allActiveTerms.map(t => t.term.substring(0, 4))).sort()
+  const startSelectionYear = activeYears[0]
+
+  const offerings = lastTermsInfo.filter(r =>
+    r.rounds &&
+    r.rounds[0].applicationCodes &&
+    r.rounds[0].firstTuitionDate &&
+    r.rounds[0].lastTuitionDate.substring(0, 4) >= startSelectionYear
+      ? {
+          semester: r.term,
+          endYear: r.rounds[0].lastTuitionDate.substring(0, 4),
+        }
+      : {}
+  )
+
+  const markedOutDatedMemoDatas = memoDatas.map(m => ({
+    ...m,
+    ...{
+      outdated: outdatedMemoData(offerings, startSelectionYear, m),
+      // startDate: extendMemoWithStartDate(offerings, m),
+    },
+  }))
+
+  return markedOutDatedMemoDatas
+}
 // eslint-disable-next-line consistent-return
 async function publishMemoByEndPoint(req, res, next) {
   try {
@@ -83,6 +180,7 @@ async function renderMemoPreviewPage(req, res, next) {
     applicationStore.imageFromAdmin = imageInfo
     applicationStore.memoData = addRoudsStartDate(startDates, applicationStore.memoData)
     await applicationStore.setSectionsStructure()
+    applicationStore.activeTermsPublishedMemos = markOutdatedMemoDatas(applicationStore.memoDatas, miniKoppsObj)
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 

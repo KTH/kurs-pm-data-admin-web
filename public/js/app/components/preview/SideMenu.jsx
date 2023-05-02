@@ -31,9 +31,9 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => (
     </p>
     <hr />
     <div className="menu-memos-sub">
-      {courseMemoItems.map(({ id, label, active }) =>
-        active ? (
-          <p key={id} id={id} className="active">
+      {courseMemoItems.map(({ id, label, outdated }) =>
+        !outdated ? (
+          <p key={id} id={id} className="active" data-testid="side-menu-labels">
             {label}
           </p>
         ) : (

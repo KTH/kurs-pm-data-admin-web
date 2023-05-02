@@ -23,6 +23,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
     imageFromAdmin: '',
     noMemoData: () => false,
     memoDatas: [],
+    activeTermsPublishedMemos: [],
     activeMemoEndPoint: id => false,
   }
   return (

@@ -7,9 +7,11 @@ import { MobxStoreProvider } from '../../public/js/app/mobx'
 
 import translations from '../mocks/translations'
 import PreviewContainer from '../../public/js/app/pages/PreviewContainer'
+import SideMenu from '../../public/js/app/components/preview/SideMenu'
 import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
 import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoData'
+import mockCourseMemoItems from '../mocks/courseMemoItems'
 
 const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
 
@@ -23,6 +25,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
     imageFromAdmin: '',
     noMemoData: () => false,
     memoDatas: [],
+    activeTermsPublishedMemos: [],
     activeMemoEndPoint: id => false,
   }
   return (
@@ -160,5 +163,19 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     standardheadersContent.map(content => {
       expect(getByText(content)).toBeInTheDocument()
     })
+  })
+})
+describe('Component <SideMenu>', () => {
+  test('renders', done => {
+    render(<SideMenu labels={sectionsLabels} courseMemoItems={[]} />)
+    done()
+  })
+  test('renders published active memos', done => {
+    const { getByTestId } = render(<SideMenu labels={sectionsLabels} courseMemoItems={mockCourseMemoItems} />)
+    const labels = getAllByTestId('side-menu-labels')
+    expect(labels.length).toBe(3)
+    const sideMenuMemoLabels = ['1', '2', '4']
+    sideMenuMemoLabels.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
+    done()
   })
 })

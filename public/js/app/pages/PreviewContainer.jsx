@@ -186,7 +186,7 @@ const determineContentFlexibility = () => {
 
 function PreviewContainer(props) {
   const store = useStore()
-  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '', miniKoppsObj } = store
+  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '', activeTermsPublishedMemos } = store
 
   // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
@@ -230,7 +230,8 @@ function PreviewContainer(props) {
   // Assumes that API only gave one memoData per memoEndPoint
   // Duplicate id’s filtered out later
   let active = false
-  let courseMemoItems = store.memoDatas.map(m => {
+  let courseMemoItems = activeTermsPublishedMemos.map(m => {
+    const { outdated } = m
     const id = m.memoEndPoint
     const label = concatMemoName(m.semester, m.applicationCodes, m.memoCommonLangAbbr)
     // memoEndPoint is currently displayed
@@ -239,6 +240,7 @@ function PreviewContainer(props) {
       id,
       label,
       active,
+      outdated,
       url: `/kurs-pm/${courseCode}/${label}`,
     }
   })
