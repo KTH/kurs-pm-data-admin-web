@@ -705,6 +705,7 @@ module.exports = {
     courseDevelopment: 'Kursens utveckling',
     archive: 'Arkiv',
     noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge',
+    aboutCourseMemos: 'Kurs-PM',
   },
   courseFactsLabels: {
     versionTitle: 'Version',

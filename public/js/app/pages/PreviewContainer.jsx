@@ -187,10 +187,8 @@ const determineContentFlexibility = () => {
 function PreviewContainer(props) {
   const store = useStore()
   const { browserConfig, langAbbr, langIndex, memoData, sellingText = '', activeTermsPublishedMemos } = store
-
   // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
-
   const {
     courseCode,
     courseTitle,
@@ -250,6 +248,7 @@ function PreviewContainer(props) {
       id: store.memoEndPoint,
       label: concatMemoName(semester, applicationCodes, memoCommonLangAbbr),
       active: true,
+      outdated: memoData.outdated,
       url: `/kurs-pm/${courseCode}/${memoEndPoint}`,
     })
   }

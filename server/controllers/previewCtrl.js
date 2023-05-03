@@ -127,7 +127,7 @@ function markOutdatedMemoDatas(memoDatas = [], miniKoppsObj) {
     },
   }))
 
-  return markedOutDatedMemoDatas
+  return markedOutDatedMemoDatas.reverse()
 }
 // eslint-disable-next-line consistent-return
 async function publishMemoByEndPoint(req, res, next) {
@@ -162,7 +162,11 @@ async function renderMemoPreviewPage(req, res, next) {
       type: 'published',
     })
     applicationStore.memoDatas = allApiMemoData
-    applicationStore.memoData = apiMemoData
+    const miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
+    const memoDataAsArray = []
+    // will be used later for add flag outdated to new pm
+    memoDataAsArray.push(apiMemoData)
+    applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniKoppsObj)[0]
     const { semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
     applicationStore.setMemoBasicInfo({
@@ -172,7 +176,6 @@ async function renderMemoPreviewPage(req, res, next) {
       memoLangAbbr,
     })
     applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
-    const miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
     const startDates = fetchStartDates(miniKoppsObj, semester)
     const { sellingText, imageInfo } = await getCourseInfo(courseCode)
     const { recruitmentText } = applicationStore.koppsFreshData

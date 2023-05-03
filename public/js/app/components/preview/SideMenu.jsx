@@ -31,6 +31,9 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => (
     </p>
     <hr />
     <div className="menu-memos-sub">
+      <p>
+        <b>{labels.aboutCourseMemos}</b>
+      </p>
       {courseMemoItems.map(({ id, label, outdated }) =>
         !outdated ? (
           <p key={id} id={id} className="active" data-testid="side-menu-labels">
@@ -73,6 +76,7 @@ SideMenu.propTypes = {
     courseMemo: PropTypes.string.isRequired,
     directory: PropTypes.string.isRequired,
     noLinksInPreview: PropTypes.string.isRequired,
+    aboutCourseMemos: PropTypes.string.isRequired,
   }).isRequired,
 }
 

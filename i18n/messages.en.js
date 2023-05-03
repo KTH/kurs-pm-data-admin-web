@@ -711,6 +711,7 @@ module.exports = {
     courseDevelopment: 'Course development',
     archive: 'Archive',
     noLinksInPreview: 'Menu links doesn’t work in review mode',
+    aboutCourseMemos: 'Course memo',
   },
   courseFactsLabels: {
     versionTitle: 'Version',
