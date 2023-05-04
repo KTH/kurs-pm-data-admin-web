@@ -27,6 +27,7 @@ import TabContent from '../components/TabContent'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
+import { ContentTabs, Tab } from '@kth/style/dist/Tabs'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 35
@@ -73,6 +74,7 @@ function MemoContainer(props) {
   const { sectionsLabels } = i18n.messages[memoLangIndex]
   const { alerts, extraInfo, pagesCreateNewPm, pagesChangePublishedPm, pageTitles } = i18n.messages[userLangIndex]
   const { event: eventFromParams = '' } = fetchParameters(props)
+  const { buttons } = i18n.messages[userLangIndex]
 
   useEffect(() => {
     // check if it is time to hide red alert about empty titles of extra section
@@ -407,75 +409,59 @@ function MemoContainer(props) {
           />
         </Col>
       </Row>
-      <StickyContainer className="memo-container">
-        <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
-          {({ style, isSticky }) => (
-            <div
-              id="stickyDiv"
-              style={{
-                ...style,
-                ...{
-                  paddingRight: '0',
-                  // paddingBottom: '0',
-                  paddingTop: isSticky ? TAB_HEIGHT_WITH_TOP_PADDING : '0',
-                  backgroundColor: '#ffffff',
-                  zIndex: 1,
-                },
-              }}
-            >
-              <TabNav
-                activeTabId={activeTab}
-                onClick={onChangeTab}
-                sections={sections}
-                sectionsLabels={sectionsLabels}
-              />
-              <div className="white-space-under-tabs" />
-            </div>
-          )}
-        </Sticky>
-
-        <Row className="memo-content-row">
-          <Col lg="8" className="memo-content tab-content" id="memoTabContent">
-            {renderTabSections()}
-          </Col>
-          <Col className="vertical-separator" />
-          <Col lg="3" className="sticky-overview">
-            <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
-              {({ style, isSticky }) => (
-                <div
-                  style={{
-                    ...style,
-                    ...{
-                      paddingRight: '0',
-                      // paddingBottom: '110px',
-                      paddingTop: isSticky ? OVERVIEW_TOP_PADDING : '0',
-                    },
-                  }}
-                >
-                  <SectionMenu
-                    id="mainMenu"
-                    visiblesOfStandard={visibleInMemo}
-                    userLangIndex={userLangIndex}
+      <ContentTabs id="test-content-tabs">
+        {sections.map(({ id, content, extraHeaderTitle }) => (
+          <Tab key={'tab-content-for-section-' + id} title={sectionsLabels[id]}>
+            <span id={'section-header-' + id} />
+            {/* load editors for only active tab
+          to reduce load and trigger dismount all possible 
+          overlay windows from other section's editors */}
+            {activeTab === id && (
+              <>
+                {content.map(contentId => (
+                  <StandardSectionOrEditor
+                    key={'standard' + contentId}
+                    contentId={contentId}
+                    sectionId={id}
+                    htmlContent={memoData[contentId]}
                     memoLangIndex={memoLangIndex}
-                    activeTab={activeTab}
+                    onToggleVisibleInMemo={toggleStandardVisibleInMemo}
+                    checkVisibility={checkVisibility}
+                    onSave={onSave}
+                    userLangIndex={userLangIndex}
+                  />
+                ))}
+
+                {extraHeaderTitle &&
+                  memoData[extraHeaderTitle] &&
+                  memoData[extraHeaderTitle].map(({ uKey }, index) => (
+                    <ExtraHeadingEditor
+                      contentId={extraHeaderTitle}
+                      currentIndex={index}
+                      key={uKey}
+                      menuId={`${id}-${extraHeaderTitle}${uKey}`}
+                      uKey={uKey}
+                      onAlert={onToastAlert}
+                      onSave={onSave}
+                      showError={contentIdWithMissingHeading === extraHeaderTitle || needToCheckAllExtraHeading}
+                    />
+                  ))}
+                {extraHeaderTitle && (
+                  <Button
+                    className="element-50"
+                    color="secondary"
+                    block
+                    onClick={() => onAddNewExtraContent(extraHeaderTitle)}
                   >
-                    {isDraftOfPublished && (
-                      <CommentChangesTextarea
-                        isError={isError}
-                        labels={extraInfo}
-                        memoLangIndex={memoLangIndex}
-                        onChange={setChangesAboutDraftOfPublished}
-                        textAboutChanges={commentAboutMadeChanges}
-                        userLangIndex={userLangIndex}
-                      />
-                    )}
-                  </SectionMenu>
-                </div>
-              )}
-            </Sticky>
-          </Col>
-        </Row>
-      </StickyContainer>
+                    {buttons.btnAddExtra}
+                    {sectionsLabels[id]}
+                  </Button>
+                )}
+              </>
+            )}
+          </Tab>
+        ))}
+      </ContentTabs>
       <Container className="fixed-bottom">
         <ControlPanel
           langIndex={userLangIndex}

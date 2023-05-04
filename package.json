@@ -53,6 +53,7 @@
     "@kth/monitor": "^3.0.30",
     "@kth/server": "^4.0.4",
     "@kth/session": "^3.0.4",
+    "@kth/style": "^0.0.1",
     "@kth/ug-rest-api-helper": "^1.0.19",
     "@tinymce/tinymce-react": "^4.3.0",
     "applicationinsights": "^2.3.6",
