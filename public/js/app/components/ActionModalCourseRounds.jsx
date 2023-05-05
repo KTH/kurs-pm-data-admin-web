@@ -95,7 +95,7 @@ function ActionModalCourseRounds(props) {
   const _koppsInfoForChecked = sortedApplicationCodes => {
     const sortedKoppsInfo = []
     for (let i = 0; i < sortedApplicationCodes.length; i++) {
-      sortedKoppsInfo.push(allRounds.find(round => sortedApplicationCodes[i] === round.applicationCodes[0]))
+      sortedKoppsInfo.push(allRounds.find(round => sortedApplicationCodes[i] === round.applicationCode))
     }
     return sortedKoppsInfo
   }
