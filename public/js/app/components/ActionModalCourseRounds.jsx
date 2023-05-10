@@ -102,7 +102,9 @@ function ActionModalCourseRounds(props) {
 
   const onSave = async () => {
     const checkedRounds = await _checkedRounds()
-    const isPublished = status === 'published' || Number(version) > FIRST_VERSION
+    const isPublished = status === 'published'
+    const isDraft = status === 'draft'
+    const isDraftOfPublished = isDraft && Number(version) > FIRST_VERSION
 
     if (checkedRounds.length > 0) {
       const sortedApplicationCodes = await [...applicationCodes, ...checkedRounds].sort()
@@ -118,7 +120,7 @@ function ActionModalCourseRounds(props) {
         memoEndPoint: newMemoEndPoint,
         applicationCodes: sortedApplicationCodes,
       }
-      const apiAction = isPublished ? 'create-draft' : 'draft-updates'
+      const apiAction = isDraft ? 'draft-updates' : 'create-draft'
       const urlUpdateOrCreate = `${SERVICE_URL.API}${apiAction}/${courseCode}/${memoEndPoint}`
 
       try {
@@ -131,7 +133,7 @@ function ActionModalCourseRounds(props) {
         const eventFromParams = 'addedRoundId'
 
         const reloadUrl = `${SERVICE_URL.courseMemoAdmin}${
-          isPublished ? 'published/' : ''
+          isDraftOfPublished || isPublished ? 'published/' : ''
         }${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
         window.location = reloadUrl
       } catch (error) {
