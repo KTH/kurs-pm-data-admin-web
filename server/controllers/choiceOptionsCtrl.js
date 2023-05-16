@@ -6,7 +6,7 @@ const language = require('@kth/kth-node-web-common/lib/language')
 const { safeGet } = require('safe-utils')
 const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
-const { getKoppsCourseRoundTerms } = require('../koppsApi')
+const { getKoppsCourseRoundTerms, getDetailedKoppsCourseRounds } = require('../koppsApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
@@ -42,6 +42,28 @@ function getMemosParams(courseCode, course = {}) {
   }
 }
 
+function extendMiniKoppsObjWithRoundState(courseDetailedinformationRounds, koppsCourseRoundTerms) {
+  const { lastTermsInfo: lastTermsInfoArray } = koppsCourseRoundTerms
+
+  const extenedLastTermsInfoArray = lastTermsInfoArray.map(element => {
+    element.rounds.map(round => {
+      courseDetailedinformationRounds.map(r => {
+        const { applicationCode } = r.applicationCodes[0]
+        if (applicationCode === round.applicationCode) {
+          round.state = r.state
+        }
+        return r
+      })
+      return round
+    })
+    return element
+  })
+
+  const extenedMiniKoppsObj = { ...koppsCourseRoundTerms, lastTermsInfo: extenedLastTermsInfoArray }
+
+  return extenedMiniKoppsObj
+}
+
 async function getCourseOptionsPage(req, res, next) {
   try {
     // const context = {}
@@ -55,7 +77,10 @@ async function getCourseOptionsPage(req, res, next) {
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
-    applicationStore.miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
+    const courseDetailedinformationRounds = await getDetailedKoppsCourseRounds(courseCode)
+    const koppsCourseRoundTerms = await getKoppsCourseRoundTerms(courseCode)
+    const extenedMiniKoppsObj = extendMiniKoppsObjWithRoundState(courseDetailedinformationRounds, koppsCourseRoundTerms)
+    applicationStore.miniKoppsObj = extenedMiniKoppsObj
     const memoParams = getMemosParams(courseCode, applicationStore.miniKoppsObj)
 
     applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', memoParams)

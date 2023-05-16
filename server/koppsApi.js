@@ -350,10 +350,24 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
   }
 }
 
+async function getDetailedKoppsCourseRounds(courseCode, language = 'sv') {
+  try {
+    const detailedInformation = await _getDetailedInformation(courseCode, language)
+    const { body } = detailedInformation
+    const { roundInfos } = body
+    const courseRounds = roundInfos.map(r => r.round)
+    return courseRounds
+  } catch (err) {
+    log.debug('Kopps is not available', err)
+    return err
+  }
+}
+
 module.exports = {
   koppsApi: api,
   getCourseSchool,
   getKoppsCourseRoundTerms,
+  getDetailedKoppsCourseRounds,
   getSyllabus,
   findSyllabus,
   parseSyllabus,

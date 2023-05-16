@@ -15,6 +15,7 @@ const mockMiniKoppsObj = {
           firstTuitionDate: '2021-03-20',
           language: { sv: 'Svenska', en: 'Swedish' },
           applicationCode: '3',
+          state: 'APPROVED',
         },
         {
           //used
@@ -22,6 +23,7 @@ const mockMiniKoppsObj = {
           firstTuitionDate: '2021-01-18',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '2',
+          state: 'CANCELLED',
         },
         {
           //todo: add as course round
@@ -29,6 +31,7 @@ const mockMiniKoppsObj = {
           firstTuitionDate: '2021-03-22',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
+          state: 'APPROVED',
         },
       ],
       examinationRounds: [
@@ -88,6 +91,7 @@ const mockMiniKoppsObj = {
           firstTuitionDate: '2020-10-30',
           language: { sv: 'Svenska', en: 'Swedish' },
           applicationCode: '3',
+          state: 'APPROVED',
         },
         {
           // used merged T
@@ -95,12 +99,14 @@ const mockMiniKoppsObj = {
           firstTuitionDate: '2020-08-24',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '2',
+          state: 'APPROVED',
         },
         {
           shortName: '',
           firstTuitionDate: '2020-10-26',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
+          state: 'APPROVED',
         },
       ],
       examinationRounds: [
