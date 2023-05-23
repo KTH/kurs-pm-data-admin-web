@@ -122,15 +122,19 @@ async function getKoppsCourseRoundTerms(courseCode) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
   try {
+    const activeTerms = []
     const res = await client.getAsync({ uri, useCache: true })
     const { course, termsWithCourseRounds } = res.body
-
-    const activeTerms = termsWithCourseRounds.filter(
-      t =>
-        isDateWithinCurrentSemester(t.rounds[0].lastTuitionDate) ||
-        isDateInFuture(t.rounds[0].lastTuitionDate) ||
-        yearBeforeCurrentYear(t.term)
-    )
+    termsWithCourseRounds.forEach(t => {
+      const { rounds: koppsCourseRounds } = t
+      const rounds = koppsCourseRounds.filter(
+        round =>
+          isDateWithinCurrentSemester(round.lastTuitionDate) ||
+          isDateInFuture(round.lastTuitionDate) ||
+          yearBeforeCurrentYear(t.term)
+      )
+      if (rounds.length > 0) activeTerms.push(t)
+    })
 
     return {
       course,
