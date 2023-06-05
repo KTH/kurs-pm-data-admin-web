@@ -13,6 +13,7 @@ const { getCourseInfo } = require('../kursInfoApi')
 
 const { getSyllabus, getKoppsCourseRoundTerms } = require('../koppsApi')
 const i18n = require('../../i18n')
+const { HttpError } = require('../utils/errorUtils')
 
 function getCurrentTerm(overrideDate) {
   const JULY = 6
@@ -139,9 +140,13 @@ async function publishMemoByEndPoint(req, res, next) {
     }
     log.info('New memo was published in kurs-pm-data-api for course memo with memoEndPoint:', memoEndPoint)
     return res.json(apiResponse)
-  } catch (err) {
-    log.error('Error in publishMemoByEndPoint', { error: err })
-    next(err)
+  } catch (error) {
+    log.error('Error in publishMemoByEndPoint', { error })
+    if (error instanceof HttpError) {
+      res.status(error.status).json(error.message)
+      return error
+    }
+    next(error)
   }
 }
 

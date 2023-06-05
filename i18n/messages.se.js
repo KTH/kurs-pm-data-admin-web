@@ -670,6 +670,8 @@ module.exports = {
     errNoInPublishedChosen: 'Du måste välja ett kurs-PM för att kunna gå vidare till Redigera',
     errWhileDeleting:
       'Det gick inte att ta bort utkasten på grund av systemfel. Försök igen eller kontakta IT-support.',
+    errWhilePublishing:
+      'Det gick inte att publicera utkasten på grund av systemfel. Försök igen eller kontakta IT-support.',
     errWhileSaving: 'Det gick inte att spara utkast på grund av systemfel. Försök igen eller kontakta IT-support.',
     infoAboutFreshData: 'Information som hämtas från kursplan och kontakter har uppdaterats automatiskt.',
     // Viss information som hämtas har ändrats i källsystemen sedan förra versionen av kurs-pm publicerades. Den uppdaterad informationen visas nedan.
