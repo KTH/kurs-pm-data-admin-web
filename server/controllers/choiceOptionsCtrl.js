@@ -42,28 +42,6 @@ function getMemosParams(courseCode, course = {}) {
   }
 }
 
-function extendMiniKoppsObjWithRoundState(courseDetailedinformationRounds, koppsCourseRoundTerms) {
-  const { lastTermsInfo: lastTermsInfoArray } = koppsCourseRoundTerms
-
-  const extenedLastTermsInfoArray = lastTermsInfoArray.map(element => {
-    element.rounds.map(round => {
-      courseDetailedinformationRounds.map(r => {
-        const { applicationCode } = r.applicationCodes[0]
-        if (applicationCode === round.applicationCode) {
-          round.state = r.state
-        }
-        return r
-      })
-      return round
-    })
-    return element
-  })
-
-  const extenedMiniKoppsObj = { ...koppsCourseRoundTerms, lastTermsInfo: extenedLastTermsInfoArray }
-
-  return extenedMiniKoppsObj
-}
-
 async function getCourseOptionsPage(req, res, next) {
   try {
     // const context = {}
@@ -77,10 +55,8 @@ async function getCourseOptionsPage(req, res, next) {
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
-    const courseDetailedinformationRounds = await getDetailedKoppsCourseRounds(courseCode)
     const koppsCourseRoundTerms = await getKoppsCourseRoundTerms(courseCode)
-    const extenedMiniKoppsObj = extendMiniKoppsObjWithRoundState(courseDetailedinformationRounds, koppsCourseRoundTerms)
-    applicationStore.miniKoppsObj = extenedMiniKoppsObj
+    applicationStore.miniKoppsObj = koppsCourseRoundTerms
     const memoParams = getMemosParams(courseCode, applicationStore.miniKoppsObj)
 
     applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', memoParams)
