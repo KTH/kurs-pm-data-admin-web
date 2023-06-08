@@ -58,6 +58,17 @@ function getCurrentTerm(overrideDate) {
   return `${currentYear * 10 + currentSemester}`
 }
 
+function isDateWithinDeafaultRangeOfYears(checkDate) {
+  const dateToCheck = new Date(checkDate)
+  const dateToCheckYear = dateToCheck.getFullYear()
+  const today = new Date()
+  const currentYear = today.getFullYear()
+
+  if (dateToCheckYear >= currentYear - 1) return true
+
+  return false
+}
+
 function isDateWithinCurrentSemester(checkDate) {
   // checking if lastTuitionDate is within current semester
   const currentSemester = getCurrentTerm().slice(-1)
@@ -127,12 +138,7 @@ async function getKoppsCourseRoundTerms(courseCode) {
     const { course, termsWithCourseRounds } = res.body
     termsWithCourseRounds.forEach(t => {
       const { rounds: koppsCourseRounds } = t
-      const rounds = koppsCourseRounds.filter(
-        round =>
-          isDateWithinCurrentSemester(round.lastTuitionDate) ||
-          isDateInFuture(round.lastTuitionDate) ||
-          yearBeforeCurrentYear(t.term)
-      )
+      const rounds = koppsCourseRounds.filter(round => isDateWithinDeafaultRangeOfYears(round.lastTuitionDate))
       if (rounds.length > 0) activeTerms.push(t)
     })
 
