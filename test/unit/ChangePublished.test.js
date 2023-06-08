@@ -10,11 +10,10 @@ import mockApplicationStore from '../mocks/ApplicationStore'
 import mockApplicationStoreWithAllMemos from '../mocks/AppStoreWithAllMemos'
 import translations from '../mocks/translations'
 
-const { buttons, sectionsLabels, pageTitles } = translations.en
-const { buttons: buttonsSV, pageTitles: pageTitlesSV, sectionsLabels: sectionsLabelsSV } = translations.sv
+const { buttons, pageTitles } = translations.en
 
-const { alerts, info, pagesCreateNewPm } = i18n.messages[0]
-const { alerts: alertsSV, info: infoSV, pagesCreateNewPm: pagesCreateNewPmSV } = i18n.messages[1]
+const { info } = i18n.messages[0]
+const { info: infoSV } = i18n.messages[1]
 const { getAllByRole, getAllByTestId, getByTestId, getByText } = screen
 
 const ChangedPublishedEmpty = ({ ...rest }) => (

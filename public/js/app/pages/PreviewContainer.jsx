@@ -33,6 +33,7 @@ import {
   SAVED_NEW_PARAM,
   ADMIN_URL,
 } from '../util/constants'
+import { TYPE, useToast } from '../hooks/useToast'
 
 const PROGRESS = 3
 
@@ -201,6 +202,11 @@ function PreviewContainer(props) {
     syllabusValid,
   } = memoData
 
+  const {
+    toast,
+    toastData: { alertIsOpen, alertText, alertColor },
+  } = useToast(langIndex)
+
   if (!applicationCodes) return <AlertMissingDraft langAbbr={langAbbr} langIndex={langIndex} courseCode={courseCode} />
 
   const isDraftOfPublished = Number(version) > FIRST_VERSION
@@ -283,7 +289,9 @@ function PreviewContainer(props) {
         )}&memoendpoint=${memoEndPoint}&ladokRound=${applicationCodes.join('-')}`
       })
       // eslint-disable-next-line no-console
-      .catch(error => console.log(error))
+      .catch(() => {
+        toast('errWhilePublishing', TYPE.ERROR)
+      })
 
   const onFinish = () => {
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
@@ -399,6 +407,9 @@ function PreviewContainer(props) {
           onCancel={onFinish}
           progress={progress}
           isDraftOfPublished={isDraftOfPublished}
+          alertIsOpen={alertIsOpen}
+          alertText={alertText}
+          alertColor={alertColor}
         />
       </Container>
     </Container>

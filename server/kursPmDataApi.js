@@ -2,6 +2,7 @@
 
 const log = require('@kth/log')
 const api = require('./api')
+const { HttpError } = require('./utils/errorUtils')
 
 const clientActions = {
   copyFromAPublishedMemo: 'postAsync',
@@ -30,12 +31,15 @@ async function changeMemoApiData(apiFnName, uriParam, body) {
     const uri = client.resolve(paths[apiFnName].uri, uriParam)
     const action = clientActions[apiFnName]
     const res = await client[action]({ uri, body, useCache: false })
+    if (res.statusCode >= 400) {
+      throw new HttpError(res.body, res.statusCode)
+    }
     return res.body
   } catch (error) {
     log.debug('Changing of data with ', { apiFnName }, ' with parameter,', { uriParam }, { body }, 'is not available', {
       error,
     })
-    return error
+    throw error
   }
 }
 

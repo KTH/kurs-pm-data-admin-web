@@ -676,6 +676,7 @@ module.exports = {
     errNoInPublishedChosen: 'You have to select a course memo to be able to proceed to Edit',
     errWhileSaving: 'Something went wrong. Contact IT Support.',
     errWhileDeleting: 'Cannot delete draft. Try again later and contact IT Support if the problem remains.',
+    errWhilePublishing: 'Cannot publish draft. Try again later and contact IT Support if the problem remains.',
     infoAboutFreshData: 'Information from course syllabus and contact information has automatically been updated.',
     infoRebuildDraft:
       'The contents of this course memo has been reset to the latest published version of this course memo.',
