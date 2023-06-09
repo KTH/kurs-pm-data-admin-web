@@ -62,7 +62,9 @@ async function getKoppsCourseRoundTerms(courseCode) {
     const { course, termsWithCourseRounds } = res.body
     termsWithCourseRounds.forEach(t => {
       const { rounds: koppsCourseRounds } = t
-      const rounds = koppsCourseRounds.filter(round => removeRoundsOlderThanPreviousYear(round.lastTuitionDate))
+      const rounds = koppsCourseRounds.filter(
+        round => removeRoundsOlderThanPreviousYear(round.lastTuitionDate) && round.state !== 'CANCELLED'
+      )
       if (rounds.length > 0) activeTerms.push(t)
     })
 
