@@ -25,89 +25,13 @@ const koppsConfig = {
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
 
-/** STEP 1: CHOOSE COURSE ROUNDS TO CREATE A NEW ONE * */
-function yearBeforeCurrentYear(semester) {
-  const currentYear = new Date().getFullYear()
-  const previousYear = currentYear - 1
-  const yearToCheck = semester.slice(0, 4)
-  return yearToCheck === previousYear.toString() ? true : false
-}
-
-function getDateOfMondayOfTheWeek(startDate) {
-  const currentDate = new Date(startDate)
-  const first = currentDate.getDate() - currentDate.getDay() + 1
-  const firstMondayOfSpringSemester = new Date(currentDate.setDate(first))
-  return firstMondayOfSpringSemester
-}
-
-function addDays(date, days) {
-  // return date.setDate(date.getDate() + days)
-  const copy = new Date(Number(date))
-  copy.setDate(date.getDate() + days)
-  return copy
-}
-
-function getCurrentTerm(overrideDate) {
-  const JULY = 6
-  const SPRING = 1
-  const FALL = 2
-  const currentDate = overrideDate || new Date()
-  const currentYear = currentDate.getFullYear()
-  const currentMonth = currentDate.getMonth()
-  const currentSemester = currentMonth < JULY ? SPRING : FALL
-  return `${currentYear * 10 + currentSemester}`
-}
-
-function isDateWithinDeafaultRangeOfYears(checkDate) {
+function removeRoundsOlderThanPreviousYear(checkDate) {
   const dateToCheck = new Date(checkDate)
   const dateToCheckYear = dateToCheck.getFullYear()
   const today = new Date()
   const currentYear = today.getFullYear()
 
-  if (dateToCheckYear >= currentYear - 1) return true
-
-  return false
-}
-
-function isDateWithinCurrentSemester(checkDate) {
-  // checking if lastTuitionDate is within current semester
-  const currentSemester = getCurrentTerm().slice(-1)
-  const dateToCheck = new Date(checkDate)
-  const today = new Date()
-  const currentYear = today.getFullYear()
-  const startDateOfStartWeekAutumnSemester = `${currentYear}-08-28`
-  // const endDateOfStartWeekAutumnSemester = `${currentYear}-09-03`
-  const startDateOfAutumnSemester = getDateOfMondayOfTheWeek(startDateOfStartWeekAutumnSemester)
-
-  const endDateOfAutumnSemester = addDays(startDateOfAutumnSemester, 140)
-  const startDateOfSpringSemester = addDays(endDateOfAutumnSemester, 1)
-  const endDateOfSpringSemester = addDays(startDateOfSpringSemester, 140)
-
-  if (currentSemester == 2) {
-    if (
-      dateToCheck > startDateOfAutumnSemester ||
-      (dateToCheck > startDateOfAutumnSemester && dateToCheck < endDateOfAutumnSemester)
-    ) {
-      return true
-    }
-  } else {
-    if (
-      dateToCheck > startDateOfSpringSemester ||
-      (dateToCheck > startDateOfSpringSemester && dateToCheck < endDateOfSpringSemester)
-    ) {
-      return true
-    }
-  }
-  return false
-}
-
-function isDateInFuture(checkDate) {
-  const dateToCheck = new Date(checkDate)
-  const today = new Date()
-
-  if (dateToCheck > today) return true
-
-  return false
+  return dateToCheckYear >= currentYear - 1
 }
 
 async function getCourseSchool(courseCode) {
@@ -138,7 +62,7 @@ async function getKoppsCourseRoundTerms(courseCode) {
     const { course, termsWithCourseRounds } = res.body
     termsWithCourseRounds.forEach(t => {
       const { rounds: koppsCourseRounds } = t
-      const rounds = koppsCourseRounds.filter(round => isDateWithinDeafaultRangeOfYears(round.lastTuitionDate))
+      const rounds = koppsCourseRounds.filter(round => removeRoundsOlderThanPreviousYear(round.lastTuitionDate))
       if (rounds.length > 0) activeTerms.push(t)
     })
 
