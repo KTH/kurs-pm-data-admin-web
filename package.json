@@ -45,7 +45,7 @@
     "@kth/monitor": "^3.0.31",
     "@kth/server": "^4.0.4",
     "@kth/session": "^3.0.8",
-    "@kth/ug-rest-api-helper": "^1.0.22",
+    "@kth/ug-rest-api-helper": "^1.0.24",
     "@tinymce/tinymce-react": "^4.3.0",
     "applicationinsights": "^2.7.3",
     "axios": "^0.27.2",
