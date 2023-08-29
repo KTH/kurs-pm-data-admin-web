@@ -17,6 +17,7 @@ import {
 import MemoContainer from '../../public/js/app/pages/MemoEditingContainer'
 import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import translations from '../mocks/translations'
+import { SectionContextProvider } from '../../public/js/app/stores/SectionContext'
 
 const { memoTitlesByMemoLang, sectionsLabels, pageTitles: pageTitlesEN } = translations.en
 const { notIncludedInMemoYet, pageTitles: pageTitlesSV, sectionsLabels: sectionsLabelsSV } = translations.sv
@@ -37,7 +38,9 @@ const EditFreshDraftOfNewMemo = ({ activeTab, memoLang = 'en', userLang = 'en', 
   return (
     <StaticRouter>
       <MobxStoreProvider initCallback={() => updatedRouterStore}>
-        <MemoContainer initialActiveTab={activeTab} {...rest} />
+        <SectionContextProvider>
+          <MemoContainer initialActiveTab={activeTab} {...rest} />
+        </SectionContextProvider>
       </MobxStoreProvider>
     </StaticRouter>
   )

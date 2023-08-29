@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-danger */
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import PropTypes from 'prop-types'
 import { useStore } from '../../mobx'
@@ -11,6 +11,7 @@ import CollapseGuidance from '../details/CollapseGuidance'
 import VisibilityInfo from '../VisibilityInfo'
 import { context } from '../../util/fieldsByType'
 import editorConf from '../../util/editorInitConf'
+import { useSectionContext } from '../../stores/SectionContext'
 
 function StandardEditorPerTitle(props) {
   const store = useStore()
@@ -20,16 +21,7 @@ function StandardEditorPerTitle(props) {
 
   const { isRequired, hasParentTitle, openIfContent } = context[contentId]
 
-  const [firstLoad, setFirstLoad] = useState(true)
-  const [isOpen, setOpenStatus] = useState(false)
-
-  function _openMandatoryEditable() {
-    if (firstLoad && openIfContent) {
-      setOpenStatus((openIfContent && htmlContent !== '') || false)
-      setFirstLoad(false)
-    }
-  }
-  _openMandatoryEditable()
+  const { getIsEditorOpen, setIsEditorOpen } = useSectionContext()
 
   const sectionType = hasParentTitle ? 'subSection' : 'section'
   const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[userLangIndex]
@@ -37,7 +29,7 @@ function StandardEditorPerTitle(props) {
   useEffect(() => {
     // used when visibleInMemo changes or open/close editor (but not when editor content changed, done in updateMemoContent)
     store.setDirtyEditor(contentId)
-  }, [isOpen, visibleInMemo])
+  }, [getIsEditorOpen(contentId), visibleInMemo])
 
   function updateMemoContent(editorContent) {
     store.setMemoByContentId(contentId, editorContent)
@@ -58,10 +50,10 @@ function StandardEditorPerTitle(props) {
   }
 
   function toggleEditor() {
-    const isOpenNext = !isOpen
+    const isOpenNext = !getIsEditorOpen(contentId)
     if (contentId === 'examinationSubSection') store.setExaminationModules(isOpenNext)
 
-    setOpenStatus(isOpenNext)
+    setIsEditorOpen(contentId, isOpenNext)
   }
 
   return (
@@ -74,11 +66,11 @@ function StandardEditorPerTitle(props) {
         sectionType={sectionType}
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={toggleVisibleInMemo}
-        isEditorOpen={isOpen}
+        isEditorOpen={getIsEditorOpen(contentId)}
         onToggleEditor={toggleEditor}
         userLangIndex={userLangIndex}
       />
-      {isOpen && (
+      {getIsEditorOpen(contentId) && (
         <span data-testid={`standard-editor-${contentId}`}>
           <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
           <Editor
@@ -91,7 +83,7 @@ function StandardEditorPerTitle(props) {
         </span>
       )}
 
-      {!isOpen &&
+      {!getIsEditorOpen(contentId) &&
         /* isRequired && empty // type && type === 'mandatoryAndEditable' */
         ((isRequired && (
           <span
