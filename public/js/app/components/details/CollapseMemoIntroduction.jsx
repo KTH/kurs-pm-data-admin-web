@@ -53,7 +53,13 @@ const GetStarted = ({ langAbbr }) =>
     <>
       <h3>Kom i gång snabbt</h3>
       <ul>
-        <li>Bläddra igenom alla flikar för att se vilka rubriker som finns</li>
+        <li>
+          Bläddra igenom alla flikar för att se vilka rubriker som finns
+          <ul>
+            <li>Det finns valbara rubriker som går att inkludera</li>
+            <li>Det finns obligatoriska rubriker som alltid inkluderas i kurs-PM</li>
+          </ul>
+        </li>
         <li>
           Gå till sista steget &rdquo;Granska och publicera&rdquo; för att se hur ditt kurs-PM kommer att se ut när det
           är publicerat
@@ -72,7 +78,13 @@ const GetStarted = ({ langAbbr }) =>
     <>
       <h3>Get started quickly</h3>
       <ul>
-        <li>Look through all tabs to see which headings are available</li>
+        <li>
+          Look through all tabs to see which headings are available
+          <ul>
+            <li>There are optional headings that can be included</li>
+            <li>There are mandatory headings that are always included in the course PM</li>
+          </ul>
+        </li>
         <li>Go to the last step, &ldquo;Preview and publish,&rdquo; to get a sense of a completed course memo</li>
         <li>Click on the i-icon next to each heading to understand the heading’s intended use</li>
         <li>Click on &ldquo;Show guidance&rdquo; for guidance on how to write content under the specific heading</li>
