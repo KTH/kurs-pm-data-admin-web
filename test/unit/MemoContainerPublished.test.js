@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router-dom/server'
@@ -7,28 +6,16 @@ import { MobxStoreProvider } from '../../public/js/app/mobx'
 import { act } from 'react-dom/test-utils'
 
 import i18n from '../../i18n'
-import {
-  getNumOfEditableStandardContent,
-  getOnlyStandardHeaders,
-  getSectionHeadersByType,
-  sections,
-  typeOfThisHeader,
-} from '../../public/js/app/util/fieldsByType.js'
+import { getOnlyStandardHeaders, getSectionHeadersByType } from '../../public/js/app/util/fieldsByType.js'
 
 import MemoContainer from '../../public/js/app/pages/MemoEditingContainer'
 
-import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoData'
 import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
-import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
 import translations from '../mocks/translations'
+import { SectionContextProvider } from '../../public/js/app/stores/SectionContext'
 
 const { memoTitlesByMemoLang, orderedFilledInAndVisible, sectionsLabels } = translations.en
-const { notIncludedInMemoYet, pageTitles } = translations.sv
-const { alerts, info, sourceInfo } = i18n.messages[0]
-const introductionHeaders = {
-  sv: ['Vad är kurs-PM?'],
-  en: ['What is a course memo?'],
-}
+const { pageTitles } = translations.sv
 const introductionEditHeaders = {
   sv: ['Kurs-PM versionshanteras'],
   en: ['Edit published course memo'],
@@ -41,16 +28,21 @@ const informStudentsHeaders = {
   sv: ['Informera dina studenter om gjorda ändringar'],
   en: ['Inform your students of changes made'],
 }
-const informStudentsEditHeaders = {
-  sv: ['Hur blir ditt kurs-PM bra för studenter?'],
-  en: ['How to create a course memo that is functional for the students'],
-}
 const moreHelpHeaders = {
   sv: ['Mer hjälp?'],
   en: ['Need more help?'],
 }
 
-const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText, queryAllByTestId, queryByTestId } = screen
+const {
+  getAllByRole,
+  getAllByText,
+  getByTestId,
+  getByText,
+  queryAllByTestId,
+  queryByTestId,
+  queryAllByRole,
+  queryAllByText,
+} = screen
 
 const EditPublishedMemo = ({ activeTab, memoLang = 'en', userLang = 'en', ...rest }) => {
   const updatedRouterStore = mockApplicationStoreWithChosenMemo(
@@ -62,7 +54,9 @@ const EditPublishedMemo = ({ activeTab, memoLang = 'en', userLang = 'en', ...res
   return (
     <StaticRouter>
       <MobxStoreProvider initCallback={() => updatedRouterStore}>
-        <MemoContainer initialActiveTab={activeTab} {...rest} />
+        <SectionContextProvider>
+          <MemoContainer initialActiveTab={activeTab} {...rest} />
+        </SectionContextProvider>
       </MobxStoreProvider>
     </StaticRouter>
   )
@@ -104,19 +98,32 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(alert).toBeInTheDocument()
   })
 
-  xtest('tab: contentAndOutcomes (draft of published). renders alert about kopps data were updated', () => {
+  test.skip('tab: contentAndOutcomes (draft of published). renders alert about kopps data were updated', () => {
     const alert = getByText('Det finns ändringar som ej publicerats. Du kan')
     expect(alert).toBeInTheDocument()
   })
 
-  test('tab: contentAndOutcomes (draft of published). renders collapse for help-text for all editors because they are open', () => {
-    const allHelpTextBtns = getAllByText('Visa vägledning')
-    expect(allHelpTextBtns.length).toBe(1)
+  test('tab: contentAndOutcomes (draft of published). renders collapse for help-text for no editor because they are closed', () => {
+    const allHelpTextBtns = queryAllByText('Visa vägledning')
+    expect(allHelpTextBtns.length).toBe(0)
   })
 
-  test('tab: contentAndOutcomes (draft of published). All edit buttons have label Stäng redigeringsläge', async () => {
-    const allCloseEditorBtn = getAllByText('Stäng redigeringsläge')
-    expect(allCloseEditorBtn.length).toBe(1)
+  test('tab: contentAndOutcomes (draft of published). renders collapse for help-text for open editors', async () => {
+    const allEditorButtonTestIds = ['btn-open-editor-learningActivities', 'btn-open-editor-scheduleDetails']
+
+    allEditorButtonTestIds.forEach(id => {
+      const button = getByTestId(id)
+
+      fireEvent.click(button)
+    })
+
+    const allHelpTextBtns = getAllByText('Visa vägledning')
+    expect(allHelpTextBtns.length).toBe(2)
+  })
+
+  test('tab: contentAndOutcomes (draft of published). No edit buttons has label Stäng redigeringsläge', async () => {
+    const allCloseEditorBtn = queryAllByText('Stäng redigeringsläge')
+    expect(allCloseEditorBtn.length).toBe(0)
   })
 
   test('tab: contentAndOutcomes (draft of published). renders main subheader (course name)(sv)', () => {
@@ -167,7 +174,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       'Information om Learning activities',
       'Redigera Läraktiviteter',
       'Information om Detailed plan', //TODO: add ariaLang
-      'Stäng redigeringsläge Detaljplanering',
+      'Redigera Detaljplanering',
       'Information om Created by user First header for section extraHeaders1',
       'Redigera Created by user First header for section extraHeaders1', // fix header in extra rubrik
       'Information om Created by user Second header for section extraHeaders1',
@@ -186,7 +193,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       '',
       'Redigera',
       '',
-      'Stäng',
+      'Redigera',
       '',
       'Redigera',
       '',
@@ -254,11 +261,17 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(editor).not.toBeInTheDocument()
   })
 
-  test('tab: contentAndOutcomes (draft of published). scheduleDetails editor is visible', async () => {
-    const openEditor = getByTestId('standard-editor-scheduleDetails')
-    expect(openEditor).toHaveTextContent(
-      `Visa vägledningUnder Detaljplanering beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Använd med fördel en tabell, och beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse.`
-    )
+  test('tab: contentAndOutcomes (draft of published). scheduleDetails editor is not visible', async () => {
+    const openEditorButton = getByTestId('btn-open-editor-scheduleDetails')
+
+    fireEvent.click(openEditorButton)
+
+    await waitFor(() => {
+      const openEditor = getByTestId('standard-editor-scheduleDetails')
+      expect(openEditor).toHaveTextContent(
+        `Visa vägledningUnder Detaljplanering beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Använd med fördel en tabell, och beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse.`
+      )
+    })
   })
 
   test('tab: contentAndOutcomes (draft of published). Renders "Learning activities" checkbox which are checked and shows filled in content, then check it to show message about excluded though filled content', async () => {
@@ -283,7 +296,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     })
   })
 
-  test('tab: contentAndOutcomes (draft of published). Renders "scheduleDetails" checkbox which are checked and editor is open because it has content', async () => {
+  test('tab: contentAndOutcomes (draft of published). Renders "scheduleDetails" checkbox which are checked and editor is closed although it has content', async () => {
     // Renders "scheduleDetails" checkbox which are checked and shows filled in content,
     // then check it to show message about excluded though filled content
     // Detailed plan
@@ -291,8 +304,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expect(checkboxIncludeInMemo.checked).toBeTruthy()
 
     const visibleEditor = queryByTestId('btn-close-editor-scheduleDetails')
-    expect(visibleEditor).toBeInTheDocument()
-    expect(visibleEditor).toHaveTextContent('Stäng redigeringsläge')
+    expect(visibleEditor).not.toBeInTheDocument()
 
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
@@ -301,18 +313,18 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     })
   })
 
-  test('tab: contentAndOutcomes. Check if button edit/close editor works. If scheduleDetails has some content then scheduleDetails should be open in the beginning', async () => {
-    //Detailed plan
-    const editor = screen.queryByTestId('standard-editor-scheduleDetails')
-    expect(editor).toBeInTheDocument()
+  test('tab: contentAndOutcomes. Check if button edit/close editor works.', async () => {
+    const editorOpenBtn = screen.queryByTestId('btn-open-editor-scheduleDetails')
+    expect(editorOpenBtn).toBeInTheDocument()
 
-    const close = screen.queryByTestId('btn-close-editor-scheduleDetails')
-    expect(close).toBeInTheDocument()
-
-    fireEvent.click(close)
+    fireEvent.click(editorOpenBtn)
     await waitFor(() => {
-      const editorOpenBtn = screen.queryByTestId('btn-open-editor-scheduleDetails')
-      expect(editorOpenBtn).toBeInTheDocument()
+      //Detailed plan
+      const editor = screen.queryByTestId('standard-editor-scheduleDetails')
+      expect(editor).toBeInTheDocument()
+
+      const close = screen.queryByTestId('btn-close-editor-scheduleDetails')
+      expect(close).toBeInTheDocument()
     })
   })
 
@@ -425,14 +437,34 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
-  test('tab: prep (draft of published). renders collapse for help-text for all editors because they are open', () => {
-    const allHelpTextBtns = getAllByText('Visa vägledning')
-    expect(allHelpTextBtns.length).toBe(3)
+  test('tab: prep (draft of published). renders no collapse for help-text for any editors because they are closed', () => {
+    const allHelpTextBtns = queryAllByText('Visa vägledning')
+    expect(allHelpTextBtns.length).toBe(0)
   })
 
-  test('tab: prep (draft of published). All edit buttons have label Stäng redigeringsläge', async () => {
-    const allCloseEditorBtn = getAllByText('Stäng redigeringsläge')
-    expect(allCloseEditorBtn.length).toBe(3)
+  test('tab: prep (draft of published). renders collapse for help-text for editors if they are open', async () => {
+    const allEditorButtonTestIds = [
+      'btn-open-editor-preparations',
+      'btn-open-editor-literature',
+      'btn-open-editor-equipment',
+      'btn-open-editor-software',
+    ]
+
+    allEditorButtonTestIds.forEach(id => {
+      const button = getByTestId(id)
+
+      fireEvent.click(button)
+    })
+
+    await waitFor(() => {
+      const allHelpTextBtns = getAllByText('Visa vägledning')
+      expect(allHelpTextBtns.length).toBe(4)
+    })
+  })
+
+  test('tab: prep (draft of published). No edit buttons has label Stäng redigeringsläge', async () => {
+    const allCloseEditorBtn = queryAllByText('Stäng redigeringsläge')
+    expect(allCloseEditorBtn.length).toBe(0)
   })
 
   test('tab: prep (draft of published). renders main subheader (course name)(sv)', () => {
@@ -482,13 +514,13 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
       'Information om Specific preparations',
       'Redigera Särskilda förberedelser',
       'Information om Literature',
-      'Stäng redigeringsläge Kurslitteratur',
+      'Redigera Kurslitteratur',
       'Information om Equipment', //TODO: add ariaLang
-      'Stäng redigeringsläge Utrustning',
+      'Redigera Utrustning',
       'Information om Software',
       'Redigera Programvara',
       'Information om Support for students with disabilities',
-      'Stäng redigeringsläge Stöd för studenter med funktionsnedsättning',
+      'Redigera Stöd för studenter med funktionsnedsättning',
       'Information om Created by user First header for section extraHeaders2',
       'Redigera Created by user First header for section extraHeaders2', // fix header in extra rubrik
       'Information om Created by user Second header for section extraHeaders2',
@@ -506,13 +538,13 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
       '',
       'Redigera',
       '',
-      'Stäng',
-      '',
-      'Stäng',
+      'Redigera',
       '',
       'Redigera',
       '',
-      'Stäng',
+      'Redigera',
+      '',
+      'Redigera',
       '',
       'Redigera',
       '',
@@ -552,14 +584,17 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expect(headers.length).toBe(0)
   })
 
-  test('tab: prep (draft of published). renders <StandardEditorPerTitle>, literature is a standard header, mandatory and editable, will have open editor because it has content', async () => {
-    const contentType = 'mandatoryAndEditable'
-    const headers = getSectionHeadersByType(contentType, 'prep')
-    expect(headers.length).toBe(1)
-    headers.map(contentId => {
-      const editorSectionIsOpen = getByTestId(`standard-editor-${contentId}`)
+  test('tab: prep (draft of published). renders <StandardEditorPerTitle>, literature is a standard header, mandatory and editable, will have closed editor although it has content', async () => {
+    const openEditorBtn = getByTestId(`btn-open-editor-literature`)
+
+    fireEvent.click(openEditorBtn)
+
+    await waitFor(() => {
+      const editorSectionIsOpen = getByTestId(`standard-editor-literature`)
+      expect(editorSectionIsOpen).toBeInTheDocument()
       expect(editorSectionIsOpen).toHaveTextContent(/Visa vägledningUnder rubriken "Kurslitteratur"/i)
-      expect(getByTestId(`btn-close-editor-${contentId}`)).toBeInTheDocument()
+
+      expect(getByTestId(`btn-close-editor-literature`)).toBeInTheDocument()
     })
   })
 
@@ -569,9 +604,9 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     expect(headersAndSubHds.length).toBe(3)
     const preparationsText = getByTestId(`text-for-memo-${contentType}-preparations`)
     expect(preparationsText).toHaveTextContent('Some test data for section preparations')
-    const equipmentOpenEditor = getByTestId(`standard-editor-equipment`)
-    expect(equipmentOpenEditor).toBeInTheDocument()
-    expect(getByTestId(`btn-close-editor-equipment`)).toBeInTheDocument()
+    const equipmentOpenEditor = queryByTestId(`standard-editor-equipment`)
+    expect(equipmentOpenEditor).not.toBeInTheDocument()
+    expect(getByTestId(`btn-open-editor-equipment`)).toBeInTheDocument()
     const software = getByTestId(`text-for-memo-${contentType}-software`)
     expect(software).toHaveTextContent('Some test data for section software')
   })
@@ -597,13 +632,13 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
 
   test('tab: prep. renders Edit buttons for each editable standard header and subheaher because memo content is empty', async () => {
     expect(getByTestId('btn-open-editor-preparations')).toBeInTheDocument()
-    expect(getByTestId('btn-close-editor-literature')).toBeInTheDocument()
-    expect(getByTestId('btn-close-editor-equipment')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-literature')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-equipment')).toBeInTheDocument()
     expect(getByTestId('btn-open-editor-software')).toBeInTheDocument()
-    expect(getByTestId('btn-close-editor-permanentDisabilitySubSection')).toBeInTheDocument()
+    expect(getByTestId('btn-open-editor-permanentDisabilitySubSection')).toBeInTheDocument()
 
-    expect(screen.queryByTestId('btn-open-editor-prerequisites')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('btn-open-editor-permanentDisability')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-close-editor-prerequisites')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('btn-close-editor-permanentDisability')).not.toBeInTheDocument()
 
     expect(screen.queryByTestId('btn-close-editor-prerequisites')).not.toBeInTheDocument()
     expect(screen.queryByTestId('btn-close-editor-permanentDisability')).not.toBeInTheDocument()
@@ -629,34 +664,34 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     })
   })
 
-  test('tab: prep (draft of published). Renders "literature" close editor button, then click it to close editor and show text from editor', async () => {
-    const closeLiterature = getByTestId('btn-close-editor-literature')
-    expect(closeLiterature).toBeInTheDocument()
+  test('tab: prep (draft of published). Show text from editor, renders "literature" open editor button, then click it to open editor', async () => {
+    const showText = queryByTestId('text-for-memo-mandatoryAndEditable-literature')
+    expect(showText).toBeInTheDocument()
+    expect(showText).toHaveTextContent('Some test data for section literature')
+
+    const openLiterature = getByTestId('btn-open-editor-literature')
+    expect(openLiterature).toBeInTheDocument()
 
     const visibleText = queryByTestId('text-for-memo-mandatoryEditable-literature')
     expect(visibleText).not.toBeInTheDocument()
 
-    fireEvent.click(closeLiterature)
+    fireEvent.click(openLiterature)
     await waitFor(() => {
-      const editLiterature = getByTestId('btn-open-editor-literature')
-      expect(editLiterature).toBeInTheDocument()
-
-      const showText = queryByTestId('text-for-memo-mandatoryAndEditable-literature')
-      expect(showText).toBeInTheDocument()
-      expect(showText).toHaveTextContent('Some test data for section literature')
+      const closeLiterature = getByTestId('btn-close-editor-literature')
+      expect(closeLiterature).toBeInTheDocument()
     })
   })
 
-  test('tab: prep (draft of published). Renders "equipment" checkbox which are checked and editor is open because it has content', async () => {
+  test('tab: prep (draft of published). Renders "equipment" checkbox which are checked and editor is closed although it has content', async () => {
     // Renders "equipment" checkbox which are checked and shows filled in content,
     // then check it to show message about excluded though filled content
 
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-equipment')
     expect(checkboxIncludeInMemo.checked).toBeTruthy()
 
-    const visibleEditor = queryByTestId('btn-close-editor-equipment')
+    const visibleEditor = queryByTestId('btn-open-editor-equipment')
     expect(visibleEditor).toBeInTheDocument()
-    expect(visibleEditor).toHaveTextContent('Stäng redigeringsläge')
+    expect(visibleEditor).toHaveTextContent('Redigera')
 
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
@@ -772,13 +807,13 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   })
 
   test('tab: reqToFinal (draft of published). renders collapse for help-text for all editors because they are open', () => {
-    const allHelpTextBtns = getAllByText('Visa vägledning')
-    expect(allHelpTextBtns.length).toBe(3)
+    const allHelpTextBtns = queryAllByText('Visa vägledning')
+    expect(allHelpTextBtns.length).toBe(0)
   })
 
-  test('tab: reqToFinal (draft of published). All edit buttons have label Stäng redigeringsläge', async () => {
-    const allCloseEditorBtn = getAllByText('Stäng redigeringsläge')
-    expect(allCloseEditorBtn.length).toBe(3)
+  test('tab: reqToFinal (draft of published). No edit buttons has label Stäng redigeringsläge', async () => {
+    const allCloseEditorBtn = queryAllByRole('button', { name: 'Stäng redigeringsläge' })
+    expect(allCloseEditorBtn.length).toBe(0)
   })
 
   test('tab: reqToFinal (draft of published). renders memo sections headers in memo lang in tab pane', () => {
@@ -809,15 +844,15 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       'Information om Grading criteria/assessment criteria',
       'Redigera Målrelaterade betygskriterier/bedömningskriterier',
       'Information om Opportunity to complete the requirements via supplementary examination',
-      'Stäng redigeringsläge Möjlighet till komplettering',
+      'Redigera Möjlighet till komplettering',
       'Information om Opportunity to raise an approved grade via renewed examination',
-      'Stäng redigeringsläge Möjlighet till plussning',
+      'Redigera Möjlighet till plussning',
       'Information om Alternatives to missed activities or tasks',
       'Redigera Möjlighet till ersättningsuppgifter',
       'Information om Reporting of exam results',
       'Redigera Resultatrapportering',
       'Information om Ethical approach',
-      'Stäng redigeringsläge Etiskt förhållningssätt',
+      'Redigera Etiskt förhållningssätt',
       'Information om Created by user First header for section extraHeaders3',
       'Redigera Created by user First header for section extraHeaders3', // fix header in extra rubrik
       'Information om Created by user Second header for section extraHeaders3',
@@ -881,11 +916,11 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const gradingCriteriaText = getByTestId(`text-for-memo-${contentType}-gradingCriteria`)
     expect(gradingCriteriaText).toBeInTheDocument()
 
-    const possibilityToCompletionEditor = getByTestId(`standard-editor-possibilityToCompletion`)
-    expect(possibilityToCompletionEditor).toBeInTheDocument()
+    const possibilityToCompletionEditor = queryByTestId(`standard-editor-possibilityToCompletion`)
+    expect(possibilityToCompletionEditor).not.toBeInTheDocument()
 
-    const possibilityToAdditionEditor = getByTestId(`standard-editor-possibilityToAddition`)
-    expect(possibilityToAdditionEditor).toBeInTheDocument()
+    const possibilityToAdditionEditor = queryByTestId(`standard-editor-possibilityToAddition`)
+    expect(possibilityToAdditionEditor).not.toBeInTheDocument()
 
     const possibilityToCompensate = getByTestId(`text-for-memo-${contentType}-possibilityToCompensate`)
     expect(possibilityToCompensate).toHaveTextContent('Some test data for section possibilityToCompensate')
@@ -893,8 +928,8 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const reportingResults = getByTestId(`text-for-memo-${contentType}-reportingResults`)
     expect(reportingResults).toHaveTextContent('Some test data for section reportingResults')
 
-    const ethicalApproachSubSection = getByTestId(`standard-editor-ethicalApproachSubSection`)
-    expect(ethicalApproachSubSection).toBeInTheDocument()
+    const ethicalApproachSubSection = queryByTestId(`standard-editor-ethicalApproachSubSection`)
+    expect(ethicalApproachSubSection).not.toBeInTheDocument()
   })
 
   test('tab: reqToFinal (draft of published). renders <StandardEditorPerTitle>, check the text of prerequisites which is optional and non-editable is visible', async () => {
@@ -969,8 +1004,8 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-ethicalApproachSubSection')
     expect(checkboxIncludeInMemo.checked).toBeTruthy()
 
-    const visibleEditor = queryByTestId('btn-close-editor-ethicalApproachSubSection')
-    expect(visibleEditor).toBeInTheDocument()
+    const closedEditor = queryByTestId('btn-open-editor-ethicalApproachSubSection')
+    expect(closedEditor).toBeInTheDocument()
 
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
@@ -980,16 +1015,13 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     })
   })
 
-  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" open editor and tries to close it after pressing button "close"', async () => {
-    const editorCloseBtn = getByTestId('btn-close-editor-ethicalApproachSubSection')
-    expect(editorCloseBtn).toBeInTheDocument()
+  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" closed editor, shows warning about excluded-but-with-content and tries to open it after pressing button "edit"', async () => {
+    const editorOpenBtn = getByTestId('btn-open-editor-ethicalApproachSubSection')
+    expect(editorOpenBtn).toBeInTheDocument()
 
-    fireEvent.click(editorCloseBtn)
-    await waitFor(() => {
-      const editorOpenBtn = getByTestId('btn-open-editor-ethicalApproachSubSection')
-      const visibleText = queryByTestId('text-for-memo-optionalEditable-ethicalApproachSubSection')
-      expect(visibleText).toBeInTheDocument()
-    })
+    const visibleText = queryByTestId('text-for-memo-optionalEditable-ethicalApproachSubSection')
+    expect(visibleText).toBeInTheDocument()
+
     fireEvent.click(getByTestId('checkbox-visibility-ethicalApproachSubSection'))
     await waitFor(() => {
       const filledInButNotIncludedMsg = queryByTestId(
@@ -997,16 +1029,21 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       )
       expect(filledInButNotIncludedMsg).toBeInTheDocument()
     })
+
+    fireEvent.click(editorOpenBtn)
+    await waitFor(() => {
+      const editorCloseBtn = getByTestId('btn-close-editor-ethicalApproachSubSection')
+    })
   })
 
   //possibilityToCompletion
 
-  test('tab: reqToFinal (draft of published). Renders "possibilityToCompletion" checkbox which are checked and shows filled in content', async () => {
+  test('tab: reqToFinal (draft of published). Renders "possibilityToCompletion" checkbox which is checked and unchecks it', async () => {
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-possibilityToCompletion')
     expect(checkboxIncludeInMemo.checked).toBeTruthy()
 
-    const visibleEditor = queryByTestId('btn-close-editor-possibilityToCompletion')
-    expect(visibleEditor).toBeInTheDocument()
+    const closedEditor = queryByTestId('btn-open-editor-possibilityToCompletion')
+    expect(closedEditor).toBeInTheDocument()
 
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
@@ -1017,21 +1054,23 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   })
 
   test('tab: reqToFinal (draft of published). Renders "possibilityToCompletion" as an open editor and tries to change visibility and to close it by pressing a button "close"', async () => {
-    const editorCloseBtn = getByTestId('btn-close-editor-possibilityToCompletion')
-    expect(editorCloseBtn).toBeInTheDocument()
+    const visibleText = queryByTestId('text-for-memo-optionalEditable-possibilityToCompletion')
+    expect(visibleText).toBeInTheDocument()
 
-    fireEvent.click(editorCloseBtn)
-    await waitFor(() => {
-      const editorOpenBtn = getByTestId('btn-open-editor-possibilityToCompletion')
-      const visibleText = queryByTestId('text-for-memo-optionalEditable-possibilityToCompletion')
-      expect(visibleText).toBeInTheDocument()
-    })
     fireEvent.click(getByTestId('checkbox-visibility-possibilityToCompletion'))
     await waitFor(() => {
       const filledInButNotIncludedMsg = queryByTestId(
         'optional-and-excluded-but-with-content-section-possibilityToCompletion'
       )
       expect(filledInButNotIncludedMsg).toBeInTheDocument()
+    })
+
+    const editorOpenBtn = getByTestId('btn-open-editor-possibilityToCompletion')
+    expect(editorOpenBtn).toBeInTheDocument()
+
+    fireEvent.click(editorOpenBtn)
+    await waitFor(() => {
+      const editorCloseBtn = getByTestId('btn-close-editor-possibilityToCompletion')
     })
   })
 

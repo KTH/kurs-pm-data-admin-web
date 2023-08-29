@@ -16,6 +16,7 @@ import CreateNewMemo from './pages/CreateNewMemo'
 import MemoEditingContainer from './pages/MemoEditingContainer'
 import PreviewContainer from './pages/PreviewContainer'
 import EditorsForTest from './components/editors/test/EditorsForTest'
+import { SectionContextProvider } from './stores/SectionContext'
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   console.error(error)
@@ -35,7 +36,15 @@ function appFactory(applicationStore) {
         <Route exact path="/kursinfoadmin/kurs-pm-data/_test_editor" element={<EditorsForTest />} />
         <Route exact path="/kursinfoadmin/kurs-pm-data/published/:courseCode/" element={<ChangePublished />} />
         <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/" element={<CreateNewMemo />} />
-        <Route exact path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint" element={<MemoEditingContainer />} />
+        <Route
+          exact
+          path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint"
+          element={
+            <SectionContextProvider>
+              <MemoEditingContainer />
+            </SectionContextProvider>
+          }
+        />
         <Route
           exact
           path="/kursinfoadmin/kurs-pm-data/:courseCode/:memoEndPoint/preview"
