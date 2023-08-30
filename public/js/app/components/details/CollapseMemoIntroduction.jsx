@@ -70,7 +70,7 @@ const GetStarted = ({ langAbbr }) =>
         </li>
         <li>
           När du är klar, välj &rdquo;Avsluta med utkast&rdquo; eller &rdquo;Granska&rdquo; för att fortsätta till
-          publicering.
+          publicering
         </li>
       </ul>
     </>
@@ -82,7 +82,7 @@ const GetStarted = ({ langAbbr }) =>
           Look through all tabs to see which headings are available
           <ul>
             <li>There are optional headings that can be included</li>
-            <li>There are mandatory headings that are always included in the course PM</li>
+            <li>There are mandatory headings that are always included in the course memo</li>
           </ul>
         </li>
         <li>Go to the last step, &ldquo;Preview and publish,&rdquo; to get a sense of a completed course memo</li>
@@ -90,7 +90,7 @@ const GetStarted = ({ langAbbr }) =>
         <li>Click on &ldquo;Show guidance&rdquo; for guidance on how to write content under the specific heading</li>
         <li>
           When you have finished, select &ldquo;Exit (save draft)&rdquo; or &ldquo;Preview&rdquo; to proceed to the
-          publish step.
+          publish step
         </li>
       </ul>
     </>
@@ -141,7 +141,7 @@ const InformStudents = ({ langAbbr }) =>
             className="external-link"
             rel="noreferrer"
           >
-            See The Syllabus function in Canvas for more information.
+            The Syllabus function in Canvas for more information.
           </a>
         </li>
       </ul>
