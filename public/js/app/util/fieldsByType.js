@@ -43,6 +43,7 @@ const context = {
     isEditable: false,
     isRequired: true,
     source: '(s)',
+    subSection: true,
   },
   ethicalApproachSubSection: {
     openIfContent: true,
@@ -50,7 +51,13 @@ const context = {
     isRequired: false,
     hasParentTitle: true,
   },
-  examination: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
+  examination: {
+    type: 'mandatory',
+    isEditable: false,
+    isRequired: true,
+    source: '(s)',
+    subSection: true,
+  },
   examinationSubSection: {
     openIfContent: false,
     isEditable: true,
@@ -98,7 +105,12 @@ const context = {
     isRequired: true,
     source: '(s)',
   },
-  permanentDisability: { type: 'mandatory', isEditable: false, isRequired: true }, // Funktionsnedsättning
+  permanentDisability: {
+    type: 'mandatory',
+    isEditable: false,
+    isRequired: true,
+    subSection: true,
+  }, // Funktionsnedsättning
   permanentDisabilitySubSection: {
     openIfContent: true,
     isEditable: true,
@@ -166,7 +178,7 @@ const getDefaultSections = () => [
       'equipment',
       'software',
       'permanentDisability',
-      'permanentDisabilitySubSection',
+      //'permanentDisabilitySubSection',
     ],
     extraHeaderTitle: 'extraHeaders2',
   },
@@ -176,7 +188,7 @@ const getDefaultSections = () => [
     content: [
       'gradingScale',
       'examination',
-      'examinationSubSection',
+      //'examinationSubSection',
       'otherRequirementsForFinalGrade',
       'gradingCriteria',
       'possibilityToCompletion',
@@ -184,7 +196,7 @@ const getDefaultSections = () => [
       'possibilityToCompensate',
       'reportingResults',
       'ethicalApproach',
-      'ethicalApproachSubSection',
+      //'ethicalApproachSubSection',
     ],
     extraHeaderTitle: 'extraHeaders3',
   },

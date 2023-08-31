@@ -14,9 +14,11 @@ $white: #fff;
 
 $btn-link-height: 20px;
 
+$border-radius: 0.25rem;
+
 %bordered-area {
   border: 1px solid $borderGrey;
-  border-radius: 0.25rem;
+  border-radius: $border-radius;
   border-top: 0;
   padding-top: 1em;
   padding-bottom: 1em;
@@ -407,9 +409,7 @@ $btn-link-height: 20px;
     padding-top: 0;
     border-color: $grey;
   }
-  .title-and-info {
-    margin-top: 35px; //h3 15px + 34.88px
-  }
+
   #contentAndOutcomes-courseContent,
   #prep-prerequisites,
   #reqToFinal-gradingScale,
@@ -499,6 +499,11 @@ span.section-info {
     font-weight: normal;
     margin-right: 1.25em;
     margin-left: 1.25em;
+  }
+
+  .form-check input[type='checkbox'] ~ label:before {
+    background-color: $white;
+    border-radius: $border-radius;
   }
 }
 .section_info_visibility_icon_v {
@@ -960,5 +965,76 @@ table {
         margin: 0;
       }
     }
+  }
+}
+
+.heading-box {
+  margin-top: 1em;
+  width: 100%;
+  background-color: $lightGrey;
+  border: 1px solid transparent;
+
+  &.padding {
+    padding: 1em;
+  }
+
+  > section {
+    padding: 1em;
+  }
+
+  &:not(.padding) {
+    > .heading-box {
+      border-bottom: 0;
+      border-left: 0;
+      border-right: 0;
+      padding-top: 0em;
+    }
+  }
+
+  &.ready {
+    border: 1px solid $borderGrey;
+    border-radius: $border-radius;
+
+    background-color: $white;
+  }
+}
+
+.toggle-editor {
+  @extend %react-icon-basic;
+  background-repeat: no-repeat;
+  vertical-align: middle; //flex
+  height: 16px;
+  width: 20px;
+  cursor: pointer;
+  display: block;
+
+  &.closed {
+    background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/edit-blue.svg');
+  }
+
+  &.opened {
+    background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/close-black.svg');
+  }
+}
+
+span.section-heading {
+  display: flex;
+  column-gap: 1em;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+  align-content: stretch;
+
+  Form {
+    width: 100%;
+
+    input,
+    input:focus {
+      background-color: white;
+    }
+  }
+
+  .toggle-editor {
+    align-self: flex-start;
   }
 }

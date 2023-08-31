@@ -2,28 +2,17 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-nested-ternary */
 import React from 'react'
-import { Button } from 'reactstrap'
 import PropTypes from 'prop-types'
 import { context, contentParam, isRequired, typeOfHeader } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 
-const VisibilityInfo = ({
-  contentId,
-  visibleInMemo,
-  isEditorOpen,
-  onToggleVisibleInMemo,
-  onToggleEditor,
-  sectionType,
-  userLangIndex,
-  contentName,
-}) => {
+const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, sectionType, userLangIndex, children }) => {
   const dataOrigin = contentParam(contentId, 'source')
 
   const isHeaderInConf = !!context[contentId]
 
-  const { isEditable = false } = context[contentId] || {}
-  const { sourceInfo, buttons, memoTitlesByMemoLang: memoTitles } = i18n.messages[userLangIndex]
+  const { sourceInfo } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
   return (
     <span className="section-info word-break">
@@ -64,37 +53,17 @@ const VisibilityInfo = ({
           )}
         </span>
       </span>
-      {(!isHeaderInConf || isEditable) && (
-        <Button
-          aria-label={`${isEditorOpen ? buttons.closeEditor : buttons.edit} ${
-            memoTitles[contentId] || memoTitles[contentId.substring(0, contentId.length - 10)] || contentName
-          }`}
-          className="mb-0 mt-0"
-          onClick={() => onToggleEditor()}
-          data-testid={isEditorOpen ? `btn-close-editor-${contentId}` : `btn-open-editor-${contentId}`}
-        >
-          {isEditorOpen ? buttons.closeEditor : buttons.edit}
-        </Button>
-      )}
+      {children}
     </span>
   )
 }
 
 VisibilityInfo.propTypes = {
   contentId: PropTypes.string.isRequired,
-  contentName: PropTypes.string,
-  isEditorOpen: PropTypes.bool,
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
-  onToggleEditor: PropTypes.func,
   sectionType: PropTypes.string.isRequired, // add default
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
-}
-
-VisibilityInfo.defaultProps = {
-  isEditorOpen: null,
-  onToggleEditor: null,
-  contentName: '',
 }
 
 export default VisibilityInfo

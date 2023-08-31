@@ -13,6 +13,9 @@ import CollapseGuidance from '../details/CollapseGuidance'
 import { ExtraHeaderHead } from '../ContentHead'
 import VisibilityInfo from '../VisibilityInfo'
 import editorConf from '../../util/editorInitConf'
+import { SectionHeading } from '../layout/SectionHeading'
+import { EditButton } from './EditButton'
+import HeadingBox from '../layout/HeadingBox'
 
 function ExtraHeadingEditor(props) {
   const store = useStore()
@@ -121,85 +124,111 @@ function ExtraHeadingEditor(props) {
     setOpenStatus(!isOpen)
     return true
   }
+
+  const isReady = React.useMemo(() => {
+    return visibleInMemo && htmlContent !== ''
+  }, [visibleInMemo, htmlContent])
+
   return (
-    <span id={menuId} className="Added--New--Title--And--Info">
-      {!isOpen && (
-        <ExtraHeaderHead
-          header={title}
-          contentId={contentId}
-          memoLangIndex={memoLangIndex}
-          userLangIndex={userLangIndex}
-        />
-      )}
+    <HeadingBox isReady={isReady}>
+      <span id={menuId} className="Added--New--Title--And--Info">
+        {!isOpen && (
+          <>
+            <ExtraHeaderHead
+              header={title}
+              contentId={contentId}
+              memoLangIndex={memoLangIndex}
+              userLangIndex={userLangIndex}
+              contentName={title}
+              isEditorOpen={isOpen}
+              onToggleEditor={toggleEditor}
+            />
+            <VisibilityInfo
+              contentId={`${contentId}-${uKey}`}
+              sectionType="section"
+              visibleInMemo={visibleInMemo}
+              onToggleVisibleInMemo={toggleVisibleInMemo}
+              userLangIndex={userLangIndex}
+            />
+          </>
+        )}
 
-      <VisibilityInfo
-        contentId={`${contentId}-${uKey}`}
-        sectionType="section"
-        visibleInMemo={visibleInMemo}
-        onToggleVisibleInMemo={toggleVisibleInMemo}
-        isEditorOpen={isOpen}
-        onToggleEditor={toggleEditor}
-        userLangIndex={userLangIndex}
-        contentName={title}
-      />
-      {isOpen && (
-        <span data-testid={`extra-content-editor-${contentId}-${uKey}`}>
-          <Form className={showEmptyHeadingErrorLabel ? 'error-area' : ''}>
-            <FormGroup className="title">
-              <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
-                {sourceInfo.addNewHeading}
-              </Label>
-              <Input
-                className="form-control"
-                type="text"
-                id={`headerFor${contentId}-${uKey}`}
-                onChange={setNewHeading}
-                onBlur={onSaveByThisContentId}
-                defaultValue={title}
+        {isOpen && (
+          <span data-testid={`extra-content-editor-${contentId}-${uKey}`}>
+            <SectionHeading>
+              <Form className={showEmptyHeadingErrorLabel ? 'error-area' : ''}>
+                <FormGroup className="title">
+                  <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
+                    {sourceInfo.addNewHeading}
+                  </Label>
+                  <Input
+                    className="form-control"
+                    type="text"
+                    id={`headerFor${contentId}-${uKey}`}
+                    onChange={setNewHeading}
+                    onBlur={onSaveByThisContentId}
+                    defaultValue={title}
+                  />
+                  {showEmptyHeadingErrorLabel && (
+                    <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
+                      {sourceInfo.errorEmptyHeading}
+                    </Label>
+                  )}
+                </FormGroup>
+              </Form>
+              <EditButton
+                buttons={buttons}
+                contentId={contentId}
+                contentName={title}
+                isEditButtonVisible
+                isEditorOpen
+                onToggleEditor={toggleEditor}
               />
-              {showEmptyHeadingErrorLabel && (
-                <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
-                  {sourceInfo.errorEmptyHeading}
-                </Label>
-              )}
-            </FormGroup>
-          </Form>
-          <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
-          <Editor
-            id={`editor-for-${contentId}-${uKey}`}
-            value={htmlContent}
-            init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
-            onEditorChange={setNewContent}
-            onBlur={onSaveByThisContentId}
-          />
-          <ActionModalButton
-            btnLabel={buttons.btnRemoveHeading}
-            modalId={`beforeRemoving-${contentId}-${uKey}`}
-            type="remove"
-            modalLabels={actionModals.newSectionRemove}
-            onConfirm={onRemoveThisContent}
-          />
-        </span>
-      )}
+            </SectionHeading>
+            <VisibilityInfo
+              contentId={`${contentId}-${uKey}`}
+              sectionType="section"
+              visibleInMemo={visibleInMemo}
+              onToggleVisibleInMemo={toggleVisibleInMemo}
+              userLangIndex={userLangIndex}
+            />
+            <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
+            <Editor
+              id={`editor-for-${contentId}-${uKey}`}
+              value={htmlContent}
+              init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
+              onEditorChange={setNewContent}
+              onBlur={onSaveByThisContentId}
+            />
+            <ActionModalButton
+              btnLabel={buttons.btnRemoveHeading}
+              modalId={`beforeRemoving-${contentId}-${uKey}`}
+              type="remove"
+              modalLabels={actionModals.newSectionRemove}
+              onConfirm={onRemoveThisContent}
+            />
+          </span>
+        )}
 
-      {!isOpen &&
-        /* is included in memo, preview text without editor */
-        ((visibleInMemo && (
-          <span
-            dangerouslySetInnerHTML={{
-              __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet.section}</i></p>`,
-            }}
-          />
-        )) ||
-          /* editor has content but is not yet included in pm */
-          (htmlContent !== '' && (
-            <span>
-              <p>
-                <i>{sourceInfo.notIncludedInMemoYet.section}</i>
-              </p>
-            </span>
-          )))}
-    </span>
+        {!isOpen &&
+          /* is included in memo, preview text without editor */
+          ((visibleInMemo && (
+            <span
+              dangerouslySetInnerHTML={{
+                __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet.section}</i></p>`,
+              }}
+            />
+          )) ||
+            /* editor has content but is not yet included in pm */
+            (htmlContent !== '' && (
+              <span>
+                <p>
+                  <i>{sourceInfo.notIncludedInMemoYet.section}</i>
+                </p>
+              </span>
+            )))}
+      </span>
+    </HeadingBox>
   )
 }
 

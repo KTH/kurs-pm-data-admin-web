@@ -7,6 +7,7 @@ import { typeOfHeader } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
+import HeadingBox from '../components/layout/HeadingBox'
 
 const SectionForNonEditable = ({
   contentId,
@@ -20,30 +21,36 @@ const SectionForNonEditable = ({
   const { nothingFetched } = i18n.messages[userLangIndex].sourceInfo
   const typeOfThisHeader = typeOfHeader(contentId)
 
-  return (
-    <span
-      id={menuId}
-      key={contentId}
-      className="main-text-section section-50"
-      data-testid={`section-${typeOfThisHeader}-${contentId}`}
-    >
-      <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
-      <VisibilityInfo
-        contentId={contentId}
-        sectionType="section"
-        visibleInMemo={visibleInMemo}
-        onToggleVisibleInMemo={onToggleVisibleInMemo}
-        userLangIndex={userLangIndex}
-      />
+  const isReady = React.useMemo(() => {
+    return visibleInMemo && html !== ''
+  }, [visibleInMemo, html])
 
+  return (
+    <HeadingBox isReady={isReady}>
       <span
-        data-testid={`text-for-memo-${typeOfThisHeader}-${contentId}`}
-        style={visibleInMemo ? {} : { display: 'none' }}
-        dangerouslySetInnerHTML={{
-          __html: html || `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`,
-        }}
-      />
-    </span>
+        id={menuId}
+        key={contentId}
+        className="main-text-section section-50"
+        data-testid={`section-${typeOfThisHeader}-${contentId}`}
+      >
+        <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
+        <VisibilityInfo
+          contentId={contentId}
+          sectionType="section"
+          visibleInMemo={visibleInMemo}
+          onToggleVisibleInMemo={onToggleVisibleInMemo}
+          userLangIndex={userLangIndex}
+        />
+
+        <span
+          data-testid={`text-for-memo-${typeOfThisHeader}-${contentId}`}
+          style={visibleInMemo ? {} : { display: 'none' }}
+          dangerouslySetInnerHTML={{
+            __html: html || `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`,
+          }}
+        />
+      </span>
+    </HeadingBox>
   )
 }
 SectionForNonEditable.propTypes = {

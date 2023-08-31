@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-danger */
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import PropTypes from 'prop-types'
 import { useStore } from '../../mobx'
@@ -12,12 +12,14 @@ import VisibilityInfo from '../VisibilityInfo'
 import { context } from '../../util/fieldsByType'
 import editorConf from '../../util/editorInitConf'
 import { useSectionContext } from '../../stores/SectionContext'
+import HeadingBox from '../layout/HeadingBox'
+import EditorWithVisibility from './EditorWithVisibility'
 
 function StandardEditorPerTitle(props) {
   const store = useStore()
   const { langIndex: userLangIndex, memoLangAbbr } = store
   const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
-  const { contentId, htmlContent, menuId, visibleInMemo } = props
+  const { contentId, htmlContent, menuId, visibleInMemo, onToggleVisibleInMemo, onSave } = props
 
   const { isRequired, hasParentTitle, openIfContent } = context[contentId]
 
@@ -31,24 +33,6 @@ function StandardEditorPerTitle(props) {
     store.setDirtyEditor(contentId)
   }, [getIsEditorOpen(contentId), visibleInMemo])
 
-  function updateMemoContent(editorContent) {
-    store.setMemoByContentId(contentId, editorContent)
-    // if content changed then update dirtyEditor with contentId
-    store.setDirtyEditor(contentId)
-  }
-
-  function onBlur() {
-    const { dirtyEditor } = store
-    if (dirtyEditor === contentId) {
-      props.onSave({ [contentId]: store.memoData[contentId] }, 'autoSaved')
-    }
-    store.setDirtyEditor('')
-  }
-
-  function toggleVisibleInMemo() {
-    props.onToggleVisibleInMemo(contentId)
-  }
-
   function toggleEditor() {
     const isOpenNext = !getIsEditorOpen(contentId)
     if (contentId === 'examinationSubSection') store.setExaminationModules(isOpenNext)
@@ -56,63 +40,35 @@ function StandardEditorPerTitle(props) {
     setIsEditorOpen(contentId, isOpenNext)
   }
 
-  return (
-    <span id={menuId} className={sectionType + ' section-50'}>
-      {sectionType === 'section' && (
-        <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
-      )}
-      <VisibilityInfo
-        contentId={contentId}
-        sectionType={sectionType}
-        visibleInMemo={visibleInMemo}
-        onToggleVisibleInMemo={toggleVisibleInMemo}
-        isEditorOpen={getIsEditorOpen(contentId)}
-        onToggleEditor={toggleEditor}
-        userLangIndex={userLangIndex}
-      />
-      {getIsEditorOpen(contentId) && (
-        <span data-testid={`standard-editor-${contentId}`}>
-          <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
-          <Editor
-            id={'editor-for-' + contentId}
-            value={htmlContent}
-            init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
-            onEditorChange={updateMemoContent}
-            onBlur={onBlur}
-          />
-        </span>
-      )}
+  const isReady = useMemo(() => {
+    return visibleInMemo && htmlContent !== ''
+  }, [visibleInMemo, htmlContent])
 
-      {!getIsEditorOpen(contentId) &&
-        /* isRequired && empty // type && type === 'mandatoryAndEditable' */
-        ((isRequired && (
-          <span
-            data-testid={`text-for-memo-mandatoryAndEditable-${contentId}`} // "text-for-memo-mandatoryAndEditable"
-            dangerouslySetInnerHTML={{
-              __html:
-                (htmlContent !== '' && htmlContent) ||
-                `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`,
-            }}
+  return (
+    <HeadingBox isReady={isReady}>
+      <span id={menuId} className={sectionType + ' section-50'}>
+        {sectionType === 'section' && (
+          <ContentHead
+            contentId={contentId}
+            memoLangIndex={memoLangIndex}
+            userLangIndex={userLangIndex}
+            isEditorOpen={getIsEditorOpen(contentId)}
+            onToggleEditor={toggleEditor}
           />
-        )) ||
-          /* is included in memo, preview text without editor */
-          (visibleInMemo && (
-            <span
-              data-testid={`text-for-memo-optionalEditable-${contentId}`} // "text-for-memo-optionalEditable"
-              dangerouslySetInnerHTML={{
-                __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet[sectionType]}</i></p>`,
-              }}
-            />
-          )) ||
-          /* editor has content but is not yet included in pm */
-          (htmlContent !== '' && (
-            <span data-testid="dynamic-optional-and-not-included-but-with-content">
-              <p data-testid={`optional-and-excluded-but-with-content-${sectionType}-${contentId}`}>
-                <i>{sourceInfo.notIncludedInMemoYet[sectionType]}</i>
-              </p>
-            </span>
-          )) || <div data-testid="dynamic-empty-content-and-not-included" style={{ display: 'none' }} />)}
-    </span>
+        )}
+      </span>
+      <EditorWithVisibility
+        htmlContent={htmlContent}
+        contentId={contentId}
+        toggleVisibleInMemo={onToggleVisibleInMemo}
+        sectionType={sectionType}
+        userLangIndex={userLangIndex}
+        visibleInMemo={visibleInMemo}
+        isEditorOpen={getIsEditorOpen(contentId)}
+        isRequired={isRequired}
+        onSave={onSave}
+      />
+    </HeadingBox>
   )
 }
 

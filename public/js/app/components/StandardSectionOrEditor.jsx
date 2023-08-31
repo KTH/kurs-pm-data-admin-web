@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { context } from '../util/fieldsByType'
 import StandardEditorPerTitle from './editors/StandardEditorPerTitle'
 import SectionForNonEditable from './SectionForNonEditable'
+import SectionWithSubSection from './SectionWithSubSection'
 
 const StandardSectionOrEditor = ({
   contentId,
@@ -16,20 +17,38 @@ const StandardSectionOrEditor = ({
 }) => {
   const menuId = sectionId + '-' + contentId
   // eslint-disable-next-line react/destructuring-assignment
-  const { isEditable, isRequired } = context[contentId]
+  const { isEditable, isRequired, subSection } = context[contentId]
   const visibleInMemo = isRequired ? true : checkVisibility(contentId, htmlContent)
+  if (isEditable) {
+    return (
+      <StandardEditorPerTitle
+        contentId={contentId}
+        menuId={menuId}
+        key={contentId}
+        htmlContent={htmlContent}
+        onToggleVisibleInMemo={onToggleVisibleInMemo}
+        visibleInMemo={visibleInMemo}
+        onSave={onSave}
+      />
+    )
+  } else if (subSection) {
+    return (
+      <SectionWithSubSection
+        memoLangIndex={memoLangIndex}
+        contentId={contentId}
+        menuId={menuId}
+        key={contentId}
+        visibleInMemo={visibleInMemo}
+        onToggleVisibleInMemo={onToggleVisibleInMemo}
+        html={htmlContent}
+        userLangIndex={userLangIndex}
+        checkVisibility={checkVisibility}
+        onSave={onSave}
+      />
+    )
+  }
 
-  return isEditable ? (
-    <StandardEditorPerTitle
-      contentId={contentId}
-      menuId={menuId}
-      key={contentId}
-      htmlContent={htmlContent}
-      onToggleVisibleInMemo={onToggleVisibleInMemo}
-      visibleInMemo={visibleInMemo}
-      onSave={onSave}
-    />
-  ) : (
+  return (
     <SectionForNonEditable
       memoLangIndex={memoLangIndex}
       contentId={contentId}
