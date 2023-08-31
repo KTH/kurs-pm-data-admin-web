@@ -501,8 +501,7 @@ module.exports = {
       body: `The draft is saved.
         <br/>
         <br/>
-        Saved drafts are displayed on the page "Choose course offering" (steg 1) in the "Saved drafts" section. 
-        Saved drafts can be deleted by selecting the draft and then click on the "Delete draft" button.
+        You will find the draft in the previous step (step 1) under the heading Saved drafts. There you can choose to continue editing the draft or to delete it.
         <br/>
         <br/>
         Do you want to exit?`,

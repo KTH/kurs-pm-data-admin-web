@@ -495,7 +495,7 @@ module.exports = {
       body: `Utkast är sparat.
         <br/>
         <br/>
-        I steg 1: Välj kursomgång, visas sparade utkast under rubriken: Sparade utkast. I detta steg kan du sedan välja att radera utkastet eller att fortsätta redigera.
+        Du hittar utkastet i föregående steg (steg 1) under rubriken Sparade utkast. Där kan du välja att fortsätta redigera utkastet eller att radera det.
         <br/>
         <br/>
         Vill du fortsätta att avsluta?`,
