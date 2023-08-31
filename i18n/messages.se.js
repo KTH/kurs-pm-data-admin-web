@@ -70,7 +70,7 @@ module.exports = {
     mandatoryAndEditable: 'Inkluderas alltid',
     mandatoryForSome: 'Inkluderas när innehåll finns i kursplan',
     includeInMemo: {
-      section: 'Inkludera',
+      section: 'Inkludera i kurs-PM',
       subSection: 'Inkludera ytterligare avsnitt',
     },
     noInfoYet: {

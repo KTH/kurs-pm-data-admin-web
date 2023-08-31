@@ -77,7 +77,7 @@ module.exports = {
     mandatoryAndEditable: 'Always included',
     mandatoryForSome: 'Included when there is content in the course syllabus',
     includeInMemo: {
-      section: 'Include',
+      section: 'Include in course memo',
       subSection: 'Include additional section',
     }, // RUBRIK/ADDITION
     noInfoYet: {
