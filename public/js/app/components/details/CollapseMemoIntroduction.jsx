@@ -233,7 +233,11 @@ const MoreHelp = ({ langAbbr, isDraftOfPublished }) => {
 
 MoreHelp.propTypes = {
   langAbbr: PropTypes.string.isRequired,
-  isDraftOfPublished: PropTypes.bool.isRequired,
+  isDraftOfPublished: PropTypes.bool,
+}
+
+MoreHelp.defaultProps = {
+  isDraftOfPublished: false,
 }
 
 const HelpEdit = ({ langAbbr, isDraftOfPublished }) => (
