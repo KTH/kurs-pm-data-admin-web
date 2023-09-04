@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const HeadingBox = ({ children, isReady, plain }) => {
+const HeadingBox = ({ children, isReady, withNested }) => {
   const classNames = ['heading-box']
-  if (!plain) {
-    classNames.push('padding')
-  }
   if (isReady) {
     classNames.push('ready')
+  }
+  if (withNested) {
+    classNames.push('with-nested')
   }
 
   return <section className={classNames.join(' ')}>{children}</section>

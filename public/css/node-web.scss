@@ -190,7 +190,7 @@ $border-radius: 0.25rem;
     }
   }
   .title-and-info > h3 {
-    margin-top: 15px;
+    margin-top: 0px;
   }
   .alert {
     margin-bottom: 0;
@@ -306,7 +306,7 @@ $border-radius: 0.25rem;
 
 .Added--New--Title--And--Info {
   & > .section-info {
-    margin-top: 50px;
+    margin-top: 0px;
     margin-bottom: 0; //editor is open
   }
   .title-and-info + .section-info {
@@ -494,6 +494,7 @@ span.section-info {
 .section_info_visibility_label {
   @extend %react-icon-basic;
   margin-right: 0.63em; //10.08px
+  display: contents;
   .source::before {
     content: '|';
     font-weight: normal;
@@ -973,21 +974,35 @@ table {
   width: 100%;
   background-color: $lightGrey;
   border: 1px solid transparent;
-
-  &.padding {
-    padding: 1em;
-  }
+  display: grid;
+  row-gap: 1em;
+  padding: 1em;
 
   > section {
     padding: 1em;
   }
 
-  &:not(.padding) {
+  > .section-50 {
+    padding-top: 0;
+  }
+
+  > .section-info {
+    padding-top: 0;
+  }
+
+  &.with-nested {
+    padding: 0em;
+
     > .heading-box {
       border-bottom: 0;
       border-left: 0;
       border-right: 0;
-      padding-top: 0em;
+    }
+
+    > section {
+      &:not(.heading-box) {
+        padding-bottom: 0;
+      }
     }
   }
 

@@ -82,7 +82,7 @@ module.exports = {
     }, // RUBRIK/ADDITION
     noInfoYet: {
       section: 'No information is inserted. Click on "Edit" to add information.',
-      subSection: 'No information is inserted. Click on "Edit" to add information.',
+      subSection: 'No information is inserted. Insert information or remove section from course memo.',
     },
     notIncludedInMemoYet: {
       section:

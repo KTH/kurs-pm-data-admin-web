@@ -49,7 +49,7 @@ const SectionWithSubSection = ({
   }, [subSectionVisibleInMemo, subSectionHtmlContent])
 
   return (
-    <HeadingBox isReady plain>
+    <HeadingBox isReady withNested>
       <section>
         <span
           id={menuId}
