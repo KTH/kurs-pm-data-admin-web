@@ -497,14 +497,14 @@ module.exports = {
       btnConfirm: 'Yes, exit',
     },
     infoSaveAndFinish: {
-      header: 'To be aware of before exit!',
+      header: 'Exit with draft',
       body: `The draft is saved.
         <br/>
         <br/>
         You will find the draft in the previous step (step 1) under the heading Saved drafts. There you can choose to continue editing the draft or to delete it.
         <br/>
         <br/>
-        Do you want to exit?`,
+        Do you want to continue to exit?`,
       btnClose: 'No, go back',
       btnConfirm: 'Yes, exit',
     },
@@ -618,7 +618,7 @@ module.exports = {
     btnRemove: 'Delete draft',
     btnRemoveHeading: 'Remove added heading',
     btnFinish: 'Exit',
-    btnSaveAndFinish: 'Exit (save draft)',
+    btnSaveAndFinish: 'Exit with draft',
     closeEditor: 'Close edit mode',
     preview: 'Preview',
     previewPdf: 'Preview PDF',
