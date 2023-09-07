@@ -492,7 +492,7 @@ module.exports = {
     },
     infoSaveAndFinish: {
       header: 'Avsluta med utkast',
-      body: `Utkast är sparat.
+      body: `Utkastet är sparat.
         <br/>
         <br/>
         Du hittar utkastet i föregående steg (steg 1) under rubriken Sparade utkast. Där kan du välja att fortsätta redigera utkastet eller att radera det.
