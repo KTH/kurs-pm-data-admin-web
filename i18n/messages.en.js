@@ -81,7 +81,7 @@ module.exports = {
       subSection: 'Include additional section',
     }, // RUBRIK/ADDITION
     noInfoYet: {
-      section: 'No information is inserted. Click on "Edit" to add information.',
+      section: 'No information is inserted. Insert information or remove section from course memo.',
       subSection: 'No information is inserted. Insert information or remove section from course memo.',
     },
     notIncludedInMemoYet: {
