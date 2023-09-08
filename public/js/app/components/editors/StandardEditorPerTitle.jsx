@@ -67,6 +67,7 @@ function StandardEditorPerTitle(props) {
         isEditorOpen={getIsEditorOpen(contentId)}
         isRequired={isRequired}
         onSave={onSave}
+        onToggleEditor={toggleEditor}
       />
     </HeadingBox>
   )

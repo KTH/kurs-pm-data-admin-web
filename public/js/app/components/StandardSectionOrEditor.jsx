@@ -19,6 +19,7 @@ const StandardSectionOrEditor = ({
   // eslint-disable-next-line react/destructuring-assignment
   const { isEditable, isRequired, subSection } = context[contentId]
   const visibleInMemo = isRequired ? true : checkVisibility(contentId, htmlContent)
+
   if (isEditable) {
     return (
       <StandardEditorPerTitle

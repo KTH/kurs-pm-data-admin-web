@@ -11,6 +11,8 @@ const EditorWithVisibility = ({
   htmlContent,
   isEditorOpen,
   isRequired,
+  onSave,
+  onToggleEditor,
 }) => {
   function onToggleVisibleInMemo() {
     toggleVisibleInMemo(contentId)
@@ -33,6 +35,8 @@ const EditorWithVisibility = ({
         sectionType={sectionType}
         userLangIndex={userLangIndex}
         visibleInMemo={visibleInMemo}
+        onSave={onSave}
+        onToggleEditor={onToggleEditor}
       />
     </>
   )

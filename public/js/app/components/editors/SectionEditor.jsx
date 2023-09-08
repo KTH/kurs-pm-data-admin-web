@@ -4,6 +4,8 @@ import CollapseGuidance from '../details/CollapseGuidance'
 import editorConf from '../../util/editorInitConf'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../../i18n'
+import { Button } from 'reactstrap'
+import { useSectionContext } from '../../stores/SectionContext'
 
 export const SectionEditor = ({
   contentId,
@@ -14,6 +16,7 @@ export const SectionEditor = ({
   isEditorOpen,
   isRequired,
   onSave,
+  onToggleEditor,
 }) => {
   const store = useStore()
   const { sourceInfo, memoInfoByUserLang, buttons } = i18n.messages[userLangIndex]
@@ -44,6 +47,18 @@ export const SectionEditor = ({
             onEditorChange={updateMemoContent}
             onBlur={onBlur}
           />
+          <div className="button-align">
+            <Button
+              className="button-save-close"
+              onClick={() => {
+                onSave()
+                onToggleEditor()
+              }}
+              color="secondary"
+            >
+              {buttons.saveAndCloseEditor}
+            </Button>
+          </div>
         </span>
       )}
 
@@ -73,6 +88,7 @@ export const SectionEditor = ({
             <span data-testid="dynamic-optional-and-not-included-but-with-content">
               <p data-testid={`optional-and-excluded-but-with-content-${sectionType}-${contentId}`}>
                 <i
+                  className="no-visible-in-memo"
                   dangerouslySetInnerHTML={{
                     __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet[sectionType]}</i></p>`,
                   }}

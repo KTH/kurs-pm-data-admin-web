@@ -102,6 +102,7 @@ const SectionWithSubSection = ({
           isEditorOpen={getIsEditorOpen(subSectionContentId)}
           isRequired={false}
           onSave={onSave}
+          onToggleEditor={toggleEditor}
         />
       </HeadingBox>
     </HeadingBox>

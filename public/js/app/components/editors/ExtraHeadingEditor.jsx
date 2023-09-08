@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { Form, FormGroup, Label, Input } from 'reactstrap'
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 import { useStore } from '../../mobx'
@@ -200,13 +200,25 @@ function ExtraHeadingEditor(props) {
               onEditorChange={setNewContent}
               onBlur={onSaveByThisContentId}
             />
-            <ActionModalButton
-              btnLabel={buttons.btnRemoveHeading}
-              modalId={`beforeRemoving-${contentId}-${uKey}`}
-              type="remove"
-              modalLabels={actionModals.newSectionRemove}
-              onConfirm={onRemoveThisContent}
-            />
+            <div className="extra-heading-buttons">
+              <ActionModalButton
+                btnLabel={buttons.btnRemoveHeading}
+                modalId={`beforeRemoving-${contentId}-${uKey}`}
+                type="remove"
+                modalLabels={actionModals.newSectionRemove}
+                onConfirm={onRemoveThisContent}
+              />
+              <Button
+                className="button-save-close"
+                onClick={() => {
+                  props.onSave({ [contentId]: store.memoData[contentId] }, 'autoSaved')
+                  setOpenStatus(false)
+                }}
+                color="secondary"
+              >
+                {buttons.saveAndCloseEditor}
+              </Button>
+            </div>
           </span>
         )}
 
@@ -223,7 +235,7 @@ function ExtraHeadingEditor(props) {
             (htmlContent !== '' && (
               <span>
                 <p>
-                  <i>{sourceInfo.notIncludedInMemoYet.section}</i>
+                  <i className="no-visible-in-memo">{sourceInfo.notIncludedInMemoYet.section}</i>
                 </p>
               </span>
             )))}

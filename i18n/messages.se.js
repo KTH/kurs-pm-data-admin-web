@@ -611,6 +611,7 @@ module.exports = {
     btnFinish: 'Avsluta',
     btnSaveAndFinish: 'Avsluta med utkast',
     closeEditor: 'Stäng redigeringsläge',
+    saveAndCloseEditor: 'Spara och stäng',
     preview: 'Granska',
     previewPdf: 'Granska PDF',
     edit: 'Redigera',

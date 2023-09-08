@@ -997,6 +997,25 @@ table {
 
     background-color: $white;
   }
+  .button-align {
+    text-align: right;
+    .button-save-close {
+      background-color: $white;
+    }
+  }
+  .extra-heading-buttons {
+    display: flex;
+    justify-content: space-between;
+    .button-save-close {
+      background-color: $white;
+    }
+  }
+  .no-visible-in-memo {
+    opacity: 50%;
+  }
+  .form-control-label {
+    padding-bottom: 0.5em;
+  }
 }
 
 .toggle-editor {
@@ -1010,10 +1029,26 @@ table {
 
   &.closed {
     background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/edit-blue.svg');
+    &:after {
+      content: '';
+      position: absolute;
+      right: 60px;
+      width: 400px;
+      height: 200px;
+      margin-top: -25px;
+    }
   }
 
   &.opened {
     background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/close-black.svg');
+    &:after {
+      content: '';
+      position: absolute;
+      right: 60px;
+      width: 400px;
+      height: 150px;
+      margin-top: -25px;
+    }
   }
 }
 

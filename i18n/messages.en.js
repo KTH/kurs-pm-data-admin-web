@@ -619,6 +619,7 @@ module.exports = {
     btnRemoveHeading: 'Remove added heading',
     btnFinish: 'Exit',
     btnSaveAndFinish: 'Exit with draft',
+    saveAndCloseEditor: 'Save and exit',
     closeEditor: 'Close edit mode',
     preview: 'Preview',
     previewPdf: 'Preview PDF',
