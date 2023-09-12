@@ -307,7 +307,7 @@ $border-radius: 0.25rem;
 .Added--New--Title--And--Info {
   & > .section-info {
     margin-top: 0px;
-    margin-bottom: 0; //editor is open
+    margin-bottom: 1em; //editor is open
   }
   .title-and-info + .section-info {
     margin-top: 0;
@@ -319,6 +319,9 @@ $border-radius: 0.25rem;
   .error-label {
     color: $red;
     font-weight: normal;
+  }
+  .extra-margin-bottom {
+    margin-bottom: 1em !important;
   }
 }
 
@@ -347,7 +350,7 @@ $border-radius: 0.25rem;
 }
 
 .btn-secondary {
-  background-color: #f6f6f6;
+  background-color: #ffffff;
 }
 
 .btns-helpers {
@@ -389,9 +392,9 @@ $border-radius: 0.25rem;
   border-bottom: none;
   border-top: none;
   & + .vertical-separator {
-    border-right: 1px solid $borderGrey;
+    border-left: 1px solid $borderGrey;
     border-top: none;
-    margin-right: 50px;
+    // margin-right: 50px;
   }
   &:first-of-type {
     padding-top: 0;
@@ -460,11 +463,12 @@ $border-radius: 0.25rem;
 
   @media (min-width: 992px) {
     #mainMenu.col {
-      max-width: 250px;
+      max-width: 245px;
     }
     .progress-title {
       display: flex !important;
     }
+    max-width: 21.66%;
   }
 
   .content-overview {
@@ -517,7 +521,7 @@ span.section-info {
   background-repeat: no-repeat;
   vertical-align: middle;
   position: absolute;
-  right: 0;
+  right: 5px;
   height: 16px;
   width: 20px;
 }
@@ -970,7 +974,7 @@ table {
 }
 
 .heading-box {
-  margin-top: 1em;
+  margin-top: 2em;
   width: 100%;
   background-color: $lightGrey;
   border: 1px solid transparent;
@@ -1044,26 +1048,10 @@ table {
 
   &.closed {
     background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/edit-blue.svg');
-    &:after {
-      content: '';
-      position: absolute;
-      right: 60px;
-      width: 400px;
-      height: 200px;
-      margin-top: -25px;
-    }
   }
 
   &.opened {
     background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/close-black.svg');
-    &:after {
-      content: '';
-      position: absolute;
-      right: 60px;
-      width: 400px;
-      height: 150px;
-      margin-top: -25px;
-    }
   }
 }
 
@@ -1086,5 +1074,16 @@ span.section-heading {
 
   .toggle-editor {
     align-self: flex-start;
+  }
+}
+
+.extend-clickable-area {
+  &:after {
+    content: '';
+    position: absolute;
+    right: 60px;
+    width: 428px;
+    height: 58px;
+    margin-top: -20px;
   }
 }

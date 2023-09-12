@@ -26,6 +26,7 @@ const EditorWithVisibility = ({
         visibleInMemo={visibleInMemo}
         onToggleVisibleInMemo={onToggleVisibleInMemo}
         userLangIndex={userLangIndex}
+        onToggleEditor={onToggleEditor}
       />
       <SectionEditor
         contentId={contentId}

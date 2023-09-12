@@ -183,6 +183,7 @@ function ExtraHeadingEditor(props) {
                 isEditButtonVisible
                 isEditorOpen
                 onToggleEditor={toggleEditor}
+                extraHeadingEditor="true"
               />
             </SectionHeading>
             <VisibilityInfo
@@ -192,7 +193,9 @@ function ExtraHeadingEditor(props) {
               onToggleVisibleInMemo={toggleVisibleInMemo}
               userLangIndex={userLangIndex}
             />
-            <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
+            <span>
+              <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
+            </span>
             <Editor
               id={`editor-for-${contentId}-${uKey}`}
               value={htmlContent}
@@ -235,7 +238,12 @@ function ExtraHeadingEditor(props) {
             (htmlContent !== '' && (
               <span>
                 <p>
-                  <i className="no-visible-in-memo">{sourceInfo.notIncludedInMemoYet.section}</i>
+                  <i
+                    className="no-visible-in-memo"
+                    dangerouslySetInnerHTML={{
+                      __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet.section}</i></p>`,
+                    }}
+                  ></i>
                 </p>
               </span>
             )))}

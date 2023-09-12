@@ -82,6 +82,7 @@ const SectionWithSubSection = ({
           visibleInMemo={subSectionVisibleInMemo}
           onToggleVisibleInMemo={onToggleVisibleInMemo}
           userLangIndex={userLangIndex}
+          onToggleEditor={toggleEditor}
         >
           <EditButton
             buttons={buttons}

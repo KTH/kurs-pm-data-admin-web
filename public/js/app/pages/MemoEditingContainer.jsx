@@ -435,11 +435,11 @@ function MemoContainer(props) {
         </Sticky>
 
         <Row className="memo-content-row">
-          <Col lg="8" className="memo-content tab-content" id="memoTabContent">
+          <Col lg="9" className="memo-content tab-content" id="memoTabContent">
             {renderTabSections()}
           </Col>
           <Col className="vertical-separator" />
-          <Col lg="3" className="sticky-overview">
+          <Col lg="2" className="sticky-overview">
             <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
               {({ style, isSticky }) => (
                 <div

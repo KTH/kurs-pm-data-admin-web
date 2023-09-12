@@ -46,7 +46,7 @@ function StandardEditorPerTitle(props) {
 
   return (
     <HeadingBox isReady={isReady}>
-      <span id={menuId} className={sectionType + ' section-50'}>
+      <span id={menuId} className={sectionType + ' section-50'} onClick={toggleEditor}>
         {sectionType === 'section' && (
           <ContentHead
             contentId={contentId}

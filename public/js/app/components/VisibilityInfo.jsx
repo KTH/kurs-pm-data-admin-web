@@ -7,7 +7,15 @@ import { context, contentParam, isRequired, typeOfHeader } from '../util/fieldsB
 
 import i18n from '../../../../i18n'
 
-const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, sectionType, userLangIndex, children }) => {
+const VisibilityInfo = ({
+  contentId,
+  visibleInMemo,
+  onToggleVisibleInMemo,
+  sectionType,
+  userLangIndex,
+  children,
+  onToggleEditor,
+}) => {
   const dataOrigin = contentParam(contentId, 'source')
 
   const isHeaderInConf = !!context[contentId]
@@ -15,8 +23,9 @@ const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, secti
   const { sourceInfo } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
   return (
-    <span className="section-info word-break">
-      <span>
+    <span className="section-info word-break" onClick={onToggleEditor}>
+      {' '}
+      <span className="extra-margin-bottom">
         <span className="section_info_visibility_label">
           {(isRequired(contentId) && (
             <p className="mandatory" data-testid="data-origin">
@@ -64,6 +73,7 @@ VisibilityInfo.propTypes = {
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   sectionType: PropTypes.string.isRequired, // add default
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
+  onToggleEditor: PropTypes.func.isRequired,
 }
 
 export default VisibilityInfo
