@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  mock-api:
+    build: .
+    ports:
+      - 3001:3000

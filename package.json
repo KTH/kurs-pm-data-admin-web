@@ -45,7 +45,7 @@
     "@kth/monitor": "^4.1.1",
     "@kth/server": "^4.0.4",
     "@kth/session": "^3.0.8",
-    "@kth/ug-rest-api-helper": "^1.0.24",
+    "@kth/ug-rest-api-helper": "^1.0.25",
     "@tinymce/tinymce-react": "^4.3.0",
     "applicationinsights": "^2.7.3",
     "axios": "^0.27.2",
@@ -118,7 +118,7 @@
     "webpack-cli": "^4.10.0"
   },
   "engines": {
-    "node": "16"
+    "node": "20"
   },
   "jshintConfig": {
     "maxerr": 5

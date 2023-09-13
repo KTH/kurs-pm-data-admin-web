@@ -6,7 +6,7 @@ The new administraion site makes it possible to create and manage course memos.
 
 ![Version](https://img.shields.io/badge/version-4.0.0-blue.svg?cacheSeconds=2592000)
 ![TinyMce version (locally)](<https://img.shields.io/badge/TinyMce-5.10.3%20(2022--02--09)-brightgreen>)
-![Prerequisite](https://img.shields.io/badge/node-14.2.0-blue.svg)
+![Prerequisite](https://img.shields.io/badge/node-20.6.1-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 
 ## Introduction
@@ -33,7 +33,7 @@ Application is fetching/saving data from/to [https://github.com/KTH/kurs-pm-data
 
 ## Prerequisites
 
-- Node.js 16
+- Node.js 20
 
 Because OICD library is compatible only with node 12.0.0 or > 14.2.0
 
