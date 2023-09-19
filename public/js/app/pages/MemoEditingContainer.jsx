@@ -438,8 +438,7 @@ function MemoContainer(props) {
           <Col lg="9" className="memo-content tab-content" id="memoTabContent">
             {renderTabSections()}
           </Col>
-          <Col className="vertical-separator" />
-          <Col lg="2" className="sticky-overview">
+          <Col lg="3" className="sticky-overview">
             <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
               {({ style, isSticky }) => (
                 <div
@@ -447,6 +446,7 @@ function MemoContainer(props) {
                     ...style,
                     ...{
                       paddingRight: '0',
+                      paddingLeft: '1em',
                       // paddingBottom: '110px',
                       paddingTop: isSticky ? OVERVIEW_TOP_PADDING : '0',
                     },

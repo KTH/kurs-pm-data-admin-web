@@ -452,8 +452,9 @@ $border-radius: 0.25rem;
 .sticky-overview {
   @extend %bordered-area;
   border-color: $grey;
+  border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-left: none;
+  border-left: 1px solid;
   border-bottom: none;
   padding-left: 0;
 
@@ -468,7 +469,7 @@ $border-radius: 0.25rem;
     .progress-title {
       display: flex !important;
     }
-    max-width: 21.66%;
+    max-width: 25%;
   }
 
   .content-overview {
@@ -521,7 +522,7 @@ span.section-info {
   background-repeat: no-repeat;
   vertical-align: middle;
   position: absolute;
-  right: 5px;
+  right: -5px;
   height: 16px;
   width: 20px;
 }
