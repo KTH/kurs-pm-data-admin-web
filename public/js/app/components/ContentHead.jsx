@@ -76,7 +76,7 @@ const BasicHeaderHead = ({
   const ariaLabel = getInfoModalAriaLabel(userLangIndex, header)
 
   return (
-    <SectionHeading onToggleEditor={onToggleEditor}>
+    <SectionHeading>
       <HeadingAsteriskModal
         modalBtnAriaLabel={ariaLabel}
         modalId={contentId}

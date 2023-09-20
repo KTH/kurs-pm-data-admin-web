@@ -6,16 +6,9 @@ import PropTypes from 'prop-types'
 import { context, contentParam, isRequired, typeOfHeader } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
+import { OnClickPropagationStopper } from './editors/OnClickPropagationStopper'
 
-const VisibilityInfo = ({
-  contentId,
-  visibleInMemo,
-  onToggleVisibleInMemo,
-  sectionType,
-  userLangIndex,
-  children,
-  onToggleEditor,
-}) => {
+const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, sectionType, userLangIndex, children }) => {
   const dataOrigin = contentParam(contentId, 'source')
 
   const isHeaderInConf = !!context[contentId]
@@ -23,17 +16,17 @@ const VisibilityInfo = ({
   const { sourceInfo } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
   return (
-    <span className="section-info word-break" onClick={onToggleEditor}>
+    <span className="section-info word-break">
       {' '}
-      <span className="extra-margin-bottom">
-        <span className="section_info_visibility_label">
-          {(isRequired(contentId) && (
-            <p className="mandatory" data-testid="data-origin">
-              <b>{sourceInfo[typeOfHeader(contentId)]}</b>
-              {dataOrigin && <b className="source">{fetched} </b>}
-              {dataOrigin && sourceInfo[dataOrigin]}
-            </p>
-          )) || (
+      <span className="section_info_visibility_label">
+        {(isRequired(contentId) && (
+          <p className="mandatory" data-testid="data-origin">
+            <b>{sourceInfo[typeOfHeader(contentId)]}</b>
+            {dataOrigin && <b className="source">{fetched} </b>}
+            {dataOrigin && sourceInfo[dataOrigin]}
+          </p>
+        )) || (
+          <OnClickPropagationStopper>
             <form className="Show--Or--Not--inMemo">
               <div className="form-check form-group">
                 <input
@@ -59,8 +52,8 @@ const VisibilityInfo = ({
                 {isHeaderInConf && dataOrigin && sourceInfo[dataOrigin]}
               </div>
             </form>
-          )}
-        </span>
+          </OnClickPropagationStopper>
+        )}
       </span>
       {children}
     </span>
@@ -73,7 +66,7 @@ VisibilityInfo.propTypes = {
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   sectionType: PropTypes.string.isRequired, // add default
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
-  onToggleEditor: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 }
 
 export default VisibilityInfo

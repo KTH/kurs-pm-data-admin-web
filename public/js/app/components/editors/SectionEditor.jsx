@@ -4,8 +4,8 @@ import CollapseGuidance from '../details/CollapseGuidance'
 import editorConf from '../../util/editorInitConf'
 import { Editor } from '@tinymce/tinymce-react'
 import i18n from '../../../../../i18n'
-import { Button } from 'reactstrap'
-import { useSectionContext } from '../../stores/SectionContext'
+import { SaveAndCloseButton } from './SaveAndCloseButton'
+import { OnClickPropagationStopper } from './OnClickPropagationStopper'
 
 export const SectionEditor = ({
   contentId,
@@ -35,30 +35,28 @@ export const SectionEditor = ({
     store.setDirtyEditor('')
   }
 
+  const onSaveAndClose = React.useCallback(() => {
+    onSave()
+    onToggleEditor()
+  }, [onSave, onToggleEditor])
+
   return (
     <>
       {isEditorOpen && (
-        <span data-testid={`standard-editor-${contentId}`}>
-          <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
-          <Editor
-            id={'editor-for-' + contentId}
-            value={htmlContent}
-            init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
-            onEditorChange={updateMemoContent}
-            onBlur={onBlur}
-          />
-          <div className="button-align">
-            <Button
-              className="button-save-close"
-              onClick={() => {
-                onSave()
-                onToggleEditor()
-              }}
-              color="secondary"
-            >
-              {buttons.saveAndCloseEditor}
-            </Button>
-          </div>
+        <span data-testid={`standard-editor-${contentId}`} className="editor">
+          <OnClickPropagationStopper>
+            <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
+          </OnClickPropagationStopper>
+          <OnClickPropagationStopper>
+            <Editor
+              id={'editor-for-' + contentId}
+              value={htmlContent}
+              init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
+              onEditorChange={updateMemoContent}
+              onBlur={onBlur}
+            />
+          </OnClickPropagationStopper>
+          <SaveAndCloseButton onSaveAndClose={onSaveAndClose} text={buttons.saveAndCloseEditor} />
         </span>
       )}
 

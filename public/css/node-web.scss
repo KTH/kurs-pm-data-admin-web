@@ -281,9 +281,6 @@ $border-radius: 0.25rem;
   .first-15 {
     padding-top: 15px;
   }
-  .vertical-separator {
-    max-width: 15%;
-  }
 
   .upper-alert {
     .alert {
@@ -307,21 +304,16 @@ $border-radius: 0.25rem;
 .Added--New--Title--And--Info {
   & > .section-info {
     margin-top: 0px;
-    margin-bottom: 1em; //editor is open
   }
   .title-and-info + .section-info {
     margin-top: 0;
   }
   .form-group.title {
     margin-top: 0;
-    margin-bottom: 15px;
   }
   .error-label {
     color: $red;
     font-weight: normal;
-  }
-  .extra-margin-bottom {
-    margin-bottom: 1em !important;
   }
 }
 
@@ -391,11 +383,6 @@ $border-radius: 0.25rem;
   border-right: none;
   border-bottom: none;
   border-top: none;
-  & + .vertical-separator {
-    border-left: 1px solid $borderGrey;
-    border-top: none;
-    // margin-right: 50px;
-  }
   &:first-of-type {
     padding-top: 0;
   }
@@ -440,10 +427,6 @@ $border-radius: 0.25rem;
   span:first-of-type h2 {
     margin-top: 0;
   }
-  .section-info + span > p {
-    // max-width: 730px;
-    margin-top: 1em;
-  }
   .title-and-info + p {
     font-weight: 900;
   }
@@ -451,10 +434,9 @@ $border-radius: 0.25rem;
 
 .sticky-overview {
   @extend %bordered-area;
-  border-color: $grey;
+  border-right-color: $grey;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-left: 1px solid;
   border-bottom: none;
   padding-left: 0;
 
@@ -491,7 +473,6 @@ $border-radius: 0.25rem;
 span.section-info {
   @extend %row;
   justify-content: space-between;
-  padding-top: 1rem; // + button = 20px
   .mandatory {
     margin-top: 5px; //  = 20px
   }
@@ -886,10 +867,6 @@ $editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bo
   }
 }
 
-div.tox.tox-tinymce {
-  margin-bottom: 1rem;
-}
-
 //===STYLES FOR EDITOR AND PLAIN TEXT, SHOULD NOT HAVE PARENT CLASSES, BUT BE GLOBAL===
 p,
 ul,
@@ -991,7 +968,7 @@ table {
     padding-top: 0;
   }
 
-  > .section-info {
+  .section-info {
     padding-top: 0;
   }
 
@@ -1017,24 +994,26 @@ table {
 
     background-color: $white;
   }
-  .button-align {
-    text-align: right;
-    .button-save-close {
-      background-color: $white;
+
+  span.editor {
+    display: grid;
+    grid-gap: 1em;
+
+    details {
+      margin-bottom: 0;
+    }
+
+    button {
+      justify-self: right;
     }
   }
+
   .extra-heading-buttons {
     display: flex;
     justify-content: space-between;
-    .button-save-close {
-      background-color: $white;
-    }
   }
   .no-visible-in-memo {
     opacity: 50%;
-  }
-  .form-control-label {
-    padding-bottom: 0.5em;
   }
 }
 
@@ -1078,13 +1057,6 @@ span.section-heading {
   }
 }
 
-.extend-clickable-area {
-  &:after {
-    content: '';
-    position: absolute;
-    right: 60px;
-    width: 428px;
-    height: 58px;
-    margin-top: -20px;
-  }
+.clickable {
+  cursor: pointer;
 }

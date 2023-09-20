@@ -16,9 +16,7 @@ export const EditButton = ({
 
   return (
     <span
-      className={`toggle-editor ${isEditorOpen ? 'opened' : 'closed'} ${
-        isEditorOpen && extraHeadingEditor ? 'extend-clickable-area' : ''
-      }`}
+      className={`toggle-editor ${isEditorOpen ? 'opened' : 'closed'}`}
       aria-label={`${isEditorOpen ? buttons.closeEditor : buttons.edit} ${contentName}`}
       onClick={() => onToggleEditor()}
       data-testid={isEditorOpen ? `btn-close-editor-${contentId}` : `btn-open-editor-${contentId}`}

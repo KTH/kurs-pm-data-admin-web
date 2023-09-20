@@ -16,6 +16,8 @@ import editorConf from '../../util/editorInitConf'
 import { SectionHeading } from '../layout/SectionHeading'
 import { EditButton } from './EditButton'
 import HeadingBox from '../layout/HeadingBox'
+import { SaveAndCloseButton } from './SaveAndCloseButton'
+import { OnClickPropagationStopper } from './OnClickPropagationStopper'
 
 function ExtraHeadingEditor(props) {
   const store = useStore()
@@ -130,8 +132,8 @@ function ExtraHeadingEditor(props) {
   }, [visibleInMemo, htmlContent])
 
   return (
-    <HeadingBox isReady={isReady}>
-      <span id={menuId} className="Added--New--Title--And--Info">
+    <HeadingBox isReady={isReady} onToggleEditor={toggleEditor}>
+      <span id={menuId} className="Added--New--Title--And--Info editor">
         {!isOpen && (
           <>
             <ExtraHeaderHead
@@ -154,21 +156,23 @@ function ExtraHeadingEditor(props) {
         )}
 
         {isOpen && (
-          <span data-testid={`extra-content-editor-${contentId}-${uKey}`}>
+          <span data-testid={`extra-content-editor-${contentId}-${uKey}`} className="editor">
             <SectionHeading>
               <Form className={showEmptyHeadingErrorLabel ? 'error-area' : ''}>
                 <FormGroup className="title">
                   <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
                     {sourceInfo.addNewHeading}
                   </Label>
-                  <Input
-                    className="form-control"
-                    type="text"
-                    id={`headerFor${contentId}-${uKey}`}
-                    onChange={setNewHeading}
-                    onBlur={onSaveByThisContentId}
-                    defaultValue={title}
-                  />
+                  <OnClickPropagationStopper>
+                    <Input
+                      className="form-control"
+                      type="text"
+                      id={`headerFor${contentId}-${uKey}`}
+                      onChange={setNewHeading}
+                      onBlur={onSaveByThisContentId}
+                      defaultValue={title}
+                    />
+                  </OnClickPropagationStopper>
                   {showEmptyHeadingErrorLabel && (
                     <Label htmlFor={`headerFor${contentId}-${uKey}`} className="error-label">
                       {sourceInfo.errorEmptyHeading}
@@ -193,16 +197,18 @@ function ExtraHeadingEditor(props) {
               onToggleVisibleInMemo={toggleVisibleInMemo}
               userLangIndex={userLangIndex}
             />
-            <span>
+            <OnClickPropagationStopper>
               <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
-            </span>
-            <Editor
-              id={`editor-for-${contentId}-${uKey}`}
-              value={htmlContent}
-              init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
-              onEditorChange={setNewContent}
-              onBlur={onSaveByThisContentId}
-            />
+            </OnClickPropagationStopper>
+            <OnClickPropagationStopper>
+              <Editor
+                id={`editor-for-${contentId}-${uKey}`}
+                value={htmlContent}
+                init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
+                onEditorChange={setNewContent}
+                onBlur={onSaveByThisContentId}
+              />
+            </OnClickPropagationStopper>
             <div className="extra-heading-buttons">
               <ActionModalButton
                 btnLabel={buttons.btnRemoveHeading}
@@ -211,16 +217,7 @@ function ExtraHeadingEditor(props) {
                 modalLabels={actionModals.newSectionRemove}
                 onConfirm={onRemoveThisContent}
               />
-              <Button
-                className="button-save-close"
-                onClick={() => {
-                  props.onSave({ [contentId]: store.memoData[contentId] }, 'autoSaved')
-                  setOpenStatus(false)
-                }}
-                color="secondary"
-              >
-                {buttons.saveAndCloseEditor}
-              </Button>
+              <SaveAndCloseButton onSaveAndClose={toggleEditor} text={buttons.saveAndCloseEditor} />
             </div>
           </span>
         )}
