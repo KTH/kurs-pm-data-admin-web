@@ -41,6 +41,7 @@ export const ExtraHeaderHead = ({
   userLangIndex,
   contentName,
   header,
+  uKey,
 }) => {
   return (
     <BasicHeaderHead
@@ -52,6 +53,7 @@ export const ExtraHeaderHead = ({
       memoLangIndex={memoLangIndex}
       onToggleEditor={onToggleEditor}
       userLangIndex={userLangIndex}
+      contentIdAndUKey={`${contentId}-${uKey}`}
     />
   )
 }
@@ -65,6 +67,7 @@ const BasicHeaderHead = ({
   isEditorOpen,
   contentName,
   onToggleEditor,
+  contentIdAndUKey,
 }) => {
   const { buttons } = i18n.messages[memoLangIndex]
   const { memoInfoByUserLang } = i18n.messages[userLangIndex]
@@ -74,6 +77,8 @@ const BasicHeaderHead = ({
     body: memoInfoByUserLang[contentId].body,
   }
   const ariaLabel = getInfoModalAriaLabel(userLangIndex, header)
+
+  const editButtonContentId = contentIdAndUKey || contentId
 
   return (
     <SectionHeading>
@@ -87,7 +92,7 @@ const BasicHeaderHead = ({
       {isEditButtonVisible && (
         <EditButton
           buttons={buttons}
-          contentId={contentId}
+          contentId={editButtonContentId}
           contentName={contentName}
           isEditButtonVisible={isEditButtonVisible}
           isEditorOpen={isEditorOpen}
@@ -107,6 +112,7 @@ BasicHeaderHead.propTypes = {
   isEditorOpen: PropTypes.bool,
   contentName: PropTypes.string,
   onToggleEditor: PropTypes.func,
+  contentIdAndUKey: PropTypes.bool,
 }
 BasicHeaderHead.defaultProps = {
   contentName: '',
@@ -135,4 +141,5 @@ ExtraHeaderHead.propTypes = {
   contentName: PropTypes.string.isRequired,
   header: PropTypes.string.isRequired,
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
+  uKey: PropTypes.bool.isRequired,
 }

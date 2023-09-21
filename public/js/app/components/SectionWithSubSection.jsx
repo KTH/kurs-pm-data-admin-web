@@ -67,7 +67,7 @@ const SectionWithSubSection = ({
           />
 
           <span
-            data-testid={`text-for-memo-${typeOfThisHeader}-${contentId}`}
+            data-testid={`text-for-memo-${typeOfThisHeader}-${subSectionContentId}`}
             style={visibleInMemo ? {} : { display: 'none' }}
             dangerouslySetInnerHTML={{
               __html: html || `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`,
@@ -86,7 +86,7 @@ const SectionWithSubSection = ({
         >
           <EditButton
             buttons={buttons}
-            contentId={contentId}
+            contentId={subSectionContentId}
             contentName={contentName}
             isEditButtonVisible={true}
             isEditorOpen={getIsEditorOpen(subSectionContentId)}

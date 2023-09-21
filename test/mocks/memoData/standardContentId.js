@@ -33,7 +33,7 @@ const standardMemoContent = [
   'teacherAssistants',
 ]
 
-describe('Contol generation of headers which are standard for memo content', () => {
+describe('Control generation of headers which are standard for memo content', () => {
   test('Check standard memo content', done => {
     const s = allStandardHeadersAndSubHd()
 

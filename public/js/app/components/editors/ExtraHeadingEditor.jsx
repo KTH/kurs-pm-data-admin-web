@@ -144,6 +144,7 @@ function ExtraHeadingEditor(props) {
               contentName={title}
               isEditorOpen={isOpen}
               onToggleEditor={toggleEditor}
+              uKey={uKey}
             />
             <VisibilityInfo
               contentId={`${contentId}-${uKey}`}
@@ -182,7 +183,7 @@ function ExtraHeadingEditor(props) {
               </Form>
               <EditButton
                 buttons={buttons}
-                contentId={contentId}
+                contentId={`${contentId}-${uKey}`}
                 contentName={title}
                 isEditButtonVisible
                 isEditorOpen

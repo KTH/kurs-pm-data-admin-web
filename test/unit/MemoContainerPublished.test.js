@@ -172,13 +172,13 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       'Information om Course contents',
       'Information om Intended learning outcomes',
       'Information om Learning activities',
-      'Redigera Läraktiviteter',
+      'Edit Learning activities',
       'Information om Detailed plan', //TODO: add ariaLang
-      'Redigera Detaljplanering',
+      'Edit Detailed plan',
       'Information om Created by user First header for section extraHeaders1',
-      'Redigera Created by user First header for section extraHeaders1', // fix header in extra rubrik
+      'Edit Created by user First header for section extraHeaders1', // fix header in extra rubrik
       'Information om Created by user Second header for section extraHeaders1',
-      'Redigera Created by user Second header for section extraHeaders1', // fix header in extra rubrik
+      'Edit Created by user Second header for section extraHeaders1', // fix header in extra rubrik
       null,
       'Information om Made changes',
       null,
@@ -191,13 +191,13 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       '',
       '',
       '',
-      'Redigera',
       '',
-      'Redigera',
       '',
-      'Redigera',
       '',
-      'Redigera',
+      '',
+      '',
+      '',
+      '',
       'Lägg till rubrik till Content and learning outcomes',
       '',
       'Välj kurs-PM',
@@ -399,7 +399,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
 
   test('tab: contentAndOutcomes (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(2)
-    expect(getAllByText('Inkludera').length).toBe(4)
+    expect(getAllByText('Inkludera i kurs-PM').length).toBe(4)
     expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
@@ -512,19 +512,19 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     const expectedAriaLabels = [
       'Information om Recommended prerequisites',
       'Information om Specific preparations',
-      'Redigera Särskilda förberedelser',
+      'Edit Specific preparations',
       'Information om Literature',
-      'Redigera Kurslitteratur',
+      'Edit Literature',
       'Information om Equipment', //TODO: add ariaLang
-      'Redigera Utrustning',
+      'Edit Equipment',
       'Information om Software',
-      'Redigera Programvara',
+      'Edit Software',
       'Information om Support for students with disabilities',
-      'Redigera Stöd för studenter med funktionsnedsättning',
+      'Edit Support for students with disabilities',
       'Information om Created by user First header for section extraHeaders2',
-      'Redigera Created by user First header for section extraHeaders2', // fix header in extra rubrik
+      'Edit Created by user First header for section extraHeaders2', // fix header in extra rubrik
       'Information om Created by user Second header for section extraHeaders2',
-      'Redigera Created by user Second header for section extraHeaders2', // fix header in extra rubrik
+      'Edit Created by user Second header for section extraHeaders2', // fix header in extra rubrik
       null,
       'Information om Made changes',
       null,
@@ -536,19 +536,19 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     const expectedTextLabel = [
       '',
       '',
-      'Redigera',
       '',
-      'Redigera',
       '',
-      'Redigera',
       '',
-      'Redigera',
       '',
-      'Redigera',
       '',
-      'Redigera',
       '',
-      'Redigera',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
       'Lägg till rubrik till Preparations before course start',
       '',
       'Välj kurs-PM',
@@ -689,9 +689,10 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-equipment')
     expect(checkboxIncludeInMemo.checked).toBeTruthy()
 
-    const visibleEditor = queryByTestId('btn-open-editor-equipment')
-    expect(visibleEditor).toBeInTheDocument()
-    expect(visibleEditor).toHaveTextContent('Redigera')
+    const openEquipment = queryByTestId('btn-open-editor-equipment')
+    expect(openEquipment).toBeInTheDocument()
+    expect(openEquipment).toHaveTextContent('')
+    expect(openEquipment).toHaveAttribute('aria-label', 'Edit Equipment')
 
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
@@ -774,7 +775,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
 
   test('tab: prep (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(2)
-    expect(getAllByText('Inkludera').length).toBe(6)
+    expect(getAllByText('Inkludera i kurs-PM').length).toBe(6)
     expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(1)
   })
@@ -839,24 +840,24 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const expectedAriaLabels = [
       'Information om Grading scale',
       'Information om Examination',
-      'Redigera Examination',
+      'Edit Examination',
       'Information om Other requirements for final grade',
       'Information om Grading criteria/assessment criteria',
-      'Redigera Målrelaterade betygskriterier/bedömningskriterier',
+      'Edit Grading criteria/assessment criteria',
       'Information om Opportunity to complete the requirements via supplementary examination',
-      'Redigera Möjlighet till komplettering',
+      'Edit Opportunity to complete the requirements via supplementary examination',
       'Information om Opportunity to raise an approved grade via renewed examination',
-      'Redigera Möjlighet till plussning',
+      'Edit Opportunity to raise an approved grade via renewed examination',
       'Information om Alternatives to missed activities or tasks',
-      'Redigera Möjlighet till ersättningsuppgifter',
+      'Edit Alternatives to missed activities or tasks',
       'Information om Reporting of exam results',
-      'Redigera Resultatrapportering',
+      'Edit Reporting of exam results',
       'Information om Ethical approach',
-      'Redigera Etiskt förhållningssätt',
+      'Edit Ethical approach',
       'Information om Created by user First header for section extraHeaders3',
-      'Redigera Created by user First header for section extraHeaders3', // fix header in extra rubrik
+      'Edit Created by user First header for section extraHeaders3', // fix header in extra rubrik
       'Information om Created by user Second header for section extraHeaders3',
-      'Redigera Created by user Second header for section extraHeaders3', // fix header in extra rubrik
+      'Edit Created by user Second header for section extraHeaders3', // fix header in extra rubrik
       null,
       'Information om Made changes',
       null,
@@ -879,11 +880,13 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     })
   })
 
-  test('tab: reqToFinal (draft of published). renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct content', async () => {
+  test.only('tab: reqToFinal (draft of published). renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct content', async () => {
     const contentType = 'mandatory'
     const headers = getSectionHeadersByType(contentType, 'reqToFinal')
     expect(headers.length).toBe(3)
+    screen.debug(undefined, Infinity)
     headers.map(contentId => {
+      console.log(contentId)
       const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
       expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
     })
@@ -1022,7 +1025,10 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     const visibleText = queryByTestId('text-for-memo-optionalEditable-ethicalApproachSubSection')
     expect(visibleText).toBeInTheDocument()
 
-    fireEvent.click(getByTestId('checkbox-visibility-ethicalApproachSubSection'))
+    const checkbox = queryByTestId('checkbox-visibility-ethicalApproachSubSection')
+    expect(checkbox).toBeInTheDocument()
+
+    fireEvent.click(checkbox)
     await waitFor(() => {
       const filledInButNotIncludedMsg = queryByTestId(
         'optional-and-excluded-but-with-content-subSection-ethicalApproachSubSection'
@@ -1133,7 +1139,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
 
   test('tab: reqToFinal (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
-    expect(getAllByText('Inkludera').length).toBe(7)
+    expect(getAllByText('Inkludera i kurs-PM').length).toBe(7)
     expect(getAllByText('Inkluderas när innehåll finns i kursplan').length).toBe(1)
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(2)
   })
@@ -1194,11 +1200,11 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
     const expectedAriaLabels = [
       'Information om Additional regulations',
       'Information om Changes of the course before this course offering',
-      'Redigera Ändringar inför denna kursomgång',
+      'Edit Changes of the course before this course offering',
       'Information om Created by user First header for section extraHeaders4',
-      'Redigera Created by user First header for section extraHeaders4',
+      'Edit Created by user First header for section extraHeaders4',
       'Information om Created by user Second header for section extraHeaders4',
-      'Redigera Created by user Second header for section extraHeaders4',
+      'Edit Created by user Second header for section extraHeaders4',
       null,
       'Information om Made changes',
       null,
@@ -1351,7 +1357,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
 
   test('tab: extra (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(screen.queryByText('Inkluderas alltid')).not.toBeInTheDocument()
-    expect(getAllByText('Inkludera').length).toBe(3)
+    expect(getAllByText('Inkludera i kurs-PM').length).toBe(3)
     expect(screen.getByText(/Inkluderas när innehåll finns i kursplan/i)).toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
@@ -1363,7 +1369,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
   beforeEach(
     async () =>
       await act(async () => {
-        await render(<EditPublishedMemo activeTab="contacts" memoLang="en" userLang="sv" />)
+        render(<EditPublishedMemo activeTab="contacts" memoLang="en" userLang="sv" />)
       })
   )
   test('tab: contacts (draft of published). renders a page with a new draft of a new memo', done => {
@@ -1372,7 +1378,6 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH3Headers.length).toBe(11)
   })
 
@@ -1405,13 +1410,13 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
     expect(allButtons.length).toBe(13)
     const expectedAriaLabels = [
       'Information om Communication during course',
-      'Redigera Kommunikation i kursen',
+      'Edit Communication during course',
       'Information om Course coordinator',
       'Information om Teachers',
       'Information om Teacher assistants',
       'Information om Examiner',
       'Information om Other contacts',
-      'Redigera Övriga kontakter',
+      'Edit Other contacts',
       'Information om Made changes',
       null,
       null,
@@ -1566,7 +1571,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
-    expect(getAllByText('Inkludera').length).toBe(3)
+    expect(getAllByText('Inkludera i kurs-PM').length).toBe(3)
     expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })
