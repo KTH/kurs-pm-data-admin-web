@@ -9,6 +9,7 @@ const CollapseGuidance = ({ ariaLabel = '', title, details }) => (
     ariaLabel={ariaLabel || 'Expand this to see a helping text'}
     title={title}
     yellow
+    color="grey"
   >
     <span
       data-testid="help-text"

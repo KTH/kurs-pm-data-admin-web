@@ -1060,3 +1060,12 @@ span.section-heading {
 .clickable {
   cursor: pointer;
 }
+
+details summary.grey {
+  background-color: $lightGrey;
+  color: #006cb7;
+  padding-left: 0;
+}
+details summary.grey::before {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iYSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3LjQxIDEyIj4KICA8cGF0aCBkPSJNMCwxMC41OEw0LjU4LDYsMCwxLjQxLDEuNDEsMCw3LjQxLDYsMS40MSwxMmwtMS40MS0xLjQyWiIgc3R5bGU9ImZpbGw6IzAwNmNiNzsiLz4KPC9zdmc+);
+}
