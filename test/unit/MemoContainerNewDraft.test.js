@@ -112,7 +112,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
       null,
       null,
       null,
-      'Exit with draft',
+      'Exit (save draft)',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -126,7 +126,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
       'Add heading to Content and learning outcomes',
       'Choose course offering',
       'Save draft',
-      'Exit with draft',
+      'Exit (save draft)',
       'Preview',
     ]
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
@@ -239,7 +239,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   test('tab: contentAndOutcomes. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
     expect(getByText('Save draft')).toBeInTheDocument()
-    expect(getByText('Exit with draft')).toBeInTheDocument()
+    expect(getByText('Exit (save draft)')).toBeInTheDocument()
     expect(getByText('Preview')).toBeInTheDocument()
   })
 
@@ -362,7 +362,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
       null,
       null,
       null,
-      'Exit with draft',
+      'Exit (save draft)',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -381,7 +381,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
       'Add heading to Preparations before course start',
       'Choose course offering',
       'Save draft',
-      'Exit with draft',
+      'Exit (save draft)',
       'Preview',
     ]
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
@@ -534,7 +534,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   test('tab: prep. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
     expect(getByText('Save draft')).toBeInTheDocument()
-    expect(getByText('Exit with draft')).toBeInTheDocument()
+    expect(getByText('Exit (save draft)')).toBeInTheDocument()
     expect(getByText('Preview')).toBeInTheDocument()
   })
 
@@ -831,7 +831,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
       'Edit Other contacts',
       null,
       null,
-      'Exit with draft',
+      'Exit (save draft)',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -846,7 +846,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
       'Edit',
       'Choose course offering',
       'Save draft',
-      'Exit with draft',
+      'Exit (save draft)',
       'Preview',
     ]
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
@@ -975,7 +975,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   test('tab: contacts. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
     expect(getByText('Save draft')).toBeInTheDocument()
-    expect(getByText('Exit with draft')).toBeInTheDocument()
+    expect(getByText('Exit (save draft)')).toBeInTheDocument()
     expect(getByText('Preview')).toBeInTheDocument()
   })
 

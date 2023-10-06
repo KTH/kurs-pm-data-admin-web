@@ -19,11 +19,13 @@ function createApplicationStore() {
      * @property {string} dirtyEditor
      * @property {string} semester
      * @property {array} sections
+     * @property {array} tempSavedCourseInstances
      */
     courseCode: null,
     dirtyEditor: observable.box(''),
     semester: null,
     sections: observable.box([]), // will change it it's UPP - contract education
+    tempSavedCourseInstances: ['1'],
     /**
      * @property {object} koppsFreshData
      */
@@ -105,6 +107,7 @@ function createApplicationStore() {
     _filterOutUsedRounds,
     getThisHost,
     showAvailableSemesterRounds: action(showAvailableSemesterRounds),
+    saveTempCourseInstances: action(saveTempCourseInstances),
     postNewMemo: action(postNewMemo),
     updateDraft: action(updateDraft),
     setBrowserConfig: action(setBrowserConfig),
@@ -128,6 +131,9 @@ function setMemoByContentId(contentId, value) {
 function setMemoExtraContent(contentId, currentIndex = null, contextId = null, value = null) {
   this.memoData[contentId][currentIndex][contextId] = value
   // this.memoData[contentId][currentIndex] = value
+}
+function saveTempCourseInstances(round) {
+  this.tempSavedCourseInstances.push(round)
 }
 function setNewEmptyExtraContent(extraHeaderTitle) {
   const newSection = {

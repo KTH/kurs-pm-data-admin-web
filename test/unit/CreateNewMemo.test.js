@@ -425,7 +425,7 @@ test('create a new draft with one round, with correct name (use shortName) in sw
     expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('3')
   })
 })
-
+debugger
 describe('Component <CreateNewMemo> Create and publish course memo, have some saved drafts.', () => {
   beforeEach(
     async () =>
@@ -524,7 +524,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, have some sa
     expect(allButtons.length).toBe(5)
     expect(allButtons[0]).toHaveTextContent('')
     expect(allButtons[1]).toHaveTextContent('Radera utkast')
-    expect(allButtons[2]).toHaveTextContent('Lägg till kurstillfällen')
+    expect(allButtons[2]).toHaveTextContent('Ändra kurstillfällen')
     expect(allButtons[3]).toHaveTextContent(buttonsSV.btnFinish)
     expect(allButtons[4]).toHaveTextContent(buttonsSV.edit)
   })
@@ -537,14 +537,14 @@ describe('Component <CreateNewMemo> Create and publish course memo, have some sa
     })
 
     const addRoundButton = getAllByRole('button')[2]
-    expect(addRoundButton).toHaveTextContent('Lägg till kurstillfällen')
+    expect(addRoundButton).toHaveTextContent('Ändra kurstillfällen')
 
     fireEvent.click(addRoundButton)
     await waitFor(() => {
       const checkboxAddRounds = getAllByTestId('checkbox-add-rounds-to-saved-memo')
-      expect(checkboxAddRounds.length).toBe(1)
+      expect(checkboxAddRounds.length).toBe(2)
       const labelAddRound = getAllByTestId('label-checkbox-add-rounds-to-saved-memo')[0]
-      expect(labelAddRound).toHaveTextContent('HT 2020-1 (Startdatum 2020-10-26, Engelska)')
+      expect(labelAddRound).toHaveTextContent('CBIOT1 m.fl. (Startdatum 2020-10-30, Svenska)')
     })
   })
 
@@ -556,7 +556,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, have some sa
     })
 
     const addRoundButton = getAllByRole('button')[2]
-    expect(addRoundButton).toHaveTextContent('Lägg till kurstillfällen')
+    expect(addRoundButton).toHaveTextContent('Ändra kurstillfällen')
 
     fireEvent.click(addRoundButton)
     await waitFor(() => {

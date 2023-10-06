@@ -15,8 +15,18 @@ const colWidthByProgress = {
 }
 
 const ControlPanel = props => {
-  const { chosenMemoEndPoint, langIndex, onCancel, onRemove, onSubmit, progress, openAlertIdUntilFixed } = props // onSubmit = onForward
-  const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished } = props
+  const {
+    chosenMemoEndPoint,
+    langIndex,
+    onCancel,
+    onFinish,
+    onRemove,
+    onSubmit,
+    progress,
+    openAlertIdUntilFixed,
+    memoStatus,
+  } = props // onSubmit = onForward
+  const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished, event = '' } = props
   const { actionModals, alerts, buttons } = i18n.messages[langIndex]
   const progressNum = Number(progress) || 1
 
@@ -41,15 +51,28 @@ const ControlPanel = props => {
             {buttons.edit}
           </Button>
         )}
-        {progressNum === 1 && chosenMemoEndPoint && onRemove && (
-          <ActionModalButton
-            btnLabel={buttons.btnRemove}
-            modalId="removeCourseRound"
-            type="remove"
-            modalLabels={actionModals.infoRemove}
-            onConfirm={onRemove}
-          />
-        )}
+        {progressNum === 1 &&
+          chosenMemoEndPoint &&
+          onRemove &&
+          (event === 'pm_published' ? (
+            memoStatus === 'draft' && (
+              <ActionModalButton
+                btnLabel={buttons.btnRemoveUnpublishedChanges}
+                modalId="removeCourseRound"
+                type="remove"
+                modalLabels={actionModals.infoRemove}
+                onConfirm={onRemove}
+              />
+            )
+          ) : (
+            <ActionModalButton
+              btnLabel={buttons.btnRemove}
+              modalId="removeCourseRound"
+              type="remove"
+              modalLabels={actionModals.infoRemove}
+              onConfirm={onRemove}
+            />
+          ))}
         {progressNum === 1 && chosenMemoEndPoint && (
           <ActionModalCourseRounds
             chosenMemoEndPoint={chosenMemoEndPoint}
@@ -69,7 +92,7 @@ const ControlPanel = props => {
         {/* Cancel and remove / Just cancel */}
         {(isDraftOfPublished &&
           ((progressNum === 1 && (
-            <Button id="cancelWithoutAction" color="secondary" onClick={onCancel}>
+            <Button id="cancelWithoutAction" color="secondary" onClick={onFinish}>
               {buttons.cancel}
             </Button>
           )) || (
@@ -78,16 +101,16 @@ const ControlPanel = props => {
               modalId="cancelThisActionAndRemoveChanges"
               type="cancel"
               modalLabels={actionModals.infoCancel}
-              onConfirm={onCancel}
+              onConfirm={progressNum === 3 ? onCancel : onCancel}
             />
           ))) || (
           <ActionModalButton
-            aria-label={progressNum === 1 ? buttons.btnFinish : buttons.btnSaveAndFinish}
-            btnLabel={progressNum === 1 ? buttons.btnFinish : buttons.btnSaveAndFinish}
+            aria-label={progressNum === 1 ? buttons.btnFinish : buttons.cancel}
+            btnLabel={progressNum === 1 ? buttons.btnFinish : buttons.cancel}
             modalId="cancelThisAction"
             type="cancel"
             modalLabels={progressNum === 1 ? actionModals.infoFinish : actionModals.infoSaveAndFinish}
-            onConfirm={onCancel}
+            onConfirm={progressNum === 3 ? onCancel : onCancel}
           />
         )}
         {/* Redigera / Granska */}

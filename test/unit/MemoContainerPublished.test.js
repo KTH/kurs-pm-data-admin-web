@@ -176,7 +176,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       'Information om Made changes',
       null,
       null,
-      'Avbryt',
+      'Avsluta med utkast',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -195,7 +195,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       '',
       'Välj kurs-PM',
       'Spara',
-      'Avbryt',
+      'Avsluta med utkast',
       'Granska',
     ]
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
@@ -356,7 +356,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   test('tab: contentAndOutcomes (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
     expect(getByText('Välj kurs-PM')).toBeInTheDocument()
     expect(getByText('Spara')).toBeInTheDocument()
-    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Avsluta med utkast')).toBeInTheDocument()
     expect(getByText('Granska')).toBeInTheDocument()
   })
 
@@ -497,7 +497,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
       'Information om Made changes',
       null,
       null,
-      'Avbryt',
+      'Avsluta med utkast',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -521,7 +521,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
       '',
       'Välj kurs-PM',
       'Spara',
-      'Avbryt',
+      'Avsluta med utkast',
       'Granska',
     ]
     allButtons.forEach((b, index) => expect(b).toHaveTextContent(expectedTextLabel[index]))
@@ -720,7 +720,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   test('tab: prep (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
     expect(getByText('Välj kurs-PM')).toBeInTheDocument()
     expect(getByText('Spara')).toBeInTheDocument()
-    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Avsluta med utkast')).toBeInTheDocument()
     expect(getByText('Granska')).toBeInTheDocument()
   })
 
@@ -826,7 +826,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       'Information om Made changes',
       null,
       null,
-      'Avbryt',
+      'Avsluta med utkast',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -1075,7 +1075,7 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   test('tab: reqToFinal (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
     expect(getByText('Välj kurs-PM')).toBeInTheDocument()
     expect(getByText('Spara')).toBeInTheDocument()
-    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Avsluta med utkast')).toBeInTheDocument()
     expect(getByText('Granska')).toBeInTheDocument()
   })
 
@@ -1164,7 +1164,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
       'Information om Made changes',
       null,
       null,
-      'Avbryt',
+      'Avsluta med utkast',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -1293,7 +1293,7 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   test('tab: extra (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
     expect(getByText('Välj kurs-PM')).toBeInTheDocument()
     expect(getByText('Spara')).toBeInTheDocument()
-    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Avsluta med utkast')).toBeInTheDocument()
     expect(getByText('Granska')).toBeInTheDocument()
   })
 
@@ -1376,7 +1376,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
       'Information om Made changes',
       null,
       null,
-      'Avbryt',
+      'Avsluta med utkast',
       null,
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
@@ -1508,7 +1508,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
   test('tab: contacts (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
     expect(getByText('Välj kurs-PM')).toBeInTheDocument()
     expect(getByText('Spara')).toBeInTheDocument()
-    expect(getByText('Avbryt')).toBeInTheDocument()
+    expect(getByText('Avsluta med utkast')).toBeInTheDocument()
     expect(getByText('Granska')).toBeInTheDocument()
   })
 

@@ -474,6 +474,7 @@ function CreateNewMemo(props) {
         onCancel={onFinish}
         onRemove={onRemoveDraft}
         onSubmit={onSubmitNew}
+        event={'pmdata'}
       />
       <div data-testid="test-data" style={{ display: 'none' }}>
         <p data-testid="actionType">{action}</p>

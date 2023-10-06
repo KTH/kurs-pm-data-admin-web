@@ -272,31 +272,21 @@ function MemoContainer(props) {
 
   // eslint-disable-next-line consistent-return
   const onCancel = async () => {
-    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
-      isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
-    }&term=${semester}&name=${memoName || memoEndPoint}`
+    const startAdminPageUrl = `${SERVICE_URL.courseMemoAdmin}${isDraftOfPublished ? 'published/' : ''}${courseCode}`
 
-    if (!isDraftOfPublished) return handleBtnSaveAndMove(startAdminPageUrl)
+    onAutoSave()
 
-    /* If it is a draft of published version, draft will be deleted */
-    try {
-      const resultAfterDelete = await axios.delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
-      if (resultAfterDelete.status >= 400) {
-        onToastAlert('errWhileDeleting', 'danger')
+    setTimeout(() => {
+      window.location = startAdminPageUrl
+    }, 500)
+  }
 
-        return 'ERROR-MemoContainer.jsx-onCancel-' + resultAfterDelete.status
-      }
-      setTimeout(() => {
-        window.location = startAdminPageUrl
-      }, 500)
-    } catch (err) {
-      onToastAlert('errWhileDeleting', 'danger')
+  const onFinish = () => {
+    const startAdminPageUrl = `${SERVICE_URL.courseMemoAdmin}${isDraftOfPublished ? 'published/' : ''}${courseCode}`
 
-      if (err.response) {
-        throw new Error('MemoContainer.jsx-onCancel-' + err.message)
-      }
-      throw err
-    }
+    setTimeout(() => {
+      window.location = startAdminPageUrl
+    }, 500)
   }
 
   /** * User clicked button to go to next step  ** */
@@ -483,6 +473,7 @@ function MemoContainer(props) {
           onSave={onAutoSave}
           onBack={onBack}
           onCancel={onCancel}
+          onFinish={onFinish}
           progress={2}
           alertText={alertText}
           alertIsOpen={alertIsOpen}

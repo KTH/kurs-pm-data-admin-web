@@ -115,7 +115,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       'Arkiv',
       'Print or save',
       'Redigera',
-      'Avbryt',
+      'Avsluta med utkast',
       'Publicera',
     ]
     expectedBtns.map((btn, index) => expect(allBtns[index]).toHaveTextContent(btn))

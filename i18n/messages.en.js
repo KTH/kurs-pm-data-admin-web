@@ -445,7 +445,7 @@ module.exports = {
   pagesChangePublishedPm: [
     {
       title: 'Choose a course memo',
-      intro: `Start by selecting the course memo you want to change (step 1 of 3). In the next step (2 of 3) you will be able to edit the course memo. In the last step (3 of 3) you can review the course memo and then publish it as a new version on the page: About course/Prepare and take course.`,
+      intro: `Start by selecting the semester and than course memo you want to change (step 1 of 3). In the next step (2 of 3) you will be able to edit the course memo. In the last step (3 of 3) you can review the course memo and then publish it as a new version on the page: About course/Prepare and take course.`,
     },
     {
       title: 'Edit course memo',
@@ -476,13 +476,16 @@ module.exports = {
       btnConfirm: 'Save',
     },
     infoCancel: {
-      header: 'To be aware of before cancelling!',
-      body: `The changes made in this course memo will be deleted if you cancel. The last published version of this course memo will remain unchanged.
+      header: 'Exit with draft',
+      body: `The draft is saved..
         <br/>
         <br/>
-        Do you want to cancel?`,
+        You will find the draft in the previous step (step 1) under the heading Saved drafts. There you can choose to continue editing the draft or to delete it.
+        <br/>
+        <br/>
+        Do you want to continue to exit?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, cancel',
+      btnConfirm: 'Yes, exit',
     },
     infoFinish: {
       header: 'To be aware of before exit!',
@@ -535,6 +538,14 @@ module.exports = {
       btnClose: 'No, go back',
       btnConfirm: 'Yes, delete',
     },
+    infoRemoveCourseRound: {
+      header: 'To be aware of before deleting this course round!',
+      body: `Deleting the course round cannot be undone. Thecours round will be lost.
+      <br/><br/>
+      Do you want do delete this draft?`,
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, delete',
+    },
     newSectionRemove: {
       header: 'To be aware of before deleting this heading!',
       body: `Deleting the heading and its content cannot be undone. The added section will be lost.
@@ -559,6 +570,8 @@ module.exports = {
     choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
       label: 'Choose semester',
+      header: 'Choose semester',
+      body: '<p>Start by selecting the semester and than course memo you want to change.</p>',
     },
     chooseRound: {
       header: 'Choose course offering',
@@ -595,7 +608,7 @@ module.exports = {
       basedOnStandard: 'Empty KTH course memo template',
       basedOnAnotherMemo: 'Copy of a course memo from a previous course offering',
     },
-    publishedHasDraft: ' (has unpublished changes)',
+    publishedHasDraft: ' - draft',
     errKoppsRounds:
       'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     noRoundsToAdd:
@@ -616,6 +629,7 @@ module.exports = {
     btnAddExtra: 'Add heading to ',
     btnClose: 'Close',
     btnRemove: 'Delete draft',
+    btnRemoveUnpublishedChanges: 'Delete unpublished changes',
     btnRemoveHeading: 'Remove added heading',
     btnFinish: 'Exit',
     btnSaveAndFinish: 'Exit with draft',
@@ -623,7 +637,7 @@ module.exports = {
     preview: 'Preview',
     previewPdf: 'Preview PDF',
     edit: 'Edit',
-    cancel: 'Cancel',
+    cancel: 'Exit (save draft)',
     save: 'Save',
     saveDraft: 'Save draft',
     publish: 'Publish',

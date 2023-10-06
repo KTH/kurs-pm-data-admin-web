@@ -50,7 +50,7 @@ const mockMiniMemos = {
       memoName: 'CDATA (Startdatum 2020-03-16, Svenska)',
       semester: '20201',
       status: 'published',
-      version: 1,
+      version: '1',
     },
   ],
   draftsOfPublishedMemos: [
@@ -63,6 +63,16 @@ const mockMiniMemos = {
       semester: '20192',
       status: 'draft',
       version: '2',
+    },
+    {
+      applicationCodes: ['2'],
+      memoCommonLangAbbr: 'en',
+      memoId: '15e82ef70daab3a6669eef2be',
+      memoEndPoint: 'EF111120192-2',
+      memoName: 'Autumn 2019-2 (Start date 26 Aug 2019, English)',
+      semester: '20192',
+      status: 'published',
+      version: '1',
     },
   ],
   draftsWithNoActivePublishedVer: [
