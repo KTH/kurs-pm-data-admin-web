@@ -264,15 +264,18 @@ function MemoContainer(props) {
 
   /** * User clicked button to go to one step back ** */
   const onBack = () => {
+    const eventSavedDraft = `savedDraft`
     const nextUrl = `${SERVICE_URL.courseMemoAdmin}${
       isDraftOfPublished ? 'published/' : ''
-    }${courseCode}?memoEndPoint=${memoEndPoint}`
+    }${courseCode}?memoEndPoint=${memoEndPoint}&semester=${semester}&event=${eventSavedDraft}`
     handleBtnSaveAndMove(nextUrl)
   }
 
   // eslint-disable-next-line consistent-return
   const onCancel = async () => {
-    const startAdminPageUrl = `${SERVICE_URL.courseMemoAdmin}${isDraftOfPublished ? 'published/' : ''}${courseCode}`
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${SAVED_NEW_PARAM}&term=${semester}&name=${
+      memoName || memoEndPoint
+    }`
 
     onAutoSave()
 

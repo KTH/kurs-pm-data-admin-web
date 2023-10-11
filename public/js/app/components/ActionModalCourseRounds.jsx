@@ -54,16 +54,18 @@ function ActionModalCourseRounds(props) {
   const { extraInfo, messages, actionModals, info } = i18n.messages[langIndex]
 
   const getTempSavedCourseInstances = () => {
-    const tempApplicationCodes = applicationCodes.slice(1)
-    const tempSavedCourseInstances = allRounds.filter(round => tempApplicationCodes.includes(round.applicationCode))
-    return tempSavedCourseInstances.map(round => ({ ...round, checked: true }))
+    if (status === 'draft') {
+      const tempApplicationCodes = applicationCodes.slice(1)
+      const tempSavedCourseInstances = allRounds.filter(round => tempApplicationCodes.includes(round.applicationCode))
+      return tempSavedCourseInstances.map(round => ({ ...round, checked: true }))
+    }
+    return []
   }
 
   const combinedAvailableAndTempSavedCourseInstances = [
     ...getTempSavedCourseInstances(),
     ...availableRounds.map(round => ({ ...round, checked: false })),
   ]
-  console.log(combinedAvailableAndTempSavedCourseInstances)
 
   async function fetchMatchingRounds(newMemo) {
     const { semester: memoSemester } = newMemo
@@ -161,7 +163,7 @@ function ActionModalCourseRounds(props) {
 
         const reloadUrl = `${SERVICE_URL.courseMemoAdmin}${
           isDraftOfPublished || isPublished ? 'published/' : ''
-        }${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
+        }${courseCode}?memoEndPoint=${newMemoEndPoint}&semester=${semester}&event=${eventFromParams}`
 
         window.location = reloadUrl
       } catch (error) {

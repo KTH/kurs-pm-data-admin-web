@@ -425,7 +425,6 @@ test('create a new draft with one round, with correct name (use shortName) in sw
     expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('3')
   })
 })
-debugger
 describe('Component <CreateNewMemo> Create and publish course memo, have some saved drafts.', () => {
   beforeEach(
     async () =>

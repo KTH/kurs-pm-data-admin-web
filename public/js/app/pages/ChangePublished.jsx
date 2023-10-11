@@ -16,6 +16,20 @@ import i18n from '../../../../i18n'
 
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
 
+function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
+  if (!existingDraftEndPoint) return
+  const { href, search } = window.location
+  const matchSearch = `memoEndPoint=${existingDraftEndPoint}&semester=${semester}&`
+  if (search && search.includes(matchSearch)) {
+    const searchLeftovers = `${search}`.replace(matchSearch, '')
+    let url = `${href}`
+
+    if (searchLeftovers === '?') url = url.replace(`?${matchSearch}`, '')
+    else url = url.replace(`${matchSearch}`, '')
+
+    window.history.replaceState({}, '', url)
+  }
+}
 function ChangePublished(props) {
   const {
     courseCode,
@@ -55,13 +69,38 @@ function ChangePublished(props) {
   })
 
   useEffect(() => {
+    const { search } = window.location
+    const urlParams = fetchParameters(window)
+    const matchSearch = `event=addedRoundId`
+    const eventDelete = `event=deleteUnsavedChanges`
+    const eventSavedDraft = `event=savedDraft`
+    const { semester, memoEndPoint } = urlParams
+
+    if (
+      (search && search.toString().includes(matchSearch)) ||
+      (search && search.toString().includes(eventSavedDraft))
+    ) {
+      setTerm(semester)
+      setMemo({ existingDraftEndPoint: memoEndPoint, memoStatus: 'draft' })
+    }
+    if (search && search.toString().includes(eventDelete)) setTerm(semester)
+  }, [])
+
+  useEffect(() => {
+    const urlParams = fetchParameters(window)
+    const { semester, memoEndPoint } = urlParams
+    cleanMemoEndPointInSearchParams(memoEndPoint, semester)
+  }, [])
+
+  /* useEffect(() => {
     const { history } = props
+
     if (history) {
       history.push({
         search: '',
       })
     }
-  }, [])
+  }, []) */
 
   function setAlarm(type, textName, isOpen = true) {
     setAlert({
@@ -90,7 +129,9 @@ function ChangePublished(props) {
         setAlarm('danger', 'errWhileSaving')
         return 'ERROR-CreateNewMemo.jsx-onRemoveDraft -' + resultAfterDelete.status
       }
-      window.location.reload()
+      const eventFromParams = 'deleteUnsavedChanges'
+      const reloadUrl = `${SERVICE_URL.courseMemoAdmin}published/${courseCode}?memoEndPoint=${chosenMemo.existingDraftEndPoint}&semester=${term}&event=${eventFromParams}`
+      window.location.replace(reloadUrl)
     } catch (err) {
       setAlarm('danger', 'errWhileSaving')
       if (err.response) {
@@ -235,7 +276,7 @@ function ChangePublished(props) {
                                   name="chooseMemo"
                                   value={memoEndPoint}
                                   onClick={event => onRadioChange(event, status)}
-                                  defaultChecked={false} //memoEndPoint === chosenMemo.existingDraftEndPoint}
+                                  defaultChecked={memoEndPoint === chosenMemo.existingDraftEndPoint}
                                 />
                                 <Label data-testid="label-radio-choose-pub-memo" htmlFor={memoEndPoint}>
                                   {memoName || memoEndPoint + ' (old memo before namegiving)'}

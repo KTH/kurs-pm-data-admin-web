@@ -294,7 +294,9 @@ function PreviewContainer(props) {
       })
 
   const onFinish = () => {
-    const startAdminPageUrl = `${SERVICE_URL.courseMemoAdmin}${isDraftOfPublished ? 'published/' : ''}${courseCode}`
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${SAVED_NEW_PARAM}&term=${semester}&name=${
+      memoName || memoEndPoint
+    }`
 
     setTimeout(() => {
       window.location = startAdminPageUrl

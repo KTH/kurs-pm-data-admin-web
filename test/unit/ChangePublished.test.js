@@ -17,6 +17,14 @@ const { info } = i18n.messages[0]
 const { info: infoSV } = i18n.messages[1]
 const { getAllByRole, getAllByTestId, getByTestId, getByText } = screen
 
+delete global.window.location
+global.window = Object.create(window)
+global.window.location = {}
+
+global.window.location = {
+  href: 'http://localhost:3000/kursinfoadmin/kurs-pm-data/published/EF1111',
+  search: '',
+}
 const ChangedPublishedEmpty = ({ ...rest }) => (
   <StaticRouter>
     <MobxStoreProvider initCallback={() => mockApplicationStore}>
@@ -192,7 +200,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
   })
 
   test('check location for next step to edit published memos after click Edit', async () => {
-    delete window.location
+    //delete window.location
     render(<ChangedPublishedWithData langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20192' } })
@@ -213,25 +221,6 @@ describe('Component <ChangedPublished> Add course instances to chosed published 
   test('renders a page', () => {
     render(<ChangedPublishedWithData />)
   })
-  test('show a modal Add course instances if clicked button Add a course instance to a saved draft. Memo in English can be merged with any round', async () => {
-    render(<ChangedPublishedWithData langAbbr="en" langIndex={0} />)
-    const selectInput = getByTestId('select-terms')
-    fireEvent.change(selectInput, { target: { value: '20192' } })
-    const draftOfPublished = getAllByTestId('radio-choose-pub-memo')[0]
-    fireEvent.click(draftOfPublished)
-    await waitFor(() => {
-      expect(draftOfPublished).toBeChecked()
-    })
-
-    fireEvent.click(getByText('Add course instances'))
-
-    await waitFor(() => {
-      const checkboxAddRounds = getAllByTestId('checkbox-add-rounds-to-saved-memo')
-      expect(checkboxAddRounds.length).toBe(1)
-      const labelAddRound = getAllByTestId('label-checkbox-add-rounds-to-saved-memo')[0]
-      expect(labelAddRound).toHaveTextContent('Autumn 2019-3 (Start date 28 Oct 2019, English)')
-    })
-  })
 
   test('show a modal Add course instances if clicked button Add a course instance to a saved draft. Memo in Swedish can be merged only with round in Swedish', async () => {
     render(<ChangedPublishedWithData langAbbr="sv" langIndex={1} />)
@@ -250,6 +239,37 @@ describe('Component <ChangedPublished> Add course instances to chosed published 
       expect(checkboxAddRounds.length).toBe(1)
       const labelAddRound = getAllByTestId('label-checkbox-add-rounds-to-saved-memo')[0]
       expect(labelAddRound).toHaveTextContent('HT 2019-3 (Startdatum 2019-10-28, Engelska)')
+    })
+  })
+
+  test('show a modal Add course instances if clicked button Add a course instance to a saved draft. Memo in English can be merged with any round', async () => {
+    Object.defineProperty(window, 'location', {
+      value: {
+        search: '?memoEndPoint=EF111120192-1&semester=20192&event=addedRoundId',
+      },
+    })
+
+    render(<ChangedPublishedWithData langAbbr="en" langIndex={0} />)
+    const selectInput = getByTestId('select-terms')
+    fireEvent.change(selectInput, { target: { value: '20192' } })
+    const draftOfPublished = getAllByTestId('radio-choose-pub-memo')[0]
+    fireEvent.click(draftOfPublished)
+    await waitFor(() => {
+      expect(draftOfPublished).toBeChecked()
+    })
+
+    fireEvent.click(getByText('Add course instances'))
+
+    await waitFor(() => {
+      const checkboxAddRounds = getAllByTestId('checkbox-add-rounds-to-saved-memo')
+      expect(checkboxAddRounds.length).toBe(1)
+      const labelAddRound = getAllByTestId('label-checkbox-add-rounds-to-saved-memo')[0]
+      expect(labelAddRound).toHaveTextContent('Autumn 2019-3 (Start date 28 Oct 2019, English)')
+    })
+    const save = screen.getByText('Save')
+    fireEvent.click(save)
+    await waitFor(() => {
+      expect(window.location.search).toBe('?memoEndPoint=EF111120192-1&semester=20192&event=addedRoundId')
     })
   })
 })
