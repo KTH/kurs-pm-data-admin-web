@@ -132,7 +132,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     fireEvent.change(selectInput, { target: { value: '20192' } })
     const publishedMemosLabels = getAllByTestId('label-radio-choose-pub-memo')
     expect(publishedMemosLabels.length).toBe(3)
-    expect(publishedMemosLabels[0]).toHaveTextContent('Autumn 2019-2 (Start date 28 Oct 2019, English) - draft')
+    expect(publishedMemosLabels[0]).toHaveTextContent('Autumn 2019-2 (Start date 28 Oct 2019, English) - Draft')
     expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26 Aug 2019, English)')
     expect(publishedMemosLabels[2]).toHaveTextContent('Autumn 2019-2 (Start date 26 Aug 2019, English)')
   })
@@ -143,7 +143,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     fireEvent.change(selectInput, { target: { value: '20192' } })
     const publishedMemosLabels = getAllByTestId('label-radio-choose-pub-memo')
     expect(publishedMemosLabels.length).toBe(3)
-    expect(publishedMemosLabels[0]).toHaveTextContent('Autumn 2019-2 (Start date 28 Oct 2019, English) - utkast')
+    expect(publishedMemosLabels[0]).toHaveTextContent('Autumn 2019-2 (Start date 28 Oct 2019, English) - Utkast')
     expect(publishedMemosLabels[1]).toHaveTextContent('Autumn 2019-2 (Start date 26 Aug 2019, English)')
     expect(publishedMemosLabels[2]).toHaveTextContent('Autumn 2019-2 (Start date 26 Aug 2019, English)')
   })
@@ -159,7 +159,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     })
 
     const allButtons = getAllByRole('button')
-    expect(allButtons[2]).toHaveTextContent('Radera opublicerade ändringar')
+    expect(allButtons[2]).toHaveTextContent('Radera utkast')
   })
 
   test('render radio button for each memo, initially unchecked radio', async () => {
@@ -180,7 +180,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
       expect(draftOfPublished).toBeChecked()
     })
 
-    expect(getByText('Add course instances')).toBeInTheDocument()
+    expect(getByText('Change course instances')).toBeInTheDocument()
   })
 
   test('show a modal Add course instances if clicked button Add a course instance to a memo. No available rounds left.', async () => {
@@ -258,7 +258,7 @@ describe('Component <ChangedPublished> Add course instances to chosed published 
       expect(draftOfPublished).toBeChecked()
     })
 
-    fireEvent.click(getByText('Add course instances'))
+    fireEvent.click(getByText('Change course instances'))
 
     await waitFor(() => {
       const checkboxAddRounds = getAllByTestId('checkbox-add-rounds-to-saved-memo')

@@ -474,7 +474,7 @@ module.exports = {
       body: `Utkastet är sparat.
         <br/>
         <br/>
-          Du hittar utkastet i föregående steg (steg 1) under rubriken Sparade utkast. Där kan du välja att fortsätta redigera utkastet eller att radera det.
+          Du hittar utkastet i föregående steg (steg 1) under rubriken Välj kurs-PM. Där kan du välja att fortsätta redigera utkastet eller att radera det.
         <br/>
         <br/>
         Vill du fortsätta att avsluta?`,
@@ -486,7 +486,7 @@ module.exports = {
       body: `Utkast sparas först i steg 2: Redigera kurs-PM.
         <br/>
         <br/>
-        I detta steg, steg 1, visas sparade utkast under rubriken: Sparade utkast. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
+        I detta steg, steg 1, visas sparade utkast under rubriken: Välj kurs-PM. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
         <br/>
         <br/>
         Vill du fortsätta att avsluta?`,
@@ -498,7 +498,7 @@ module.exports = {
       body: `Utkastet är sparat.
         <br/>
         <br/>
-        Du hittar utkastet i föregående steg (steg 1) under rubriken Sparade utkast. Där kan du välja att fortsätta redigera utkastet eller att radera det.
+        Du hittar utkastet i föregående steg (steg 1) under rubriken Välj kurs-PM. Där kan du välja att fortsätta redigera utkastet eller att radera det.
         <br/>
         <br/>
         Vill du fortsätta att avsluta?`,
@@ -574,7 +574,7 @@ module.exports = {
       Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       addRounds: {
-        label: 'Markera ett eller flera kurstillfällen som du vill lägga till:',
+        label: 'Markera det eller de kurstillfällen som du vill lägga till eller ta bort:',
         infoText: 'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast',
       },
       availableRounds: {
@@ -601,7 +601,7 @@ module.exports = {
       basedOnStandard: 'Tom KTH-mall för kurs-PM',
       basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kursomgång',
     },
-    publishedHasDraft: ' - utkast',
+    publishedHasDraft: ' - Utkast',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     noRoundsToAdd:
       'Det finns inga kurstillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
@@ -618,9 +618,9 @@ module.exports = {
     btnAddExtra: 'Lägg till rubrik till ',
     btnClose: 'Stäng',
     btnRemove: 'Radera utkast',
-    btnRemoveUnpublishedChanges: 'Radera opublicerade ändringar',
+    btnRemoveUnpublishedChanges: 'Radera utkast',
     btnRemoveHeading: 'Ta bort tillagd rubrik',
-    btnFinish: 'Avsluta',
+    btnFinish: 'Avbryt',
     btnSaveAndFinish: 'Avsluta med utkast',
     closeEditor: 'Stäng redigeringsläge',
     preview: 'Granska',

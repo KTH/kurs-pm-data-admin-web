@@ -89,7 +89,7 @@ const GetStarted = ({ langAbbr }) =>
         <li>Click on the i-icon next to each heading to understand the heading’s intended use</li>
         <li>Click on &ldquo;Show guidance&rdquo; for guidance on how to write content under the specific heading</li>
         <li>
-          When you have finished, select &ldquo;Exit (save draft)&rdquo; or &ldquo;Preview&rdquo; to proceed to the
+          When you have finished, select &ldquo;Exit with draft&rdquo; or &ldquo;Preview&rdquo; to proceed to the
           publish step
         </li>
       </ul>

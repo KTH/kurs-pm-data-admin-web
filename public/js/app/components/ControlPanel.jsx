@@ -92,8 +92,8 @@ const ControlPanel = props => {
         {/* Cancel and remove / Just cancel */}
         {(isDraftOfPublished &&
           ((progressNum === 1 && (
-            <Button id="cancelWithoutAction" color="secondary" onClick={onFinish}>
-              {buttons.cancel}
+            <Button id="cancelWithoutAction" color="secondary" onClick={onCancel}>
+              {buttons.btnFinish}
             </Button>
           )) || (
             <ActionModalButton

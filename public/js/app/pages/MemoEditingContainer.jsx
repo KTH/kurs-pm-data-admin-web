@@ -273,9 +273,9 @@ function MemoContainer(props) {
 
   // eslint-disable-next-line consistent-return
   const onCancel = async () => {
-    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${SAVED_NEW_PARAM}&term=${semester}&name=${
-      memoName || memoEndPoint
-    }`
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${SAVED_NEW_PARAM}&from=${
+      isDraftOfPublished ? 'change' : 'create'
+    }&term=${semester}&name=${memoName || memoEndPoint}`
 
     onAutoSave()
 

@@ -280,7 +280,7 @@ function ChangePublished(props) {
                                 />
                                 <Label data-testid="label-radio-choose-pub-memo" htmlFor={memoEndPoint}>
                                   {memoName || memoEndPoint + ' (old memo before namegiving)'}
-                                  <i style={{ opacity: '50%' }}>{status === 'draft' ? info.publishedHasDraft : ''}</i>
+                                  <i>{status === 'draft' ? info.publishedHasDraft : ''}</i>
                                 </Label>
                               </FormGroup>
                             )
