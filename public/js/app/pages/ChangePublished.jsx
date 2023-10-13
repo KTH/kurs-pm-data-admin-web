@@ -84,22 +84,13 @@ function ChangePublished(props) {
       setMemo({ existingDraftEndPoint: memoEndPoint, memoStatus: 'draft' })
     }
     if (search && search.toString().includes(eventDelete)) setTerm(semester)
-  }, [])
-
-  useEffect(() => {
-    const urlParams = fetchParameters(window)
-    const { semester, memoEndPoint } = urlParams
     cleanMemoEndPointInSearchParams(memoEndPoint, semester)
   }, [])
 
   /* useEffect(() => {
-    const { history } = props
-
-    if (history) {
-      history.push({
-        search: '',
-      })
-    }
+    const urlParams = fetchParameters(window)
+    const { semester, memoEndPoint } = urlParams
+    cleanMemoEndPointInSearchParams(memoEndPoint, semester)
   }, []) */
 
   function setAlarm(type, textName, isOpen = true) {
@@ -179,6 +170,7 @@ function ChangePublished(props) {
     const newSemester = event.target.value
     setTerm(newSemester)
   }
+  console.log(termWithPm)
   return (
     <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
       <Row id="scroll-here-if-alert">
@@ -222,15 +214,16 @@ function ChangePublished(props) {
                         id="term-list"
                         onChange={onChoiceOfSemester}
                         defaultValue="PLACEHOLDER"
+                        value={term}
                       >
                         {!term && (
                           <option key="no-chosen" defaultValue="PLACEHOLDER" style={{ display: 'none' }}>
                             {info.chooseSemester.label}
                           </option>
                         )}
-                        {termWithPm.map(({ term }) => (
-                          <option data-testid="select-option" id={`itemFor-${term}`} key={term} value={term}>
-                            {seasonStr(langIndex, term)}
+                        {termWithPm.map(({ term: sem }) => (
+                          <option data-testid="select-option" id={`itemFor-${sem}`} key={sem} value={sem}>
+                            {seasonStr(langIndex, sem)}
                           </option>
                         ))}
                       </select>

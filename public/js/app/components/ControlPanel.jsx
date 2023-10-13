@@ -103,16 +103,21 @@ const ControlPanel = props => {
               modalLabels={actionModals.infoCancel}
               onConfirm={progressNum === 3 ? onCancel : onCancel}
             />
-          ))) || (
-          <ActionModalButton
-            aria-label={progressNum === 1 ? buttons.btnFinish : buttons.cancel}
-            btnLabel={progressNum === 1 ? buttons.btnFinish : buttons.cancel}
-            modalId="cancelThisAction"
-            type="cancel"
-            modalLabels={progressNum === 1 ? actionModals.infoFinish : actionModals.infoSaveAndFinish}
-            onConfirm={progressNum === 3 ? onCancel : onCancel}
-          />
-        )}
+          ))) ||
+          (progressNum === 1 && (
+            <Button id="cancelWithoutAction" color="secondary" onClick={onCancel}>
+              {buttons.btnFinish}
+            </Button>
+          )) || (
+            <ActionModalButton
+              aria-label={buttons.cancel}
+              btnLabel={buttons.cancel}
+              modalId="cancelThisAction"
+              type="cancel"
+              modalLabels={actionModals.infoSaveAndFinish}
+              onConfirm={onCancel}
+            />
+          )}
         {/* Redigera / Granska */}
         {progressNum < 3 && (
           <Button onClick={onSubmit} id="to-id" className="next" style={{ marginLeft: '1.25em' }} color="success">
