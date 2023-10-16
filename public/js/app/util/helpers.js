@@ -118,6 +118,7 @@ export const removeAndSortApplicationAndInfo = (applicationCode, prevSortedInfo)
 export const fetchParameters = props => {
   if (!props.location) return ''
   const params = props.location.search
+    .toString()
     .substring(1)
     .split('&')
     .map(param => param.split('='))

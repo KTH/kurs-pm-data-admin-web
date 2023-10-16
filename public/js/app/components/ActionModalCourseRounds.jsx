@@ -35,6 +35,7 @@ function ActionModalCourseRounds(props) {
     ...(miniMemos.publishedWithNoActiveDraft || []),
     ...(miniMemos.draftsWithNoActivePublishedVer || []),
   ]
+
   const { chosenMemoEndPoint, langAbbr = storeLangAbbr, langIndex = storeLangIndex } = props
   const [alert, setAlert] = useState({
     type: '', // danger, success, warn
@@ -52,12 +53,27 @@ function ActionModalCourseRounds(props) {
 
   const { extraInfo, messages, actionModals, info } = i18n.messages[langIndex]
 
+  const getTempSavedCourseInstances = () => {
+    if (status === 'draft') {
+      const tempApplicationCodes = applicationCodes.slice(1)
+      const tempSavedCourseInstances = allRounds.filter(round => tempApplicationCodes.includes(round.applicationCode))
+      return tempSavedCourseInstances.map(round => ({ ...round, checked: true }))
+    }
+    return []
+  }
+
+  const combinedAvailableAndTempSavedCourseInstances = [
+    ...getTempSavedCourseInstances(),
+    ...availableRounds.map(round => ({ ...round, checked: false })),
+  ]
+
   async function fetchMatchingRounds(newMemo) {
     const { semester: memoSemester } = newMemo
     const newAvailableRounds = await store.showAvailableSemesterRounds(memoSemester)
     const allNewRounds = await fetchThisTermRounds(miniKoppsObj, newMemo || memo)
     const compatible = await isLangCompatible(newAvailableRounds, memoCommonLangAbbr)
     const checkIfShowSaveBtn = newAvailableRounds && newAvailableRounds.length > 0 && compatible
+
     setRoundsGroup({
       allRounds: allNewRounds,
       availableRounds: newAvailableRounds,
@@ -92,6 +108,17 @@ function ActionModalCourseRounds(props) {
     return checkedRounds
   }
 
+  const _uncheckedRounds = () => {
+    const uncheckedRounds = []
+    const checks = document.getElementsByClassName('addNewRounds')
+    for (let i = 0; i < checks.length; i++) {
+      if (!checks[i].checked) {
+        uncheckedRounds.push(checks[i].value)
+      }
+    }
+    return uncheckedRounds
+  }
+
   const _koppsInfoForChecked = sortedApplicationCodes => {
     const sortedKoppsInfo = []
     for (let i = 0; i < sortedApplicationCodes.length; i++) {
@@ -101,14 +128,16 @@ function ActionModalCourseRounds(props) {
   }
 
   const onSave = async () => {
-    const checkedRounds = await _checkedRounds()
+    const checkedRounds = _checkedRounds()
+    const uncheckedRounds = _uncheckedRounds()
     const isPublished = status === 'published'
     const isDraft = status === 'draft'
     const isDraftOfPublished = isDraft && Number(version) > FIRST_VERSION
 
-    if (checkedRounds.length > 0) {
-      const sortedApplicationCodes = await [...applicationCodes, ...checkedRounds].sort()
-      const sortedKoppsInfo = await _koppsInfoForChecked(sortedApplicationCodes)
+    if (checkedRounds.length > 0 || uncheckedRounds.length > 0) {
+      const sortedApplicationCodes = [...applicationCodes, ...checkedRounds].sort()
+      const updatedSortedApplicationCodes = sortedApplicationCodes.filter(code => !uncheckedRounds.includes(code))
+      const sortedKoppsInfo = _koppsInfoForChecked(updatedSortedApplicationCodes)
 
       const newMemoName = sortedKoppsInfo.map(round => combineMemoName(round, semester, memoCommonLangAbbr)).join(', ')
       const firstDraft = version === FIRST_VERSION && status === 'draft'
@@ -118,7 +147,7 @@ function ActionModalCourseRounds(props) {
         courseCode,
         memoName: newMemoName,
         memoEndPoint: newMemoEndPoint,
-        applicationCodes: sortedApplicationCodes,
+        applicationCodes: updatedSortedApplicationCodes,
       }
       const apiAction = isDraft ? 'draft-updates' : 'create-draft'
       const urlUpdateOrCreate = `${SERVICE_URL.API}${apiAction}/${courseCode}/${memoEndPoint}`
@@ -134,7 +163,8 @@ function ActionModalCourseRounds(props) {
 
         const reloadUrl = `${SERVICE_URL.courseMemoAdmin}${
           isDraftOfPublished || isPublished ? 'published/' : ''
-        }${courseCode}?memoEndPoint=${newMemoEndPoint}&event=${eventFromParams}`
+        }${courseCode}?memoEndPoint=${newMemoEndPoint}&semester=${semester}&event=${eventFromParams}`
+
         window.location = reloadUrl
       } catch (error) {
         if (error.response) {
@@ -152,7 +182,7 @@ function ActionModalCourseRounds(props) {
       color="secondary"
       stayOnModal={stayOnModal}
       modalLabels={actionModals.changeLadokRoundApplicationCodes}
-      onConfirm={(showSaveBtn && onSave) || null}
+      onConfirm={onSave || null}
     >
       <span>
         <Label>{`${messages.page_header_heading_semester}:`}</Label>
@@ -169,12 +199,12 @@ function ActionModalCourseRounds(props) {
       <span>
         <p>{extraInfo.aboutMemoLanguage[memoCommonLangAbbr]}</p>
       </span>
-      {(availableRounds && availableRounds.length > 0 && (
+      {(combinedAvailableAndTempSavedCourseInstances && combinedAvailableAndTempSavedCourseInstances.length > 0 && (
         <div className="section-50">
           <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.label}</Label>
           <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
           <Form className={`Available--Rounds--To--Add ${alert && alert.isOpen ? 'error-area' : ''}`}>
-            {availableRounds.map(round => (
+            {combinedAvailableAndTempSavedCourseInstances.map(round => (
               <FormGroup className="form-check" id="choose-rounds-list" key={'add' + round.applicationCode}>
                 <Input
                   data-testid="checkbox-add-rounds-to-saved-memo"
@@ -183,7 +213,7 @@ function ActionModalCourseRounds(props) {
                   name="addNew"
                   className="addNewRounds"
                   value={round.applicationCode}
-                  defaultChecked={false}
+                  defaultChecked={round.checked}
                   disabled={!canMerge(memoCommonLangAbbr, round)}
                 />
                 <Label data-testid="label-checkbox-add-rounds-to-saved-memo" htmlFor={'addNew' + round.applicationCode}>

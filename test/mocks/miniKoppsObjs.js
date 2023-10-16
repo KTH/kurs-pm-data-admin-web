@@ -233,6 +233,7 @@ const mockMiniKoppsObj = {
           firstTuitionDate: '2019-08-26',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '2',
+          state: 'APPROVED',
         },
         {
           //used published which have active draft
@@ -240,6 +241,15 @@ const mockMiniKoppsObj = {
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
+          state: 'APPROVED',
+        },
+        {
+          //used to ad as course instance to course rounde with published memo
+          shortName: '',
+          firstTuitionDate: '2019-10-28',
+          language: { sv: 'Engelska', en: 'English' },
+          applicationCode: '3',
+          state: 'APPROVED',
         },
       ],
       examinationRounds: [

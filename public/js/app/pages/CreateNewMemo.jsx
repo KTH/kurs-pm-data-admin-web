@@ -25,10 +25,10 @@ import ControlPanel from '../components/ControlPanel'
 import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
 import i18n from '../../../../i18n'
 
-function cleanMemoEndPointInSearchParams(existingDraftEndPoint) {
+function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
   if (!existingDraftEndPoint) return
   const { href, search } = window.location
-  const matchSearch = `memoEndPoint=${existingDraftEndPoint}`
+  const matchSearch = `memoEndPoint=${existingDraftEndPoint}&semester=${semester}&`
   if (search && search.includes(matchSearch)) {
     const searchLeftovers = `${search}`.replace(matchSearch, '')
     let url = `${href}`
@@ -84,7 +84,9 @@ function CreateNewMemo(props) {
   const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
 
   useEffect(() => {
-    cleanMemoEndPointInSearchParams(chosen.existingDraftEndPoint)
+    const urlParams = fetchParameters(window)
+    const semester = urlParams.semester
+    cleanMemoEndPointInSearchParams(chosen.existingDraftEndPoint, semester)
   }, [])
 
   useEffect(() => {
@@ -474,6 +476,7 @@ function CreateNewMemo(props) {
         onCancel={onFinish}
         onRemove={onRemoveDraft}
         onSubmit={onSubmitNew}
+        event={'pmdata'}
       />
       <div data-testid="test-data" style={{ display: 'none' }}>
         <p data-testid="actionType">{action}</p>

@@ -294,31 +294,11 @@ function PreviewContainer(props) {
       })
 
   const onFinish = () => {
-    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${
-      isDraftOfPublished ? REMOVE_PUBLISHED_PARAM : SAVED_NEW_PARAM
-    }&term=${semester}&name=${memoName || memoEndPoint}`
+    const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}${SAVED_NEW_PARAM}&term=${semester}&name=${
+      memoName || memoEndPoint
+    }`
 
-    if (isDraftOfPublished)
-      return (
-        axios
-          .delete(`${SERVICE_URL.API}draft-to-remove/${courseCode}/${memoEndPoint}`)
-          // eslint-disable-next-line consistent-return
-          .then(result => {
-            if (result.status >= 400) {
-              return 'ERROR-PreviewContainer.jsx-onFinish-' + result.status
-            }
-            setTimeout(() => {
-              window.location = startAdminPageUrl
-            }, 500)
-          })
-          .catch(err => {
-            if (err.response) {
-              throw new Error('PreviewContainer.jsx-onFinish-' + err.message)
-            }
-            throw err
-          })
-      )
-    return setTimeout(() => {
+    setTimeout(() => {
       window.location = startAdminPageUrl
     }, 500)
   }

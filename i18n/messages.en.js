@@ -444,8 +444,8 @@ module.exports = {
   ],
   pagesChangePublishedPm: [
     {
-      title: 'Choose a course memo',
-      intro: `Start by selecting the course memo you want to change (step 1 of 3). In the next step (2 of 3) you will be able to edit the course memo. In the last step (3 of 3) you can review the course memo and then publish it as a new version on the page: About course/Prepare and take course.`,
+      title: 'Choose course memo',
+      intro: `Start by selecting the semester and the course memo you want to change (step 1 of 3). In the next step (2 of 3) you will be able to edit the course memo. In the last step (3 of 3) you can review the course memo and then publish it as a new version on the page: About course/Prepare and take course.`,
     },
     {
       title: 'Edit course memo',
@@ -470,26 +470,29 @@ module.exports = {
   },
   actionModals: {
     changeLadokRoundApplicationCodes: {
-      header: 'Add course instances',
+      header: 'Change course instances',
       body: '',
       btnClose: 'Cancel',
       btnConfirm: 'Save',
     },
     infoCancel: {
-      header: 'To be aware of before cancelling!',
-      body: `The changes made in this course memo will be deleted if you cancel. The last published version of this course memo will remain unchanged.
+      header: 'Exit with draft',
+      body: `The draft is saved..
         <br/>
         <br/>
-        Do you want to cancel?`,
+        You will find the draft in the previous step (step 1) under the heading Choose course memo. There you can choose to continue editing the draft or to delete it.
+        <br/>
+        <br/>
+        Do you want to continue to exit?`,
       btnClose: 'No, go back',
-      btnConfirm: 'Yes, cancel',
+      btnConfirm: 'Yes, exit',
     },
     infoFinish: {
       header: 'To be aware of before exit!',
       body: `Drafts are saved only on the page "Edit course memo" (step 2).
         <br/>
         <br/>
-        Saved drafts are displayed in the "Saved drafts" section on this page. You can choose to delete a draft or to continue editing the selected draft.
+        Saved drafts are displayed in the "Choose course memo" section on this page. You can choose to delete a draft or to continue editing the selected draft.
         <br/>
         <br/>
         Do you want to exit?`,
@@ -501,7 +504,7 @@ module.exports = {
       body: `The draft is saved.
         <br/>
         <br/>
-        You will find the draft in the previous step (step 1) under the heading Saved drafts. There you can choose to continue editing the draft or to delete it.
+        You will find the draft in the previous step (step 1) under the heading Choose course memo. There you can choose to continue editing the draft or to delete it.
         <br/>
         <br/>
         Do you want to continue to exit?`,
@@ -535,6 +538,14 @@ module.exports = {
       btnClose: 'No, go back',
       btnConfirm: 'Yes, delete',
     },
+    infoRemoveCourseRound: {
+      header: 'To be aware of before deleting this course round!',
+      body: `Deleting the course round cannot be undone. Thecours round will be lost.
+      <br/><br/>
+      Do you want do delete this draft?`,
+      btnClose: 'No, go back',
+      btnConfirm: 'Yes, delete',
+    },
     newSectionRemove: {
       header: 'To be aware of before deleting this heading!',
       body: `Deleting the heading and its content cannot be undone. The added section will be lost.
@@ -559,6 +570,8 @@ module.exports = {
     choosePublishedMemo: 'Choose course memo',
     chooseSemester: {
       label: 'Choose semester',
+      header: 'Choose semester',
+      body: '<p>Start by selecting the semester and the course memo you want to change.</p>',
     },
     chooseRound: {
       header: 'Choose course offering',
@@ -568,7 +581,7 @@ module.exports = {
       A course offering is thereby the practical realisation of the course with a common start date, common pace, common timetable etc. for all students. 
       Several administrative course instances are grouped to one course offering.</p>`,
       addRounds: {
-        label: 'Select the course offering(s) to include in memo:',
+        label: 'Select a course instance to include or remove it:',
         infoText: 'The following administrative course instances have no published course memo or draft',
       },
       availableRounds: {
@@ -595,7 +608,7 @@ module.exports = {
       basedOnStandard: 'Empty KTH course memo template',
       basedOnAnotherMemo: 'Copy of a course memo from a previous course offering',
     },
-    publishedHasDraft: ' (has unpublished changes)',
+    publishedHasDraft: ' - Draft',
     errKoppsRounds:
       'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
     noRoundsToAdd:
@@ -616,16 +629,17 @@ module.exports = {
     btnAddExtra: 'Add heading to ',
     btnClose: 'Close',
     btnRemove: 'Delete draft',
+    btnRemoveUnpublishedChanges: 'Delete draft',
     btnRemoveHeading: 'Remove added heading',
-    btnFinish: 'Exit',
+    btnFinish: 'Cancel',
     btnSaveAndFinish: 'Exit with draft',
     saveAndCloseEditor: 'Save and exit',
     closeEditor: 'Close edit mode',
     preview: 'Preview',
     previewPdf: 'Preview PDF',
     edit: 'Edit',
-    cancel: 'Cancel',
-    save: 'Save',
+    cancel: 'Exit with draft',
+    save: 'Save draft',
     saveDraft: 'Save draft',
     publish: 'Publish',
     goToRounds: 'Choose course offering',

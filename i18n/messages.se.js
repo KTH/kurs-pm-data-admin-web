@@ -436,7 +436,7 @@ module.exports = {
   pagesChangePublishedPm: [
     {
       title: 'Välj kurs-PM',
-      intro: `Börja med att välja det kurs-PM som ska ändras (steg 1 av 3).
+      intro: `Börja med att välja termin och sedan det kurs-PM som ska ändras (steg 1 av 3).
       I nästa steg (2 av 3) kommer du att kunna redigera kurs-PM. I sista steget (3 av 3) ges möjlighet att först granska kurs-PM och sedan publicera en ny version av kurs-PM på sidan: Om kursen/ Förbereda och gå kurs.`,
     },
     {
@@ -462,26 +462,29 @@ module.exports = {
   },
   actionModals: {
     changeLadokRoundApplicationCodes: {
-      header: 'Lägg till kurstillfällen',
+      header: 'Ändra kurstillfällen',
       body: '',
       btnClose: 'Avbryt',
       btnConfirm: 'Spara',
     },
     infoCancel: {
-      header: 'Att tänka på innan du avbryter!',
-      body: `Ändringar kommer att raderas om du avbryter och den senaste publicerade versionen av detta kurs-PM kommer att vara oförändrad.
+      header: 'Avsluta med utkast',
+      body: `Utkastet är sparat.
         <br/>
         <br/>
-        Vill du fortsätta att avbryta?`,
+          Du hittar utkastet i föregående steg (steg 1) under rubriken Välj kurs-PM. Där kan du välja att fortsätta redigera utkastet eller att radera det.
+        <br/>
+        <br/>
+        Vill du fortsätta att avsluta?`,
       btnClose: 'Nej, gå tillbaka',
-      btnConfirm: 'Ja, fortsätt avbryta',
+      btnConfirm: 'Ja, fortsätt avsluta',
     },
     infoFinish: {
       header: 'Avsluta',
       body: `Utkast sparas först i steg 2: Redigera kurs-PM.
         <br/>
         <br/>
-        I detta steg, steg 1, visas sparade utkast under rubriken: Sparade utkast. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
+        I detta steg, steg 1, visas sparade utkast under rubriken: Välj kurs-PM. Här kan du sedan välja att radera utkastet eller att fortsätta redigera.
         <br/>
         <br/>
         Vill du fortsätta att avsluta?`,
@@ -493,7 +496,7 @@ module.exports = {
       body: `Utkastet är sparat.
         <br/>
         <br/>
-        Du hittar utkastet i föregående steg (steg 1) under rubriken Sparade utkast. Där kan du välja att fortsätta redigera utkastet eller att radera det.
+        Du hittar utkastet i föregående steg (steg 1) under rubriken Välj kurs-PM. Där kan du välja att fortsätta redigera utkastet eller att radera det.
         <br/>
         <br/>
         Vill du fortsätta att avsluta?`,
@@ -526,6 +529,14 @@ module.exports = {
       btnClose: 'Nej, gå tillbaka',
       btnConfirm: 'Ja, fortsätt radera',
     },
+    infoRemoveCourseRound: {
+      header: 'Att tänka på innan du raderar kurstillfällen!',
+      body: `Radera kurstillfällen kan inte ångras. Kurstillfällen kommer att försvinna.
+      <br/><br/>
+      Vill du fortsätta radera utkastet?`,
+      btnClose: 'Nej, gå tillbaka',
+      btnConfirm: 'Ja, fortsätt radera',
+    },
     newSectionRemove: {
       header: 'Att tänka på innan du ta bort en tillagd rubrik!',
       body: `Rubriken med innehåll kommer att raderas och kan inte återskapas.
@@ -549,8 +560,8 @@ module.exports = {
     choosePublishedMemo: 'Välj kurs-PM',
     chooseSemester: {
       label: 'Välj termin',
-      // body:
-      //   '<p>Välj vilken termin kursomgången startar. Om kursomgången sträcker sig över flera terminer; välj kursomgångens starttermin.</p>'
+      header: 'Välj termin',
+      body: '<p>Börja med att välja termin och sedan det kurs-PM som ska ändras.</p>',
     },
     chooseRound: {
       header: 'Välj kursomgång',
@@ -561,7 +572,7 @@ module.exports = {
       Kursomgången har engemensam starttidpunkt, gemensam kurstakt och normalt gemensam undervisning för en studentgrupp. 
       Schemat läggs per kursomgång, kurs-PM utformas per kursomgång och kursanalys genomförs per kursomgång.</p>`,
       addRounds: {
-        label: 'Markera ett eller flera kurstillfällen som du vill lägga till:',
+        label: 'Markera det eller de kurstillfällen som du vill lägga till eller ta bort:',
         infoText: 'Kurstillfällena listade saknar ett publicerat kurs-pm eller utkast',
       },
       availableRounds: {
@@ -588,7 +599,7 @@ module.exports = {
       basedOnStandard: 'Tom KTH-mall för kurs-PM',
       basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kursomgång',
     },
-    publishedHasDraft: ' (finns opublicerade ändringar)',
+    publishedHasDraft: ' - Utkast',
     errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     noRoundsToAdd:
       'Det finns inga kurstillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
@@ -605,15 +616,16 @@ module.exports = {
     btnAddExtra: 'Lägg till rubrik till ',
     btnClose: 'Stäng',
     btnRemove: 'Radera utkast',
+    btnRemoveUnpublishedChanges: 'Radera utkast',
     btnRemoveHeading: 'Ta bort tillagd rubrik',
-    btnFinish: 'Avsluta',
+    btnFinish: 'Avbryt',
     btnSaveAndFinish: 'Avsluta med utkast',
     closeEditor: 'Stäng redigeringsläge',
     saveAndCloseEditor: 'Spara och stäng',
     preview: 'Granska',
     previewPdf: 'Granska PDF',
     edit: 'Redigera',
-    cancel: 'Avbryt',
+    cancel: 'Avsluta med utkast',
     save: 'Spara',
     saveDraft: 'Spara utkast',
     publish: 'Publicera',
