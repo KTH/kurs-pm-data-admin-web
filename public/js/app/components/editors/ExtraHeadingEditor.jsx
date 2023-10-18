@@ -210,7 +210,7 @@ function ExtraHeadingEditor(props) {
                 onBlur={onSaveByThisContentId}
               />
             </OnClickPropagationStopper>
-            <div className="extra-heading-buttons">
+            <div className="extra-heading-buttons" data-testid="remove-added-heading">
               <ActionModalButton
                 btnLabel={buttons.btnRemoveHeading}
                 modalId={`beforeRemoving-${contentId}-${uKey}`}

@@ -349,6 +349,7 @@ function MemoContainer(props) {
               ))}
             {extraHeaderTitle && (
               <Button
+                data-testid="add-heading-to"
                 className="element-50"
                 color="secondary"
                 block

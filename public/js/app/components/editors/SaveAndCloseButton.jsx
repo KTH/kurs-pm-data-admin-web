@@ -3,7 +3,7 @@ import { Button } from 'reactstrap'
 
 export const SaveAndCloseButton = ({ onSaveAndClose, text }) => {
   return (
-    <Button onClick={onSaveAndClose} color="secondary">
+    <Button data-testid="save-and-exit" onClick={onSaveAndClose} color="secondary">
       {text}
     </Button>
   )

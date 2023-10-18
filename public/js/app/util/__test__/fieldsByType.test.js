@@ -48,144 +48,138 @@ describe('parse a changed copy of sections for a contract education without chan
         "equipment",
         "software",
         "permanentDisability",
-        "permanentDisabilitySubSection",
       ]
     `)
 
     expect(changedSections).toMatchInlineSnapshot(`
-          [
-            {
-              "content": [
-                "courseContent",
-                "learningOutcomes",
-                "learningActivities",
-                "scheduleDetails",
-              ],
-              "extraHeaderTitle": "extraHeaders1",
-              "id": "contentAndOutcomes",
-              "title": "Innehåll och lärandemål",
-            },
-            {
-              "content": [
-                "prerequisites",
-                "preparations",
-                "literature",
-                "equipment",
-                "software",
-              ],
-              "extraHeaderTitle": "extraHeaders2",
-              "id": "prep",
-              "title": "Förberedelser inför kursstart",
-            },
-            {
-              "content": [
-                "gradingScale",
-                "examination",
-                "examinationSubSection",
-                "otherRequirementsForFinalGrade",
-                "gradingCriteria",
-                "possibilityToCompletion",
-                "possibilityToAddition",
-                "possibilityToCompensate",
-                "reportingResults",
-                "ethicalApproach",
-                "ethicalApproachSubSection",
-              ],
-              "extraHeaderTitle": "extraHeaders3",
-              "id": "reqToFinal",
-              "title": "Examination",
-            },
-            {
-              "content": [
-                "infoForReregisteredStudents",
-              ],
-              "extraHeaderTitle": "extraHeaders4",
-              "id": "extra",
-              "title": "Ytterligare Information",
-            },
-            {
-              "content": [
-                "communicationDuringCourse",
-                "courseCoordinator",
-                "teacher",
-                "teacherAssistants",
-                "examiner",
-                "otherContacts",
-              ],
-              "extraHeaderTitle": null,
-              "id": "contacts",
-              "title": "Kontakter",
-            },
-          ]
-      `)
+      [
+        {
+          "content": [
+            "courseContent",
+            "learningOutcomes",
+            "learningActivities",
+            "scheduleDetails",
+          ],
+          "extraHeaderTitle": "extraHeaders1",
+          "id": "contentAndOutcomes",
+          "title": "Innehåll och lärandemål",
+        },
+        {
+          "content": [
+            "prerequisites",
+            "preparations",
+            "literature",
+            "equipment",
+            "software",
+          ],
+          "extraHeaderTitle": "extraHeaders2",
+          "id": "prep",
+          "title": "Förberedelser inför kursstart",
+        },
+        {
+          "content": [
+            "gradingScale",
+            "examination",
+            "otherRequirementsForFinalGrade",
+            "gradingCriteria",
+            "possibilityToCompletion",
+            "possibilityToAddition",
+            "possibilityToCompensate",
+            "reportingResults",
+            "ethicalApproach",
+          ],
+          "extraHeaderTitle": "extraHeaders3",
+          "id": "reqToFinal",
+          "title": "Examination",
+        },
+        {
+          "content": [
+            "infoForReregisteredStudents",
+          ],
+          "extraHeaderTitle": "extraHeaders4",
+          "id": "extra",
+          "title": "Ytterligare Information",
+        },
+        {
+          "content": [
+            "communicationDuringCourse",
+            "courseCoordinator",
+            "teacher",
+            "teacherAssistants",
+            "examiner",
+            "otherContacts",
+          ],
+          "extraHeaderTitle": null,
+          "id": "contacts",
+          "title": "Kontakter",
+        },
+      ]
+    `)
     expect(getDefaultSections()).toMatchInlineSnapshot(`
-          [
-            {
-              "content": [
-                "courseContent",
-                "learningOutcomes",
-                "learningActivities",
-                "scheduleDetails",
-              ],
-              "extraHeaderTitle": "extraHeaders1",
-              "id": "contentAndOutcomes",
-              "title": "Innehåll och lärandemål",
-            },
-            {
-              "content": [
-                "prerequisites",
-                "preparations",
-                "literature",
-                "equipment",
-                "software",
-                "permanentDisability",
-                "permanentDisabilitySubSection",
-              ],
-              "extraHeaderTitle": "extraHeaders2",
-              "id": "prep",
-              "title": "Förberedelser inför kursstart",
-            },
-            {
-              "content": [
-                "gradingScale",
-                "examination",
-                "examinationSubSection",
-                "otherRequirementsForFinalGrade",
-                "gradingCriteria",
-                "possibilityToCompletion",
-                "possibilityToAddition",
-                "possibilityToCompensate",
-                "reportingResults",
-                "ethicalApproach",
-                "ethicalApproachSubSection",
-              ],
-              "extraHeaderTitle": "extraHeaders3",
-              "id": "reqToFinal",
-              "title": "Examination",
-            },
-            {
-              "content": [
-                "additionalRegulations",
-                "infoForReregisteredStudents",
-              ],
-              "extraHeaderTitle": "extraHeaders4",
-              "id": "extra",
-              "title": "Ytterligare Information",
-            },
-            {
-              "content": [
-                "communicationDuringCourse",
-                "courseCoordinator",
-                "teacher",
-                "teacherAssistants",
-                "examiner",
-                "otherContacts",
-              ],
-              "extraHeaderTitle": null,
-              "id": "contacts",
-              "title": "Kontakter",
-            },
-          ]
-      `)
+      [
+        {
+          "content": [
+            "courseContent",
+            "learningOutcomes",
+            "learningActivities",
+            "scheduleDetails",
+          ],
+          "extraHeaderTitle": "extraHeaders1",
+          "id": "contentAndOutcomes",
+          "title": "Innehåll och lärandemål",
+        },
+        {
+          "content": [
+            "prerequisites",
+            "preparations",
+            "literature",
+            "equipment",
+            "software",
+            "permanentDisability",
+          ],
+          "extraHeaderTitle": "extraHeaders2",
+          "id": "prep",
+          "title": "Förberedelser inför kursstart",
+        },
+        {
+          "content": [
+            "gradingScale",
+            "examination",
+            "otherRequirementsForFinalGrade",
+            "gradingCriteria",
+            "possibilityToCompletion",
+            "possibilityToAddition",
+            "possibilityToCompensate",
+            "reportingResults",
+            "ethicalApproach",
+          ],
+          "extraHeaderTitle": "extraHeaders3",
+          "id": "reqToFinal",
+          "title": "Examination",
+        },
+        {
+          "content": [
+            "additionalRegulations",
+            "infoForReregisteredStudents",
+          ],
+          "extraHeaderTitle": "extraHeaders4",
+          "id": "extra",
+          "title": "Ytterligare Information",
+        },
+        {
+          "content": [
+            "communicationDuringCourse",
+            "courseCoordinator",
+            "teacher",
+            "teacherAssistants",
+            "examiner",
+            "otherContacts",
+          ],
+          "extraHeaderTitle": null,
+          "id": "contacts",
+          "title": "Kontakter",
+        },
+      ]
+    `)
   })
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import { render, fireEvent, waitFor, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router-dom/server'
 import { act } from 'react-dom/test-utils'
@@ -123,9 +123,9 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
       '',
       '',
       '',
-      'Edit',
       '',
-      'Edit',
+      '',
+      '',
       'Add heading to Content and learning outcomes',
       'Choose course offering',
       'Save draft',
@@ -254,14 +254,14 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   })
 
   test('tab: contentAndOutcomes. Click button Save draft', async () => {
-    fireEvent.click(getAllByText('Edit')[0])
+    fireEvent.click(getByTestId('btn-open-editor-learningActivities'))
     await waitFor(() => {
-      expect(getByText('Close edit mode')).toBeInTheDocument()
+      expect(getByTestId('btn-close-editor-learningActivities')).toBeInTheDocument()
     })
   })
 
   test('tab: contentAndOutcomes. Click button Edit and render collapse with detailed info about header', async () => {
-    fireEvent.click(getAllByText('Edit')[1])
+    fireEvent.click(getByTestId('btn-open-editor-scheduleDetails'))
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
     })
@@ -285,7 +285,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
 
   test('tab: contentAndOutcomes. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Always included').length).toBe(2)
-    expect(getAllByText('Include').length).toBe(2)
+    expect(getAllByText('Include in course memo').length).toBe(2)
     expect(screen.queryByText('Included when there is content in the course syllabus')).not.toBeInTheDocument()
     expect(screen.queryByText('Include additional section')).not.toBeInTheDocument()
   })
@@ -372,15 +372,15 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     const expectedTextLabel = [
       '',
       '',
-      'Edit',
       '',
-      'Edit',
       '',
-      'Edit',
       '',
-      'Edit',
       '',
-      'Edit',
+      '',
+      '',
+      '',
+      '',
+      '',
       'Add heading to Preparations before course start',
       'Choose course offering',
       'Save draft',
@@ -421,9 +421,11 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   test('tab: prep. renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
     const { mandatory: emptyTextMsg } = sourceInfo.nothingFetched
     const contentType = 'mandatory'
-    const headers = getSectionHeadersByType(contentType, 'prep')
-    expect(headers.length).toBe(1)
-    headers.map(contentId => {
+    const contentId = 'permanentDisabilitySubSection'
+    const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility-permanentDisabilitySubSection')
+    expect(checkboxIncludeInMemo.checked).toBeFalsy()
+    fireEvent.click(checkboxIncludeInMemo[0])
+    await waitFor(() => {
       const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
       expect(hdContent).toHaveTextContent(emptyTextMsg)
     })
@@ -461,9 +463,8 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
 
   test('tab: prep. renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
     const dynamicSections = getAllByTestId(`dynamic-empty-content-and-not-included`)
-    expect(dynamicSections.length).toBe(4)
+    expect(dynamicSections.length).toBe(3)
   })
-
   test('tab: prep. information about empty optional (non-editable) content is not visible because it is not included in memo (checkbox is empy)', async () => {
     const { optional: optionalIsEmpty } = sourceInfo.nothingFetched
     const invisibleMsgForOptional = getAllByText(optionalIsEmpty)
@@ -523,17 +524,6 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     })
   })
 
-  test('tab: prep. renders alert about result of saving data for subsection for permanentDisabilitySubSection', async () => {
-    const { section: sectionIsEmpty } = sourceInfo.noInfoYet
-    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-permanentDisabilitySubSection')
-    fireEvent.click(checkboxIncludeInMemo)
-    await waitFor(() => {
-      const text = getByTestId('text-for-memo-optionalEditable-permanentDisabilitySubSection')
-      expect(text).toHaveTextContent(sectionIsEmpty)
-      expect(getByTestId('alert-save-data')).toBeInTheDocument()
-    })
-  })
-
   test('tab: prep. check texts of buttons in control panel it is different for Create new', async () => {
     expect(getByText('Choose course offering')).toBeInTheDocument()
     expect(getByText('Save draft')).toBeInTheDocument()
@@ -549,14 +539,14 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. Click button Save draft', async () => {
-    fireEvent.click(getAllByText('Edit')[0])
+    fireEvent.click(getByTestId('btn-open-editor-preparations'))
     await waitFor(() => {
-      expect(getByText('Close edit mode')).toBeInTheDocument()
+      expect(getByTestId('btn-close-editor-preparations')).toBeInTheDocument()
     })
   })
 
   test('tab: prep. Click button Edit and render collapse with detailed info about header', async () => {
-    fireEvent.click(getAllByText('Edit')[1])
+    fireEvent.click(getByTestId('btn-open-editor-literature'))
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
     })
@@ -578,8 +568,26 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
 
   test('tab: prep. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Always included').length).toBe(2)
-    expect(getAllByText('Include').length).toBe(4)
+    expect(getAllByText('Include in course memo').length).toBe(4)
     expect(getAllByText('Include additional section').length).toBe(1)
+  })
+  test.only('tab: prep. renders "Add heading to" button and test to click on it.', async () => {
+    const addHeadingTo = getByTestId('add-heading-to')
+    fireEvent.click(addHeadingTo)
+    await waitFor(() => {
+      const buttonContainer = within(screen.getByTestId('remove-added-heading').parentElement)
+      fireEvent.click(buttonContainer.getByRole('button', { name: 'Remove added heading' }))
+
+      const buttonSaveAndExit = screen.getByTestId('save-and-exit')
+      fireEvent.click(buttonSaveAndExit)
+    })
+    expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    fireEvent.click(addHeadingTo)
+    await waitFor(() => {
+      const buttonContainer = within(screen.getByTestId('remove-added-heading').parentElement)
+      fireEvent.click(buttonContainer.getByRole('button', { name: 'Remove added heading' }))
+    })
+    expect(getByTestId('alert-save-data')).toBeInTheDocument()
   })
 })
 
@@ -652,9 +660,12 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   test('tab: reqToFinal examinations. (userLang=sv) <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct message about an empty content', async () => {
     const { mandatory: emptyTextMsg } = sourceInfoSV.nothingFetched
     const contentType = 'mandatory'
-    const headers = getSectionHeadersByType(contentType, 'reqToFinal')
-    expect(headers.length).toBe(3)
-    headers.map(contentId => {
+    const contentId = 'examinationSubSection'
+
+    const checkboxIncludeInMemo = getAllByTestId('checkbox-visibility-examinationSubSection')
+    expect(checkboxIncludeInMemo.checked).toBeFalsy()
+    fireEvent.click(checkboxIncludeInMemo[0])
+    await waitFor(() => {
       const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
       expect(hdContent).toHaveTextContent(emptyTextMsg)
     })
@@ -710,21 +721,22 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   })
 
   test('tab: reqToFinal examinations. Click button Redigera', async () => {
-    fireEvent.click(getAllByText('Redigera')[0])
+    fireEvent.click(getByTestId('btn-open-editor-gradingCriteria'))
+    fireEvent.click(getByTestId('btn-close-editor-gradingCriteria'))
     await waitFor(() => {
-      expect(getByText('Stäng redigeringsläge')).toBeInTheDocument()
+      expect(getByTestId('btn-open-editor-gradingCriteria')).toBeInTheDocument()
     })
   })
 
   test('tab: reqToFinal examinations. Click button Redigera and reveal section with collapse and editor', async () => {
-    fireEvent.click(getAllByText('Redigera')[1]) // click on gradingCriteria
+    fireEvent.click(getByTestId('btn-open-editor-gradingCriteria')) // click on gradingCriteria
     await waitFor(() => {
       expect(getByTestId('standard-editor-gradingCriteria')).toBeInTheDocument()
     })
   })
 
   test('tab: reqToFinal examinations. Click button Redigera and render collapse with detailed info about header', async () => {
-    fireEvent.click(getAllByText('Redigera')[1])
+    fireEvent.click(getByTestId('btn-open-editor-examinationSubSection'))
     await waitFor(() => {
       expect(getByText('Visa vägledning')).toBeInTheDocument()
     })
@@ -746,7 +758,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
 
   test('tab: reqToFinal examinations. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Inkluderas alltid').length).toBe(3)
-    expect(getAllByText('Inkludera').length).toBe(5)
+    expect(getAllByText('Inkludera i kurs-PM').length).toBe(5)
     expect(getAllByText('Inkluderas när innehåll finns i kursplan').length).toBe(1)
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(2)
   })
@@ -840,13 +852,13 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
       '',
-      'Edit',
       '',
       '',
       '',
       '',
       '',
-      'Edit',
+      '',
+      '',
       'Choose course offering',
       'Save draft',
       'Exit with draft',
@@ -990,14 +1002,14 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   })
 
   test('tab: contacts. Click button Save draft', async () => {
-    fireEvent.click(getAllByText('Edit')[0])
+    fireEvent.click(getByTestId('btn-open-editor-communicationDuringCourse'))
     await waitFor(() => {
-      expect(getByText('Close edit mode')).toBeInTheDocument()
+      expect(getByTestId('btn-close-editor-communicationDuringCourse')).toBeInTheDocument()
     })
   })
 
   test('tab: contacts. Click button Edit and render collapse with detailed info about header', async () => {
-    fireEvent.click(getAllByText('Edit')[1])
+    fireEvent.click(getByTestId('btn-open-editor-otherContacts'))
     await waitFor(() => {
       expect(getByText('Show guidance')).toBeInTheDocument()
     })
@@ -1021,7 +1033,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
 
   test('tab: contacts. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(getAllByText('Always included').length).toBe(3)
-    expect(getAllByText('Include').length).toBe(3)
+    expect(getAllByText('Include in course memo').length).toBe(3)
     // expect(getAllByText('Included when there is content in the course syllabus').length).toBe(0)
     // expect(getAllByText('Include additional section').length).toBe(2)
   })

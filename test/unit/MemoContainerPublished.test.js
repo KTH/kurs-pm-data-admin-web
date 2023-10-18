@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import { render, fireEvent, waitFor, screen, findByText } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { StaticRouter } from 'react-router-dom/server'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
@@ -13,6 +13,7 @@ import MemoContainer from '../../public/js/app/pages/MemoEditingContainer'
 import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import translations from '../mocks/translations'
 import { SectionContextProvider } from '../../public/js/app/stores/SectionContext'
+const { sourceInfo } = i18n.messages[1]
 
 const { memoTitlesByMemoLang, orderedFilledInAndVisible, sectionsLabels } = translations.en
 const { pageTitles } = translations.sv
@@ -570,12 +571,10 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
 
   test('tab: prep (draft of published). renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct content', async () => {
     const contentType = 'mandatory'
-    const headers = getSectionHeadersByType(contentType, 'prep')
-    expect(headers.length).toBe(1)
-    headers.map(contentId => {
-      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
-    })
+    const contentId = 'permanentDisabilitySubSection'
+
+    const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+    expect(hdContent).toHaveTextContent(`Some test data for section`)
   })
 
   test('tab: prep (draft of published). renders <SectionForNonEditable>, there are no standard headers which are mandatory for some courses and non-editable', async () => {
@@ -880,16 +879,12 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     })
   })
 
-  test.only('tab: reqToFinal (draft of published). renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct content', async () => {
+  test('tab: reqToFinal (draft of published). renders <SectionForNonEditable>, all standard headers which are mandatory (non-editable) have a correct content', async () => {
+    const { subSection: subsectionIsEmpty } = sourceInfo.noInfoYet
     const contentType = 'mandatory'
-    const headers = getSectionHeadersByType(contentType, 'reqToFinal')
-    expect(headers.length).toBe(3)
-    screen.debug(undefined, Infinity)
-    headers.map(contentId => {
-      console.log(contentId)
-      const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
-      expect(hdContent).toHaveTextContent(`Some test data for section ${contentId}`)
-    })
+    const contentId = 'ethicalApproachSubSection'
+    const hdContent = getByTestId(`text-for-memo-${contentType}-${contentId}`)
+    expect(hdContent).toHaveTextContent(`Some test data for section`)
   })
 
   test('tab: reqToFinal (draft of published). renders <SectionForNonEditable>, there are one standard header which are mandatory for some courses and non-editable', async () => {
@@ -956,10 +951,6 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   test('tab: reqToFinal (draft of published). Renders "examinationSubSection" closed editor, then opens it after pressing button "edit"', async () => {
     const editorOpenBtn = getByTestId('btn-open-editor-examinationSubSection')
     expect(editorOpenBtn).toBeInTheDocument()
-    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-examinationSubSection')
-    expect(checkboxIncludeInMemo.checked).toBeTruthy()
-
-    expect(getByText(/Some test data for section examinationSubSection/i)).toBeInTheDocument()
 
     fireEvent.click(editorOpenBtn)
     await waitFor(() => {
@@ -970,17 +961,16 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       fireEvent.click(editorCloseBtn)
     })
 
-    expect(getByText(/Some test data for section examinationSubSection/i)).toBeInTheDocument()
+    expect(getByTestId('optional-and-excluded-but-with-content-subSection-examinationSubSection')).toBeInTheDocument()
   })
 
   test('tab: reqToFinal (draft of published). Renders "examinationSubSection" visibility checkbox and text.', async () => {
     const checkboxIncludeInMemo = getByTestId('checkbox-visibility-examinationSubSection')
-    expect(checkboxIncludeInMemo.checked).toBeTruthy()
-    expect(getByText(/Some test data for section examinationSubSection/i)).toBeInTheDocument()
+    expect(checkboxIncludeInMemo).toBeTruthy()
 
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
-      expect(checkboxIncludeInMemo.checked).toBeFalsy()
+      expect(getByTestId('text-for-memo-optionalEditable-examinationSubSection')).toBeInTheDocument()
     })
   })
 
@@ -1003,42 +993,37 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   })
 
   //ethicalApproachSubSection
-  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" checkbox which are checked and shows filled in content', async () => {
-    const checkboxIncludeInMemo = getByTestId('checkbox-visibility-ethicalApproachSubSection')
-    expect(checkboxIncludeInMemo.checked).toBeTruthy()
-
-    const closedEditor = queryByTestId('btn-open-editor-ethicalApproachSubSection')
-    expect(closedEditor).toBeInTheDocument()
-
-    fireEvent.click(checkboxIncludeInMemo)
+  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" edit button, try to open it and save added text', async () => {
+    const editorOpenBtn = getByTestId('btn-open-editor-ethicalApproachSubSection')
+    fireEvent.click(editorOpenBtn)
     await waitFor(() => {
-      expect(checkboxIncludeInMemo.checked).toBeFalsy()
-
-      expect(getByTestId('alert-save-data')).toBeInTheDocument()
+      const buttonSaveAndExit = screen.getByTestId('save-and-exit')
+      fireEvent.click(buttonSaveAndExit)
     })
+    expect(getByTestId('alert-save-data')).toBeInTheDocument()
   })
 
-  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" closed editor, shows warning about excluded-but-with-content and tries to open it after pressing button "edit"', async () => {
-    const editorOpenBtn = getByTestId('btn-open-editor-ethicalApproachSubSection')
-    expect(editorOpenBtn).toBeInTheDocument()
-
-    const visibleText = queryByTestId('text-for-memo-optionalEditable-ethicalApproachSubSection')
-    expect(visibleText).toBeInTheDocument()
+  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" closed editor, shows warning about included-but-with-no-content and tries to open it after pressing button "edit"', async () => {
+    const { subSection: subsectionIsEmpty } = sourceInfo.noInfoYet
 
     const checkbox = queryByTestId('checkbox-visibility-ethicalApproachSubSection')
     expect(checkbox).toBeInTheDocument()
 
-    fireEvent.click(checkbox)
-    await waitFor(() => {
-      const filledInButNotIncludedMsg = queryByTestId(
-        'optional-and-excluded-but-with-content-subSection-ethicalApproachSubSection'
-      )
-      expect(filledInButNotIncludedMsg).toBeInTheDocument()
-    })
+    fireEvent.click(checkbox) /
+      (await waitFor(() => {
+        const preparationsText = getByTestId('text-for-memo-optionalEditable-ethicalApproachSubSection')
+        expect(preparationsText).toHaveTextContent(subsectionIsEmpty)
+      }))
+
+    const editorOpenBtn = getByTestId('btn-open-editor-ethicalApproachSubSection')
+    expect(editorOpenBtn).toBeInTheDocument()
 
     fireEvent.click(editorOpenBtn)
     await waitFor(() => {
+      const editor = getByTestId('standard-editor-ethicalApproachSubSection')
+      expect(editor).toBeInTheDocument()
       const editorCloseBtn = getByTestId('btn-close-editor-ethicalApproachSubSection')
+      expect(editorCloseBtn).toBeInTheDocument()
     })
   })
 

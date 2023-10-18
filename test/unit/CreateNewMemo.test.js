@@ -308,7 +308,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(buttons.length).toBe(3)
   })
 
-  xtest('create a new draft with one round, with correct name (use shortName) in english because round language is english', async () => {
+  test('create a new draft with one round, with correct name (use shortName) in english because round language is english', async () => {
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     })
@@ -316,23 +316,23 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     fireEvent.change(selectInput, { target: { value: '20211' } })
     await waitFor(() => {
       const roundsLabels = getAllByTestId('label-checkbox-choose-available-round')
-      expect(roundsLabels[1]).toHaveTextContent('VT 2021-2 (Startdatum 2021-01-18, Engelska)')
+      expect(roundsLabels[0]).toHaveTextContent('VT 2021-1 (Startdatum 2021-03-22, Engelska)')
     })
     const rounds = getAllByTestId('checkbox-choose-available-round')
-    fireEvent.click(rounds[1])
+    fireEvent.click(rounds[0])
     await waitFor(() => {
       const copyOptions = getAllByTestId('copy-radio')
       expect(copyOptions[0]).toBeInTheDocument()
     })
     const editButton = screen.getByText('Redigera')
     fireEvent.click(editButton)
-    expect(getByTestId('test-data')).not.toBeInTheDocument()
+    expect(getByTestId('test-data')).toBeInTheDocument()
 
     await waitFor(() => {
       expect(getByTestId('actionType')).toHaveTextContent('create')
-      expect(getByTestId('newMemoName')).toHaveTextContent('Spring 2021-2 (Start date 18 Jan 2021, English)')
+      expect(getByTestId('newMemoName')).toHaveTextContent('Spring 2021-1 (Start date 22 Mar 2021, English)')
       expect(getByTestId('memoCommonLangAbbr')).toHaveTextContent('en')
-      expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('2')
+      expect(getByTestId('sortedApplicationCodes')).toHaveTextContent('1')
     })
   })
 
