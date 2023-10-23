@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
@@ -38,6 +38,7 @@ const OVERVIEW_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN + PERSONAL_MENU_HEIG
 const STICKY_BOTTOM_OFFSEST = 10 // PERSONAL_MENU_HEIGHT +
 
 function MemoContainer(props) {
+  const toTopRef = useRef(null)
   const store = useStore()
   const {
     courseCode,
@@ -54,7 +55,6 @@ function MemoContainer(props) {
 
   if (!memoData.applicationCodes)
     return <AlertMissingDraft langAbbr={userLangAbbr} langIndex={userLangIndex} courseCode={courseCode} />
-
   const { initialActiveTab } = props // used for test
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
@@ -93,6 +93,13 @@ function MemoContainer(props) {
       })
     }
   }, [])
+
+  const scrollToTop = id => {
+    const spanElement = toTopRef.current
+    if (spanElement) {
+      window.scrollTo(0, spanElement.offsetTop)
+    }
+  }
 
   const courseSubHeader = () => {
     const { title, titleOther, credits, creditUnitAbbr } = memoData
@@ -202,6 +209,7 @@ function MemoContainer(props) {
     const canBeSwitched = store.checkExtraTitlesForSectionId(extraHeadersId)
     if (canBeSwitched) {
       setActiveTab(nextSectionId)
+      scrollToTop(nextSectionId)
       setContentIdWithMissingHeading('')
       store.cleanUpAllEmptyExtraContent(extraHeadersId)
       onAutoSave()
@@ -313,7 +321,7 @@ function MemoContainer(props) {
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
       <TabContent key={'tab-content-for-section-' + id} isActive={activeTab === id} sectionId={id}>
-        <span id={'section-header-' + id} />
+        <span id={'section-header-' + id} ref={toTopRef} />
         {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
           overlay windows from other section's editors */}
@@ -410,7 +418,7 @@ function MemoContainer(props) {
                 ...style,
                 ...{
                   paddingRight: '0',
-                  // paddingBottom: '0',
+                  //paddingBottom: '0',
                   paddingTop: isSticky ? TAB_HEIGHT_WITH_TOP_PADDING : '0',
                   backgroundColor: '#ffffff',
                   zIndex: 1,
@@ -441,7 +449,7 @@ function MemoContainer(props) {
                     ...{
                       paddingRight: '0',
                       paddingLeft: '1em',
-                      // paddingBottom: '110px',
+                      paddingBottom: '110px',
                       paddingTop: isSticky ? OVERVIEW_TOP_PADDING : '0',
                     },
                   }}

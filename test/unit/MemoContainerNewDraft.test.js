@@ -278,7 +278,9 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
   })
 
   test('tab: contentAndOutcomes. render a correct number of infos about data origin and source info ', () => {
-    expect(getAllByText('from course syllabus').length).toBe(2)
+    const dataOrigin = screen.getAllByText(/Fetched from course syllabus/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOrigin.length).toBe(2)
     expect(screen.queryByText('from common course information')).not.toBeInTheDocument()
     expect(screen.queryByText('Fetched from course round information')).not.toBeInTheDocument()
   })
@@ -563,7 +565,9 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. render a correct number of infos about data origin and source info ', () => {
-    expect(getAllByText('from common course information').length).toBe(1)
+    const dataOrigin = screen.getAllByText(/Fetched from common course information/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOrigin.length).toBe(2)
   })
 
   test('tab: prep. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
@@ -571,7 +575,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(getAllByText('Include in course memo').length).toBe(4)
     expect(getAllByText('Include additional section').length).toBe(1)
   })
-  test.only('tab: prep. renders "Add heading to" button and test to click on it.', async () => {
+  test('tab: prep. renders "Add heading to" button and test to click on it.', async () => {
     const addHeadingTo = getByTestId('add-heading-to')
     fireEvent.click(addHeadingTo)
     await waitFor(() => {
@@ -753,7 +757,9 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   })
 
   test('tab: reqToFinal examinations. render a correct number of infos about data origin and source info ', () => {
-    expect(getAllByText('från kursplan').length).toBe(4)
+    const dataOrigin = screen.getAllByText(/Innehåll hämtas från kursplan/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOrigin.length).toBe(4)
   })
 
   test('tab: reqToFinal examinations. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
@@ -1026,9 +1032,12 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   })
 
   test('tab: contacts. render a correct number of infos about data origin and source info ', () => {
-    // expect(getAllByText('from course syllabus').length).toBe(4)
-    expect(getAllByText('from common course information').length).toBe(1)
-    // expect(getAllByText('Fetched from course round information').length).toBe(3)
+    const dataOrigin = screen.getAllByText(/Fetched from course round information/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOrigin.length).toBe(3)
+    const dataOriginCommon = screen.getAllByText(/Fetched from common course information/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOriginCommon.length).toBe(1)
   })
 
   test('tab: contacts. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {

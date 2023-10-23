@@ -475,6 +475,7 @@ span.section-info {
   justify-content: space-between;
   .mandatory {
     margin-top: 5px; //  = 20px
+    padding-bottom: 20px !important;
   }
 }
 .section_info_visibility_label {
@@ -967,7 +968,11 @@ table {
   > .section-50 {
     padding-top: 0;
   }
-
+  .title-and-info {
+    h3 {
+      padding-bottom: 20px !important;
+    }
+  }
   .section-info {
     padding-top: 0;
   }
@@ -1015,6 +1020,9 @@ table {
   .no-visible-in-memo {
     opacity: 50%;
   }
+  p {
+    padding-top: 20px !important;
+  }
 }
 
 .toggle-editor {
@@ -1054,6 +1062,9 @@ span.section-heading {
 
   .toggle-editor {
     align-self: flex-start;
+  }
+  > hr {
+    padding-bottom: '20px' !important;
   }
 }
 

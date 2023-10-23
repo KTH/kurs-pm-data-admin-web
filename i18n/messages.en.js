@@ -68,7 +68,7 @@ module.exports = {
   },
   sourceInfo: {
     addNewHeading: 'Name heading',
-    fetched: 'Fetched', // IF NOT EDITABLE
+    fetched: 'Fetched ', // IF NOT EDITABLE
     '(c)': 'from common course information',
     '(r)': 'from course round information',
     '(s)': 'from course syllabus',

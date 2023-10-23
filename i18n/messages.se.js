@@ -61,21 +61,21 @@ module.exports = {
   /** Labels */
   sourceInfo: {
     addNewHeading: 'Ange rubrik',
-    fetched: 'Hämtats',
-    '(c)': 'från kursgemensam information',
+    fetched: 'Innehåll hämtas ',
+    '(c)': 'från Kopps',
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan',
     errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
-    mandatoryAndEditable: 'Inkluderas alltid',
+    mandatoryAndEditable: `Inkluderas alltid (går att redigera)`,
     mandatoryForSome: 'Inkluderas när innehåll finns i kursplan',
     includeInMemo: {
       section: 'Inkludera i kurs-PM',
       subSection: 'Inkludera ytterligare avsnitt',
     },
     noInfoYet: {
-      section: 'Inget innehåll är inlagt. Lägg in innehåll eller ta bort avsnittet från kurs-PM.',
-      subSection: 'Inget innehåll är inlagt. Lägg in innehåll eller ta bort avsnittet från kurs-PM.',
+      section: 'Inget innehåll är inlagt. Lägg In innehåll eller ta bort rubriken från kurs-PM.',
+      subSection: 'Inget innehåll är inlagt. Lägg In innehåll eller ta bort avsnittet från kurs-PM.',
     },
     // includera rubrik
     notIncludedInMemoYet: {

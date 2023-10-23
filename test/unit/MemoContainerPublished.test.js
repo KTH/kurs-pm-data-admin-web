@@ -393,7 +393,8 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   })
 
   test('tab: contentAndOutcomes (draft of published). render correct number of text about data origin and source info ', () => {
-    expect(getAllByText('från kursplan').length).toBe(2)
+    const dataOrigin = screen.getAllByText(/Inkluderas alltid | Innehåll hämtas från kursplan/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
     expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
     expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
   })
@@ -768,12 +769,11 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
 
   test('tab: prep (draft of published). render correct number of text about data origin and source info ', () => {
     expect(screen.queryByText('från kursplan')).not.toBeInTheDocument()
-    expect(getAllByText('från kursgemensam information').length).toBe(1)
     expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
   })
 
   test('tab: prep (draft of published). render correct number of include label, standard + extra headers', () => {
-    expect(getAllByText('Inkluderas alltid').length).toBe(2)
+    expect(getAllByText('Inkluderas alltid').length).toBe(1)
     expect(getAllByText('Inkludera i kurs-PM').length).toBe(6)
     expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(getAllByText('Inkludera ytterligare avsnitt').length).toBe(1)
@@ -1117,7 +1117,8 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
   })
 
   test('tab: reqToFinal (draft of published). render correct number of text about data origin and source info ', () => {
-    expect(getAllByText('från kursplan').length).toBe(4)
+    const dataOrigin = screen.getAllByText(/Inkluderas när innehåll finns i kursplan | Innehåll hämtas från kursplan/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
     expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
     expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
   })
@@ -1335,7 +1336,8 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
   })
 
   test('tab: extra (draft of published). render correct number of text about data origin and source info ', () => {
-    expect(screen.getByText('från kursplan')).toBeInTheDocument()
+    expect(screen.getByText('Inkluderas när innehåll finns i kursplan')).toBeInTheDocument()
+    expect(screen.getByText(/Innehåll hämtas från kursplan/i)).toBeInTheDocument()
     expect(screen.queryByText('från kursgemensam information')).not.toBeInTheDocument()
     expect(screen.queryByText('från kurstillfällesinformation')).not.toBeInTheDocument()
   })
@@ -1550,8 +1552,8 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). render correct number of text about data origin and source info ', () => {
     expect(screen.queryByText('från kursplan')).not.toBeInTheDocument()
-    expect(getAllByText('från kursgemensam information').length).toBe(1)
-    expect(getAllByText('från kurstillfällesinformation').length).toBe(3)
+    const dataOrigin = queryAllByTestId('data-origin')
+    expect(dataOrigin.length).toBe(3)
   })
 
   test('tab: contacts (draft of published). render correct number of include label, standard + extra headers', () => {

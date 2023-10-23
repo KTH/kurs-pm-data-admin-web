@@ -10,7 +10,6 @@ import { OnClickPropagationStopper } from './editors/OnClickPropagationStopper'
 
 const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, sectionType, userLangIndex, children }) => {
   const dataOrigin = contentParam(contentId, 'source')
-
   const isHeaderInConf = !!context[contentId]
 
   const { sourceInfo } = i18n.messages[userLangIndex]
@@ -22,7 +21,7 @@ const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, secti
         {(isRequired(contentId) && (
           <p className="mandatory" data-testid="data-origin">
             <b>{sourceInfo[typeOfHeader(contentId)]}</b>
-            {dataOrigin && <b className="source">{fetched} </b>}
+            {dataOrigin && ' \u007C ' + fetched}
             {dataOrigin && sourceInfo[dataOrigin]}
           </p>
         )) || (
@@ -48,7 +47,7 @@ const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, secti
                   {' '}
                   {sourceInfo.includeInMemo[sectionType]}
                 </label>
-                {isHeaderInConf && dataOrigin && <b className="source">{fetched} </b>}
+                {isHeaderInConf && dataOrigin && ` ${'\u007C'} ${fetched}`}
                 {isHeaderInConf && dataOrigin && sourceInfo[dataOrigin]}
               </div>
             </form>

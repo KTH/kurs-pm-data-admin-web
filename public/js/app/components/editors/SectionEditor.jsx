@@ -45,7 +45,11 @@ export const SectionEditor = ({
       {isEditorOpen && (
         <span data-testid={`standard-editor-${contentId}`} className="editor">
           <OnClickPropagationStopper>
-            <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
+            <CollapseGuidance
+              title={buttons.showGuidance}
+              details={memoInfoByUserLang[contentId].help}
+              visibleInMemo={visibleInMemo}
+            />
           </OnClickPropagationStopper>
           <OnClickPropagationStopper>
             <Editor
