@@ -69,7 +69,7 @@ module.exports = {
   sourceInfo: {
     addNewHeading: 'Name heading',
     fetched: 'Fetched ', // IF NOT EDITABLE
-    '(c)': 'from common course information',
+    '(c)': 'from Kopps',
     '(r)': 'from course round information',
     '(s)': 'from course syllabus',
     errorEmptyHeading: 'You need to name the header',

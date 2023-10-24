@@ -74,8 +74,8 @@ module.exports = {
       subSection: 'Inkludera ytterligare avsnitt',
     },
     noInfoYet: {
-      section: 'Inget innehåll är inlagt. Lägg In innehåll eller ta bort rubriken från kurs-PM.',
-      subSection: 'Inget innehåll är inlagt. Lägg In innehåll eller ta bort avsnittet från kurs-PM.',
+      section: 'Inget innehåll är inlagt. Lägg in innehåll eller ta bort rubriken från kurs-PM.',
+      subSection: 'Inget innehåll är inlagt. Lägg in innehåll eller ta bort avsnittet från kurs-PM.',
     },
     // includera rubrik
     notIncludedInMemoYet: {

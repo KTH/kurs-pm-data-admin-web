@@ -2,15 +2,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CollapseDetails } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
+import { useStore } from '../../mobx'
 
-const CollapseGuidance = ({ ariaLabel = '', title, details, visibleInMemo }) => (
+const store = useStore()
+
+const CollapseGuidance = ({ ariaLabel = '', title, details, visibleInMemo, contentId, content }) => (
   <CollapseDetails
     // className="guidance-per-content"
     ariaLabel={ariaLabel || 'Expand this to see a helping text'}
     title={title}
     yellow
-    color={(visibleInMemo && 'grey') || 'white'}
+    color={visibleInMemo ? (content != '' ? 'white' : 'grey') : 'grey'}
   >
+    {console.log(visibleInMemo)}
+    {console.log(content)}
     <span
       data-testid="help-text"
       dangerouslySetInnerHTML={{

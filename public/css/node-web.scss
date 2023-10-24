@@ -475,7 +475,7 @@ span.section-info {
   justify-content: space-between;
   .mandatory {
     margin-top: 5px; //  = 20px
-    padding-bottom: 20px !important;
+    padding-top: 10px !important;
   }
 }
 .section_info_visibility_label {
@@ -968,11 +968,7 @@ table {
   > .section-50 {
     padding-top: 0;
   }
-  .title-and-info {
-    h3 {
-      padding-bottom: 20px !important;
-    }
-  }
+
   .section-info {
     padding-top: 0;
   }
@@ -993,11 +989,21 @@ table {
     }
   }
 
+  p {
+    padding-top: 20px !important;
+  }
+
   &.ready {
     border: 1px solid $borderGrey;
     border-radius: $border-radius;
 
     background-color: $white;
+  }
+
+  &.clickable {
+    p {
+      padding-top: 4px !important;
+    }
   }
 
   span.editor {
@@ -1019,9 +1025,6 @@ table {
   }
   .no-visible-in-memo {
     opacity: 50%;
-  }
-  p {
-    padding-top: 20px !important;
   }
 }
 

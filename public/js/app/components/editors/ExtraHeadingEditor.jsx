@@ -199,7 +199,13 @@ function ExtraHeadingEditor(props) {
               userLangIndex={userLangIndex}
             />
             <OnClickPropagationStopper>
-              <CollapseGuidance title={buttons.showGuidance} details={memoInfoByUserLang[contentId].help} />
+              <CollapseGuidance
+                title={buttons.showGuidance}
+                details={memoInfoByUserLang[contentId].help}
+                visibleInMemo={visibleInMemo}
+                contentId={contentId}
+                content={htmlContent}
+              />
             </OnClickPropagationStopper>
             <OnClickPropagationStopper>
               <Editor

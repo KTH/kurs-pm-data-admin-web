@@ -49,6 +49,8 @@ export const SectionEditor = ({
               title={buttons.showGuidance}
               details={memoInfoByUserLang[contentId].help}
               visibleInMemo={visibleInMemo}
+              contentId={contentId}
+              content={htmlContent}
             />
           </OnClickPropagationStopper>
           <OnClickPropagationStopper>

@@ -37,7 +37,7 @@ const context = {
     isEditable: true,
     isRequired: false,
   }, // Kommunikation med lärare
-  courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Kursansvarig
+  courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Kursansvarig
   ethicalApproach: {
     type: 'mandatory',
     isEditable: false,
@@ -156,9 +156,9 @@ const context = {
     type: 'optional',
     isEditable: false,
     isRequired: false,
-    source: '(r)',
+    source: '(c)',
   }, // Lärarassistenter
-  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(r)' }, // Lärare
+  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Lärare
 }
 
 // it is a function to avoid accident change of getDefaultSections() somewhere else
