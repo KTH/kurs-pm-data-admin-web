@@ -462,10 +462,8 @@ $border-radius: 0.25rem;
   #contentAndOutcomes-learningActivities,
   #contentAndOutcomes-scheduleDetails,
   #prep-preparations {
-    ~ span:nth-child(3) {
-      p {
-        padding-top: 18px !important;
-      }
+    ~ span:nth-child(3) > p:nth-child(1) {
+      padding-top: 18px !important;
     }
   }
 
@@ -593,7 +591,7 @@ span.section-info {
       margin-bottom: 0rem;
     }
     &.form-group {
-      margin-top: 13px;
+      margin-top: 15px;
     }
     input[type='checkbox'] ~ label:before {
       background-color: $white;
@@ -1073,8 +1071,8 @@ table {
   }
 
   span:nth-child(3) {
-    p {
-      padding-top: 10px !important;
+    > p:nth-child(1) {
+      padding-top: 18px !important;
     }
   }
 
@@ -1101,6 +1099,14 @@ table {
       border-bottom: 0;
       border-left: 0;
       border-right: 0;
+      span:nth-child(2) {
+        p {
+          padding-top: 18px;
+          i > h4 {
+            margin: 0px;
+          }
+        }
+      }
     }
 
     > section {
@@ -1108,10 +1114,6 @@ table {
         padding-bottom: 0;
       }
     }
-  }
-
-  p {
-    padding-top: 8px !important;
   }
 
   &.ready {
@@ -1127,9 +1129,6 @@ table {
   }
 
   &.clickable {
-    p {
-      padding-top: 0px;
-    }
     h3 {
       padding-bottom: 0px;
     }
@@ -1142,7 +1141,9 @@ table {
     details {
       margin-bottom: 0;
     }
-
+    span:nth-child(2) > div {
+      margin-bottom: 15px;
+    }
     button {
       justify-self: right;
     }
@@ -1153,6 +1154,9 @@ table {
     justify-content: space-between;
   }
   .no-visible-in-memo {
+    p {
+      padding-top: 0px !important;
+    }
     opacity: 50%;
   }
 }
@@ -1204,10 +1208,18 @@ span.section-heading {
   cursor: pointer;
 }
 
+details summary.white {
+  padding-left: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 details summary.grey {
   background-color: $lightGrey;
   color: #006cb7;
   padding-left: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 details summary.grey::before {
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iYSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3LjQxIDEyIj4KICA8cGF0aCBkPSJNMCwxMC41OEw0LjU4LDYsMCwxLjQxLDEuNDEsMCw3LjQxLDYsMS40MSwxMmwtMS40MS0xLjQyWiIgc3R5bGU9ImZpbGw6IzAwNmNiNzsiLz4KPC9zdmc+);
