@@ -6,6 +6,7 @@ import { context } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 import { EditButton } from './editors/EditButton'
 import { SectionHeading } from './layout/SectionHeading'
+import { OnClickPropagationStopper } from '../components/editors/OnClickPropagationStopper'
 
 const getInfoModalAriaLabel = (langIndex, header) =>
   langIndex === 1 ? `Information om ${header}` : `Information about ${header}`
@@ -82,13 +83,15 @@ const BasicHeaderHead = ({
 
   return (
     <SectionHeading>
-      <HeadingAsteriskModal
-        modalBtnAriaLabel={ariaLabel}
-        modalId={contentId}
-        titleAndInfo={titleAndInfo}
-        btnClose={buttons.btnClose}
-        withModal
-      />
+      <OnClickPropagationStopper>
+        <HeadingAsteriskModal
+          modalBtnAriaLabel={ariaLabel}
+          modalId={contentId}
+          titleAndInfo={titleAndInfo}
+          btnClose={buttons.btnClose}
+          withModal
+        />
+      </OnClickPropagationStopper>
       {isEditButtonVisible && (
         <EditButton
           buttons={buttons}
