@@ -44,6 +44,7 @@ const context = {
     isRequired: true,
     source: '(s)',
     subSection: true,
+    subSectionTitle: 'ethicalApproachSubSection',
   },
   ethicalApproachSubSection: {
     openIfContent: true,
@@ -57,6 +58,7 @@ const context = {
     isRequired: true,
     source: '(s)',
     subSection: true,
+    subSectionTitle: 'examinationSubSection',
   },
   examinationSubSection: {
     openIfContent: false,
@@ -111,6 +113,7 @@ const context = {
     isEditable: false,
     isRequired: true,
     subSection: true,
+    subSectionTitle: 'permanentDisabilitySubSection',
   }, // Funktionsnedsättning
   permanentDisabilitySubSection: {
     openIfContent: true,

@@ -73,8 +73,12 @@ const renderAllSections = ({ sections, memoData }) => {
   const sectionsWithContent = []
   sections.forEach(({ id, content, extraHeaderTitle }) => {
     content.forEach(contentId => {
-      const { isRequired, type } = context[contentId]
+      const { isRequired, type, subSection, subSectionTitle } = context[contentId]
       let contentHtml = memoData[contentId]
+      if (subSection) {
+        const subSectionContentHtml = memoData[subSectionTitle]
+        contentHtml += subSectionContentHtml
+      }
       let visibleInMemo = memoData.visibleInMemo[contentId]
       if (typeof visibleInMemo === 'undefined') {
         visibleInMemo = true
@@ -125,8 +129,12 @@ const renderAllSections = ({ sections, memoData }) => {
           {content.map(contentId => {
             const menuId = id + '-' + contentId
 
-            const { isRequired, type } = context[contentId]
+            const { isRequired, type, subSection, subSectionTitle } = context[contentId]
             let contentHtml = memoData[contentId]
+            if (subSection) {
+              const subSectionContentHtml = memoData[subSectionTitle]
+              contentHtml += subSectionContentHtml
+            }
             let visibleInMemo = memoData.visibleInMemo[contentId]
             if (typeof visibleInMemo === 'undefined') {
               visibleInMemo = true
