@@ -81,6 +81,13 @@ module.exports = {
   // Cortina
   blockApi: {
     blockUrl: getEnv('CM_HOST_URL', devDefaults('https://www-r.referens.sys.kth.se/cm/')), // Block API base URL
+    addBlocks: {
+      secondaryMenu: '1.1066515',
+      studentMegaMenu: '1.1066510',
+      studentSearch: '1.1066521',
+      studentFooter: '1.1066523',
+    },
+    globalLink: false,
   },
 
   // Logging
@@ -98,6 +105,7 @@ module.exports = {
   cache: {
     cortinaBlock: {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
+      redisKey: 'CortinaBlock_kurs-pm-data-admin-web_',
     },
     koppsApi: {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
