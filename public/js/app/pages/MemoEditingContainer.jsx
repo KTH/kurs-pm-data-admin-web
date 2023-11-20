@@ -57,6 +57,7 @@ function MemoContainer(props) {
     return <AlertMissingDraft langAbbr={userLangAbbr} langIndex={userLangIndex} courseCode={courseCode} />
   const { initialActiveTab } = props // used for test
   const [isError, setErrorBool] = useState(false)
+  const [isBottomSticky, setIsBottomSticky] = useState(true)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
   const [activeTab, setActiveTab] = useState(initialActiveTab || sections[0].id)
   const [needToCheckAllExtraHeading, setNeedToCheckAllExtraHeading] = useState(false) // check all extra content groups
@@ -95,16 +96,49 @@ function MemoContainer(props) {
         history.go(-1)
       })
     }
-  }, []) /
-    useEffect(() => {
-      const { history } = props
+  }, [])
 
-      if (history) {
-        history.push({
-          search: '',
-        })
-      }
-    }, [])
+  useEffect(() => {
+    const handleScroll = () => {
+      debounceFunction(checkIfFooterIsInViewport, 400)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    const { history } = props
+
+    if (history) {
+      history.push({
+        search: '',
+      })
+    }
+  }, [])
+  const debounceFunction = (func, delay) => {
+    let timerId
+    // Cancels the setTimeout method execution
+    clearTimeout(timerId)
+
+    // Executes the func after delay time.
+    timerId = setTimeout(func, delay)
+  }
+
+  const checkIfFooterIsInViewport = () => {
+    const footer = document.getElementById('footer')
+    const bounding = footer.getBoundingClientRect()
+    const windowBottom = window.innerHeight
+
+    if (bounding.top <= windowBottom) {
+      setIsBottomSticky(false)
+    } else {
+      setIsBottomSticky(true)
+    }
+  }
 
   const scrollToTop = id => {
     const spanElement = toTopRef.current
@@ -490,7 +524,8 @@ function MemoContainer(props) {
           </Col>
         </Row>
       </StickyContainer>
-      <Container className="fixed-bottom">
+
+      <Container className={`${isBottomSticky ? 'fixed-bottom' : ''}`}>
         <ControlPanel
           langIndex={userLangIndex}
           onSubmit={onContinueToPreview}
