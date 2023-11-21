@@ -84,14 +84,8 @@ function ChangePublished(props) {
       setMemo({ existingDraftEndPoint: memoEndPoint, memoStatus: 'draft' })
     }
     if (search && search.toString().includes(eventDelete)) setTerm(semester)
-    cleanMemoEndPointInSearchParams(memoEndPoint, semester)
+    if (semester && memoEndPoint) cleanMemoEndPointInSearchParams(memoEndPoint, semester)
   }, [])
-
-  /* useEffect(() => {
-    const urlParams = fetchParameters(window)
-    const { semester, memoEndPoint } = urlParams
-    cleanMemoEndPointInSearchParams(memoEndPoint, semester)
-  }, []) */
 
   function setAlarm(type, textName, isOpen = true) {
     setAlert({
@@ -170,7 +164,6 @@ function ChangePublished(props) {
     const newSemester = event.target.value
     setTerm(newSemester)
   }
-  console.log(termWithPm)
   return (
     <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
       <Row id="scroll-here-if-alert">

@@ -86,7 +86,7 @@ function MemoContainer(props) {
     }
   }, [closeEmptyHeadingErrorMessage])
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (window.history && window.history.pushState) {
       window.history.pushState('', null, startcourseMemoAdminPageUrl)
 
@@ -95,16 +95,33 @@ function MemoContainer(props) {
         history.go(-1)
       })
     }
-  }, []) /
-    useEffect(() => {
-      const { history } = props
+  }, []) */
+  useEffect(() => {
+    console.log(history)
+    const handlePopstate = () => {
+      onAutoSave()
+      history.go(-1)
+    }
 
-      if (history) {
-        history.push({
-          search: '',
-        })
-      }
-    }, [])
+    history.pushState({ page: 'current' }, '')
+
+    window.addEventListener('popstate', handlePopstate)
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('popstate', handlePopstate)
+    }
+  }, [])
+  useEffect(() => {
+    const { history } = props
+
+    if (history) {
+      console.log('from history useEffect')
+      history.push({
+        search: '',
+      })
+    }
+  }, [])
 
   const scrollToTop = id => {
     const spanElement = toTopRef.current
