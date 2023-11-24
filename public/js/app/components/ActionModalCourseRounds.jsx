@@ -141,7 +141,9 @@ function ActionModalCourseRounds(props) {
 
       const newMemoName = sortedKoppsInfo.map(round => combineMemoName(round, semester, memoCommonLangAbbr)).join(', ')
       const firstDraft = version === FIRST_VERSION && status === 'draft'
-      const newMemoEndPoint = firstDraft ? courseCode + semester + '-' + sortedApplicationCodes.join('-') : memoEndPoint
+      const newMemoEndPoint = firstDraft
+        ? courseCode + semester + '-' + updatedSortedApplicationCodes.join('-')
+        : courseCode + semester + '-' + updatedSortedApplicationCodes.join('-')
 
       const newInfo = {
         courseCode,

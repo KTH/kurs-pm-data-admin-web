@@ -74,8 +74,6 @@ function MemoContainer(props) {
   const { alerts, extraInfo, pagesCreateNewPm, pagesChangePublishedPm, pageTitles } = i18n.messages[userLangIndex]
   const { event: eventFromParams = '' } = fetchParameters(props)
 
-  const startcourseMemoAdminPageUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}`
-
   useEffect(() => {
     // check if it is time to hide red alert about empty titles of extra section
     // console.log('check all sections has title')
@@ -86,16 +84,6 @@ function MemoContainer(props) {
     }
   }, [closeEmptyHeadingErrorMessage])
 
-  /* useEffect(() => {
-    if (window.history && window.history.pushState) {
-      window.history.pushState('', null, startcourseMemoAdminPageUrl)
-
-      window.addEventListener('popstate', function () {
-        onAutoSave()
-        history.go(-1)
-      })
-    }
-  }, []) */
   useEffect(() => {
     console.log(history)
     const handlePopstate = () => {
