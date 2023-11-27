@@ -98,7 +98,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
       await render(<ChangedPublishedWithData langAbbr="en" langIndex={0} />)
     })
     const semesters = getAllByRole('option')
-    const semesterEnglish = ['Spring 2020', 'Autumn 2019']
+    const semesterEnglish = ['Spring 2021', 'Autumn 2020', 'Spring 2020', 'Autumn 2019']
     semesters.map((s, i) => expect(s).toHaveTextContent(semesterEnglish[i]))
   })
 
@@ -107,7 +107,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
       await render(<ChangedPublishedWithData langAbbr="sv" langIndex={1} />)
     })
     const semestersSw = getAllByRole('option')
-    const semesterSwedish = ['VT 2020', 'HT 2019']
+    const semesterSwedish = ['VT 2021', 'HT 2020', 'VT 2020', 'HT 2019']
     semestersSw.map((s, i) => expect(s).toHaveTextContent(semesterSwedish[i]))
   })
 
@@ -119,7 +119,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     await fireEvent.change(selectInput, { target: { value: '20192' } })
     let options = getAllByTestId('select-option')
     expect(options[0].selected).toBeFalsy()
-    expect(options[1].selected).toBeTruthy()
+    expect(options[1].selected).toBeFalsy()
 
     const allH2Headers = getAllByRole('heading', { level: 2 })
     expect(allH2Headers.length).toBe(2)

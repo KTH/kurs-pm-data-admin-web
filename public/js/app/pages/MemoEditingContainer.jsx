@@ -85,7 +85,6 @@ function MemoContainer(props) {
   }, [closeEmptyHeadingErrorMessage])
 
   useEffect(() => {
-    console.log(history)
     const handlePopstate = () => {
       onAutoSave()
       history.go(-1)
@@ -104,7 +103,6 @@ function MemoContainer(props) {
     const { history } = props
 
     if (history) {
-      console.log('from history useEffect')
       history.push({
         search: '',
       })

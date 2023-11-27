@@ -14,8 +14,6 @@ const CollapseGuidance = ({ ariaLabel = '', title, details, visibleInMemo, conte
     yellow
     color={visibleInMemo ? (content != '' ? 'white' : 'grey') : 'grey'}
   >
-    {console.log(visibleInMemo)}
-    {console.log(content)}
     <span
       data-testid="help-text"
       dangerouslySetInnerHTML={{

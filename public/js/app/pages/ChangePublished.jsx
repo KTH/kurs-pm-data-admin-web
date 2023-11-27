@@ -51,7 +51,11 @@ function ChangePublished(props) {
   })
   const [term, setTerm] = useState(initialSemester)
 
-  const memosToEdit = [...(miniMemos.draftsOfPublishedMemos || []), ...(miniMemos.publishedWithNoActiveDraft || [])]
+  const memosToEdit = [
+    ...(miniMemos.draftsOfPublishedMemos || []),
+    ...(miniMemos.publishedWithNoActiveDraft || []),
+    ...(miniMemos.draftsWithNoActivePublishedVer || []),
+  ]
 
   const hasMemos = memosToEdit.length > 0
 

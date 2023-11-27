@@ -136,7 +136,9 @@ function ActionModalCourseRounds(props) {
 
     if (checkedRounds.length > 0 || uncheckedRounds.length > 0) {
       const sortedApplicationCodes = [...applicationCodes, ...checkedRounds].sort()
-      const updatedSortedApplicationCodes = sortedApplicationCodes.filter(code => !uncheckedRounds.includes(code))
+      const updatedSortedApplicationCodes = sortedApplicationCodes
+        .filter(code => !uncheckedRounds.includes(code))
+        .filter((value, index, self) => self.indexOf(value) === index)
       const sortedKoppsInfo = _koppsInfoForChecked(updatedSortedApplicationCodes)
 
       const newMemoName = sortedKoppsInfo.map(round => combineMemoName(round, semester, memoCommonLangAbbr)).join(', ')
