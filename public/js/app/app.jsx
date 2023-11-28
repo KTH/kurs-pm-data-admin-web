@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { hydrateRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 
@@ -80,7 +81,10 @@ function _renderOnClientSide() {
 
   const domElement = document.getElementById('app')
   // ReactDOM.hydrate(app, domElement)
-  ReactDOM.render(app, domElement)
+
+  // ReactDOM.render(app, domElement)
+  hydrateRoot(domElement, app)
+
   // ReactDOM.render(<BrowserRouter>{appFactory(applicationStore)}</BrowserRouter>, domElement)
 }
 
