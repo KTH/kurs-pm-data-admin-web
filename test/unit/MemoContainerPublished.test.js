@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen, findByText } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { StaticRouter } from 'react-router-dom/server'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 import { act } from 'react-dom/test-utils'
