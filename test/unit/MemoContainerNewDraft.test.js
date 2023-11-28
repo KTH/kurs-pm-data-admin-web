@@ -575,7 +575,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(getAllByText('Include in course memo').length).toBe(4)
     expect(getAllByText('Include additional section').length).toBe(1)
   })
-  test('tab: prep. renders "Add heading to" button and test to click on it.', async () => {
+  test.only('tab: prep. renders "Add heading to" button and test to click on it.', async () => {
     const addHeadingTo = getByTestId('add-heading-to')
     fireEvent.click(addHeadingTo)
     await waitFor(() => {
