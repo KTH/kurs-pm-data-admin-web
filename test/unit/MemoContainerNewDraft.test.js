@@ -575,17 +575,18 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(getAllByText('Include in course memo').length).toBe(4)
     expect(getAllByText('Include additional section').length).toBe(1)
   })
-  test.only('tab: prep. renders "Add heading to" button and test to click on it.', async () => {
+  test('tab: prep. renders "Add heading to" button and test to click on it with no heaing added', async () => {
     const addHeadingTo = getByTestId('add-heading-to')
     fireEvent.click(addHeadingTo)
     await waitFor(() => {
-      const buttonContainer = within(screen.getByTestId('remove-added-heading').parentElement)
-      fireEvent.click(buttonContainer.getByRole('button', { name: 'Remove added heading' }))
-
       const buttonSaveAndExit = screen.getByTestId('save-and-exit')
       fireEvent.click(buttonSaveAndExit)
     })
     expect(getByTestId('alert-save-data')).toBeInTheDocument()
+  })
+
+  test('tab: prep. renders "Remove added heading" button and test to click on it.', async () => {
+    const addHeadingTo = getByTestId('add-heading-to')
     fireEvent.click(addHeadingTo)
     await waitFor(() => {
       const buttonContainer = within(screen.getByTestId('remove-added-heading').parentElement)
