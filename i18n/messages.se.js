@@ -200,15 +200,8 @@ module.exports = {
       <p>Efter sektionen med den fasta texten följer en sektion där du ska beskriva kursomgångens examination i detalj. 
       Här ska du utveckla varje modul i examinationen. Om du har valt att skapa ett nytt kurs-PM som inte är en kopia eller ny version av ett tidigare kurs-PM kommer systemet automatiskt skapa underrubriker av varje modul i examinationen. 
       Överväg att beskriva följande under varje underrubrik:</p>
-      <ul>
-      <li>hur examinationen går till</li>
-      <li>vilka delar som ingår</li>
-      <li>vad som är obligatoriskt</li>
-      <li>vilka deadlines som gäller</li>
-      <li>vilka hjälpmedel som får användas</li>
-      <li>vad som gäller för samarbete och grupparbete </li>
-      <li>...och annan avgörande information som har betydelse för examinationen.</li>
-      </ul>
+      <p>- hur examinationen går till</p><p>- vilka delar som ingår</p><p>- vad som är obligatoriskt</p><p>- vilka deadlines som gäller</p>
+      <p>- vilka hjälpmedel som får användas</p><p>- vad som gäller för samarbete och grupparbete </p><p>- ...och annan avgörande information som har betydelse för examinationen.</p>
       <p>I den andra sektionen under rubriken "Examination" kan du också beskriva om det finns alternativa sätt att klara av varje modul, t.ex. genom kontrollskrivningar, om bonuspoäng kan användas till examinationen och liknande.</p>
       <p>Observera att förutsättningarna för examination inte får ändras i förhållande till kursplan och första publicerade kurs-PM. 
       Tänk därför på att vara väldigt restriktiv med eventuella ändringar under rubriken "Examination" efter att detta kurs-PM publicerats första gången. Tänk också på att granska och säkerställa det redigerbara innehållet under rubriken ”Examination” om du har kopierat innehållet i detta kurs-PM från ett tidigare publicerat kurs-PM. 

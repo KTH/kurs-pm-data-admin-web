@@ -18,6 +18,8 @@ const { info: infoSV } = i18n.messages[1]
 const { getAllByRole, getAllByTestId, getByTestId, getByText } = screen
 
 delete global.window.location
+global.window = Object.create(window)
+global.window.location = {}
 
 global.window.location = {
   href: 'http://localhost:3000/kursinfoadmin/kurs-pm-data/published/EF1111',
