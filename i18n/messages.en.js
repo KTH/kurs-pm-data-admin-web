@@ -212,8 +212,15 @@ module.exports = {
       help: `<p>There are two sections under the "Examination" heading. First there is an examination overview that is fetched from the course syllabus. This text will be published in this course memo.</p>
       <p>Describe the details of the examination in the second section. If this is a new course memo, that is not a new version or copied from another course memo, the system will provide you with preformatted subheadings of each module. 
       Consider to describe the following information beneath each subheading:</p>
-      <p>- how the examination is performed</p><p>- the parts of the examination</p><p>- any deadlines</p>
-      <p>- allowed aids during the examination</p><p>- the terms for collaboration and group projects</p><p>- ...and any other important information regarding the details of the examination.</p>
+      <ul>
+      <li>how the examination is performed</li>
+      <li>the parts of the examination</li>
+      <li>any deadlines</li>
+      <li>allowed aids during the examination</li>
+      <li>the terms for collaboration and group projects</li>
+      <li>...and any other important information regarding the details of the examination.</li>
+
+      </ul>
       <p>You can also describe if there are alternative ways to complete each module, for example with quizzes and partial exams, the use of bonus points and similar.</p>
       <p>The foundations of the examination must not be changed relative to the course syllabus or a previous version of this course memo. 
       You should therefore consider every change of the information in the "Examination" section after the first version of this course memo is published. 
