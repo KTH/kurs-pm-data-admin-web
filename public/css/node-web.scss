@@ -1137,7 +1137,14 @@ table {
   span.editor {
     display: grid;
     //grid-gap: 0.5em;
+    p {
+      padding-bottom: 5px;
+      margin: 0px;
+    }
 
+    p:last-of-type {
+      padding-bottom: 27px;
+    }
     details {
       margin-bottom: 0;
     }
