@@ -203,10 +203,10 @@ function ChangePublished(props) {
               {/* <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label> */}
               {(termWithPm && termWithPm.length > 0 && (
                 <Form style={{ width: '20em' }} data-testid="form-select-terms">
-                  <FormGroup className="form-group" key="select-semester" id="choose-semester">
+                  <FormGroup className="form-select" key="select-semester" id="choose-semester">
                     <div className="select-wrapper">
                       <select
-                        className="form-select"
+                        className="custom-select"
                         data-testid="select-terms"
                         id="term-list"
                         onChange={onChoiceOfSemester}
