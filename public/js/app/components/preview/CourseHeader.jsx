@@ -17,7 +17,7 @@ const CourseHeader = ({ courseMemo = '', courseCode = '', courseTitle = '', labe
         </Col>
       </Row>
       <Row className="pb-3">
-        <Col className="text-left" xs="12" lg="6">
+        <Col className="text-start" xs="12" lg="6">
           <h4 className="secondTitle">{courseTitle}</h4>
         </Col>
         <Col className="text-lg-right" xs="12" lg="6">

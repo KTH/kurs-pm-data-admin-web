@@ -41,7 +41,7 @@ function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard })
   const { id, content, extraHeaderTitle } = activeSection
 
   return (
-    <MainMenu extraClasses={['pl-0', 'h-100']}>
+    <MainMenu extraClasses={['ps-0', 'h-100']}>
       {content.map(
         contentId =>
           memoTitlesByMemoLang[contentId] && (
