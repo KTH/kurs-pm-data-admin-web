@@ -62,7 +62,7 @@
     "kth-style": "^9.0.1",
     "mobx": "^6.12.0",
     "mobx-react": "^9.1.0",
-    "passport": "^0.6.0",
+    "passport": "^0.7.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
