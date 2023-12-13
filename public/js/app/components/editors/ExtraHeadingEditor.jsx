@@ -166,7 +166,6 @@ function ExtraHeadingEditor(props) {
                   </Label>
                   <OnClickPropagationStopper>
                     <Input
-                      data-testid="add-extra-heading"
                       className="form-control"
                       type="text"
                       id={`headerFor${contentId}-${uKey}`}
