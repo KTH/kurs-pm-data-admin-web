@@ -9,7 +9,7 @@ const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => 
       <img
         // >= lg : float left, x margins spacer * .5
         // < lg : x margins auto, display block
-        className="float-lg-left mr-lg-4 mb-lg-3 mx-sm-auto d-sm-block"
+        className="float-lg-start me-lg-4 mb-lg-3 mx-sm-auto d-sm-block"
         height="auto"
         width="150px"
         src={courseImageUrl}
