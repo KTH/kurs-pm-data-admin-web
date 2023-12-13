@@ -104,7 +104,7 @@
     "mini-css-extract-plugin": "^2.7.6",
     "mockery": "^2.1.0",
     "nock": "^13.4.0",
-    "node-mocks-http": "^1.13.0",
+    "node-mocks-http": "^1.14.0",
     "node-notifier": "^10.0.1",
     "nodemon": "^3.0.2",
     "null-loader": "^4.0.1",
