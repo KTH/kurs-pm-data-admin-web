@@ -219,8 +219,9 @@ function PreviewContainer(props) {
 
   const isDraftOfPublished = Number(version) > FIRST_VERSION
 
-  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels, sectionsLabels } =
+  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } =
     i18n.messages[langIndex]
+
   const {
     coursePresentationLabels,
     courseFactsLabels,
@@ -228,6 +229,7 @@ function PreviewContainer(props) {
     courseLinksLabels,
     courseContactsLabels,
     courseHeaderLabels,
+    sectionsLabels,
   } = i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
 
   const courseImage = resolveCourseImage(
