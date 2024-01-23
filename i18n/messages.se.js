@@ -381,20 +381,9 @@ module.exports = {
     },
     software: {
       body: `<p><b>Programvara</b> beskriver vilken programvara och version av programvaran som ska användas under kursomgången.</p>
-      <p><b>Informationen hjälper studenten</b> att få tillgång till rätt programvara för att kunna genomföra kursomgången på ett effektivt sätt.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
-      help: `<p>Under rubriken "Programvara" skriver du vilken programvara med version av programvara som eventuellt används under kursomgången. 
-      Ange även referenser eller webblänkar till var programvaran finns att hämta, instruktioner och installationsanvisningar om sådana finns på annan plats. 
-      Ange annars instruktioner och installationsanvisningar under denna rubrik.</p>
-      <p>Om programvara inte är relevant för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>
-      <p>Nedan visas ett exempel på innehåll under rubriken Programvara i kurs-PM för HI1027.</p>
-      <p>Programvaran som används under kursen är freeware och kan laddas ner från nedanstående webbsidor. Information om hur du installerar programvaran finns på kurswebben/Resurser.</p>
-      <p>• Javakompilatorn, Java SE DeveloPMent Kit (JDK), och utvecklingsmiljön, NetBeans, laddas ned från https://netbeans.org/downloads/index.html 
-      Välj ”NetBeans IDE 8.2”och "Java SE" så installeras både kompilator och utvecklingsmiljö För att även kunna kompilera javakod från ett terminalfönster, utan utvecklingsmiljön NetBeans, ska du efter installationen ange sökvägen till din JDK (som bl.a. innehåller HI1027 3 Anders Lindström, KTH CBH 
-      kompilatorn). 
-      I Windows lägger du till denna sökväg till miljövariabeln PATH (exempel ”;C:/Program Files/Java/jdk1.8.x/bin”).</p>
-      <p>• Dokumentation om Javas standardklasser (API) finns på http://docs.oracle.com/javase/8/docs/api/</p>
-      <p>• Under den senare delen av kursen, och i laboration 4, behöver du ett verktyg för objektorienterad modellering med UML. Dia är ett enkelt ritverktyg för detta, http://dia-installer.de</p>`,
+      <p><b>Informationen hjälper studenten</b> att få tillgång till rätt programvara inför kursomgångens start</p>`,
+      help: `<p>Här beskriver du om någon specifik programvara, inklusive version, används. Ange även referenser eller webblänkar till var programvaran finns att hämta, instruktioner och installationsanvisningar om sådana finns på annan plats. 
+      Ange annars instruktioner och installationsanvisningar under denna rubrik.</p>`,
     },
     teacher: {
       body: `<p><b>Lärare</b> innehåller kontaktinformation till personer som har rollen lärare under denna kursomgång.</p>

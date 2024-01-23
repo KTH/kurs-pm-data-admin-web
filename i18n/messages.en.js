@@ -395,11 +395,10 @@ module.exports = {
       <p>Preparations may include chapters and other references to course literature or websites, but it can also involve installing software or other practical preparations.</p>`,
     },
     software: {
-      body: `<p><b>Software</b> describes what software and what version of the software that is used on the course.</p>
-      <p><b>The information helps the student</b> to get access to the correct software that is necessary to complete the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the software that is used in the course in the "Software" section. Include references or web links to resources where the software can be downloaded from and where to find installation instructions.</p>
-      <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`,
+      body: `<p><b>Software</b> describes which software and the version of the software that should be used during the course.</p>
+      <p><b>This information helps the student</b> to access the right software before the start of the course offering.</p>`,
+      help: `<p>Under this section, you describe if any specific software, including version, is used. Also, provide references or web links to where the software can be downloaded, and if instructions and installation guidelines are available elsewhere, include that information.
+      If there are no external references, provide instructions and installation guidelines directly under this heading.</p>`,
     },
     teacher: {
       body: `<p><b>Teachers</b> hold the contact details of the teachers during this course offering.</p>
