@@ -373,7 +373,7 @@ module.exports = {
     teacherAssistants: {
       body: `<p><b>Lärarassistenter</b> innehåller kontaktinformation till personer som har rollen lärarassistent under denna kursomgång.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till lärarassistenter under kursomgången.</p>
-	  <p><b>Innehållet redigeras</b> i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik. Du väljer själv om kontaktuppgifterna ska inkluderas i ditt kurs-PM eller inte. Vill du inkludera uppgifterna klickar du på i "Inkludera".</p>`,
+      <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik). Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
     },
   },
   pagesCreateNewPm: [

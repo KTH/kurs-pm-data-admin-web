@@ -385,9 +385,9 @@ module.exports = {
       <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (Both links open in new tabs).</p>`,
     },
     teacherAssistants: {
-      body: `<p><b>Teacher assistants</b> holds the contact details to the teacher assistants on this course offering.</p>
-      <p><b>The information helps the student</b> with contact information for teacher assistants during the course offering.</p>
-	  <p><b>Edit the contents</b> in Kopps. Teacher assistants is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs. You choose whether the contact information should be included in your course memo or not. If you want to include the information, click on "Include".</p>`,
+      body: `<p><b>Teacher assistants</b> contains contact information for individuals holding the role of teacher assistants during this course offering.</p>
+      <p><b>This information helps the student</b> in obtaining contact details for the teacher assistants during the course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (Both links open in new tabs). You have the option not to include the heading in your course memo.</p>`,
     },
   },
   pagesCreateNewPm: [
