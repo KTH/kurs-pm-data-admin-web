@@ -213,7 +213,7 @@ module.exports = {
     examiner: {
       body: `<p><b>Examinator</b> innehåller kontaktinformation till personer som har rollen examinator för denna kurs.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till examinator under kursomgången.</p>
-	  <p><b>Innehållet redigeras</b> i utbildningsdatabasen <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet till Kopps</a>. Båda länkarna öppnas i ny flik.</p>`,
+      <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik).</p>`,
     },
     extraHeaders1: {
       body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Innehåll och lärandemål".</p>

@@ -191,9 +191,9 @@ module.exports = {
       help: `<p>Under this section, you describe the equipment that students need to complete the course, if it is not provided by KTH. Writing tools and literature are not considered equipment.</p>`,
     },
     examiner: {
-      body: `<p><b>Examiner</b> holds the contact details of the examiner for this course.</p>
-      <p><b>The information helps the student</b> with contact information for examiners during the course offering.</p>
-	  <p><b>Edit the contents</b> in Kopps. Examiners are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Examiner</b> contains contact information for individuals holding the role of examiner during this course offering.</p>
+      <p><b>This information helps the student</b> in obtaining contact details for the examiner during the course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (Both links open in new tabs).</p>`,
     },
     examination: {
       body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course module.</p>
