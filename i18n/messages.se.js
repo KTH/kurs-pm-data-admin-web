@@ -352,13 +352,10 @@ module.exports = {
       help: `<p>Här beskriver du vad som är särskilt viktigt för studenten att förbereda sig på. Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna om att beställa viss kurslitteratur i tid eller installera programvara.</p>`,
     },
     reportingResults: {
-      body: `<p><b>Resultatrapportering</b> beskriver hur och när registrering av studenternas resultat på examination och resultat på hela kursen går till. Det beskriver även var och när studenterna kan ta del av registrerade resultat.</p>
-      <p><b>Informationen hjälper studenten</b> att veta var och när den kan få tillgång till resultatet på examination och resultat på hela kursen. Med den informationen kan studenten ta höjd för eventuella omtentor i sin planering. För studenten är det också viktigt att känna trygghet i att den kommer vara berättigad till fortsatt studiemedel.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
-      help: `<p>Under rubriken "Resultatrapportering" beskriver du det som studenten behöver veta om registrering av resultat på examination och resultat på hela kursen. 
-      Beskriv var och när studenten kan förväntas hitta resultat på examinationsmoment och resultat på hela kursen. Informationen är särskilt viktig för studenten om resultatrapportering på denna kursomgång skiljer sig från ordinarie rutiner, t.ex. om kursomgången går över flera terminer eller om resultat på hela kursen kan dröja längre än normalt. 
-      Studenten ska normalt sett kunna förvänta sig att få resultat senast tre veckor eller femton arbetsdagar efter provtillfället.</p>
-      <p>Om det inte finns anledning att informera om resultatrapportering för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
+      body: `<p><b>Resultatrapportering</b> beskriver när och hur registrering av studenternas resultat och betyg går till, samt var studenten kan ta del av informationen.</p>
+      <p><b>Informationen hjälper studenten</b> så att den vet när och hur den kan få tillgång till resultat och betyg. Studenten kan då ta höjd för eventuella omtentor i sin planering. För studenten är det också viktigt att känna trygghet i att den kommer vara berättigad till fortsatt studiemedel.</p>`,
+      help: `<p>Här beskriver du hur resultatrapporteringen går till på kursomgången. Informationen är särskilt viktig om resultatrapportering på denna kursomgång skiljer sig från ordinarie rutiner, t.ex. om kursomgången går över flera terminer eller om resultat på hela kursen kan dröja längre än normalt. 
+      Studenten ska normalt sett kunna förvänta sig att få resultat senast tre veckor eller femton arbetsdagar efter provtillfället.</p>`,
     },
     scheduleDetails: {
       body: `<p><b>Detaljplanering</b> är en översikt av kursen planerade läraktiviteter och examinationstillfällen och innehåller information om aktiviteterna och vad studenten behöver förbereda inför varje aktivitet.</p>

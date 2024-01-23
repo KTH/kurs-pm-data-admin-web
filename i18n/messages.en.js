@@ -364,14 +364,10 @@ module.exports = {
       help: `<p>Under this section, you describe what is particularly important for the student to prepare for. You can encourage the student to review knowledge from the "Specific prerequisites" section in the course syllabus, revisit crucial aspects from the "Recommended prerequisites," remind them to order specific literature on time, or install software.</p>`,
     },
     reportingResults: {
-      body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering are registered and reported. It contains information about where and when the students can see their results on this course.</p>
-      <p><b>The information helps the student</b> to understand where and when they can find their results in this course. With that information, the student can take any re-exams into consideration. It is also important for the student to know if he or she is entitled to student grants and loans.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.y</p>`,
-      help: `<p>Describe what the student needs to know about reporting of exam results in this section. 
-      Describe where and when the student can find the results, both for modules and the final grade on the course. 
-      It is particularly important to describe this if the routines differs from other courses, for example if the results will be reported later than what is expected. 
-      The students should be informed of the results no later than three weeks or fifteen working days after the exam.</p>
-      <p>Uncheck "Include heading" if there is no reason to inform about reporting of exam results on this course.</p>`,
+      body: `<p><b>Reporting of exam results</b> describes when and how the registration of students' results and grades takes place, as well as where the student can access this information.</p>
+      <p><b>This information helps the student</b> so that they know when and how they can access results and grades. This allows the student to account for any re-examinations in their planning. It is also important for the student to feel secure in knowing that they will be eligible for continued financial support for their studies.</p>`,
+      help: `<p>Under this section, you describe how reporting of exam results is conducted in the course offering. The information is particularly important if reporting of exam results for this course offering differs from the regular procedures, for example, if the course offering spans multiple semesters or if results for the entire course may take longer than usual. 
+      Typically, the student can expect to receive results within three weeks or fifteen working days after the examination.</p>`,
     },
     scheduleDetails: {
       body: `<p><b>Detailed plan</b> is an overview of the course's planned learning activities and examinations. It includes information about the activities and what the student needs to prepare for each activity.</p>
