@@ -175,14 +175,10 @@ module.exports = {
       <p>Om det inte finns anledning att informera om etiska riktlinjer som är specifik för eller extra relevant i denna  kursomgång låter du den andra redigerbara sektionen vara tom.</p>`,
     },
     equipment: {
-      body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången. Skrivdon och litteratur räknas inte till utrustning.</p>
-      <p><b>Informationen hjälper studenten</b> att införskaffa rätt utrustning inför kursomgångens start.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Om det finns kursgemensamma uppgifter om utrustning i Kopps kommer den informationen att hämtas automatiskt till ditt kurs-PM. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
-      help: `<p>Under rubriken "Utrustning" beskriver du vilken utrustning som studenten behöver för att genomföra kursen, men som inte tillhandahålls av KTH. 
-      Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om utrustning i Kopps. 
-      Du kan välja att behålla den hämtade informationen eller beskriva utrustning som är specifik för denna kursomgång. 
-      Du kan då ersätta den hämtade texten med en egen beskrivning som anges i inmatningsfältet.</p>
-      <p>Om utrustning inte är nödvändig på denna kurs låter du rubriken vara dold i detta kurs-PM.</p>`,
+      body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången.</p>
+      <p><b>Informationen hjälper studenten</b> att skaffa rätt utrustning inför kursomgångens start.</p>
+      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om utrustning inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      help: `<p>Här beskriver du vilken utrustning som studenten behöver för att genomföra kursen, om den inte tillhandahålls av KTH. Skrivdon och litteratur räknas inte till utrustning.</p>`,
     },
     examination: {
       body: `<p><b>Examination</b> beskriver hur kursen examineras och detaljer om de examinerande momenten.</p>

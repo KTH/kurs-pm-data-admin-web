@@ -183,15 +183,10 @@ module.exports = {
       <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`,
     },
     equipment: {
-      body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. Literature and writing materials are not seen as equipment.</p>
-      <p><b>The information helps the student</b> to obtain the necessary equipment before the start of the course offering.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about equipment in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the equipment that is necessary to take the course, but is not provided by KTH in the "Equipment" section. 
-      Pencils and other writing materials is not treated as equipment.</p>
-      <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
-      You can choose to keep that information, or you can enter information about equipment that is valid only to this course offering. 
-      Just replace the provided information with your own.</p>
-      <p>Uncheck "Include heading" if equipment is irrelevant for this course.</p>`,
+      body: `<p><b>Equipment</b> describes what equipment is not provided by KTH and is needed to follow the course offering.</p>
+      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>
+      <p><b>The content is retrieved from Kopps</b> if there is information about equipment already entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      help: `<p>Under this section, you describe the equipment that students need to complete the course, if it is not provided by KTH. Writing tools and literature are not considered equipment.</p>`,
     },
     examiner: {
       body: `<p><b>Examiner</b> holds the contact details of the examiner for this course.</p>
