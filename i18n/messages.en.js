@@ -283,15 +283,10 @@ module.exports = {
       <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`,
     },
     learningActivities: {
-      body: `<p><b>Learning activities</b> describe the different types of activities on the course, and what the student needs to know about each type of activity. Learning activities define what a seminar, a lesson, or a laboratory is on this particular course.</p>
-      <p><b>The information helps the student</b> to do the necessary preparations. Each activity type may have different meanings in different courses.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the planned types of learning activities on the course in the section "Learning activities". 
-      Use an established term for each type and repeat the term throughout the course memo. 
-      Describe what the learning activity means for this particular course and what is important for the student to know about it. 
-      You can add information about how many of each activity type and how they are distributed over the course. </p>
-      <p>If the pedagogical disposition of the course is relevant for planning and preparations it can also be described in this section.</p>
-      <p>Uncheck "Include" if information about learning activities is irrelevant for this course.</p>`,
+      body: `<p><b>Learning activities</b> describe the types of activities that have been planned for the course. Learning activities define what, for example, a seminar, a lesson, or a laboratory session entails in this specific course offering.</p>
+      <p><b>This information helps the student</b> understand and plan for the activities during the course.</p>`,
+      help: `<p>Under this section, you describe the types of activities planned during the course. Provide each type with an intuitive and preferably widely accepted term that you will consistently use in this course memo.</p> 
+      <p>Briefly describe what each type of activity means in this specific course offering and what is beneficial for the student to know. You can also describe the extent of the activities.</p>`,
     },
     learningOutcomes: {
       body: `<p><b>Intended learning outcomes</b> clarifies what knowledge, what skills, which evaluation abilities and approaches the student needs to demonstrate after taking the course.</p>

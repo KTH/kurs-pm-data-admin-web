@@ -273,13 +273,10 @@ module.exports = {
       <p>Om det inte finns anledning att informera om ändringar inför denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
     },
     learningActivities: {
-      body: `<p><b>Läraktiviteter</b> beskriver vilka typer av aktiviteter som planerats för kursomgången och vad studenten behöver veta om respektive aktivitetstyp. Läraktivitet definierar vad t.ex. ett seminarium, en lektion eller en laboration är på just denna kursomgång.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå och planera inför kursomgångens aktiviteter. Detta eftersom att innebörden av en viss typ av läraktivitet kan ha olika innebörd på olika kurser.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
-      help: `<p>Under rubriken "Läraktiviteter" beskriver du vilka typer av läraktiviteter som är planerade under kursomgången. Ge de olika typerna ett intuitivt och gärna vedertaget begrepp som du sedan använder konsekvent senare i detta kurs-PM. Beskriv vad de olika typerna av läraktiviteter innebär på just denna kursomgång, kortfattat hur de går till och vad som är bra för studenten att känna till om läraktiviteten. 
-      Du kan också beskriva hur omfattande läraktiviteterna är i fråga om antal och tid, men också hur de är fördelade över kursomgångens studietid.</p>
-      <p>Kursens pedagogiska upplägg kan också beskrivas under "Läraktiviteter" om det har betydelse för studentens planering och förberedelse av kursomgången.
-      Om läraktiviteter inte är relevant för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
+      body: `<p><b>Läraktiviteter</b> beskriver vilka typer av aktiviteter som planerats för kursomgången. Läraktiviteter definierar vad t.ex. ett seminarium, en lektion eller en laboration är på just denna kursomgång.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå och planera inför kursomgångens aktiviteter.</p>`,
+      help: `<p>Här beskriver du vilka typer av läraktiviteter som är planerade under kursomgången. Ge de olika typerna ett intuitivt och gärna vedertaget begrepp som du sedan använder konsekvent i detta kurs-PM.</p>
+      <p>Beskriv kortfattat vad de olika typerna av läraktiviteter innebär på just denna kursomgång, och vad som är bra för studenten att känna till. Du kan också beskriva hur omfattande läraktiviteterna är.</p>`,
     },
     learningOutcomes: {
       body: `<p><b>Lärandemål</b> ska tydliggöra vilka kunskaper, färdigheter, värderingsförmågor och förhållningssätt som studenten ska visa efter genomgången kurs.</p>
