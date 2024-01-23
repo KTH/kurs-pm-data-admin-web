@@ -228,29 +228,25 @@ module.exports = {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Content and learning outcomes" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Content and learning outcomes", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Concepts", "Connection to qualitative targets" and "Pedagogical disposition of the course".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Content and learning outcomes" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     extraHeaders2: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Preparations before course start" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Preparations before course start", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Specific prerequisites", "Course registration" and "Learning management system".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Preparations before course start" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     extraHeaders3: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Examination and completion" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Examination and completion", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal" and "Link to sample quizzes and exams".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Examination and completion" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     extraHeaders4: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Further information" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Further information", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal", "Course evaluation and course analysis" and "Maps/Find your teaching premises".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Further information" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     gradingCriteria: {
       body: `<p><b>Grading criteria/assessment criteria</b> specify the requirements that students must meet for different grades and should be formulated based on the course objectives in the course syllabus.</p>
