@@ -137,10 +137,9 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      body: `<p><b>Additional regulations</b> describe regulations in the course syllabus that does not comply with any of the other sections in the course syllabus.</p>
-      <p><b>The information helps the student</b> to plan and prepare for their studies.</p>
-      <p><b>Contents can be edited</b> in Kopps. Changes in "Additional regulations" is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing the contents of the course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
-      <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
+      body: `<p><b>Additional regulations</b> describe regulations in the course syllabus that do not fit under other headings.</p>
+      <p><b>This information helps the student</b> in planning and preparing for the implementation of the course offering.</p>
+      <p><b>Content is retrieved from the course syllabus in Kopps</b> and cannot be edited here. For guidelines on changing the content in the course syllabus, please refer to the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). If there is no content, the heading will not be displayed in your course memo.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>`,

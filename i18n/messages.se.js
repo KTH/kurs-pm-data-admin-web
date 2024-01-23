@@ -126,10 +126,9 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      body: `<p><b>Övriga föreskrifter</b> beskriver föreskrifter i kursplanen som inte ryms under övriga rubriker i kursplanen.</p>
-      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursens genomförande.</p> 
-      <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur Övriga föreskrifter kan ändras eftersom informationen är en del av kursplanen. Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
-      <p><b>Om det inte finns något innehåll</b> kommer rubriken inte visas i det publicerade kurs-PM:et.</p>`,
+      body: `<p><b>Övriga föreskrifter</b> beskriver föreskrifter i kursplanen som inte ryms under övriga rubriker.</p>
+      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande.</p> 
+      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan  <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik). Om det inte finns något innehåll kommer rubriken inte visas i ditt kurs-PM.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Gjorda ändringar</b> utgör en logg av de ändringar som gjorts i ett publicerat kurs-PM. Informationen kommer inte att visas publikt. Gjorda ändringar ska innefatta kort vilka rubriker som ändrats och varför det ändrats. Systemet sparar datum och tidpunkt för varje publicerad ändring.</p>`,
