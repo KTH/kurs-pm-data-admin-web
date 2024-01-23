@@ -385,9 +385,10 @@ module.exports = {
       <p>Uncheck "Include heading" if there is no reason to inform about specific preparations on this course.</p>`,
     },
     prerequisites: {
-      body: `<p><b>Recommended prerequisites</b> describes what the teacher expects the student to know before the start of the course.</p>
-      <p><b>The information helps the students</b> to understand what knowledge is important to be updated on when the course starts.</p>
-      <p><b>The contents is edited </b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>, by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. Both links open in a new tab.</p>`,
+      body: `<p><b>Recommended prerequisites</b> describe what the teacher expects the student to have mastered when the course begins.</p>
+      <p><b>This information helps the student</b> understand which knowledge is crucial to be updated on when the course starts. Clearly defined information makes it easier for the student to review the correct theories and models before the course begins.</p>
+      <p><b>Content is retrieved from Kopps</b> and can only be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in a new tab). You can choose not to include the heading in your course memo.</p>`,
+      help: `<p>Under this section, you describe what is particularly important for the student to prepare for. You can encourage the student to review knowledge from the "Specific prerequisites" section in the course syllabus, revisit crucial aspects from the "Recommended prerequisites," remind them to order specific literature on time, or install software.</p>`,
     },
     reportingResults: {
       body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering are registered and reported. It contains information about where and when the students can see their results on this course.</p>
