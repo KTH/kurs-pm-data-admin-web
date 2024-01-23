@@ -303,8 +303,9 @@ module.exports = {
     },
     permanentDisability: {
       body: `<p><b>Stöd för studenter med funktionsnedsättning</b> beskriver vilka rättigheter och möjligheter som finns för studenter med funktionsnedsättning. Informationen beskriver vilket stöd de kan väntas få under kursomgången och hur de går tillväga för att få stödet.</p>
-      <p><b>Informationen hjälper studenten</b> med funktionsnedsättning att förstå hur de kan få rätt stöd för att genomföra kursomgången.</p>
-      <p><b>Innehållet redigeras</b> genom att inkludera ett ytterligare avsnitt. Den övre texten under rubriken är fast och tillhör mallen för kurs-PM. Klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera ytterligare avsnitt" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
+      <p><b>Informationen hjälper studenter</b> med funktionsnedsättning att förstå hur de kan få rätt stöd för att genomföra kursomgången.</p>`,
+      help: `<p>Under rubriken finns två sektioner. Överst visas en fast text, som inte är redigerbar. Den fasta texten innehåller en webblänk till KTH:s officiella sida med generell information om stöd för studenter med funktionsnedsättning. 
+      Efter den fasta texten följer en sektion där du kan ange information om stöd för studenter med funktionsnedsättning som gäller specifikt för denna kursomgång. Du kan informera om kompensatoriskt stöd vid examination eller om annat stöd i studiesituationen. Läs mer om att <a href="https://intra.kth.se/utbildning/utbi/examination/stod-funka" target="_blank">hantera stöd till studenter med funktionsnedsättning</a> (öppnas i ny flik).</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p><b></b></p>

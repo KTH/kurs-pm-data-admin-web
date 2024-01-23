@@ -311,9 +311,11 @@ module.exports = {
       <p><b>If there is no content in the course syllabus</b> the heading will not be visible in your course memo.</p>`,
     },
     permanentDisability: {
-      body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. The information describes what support they can be expected to receive during the course and how they go about getting the support.</p>
-      <p><b>The information helps students with disabilities</b> to understand how they can get the right support to complete the course.</p>
-      <p><b>Edit the contents</b> by including an additional section. The first text under the heading is fixed and is a part of the template for the course memo. Click on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
+      body: `<p><b>Support for students with disabilities</b> outlines the rights and opportunities available for students with disabilities. The information describes the support they can expect during the course offering and the procedures they should follow.</p>
+      <p><b>This information helps students</b> with disabilities in understanding how they can receive the appropriate support to complete the course offering.</p>`,
+      help: `<p>Under the heading, there are two sections. At the top, there is a fixed text that is not editable. This fixed text contains a web link to KTH's official page with general information about support for students with disabilities.
+      Following the fixed text is a section where you describe the support for students with disabilities that is specifically relevant to this course offering. You can inform about compensatory support during examinations or other support in the study situation. 
+      Read more about <a href="https://intra.kth.se/en/utbildning/utbi/examination/stod-funka/hantera-stod-till-studenter-med-funktionsnedsattning-1.691449" target="_blank">managing support for students with disabilities</a> (opens in a new tab).</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p> </p>
