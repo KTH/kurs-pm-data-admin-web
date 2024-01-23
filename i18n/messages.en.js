@@ -294,19 +294,12 @@ module.exports = {
       <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     literature: {
-      body: `<p><b>Literature</b> describes the compulsory course literature on this course offering.</p>
-      <p><b>The information helps the student</b> to obtain the necessary literature before the start of the course offering. For students with disabilities, it is important to know about the compulsory course literature before the course start, to get it as talking books.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include". If there is information about literature in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the compulsory course literature on this course in the "Literature" section. 
-      If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
-      You can choose to keep that information, or you can enter information about course literature that is valid only to this course offering. 
-      Just replace the provided information with your own.</p>
-      <p>Make a list of the course literature with information about the author, year of publication, title and name of publisher. 
-      Also include references to where the course literature could be found in digital form, for example in Canvas.</p>
-      <p>Many students want to acquire the course literature before the course start. 
-      Students with disabilities need to know the course literature well in advance of the course start to get it as talking books. 
-      The information should therefore be available at least eight weeks before start of the course.</p>
-      <p>If there is no compulsory course literature on this course it is important to mention that to reduce unnecessary questions and to avoid the students go looking for the information elsewhere in vain.</p>`,
+      body: `<p><b>Literature</b> describes the literature used in the course offering.</p>
+      <p><b>This information helps the student</b> acquire the correct literature before the start of the course. For students with disabilities, it is especially important to know in good time which literature will apply in order to get it as talking books.</p>
+      <p><b>Content is retrieved from Kopps</b> if there is information about literature already entered. You can choose to retain that information in your course memo or add new information. The heading is always included in your course memo.</p>`,
+      help: `<p>Under this section, you describe the literature used in this course offering. This heading is mandatory in the course memo.
+      List the literature with author, publication year, title, and publisher. Also, provide references to locations where the literature can be downloaded if available in digital form.</p>
+      <p>If literature is not relevant for this course offering, it's helpful to state this so that students do not need to inquire.</p>`,
     },
     otherContacts: {
       body: `<p><b>Other contacts</b> describe the contact details of personnel and functions, other than the contacts mentioned above, the students may have to contact before or during this course offering. Course administrators, lab supervisors, and project supervisors are examples of Other contacts.</p>

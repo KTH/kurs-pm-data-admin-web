@@ -592,7 +592,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     await waitFor(() => {
       const editorSectionIsOpen = getByTestId(`standard-editor-literature`)
       expect(editorSectionIsOpen).toBeInTheDocument()
-      expect(editorSectionIsOpen).toHaveTextContent(/Visa vägledningUnder rubriken "Kurslitteratur"/i)
+      expect(editorSectionIsOpen).toHaveTextContent(/Visa vägledningHär beskriver du vilken kurslitteratur/i)
 
       expect(getByTestId(`btn-close-editor-literature`)).toBeInTheDocument()
     })

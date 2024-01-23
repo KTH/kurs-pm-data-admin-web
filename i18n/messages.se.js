@@ -285,19 +285,11 @@ module.exports = {
     },
     literature: {
       body: `<p><b>Kurslitteratur</b> beskriver vilken litteratur som används i kursomgången.</p>
-      <p><b>Informationen hjälper studenten</b> att införskaffa rätt kurslitteratur inför kursomgångens start. För studenter med funktionsnedsättning är det extra viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet. Om det finns kursgemensamma uppgifter om kurslitteratur i Kopps kommer den informationen att hämtas automatiskt till ditt kurs-PM. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehållet.</p>`,
-      help: `<p>Under rubriken "Kurslitteratur" beskriver du vilken kurslitteratur som används i denna kursomgång. 
-      Om du valt att skapa ett nytt kurs-PM kommer information att hämtas automatiskt från den kursgemensamma informationen om kurslitteratur i Kopps. 
-      Du kan välja att behålla den hämtade informationen eller skriva kurslitteratur specifikt för kursomgången som detta kurs-PM gäller för. 
-      Du kan då ersätta den hämtade texten med text som anges i inmatningsfältet.</p>
-      <p>Lista kurslitteraturen tydligt. Ange författare, utgivningsår, titel och förlag. 
-      Hänvisa även till platser där litteraturen finns tillgänglig i digital form, exempelvis om den finns tillgänglig i Canvas.</p>
-      <p>Många studenter vill förbereda sig inför kursstart med att skaffa kurslitteraturen. 
-      För studenter med funktionsnedsättning är det viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst eller liknande. 
-      Ny kurslitteratur bör därför finnas tillgänglig minst 8 veckor före kursstart.</p>
-      <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det explicit för att studenterna inte ska behöva ställa frågan. 
-      Rubriken kurslitteratur är obligatorisk i kurs-PM och kommer alltid visas i kurs-PM oavsett om det finns relevant kurslitteratur eller inte på kursomgången.</p>`,
+      <p><b>Informationen hjälper studenten</b> att skaffa rätt kurslitteratur inför kursomgångens start. För studenter med funktionsnedsättning är det extra viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst.</p>
+      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om kurslitteratur inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Rubriken ingår alltid i ditt kurs-PM.  </p>`,
+      help: `<p>Här beskriver du vilken kurslitteratur som används i denna kursomgång. Rubriken är obligatorisk i kurs-PM.
+      Lista kurslitteraturen med författare, utgivningsår, titel och förlag. Hänvisa även till platser litteraturen kan laddas ner, om den finns tillgänglig i digital form.</p>
+      <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det så att studenten vet detta.</p>`,
     },
     otherContacts: {
       body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med inför, under eller efter kursomgången, och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare etc.</p>
