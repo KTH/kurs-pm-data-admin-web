@@ -260,12 +260,8 @@ module.exports = {
     },
     infoForReregisteredStudents: {
       body: `<p><b>Ändringar inför denna kursomgång</b> beskriver vilka större ändringar som har införts till denna kursomgång.</p>
-      <p><b>Informationen hjälper studenten</b> att exempelvis förstå vilka förbättringar som gjorts inför kursomgången och på ett högre plan vilket förbättringsarbete i allmänhet som görs på kursen. Informationen kan också uppmärksamma omregistrerade studenter på förändringar från föregående kursomgångar som de behöver ta hänsyn till.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
-      help: `<p>Under rubriken "Ändringar inför denna kursomgång" beskriver du vilka ändringar som gjorts på kursen inför denna kursomgång. 
-      Det kan också vara viktigt att beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser som hjälper studenten att prioritera i sin planering och sina förberedelser inför kursomgången. 
-      Kurs-PM är ett av flera sätt att informera studenter om resultaten från kursvärderingar och kursanalyser samt eventuella beslut om åtgärder som följer av det.</p>
-      <p>Om det inte finns anledning att informera om ändringar inför denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
+      <p><b>Informationen hjälper studenten</b> att förstå vilka förbättringar som gjorts inför kursomgången. Informationen kan också uppmärksamma omregistrerade studenter på förändringar från föregående kursomgångar som de behöver ta hänsyn till.</p>`,
+      help: `<p>Här beskriver du vilka ändringar som gjorts inför denna kursomgång. Det kan också vara viktigt att beskriva relevanta slutsatser från föregående kursvärderingar och kursanalyser som hjälper studenten att prioritera i sin planering för denna kursomgång.</p>`,
     },
     learningActivities: {
       body: `<p><b>Läraktiviteter</b> beskriver vilka typer av aktiviteter som planerats för kursomgången. Läraktiviteter definierar vad t.ex. ett seminarium, en lektion eller en laboration är på just denna kursomgång.</p>

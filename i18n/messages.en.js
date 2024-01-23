@@ -265,13 +265,9 @@ module.exports = {
         </p>`,
     },
     infoForReregisteredStudents: {
-      body: `<p><b>Changes of the course before this course offering</b> describe what major changes have been implemented before this course offering.</p>
-      <p><b>The information helps the student</b> to understand what improvements have been made before this course offering. The information can also alert re-registered students to changes from previous course offerings.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
-      Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
-      The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
-      <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`,
+      body: `<p><b>Changes of the course before this course offering</b> describe the major modifications introduced for this course offering. </p>
+      <p><b>This information helps the student</b> to stay informed about significant alterations made specifically for the current course offering.</p>`,
+      help: `<p>Under this section, you describe the changes made for this course offering. It can also be important to describe relevant conclusions from previous course evaluations and analyses that help the student prioritize in their planning for this course offering.</p>`,
     },
     learningActivities: {
       body: `<p><b>Learning activities</b> describe the types of activities that have been planned for the course. Learning activities define what, for example, a seminar, a lesson, or a laboratory session entails in this specific course offering.</p>
