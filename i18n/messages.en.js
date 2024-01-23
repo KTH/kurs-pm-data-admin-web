@@ -303,10 +303,10 @@ module.exports = {
 			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`,
     },
     otherRequirementsForFinalGrade: {
-      body: `<p><b>Other requirements for final grade</b> describes additional requirements for a final grade in addition to what is stated under Examination, for example attendance requirements.</p>
-      <p><b>The information helps the student</b> to plan and prepare for their studies.</p>
-      <p><b>Contents can be edited</b> in Kopps. Changes of "Other requirements for final grade" is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>
-      <p><b>If there is no content in the course syllabus</b> the heading will not be visible in your course memo.</p>`,
+      body: `<p><b>Other requirements for final grade</b> describe additional criteria for the overall course grade, beyond what is specified under the "Examination" heading, such as attendance requirements.</p>
+      <p><b>This information helps the student</b> in planning and preparing for the overall execution of the course offering.</p>
+      <p><b>Content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). </p>
+      <p><b>If there is no content,</b> the heading will not appear in your course memo.</p>`,
     },
     permanentDisability: {
       body: `<p><b>Support for students with disabilities</b> outlines the rights and opportunities available for students with disabilities. The information describes the support they can expect during the course offering and the procedures they should follow.</p>

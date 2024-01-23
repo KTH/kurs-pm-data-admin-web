@@ -295,8 +295,8 @@ module.exports = {
     },
     otherRequirementsForFinalGrade: {
       body: `<p><b>Övriga krav för slutbetyg</b> beskriver ytterligare krav för betyg på hel kurs, utöver vad som anges under rubriken Examination, t.ex. krav på närvaro.</p>
-      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursens genomförande.</p>
-      <p><b>Innehållet redigeras</b> i utbildningsdatabasen Kopps. Det finns tydliga riktlinjer för hur "Övriga krav för slutbetyg" kan ändras eftersom informationen är en del av kursplanen. Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
+      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande.</p>
+      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
       <p><b>Om det inte finns något innehåll</b> kommer rubriken inte visas i ditt kurs-PM.</p>`,
     },
     permanentDisability: {
