@@ -145,11 +145,9 @@ module.exports = {
 			<p>Om det inte finns anledning att informera om kommunikation i kursen för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
     },
     courseContent: {
-      body: `<p><b>Kursinnehåll</b> beskriver ämnesinnehållet och de generella färdigheter som behandlas eller tränas i kursen.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå vilka begrepp, ämnen, färdigheter m.m. som den behöver läsa in sig på inför och under kursen. 
-      Kursinnehållet hjälper på så sätt studenten att förbereda sig inför och under kursen.</p>
-      <p><b>Innehållet redigeras</b>  i utbildningsdatabasen Kopps. 
-      Det finns tydliga riktlinjer för hur Kursinnehåll kan ändras eftersom informationen är en del av kursplanen. 
+      body: `<p><b>Kursinnehåll</b> beskriver ämnesinnehållet och de generella färdigheter som behandlas i kursomgången.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå vilka begrepp, ämnen, färdigheter m.m. som den behöver läsa in sig på inför och under kursomgången.</p>
+      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b>
       Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan 
       <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
     },

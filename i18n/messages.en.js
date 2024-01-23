@@ -156,12 +156,10 @@ module.exports = {
 		<p>Uncheck "Include heading" if there is no reason to inform about communication during course.</p>`,
     },
     courseContent: {
-      body: `<p><b>Course contents</b> describes the subjects and the general abilities that is discussed or practised on the course.</p>
-      <p><b>The information helps the student</b> to understand what concepts, subjects, abilities etc. to read up on before and during the courses. 
-      In that way, course contents helps the student to prepare both before and during the course.</p>
-      <p><b>Contents can be edited</b> in Kopps. Changes of course contents is restricted by certain regulations since the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page 
-      <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`,
+      body: `<p><b>Course contents</b> describes the content and the general skills covered in the course.</p>
+      <p><b>This information helps the student</b> which concepts, topics, skills, etc., they need to familiarize themselves with before and during the course.</p>
+      <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page
+      &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     courseCoordinator: {
       body: `<p><b>Course coordinator</b> holds the contact details of the course coordinator on this course offering.</p>
