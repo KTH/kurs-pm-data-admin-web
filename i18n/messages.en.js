@@ -289,12 +289,10 @@ module.exports = {
       <p>If literature is not relevant for this course offering, it's helpful to state this so that students do not need to inquire.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Other contacts</b> describe the contact details of personnel and functions, other than the contacts mentioned above, the students may have to contact before or during this course offering. Course administrators, lab supervisors, and project supervisors are examples of Other contacts.</p>
-			<p><b>The information helps the student</b> with contact information for other functions during the course offering.</p>
-			<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the contact details to personnel and functions other than the contacts mentioned above. Enter name, mail address and phone number. Describe in short the questions and issues each contact handles.</p>
-			<p>Contacts already mentioned in the "Course coordinator", "Teacher", "Teacher assistants" and "Examiner" sections should not be repeated in this section.</p>
-			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`,
+      body: `<p><b>Other contacts</b> provides contact information for individuals and roles that students may need to reach out to, and who do not hold the roles of examiner, course coordinator, teacher, or teaching assistants. Other contacts may include course administrators, lab supervisors, project supervisors, etc.</p>
+			<p><b>This information helps the students</b> in obtaining contact details for individuals who can address questions that cannot be answered by the examiner, course coordinator, teachers, or teaching assistants.</p>`,
+      help: `<p>Under this section, you provide the names, email addresses, and/or phone numbers of individuals or roles that may be relevant to contact during the course offering. Briefly describe the types of questions or feedback they can be contacted for.</p>
+      <p>Contact information for the examiner, course coordinator, and teachers is automatically retrieved for your course memo, so you do not need to provide this information again.</p>`,
     },
     otherRequirementsForFinalGrade: {
       body: `<p><b>Other requirements for final grade</b> describe additional criteria for the overall course grade, beyond what is specified under the "Examination" heading, such as attendance requirements.</p>
