@@ -289,9 +289,9 @@ module.exports = {
       <p>Briefly describe what each type of activity means in this specific course offering and what is beneficial for the student to know. You can also describe the extent of the activities.</p>`,
     },
     learningOutcomes: {
-      body: `<p><b>Intended learning outcomes</b> clarifies what knowledge, what skills, which evaluation abilities and approaches the student needs to demonstrate after taking the course.</p>
-      <p><b>The information helps the students</b> to understand what they have to achieve to get a passing grade.</p>      
-      <p><b>Intended learning outcomes can be edited</b> in Kopps. Changes of intended learning outcome is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`,
+      body: `<p><b>Intended learning outcomes</b> clarify the knowledge, skills, evaluative abilities, and approaches that the student should demonstrate after completing the course.</p>
+      <p><b>This information helps the student</b> understand what they need to achieve to receive a passing grade.</p>      
+      <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     literature: {
       body: `<p><b>Literature</b> describes the compulsory course literature on this course offering.</p>
