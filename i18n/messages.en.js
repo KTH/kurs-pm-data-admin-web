@@ -341,13 +341,11 @@ module.exports = {
       <p>It is often better to describe opportunity to complete the </p>`,
     },
     possibilityToCompensate: {
-      body: `<p><b>Alternatives to missed activities or tasks</b> describe if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
-      <p><b>The information helps the student</b> to plan the course with other commitments. With information about alternatives to missed activities or tasks, the student can prioritize the activities.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe if alternatives to missed activities or tasks are possible on this course in the "Alternatives to missed activities or tasks" section. 
-      If it is possible, describe the alternatives in the case when students miss a mandatory activity or task, for example if the student miss a mandatory study visit.</p>
-      <p>Remember that any other examination format than the ordinary must be written in the "Examination comment" section of the course syllabus.</p>
-      <p>Uncheck "Include heading" if "Alternatives to missed activities or tasks" is irrelevant for this course.</p>`,
+      body: `<p><b>Alternatives to missed activities or tasks</b> describes whether there is an opportunity for replacement assignments in the course offering, and if so, what applies if the student misses mandatory elements.</p>
+      <p><b>This information helps the student</b> in planning the implementation of the course while simultaneously studying another course. Clearly described information about alternatives to missed activities or tasks also increases legal certainty.</p>`,
+      help: `<p>Under this section, you describe whether there is alternatives to missed activities or tasks in the course offering. 
+      If possible, you describe the procedures if a student misses a mandatory element. This may apply in cases where the student misses an activity with mandatory attendance or is absent during a study visit.</p>
+      <p>Note that if a form of examination other than the regular one is used in a replacement assignment, it must be stated in the course syllabus under “Examination comment”.</p>`,
     },
     preparations: {
       body: `<p><b>Specific preparations</b> describes the most important preparations for the students before start of this course offering.</p>

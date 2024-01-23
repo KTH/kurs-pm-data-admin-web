@@ -329,14 +329,11 @@ module.exports = {
       <p>Det kan i många fall vara mer tydligt att istället beskriva möjlighet till komplettering om varje modul under rubriken Examination.</p>`,
     },
     possibilityToCompensate: {
-      body: `<p><b>Möjlighet till ersättningsuppgifter</b> beskriver i första hand om det finns möjlighet till ersättningsuppgifter på kursomgången och i så fall vad som gäller om studenten missar obligatoriska moment.</p>
-      <p><b>Informationen hjälper studenten</b> att planera genomförandet av kursomgången tillsammans med andra åtaganden, som t.ex. en parallell kurs. Tydligt beskriven information om möjlighet till ersättningsuppgifter ökar även rättssäkerheten.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
-      help: `<p>Under rubriken "Möjlighet till ersättningsuppgifter" beskriver du om det finns möjlighet till ersättningsuppgifter på kursomgången. 
-      Om det är möjligt så beskriver du vad som gäller om studenten missar ett obligatoriskt moment under kursomgången. 
-      Det kan vara i fallet då studenten missar en aktivitet med obligatorisk närvaro eller uteblivet studiebesök.</p>
-      <p>Observera att om annan examinationsform än den ordinarie används i en ersättningsuppgift måste det stå i kursplanens kommentar till examinationsmoment.</p>
-      <p>Om det inte finns anledning att informera om möjlighet till ersättningsuppgifter för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
+      body: `<p><b>Möjlighet till ersättningsuppgifter</b> beskriver om det finns möjlighet till ersättningsuppgifter på kursomgången och i så fall vad som gäller om studenten missar obligatoriska moment.</p>
+      <p><b>Informationen hjälper studenten</b> att planera genomförandet av kursomgången samtidig som den läser en annan kurs. Tydligt beskriven information om möjlighet till ersättningsuppgifter ökar även rättssäkerheten.</p>`,
+      help: `<p>Här beskriver du om det finns möjlighet till ersättningsuppgifter på kursomgången. 
+      Om det är möjligt beskriver du vad som gäller om studenten missar ett obligatoriskt moment. Det kan gälla i fall studenten missar en aktivitet med obligatorisk närvaro eller uteblir vid ett studiebesök.</p>
+      <p>Observera att om annan examinationsform än den ordinarie används i en ersättningsuppgift måste det stå i kursplanens ”Kommentar till examination.</p>`,
     },
     preparations: {
       body: `<p><b>Särskilda förberedelser</b> beskriver vad som är särskilt viktigt för studenten att veta och göra inför kursomgångens start.</p>
