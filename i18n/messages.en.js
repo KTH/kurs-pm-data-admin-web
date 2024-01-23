@@ -194,11 +194,10 @@ module.exports = {
 	  <p><b>Edit the contents</b> in Kopps. Examiners are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
     },
     examination: {
-      body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course component.</p>
-      <p><b>The information helps the student</b> to plan for taking the course. It also helps the student to prepare for and plan for each of the examination sessions on this course offering.</p>
-      <p><b>The content can be edited</b> in the course syllabus in Kopps (the fixed text at the top) and in this course memo, by including an additional section.</p>
-      <p>Changes in Examination are restricted by regulations since the information is part of the legally binding course syllabus. Read more about changing the contents of the course syllabus on the page <a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
-      <p>Include an additional section by clicking on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
+      body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course module.</p>
+      <p><b>This information helps the student</b> in planning the course and preparing for each course module. </p>
+      <p><b>The content is retrieved from the course syllabus in Kopps</b> (the fixed text at the top), but it can also be supplemented by adding an additional paragraph about the examination.
+      Read more about guidelines for changing content in the course syllabus on the page &quot;<a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     examinationSubSection: {
       body: 'It is important for students because they can plan their studies....',
