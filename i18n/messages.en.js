@@ -401,11 +401,10 @@ module.exports = {
       <p>Uncheck "Include heading" if there is no reason to inform about reporting of exam results on this course.</p>`,
     },
     scheduleDetails: {
-      body: `<p><b>Detailed plan</b> is an overview of the learning activities and examinations on the course, preferably in a chronological order. 
-      The detailed plan contains information about each activity and what preparations that are recommended prior to each activity.</p>
-      <p><b>The information helps the student</b> to plan for their studies.</p>
-      <p><b>Edit the content</b> by clicking on the button "Edit". Enter information and check "Include". Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance on how to write the content.</p>`,
-      help: `<p>Describe the planned learning activities and examination in the Detailed plan section. It is preferable to use a table to represent the plan. Describe the order of the activities, their content, and what preparations that is recommended prior to each activity. Preparations are often described as references to literature or web pages, but they could also be practical.</p>`,
+      body: `<p><b>Detailed plan</b> is an overview of the course's planned learning activities and examinations. It includes information about the activities and what the student needs to prepare for each activity.</p>
+      <p><b>This information helps the student</b> plan their studies and carry out the course effectively.</p>`,
+      help: `<p>Under this section, you describe the learning activities and examinations planned for the course. Outline the sequence of activities, their content, and the recommended preparations for each activity.</p>
+      <p>Preparations may include chapters and other references to course literature or websites, but it can also involve installing software or other practical preparations.</p>`,
     },
     software: {
       body: `<p><b>Software</b> describes what software and what version of the software that is used on the course.</p>
