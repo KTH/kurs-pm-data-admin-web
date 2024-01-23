@@ -256,8 +256,7 @@ module.exports = {
     gradingScale: {
       body: `<p><b>Betygsskala</b> beskriver betygsskalan för slutbetyg på hela kursen.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilket betyg den kan förvänta sig efter slutförd kurs.</p>
-      <p><b>Innehållet kan ej redigeras.</b> Ändring av betygsskala kräver inrättande av ny kurs och kurskod. 
-      Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
+      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
     },
     infoForReregisteredStudents: {
       body: `<p><b>Ändringar inför denna kursomgång</b> beskriver vilka större ändringar som har införts till denna kursomgång.</p>

@@ -262,11 +262,10 @@ module.exports = {
       <p>Read more about grading criteria/assessment criteria and find examples of <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (only in Swedish, opens in new tab).</p>`,
     },
     gradingScale: {
-      body: `<p><b>Grading scale</b> describes the final mark grading scale of the course.</p>
-        <p><b>The information helps the student to</b> understand what kind of grade the student can expect after completing the course.</p>
-        <p><b>It is not possible to change the grading scale.</b> A new grading scale requires a new course with a new course code. 
-        Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).
-      </p>`,
+      body: `<p><b>Grading scale</b> describes the grading scale for the final grades of the entire course.</p>
+        <p><b>This information helps the student</b> understand what grade they can expect upon completing the course.</p>
+        <p><b>Content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).
+        </p>`,
     },
     infoForReregisteredStudents: {
       body: `<p><b>Changes of the course before this course offering</b> describe what major changes have been implemented before this course offering.</p>
