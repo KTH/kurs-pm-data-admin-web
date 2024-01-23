@@ -251,14 +251,10 @@ module.exports = {
 			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
     },
     gradingCriteria: {
-      body: `<p><b>Grading criteria/assessment criteria</b> specify the requirements that the student must meet for the different grades and shall be designed based on the course syllabus objectives.</p>
-        <p><b>The information helps the student</b> to understand how the grading criteria and assessment criteria relate to the intended learning outcomes. It helps the student to understand what he or she must do and have the knowledge about to achieve each grade on the course.</p>
-        <p><b>Edit the contents </b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Grading criteria/assessment criteria shall connect the grading scale to levels of achievment of the intended learning outcomes, where a passed grade corresponds to a basic achievemnt of the intended learning outcomes. 
-      Grading criteria/assessment criteria for a higher grade may concern the quality of the performance, the difficulty, how parts of the course contents are combined and the level in the Bloom´s taxonomy. 
-      The examination shall be clarly connected to the criterias. If there is more than one course component in the course, it must be explicit what intended learning outcome that is examined in what course component. 
-      It must also be clear how the final grade is balanced by the different grades on each course component and how the grade of each course component is balanced by the assessments of the grading criterias.</p>
-      <p>Read more about grading criteria/assessment criteria and find examples of <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (only in Swedish, opens in new tab).</p>`,
+      body: `<p><b>Grading criteria/assessment criteria</b> specify the requirements that students must meet for different grades and should be formulated based on the course objectives in the course syllabus.</p>
+        <p><b>This information helps students</b> understand how the grading criteria/assessment criteria relate to the learning objectives and, consequently, what they need to do and understand to achieve each grade in the course.</p>`,
+      help: `<p>Under this section, you describe the Grading criteria/assessment criteria for this course offering. Grading criteria/assessment criteria shall be available for all courses and course modules with the seven-grade or three-grade grading scale. For course modules graded according to the two-degree grading system, no grading criteria need to be developed as the goals themselves constitute grading criteria.</p>
+      <p>Read more and find examples of <a href="https://intra.kth.se/en/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (opens in new tab).</p>`,
     },
     gradingScale: {
       body: `<p><b>Grading scale</b> describes the grading scale for the final grades of the entire course.</p>

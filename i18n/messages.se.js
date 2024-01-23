@@ -245,11 +245,10 @@ module.exports = {
     },
     gradingCriteria: {
       body: `<p><b>Målrelaterade betygskriterier/bedömningskriterier</b> anger de krav som studenten ska uppfylla för de olika betygen och ska utformas utifrån kursplanens mål.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna/bedömningskriterierna relaterar till lärandemålen och med det vad den behöver göra och kunna för att uppnå respektive betyg på kursen.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
-      help: `<p>Betygskriterierna ska koppla betygsstegen till nivåer av uppfyllelse av kursens lärandemål, där godkänt betyg ska innebära en grundläggande uppfyllelse av målen. Betygskriterier för högre nivåer kan exempelvis gälla kvaliteten på utförandet, svårighetsgraden, hur olika delar av kursinnehållet kombineras och nivå i Blooms taxonomi.</p>
-      <p>Examinationen ska vara tydligt kopplad till betygskriterierna. Om det finns flera examinationsmoment i kursen ska det i anslutning till betygskriterierna framgå vilka lärandemål som examineras i vilket examinationsmoment, hur slutbetyget vägs ihop av delbetyg och hur delbetyg vägs ihop av delbedömningar efter betygskriterierna.</p>
-      <p>Läs mer om betygskriterier/bedömningskriterier och hitta konkreta exempel på 
+      <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna/bedömningskriterierna relaterar till lärandemålen och vad srtudenen behöver göra och kunna för att uppnå respektive betyg på kursen.</p>`,
+      help: `<p>Här beskriver du de målrelaterade betygskriterier/bedömningskriterier som gäller för kursomgången. 
+      Betygskriterier ska finnas för alla kurser och kursmoduler med det sjugradiga eller tregradiga betygssystemet. För kursmoduler som betygssätts enligt det tvågradiga betygssystemet behöver inga särskilda betygskriterier tas fram då målen i sig utgör betygskriterier.</p>
+      <p>Läs mer och hitta konkreta exempel på 
       <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Målrelaterade betygskriterier</a> (öppnas i ny flik).</p>`,
     },
     gradingScale: {
