@@ -137,11 +137,9 @@ module.exports = {
     },
     communicationDuringCourse: {
       body: `<p><b>Kommunikation i kursen</b> beskriver hur kommunikationen med lärare och annan personal sker under kursomgången. Här kan man även ange vem som ska kontaktas gällande vanliga frågor och ärenden.</p>
-			<p><b>Informationen hjälper studenten</b> att förstå hur den ska kommunicera inför och under kursomgångens genomförande. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer effektiv för både studenter och lärare på kursen.</p>
-			<p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
-      help: `<p>Under rubriken "Kommunikation i kursen" beskriver du kortfattat hur kommunikation ska gå till inför och under kursomgångens genomförande. Du kan t.ex. hänvisa till nämnda lärare innan kursens start och till Canvas för kommunikation under kursens gång. Om olika frågor ska kommuniceras på olika sätt kan du övergripande beskriva hur man ska kommunicera om respektive fråga.</p>
-			<p>Skriv inte kontaktinformation under denna rubrik. Referera istället till kontaktinformationen under rubrikerna "Kursansvarig", "Lärare", "Lärarassistenter", "Examinator" och "Övriga kontakter".</p>
-			<p>Om det inte finns anledning att informera om kommunikation i kursen för denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
+			<p><b>Informationen hjälper studenten</b> att förstå hur den ska kommunicera inför och under kursomgången. Med tydligt beskrivna instruktioner kommer kommunikationen blir mer effektiv för både studenter och lärare.</p>`,
+      help: `<p>Här beskriver du hur kommunikation ska gå till inför och under kursomgångens genomförande. Du kan t.ex. hänvisa till lärare innan kursens start och till Canvas för kommunikation under kursens gång. Om olika frågor ska kommuniceras på olika sätt kan du övergripande beskriva hur man ska kommunicera om respektive fråga.</p>
+      <p>Kontaktuppgifter till examinator, kursansvarig och lärare hämtas automatiskt till ditt kurs-PM, du behöver därför inte ange dessa uppgifter på nytt.</p>`,
     },
     courseContent: {
       body: `<p><b>Kursinnehåll</b> beskriver ämnesinnehållet och de generella färdigheter som behandlas i kursomgången.</p>

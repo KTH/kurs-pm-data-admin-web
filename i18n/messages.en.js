@@ -147,12 +147,12 @@ module.exports = {
       <p></p>`,
     },
     communicationDuringCourse: {
-      body: `<p><b>Communication during course</b> describes how the student should communicate with the teachers and other personnel before and during the course offering. Communication during course also describes whom to contact regarding the most common questions and issues.</p>
-		<p><b>The information helps the student</b> to understand how to communicate during this course offering. Information in this section makes communication more efficient and reduces the number of unnecessary questions.</p>
-		<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe how to communicate before and during this course offering in the section "Communication during course". For example, you can refer to the teachers regarding questions before start of the course and to Canvas for dialogue during the course. If you want different types of questions to be handled differently, describe the different ways to communicate in short.</p>
-		<p>Don´t write contact information in this section. Instead you refer to the sections "Course coordinator", "Teacher", "Teacher assistants", "Examiner" and "Other contacts".</p>
-		<p>Uncheck "Include heading" if there is no reason to inform about communication during course.</p>`,
+      body: `<p><b>Communication during course</b> describes how communication with teachers and other staff takes place during the course offering. Here, you can also specify who should be contacted for common questions and matters.</p>
+      <p><b>This information helps the student</b> to stay informed about significant alterations made specifically for the current course offering. It can also alert re-registered students to changes from previous course offering that they need to consider.</p>`,
+      help: `<p>Under this section, you describe how communication should take place before and during the course offering. 
+      For example, you can refer to the teachers before the start of the course and to Canvas for communication during the course.
+      If different questions require different communication methods, you can provide an overarching description of how to communicate for each respective issue.</p>
+      <p>Contact information for examiner, course coordinator, and teacher is automatically retrieved to your course memo Therefore, you do not need to provide this information again.</p>`,
     },
     courseContent: {
       body: `<p><b>Course contents</b> describes the content and the general skills covered in the course.</p>
