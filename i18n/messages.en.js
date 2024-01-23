@@ -161,9 +161,9 @@ module.exports = {
       &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     courseCoordinator: {
-      body: `<p><b>Course coordinator</b> holds the contact details of the course coordinator on this course offering.</p>
-      <p><b>The information helps the student</b> with contact information for course coordinators during the course offering.</p>
-	  <p><b>Edit the contents</b> in Kopps. Course coordinators are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Course coordinator</b> contains contact information for individuals holding the role of course coordinator during this course offering.</p>
+      <p><b>This information helps the students</b> in obtaining contact details for the course coordinator during the course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in a new tab).</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Ethical approach</b> describes KTH's ethical values.</p>
