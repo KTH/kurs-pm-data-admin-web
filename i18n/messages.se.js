@@ -189,26 +189,8 @@ module.exports = {
     examinationSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p>Under rubriken "Examination" finns två sektioner. Överst visas en fast text från kursens kursplan som kommer att publiceras i detta kurs-PM.</p>
-      <p>Efter sektionen med den fasta texten följer en sektion där du ska beskriva kursomgångens examination i detalj. 
-      Här ska du utveckla varje modul i examinationen. Om du har valt att skapa ett nytt kurs-PM som inte är en kopia eller ny version av ett tidigare kurs-PM kommer systemet automatiskt skapa underrubriker av varje modul i examinationen. 
-      Överväg att beskriva följande under varje underrubrik:</p>
-      <ul>
-      <li>hur examinationen går till</li>
-      <li>vilka delar som ingår</li>
-      <li>vad som är obligatoriskt</li>
-      <li>vilka deadlines som gäller</li>
-      <li>vilka hjälpmedel som får användas</li>
-      <li>vad som gäller för samarbete och grupparbete </li>
-      <li>...och annan avgörande information som har betydelse för examinationen.</li>
-      </ul>
-      <p>I den andra sektionen under rubriken "Examination" kan du också beskriva om det finns alternativa sätt att klara av varje modul, t.ex. genom kontrollskrivningar, om bonuspoäng kan användas till examinationen och liknande.</p>
-      <p>Observera att förutsättningarna för examination inte får ändras i förhållande till kursplan och första publicerade kurs-PM. 
-      Tänk därför på att vara väldigt restriktiv med eventuella ändringar under rubriken "Examination" efter att detta kurs-PM publicerats första gången. Tänk också på att granska och säkerställa det redigerbara innehållet under rubriken ”Examination” om du har kopierat innehållet i detta kurs-PM från ett tidigare publicerat kurs-PM. 
-      Den fasta texten motsvarar alltid den gällande kursplanen, även för kopierade kurs-PM.</p>
-      <p>Det är inte obligatoriskt att använda systemets föreslagna rubriker som struktur för beskrivning av examinationens detaljer. Om du finner en annan struktur bättre lämpad ersätter du bara systemets rubriker med dina egna.</p>
-      <p>Instruktioner och uppgifter för varje examination bör beskrivas i Canvas eller motsvarande lärplattform. 
-      Deadlines samt tidpunkt och plats för examination kan dock skrivas under rubriken "Detaljplanering" i detta kurs-PM för att ge studenten en överblicka över samtliga aktiviteter på denna kursomgång. </p>`,
+      help: `<p>Under rubriken finns två sektioner. Överst visas en fast text från kursens kursplan. Sedan följer en sektion där du kan utveckla informationen om varje modul. Systemet skapar automatiskt underrubriker för varje modul. 
+      Läs mer om vad som ska ingå under rubriken "Examination" i <a href="https://intra.kth.se/utbildning/systemstod/om-kursen/kurs-pm/riktilinjer-1.1184855" target="_blank">Riktlinjer för kurs-PM</a> (öppnas i ny flik).</p>`,
     },
     examiner: {
       body: `<p><b>Examinator</b> innehåller kontaktinformation till personer som har rollen examinator för denna kurs.</p>

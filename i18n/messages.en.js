@@ -203,26 +203,8 @@ module.exports = {
     },
     examinationSubSection: {
       body: 'It is important for students because they can plan their studies....',
-      help: `<p>There are two sections under the "Examination" heading. First there is an examination overview that is fetched from the course syllabus. This text will be published in this course memo.</p>
-      <p>Describe the details of the examination in the second section. If this is a new course memo, that is not a new version or copied from another course memo, the system will provide you with preformatted subheadings of each module. 
-      Consider to describe the following information beneath each subheading:</p>
-      <ul>
-      <li>how the examination is performed</li>
-      <li>the parts of the examination</li>
-      <li>any deadlines</li>
-      <li>allowed aids during the examination</li>
-      <li>the terms for collaboration and group projects</li>
-      <li>...and any other important information regarding the details of the examination.</li>
-
-      </ul>
-      <p>You can also describe if there are alternative ways to complete each module, for example with quizzes and partial exams, the use of bonus points and similar.</p>
-      <p>The foundations of the examination must not be changed relative to the course syllabus or a previous version of this course memo. 
-      You should therefore consider every change of the information in the "Examination" section after the first version of this course memo is published. 
-      Make sure to review the contents of the second added section of "Examination" if this course memo is a new version of a published course memo or if it is copied from a previous published course memo. 
-      Some details and dates may have changed. The fetched fixed text in the first section of "Examination" is always correct, even for copied course memos.</p>
-      <p>It is not mandatory to use the provided subheadings as a structure for the examination details. Just replace the subheadings with your own if you find that better.</p>
-      <p>The actual exams with instructions should be described in Canvas or a corresponding learning management system. 
-      Deadlines as well as time and place for exams can also be included in the "Detailed plan" section to give the students an overview of all the activities on this course offering.</p>`,
+      help: `<p>Under the heading, there are two sections. At the top, there is a fixed text from the course syllabus. Following that is a section where you can describe and elaborate on each course module. The system automatically generates subheadings for each course module.
+      Read more about what should be included under the heading "Examination" in the <a href="https://intra.kth.se/en/utbildning/systemstod/om-kursen/kurs-pm/riktilinjer-1.1184855" target="_blank">Guidelines for Course memo</a> (opens in a new tab).</p>`,
     },
     extraHeaders1: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Content and learning outcomes" in this course memo.</p>
