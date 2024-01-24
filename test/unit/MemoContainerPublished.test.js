@@ -270,7 +270,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     await waitFor(() => {
       const openEditor = getByTestId('standard-editor-scheduleDetails')
       expect(openEditor).toHaveTextContent(
-        `Visa vägledningUnder Detaljplanering beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Använd med fördel en tabell, och beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse.`
+        `Visa vägledningHär beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet. Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse`
       )
     })
   })
@@ -592,7 +592,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
     await waitFor(() => {
       const editorSectionIsOpen = getByTestId(`standard-editor-literature`)
       expect(editorSectionIsOpen).toBeInTheDocument()
-      expect(editorSectionIsOpen).toHaveTextContent(/Visa vägledningUnder rubriken "Kurslitteratur"/i)
+      expect(editorSectionIsOpen).toHaveTextContent(/Visa vägledningHär beskriver du vilken kurslitteratur/i)
 
       expect(getByTestId(`btn-close-editor-literature`)).toBeInTheDocument()
     })

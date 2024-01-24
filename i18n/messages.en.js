@@ -137,10 +137,9 @@ module.exports = {
   },
   memoInfoByUserLang: {
     additionalRegulations: {
-      body: `<p><b>Additional regulations</b> describe regulations in the course syllabus that does not comply with any of the other sections in the course syllabus.</p>
-      <p><b>The information helps the student</b> to plan and prepare for their studies.</p>
-      <p><b>Contents can be edited</b> in Kopps. Changes in "Additional regulations" is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing the contents of the course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
-      <p><b>If there is no content</b> the heading will not be visible in the published course memo.</p>`,
+      body: `<p><b>Additional regulations</b> describe regulations in the course syllabus that do not fit under other headings.</p>
+      <p><b>This information helps the student</b> in planning and preparing for the implementation of the course offering.</p>
+      <p><b>Content is retrieved from the course syllabus in Kopps</b> and cannot be edited here. For guidelines on changing the content in the course syllabus, please refer to the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). If there is no content, the heading will not be displayed in your course memo.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>`,
@@ -148,30 +147,31 @@ module.exports = {
       <p></p>`,
     },
     communicationDuringCourse: {
-      body: `<p><b>Communication during course</b> describes how the student should communicate with the teachers and other personnel before and during the course offering. Communication during course also describes whom to contact regarding the most common questions and issues.</p>
-		<p><b>The information helps the student</b> to understand how to communicate during this course offering. Information in this section makes communication more efficient and reduces the number of unnecessary questions.</p>
-		<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe how to communicate before and during this course offering in the section "Communication during course". For example, you can refer to the teachers regarding questions before start of the course and to Canvas for dialogue during the course. If you want different types of questions to be handled differently, describe the different ways to communicate in short.</p>
-		<p>Don´t write contact information in this section. Instead you refer to the sections "Course coordinator", "Teacher", "Teacher assistants", "Examiner" and "Other contacts".</p>
-		<p>Uncheck "Include heading" if there is no reason to inform about communication during course.</p>`,
+      body: `<p><b>Communication during course</b> describes how communication with teachers and other staff takes place during the course offering. Here, you can also specify who should be contacted for common questions and matters.</p>
+      <p><b>This information helps the student</b> to stay informed about significant alterations made specifically for the current course offering. It can also alert re-registered students to changes from previous course offering that they need to consider.</p>`,
+      help: `<p>Under this section, you describe how communication should take place before and during the course offering. 
+      For example, you can refer to the teachers before the start of the course and to Canvas for communication during the course.
+      If different questions require different communication methods, you can provide an overarching description of how to communicate for each respective issue.</p>
+      <p>Contact information for examiner, course coordinator, and teacher is automatically retrieved to your course memo Therefore, you do not need to provide this information again.</p>`,
     },
     courseContent: {
-      body: `<p><b>Course contents</b> describes the subjects and the general abilities that is discussed or practised on the course.</p>
-      <p><b>The information helps the student</b> to understand what concepts, subjects, abilities etc. to read up on before and during the courses. 
-      In that way, course contents helps the student to prepare both before and during the course.</p>
-      <p><b>Contents can be edited</b> in Kopps. Changes of course contents is restricted by certain regulations since the information is part of the legally binding course syllabus. 
-      Read more about changing contents of course syllabus on the page 
-      <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`,
+      body: `<p><b>Course contents</b> describes the content and the general skills covered in the course.</p>
+      <p><b>This information helps the student</b> which concepts, topics, skills, etc., they need to familiarize themselves with before and during the course.</p>
+      <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page
+      &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     courseCoordinator: {
-      body: `<p><b>Course coordinator</b> holds the contact details of the course coordinator on this course offering.</p>
-      <p><b>The information helps the student</b> with contact information for course coordinators during the course offering.</p>
-	  <p><b>Edit the contents</b> in Kopps. Course coordinators are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Course coordinator</b> contains contact information for individuals holding the role of course coordinator during this course offering.</p>
+      <p><b>This information helps the students</b> in obtaining contact details for the course coordinator during the course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs).</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Ethical approach</b> describes KTH's ethical values.</p>
-      <p><b>The information helps the student</b> to know what ethical values, rights and obligations to relate to during the studies. Clearly expressed ethical values increases the student´s trust for KTH.</p>
-      <p><b>Edit the contents</b> by including an additional section. The first text under the heading is fixed and is a part of the template for the course memo. Click on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
+      <p><b>This information helps the student</b> understand the ethical values applicable to the course offering, their obligations, and the guidelines they need to adhere to during the course. Clearly defined ethical guidelines enhance the student's confidence in KTH.</p>
+      <p><b>Content is retrieved from the course syllabus in Kopps</b> (the fixed text at the top) but can also be supplemented by adding an additional paragraph about Ethical Approach.</p>`,
+      help: `<p>There are two sections under the heading. First there is a fixed text from the course syllabus. It is not possible to edit the text, since it is a general text for all courses at KTH.
+      In the second section, you can describe specific information regarding ethical approach for this course offering. Here you can describe any values and regulations applicable for the activities in this course offering, for example group projects, assignments, programming tasks etc.
+      Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf">Ethical policy</a> to find more detailed support and information. You can also find useful information in the <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">EECS Code of honour</a> (opens in new tab) for students and teachers. </p>`,
     },
     ethicalApproachSubSection: {
       body: 'It is important for students because they can plan their studies....',
@@ -185,154 +185,105 @@ module.exports = {
       <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`,
     },
     equipment: {
-      body: `<p><b>Equipment</b> describes any equipment that is necessary to take the course, but is not provided by KTH. Literature and writing materials are not seen as equipment.</p>
-      <p><b>The information helps the student</b> to obtain the necessary equipment before the start of the course offering.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about equipment in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the equipment that is necessary to take the course, but is not provided by KTH in the "Equipment" section. 
-      Pencils and other writing materials is not treated as equipment.</p>
-      <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
-      You can choose to keep that information, or you can enter information about equipment that is valid only to this course offering. 
-      Just replace the provided information with your own.</p>
-      <p>Uncheck "Include heading" if equipment is irrelevant for this course.</p>`,
+      body: `<p><b>Equipment</b> describes what equipment is not provided by KTH and is needed to follow the course offering.</p>
+      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>
+      <p><b>The content is retrieved from Kopps</b> if there is information about equipment already entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      help: `<p>Under this section, you describe the equipment that students need to complete the course, if it is not provided by KTH. Writing tools and literature are not considered equipment.</p>`,
     },
     examiner: {
-      body: `<p><b>Examiner</b> holds the contact details of the examiner for this course.</p>
-      <p><b>The information helps the student</b> with contact information for examiners during the course offering.</p>
-	  <p><b>Edit the contents</b> in Kopps. Examiners are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Examiner</b> contains contact information for individuals holding the role of examiner during this course offering.</p>
+      <p><b>This information helps the student</b> in obtaining contact details for the examiner during the course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs).</p>`,
     },
     examination: {
-      body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course component.</p>
-      <p><b>The information helps the student</b> to plan for taking the course. It also helps the student to prepare for and plan for each of the examination sessions on this course offering.</p>
-      <p><b>The content can be edited</b> in the course syllabus in Kopps (the fixed text at the top) and in this course memo, by including an additional section.</p>
-      <p>Changes in Examination are restricted by regulations since the information is part of the legally binding course syllabus. Read more about changing the contents of the course syllabus on the page <a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>
-      <p>Include an additional section by clicking on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
+      body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course module.</p>
+      <p><b>This information helps the student</b> in planning the course and preparing for each course module. </p>
+      <p><b>The content is retrieved from the course syllabus in Kopps</b> (the fixed text at the top), but it can also be supplemented by adding an additional paragraph about the examination.
+      Read more about guidelines for changing content in the course syllabus on the page &quot;<a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     examinationSubSection: {
       body: 'It is important for students because they can plan their studies....',
-      help: `<p>There are two sections under the "Examination" heading. First there is an examination overview that is fetched from the course syllabus. This text will be published in this course memo.</p>
-      <p>Describe the details of the examination in the second section. If this is a new course memo, that is not a new version or copied from another course memo, the system will provide you with preformatted subheadings of each module. 
-      Consider to describe the following information beneath each subheading:</p>
-      <ul>
-      <li>how the examination is performed</li>
-      <li>the parts of the examination</li>
-      <li>any deadlines</li>
-      <li>allowed aids during the examination</li>
-      <li>the terms for collaboration and group projects</li>
-      <li>...and any other important information regarding the details of the examination.</li>
-
-      </ul>
-      <p>You can also describe if there are alternative ways to complete each module, for example with quizzes and partial exams, the use of bonus points and similar.</p>
-      <p>The foundations of the examination must not be changed relative to the course syllabus or a previous version of this course memo. 
-      You should therefore consider every change of the information in the "Examination" section after the first version of this course memo is published. 
-      Make sure to review the contents of the second added section of "Examination" if this course memo is a new version of a published course memo or if it is copied from a previous published course memo. 
-      Some details and dates may have changed. The fetched fixed text in the first section of "Examination" is always correct, even for copied course memos.</p>
-      <p>It is not mandatory to use the provided subheadings as a structure for the examination details. Just replace the subheadings with your own if you find that better.</p>
-      <p>The actual exams with instructions should be described in Canvas or a corresponding learning management system. 
-      Deadlines as well as time and place for exams can also be included in the "Detailed plan" section to give the students an overview of all the activities on this course offering.</p>`,
+      help: `<p>Under the heading, there are two sections. At the top, there is a fixed text from the course syllabus. Following that is a section where you can describe and elaborate on each course module. The system automatically generates subheadings for each course module.
+      Read more about what should be included under the heading "Examination" in the <a href="https://intra.kth.se/en/utbildning/systemstod/om-kursen/kurs-pm/riktilinjer-1.1184855" target="_blank">Guidelines for Course memo</a> (opens in a new tab).</p>`,
     },
     extraHeaders1: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Content and learning outcomes" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Content and learning outcomes", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Concepts", "Connection to qualitative targets" and "Pedagogical disposition of the course".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Content and learning outcomes" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     extraHeaders2: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Preparations before course start" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Preparations before course start", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Specific prerequisites", "Course registration" and "Learning management system".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Preparations before course start" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     extraHeaders3: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Examination and completion" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Examination and completion", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal" and "Link to sample quizzes and exams".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Examination and completion" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     extraHeaders4: {
       body: `<p><b>Information in an added section</b> can help students on this course offering to prepare for and plan for taking the course with help of information that doesn´t fit in another ordinary section related to "Further information" in this course memo.</p>
 			<p><b>Edit the contents</b> by clicking on the button "Edit". Name the heading in the "Name new section" field and enter information about it in the input field below. Check "Include heading" to make the information visible on the published course memo. Expand the "Show guidance" panel for further guidance.</p>
 			<p>To remove an added section, click on the button "Edit". Then click on "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
-      help: `<p>Describe information that is related to "Further information", but does not fit into any of the ordinary sections, in an added section. Examples of such information are "Appeal", "Course evaluation and course analysis" and "Maps/Find your teaching premises".</p>
-			<p>If you no longer want an added section to be visible in this course memo, either uncheck "Include heading", or click on the button "Remove added heading" and confirm the deletion of the heading and its contents.</p>`,
+      help: `<p>You can create a separate heading for information related to the "Further information" heading, but that doesn't fit under any of the other subheadings in the template. You can name the heading as you wish to suit the specific information you want to include.</p>`,
     },
     gradingCriteria: {
-      body: `<p><b>Grading criteria/assessment criteria</b> specify the requirements that the student must meet for the different grades and shall be designed based on the course syllabus objectives.</p>
-        <p><b>The information helps the student</b> to understand how the grading criteria and assessment criteria relate to the intended learning outcomes. It helps the student to understand what he or she must do and have the knowledge about to achieve each grade on the course.</p>
-        <p><b>Edit the contents </b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Grading criteria/assessment criteria shall connect the grading scale to levels of achievment of the intended learning outcomes, where a passed grade corresponds to a basic achievemnt of the intended learning outcomes. 
-      Grading criteria/assessment criteria for a higher grade may concern the quality of the performance, the difficulty, how parts of the course contents are combined and the level in the Bloom´s taxonomy. 
-      The examination shall be clarly connected to the criterias. If there is more than one course component in the course, it must be explicit what intended learning outcome that is examined in what course component. 
-      It must also be clear how the final grade is balanced by the different grades on each course component and how the grade of each course component is balanced by the assessments of the grading criterias.</p>
-      <p>Read more about grading criteria/assessment criteria and find examples of <a href="https://intra.kth.se/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (only in Swedish, opens in new tab).</p>`,
+      body: `<p><b>Grading criteria/assessment criteria</b> specify the requirements that students must meet for different grades and should be formulated based on the course objectives in the course syllabus.</p>
+        <p><b>This information helps students</b> understand how the grading criteria/assessment criteria relate to the learning objectives and, consequently, what they need to do and understand to achieve each grade in the course.</p>`,
+      help: `<p>Under this section, you describe the Grading criteria/assessment criteria for this course offering. Grading criteria/assessment criteria shall be available for all courses and course modules with the seven-grade or three-grade grading scale. For course modules graded according to the two-degree grading system, no grading criteria need to be developed as the goals themselves constitute grading criteria.</p>
+      <p>Read more and find examples of <a href="https://intra.kth.se/en/utbildning/utveckling-och-hogskolepedagogik/stodmaterial/malrelaterade-betygskriterier" target="_blank">Grading criteria</a> (opens in new tab).</p>`,
     },
     gradingScale: {
-      body: `<p><b>Grading scale</b> describes the final mark grading scale of the course.</p>
-        <p><b>The information helps the student to</b> understand what kind of grade the student can expect after completing the course.</p>
-        <p><b>It is not possible to change the grading scale.</b> A new grading scale requires a new course with a new course code. 
-        Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).
-      </p>`,
+      body: `<p><b>Grading scale</b> describes the grading scale for the final grades of the entire course.</p>
+        <p><b>This information helps the student</b> understand what grade they can expect upon completing the course.</p>
+        <p><b>Content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).
+        </p>`,
     },
     infoForReregisteredStudents: {
-      body: `<p><b>Changes of the course before this course offering</b> describe what major changes have been implemented before this course offering.</p>
-      <p><b>The information helps the student</b> to understand what improvements have been made before this course offering. The information can also alert re-registered students to changes from previous course offerings.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the changes that have been made to the course before this course offering in the section "Changes of the course before this course offering". 
-      Some relevant conclusions from previous course evaluations and course analysis could also be important to point out to help the student to plan and prepare for the course. 
-      The course memo as a document is one of several mediums to inform the students about the results from course evaluations and course analysis and the decisions that followed.</p>
-      <p>Uncheck "Include" if information about "Changes of the course before this course offering" is irrelevant for this course.</p>`,
+      body: `<p><b>Changes of the course before this course offering</b> describe the major modifications introduced for this course offering. </p>
+      <p><b>This information helps the student</b> to stay informed about significant alterations made specifically for the current course offering.</p>`,
+      help: `<p>Under this section, you describe the changes made for this course offering. It can also be important to describe relevant conclusions from previous course evaluations and analyses that help the student prioritize in their planning for this course offering.</p>`,
     },
     learningActivities: {
-      body: `<p><b>Learning activities</b> describe the different types of activities on the course, and what the student needs to know about each type of activity. Learning activities define what a seminar, a lesson, or a laboratory is on this particular course.</p>
-      <p><b>The information helps the student</b> to do the necessary preparations. Each activity type may have different meanings in different courses.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the planned types of learning activities on the course in the section "Learning activities". 
-      Use an established term for each type and repeat the term throughout the course memo. 
-      Describe what the learning activity means for this particular course and what is important for the student to know about it. 
-      You can add information about how many of each activity type and how they are distributed over the course. </p>
-      <p>If the pedagogical disposition of the course is relevant for planning and preparations it can also be described in this section.</p>
-      <p>Uncheck "Include" if information about learning activities is irrelevant for this course.</p>`,
+      body: `<p><b>Learning activities</b> describe the types of activities that have been planned for the course. Learning activities define what, for example, a seminar, a lesson, or a laboratory session entails in this specific course offering.</p>
+      <p><b>This information helps the student</b> understand and plan for the activities during the course.</p>`,
+      help: `<p>Under this section, you describe the types of activities planned during the course. Provide each type with an intuitive and preferably widely accepted term that you will consistently use in this course memo.</p> 
+      <p>Briefly describe what each type of activity means in this specific course offering and what is beneficial for the student to know. You can also describe the extent of the activities.</p>`,
     },
     learningOutcomes: {
-      body: `<p><b>Intended learning outcomes</b> clarifies what knowledge, what skills, which evaluation abilities and approaches the student needs to demonstrate after taking the course.</p>
-      <p><b>The information helps the students</b> to understand what they have to achieve to get a passing grade.</p>      
-      <p><b>Intended learning outcomes can be edited</b> in Kopps. Changes of intended learning outcome is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab).</p>`,
+      body: `<p><b>Intended learning outcomes</b> clarify the knowledge, skills, evaluative abilities, and approaches that the student should demonstrate after completing the course.</p>
+      <p><b>This information helps the student</b> understand what they need to achieve to receive a passing grade.</p>      
+      <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     literature: {
-      body: `<p><b>Literature</b> describes the compulsory course literature on this course offering.</p>
-      <p><b>The information helps the student</b> to obtain the necessary literature before the start of the course offering. For students with disabilities, it is important to know about the compulsory course literature before the course start, to get it as talking books.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include". If there is information about literature in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the compulsory course literature on this course in the "Literature" section. 
-      If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
-      You can choose to keep that information, or you can enter information about course literature that is valid only to this course offering. 
-      Just replace the provided information with your own.</p>
-      <p>Make a list of the course literature with information about the author, year of publication, title and name of publisher. 
-      Also include references to where the course literature could be found in digital form, for example in Canvas.</p>
-      <p>Many students want to acquire the course literature before the course start. 
-      Students with disabilities need to know the course literature well in advance of the course start to get it as talking books. 
-      The information should therefore be available at least eight weeks before start of the course.</p>
-      <p>If there is no compulsory course literature on this course it is important to mention that to reduce unnecessary questions and to avoid the students go looking for the information elsewhere in vain.</p>`,
+      body: `<p><b>Literature</b> describes the literature used in the course offering.</p>
+      <p><b>This information helps the student</b> acquire the correct literature before the start of the course. For students with disabilities, it is especially important to know in good time which literature will apply in order to get it as talking books.</p>
+      <p><b>Content is retrieved from Kopps</b> if there is information about literature already entered. You can choose to retain that information in your course memo or add new information. The heading is always included in your course memo.</p>`,
+      help: `<p>Under this section, you describe the literature used in this course offering. This heading is mandatory in the course memo.
+      List the literature with author, publication year, title, and publisher. Also, provide references to locations where the literature can be downloaded if available in digital form.</p>
+      <p>If literature is not relevant for this course offering, it's helpful to state this so that students do not need to inquire.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Other contacts</b> describe the contact details of personnel and functions, other than the contacts mentioned above, the students may have to contact before or during this course offering. Course administrators, lab supervisors, and project supervisors are examples of Other contacts.</p>
-			<p><b>The information helps the student</b> with contact information for other functions during the course offering.</p>
-			<p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the contact details to personnel and functions other than the contacts mentioned above. Enter name, mail address and phone number. Describe in short the questions and issues each contact handles.</p>
-			<p>Contacts already mentioned in the "Course coordinator", "Teacher", "Teacher assistants" and "Examiner" sections should not be repeated in this section.</p>
-			<p>Uncheck "Include heading" if there is no reason to inform about other contacts.</p>`,
+      body: `<p><b>Other contacts</b> provides contact information for individuals and roles that students may need to reach out to, and who do not hold the roles of examiner, course coordinator, teacher, or teaching assistants. Other contacts may include course administrators, lab supervisors, project supervisors, etc.</p>
+			<p><b>This information helps the students</b> in obtaining contact details for individuals who can address questions that cannot be answered by the examiner, course coordinator, teachers, or teaching assistants.</p>`,
+      help: `<p>Under this section, you provide the names, email addresses, and/or phone numbers of individuals or roles that may be relevant to contact during the course offering. Briefly describe the types of questions or feedback they can be contacted for.</p>
+      <p>Contact information for the examiner, course coordinator, and teachers is automatically retrieved for your course memo, so you do not need to provide this information again.</p>`,
     },
     otherRequirementsForFinalGrade: {
-      body: `<p><b>Other requirements for final grade</b> describes additional requirements for a final grade in addition to what is stated under Examination, for example attendance requirements.</p>
-      <p><b>The information helps the student</b> to plan and prepare for their studies.</p>
-      <p><b>Contents can be edited</b> in Kopps. Changes of "Other requirements for final grade" is restricted by certain regulations since the information is part of the legally binding course syllabus. Read more about changing contents of course syllabus on the page <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (only in Swedish, opens in new tab). </p>
-      <p><b>If there is no content in the course syllabus</b> the heading will not be visible in your course memo.</p>`,
+      body: `<p><b>Other requirements for final grade</b> describe additional criteria for the overall course grade, beyond what is specified under the "Examination" heading, such as attendance requirements.</p>
+      <p><b>This information helps the student</b> in planning and preparing for the overall execution of the course offering.</p>
+      <p><b>Content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). </p>
+      <p><b>If there is no content,</b> the heading will not appear in your course memo.</p>`,
     },
     permanentDisability: {
-      body: `<p><b>Support for students with disabilities</b> describes what a student with disabilities is eligible to. The information describes what support they can be expected to receive during the course and how they go about getting the support.</p>
-      <p><b>The information helps students with disabilities</b> to understand how they can get the right support to complete the course.</p>
-      <p><b>Edit the contents</b> by including an additional section. The first text under the heading is fixed and is a part of the template for the course memo. Click on the button "Edit". Enter information and check "Include additional section", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
+      body: `<p><b>Support for students with disabilities</b> outlines the rights and opportunities available for students with disabilities. The information describes the support they can expect during the course offering and the procedures they should follow.</p>
+      <p><b>This information helps students</b> with disabilities in understanding how they can receive the appropriate support to complete the course offering.</p>`,
+      help: `<p>Under the heading, there are two sections. At the top, there is a fixed text that is not editable. This fixed text contains a web link to KTH's official page with general information about support for students with disabilities.
+      Following the fixed text is a section where you describe the support for students with disabilities that is specifically relevant to this course offering. You can inform about compensatory support during examinations or other support in the study situation. 
+      Read more about <a href="https://intra.kth.se/en/utbildning/utbi/examination/stod-funka/hantera-stod-till-studenter-med-funktionsnedsattning-1.691449" target="_blank">managing support for students with disabilities</a> (opens in a new tab).</p>`,
     },
     permanentDisabilitySubSection: {
       body: `<p> </p>
@@ -350,40 +301,29 @@ module.exports = {
     },
     possibilityToAddition: {
       body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course and the terms for raising the grade.</p>
-      <p><b>The information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about Opportunity to raise an approved grade via renewed examination in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe if it is possible to raise an approved grade via renewed examination on this course in this section and the terms for that. Also describe how the student can apply for a renewed examination.</p>
-      <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
-      You can choose to keep that information, or you can enter information about the opportunity to raise an approved grade via renewed examination that is valid only to this course offering. 
-      Just replace the provided information with your own.</p>
-      <p>If it is not possible to raise an approved grade on this course it is still valuable for student to know that. Uncheck "Include heading" if you despite that don´t want to include the information in this course memo</p>`,
+      <p><b>This information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination in this course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> if there is information about Opportunity to raise an approved grade via renewed examination entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      help: `<p>Under this section, you describe if it is possible to raise an approved grade via renewed examination on this course offering and the terms for that. Also describe how the student can apply for a renewed examination.
+      If it is not possible to raise an approved grade via renewed examination on this course offering it may be beneficial to indicate this.</p>`,
     },
     possibilityToCompletion: {
-      body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes if it is possible to complete the requirements via supplementary examination and if it possible to raise the grade to E or a higher grade.</p>
-      <p><b>The information helps the student</b> to understand if it is possible to complete the requirements via supplementary examination and if that is the case, the terms for that.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. If there is information about Opportunity to complete the requirements via supplementary examination in Kopps it is automatically fetched to your course memo. You can choose to keep that information or enter new information. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe if it is possible to complete the requirements via supplementary examination on this course in this section and terms for that. 
-      Also describe if it is possible to complete the requirements via supplementary examination on each module/item.  
-      All modules/items in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to passed. 
-      Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
-      <p>If this is a new course memo the system will automatically provide you with the information from Kopps that is valid for all course offerings on this course. 
-      You can choose to keep that information, or you can enter information about the opportunity to complete the requirements via supplementary examination that is valid only to this course offering. 
-      Just replace the provided information with your own.</p>
-      <p>It is often better to describe opportunity to complete the requirements via supplementary examination for the modules under each sub heading to the heading "Examination" above in this course memo.</p>
-      <p>Uncheck "Include heading" if "Opportunity to complete the requirements via supplementary examination" is irrelevant for this course.</p>`,
+      body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes whether there is a chance for supplementary examination in this course offering and if completion can be done only up to a grade E or to a higher grade.</p>
+      <p><b>This information helps the student</b> to understand if it is possible to complete the requirements via supplementary examination and, if so, the conditions for completion in this course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> if there is information about Opportunity to complete the requirements via supplementary examination entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      help: `<p>Under this section, you describe if it is possible to complete the requirements via supplementary examination on this course offering and, if so, the applicable conditions. Also describe if it is possible to complete the requirements via supplementary examination on each module.</p>
+      <p>All modules in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to Pass.  Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
+      <p>It is often better to describe opportunity to complete the </p>`,
     },
     possibilityToCompensate: {
-      body: `<p><b>Alternatives to missed activities or tasks</b> describe if alternatives to mandatory activities or tasks are possible and the terms for that.</p>
-      <p><b>The information helps the student</b> to plan the course with other commitments. With information about alternatives to missed activities or tasks, the student can prioritize the activities.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe if alternatives to missed activities or tasks are possible on this course in the "Alternatives to missed activities or tasks" section. 
-      If it is possible, describe the alternatives in the case when students miss a mandatory activity or task, for example if the student miss a mandatory study visit.</p>
-      <p>Remember that any other examination format than the ordinary must be written in the "Examination comment" section of the course syllabus.</p>
-      <p>Uncheck "Include heading" if "Alternatives to missed activities or tasks" is irrelevant for this course.</p>`,
+      body: `<p><b>Alternatives to missed activities or tasks</b> describes whether there is an opportunity for replacement assignments in the course offering, and if so, what applies if the student misses mandatory elements.</p>
+      <p><b>This information helps the student</b> in planning the implementation of the course while simultaneously studying another course. Clearly described information about alternatives to missed activities or tasks also increases legal certainty.</p>`,
+      help: `<p>Under this section, you describe whether there is alternatives to missed activities or tasks in the course offering. 
+      If possible, you describe the procedures if a student misses a mandatory element. This may apply in cases where the student misses an activity with mandatory attendance or is absent during a study visit.</p>
+      <p>Note that if a form of examination other than the regular one is used in a replacement assignment, it must be stated in the course syllabus under “Examination comment”.</p>`,
     },
     preparations: {
       body: `<p><b>Specific preparations</b> describes the most important preparations for the students before start of this course offering.</p>
-      <p><b>The information helps the student</b> to plan for and prepare for the course.</p>
+      <p><b>This information helps the student</b> to plan for and prepare for the course.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the most important preparations for the students in the "Specific preparations" section. 
       Write things that are important to know or to do before the start of the course. 
@@ -392,43 +332,38 @@ module.exports = {
       <p>Uncheck "Include heading" if there is no reason to inform about specific preparations on this course.</p>`,
     },
     prerequisites: {
-      body: `<p><b>Recommended prerequisites</b> describes what the teacher expects the student to know before the start of the course.</p>
-      <p><b>The information helps the students</b> to understand what knowledge is important to be updated on when the course starts.</p>
-      <p><b>The contents is edited </b> in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a>, by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. Both links open in a new tab.</p>`,
+      body: `<p><b>Recommended prerequisites</b> describe what the teacher expects the student to have mastered when the course begins.</p>
+      <p><b>This information helps the student</b> understand which knowledge is crucial to be updated on when the course starts. Clearly defined information makes it easier for the student to review the correct theories and models before the course begins.</p>
+      <p><b>Content is retrieved from Kopps</b> and can only be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs). You can choose not to include the heading in your course memo.</p>`,
+      help: `<p>Under this section, you describe what is particularly important for the student to prepare for. You can encourage the student to review knowledge from the "Specific prerequisites" section in the course syllabus, revisit crucial aspects from the "Recommended prerequisites," remind them to order specific literature on time, or install software.</p>`,
     },
     reportingResults: {
-      body: `<p><b>Reporting of exam results</b> describes how and when the results on this course offering are registered and reported. It contains information about where and when the students can see their results on this course.</p>
-      <p><b>The information helps the student</b> to understand where and when they can find their results in this course. With that information, the student can take any re-exams into consideration. It is also important for the student to know if he or she is entitled to student grants and loans.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.y</p>`,
-      help: `<p>Describe what the student needs to know about reporting of exam results in this section. 
-      Describe where and when the student can find the results, both for modules and the final grade on the course. 
-      It is particularly important to describe this if the routines differs from other courses, for example if the results will be reported later than what is expected. 
-      The students should be informed of the results no later than three weeks or fifteen working days after the exam.</p>
-      <p>Uncheck "Include heading" if there is no reason to inform about reporting of exam results on this course.</p>`,
+      body: `<p><b>Reporting of exam results</b> describes when and how the registration of students' results and grades takes place, as well as where the student can access this information.</p>
+      <p><b>This information helps the student</b> so that they know when and how they can access results and grades. This allows the student to account for any re-examinations in their planning. It is also important for the student to feel secure in knowing that they will be eligible for continued financial support for their studies.</p>`,
+      help: `<p>Under this section, you describe how reporting of exam results is conducted in the course offering. The information is particularly important if reporting of exam results for this course offering differs from the regular procedures, for example, if the course offering spans multiple semesters or if results for the entire course may take longer than usual. 
+      Typically, the student can expect to receive results within three weeks or fifteen working days after the examination.</p>`,
     },
     scheduleDetails: {
-      body: `<p><b>Detailed plan</b> is an overview of the learning activities and examinations on the course, preferably in a chronological order. 
-      The detailed plan contains information about each activity and what preparations that are recommended prior to each activity.</p>
-      <p><b>The information helps the student</b> to plan for their studies.</p>
-      <p><b>Edit the content</b> by clicking on the button "Edit". Enter information and check "Include". Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance on how to write the content.</p>`,
-      help: `<p>Describe the planned learning activities and examination in the Detailed plan section. It is preferable to use a table to represent the plan. Describe the order of the activities, their content, and what preparations that is recommended prior to each activity. Preparations are often described as references to literature or web pages, but they could also be practical.</p>`,
+      body: `<p><b>Detailed plan</b> is an overview of the course's planned learning activities and examinations. It includes information about the activities and what the student needs to prepare for each activity.</p>
+      <p><b>This information helps the student</b> plan their studies and carry out the course effectively.</p>`,
+      help: `<p>Under this section, you describe the learning activities and examinations planned for the course. Outline the sequence of activities, their content, and the recommended preparations for each activity.</p>
+      <p>Preparations may include chapters and other references to course literature or websites, but it can also involve installing software or other practical preparations.</p>`,
     },
     software: {
-      body: `<p><b>Software</b> describes what software and what version of the software that is used on the course.</p>
-      <p><b>The information helps the student</b> to get access to the correct software that is necessary to complete the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the software that is used in the course in the "Software" section. Include references or web links to resources where the software can be downloaded from and where to find installation instructions.</p>
-      <p>Uncheck "Include heading" if software is irrelevant for this course.</p>`,
+      body: `<p><b>Software</b> describes which software and the version of the software that should be used during the course.</p>
+      <p><b>This information helps the student</b> to access the right software before the start of the course offering.</p>`,
+      help: `<p>Under this section, you describe if any specific software, including version, is used. Also, provide references or web links to where the software can be downloaded, and if instructions and installation guidelines are available elsewhere, include that information.
+      If there are no external references, provide instructions and installation guidelines directly under this heading.</p>`,
     },
     teacher: {
-      body: `<p><b>Teachers</b> hold the contact details of the teachers during this course offering.</p>
-      <p><b>The information helps the student</b> with contact information for teachers during the course offering.</p>
-	  <p><b>Edit the contents</b> in Kopps. Teachers are administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs.</p>`,
+      body: `<p><b>Teachers</b> contains contact information for individuals holding the role of teacher during this course offering.</p>
+      <p><b>This information helps the student</b> in obtaining contact details for the teachers during the course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs).</p>`,
     },
     teacherAssistants: {
-      body: `<p><b>Teacher assistants</b> holds the contact details to the teacher assistants on this course offering.</p>
-      <p><b>The information helps the student</b> with contact information for teacher assistants during the course offering.</p>
-	  <p><b>Edit the contents</b> in Kopps. Teacher assistants is administred in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized persons in Kopps</a>. The links open in new tabs. You choose whether the contact information should be included in your course memo or not. If you want to include the information, click on "Include".</p>`,
+      body: `<p><b>Teacher assistants</b> contains contact information for individuals holding the role of teacher assistants during this course offering.</p>
+      <p><b>This information helps the student</b> in obtaining contact details for the teacher assistants during the course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs). You have the option not to include the heading in your course memo.</p>`,
     },
   },
   pagesCreateNewPm: [
