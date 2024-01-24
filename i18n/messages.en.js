@@ -341,7 +341,7 @@ module.exports = {
     },
     preparations: {
       body: `<p><b>Specific preparations</b> describes the most important preparations for the students before start of this course offering.</p>
-      <p><b>The information helps the student</b> to plan for and prepare for the course.</p>
+      <p><b>This information helps the student</b> to plan for and prepare for the course.</p>
       <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
       help: `<p>Describe the most important preparations for the students in the "Specific preparations" section. 
       Write things that are important to know or to do before the start of the course. 
