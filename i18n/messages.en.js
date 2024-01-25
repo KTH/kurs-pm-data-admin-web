@@ -152,11 +152,11 @@ module.exports = {
       help: `<p>Under this section, you describe how communication should take place before and during the course offering. 
       For example, you can refer to the teachers before the start of the course and to Canvas for communication during the course.
       If different questions require different communication methods, you can provide an overarching description of how to communicate for each respective issue.</p>
-      <p>Contact information for examiner, course coordinator, and teacher is automatically retrieved to your course memo Therefore, you do not need to provide this information again.</p>`,
+      <p>Contact information for examiner, course coordinator, and teacher is automatically retrieved to your course memo. Therefore, you do not need to provide this information again.</p>`,
     },
     courseContent: {
       body: `<p><b>Course contents</b> describes the content and the general skills covered in the course.</p>
-      <p><b>This information helps the student</b> which concepts, topics, skills, etc., they need to familiarize themselves with before and during the course.</p>
+      <p><b>This information helps the student</b> understand which concepts, topics, skills, etc., they need to familiarize themselves with before and during the course.</p>
       <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page
       &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
@@ -175,14 +175,9 @@ module.exports = {
     },
     ethicalApproachSubSection: {
       body: 'It is important for students because they can plan their studies....',
-      help: `<p>There are two sections under the "Ethical approach" heading. First there is a fixed text that will be included in all published course memos. 
-      It is not possible to edit that general text.<p>
-      <p>You can inform the student about course specific information regarding ethical approach in the second section. 
-      Here you can describe any values and regulations applicable for the activities in this course offering, for example group projects, assignments, programming tasks etc.</p>
-      <p>Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf " target="_blank">Ethical policy</a> to find more detailed support and information regarding ethical approach.</p>
-      <p>You can also find useful information in the EECS <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">Code of honour for students and teachers</a>. 
-      If this course is offered by the EECS school you can insert a web link to the same web page.</p>
-      <p>Uncheck "Include section" if there is no course specific information regarding ethical approach on this course.</p>`,
+      help: `<p>There are two sections under the heading. First there is a fixed text from the course syllabus. It is not possible to edit the text, since it is a general text for all courses at KTH.
+      In the second section, you can describe specific information regarding ethical approach for this course offering. Here you can describe any values and regulations applicable for the activities in this course offering, for example group projects, assignments, programming tasks etc.
+      Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf">Ethical policy</a> to find more detailed support and information. You can also find useful information in the <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">EECS Code of honour</a> (opens in new tab) for students and teachers. </p>`,
     },
     equipment: {
       body: `<p><b>Equipment</b> describes what equipment is not provided by KTH and is needed to follow the course offering.</p>
@@ -288,16 +283,9 @@ module.exports = {
     permanentDisabilitySubSection: {
       body: `<p> </p>
       <p> </p>`,
-      help: `<p>There are two sections under the "Support for students with disabilities" heading. 
-      First there is a fixed text that will be included in all published course memos. 
-      It is not possible to edit that general text. 
-      There is a web link in the fixed text that links to the KTH offical information about support for students with disabilities. 
-      There, students can find information about compensatory support and how to apply for it. </p>
-      <p>You can inform the student about course specific information regarding support for students with disabilities in the second section. 
-      You can inform the students about compensatory support during examination or aother support during the studies on this course. 
-      Read more about <a href="https://intra.kth.se/utbildning/utbi/genomfora-utbildning/hantera-stodinsatser-vid-examination-av-studenter-med-funktionsnedsattning" target="_blank">hantera stödinsatser vid examination av studenter med funktionsnedsättning</a>. 
-      The page is in Swedish but there are some helpful documents in English.</p>
-      <p>Uncheck "Include section" if there is no course specific information regarding support for students with disabilities preparations on this course.</p>`,
+      help: `<p>Under the heading, there are two sections. At the top, there is a fixed text that is not editable. This fixed text contains a web link to KTH's official page with general information about support for students with disabilities.
+      Following the fixed text is a section where you describe the support for students with disabilities that is specifically relevant to this course offering. You can inform about compensatory support during examinations or other support in the study situation. 
+      Read more about <a href="https://intra.kth.se/en/utbildning/utbi/examination/stod-funka/hantera-stod-till-studenter-med-funktionsnedsattning-1.691449" target="_blank">managing support for students with disabilities</a> (opens in a new tab).</p>`,
     },
     possibilityToAddition: {
       body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course and the terms for raising the grade.</p>
@@ -312,7 +300,7 @@ module.exports = {
       <p><b>Content is retrieved from Kopps</b> if there is information about Opportunity to complete the requirements via supplementary examination entered. You can choose to retain that information in your course memo or add new information.</p>`,
       help: `<p>Under this section, you describe if it is possible to complete the requirements via supplementary examination on this course offering and, if so, the applicable conditions. Also describe if it is possible to complete the requirements via supplementary examination on each module.</p>
       <p>All modules in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to Pass.  Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
-      <p>It is often better to describe opportunity to complete the </p>`,
+      <p>It is often better to describe opportunity to complete the requirements via supplementary examination for the modules under the heading Examination.</p>`,
     },
     possibilityToCompensate: {
       body: `<p><b>Alternatives to missed activities or tasks</b> describes whether there is an opportunity for replacement assignments in the course offering, and if so, what applies if the student misses mandatory elements.</p>
@@ -322,14 +310,9 @@ module.exports = {
       <p>Note that if a form of examination other than the regular one is used in a replacement assignment, it must be stated in the course syllabus under “Examination comment”.</p>`,
     },
     preparations: {
-      body: `<p><b>Specific preparations</b> describes the most important preparations for the students before start of this course offering.</p>
-      <p><b>This information helps the student</b> to plan for and prepare for the course.</p>
-      <p><b>Edit the contents</b> by clicking on the button "Edit". Enter information and check "Include", to include the content in your course memo. Expand the "Show guidance" panel (after you have clicked the edit button) for further guidance.</p>`,
-      help: `<p>Describe the most important preparations for the students in the "Specific preparations" section. 
-      Write things that are important to know or to do before the start of the course. 
-      That could be ordering the course literature, rehearse specific theories from "Specific prerequisites", rehears parts from "Recommended prerequisites", install software etc.</p>
-      <p>Preparations in general should be described in the "Learning activities" section if it is related to the different types of activity types or described in the "Detailed plan" section if it is related to specific reading guidelines prior to each learning activity.</p>
-      <p>Uncheck "Include heading" if there is no reason to inform about specific preparations on this course.</p>`,
+      body: `<p><b>Specific preparations</b> describe what is particularly important for the student to know and do before the start of the course.</p>
+      <p><b>This information helps the student</b> plan and prepare for the implementation of the course.</p>`,
+      help: `<p>Under this section, you describe what is particularly important for the student to prepare for. You can encourage the student to review knowledge from the "Specific prerequisites" section in the course syllabus, revisit crucial aspects from the "Recommended prerequisites," remind them to order specific literature on time, or install software.</p>`,
     },
     prerequisites: {
       body: `<p><b>Recommended prerequisites</b> describe what the teacher expects the student to have mastered when the course begins.</p>
