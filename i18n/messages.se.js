@@ -164,15 +164,9 @@ module.exports = {
     ethicalApproachSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`,
-      help: `<p>Under rubriken "Etiskt förhållningssätt" finns två sektioner. 
-      Överst visas en fast text från kursens kursplan som kommer att publiceras i detta kurs-PM. 
-      Texten är generella etiska riktlinjer för alla kurser på KTH och dessa är inte redigerbara.</p>
-      <p>Efter sektionen med den fasta texten följer en sektion där du kan ange information om etiskt förhållningssätt som är specifik för eller extra relevant i denna kursomgång.
-       Du kan beskriva om det finns särskilda regler för t.ex. grupparbete, hemuppgifter, programmering m.m. 
-       Läs mer om KTH:s <a href="https://intra.kth.se/polopoly_fs/1.738196.1562741233!/L%C3%A4sanvisningar%20till%20etisk%20policy%20f%C3%B6r%20KTH%20FR%202017-02-08.pdf" target="_blank">etiska policy</a> för att få stöd för att formulera etiska riktlinjer för just denna kursomgång.</p>
-      <p>Du kan också ta hjälp av <a href="https://www.kth.se/eecs/utbildning/hederskodex" target="_blank">EECS-skolans hederskodex för lärare och studenter</a> för att få ytterligare hjälp till att formulera etiska riktlinjer för just denna kursomgång. 
-      Om denna kurs ges av EECS-skolan kan du infoga en webblänk till denna sida.</p>
-      <p>Om det inte finns anledning att informera om etiska riktlinjer som är specifik för eller extra relevant i denna  kursomgång låter du den andra redigerbara sektionen vara tom.</p>`,
+      help: `<p>Under rubriken finns två sektioner. Överst visas en fast text från kursens kursplan. Texten är generella etiska riktlinjer för alla kurser på KTH och är inte redigerbar. 
+      Efter den fasta texten följer en sektion där du kan ange information om etiskt förhållningssätt som är specifik för eller extra relevant i denna kursomgång. Du kan beskriva om det finns särskilda regler för t.ex. grupparbete, hemuppgifter, programmering m.m. 
+      Läs mer om KTH:s <a href="https://intra.kth.se/polopoly_fs/1.738196.1562741233!/L%C3%A4sanvisningar%20till%20etisk%20policy%20f%C3%B6r%20KTH%20FR%202017-02-08.pdf">etiska policy</a> för att få stöd. Du kan också ta hjälp av <a href="https://www.kth.se/eecs/utbildning/hederskodex" target="_blank">EECS-skolans hederskodex</a> (öppnas i ny flik) för lärare och studenter.</p>`,
     },
     equipment: {
       body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången.</p>
@@ -223,7 +217,7 @@ module.exports = {
     },
     gradingCriteria: {
       body: `<p><b>Målrelaterade betygskriterier/bedömningskriterier</b> anger de krav som studenten ska uppfylla för de olika betygen och ska utformas utifrån kursplanens mål.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna/bedömningskriterierna relaterar till lärandemålen och vad srtudenen behöver göra och kunna för att uppnå respektive betyg på kursen.</p>`,
+      <p><b>Informationen hjälper studenten</b> att förstå hur betygskriterierna/bedömningskriterierna relaterar till lärandemålen och vad studenten behöver göra och kunna för att uppnå respektive betyg på kursen.</p>`,
       help: `<p>Här beskriver du de målrelaterade betygskriterier/bedömningskriterier som gäller för kursomgången. 
       Betygskriterier ska finnas för alla kurser och kursmoduler med det sjugradiga eller tregradiga betygssystemet. För kursmoduler som betygssätts enligt det tvågradiga betygssystemet behöver inga särskilda betygskriterier tas fram då målen i sig utgör betygskriterier.</p>
       <p>Läs mer och hitta konkreta exempel på 
@@ -279,12 +273,8 @@ module.exports = {
     permanentDisabilitySubSection: {
       body: `<p><b></b></p>
       <p><b></b> </p>`,
-      help: `<p>Under rubriken "Stöd för studenter med funktionsnedsättning" finns två sektioner. Överst visas en fast text, som inte är redigerbar, och som kommer att publiceras i detta kurs-PM. 
-      Den fasta texten innehåller en webblänk till KTH:s officiella sida om stöd för studenter med funktionsnedsättning. Där finns generell information om vad studenten bör känna till om stödet, hur studenten går tillväga för att ansöka om särskilt stöd m.m.</p>
-      <p>Efter sektionen med den fasta texten följer en sektion där du kan ange information om stöd för studenter med funktionsnedsättning som gäller specifikt för denna kursomgång. 
-      Du kan informera om kompensatoriskt stöd vid examination eller om annat stöd i studiesituationen. 
-      Läs mer om att <a href="https://intra.kth.se/utbildning/utbi/genomfora-utbildning/hantera-stodinsatser-vid-examination-av-studenter-med-funktionsnedsattning" target="_blank">hantera stödinsatser vid examination av studenter med funktionsnedsättning</a>.</p>
-      <p>Om det inte finns anledning att informera om stöd för studenter med funktionsnedsättning som gäller specifikt denna kursomgång låter du rubriken vara dold i detta kurs-PM.</p>`,
+      help: `<p>Under rubriken finns två sektioner. Överst visas en fast text, som inte är redigerbar. Den fasta texten innehåller en webblänk till KTH:s officiella sida med generell information om stöd för studenter med funktionsnedsättning. 
+      Efter den fasta texten följer en sektion där du kan ange information om stöd för studenter med funktionsnedsättning som gäller specifikt för denna kursomgång. Du kan informera om kompensatoriskt stöd vid examination eller om annat stöd i studiesituationen. Läs mer om att <a href="https://intra.kth.se/utbildning/utbi/examination/stod-funka" target="_blank">hantera stöd till studenter med funktionsnedsättning</a> (öppnas i ny flik).</p>`,
     },
     possibilityToAddition: {
       body: `<p><b>Möjlighet till plussning</b> beskriver om plussning är möjligt på kursomgången, eventuella villkor för plussning och hur plussning går till.</p>
@@ -309,17 +299,12 @@ module.exports = {
     },
     preparations: {
       body: `<p><b>Särskilda förberedelser</b> beskriver vad som är särskilt viktigt för studenten att veta och göra inför kursomgångens start.</p>
-      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande.</p>
-      <p><b>Redigera innehåll</b> genom att klicka på knappen "Redigera”. Ange information i inmatningsfältet och klicka i "Inkludera" för att innehållet ska ingå i ditt kurs-PM. Du kan välja ”Visa vägledning” (efter att du valt ”Redigera”) för att få vägledning om innehåll under rubriken.</p>`,
-      help: `<p>Under rubriken "Särskilda förberedelser" kan du understryka vad som är särskilt viktigt eller fördelaktigt för studenten att förbereda sig på. Här kan du beskriva vad som är viktigt för studenten att veta och göra inför kursomgångens start. 
-      Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna att beställa viss kurslitteratur i tid eller installera programvara m.m.</p>
-      <p>Förberedelser i allmänhet ska beskrivas under "Läraktiviteter" om det gäller generella förberedelser inför kursomgångens olika aktivitetstyper eller under "Detaljplanering" om det gäller specifika förberedelser och läsanvisningar inför varje aktivitet i kursomgången. 
-      Läs mer om det i vägledning under respektive rubrik.</p>
-      <p>Om det inte finns anledning att uppmana studenten om "Särskilda förberedelser" låter du rubriken vara dold i detta kurs-PM.</p>`,
+      <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande.</p>`,
+      help: `<p>Här beskriver du vad som är särskilt viktigt för studenten att förbereda sig på. Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna om att beställa viss kurslitteratur i tid eller installera programvara.</p>`,
     },
     prerequisites: {
       body: `<p><b>Rekommenderade förkunskaper</b> beskriver vad läraren förväntar sig att studenten behärskar när kursomgången startar.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå vilken kunskap som är viktig att vara uppdaterad på när kursomgången startar. Tydligt avgränsad information gör det lättare för studenten att repetera rätt teorier, modeller inför kursen start.</p>
+      <p><b>Informationen hjälper studenten</b> att förstå vilken kunskap som är viktig att vara uppdaterad på när kursomgången startar. Tydligt avgränsad information gör det lättare för studenten att repetera rätt teorier och modeller inför kursen start.</p>
       <p><b>Innehåll hämtas från Kopps</b> och kan enbart redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (båda länkarna öppnas i ny flik). Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
       help: `<p>Här beskriver du vad som är särskilt viktigt för studenten att förbereda sig på. Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna om att beställa viss kurslitteratur i tid eller installera programvara.</p>`,
     },
@@ -330,7 +315,7 @@ module.exports = {
       Studenten ska normalt sett kunna förvänta sig att få resultat senast tre veckor eller femton arbetsdagar efter provtillfället.</p>`,
     },
     scheduleDetails: {
-      body: `<p><b>Detaljplanering</b> är en översikt av kursen planerade läraktiviteter och examinationstillfällen och innehåller information om aktiviteterna och vad studenten behöver förbereda inför varje aktivitet.</p>
+      body: `<p><b>Detaljplanering</b> är en översikt av kursomgångens planerade läraktiviteter och examinationstillfällen och innehåller information om aktiviteterna och vad studenten behöver förbereda inför varje aktivitet.</p>
       <p><b>Informationen hjälper studenten</b> att planera sina studier och genomföra kursomgången på ett effektivt sätt.</p>`,
       help: `<p>Här beskriver du vilka läraktiviteter och examinationstillfällen som planeras under kursen. Beskriv aktiviteternas ordning, dess innehåll och vilka förberedelser som rekommenderas inför varje aktivitet.</p>
       <p>Förberedelser kan vara kapitel och andra referenser till kurslitteratur eller webbsidor, men det kan också vara att installera programvara eller annan praktisk förberedelse</p>`,
