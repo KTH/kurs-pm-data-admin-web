@@ -171,13 +171,13 @@ module.exports = {
       <p><b>Content is retrieved from the course syllabus in Kopps</b> (the fixed text at the top) but can also be supplemented by adding an additional paragraph about Ethical Approach.</p>`,
       help: `<p>There are two sections under the heading. First there is a fixed text from the course syllabus. It is not possible to edit the text, since it is a general text for all courses at KTH.
       In the second section, you can describe specific information regarding ethical approach for this course offering. Here you can describe any values and regulations applicable for the activities in this course offering, for example group projects, assignments, programming tasks etc.
-      Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf">Ethical policy</a> to find more detailed support and information. You can also find useful information in the <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">EECS Code of honour</a> (opens in new tab) for students and teachers. </p>`,
+      Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf" target="_blank">Ethical policy</a> to find more detailed support and information. You can also find useful information in the <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">EECS Code of honour</a> (opens in new tab) for students and teachers. </p>`,
     },
     ethicalApproachSubSection: {
       body: 'It is important for students because they can plan their studies....',
       help: `<p>There are two sections under the heading. First there is a fixed text from the course syllabus. It is not possible to edit the text, since it is a general text for all courses at KTH.
       In the second section, you can describe specific information regarding ethical approach for this course offering. Here you can describe any values and regulations applicable for the activities in this course offering, for example group projects, assignments, programming tasks etc.
-      Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf">Ethical policy</a> to find more detailed support and information. You can also find useful information in the <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">EECS Code of honour</a> (opens in new tab) for students and teachers. </p>`,
+      Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf" target="_blank">Ethical policy</a> to find more detailed support and information. You can also find useful information in the <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">EECS Code of honour</a> (opens in new tab) for students and teachers. </p>`,
     },
     equipment: {
       body: `<p><b>Equipment</b> describes what equipment is not provided by KTH and is needed to follow the course offering.</p>

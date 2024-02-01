@@ -159,14 +159,14 @@ module.exports = {
       <p><b>Innehåll hämtas från kursplanen i Kopps</b> (den fasta texten överst) men kan även kompletteras genom att lägga till ett ytterligare stycke om Etiskt förhållningssätt.</p>`,
       help: `<p>Under rubriken finns två sektioner. Överst visas en fast text från kursens kursplan. Texten är generella etiska riktlinjer för alla kurser på KTH och är inte redigerbar. 
       Efter den fasta texten följer en sektion där du kan ange information om etiskt förhållningssätt som är specifik för eller extra relevant i denna kursomgång. Du kan beskriva om det finns särskilda regler för t.ex. grupparbete, hemuppgifter, programmering m.m. 
-      Läs mer om KTH:s <a href="https://intra.kth.se/polopoly_fs/1.738196.1562741233!/L%C3%A4sanvisningar%20till%20etisk%20policy%20f%C3%B6r%20KTH%20FR%202017-02-08.pdf">etiska policy</a> för att få stöd. Du kan också ta hjälp av <a href="https://www.kth.se/eecs/utbildning/hederskodex" target="_blank">EECS-skolans hederskodex</a> (öppnas i ny flik) för lärare och studenter.</p>`,
+      Läs mer om KTH:s <a href="https://intra.kth.se/polopoly_fs/1.738196.1562741233!/L%C3%A4sanvisningar%20till%20etisk%20policy%20f%C3%B6r%20KTH%20FR%202017-02-08.pdf" target="_blank">etiska policy</a> för att få stöd. Du kan också ta hjälp av <a href="https://www.kth.se/eecs/utbildning/hederskodex" target="_blank">EECS-skolans hederskodex</a> (öppnas i ny flik) för lärare och studenter.</p>`,
     },
     ethicalApproachSubSection: {
       body: `<p><b>Informationen syftar till: …</b></p>
       <p><b>Rubriken hjälper studenter:</b> </p>`,
       help: `<p>Under rubriken finns två sektioner. Överst visas en fast text från kursens kursplan. Texten är generella etiska riktlinjer för alla kurser på KTH och är inte redigerbar. 
       Efter den fasta texten följer en sektion där du kan ange information om etiskt förhållningssätt som är specifik för eller extra relevant i denna kursomgång. Du kan beskriva om det finns särskilda regler för t.ex. grupparbete, hemuppgifter, programmering m.m. 
-      Läs mer om KTH:s <a href="https://intra.kth.se/polopoly_fs/1.738196.1562741233!/L%C3%A4sanvisningar%20till%20etisk%20policy%20f%C3%B6r%20KTH%20FR%202017-02-08.pdf">etiska policy</a> för att få stöd. Du kan också ta hjälp av <a href="https://www.kth.se/eecs/utbildning/hederskodex" target="_blank">EECS-skolans hederskodex</a> (öppnas i ny flik) för lärare och studenter.</p>`,
+      Läs mer om KTH:s <a href="https://intra.kth.se/polopoly_fs/1.738196.1562741233!/L%C3%A4sanvisningar%20till%20etisk%20policy%20f%C3%B6r%20KTH%20FR%202017-02-08.pdf" target="_blank">etiska policy</a> för att få stöd. Du kan också ta hjälp av <a href="https://www.kth.se/eecs/utbildning/hederskodex" target="_blank">EECS-skolans hederskodex</a> (öppnas i ny flik) för lärare och studenter.</p>`,
     },
     equipment: {
       body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången.</p>
