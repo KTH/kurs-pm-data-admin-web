@@ -83,7 +83,7 @@
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-react": "^7.23.3",
     "@faker-js/faker": "^8.4.1",
-    "@kth/eslint-config-kth": "^3.1.0",
+    "@kth/eslint-config-kth": "^3.4.0",
     "@testing-library/jest-dom": "^6.3.0",
     "@testing-library/react": "^14.1.2",
     "@types/jest": "^29.5.11",
