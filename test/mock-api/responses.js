@@ -1119,7 +1119,7 @@ module.exports = {
       AF: 'A, B, C, D, E, FX, F',
     },
   },
-  getSellingTextByCourseCode: {
+  getCourseInfoByCourseCode: {
     courseCode: 'SF1624',
     sellingText: {
       en: '<p>Proper text for students to be read and understood, easy to be tested</p>',
