@@ -1,7 +1,7 @@
 const {
   getAllMemosByCourseCodeAndType: getAllMemosByCourseCodeAndTypeResponse,
   detailedInformation: detailedInformationResponse,
-  getSellingTextByCourseCode: getSellingTextByCourseCodeResponse,
+  getCourseInfoByCourseCode: getCourseInfoByCourseCodeResponse,
   imageBlobStorage: imageBlobStorageResponse,
 } = require('./responses')
 
@@ -44,12 +44,12 @@ module.exports = {
     {
       method: 'get',
       url: '/kursinfo/_paths',
-      response: { api: { getSellingTextByCourseCode: { uri: '/kursinfo/getSellingTextByCourseCode' } } },
+      response: { api: { getCourseInfoByCourseCode: { uri: '/kursinfo/getCourseInfoByCourseCode' } } },
     },
     {
       method: 'get',
-      url: '/kursinfo/getSellingTextByCourseCode',
-      response: getSellingTextByCourseCodeResponse,
+      url: '/kursinfo/getCourseInfoByCourseCode',
+      response: getCourseInfoByCourseCodeResponse,
     },
     {
       method: 'get',

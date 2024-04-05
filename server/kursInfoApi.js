@@ -5,7 +5,7 @@ const api = require('./api')
 
 async function getCourseInfo(courseCode) {
   const { client, paths } = api.kursInfoApi
-  const uri = client.resolve(paths.getSellingTextByCourseCode.uri, { courseCode })
+  const uri = client.resolve(paths.getCourseInfoByCourseCode.uri, { courseCode })
 
   try {
     const res = await client.getAsync({ uri }, { useCache: false })
