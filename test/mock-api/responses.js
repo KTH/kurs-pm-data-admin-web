@@ -1126,8 +1126,6 @@ module.exports = {
       sv: '<p>Kurs- och programkatalogen anger f&ouml;ljande text (och den anv&auml;nder jag g&auml;rna):</p>\n\n<p>Algebra och geometri &auml;r en grundl&auml;ggande kurs i linj&auml;r algebra med vektorgeometri. Ett centralt begrepp i kursen &auml;r linj&auml;ritet som ligger till grund f&ouml;r stora delar av anv&auml;ndningen av matematik inom s&aring;v&auml;l naturvetenskap som inom ingenj&ouml;rstill&auml;mpningar.&nbsp;</p>',
     },
     imageInfo: 'Picture_by_own_choice_SF1624.jpg',
-    isCourseWebLink: false,
-    sellingTextAuthor: 'xyz',
   },
   imageBlobStorage: fs.readFileSync('./static/kth_logo.jpg'),
 }
