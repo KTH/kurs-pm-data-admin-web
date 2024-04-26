@@ -1,13 +1,11 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import { typeOfHeader } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
+import HeadingBox from '../components/layout/HeadingBox'
 import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
-import HeadingBox from '../components/layout/HeadingBox'
 
 const SectionForNonEditable = ({
   contentId,
@@ -21,9 +19,7 @@ const SectionForNonEditable = ({
   const { nothingFetched } = i18n.messages[userLangIndex].sourceInfo
   const typeOfThisHeader = typeOfHeader(contentId)
 
-  const isReady = React.useMemo(() => {
-    return visibleInMemo && html !== ''
-  }, [visibleInMemo, html])
+  const isReady = React.useMemo(() => visibleInMemo && html !== '', [visibleInMemo, html])
 
   return (
     <HeadingBox isReady={isReady}>

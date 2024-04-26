@@ -1,7 +1,5 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
-/* eslint-disable react/no-danger */
+/* eslint-disable consistent-return */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
 import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
@@ -19,12 +17,6 @@ const canMerge = (memoLangAbbr, round) => {
   const abbr = roundLangAbbr(round)
 
   return memoLangAbbr === 'en' || memoLangAbbr === abbr || false
-}
-
-async function isLangCompatible(availableRounds, memoCommonLangAbbr) {
-  const compatibles = availableRounds.filter(round => canMerge(memoCommonLangAbbr, round) === true)
-  const isCompatible = memoCommonLangAbbr && compatibles.length > 0
-  return isCompatible
 }
 
 function ActionModalCourseRounds(props) {
@@ -46,8 +38,8 @@ function ActionModalCourseRounds(props) {
   const [memo, setMemo] = useState(() => uniqueMemos.find(m => m.memoEndPoint === chosenMemoEndPoint) || {})
   const { applicationCodes, memoCommonLangAbbr, memoEndPoint, memoName, semester, status, version } = memo
 
-  const [roundGroups, setRoundsGroup] = useState({ allRounds: [], availableRounds: [], showSaveBtn: false })
-  const { allRounds, availableRounds, showSaveBtn } = roundGroups
+  const [roundGroups, setRoundsGroup] = useState({ allRounds: [], availableRounds: [] })
+  const { allRounds, availableRounds } = roundGroups
 
   const stayOnModal = true
 
@@ -71,13 +63,10 @@ function ActionModalCourseRounds(props) {
     const { semester: memoSemester } = newMemo
     const newAvailableRounds = await store.showAvailableSemesterRounds(memoSemester)
     const allNewRounds = await fetchThisTermRounds(miniKoppsObj, newMemo || memo)
-    const compatible = await isLangCompatible(newAvailableRounds, memoCommonLangAbbr)
-    const checkIfShowSaveBtn = newAvailableRounds && newAvailableRounds.length > 0 && compatible
 
     setRoundsGroup({
       allRounds: allNewRounds,
       availableRounds: newAvailableRounds,
-      showSaveBtn: checkIfShowSaveBtn,
     })
   }
 

@@ -15,17 +15,8 @@ const colWidthByProgress = {
 }
 
 const ControlPanel = props => {
-  const {
-    chosenMemoEndPoint,
-    langIndex,
-    onCancel,
-    onFinish,
-    onRemove,
-    onSubmit,
-    progress,
-    openAlertIdUntilFixed,
-    memoStatus,
-  } = props // onSubmit = onForward
+  const { chosenMemoEndPoint, langIndex, onCancel, onRemove, onSubmit, progress, openAlertIdUntilFixed, memoStatus } =
+    props // onSubmit = onForward
   const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished, event = '' } = props
   const { actionModals, alerts, buttons } = i18n.messages[langIndex]
   const progressNum = Number(progress) || 1

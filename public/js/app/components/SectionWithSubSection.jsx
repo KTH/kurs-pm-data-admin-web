@@ -1,18 +1,16 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/no-danger */
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import { typeOfHeader } from '../util/fieldsByType'
+import { observer } from 'mobx-react'
 import i18n from '../../../../i18n'
-import { ContentHead } from './ContentHead'
-import VisibilityInfo from './VisibilityInfo'
-import HeadingBox from './layout/HeadingBox'
 import { useStore } from '../mobx'
 import { useSectionContext } from '../stores/SectionContext'
+import { typeOfHeader } from '../util/fieldsByType'
+import { ContentHead } from './ContentHead'
+import VisibilityInfo from './VisibilityInfo'
 import { EditButton } from './editors/EditButton'
 import { SectionEditor } from './editors/SectionEditor'
-import { observer } from 'mobx-react'
+import HeadingBox from './layout/HeadingBox'
 
 const SectionWithSubSection = ({
   contentId,
@@ -44,9 +42,10 @@ const SectionWithSubSection = ({
     setIsEditorOpen(subSectionContentId, isOpenNext)
   }, [getIsEditorOpen, subSectionContentId, store, setIsEditorOpen])
 
-  const isSubSectionReady = React.useMemo(() => {
-    return subSectionVisibleInMemo && subSectionHtmlContent !== ''
-  }, [subSectionVisibleInMemo, subSectionHtmlContent])
+  const isSubSectionReady = React.useMemo(
+    () => subSectionVisibleInMemo && subSectionHtmlContent !== '',
+    [subSectionVisibleInMemo, subSectionHtmlContent]
+  )
 
   return (
     <HeadingBox isReady withNested onToggleEditor={toggleEditor}>

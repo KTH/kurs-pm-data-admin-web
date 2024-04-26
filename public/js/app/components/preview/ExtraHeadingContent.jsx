@@ -1,9 +1,7 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ExtraHeaderHead } from './ContentHead'
 import { EMPTY } from '../../util/constants'
+import { ExtraHeaderHead } from './ContentHead'
 
 function ExtraHeadingContent(props) {
   const {

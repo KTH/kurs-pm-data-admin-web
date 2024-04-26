@@ -4,6 +4,7 @@ jest.mock('../api', () => {})
 const systemCtrl = require('./systemCtrl')
 
 describe('Not found', () => {
+  // eslint-disable-next-line jest/no-done-callback
   test('Gets correct error code', done => {
     const req = { originalUrl: 'http://localhost' }
 

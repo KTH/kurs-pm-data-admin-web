@@ -88,15 +88,6 @@ export const emptyCheckboxesByIds = (sortedApplicationCodes, startOfId) => {
   })
 }
 
-export const emptyCheckboxes = className => {
-  const checkboxes = (document.getElementsByClassName(className).checked = false)
-  for (let i = 0; i < checkboxes.length; i++) {
-    if (checkboxes[i].checked) {
-      checkboxes[i].checked = false
-    }
-  }
-}
-
 export const sortRoundAndKoppsInfo = (roundKopps, prevSortedInfo) => {
   const { applicationCode } = roundKopps
   const { sortedApplicationCodes, sortedKoppsInfo } = prevSortedInfo

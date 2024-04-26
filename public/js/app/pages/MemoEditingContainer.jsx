@@ -1,15 +1,16 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-use-before-define */
 import React, { useState, useEffect, useRef } from 'react'
 import { observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
-import axios from 'axios'
 import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
 
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 import i18n from '../../../../i18n'
-import { FIRST_VERSION, SERVICE_URL, REMOVE_PUBLISHED_PARAM, SAVED_NEW_PARAM } from '../util/constants'
+import { FIRST_VERSION, SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
 import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
 import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComment'
@@ -53,8 +54,6 @@ function MemoContainer(props) {
     semester,
   } = store
 
-  if (!memoData.applicationCodes)
-    return <AlertMissingDraft langAbbr={userLangAbbr} langIndex={userLangIndex} courseCode={courseCode} />
   const { initialActiveTab } = props // used for test
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
@@ -63,7 +62,7 @@ function MemoContainer(props) {
   const [contentIdWithMissingHeading, setContentIdWithMissingHeading] = useState('') // check specific extra content group
   const [openAlertIdUntilFixed, setOpenAlertIdUntilFixed] = useState('')
 
-  const { commentAboutMadeChanges, lastPublishedVersionPublishDate, memoName, version, visibleInMemo } = memoData
+  const { commentAboutMadeChanges, memoName, visibleInMemo } = memoData
   const { alertText, alertIsOpen, alertColor } = alert
 
   const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
@@ -109,7 +108,10 @@ function MemoContainer(props) {
     }
   }, [])
 
-  const scrollToTop = id => {
+  if (!memoData.applicationCodes)
+    return <AlertMissingDraft langAbbr={userLangAbbr} langIndex={userLangIndex} courseCode={courseCode} />
+
+  const scrollToTop = () => {
     const spanElement = toTopRef.current
     if (spanElement) {
       window.scrollTo(0, spanElement.offsetTop)
@@ -175,6 +177,7 @@ function MemoContainer(props) {
     setDraftOfPublishedState(false)
   }
 
+  // eslint-disable-next-line consistent-return
   const onSave = async (editorContent, alertTranslationId) => {
     const { syllabusValid, memoCommonLangAbbr, credits, creditUnitAbbr, title, educationalTypeId } = memoData
     const eduTypeId = educationalTypeId ? { educationalTypeId } : {}
@@ -398,14 +401,7 @@ function MemoContainer(props) {
       <ProgressBar active={PROGRESS} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={userLangIndex} />
       {(isDraftOfPublished && !exactDraftCopyOfPublishedFromPrevVersion && (
-        <AlertDraftOfPublished
-          courseCode={courseCode}
-          memoEndPoint={memoEndPoint}
-          memoVersion={version}
-          onAlert={onToastAlert}
-          publishDate={lastPublishedVersionPublishDate}
-          userLangIndex={userLangIndex}
-        />
+        <AlertDraftOfPublished userLangIndex={userLangIndex} />
       )) || (
         <AlertSuccessRebuild
           alertMsg={alerts.infoRebuildDraft}
@@ -433,7 +429,7 @@ function MemoContainer(props) {
                 ...style,
                 ...{
                   paddingRight: '0',
-                  //paddingBottom: '0',
+                  // paddingBottom: '0',
                   paddingTop: isSticky ? TAB_HEIGHT_WITH_TOP_PADDING : '0',
                   backgroundColor: '#ffffff',
                   zIndex: 1,

@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -20,6 +19,7 @@ import EditorsForTest from './components/editors/test/EditorsForTest'
 import { SectionContextProvider } from './stores/SectionContext'
 
 function ErrorFallback({ error, resetErrorBoundary }) {
+  // eslint-disable-next-line no-console
   console.error(error)
   return (
     <div role="alert">

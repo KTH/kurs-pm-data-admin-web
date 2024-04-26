@@ -14,6 +14,7 @@ const HeadingBox = ({ children, isReady, withNested, onToggleEditor }) => {
   }
 
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <section className={classNames.join(' ')} onClick={onToggleEditor}>
       {children}
     </section>

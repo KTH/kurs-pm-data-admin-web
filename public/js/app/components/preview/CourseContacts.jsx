@@ -1,6 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
 

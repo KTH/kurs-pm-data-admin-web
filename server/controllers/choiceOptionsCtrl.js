@@ -6,13 +6,12 @@ const language = require('@kth/kth-node-web-common/lib/language')
 const { safeGet } = require('safe-utils')
 const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
-const { getKoppsCourseRoundTerms, getDetailedKoppsCourseRounds } = require('../koppsApi')
+const { getKoppsCourseRoundTerms } = require('../koppsApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const i18n = require('../../i18n')
 
-// eslint-disable-next-line consistent-return
 async function getUsedDrafts(req, res, next) {
   const { courseCode } = req.params
   try {
@@ -25,7 +24,7 @@ async function getUsedDrafts(req, res, next) {
     return res.json(apiResponse)
   } catch (error) {
     log.error('Exception from getUsedDrafts ', { error })
-    next(error)
+    return next(error)
   }
 }
 
@@ -144,7 +143,7 @@ async function removeMemoDraft(req, res, next) {
     return res.json(apiResponse)
   } catch (err) {
     log.error('Error in deleting of a draft', { err })
-    next(err)
+    return next(err)
   }
 }
 

@@ -1,12 +1,9 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { ContentHead, SubSectionHeaderMessage } from './ContentHead'
 import i18n from '../../../../../i18n'
 import { context } from '../../util/fieldsByType'
+import { ContentHead, SubSectionHeaderMessage } from './ContentHead'
 
 const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex }) => {
   const { nothingFetched, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo

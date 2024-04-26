@@ -1,9 +1,9 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
 import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import { Form, FormGroup, Label, Input } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 import { useStore } from '../../mobx'
@@ -14,8 +14,8 @@ import { ExtraHeaderHead } from '../ContentHead'
 import VisibilityInfo from '../VisibilityInfo'
 import editorConf from '../../util/editorInitConf'
 import { SectionHeading } from '../layout/SectionHeading'
-import { EditButton } from './EditButton'
 import HeadingBox from '../layout/HeadingBox'
+import { EditButton } from './EditButton'
 import { SaveAndCloseButton } from './SaveAndCloseButton'
 import { OnClickPropagationStopper } from './OnClickPropagationStopper'
 
@@ -127,9 +127,7 @@ function ExtraHeadingEditor(props) {
     return true
   }
 
-  const isReady = React.useMemo(() => {
-    return visibleInMemo && htmlContent !== ''
-  }, [visibleInMemo, htmlContent])
+  const isReady = React.useMemo(() => visibleInMemo && htmlContent !== '', [visibleInMemo, htmlContent])
 
   return (
     <HeadingBox isReady={isReady} onToggleEditor={toggleEditor}>

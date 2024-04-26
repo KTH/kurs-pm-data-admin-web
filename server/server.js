@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 const server = require('@kth/server')
 
 // Now read the server config etc.
@@ -51,6 +52,7 @@ log.init(logConfiguration)
  */
 const exphbs = require('express-handlebars')
 const path = require('path')
+
 server.set('views', path.join(__dirname, '/views'))
 server.set('layouts', path.join(__dirname, '/views/layouts'))
 server.set('partials', path.join(__dirname, '/views/partials'))
@@ -73,6 +75,7 @@ require('./views/helpers')
  * ******************************
  */
 const accessLog = require('kth-node-access-log')
+
 server.use(accessLog(config.logging.accessLog))
 
 /* ****************************
@@ -128,6 +131,7 @@ server.set('case sensitive routing', true)
  */
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+
 server.use(bodyParser.json({ limit: '50mb' }))
 server.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1000000 }))
 server.use(cookieParser())
@@ -137,6 +141,7 @@ server.use(cookieParser())
  * ***********************
  */
 const session = require('@kth/session')
+
 const options = config.session
 options.sessionOptions.secret = config.sessionSecret
 server.use(session(options))
@@ -146,6 +151,7 @@ server.use(session(options))
  * ************************
  */
 const { languageHandler } = require('@kth/kth-node-web-common/lib/language')
+
 server.use(config.proxyPrefixPath.uri, languageHandler)
 
 /* ******************************

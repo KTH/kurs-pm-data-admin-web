@@ -18,7 +18,7 @@ const _groupNames = (courseCode, semester, ladokRoundIds) => ({
 const _removeDuplicates = personListWithDublicates =>
   personListWithDublicates
     .map(person => JSON.stringify(person))
-    .filter((person, index, self) => self.indexOf(person) === index)
+    .filter((person, index, arr) => arr.indexOf(person) === index)
     .map(personStr => JSON.parse(personStr))
 
 const _getCurrentDateTime = () => {

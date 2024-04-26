@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-danger */
 import React, { useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useStore } from '../../mobx'
@@ -34,9 +32,7 @@ function StandardEditorPerTitle(props) {
     setIsEditorOpen(contentId, isOpenNext)
   })
 
-  const isReady = useMemo(() => {
-    return visibleInMemo && htmlContent !== ''
-  }, [visibleInMemo, htmlContent])
+  const isReady = useMemo(() => visibleInMemo && htmlContent !== '', [visibleInMemo, htmlContent])
 
   return (
     <HeadingBox isReady={isReady} onToggleEditor={toggleEditor}>

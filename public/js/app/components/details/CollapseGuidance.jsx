@@ -1,14 +1,9 @@
-/* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CollapseDetails } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { useStore } from '../../mobx'
 
-const store = useStore()
-
-const CollapseGuidance = ({ ariaLabel = '', title, details, visibleInMemo, contentId, content }) => (
+const CollapseGuidance = ({ ariaLabel = '', title, details, visibleInMemo, content }) => (
   <CollapseDetails
-    // className="guidance-per-content"
     ariaLabel={ariaLabel || 'Expand this to see a helping text'}
     title={title}
     yellow
