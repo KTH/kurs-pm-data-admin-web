@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 'use strict'
 
 const log = require('@kth/log')
@@ -72,6 +73,7 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
         return offer
       }
     }
+    return false
   })
 
   if (offering) {

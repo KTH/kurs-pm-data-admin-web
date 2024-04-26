@@ -10,9 +10,7 @@ const SectionContext = React.createContext({
 const SectionContextProvider = ({ children }) => {
   const [isEditorOpen, setIsEditorOpen] = React.useState({})
 
-  const value = React.useMemo(() => {
-    return { isEditorOpen, setIsEditorOpen }
-  }, [isEditorOpen, setIsEditorOpen])
+  const value = React.useMemo(() => ({ isEditorOpen, setIsEditorOpen }), [isEditorOpen, setIsEditorOpen])
 
   return <SectionContext.Provider value={value}>{children}</SectionContext.Provider>
 }

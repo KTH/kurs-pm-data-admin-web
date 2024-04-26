@@ -2,9 +2,8 @@
 
 // @ts-check
 
-import { getMobxManager } from './manager'
-
 import createApplicationStore from '../stores/createApplicationStore'
+import { getMobxManager } from './manager'
 
 export default useStore
 

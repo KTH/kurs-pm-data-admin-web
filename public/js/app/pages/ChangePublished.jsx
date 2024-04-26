@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-shadow */
 /* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
@@ -39,7 +41,6 @@ function ChangePublished(props) {
     langAbbr: storeLangAbbr,
     langIndex: storeLangIndex,
     semester: initialSemester,
-    tempSavedCourseInstances,
   } = useStore()
 
   const { langAbbr = storeLangAbbr, langIndex = storeLangIndex } = props
@@ -68,17 +69,15 @@ function ChangePublished(props) {
   const { alerts, info, pagesChangePublishedPm, pageTitles, buttons } = i18n.messages[langIndex]
   const { course, lastTermsInfo: lastTerms = null } = miniKoppsObj
 
-  const termWithPm = lastTerms.filter(t => {
-    return memosToEdit.find(memo => memo.semester === t.term)
-  })
+  const termWithPm = lastTerms.filter(t => memosToEdit.find(memo => memo.semester === t.term))
 
   useEffect(() => {
     const { search } = window.location
-    const urlParams = fetchParameters(window)
+    const urlParamsWithinEffect = fetchParameters(window)
     const matchSearch = `event=addedRoundId`
     const eventDelete = `event=deleteUnsavedChanges`
     const eventSavedDraft = `event=savedDraft`
-    const { semester, memoEndPoint } = urlParams
+    const { semester, memoEndPoint } = urlParamsWithinEffect
 
     if (
       (search && search.toString().includes(matchSearch)) ||

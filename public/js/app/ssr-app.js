@@ -26,10 +26,11 @@ function _getServerSideFunctions() {
     renderStaticPage({ applicationStore, location, basename }) {
       enableStaticRendering(true)
       const app = (
-        <StaticRouter basename={basename} location={location} context={{}}>
+        <StaticRouter basename={basename} location={location}>
           {appFactory(applicationStore)}
         </StaticRouter>
       )
+      // eslint-disable-next-line testing-library/render-result-naming-convention
       const html = ReactDOMServer.renderToString(app)
 
       return html

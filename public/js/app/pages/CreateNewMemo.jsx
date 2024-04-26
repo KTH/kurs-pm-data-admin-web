@@ -1,6 +1,5 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
+/* eslint-disable consistent-return */
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
@@ -85,7 +84,7 @@ function CreateNewMemo(props) {
 
   useEffect(() => {
     const urlParams = fetchParameters(window)
-    const semester = urlParams.semester
+    const { semester } = urlParams
     cleanMemoEndPointInSearchParams(chosen.existingDraftEndPoint, semester)
   }, [])
 

@@ -1,4 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint no-use-before-define: ["error", "nofunc"] */
+
+// Attention: Potential bugs due to invalid use of hooks in this file!
+// Hooks should only be used in React function components
+// or other hooks.
 
 // @ts-check
 
@@ -106,6 +111,7 @@ function _hoistClassDefinition() {
 
     getContextHook() {
       this._initIfNeeded()
+      // @ts-ignore
       return React.useContext(this._reactContext)
     }
   }

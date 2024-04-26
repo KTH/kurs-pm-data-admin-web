@@ -1,12 +1,12 @@
-import React from 'react'
 import { HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
+import React from 'react'
 import { context } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
+import { OnClickPropagationStopper } from '../components/editors/OnClickPropagationStopper'
 import { EditButton } from './editors/EditButton'
 import { SectionHeading } from './layout/SectionHeading'
-import { OnClickPropagationStopper } from '../components/editors/OnClickPropagationStopper'
 
 const getInfoModalAriaLabel = (langIndex, header) =>
   langIndex === 1 ? `Information om ${header}` : `Information about ${header}`
@@ -43,21 +43,19 @@ export const ExtraHeaderHead = ({
   contentName,
   header,
   uKey,
-}) => {
-  return (
-    <BasicHeaderHead
-      contentId={contentId}
-      contentName={contentName}
-      header={header}
-      isEditButtonVisible
-      isEditorOpen={isEditorOpen}
-      memoLangIndex={memoLangIndex}
-      onToggleEditor={onToggleEditor}
-      userLangIndex={userLangIndex}
-      contentIdAndUKey={`${contentId}-${uKey}`}
-    />
-  )
-}
+}) => (
+  <BasicHeaderHead
+    contentId={contentId}
+    contentName={contentName}
+    header={header}
+    isEditButtonVisible
+    isEditorOpen={isEditorOpen}
+    memoLangIndex={memoLangIndex}
+    onToggleEditor={onToggleEditor}
+    userLangIndex={userLangIndex}
+    contentIdAndUKey={`${contentId}-${uKey}`}
+  />
+)
 
 const BasicHeaderHead = ({
   contentId,

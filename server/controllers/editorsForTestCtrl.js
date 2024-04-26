@@ -23,11 +23,11 @@ async function getPage(req, res, next) {
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
     const { uri: proxyPrefix } = server.proxyPrefixPath
-    const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
+    const view = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
     res.render('memo/index', {
       compressedStoreCode,
-      html,
+      html: view,
       title: i18n.messages[langIndex].messages.site_name,
       lang,
       kursinfoadmin: {

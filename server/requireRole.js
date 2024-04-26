@@ -4,9 +4,8 @@ const language = require('@kth/kth-node-web-common/lib/language')
 const { hasGroup } = require('@kth/kth-node-passport-oidc')
 const log = require('@kth/log')
 
-const koppsCourseData = require('./koppsApi')
-
 const i18n = require('../i18n')
+const koppsCourseData = require('./koppsApi')
 
 function _hasThisTypeGroup(courseCode, courseInitials, user, employeeType) {
   // 'edu.courses.SF.SF1624.20192.1.courseresponsible'
@@ -59,8 +58,8 @@ const messageHaveNotRights = lang => ({
   message: i18n.message('message_have_not_rights', lang),
 })
 
-// eslint-disable-next-line func-names
 module.exports.requireRole = (...roles) =>
+  // eslint-disable-next-line consistent-return
   function _hasCourseAcceptedRoles(req, res, next) {
     const lang = language.getLanguage(res)
     const { user = {} } = req.session.passport

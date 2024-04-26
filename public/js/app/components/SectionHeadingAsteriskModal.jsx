@@ -2,34 +2,18 @@ import React from 'react'
 import { HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
 
-const styles = {
-  span: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  btnInfoModal: {
-    // /specific for this project
-    verticalAlign: 'middle',
-  },
-  h2: {
-    marginBottom: '0',
-  },
-}
-const SectionHeadingAsteriskModal = ({ langAbbr, modalId, titleAndInfo, btnClose, children }) => {
-  return (
-    <HeadingAsteriskModal
-      headingTag="h2"
-      langAbbr={langAbbr}
-      modalId={modalId}
-      titleAndInfo={titleAndInfo}
-      btnClose={btnClose}
-      withModal
-    >
-      {children}
-    </HeadingAsteriskModal>
-  )
-}
+const SectionHeadingAsteriskModal = ({ langAbbr, modalId, titleAndInfo, btnClose, children }) => (
+  <HeadingAsteriskModal
+    headingTag="h2"
+    langAbbr={langAbbr}
+    modalId={modalId}
+    titleAndInfo={titleAndInfo}
+    btnClose={btnClose}
+    withModal
+  >
+    {children}
+  </HeadingAsteriskModal>
+)
 
 SectionHeadingAsteriskModal.propTypes = {
   modalId: PropTypes.string.isRequired,

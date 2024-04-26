@@ -8,7 +8,7 @@ const styles = {
   marginTop: '50px',
   fontSize: '0.9rem',
 }
-const ButtonBackToTop = ({ scrollToId }) => {
+const ButtonBackToTop = ({ scrollToId, id }) => {
   function goToTabs(event) {
     event.preventDefault()
     const topElement = document.getElementById(scrollToId)

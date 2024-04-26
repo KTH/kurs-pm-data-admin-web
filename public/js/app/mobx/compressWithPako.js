@@ -1,6 +1,4 @@
-/* eslint no-use-before-define: ["error", "nofunc"] */
-
-// @ts-check
+// @ts-nocheck
 
 /**
  * This file was added to minimise the download-size of the client app.
@@ -23,11 +21,12 @@
 
 import { toJS } from 'mobx'
 
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-unresolved
 import pako from 'pako'
 // eslint-disable-next-line import/no-unresolved
 import { Base64 } from 'js-base64'
 
+// eslint-disable-next-line no-use-before-define
 export { compressStoreIntoJavascriptCode, uncompressStoreInPlaceFromDocument }
 
 /**

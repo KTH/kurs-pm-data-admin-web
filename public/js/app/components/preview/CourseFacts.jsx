@@ -1,28 +1,9 @@
-/* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
 
 import { linkToSchool } from '../../util/links'
 import { seasonStr, getDateFormat } from '../../util/helpers'
-import i18n from '../../../../../i18n'
 import Popup from './Popup'
-
-const formatRounds = rounds => {
-  // Split rounds with comma after end parentheses and then add '),' in display
-  const splitRounds = rounds.split('), ')
-  const lastIndex = splitRounds.length - 1
-
-  return (
-    <>
-      {splitRounds.map((round, thisIndex) => (
-        <span key={round}>
-          {`${round}${thisIndex === lastIndex ? '' : ')'}`}
-          <br />
-        </span>
-      ))}
-    </>
-  )
-}
 
 const formatRoundsShort = memoData => {
   // Split rounds with comma after end parentheses and then add '),' in display

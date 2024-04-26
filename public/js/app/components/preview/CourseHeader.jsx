@@ -1,14 +1,11 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react/no-danger */
 import React from 'react'
 import { Row, Col } from 'reactstrap'
 import PropTypes from 'prop-types'
 
-import { adminLink } from '../../util/links'
 import Popup from './Popup'
 
-const CourseHeader = ({ courseMemo = '', courseCode = '', courseTitle = '', labels = {}, language = 'sv' }) => {
-  const { adminLinkLabel, linkOpensInNewTab, label_edit_link_info } = labels
+const CourseHeader = ({ courseMemo = '', courseTitle = '', labels = {} }) => {
+  const { adminLinkLabel, label_edit_link_info } = labels
   return (
     <>
       <Row>
@@ -21,12 +18,11 @@ const CourseHeader = ({ courseMemo = '', courseCode = '', courseTitle = '', labe
           <h4 className="secondTitle">{courseTitle}</h4>
         </Col>
         <Col className="text-lg-right" xs="12" lg="6">
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a
             id="admin-link"
             className="course-header-admin-link"
             title={label_edit_link_info}
-            /* href={adminLink(courseCode, language)}
-            target="_blank" */
             rel="noopener noreferrer"
           >
             {adminLinkLabel}

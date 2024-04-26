@@ -25,14 +25,7 @@ import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 import i18n from '../../../../i18n'
 import { context } from '../util/fieldsByType'
 import { concatMemoName, seasonStr, concatHeaderMemoName } from '../util/helpers'
-import {
-  FIRST_VERSION,
-  EMPTY,
-  REMOVE_PUBLISHED_PARAM,
-  SERVICE_URL,
-  SAVED_NEW_PARAM,
-  ADMIN_URL,
-} from '../util/constants'
+import { FIRST_VERSION, EMPTY, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '../util/constants'
 import { TYPE, useToast } from '../hooks/useToast'
 
 const PROGRESS = 3
@@ -215,6 +208,12 @@ function PreviewContainer(props) {
     toastData: { alertIsOpen, alertText, alertColor },
   } = useToast(langIndex)
 
+  useEffect(() => {
+    // Decide which content can have wider content (exempel tables, to make them more readable)
+    // But text must stay the same
+    determineContentFlexibility()
+  }, [])
+
   if (!applicationCodes) return <AlertMissingDraft langAbbr={langAbbr} langIndex={langIndex} courseCode={courseCode} />
 
   const isDraftOfPublished = Number(version) > FIRST_VERSION
@@ -238,6 +237,8 @@ function PreviewContainer(props) {
     store.memoLanguage
   )
   const { validFromTerm } = syllabusValid
+
+  // eslint-disable-next-line testing-library/render-result-naming-convention
   const allSections = renderAllSections(store)
   const courseImageUrl = `${browserConfig.imageStorageUri}${courseImage}`
 
@@ -270,13 +271,7 @@ function PreviewContainer(props) {
   }
 
   // Duplicate id’s filtered out
-  courseMemoItems = courseMemoItems.filter((item, index, self) => index === self.findIndex(t => t.id === item.id))
-
-  useEffect(() => {
-    // Decide which content can have wider content (exempel tables, to make them more readable)
-    // But text must stay the same
-    determineContentFlexibility()
-  }, [])
+  courseMemoItems = courseMemoItems.filter((item, index, arr) => index === arr.findIndex(t => t.id === item.id))
 
   const onBack = () => {
     const editLocation = window.location.href.replace(/\/preview/, '')
