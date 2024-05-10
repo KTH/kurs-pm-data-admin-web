@@ -141,9 +141,4 @@ module.exports = {
     },
     redisOptions: unpackRedisConfig('REDIS_URI', devRedis),
   },
-
-  // APPLICATION INSIGHTS IN AZURE
-  appInsights: {
-    instrumentationKey: getEnv('APPINSIGHTS_INSTRUMENTATIONKEY', ''),
-  },
 }

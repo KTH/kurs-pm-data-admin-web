@@ -118,7 +118,6 @@ async function renderMemoEditorPage(req, res, next) {
         title: i18n.messages[translateTo].messages.locale_text,
         toLang: `?l=${userLang === 'sv' ? 'en' : 'sv'}`,
       },
-      instrumentationKey: server.appInsights.instrumentationKey,
       lang: userLang,
       description:
         userLang === 'sv'
