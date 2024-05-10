@@ -7,19 +7,6 @@ require('./api')
 const AppRouter = require('kth-node-express-routing').PageRouter
 const { getPaths } = require('kth-node-express-routing')
 
-if (config.appInsights && config.appInsights.instrumentationKey) {
-  const appInsights = require('applicationinsights')
-  appInsights
-    .setup(config.appInsights.instrumentationKey)
-    .setAutoDependencyCorrelation(true)
-    .setAutoCollectRequests(true)
-    .setAutoCollectPerformance(true)
-    .setAutoCollectExceptions(true)
-    .setAutoCollectDependencies(true)
-    .setAutoCollectConsole(true)
-    .start()
-}
-
 const _addProxy = uri => `${config.proxyPrefixPath.uri}${uri}`
 
 // Expose the server and paths
