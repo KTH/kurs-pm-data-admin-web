@@ -209,7 +209,7 @@ OIDC_CLIENT_SECRET=<FROM ADFS>
 OIDC_TOKEN_SECRET=<Random string>
 SESSION_SECRET=[generate session secret]
 SESSION_KEY=kurs-pm-data-admin-web.pid
-APPINSIGHTS_INSTRUMENTATIONKEY=[Azure, Application insights, Instrumentation Key, can be found in Overview]
+APPLICATIONINSIGHTS_CONNECTION_STRING=[Azure, Application insights, connection string, can be found in Overview]
 /* Connection Properties of UG Rest Api to fetch names of course staff */
 UG_REST_AUTH_API_TOKEN_URI=https://<LOGIN_HOST>/adfs/oauth2/token
 UG_REST_AUTH_CLIENT_ID=<FROM AZURE KEYVAULT>
