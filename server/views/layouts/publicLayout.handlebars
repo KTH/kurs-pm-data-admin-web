@@ -21,11 +21,10 @@
   {{prefixScript '/static/vendor.js' 'head-scripts'}}
   {{prefixScript '/static/browserConfig' 'head-scripts'}}
 
-  {{#extend 'head-scripts'}}
-  <script src="//www.kth.se/social/toolbar/widget.js"></script>
-  {{/extend}}
-
   {{{render 'head-scripts'}}}
+  
+  <script src="{{toolbarUrl}}"></script>
+
 </head>
 
 <body>

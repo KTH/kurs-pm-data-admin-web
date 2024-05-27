@@ -38,6 +38,7 @@ async function getPage(req, res, next) {
         title: i18n.messages[langIndex === 0 ? 1 : 0].messages.locale_text,
         toLang: `?l=${lang === 'sv' ? 'en' : 'sv'}`,
       },
+      toolbarUrl: server.toolbar.url,
       proxyPrefix,
       description:
         lang === 'sv'
