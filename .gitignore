@@ -39,3 +39,6 @@ dist
 
 # KTH Node Web Common imported files
 # server/views/layouts/errorLayout.handlebars
+
+# Developer notes
+notes*
