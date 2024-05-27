@@ -30,13 +30,12 @@ import { context, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
 
 const PROGRESS = 2
-const TAB_HEIGHT = 35
-const TAB_TOP_MARGIN = 15
-const TAB_HEIGHT_WITH_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN}px`
-const PERSONAL_MENU_HEIGHT = 41
-const MINUS_PERSONAL_MENU_HEIGHT = 0 - PERSONAL_MENU_HEIGHT
-const OVERVIEW_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN + PERSONAL_MENU_HEIGHT + 30}px`
-const STICKY_BOTTOM_OFFSEST = 10 // PERSONAL_MENU_HEIGHT +
+const TAB_HEIGHT = 60
+const WHITE_SPACE_UNDER_TABS = 30
+const PERSONAL_MENU_HEIGHT = 40
+const STICKY_TABS_TOP_MARGIN = PERSONAL_MENU_HEIGHT
+const STICKY_SECTION_MENU_TOP_MARGIN = `${PERSONAL_MENU_HEIGHT + TAB_HEIGHT + WHITE_SPACE_UNDER_TABS}px`
+const STICKY_TOP_OFFSET = 0 - PERSONAL_MENU_HEIGHT
 
 function MemoContainer(props) {
   const toTopRef = useRef(null)
@@ -339,7 +338,7 @@ function MemoContainer(props) {
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
       <TabContent key={'tab-content-for-section-' + id} isActive={activeTab === id} sectionId={id}>
-        <span id={'section-header-' + id} ref={toTopRef} />
+        <div id={`section-header-${id}`} ref={toTopRef} />
         {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
           overlay windows from other section's editors */}
@@ -422,19 +421,13 @@ function MemoContainer(props) {
         </Col>
       </Row>
       <StickyContainer className="memo-container">
-        <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
+        <Sticky topOffset={STICKY_TOP_OFFSET}>
           {({ style, isSticky }) => (
             <div
-              id="stickyDiv"
+              className={'sticky-tabs-container'}
               style={{
                 ...style,
-                ...{
-                  paddingRight: '0',
-                  // paddingBottom: '0',
-                  paddingTop: isSticky ? TAB_HEIGHT_WITH_TOP_PADDING : '0',
-                  backgroundColor: '#ffffff',
-                  zIndex: 1,
-                },
+                ...{ marginTop: isSticky ? STICKY_TABS_TOP_MARGIN : '0' },
               }}
             >
               <TabNav
@@ -453,19 +446,9 @@ function MemoContainer(props) {
             {renderTabSections()}
           </Col>
           <Col lg="3" className="sticky-overview">
-            <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
+            <Sticky topOffset={STICKY_TOP_OFFSET}>
               {({ style, isSticky }) => (
-                <div
-                  style={{
-                    ...style,
-                    ...{
-                      paddingRight: '0',
-                      paddingLeft: '1em',
-                      paddingBottom: '110px',
-                      paddingTop: isSticky ? OVERVIEW_TOP_PADDING : '0',
-                    },
-                  }}
-                >
+                <div style={{ ...style, marginTop: isSticky ? STICKY_SECTION_MENU_TOP_MARGIN : '0' }}>
                   <SectionMenu
                     id="mainMenu"
                     visiblesOfStandard={visibleInMemo}
@@ -490,22 +473,21 @@ function MemoContainer(props) {
           </Col>
         </Row>
       </StickyContainer>
-      <Container className="fixed-bottom">
-        <ControlPanel
-          langIndex={userLangIndex}
-          onSubmit={onContinueToPreview}
-          onSave={onAutoSave}
-          onBack={onBack}
-          onCancel={onCancel}
-          onFinish={onFinish}
-          progress={2}
-          alertText={alertText}
-          alertIsOpen={alertIsOpen}
-          alertColor={alertColor || 'success'}
-          isDraftOfPublished={isDraftOfPublished}
-          openAlertIdUntilFixed={openAlertIdUntilFixed}
-        />
-      </Container>
+      <ControlPanel
+        fixedBottom
+        langIndex={userLangIndex}
+        onSubmit={onContinueToPreview}
+        onSave={onAutoSave}
+        onBack={onBack}
+        onCancel={onCancel}
+        onFinish={onFinish}
+        progress={2}
+        alertText={alertText}
+        alertIsOpen={alertIsOpen}
+        alertColor={alertColor || 'success'}
+        isDraftOfPublished={isDraftOfPublished}
+        openAlertIdUntilFixed={openAlertIdUntilFixed}
+      />
     </Container>
   )
 }

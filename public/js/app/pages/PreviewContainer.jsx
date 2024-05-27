@@ -382,19 +382,18 @@ function PreviewContainer(props) {
           </Row>
         </Col>
       </Row>
-      <Container className="fixed-bottom">
-        <ControlPanel
-          langIndex={langIndex}
-          onSubmit={publish}
-          onBack={onBack}
-          onCancel={onFinish}
-          progress={progress}
-          isDraftOfPublished={isDraftOfPublished}
-          alertIsOpen={alertIsOpen}
-          alertText={alertText}
-          alertColor={alertColor}
-        />
-      </Container>
+      <ControlPanel
+        fixedBottom
+        langIndex={langIndex}
+        onSubmit={publish}
+        onBack={onBack}
+        onCancel={onFinish}
+        progress={progress}
+        isDraftOfPublished={isDraftOfPublished}
+        alertIsOpen={alertIsOpen}
+        alertText={alertText}
+        alertColor={alertColor}
+      />
     </Container>
   )
 }

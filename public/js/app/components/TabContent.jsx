@@ -10,7 +10,7 @@ const TabContent = ({ children, isActive, sectionId, scrollUp = false }) => (
     role="tabpanel"
     aria-labelledby={sectionId + '-tab'}
   >
-    <span id={`go-to-${sectionId}`} />
+    <div id={`go-to-${sectionId}`} />
     {children}
     {scrollUp && <ButtonBackToTop id={`go-to-${sectionId}`} />}
   </div>
