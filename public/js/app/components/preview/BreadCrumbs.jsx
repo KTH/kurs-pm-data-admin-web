@@ -1,5 +1,5 @@
 import React from 'react'
-import { Breadcrumb, BreadcrumbItem, Button } from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap'
 import PropTypes from 'prop-types'
 import Popup from './Popup'
 
@@ -7,27 +7,27 @@ const BreadCrumbs = ({ labels, courseCode }) => (
   <nav>
     <Breadcrumb>
       <BreadcrumbItem>
-        <Button id="breadcrumb-university" color="link">
+        <button className="link-button" id="breadcrumb-university">
           {labels.university}
-        </Button>
+        </button>
         <Popup header={labels.university} body={labels.noLinksInPreview} targetId="breadcrumb-university" />
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <Button id="breadcrumb-student" color="link">
+        <button className="link-button" id="breadcrumb-student">
           {labels.student}
-        </Button>
+        </button>
         <Popup header={labels.student} body={labels.noLinksInPreview} targetId="breadcrumb-student" />
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <Button id="breadcrumb-directory" color="link">
+        <button className="link-button" id="breadcrumb-directory">
           {labels.directory}
-        </Button>
+        </button>
         <Popup header={labels.directory} body={labels.noLinksInPreview} targetId="breadcrumb-directory" />
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <Button id="breadcrumb-about" color="link">
+        <button className="link-button" id="breadcrumb-about">
           {`${labels.aboutCourse} ${courseCode}`}
-        </Button>
+        </button>
         <Popup header={labels.aboutCourse} body={labels.noLinksInPreview} targetId="breadcrumb-about" />
       </BreadcrumbItem>
     </Breadcrumb>

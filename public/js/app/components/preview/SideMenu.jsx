@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 import Popup from './Popup'
@@ -7,9 +6,9 @@ import Popup from './Popup'
 const SideMenu = ({ courseCode, courseMemoItems, labels }) => (
   <div className="menu-memos">
     <p>
-      <Button id="menu-link-directory" color="link">
+      <button id="menu-link-directory" className="link-button">
         {`‹ ${labels.directory}`}
-      </Button>
+      </button>
       <Popup header={labels.directory} body={labels.noLinksInPreview} targetId="menu-link-directory" />
     </p>
     <p>
@@ -17,9 +16,9 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => (
     </p>
     <hr />
     <p>
-      <Button id="menu-link-before-choosing-course" color="link">
+      <button id="menu-link-before-choosing-course" className="link-button">
         {labels.beforeChoosingCourse}
-      </Button>
+      </button>
       <Popup
         header={labels.beforeChoosingCourse}
         body={labels.noLinksInPreview}
@@ -45,15 +44,15 @@ const SideMenu = ({ courseCode, courseMemoItems, labels }) => (
       )}
     </div>
     <p>
-      <Button id="menu-link-course-development" color="link">
+      <button id="menu-link-course-development" className="link-button">
         {labels.courseDevelopment}
-      </Button>
+      </button>
       <Popup header={labels.courseDevelopment} body={labels.noLinksInPreview} targetId="menu-link-course-development" />
     </p>
     <p>
-      <Button id="menu-link-archive" color="link">
+      <button id="menu-link-archive" className="link-button">
         {labels.archive}
-      </Button>
+      </button>
       <Popup header={labels.archive} body={labels.noLinksInPreview} targetId="menu-link-archive" />
     </p>
   </div>

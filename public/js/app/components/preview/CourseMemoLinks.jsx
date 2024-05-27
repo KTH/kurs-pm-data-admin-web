@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 import Popup from './Popup'
@@ -33,10 +32,10 @@ const version = (language, labels, memoVersion) =>
 const pdfLink = labels => (
   <span id="print-link-with-popup">
     <h4>{labels.courseMemoPrint}</h4>
-    <Button className="print-pm-link" id="print-pm-link" color="link">
+    <button className="link-button print-pm-link" id="print-pm-link">
       <svg className="print-icon" />
       {labels.linkCourseMemoPrint}
-    </Button>
+    </button>
     <Popup header={labels.courseMemoPrint} body={labels.courseMemoModal} targetId="print-pm-link" />
   </span>
 )
