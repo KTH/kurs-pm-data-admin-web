@@ -211,6 +211,7 @@ async function renderMemoPreviewPage(req, res, next) {
         toLang: `?l=${userLang === 'sv' ? 'en' : 'sv'}`,
       },
       toolbarUrl: server.toolbar.url,
+      proxyPrefix,
       description:
         userLang === 'sv'
           ? 'Kursinformation – Förhandsgranskning av kurs-PM'

@@ -99,7 +99,7 @@ server.use(_addProxy('/static/kth-style'), express.static('./node_modules/kth-st
 server.use(_addProxy('/static/tinymce'), express.static('./tinymce'))
 // Map static content like images, css and js.
 server.use(_addProxy('/static'), express.static('./dist'))
-// server.use(_addProxy('/static/icon/favicon'), express.static('./public/favicon.ico'))
+server.use(_addProxy('/static/icon/favicon'), express.static('./public/favicon.ico'))
 
 // Return 404 if static file isn't found so we don't go through the rest of the pipeline
 server.use(_addProxy('/static'), (req, res, next) => {
