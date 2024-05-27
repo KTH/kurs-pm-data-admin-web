@@ -119,6 +119,7 @@ async function renderMemoEditorPage(req, res, next) {
         toLang: `?l=${userLang === 'sv' ? 'en' : 'sv'}`,
       },
       toolbarUrl: server.toolbar.url,
+      proxyPrefix,
       lang: userLang,
       description:
         userLang === 'sv'
