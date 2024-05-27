@@ -5,13 +5,13 @@ import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
-import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
 
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
 import { SERVICE_URL } from '../util/constants'
+import PageHeading from '../components-shared/PageHeading'
+import ProgressBar from '../components-shared/ProgressBar'
 import ControlPanel from '../components/ControlPanel'
 import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
 import i18n from '../../../../i18n'
@@ -170,12 +170,13 @@ function ChangePublished(props) {
   return (
     <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
       <Row id="scroll-here-if-alert">
-        <PageHeading id="mainHeading" subHeading={course && combinedCourseName(courseCode, course, langAbbr)}>
-          {pageTitles.published}
-        </PageHeading>
+        <PageHeading
+          heading={pageTitles.published}
+          subHeading={course && combinedCourseName(courseCode, course, langAbbr)}
+        />
       </Row>
 
-      <ProgressBar active={1} pages={pagesChangePublishedPm} />
+      <ProgressBar current={0} steps={pagesChangePublishedPm} />
       {(alert.isOpen || eventFromParams) && (
         <Row className="w-100 my-0 mx-auto section-50 upper-alert">
           <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>

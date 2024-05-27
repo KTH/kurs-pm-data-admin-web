@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { Container, Row, Col } from 'reactstrap'
-import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
 
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
 import { useStore } from '../mobx'
+import PageHeading from '../components-shared/PageHeading'
+import ProgressBar from '../components-shared/ProgressBar'
 import AlertMissingDraft from '../components/alerts/AlertMissingDraft'
 import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
@@ -311,11 +311,9 @@ function PreviewContainer(props) {
   return (
     <Container className="kip-container preview-container" fluid>
       <Row>
-        <PageHeading id="mainHeading" subHeading={courseTitle}>
-          {isDraftOfPublished ? pageTitles.published : pageTitles.new}
-        </PageHeading>
+        <PageHeading heading={isDraftOfPublished ? pageTitles.published : pageTitles.new} subHeading={courseTitle} />
       </Row>
-      <ProgressBar active={progress} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
+      <ProgressBar current={progress - 1} steps={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
       <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
       <div className="preview-content-separation" />
