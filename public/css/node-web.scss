@@ -237,10 +237,19 @@ $border-radius: 0.25rem;
       }
     }
   }
-  .fixed-bottom.container {
-    padding-left: 0;
-    padding-right: 0;
+
+  .control-panel {
+    &.fixed-bottom {
+      background-color: var(--color-background);
+      border-top: 1px solid var(--color-border);
+
+      .control-buttons {
+        margin-top: 0px;
+        border-top: none;
+      }
+    }
   }
+
   //.sections-list-80 FOR LIST VIEW
   .sections-list-80 {
     //row
@@ -506,13 +515,20 @@ $border-radius: 0.25rem;
   }
 }
 
+.sticky-tabs-container {
+  background-color: var(--color-background);
+  z-index: 1;
+}
+
 .sticky-overview {
-  @extend %bordered-area;
+  border: 1px solid $borderGrey;
+  border-radius: $border-radius;
+  border-top: 0;
+
   border-right-color: $grey;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom: none;
-  padding-left: 0;
 
   #mainMenu {
     margin-top: 0;
