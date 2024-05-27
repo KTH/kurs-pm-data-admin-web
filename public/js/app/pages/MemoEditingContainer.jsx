@@ -4,14 +4,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import { observer } from 'mobx-react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
 
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 import i18n from '../../../../i18n'
 import { FIRST_VERSION, SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
+import PageHeading from '../components-shared/PageHeading'
+import ProgressBar from '../components-shared/ProgressBar'
 import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
 import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComment'
 import AlertSuccessCopiedMemo from '../components/alerts/AlertSuccessCopiedMemo'
@@ -394,11 +394,12 @@ function MemoContainer(props) {
     <Container className="kip-container" fluid>
       {/* /* style={{ marginBottom: '110px' }} */}
       <Row key="pageHeader" id="scroll-here-if-alert">
-        <PageHeading id="mainHeading" subHeading={courseSubHeader()}>
-          {isDraftOfPublished ? pageTitles.published : pageTitles.new}
-        </PageHeading>
+        <PageHeading
+          heading={isDraftOfPublished ? pageTitles.published : pageTitles.new}
+          subHeading={courseSubHeader()}
+        />
       </Row>
-      <ProgressBar active={PROGRESS} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
+      <ProgressBar current={PROGRESS - 1} steps={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={userLangIndex} />
       {(isDraftOfPublished && !exactDraftCopyOfPublishedFromPrevVersion && (
         <AlertDraftOfPublished userLangIndex={userLangIndex} />

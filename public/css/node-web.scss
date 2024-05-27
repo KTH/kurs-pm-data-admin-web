@@ -196,22 +196,7 @@ $border-radius: 0.25rem;
   padding-top: 2em;
   margin-bottom: 4.5em;
   width: 100%;
-  .progress-bar-container.row {
-    margin: 0;
-    margin-top: 50px;
-    div {
-      &:first-of-type {
-        text-align: left;
-      }
-      &:nth-of-type(2) {
-        text-align: center;
-      }
-      &:nth-of-type(3) {
-        text-align: right;
-        padding-right: 0;
-      }
-    }
-  }
+
   .title-and-info > h3 {
     margin-top: 0px;
   }
@@ -255,14 +240,6 @@ $border-radius: 0.25rem;
   .fixed-bottom.container {
     padding-left: 0;
     padding-right: 0;
-    .control-buttons {
-      width: 103%;
-
-      @media (min-width: 768px) {
-        margin-left: -1.05em;
-        width: 103%;
-      }
-    }
   }
   //.sections-list-80 FOR LIST VIEW
   .sections-list-80 {
@@ -341,29 +318,6 @@ $border-radius: 0.25rem;
 }
 
 // general BUTTONS STYLES
-.control-buttons {
-  @extend %column;
-  border-top: 1px solid $grey;
-  padding-bottom: 25px;
-  background-color: white;
-  width: 100%;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    margin: 0;
-    width: 100%;
-    .btn-middle {
-      text-align: center;
-    }
-    .btns-helpers {
-      padding-left: 0;
-    }
-    span:nth-of-type(2) > .btn {
-      margin-left: 1.25em;
-    }
-  }
-}
-
 .btn-secondary {
   background-color: #ffffff;
 }
@@ -653,16 +607,6 @@ a.nav-link {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-h1#page-heading {
-  margin-top: 50px;
-  margin-left: 0.25em !important;
-}
-
-.page-sub-heading {
-  margin-left: 0.7em !important;
-  margin-bottom: 30px;
 }
 
 .page-header-wrapper {
