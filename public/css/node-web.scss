@@ -1,3 +1,26 @@
+@use '~@kth/style/scss/utils/layers.scss';
+@use '~@kth/style/scss/utils/reset.scss';
+@use '~@kth/style/scss/utils/mixins.scss';
+@use '~@kth/style/scss/utils/prose.scss';
+
+@use '~@kth/style/scss/tokens/typography.scss';
+@use '~@kth/style/scss/tokens/colors.scss';
+
+@use '~@kth/style/scss/components/logotype.scss';
+@use '~@kth/style/scss/components/search.scss';
+@use '~@kth/style/scss/components/alert.scss';
+@use '~@kth/style/scss/components/footer.scss';
+@use '~@kth/style/scss/components/mega-menu.scss';
+@use '~@kth/style/scss/components/visually-hidden.scss';
+@use '~@kth/style/scss/components/button.scss';
+@use '~@kth/style/scss/components/header.scss';
+@use '~@kth/style/scss/components/mobile-menu.scss';
+@use '~@kth/style/scss/components/menu-item.scss';
+@use '~@kth/style/scss/components/menu-panel.scss';
+@use '~@kth/style/scss/components/content.scss';
+@use '~@kth/style/scss/components/local-navigation.scss';
+@use '~@kth/style/scss/components/kpm.scss';
+
 @import 'node_modules/kth-style/public/sass/custom/common/icons';
 
 // Scss code goes here!
@@ -25,12 +48,10 @@ $border-radius: 0.25rem;
 }
 
 %long-text-font-style {
-  font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
   word-break: break-word;
 }
 
 %short-text-font-style {
-  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #000;
@@ -722,18 +743,11 @@ label + label {
       padding-left: 30px;
     }
   }
-  p {
-    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  }
   .noAvailableRounds {
     padding-top: 0.5rem;
   }
 }
-.modal-body {
-  p {
-    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  }
-}
+
 .error-area {
   outline: solid 1px $red !important;
   outline-offset: 10px;
@@ -932,7 +946,6 @@ h2.preview-info {
 }
 
 p.sub-section-header {
-  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   color: #000;

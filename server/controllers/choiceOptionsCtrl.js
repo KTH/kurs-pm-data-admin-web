@@ -84,6 +84,7 @@ async function getCourseOptionsPage(req, res, next) {
         toLang: `?l=${lang === 'sv' ? 'en' : 'sv'}`,
       },
       toolbarUrl: server.toolbar.url,
+      theme: 'student-web',
       proxyPrefix,
       description:
         lang === 'sv'
