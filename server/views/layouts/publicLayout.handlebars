@@ -14,6 +14,7 @@
   {{/if}}
 
   {{prefixStyle '/static/kth-style/css/kth-bootstrap.css' 'styles' 'screen'}}
+  {{prefixStyle '/assets/fonts.css' 'styles' 'screen'}}
   {{prefixStyle '/static/app.css' 'styles' 'screen'}}
 
   {{{render 'styles'}}}
@@ -22,21 +23,16 @@
   {{prefixScript '/static/browserConfig' 'head-scripts'}}
 
   {{{render 'head-scripts'}}}
-  
+
   <script src="{{toolbarUrl}}"></script>
 
 </head>
 
 <body>
-  <a class="skipToMainContent" href="#mainContent" tabindex="1">{{i18n 'skip_to_main_content' lang}}</a>
-
   {{> kthHeader }}
-  <div class="container main">
+  <div class="kth-content">
     <div class="row">
-      {{!-- TODO: CHECK IF IT IS NEEDED --}}
-      <div class="col app">
         {{{body}}}
-      </div>
     </div>
   </div>
   {{{render 'scripts'}}}
