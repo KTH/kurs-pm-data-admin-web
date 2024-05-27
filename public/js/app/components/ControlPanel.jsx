@@ -1,9 +1,10 @@
 import React from 'react'
-import { Alert } from 'reactstrap'
 import PropTypes from 'prop-types'
 import i18n from '../../../../i18n'
 
+import { legacyAlertColorToType } from '../util/legacyAlertColorToType'
 import Button from '../components-shared/Button'
+import FadeAlert from './FadeAlert'
 import ActionModalButton from './ActionModalButton'
 import ActionModalCourseRounds from './ActionModalCourseRounds'
 
@@ -26,12 +27,12 @@ const ControlPanel = props => {
   return (
     <div className={`control-panel ${fixedBottom ? 'fixed-bottom' : ''}`}>
       <div className={fixedBottom ? 'kth-content' : undefined}>
-        <Alert data-testid="alert-empty-data" color="danger" isOpen={!!openAlertIdUntilFixed}>
+        <FadeAlert data-testid="alert-empty-data" type="warning" isOpen={!!openAlertIdUntilFixed}>
           {alerts[openAlertIdUntilFixed] || ''}
-        </Alert>
-        <Alert data-testid="alert-save-data" color={alertColor} isOpen={!!alertIsOpen}>
+        </FadeAlert>
+        <FadeAlert data-testid="alert-save-data" type={legacyAlertColorToType(alertColor)} isOpen={!!alertIsOpen}>
           {alertText}
-        </Alert>
+        </FadeAlert>
         <div className="control-buttons" data-testid="buttons-control-panel">
           <div>
             {progressNum === 2 && (

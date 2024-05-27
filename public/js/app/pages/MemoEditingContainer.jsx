@@ -2,7 +2,7 @@
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect, useRef } from 'react'
 import { observer } from 'mobx-react'
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 
 import PropTypes from 'prop-types'
@@ -10,6 +10,7 @@ import { useStore } from '../mobx'
 import i18n from '../../../../i18n'
 import { FIRST_VERSION, SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
+import Button from '../components-shared/Button'
 import PageHeading from '../components-shared/PageHeading'
 import ProgressBar from '../components-shared/ProgressBar'
 import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
@@ -376,8 +377,7 @@ function MemoContainer(props) {
               <Button
                 data-testid="add-heading-to"
                 className="element-50"
-                color="secondary"
-                block
+                variant="secondary"
                 onClick={() => onAddNewExtraContent(extraHeaderTitle)}
               >
                 {buttons.btnAddExtra}

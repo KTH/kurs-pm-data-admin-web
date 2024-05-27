@@ -1,23 +1,23 @@
 import React from 'react'
-import { Alert, Row } from 'reactstrap'
 import PropTypes from 'prop-types'
+import Alert from '../../components-shared/Alert'
+import { legacyAlertColorToType } from '../../util/legacyAlertColorToType'
 
-const UpperAlertRow = ({ alertMsg, children, color, ukey }) => (
-  <Row key={ukey} className="w-100 my-0 mx-auto upper-alert">
-    <Alert color={color || 'info'}>{alertMsg}</Alert>
-    {children}
-  </Row>
-)
+const UpperAlertRow = ({ alertMsg, color }) => {
+  const alertType = legacyAlertColorToType(color) || 'info'
+  return (
+    <Alert className="upper-alert" type={alertType}>
+      {alertMsg}
+    </Alert>
+  )
+}
 
 UpperAlertRow.propTypes = {
   alertMsg: PropTypes.string.isRequired,
-  children: PropTypes.node,
   color: PropTypes.oneOf(['info', 'success', 'danger', 'warn']),
-  ukey: PropTypes.string.isRequired,
 }
 
 UpperAlertRow.defaultProps = {
-  children: <></>,
   color: 'info',
 }
 

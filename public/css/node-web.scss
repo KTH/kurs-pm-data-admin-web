@@ -37,8 +37,6 @@ $blue-link: #006cb7;
 $red: #e01f28;
 $white: #fff;
 
-$btn-link-height: 20px;
-
 $border-radius: 0.25rem;
 
 %bordered-area {
@@ -297,12 +295,6 @@ $border-radius: 0.25rem;
       margin-left: 0;
       margin-right: 0;
       width: 100%;
-      .btn-link {
-        margin: 0;
-        padding: 0;
-        font-size: inherit;
-        vertical-align: top;
-      }
     }
     &:last-child {
       margin-bottom: 0;
@@ -324,20 +316,6 @@ $border-radius: 0.25rem;
     color: $red;
     font-weight: normal;
   }
-}
-
-// general BUTTONS STYLES
-.btn-secondary {
-  background-color: #ffffff;
-}
-
-.btns-helpers {
-  padding-left: 0;
-}
-
-.step-forward,
-.btn-last {
-  padding-right: 0;
 }
 
 .btn-info-modal {
@@ -607,12 +585,6 @@ span.section-info {
   width: 20px;
 }
 
-.step-forward,
-.btn-last,
-.btn-middle {
-  text-align: end;
-}
-
 .change-view {
   text-align: end;
   vertical-align: middle;
@@ -723,11 +695,16 @@ label + label {
   border-right: 2px solid $borderGrey;
 }
 
-.btn.btn-link {
-  height: $btn-link-height;
+.link-button {
+  color: var(--color-tertiary);
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  height: 20px;
 }
 
-#menu-link-directory.btn.btn-link {
+#menu-link-directory.link-button {
   height: 50px;
 }
 
@@ -845,11 +822,6 @@ h2.preview-info {
     h4 {
       margin-bottom: 1rem;
     }
-  }
-  .btn-link {
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
   }
 }
 
@@ -1205,52 +1177,6 @@ details summary.grey {
 }
 details summary.grey::before {
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iYSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3LjQxIDEyIj4KICA8cGF0aCBkPSJNMCwxMC41OEw0LjU4LDYsMCwxLjQxLDEuNDEsMCw3LjQxLDYsMS40MSwxMmwtMS40MS0xLjQyWiIgc3R5bGU9ImZpbGw6IzAwNmNiNzsiLz4KPC9zdmc+);
-}
-
-// This is needed for the control buttons to have the correct distance from the left side
-.container,
-.container-fluid,
-.container-xl,
-.container-lg,
-.container-md,
-.container-sm {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-// This is needed for the control buttons to have the correct width
-@media (min-width: 576px) {
-  .container-sm,
-  .container {
-    max-width: 540px;
-  }
-}
-@media (min-width: 768px) {
-  .container-md,
-  .container-sm,
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .container-lg,
-  .container-md,
-  .container-sm,
-  .container {
-    max-width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  .container-xl,
-  .container-lg,
-  .container-md,
-  .container-sm,
-  .container {
-    max-width: 1140px;
-  }
 }
 
 .modal-header {

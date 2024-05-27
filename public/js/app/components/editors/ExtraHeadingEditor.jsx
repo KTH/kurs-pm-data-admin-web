@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
 import { Editor } from '@tinymce/tinymce-react'
-import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 import { useStore } from '../../mobx'
 
 import i18n from '../../../../../i18n'
+import ActionModalButton from '../ActionModalButton'
 import CollapseGuidance from '../details/CollapseGuidance'
 import { ExtraHeaderHead } from '../ContentHead'
 import VisibilityInfo from '../VisibilityInfo'

@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
-import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
 
 import PropTypes from 'prop-types'
@@ -18,9 +18,11 @@ import {
   uncheckRadioById,
   fetchParameters,
 } from '../util/helpers'
+import { legacyAlertColorToType } from '../util/legacyAlertColorToType'
 import PageHeading from '../components-shared/PageHeading'
 import ProgressBar from '../components-shared/ProgressBar'
 import ControlPanel from '../components/ControlPanel'
+import FadeAlert from '../components/FadeAlert'
 import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
 import i18n from '../../../../i18n'
 
@@ -260,14 +262,16 @@ function CreateNewMemo(props) {
 
       <ProgressBar current={0} steps={pagesCreateNewPm} />
       {(alert.isOpen || eventFromParams) && (
-        <Row className="w-100 my-0 mx-auto section-50 upper-alert">
-          <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
-            {alerts[alert.textName]}
-            {alerts[alert.textName] && <br />}
+        <FadeAlert
+          className="upper-alert"
+          type={legacyAlertColorToType(alert.type) || 'success'}
+          isOpen={!!alert.isOpen || true}
+        >
+          {alerts[alert.textName]}
+          {alerts[alert.textName] && <br />}
 
-            {eventFromParams && alerts[eventFromParams] ? alerts[eventFromParams] : ''}
-          </Alert>
-        </Row>
+          {eventFromParams && alerts[eventFromParams] ? alerts[eventFromParams] : ''}
+        </FadeAlert>
       )}
 
       <Container className="First--Step--Choose--Parameters">
