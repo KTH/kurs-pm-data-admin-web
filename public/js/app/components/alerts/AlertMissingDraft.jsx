@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container } from 'reactstrap'
 import PropTypes from 'prop-types'
 import i18n from '../../../../../i18n'
 import { SERVICE_URL } from '../../util/constants'
@@ -28,9 +27,9 @@ const AlertMissingDraft = ({ courseCode, langAbbr, langIndex }) => {
     )
 
   return (
-    <Container className="kip-container" fluid>
+    <div className="kip-container">
       <UpperAlertRow alertMsg={alertMsg} color="danger" ukey="error-missing-memo-draft" />
-    </Container>
+    </div>
   )
 }
 AlertMissingDraft.propTypes = {

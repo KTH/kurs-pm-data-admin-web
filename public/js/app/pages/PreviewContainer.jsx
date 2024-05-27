@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Container, Row, Col } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 
 import axios from 'axios'
 import PropTypes from 'prop-types'
@@ -309,7 +309,7 @@ function PreviewContainer(props) {
   }
 
   return (
-    <Container className="kip-container preview-container" fluid>
+    <div className="kip-container preview-container">
       <Row>
         <PageHeading heading={isDraftOfPublished ? pageTitles.published : pageTitles.new} subHeading={courseTitle} />
       </Row>
@@ -394,7 +394,7 @@ function PreviewContainer(props) {
         alertText={alertText}
         alertColor={alertColor}
       />
-    </Container>
+    </div>
   )
 }
 

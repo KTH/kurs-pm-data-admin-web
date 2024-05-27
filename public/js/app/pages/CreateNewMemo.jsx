@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
-import { Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Col, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
 
 import PropTypes from 'prop-types'
@@ -255,7 +255,7 @@ function CreateNewMemo(props) {
   }
 
   return (
-    <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
+    <div className="kip-container">
       <Row id="scroll-here-if-alert">
         <PageHeading heading={pageTitles.new} subHeading={course && combinedCourseName(courseCode, course, langAbbr)} />
       </Row>
@@ -273,8 +273,7 @@ function CreateNewMemo(props) {
           {eventFromParams && alerts[eventFromParams] ? alerts[eventFromParams] : ''}
         </FadeAlert>
       )}
-
-      <Container className="First--Step--Choose--Parameters">
+      <div className="First--Step--Choose--Parameters">
         <Row>
           <Col>
             {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
@@ -470,7 +469,7 @@ function CreateNewMemo(props) {
             </Col>
           )}
         </Row>
-      </Container>
+      </div>
       <ControlPanel
         langIndex={langIndex}
         chosenMemoEndPoint={chosen.existingDraftEndPoint}
@@ -485,7 +484,7 @@ function CreateNewMemo(props) {
         <p data-testid="memoCommonLangAbbr">{chosen.memoCommonLangAbbr}</p>
         <p data-testid="sortedApplicationCodes">{chosen.sortedApplicationCodes.join(',')}</p>
       </div>
-    </Container>
+    </div>
   )
 }
 
