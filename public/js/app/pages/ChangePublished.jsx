@@ -2,7 +2,7 @@
 /* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
-import { Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Col, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
 
 import PropTypes from 'prop-types'
@@ -169,7 +169,7 @@ function ChangePublished(props) {
     setTerm(newSemester)
   }
   return (
-    <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
+    <div className="kip-container">
       <Row id="scroll-here-if-alert">
         <PageHeading
           heading={pageTitles.published}
@@ -191,7 +191,7 @@ function ChangePublished(props) {
         </FadeAlert>
       )}
 
-      <Container className="First--Step--Choose--Parameters">
+      <div className="First--Step--Choose--Parameters">
         <Row>
           <Col>
             {/* CHOOSE SEMESTER */}
@@ -289,7 +289,7 @@ function ChangePublished(props) {
             )}
           </Col>
         </Row>
-      </Container>
+      </div>
       <ControlPanel
         langIndex={langIndex}
         chosenMemoEndPoint={chosenMemo.existingDraftEndPoint}
@@ -300,7 +300,7 @@ function ChangePublished(props) {
         memoStatus={chosenMemo.memoStatus}
         event={event}
       />
-    </Container>
+    </div>
   )
 }
 

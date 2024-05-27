@@ -2,7 +2,7 @@
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect, useRef } from 'react'
 import { observer } from 'mobx-react'
-import { Container, Row, Col } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
 
 import PropTypes from 'prop-types'
@@ -390,8 +390,7 @@ function MemoContainer(props) {
     ))
   }
   return (
-    <Container className="kip-container" fluid>
-      {/* /* style={{ marginBottom: '110px' }} */}
+    <div className="kip-container">
       <Row key="pageHeader" id="scroll-here-if-alert">
         <PageHeading
           heading={isDraftOfPublished ? pageTitles.published : pageTitles.new}
@@ -410,16 +409,14 @@ function MemoContainer(props) {
       )}
       <AlertSuccessCopiedMemo eventFromParams={eventFromParams} alertMsg={alerts.syllabusUpdated} />
       <AlertErrorMissingComment isError={isError} alertMsg={alerts.warnFillInCommentAboutChanges} />
-      <Row key="section-of-header" className="sections-headers" style={{ marginBottom: '1.875rem' }}>
-        <Col lg="7">
-          <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
-          <CollapseMemoIntroduction
-            translate={extraInfo.summaryIntroductionHelp}
-            isDraftOfPublished={isDraftOfPublished}
-            langAbbr={userLangAbbr}
-          />
-        </Col>
-      </Row>
+      <div key="section-of-header" className="sections-headers">
+        <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
+        <CollapseMemoIntroduction
+          translate={extraInfo.summaryIntroductionHelp}
+          isDraftOfPublished={isDraftOfPublished}
+          langAbbr={userLangAbbr}
+        />
+      </div>
       <StickyContainer className="memo-container">
         <Sticky topOffset={STICKY_TOP_OFFSET}>
           {({ style, isSticky }) => (
@@ -488,7 +485,7 @@ function MemoContainer(props) {
         isDraftOfPublished={isDraftOfPublished}
         openAlertIdUntilFixed={openAlertIdUntilFixed}
       />
-    </Container>
+    </div>
   )
 }
 
