@@ -338,7 +338,7 @@ function MemoContainer(props) {
     const { buttons } = i18n.messages[userLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
-      <TabContent key={'tab-content-for-section-' + id} isActive={activeTab === id} sectionId={id}>
+      <TabContent key={`tab-content-for-section-${id}`} isActive={activeTab === id} sectionId={id}>
         <div id={`section-header-${id}`} ref={toTopRef} />
         {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
@@ -445,9 +445,11 @@ function MemoContainer(props) {
           <Col lg="3" className="sticky-overview">
             <Sticky topOffset={STICKY_TOP_OFFSET}>
               {({ style, isSticky }) => (
-                <div style={{ ...style, marginTop: isSticky ? STICKY_SECTION_MENU_TOP_MARGIN : '0' }}>
+                <div
+                  className="sticky-section-menu-container"
+                  style={{ ...style, marginTop: isSticky ? STICKY_SECTION_MENU_TOP_MARGIN : '0' }}
+                >
                   <SectionMenu
-                    id="mainMenu"
                     visiblesOfStandard={visibleInMemo}
                     userLangIndex={userLangIndex}
                     memoLangIndex={memoLangIndex}

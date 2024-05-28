@@ -6,7 +6,6 @@ import axios from 'axios'
 
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
-
 import { SERVICE_URL } from '../util/constants'
 import {
   combinedCourseName,
@@ -23,7 +22,7 @@ import PageHeading from '../components-shared/PageHeading'
 import ProgressBar from '../components-shared/ProgressBar'
 import ControlPanel from '../components/ControlPanel'
 import FadeAlert from '../components/FadeAlert'
-import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
+import HeadingWithInfoModal from '../components/HeadingWithInfoModal'
 import i18n from '../../../../i18n'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
@@ -274,60 +273,51 @@ function CreateNewMemo(props) {
         </FadeAlert>
       )}
       <div className="First--Step--Choose--Parameters">
-        <Row>
-          <Col>
-            {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
-            <div className="subsection-30">
-              <SectionHeadingAsteriskModal
-                langAbbr={langAbbr}
-                modalId="choose-course-round"
-                titleAndInfo={info.chooseRound}
-                btnClose={buttons.btnClose}
-              />
-              <h3>{info.chooseSavedDraft}</h3>
-              {(hasSavedDraft && (
-                <>
-                  <Label htmlFor="choose-existed-memo">{info.chooseRound.existedDrafts.label}</Label>
-                  <Label htmlFor="choose-existed-memo">{info.chooseRound.existedDrafts.infoText}</Label>
-                  <Form
-                    className={`Existed--Memos ${alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''}`}
-                    id="choose-existed-memo"
-                  >
-                    {existingDrafts.map(({ memoName, memoEndPoint }) => (
-                      <FormGroup className="form-check" key={'draftType' + (memoEndPoint || Math.random())}>
-                        <Input
-                          type="radio"
-                          data-testid="radio-choose-saved-draft"
-                          id={memoEndPoint}
-                          name="chooseDraft"
-                          value={memoEndPoint}
-                          onClick={onChoiceOfExistingDraft}
-                          defaultChecked={action === 'continue' && memoEndPoint === chosen.existingDraftEndPoint}
-                        />
-                        <Label htmlFor={memoEndPoint} data-testid="label-saved-draft-radio">
-                          {memoName || memoEndPoint + ' (old memo before namegiving)'}
-                        </Label>
-                      </FormGroup>
-                    ))}
-                  </Form>
-                </>
-              )) || (
-                <p>
-                  <i>{info.noSavedDrafts}</i>
-                </p>
-              )}
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <h3>{info.createNew}</h3>
-          </Col>
-        </Row>
+        {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
+        <div>
+          <HeadingWithInfoModal
+            modalId="choose-course-round"
+            titleAndInfo={info.chooseRound}
+            btnClose={buttons.btnClose}
+          />
+          <h3>{info.chooseSavedDraft}</h3>
+          {(hasSavedDraft && (
+            <>
+              <Label htmlFor="choose-existed-memo">{info.chooseRound.existedDrafts.label}</Label>
+              <p>{info.chooseRound.existedDrafts.infoText}</p>
+              <Form
+                className={`Existed--Memos ${alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''}`}
+                id="choose-existed-memo"
+              >
+                {existingDrafts.map(({ memoName, memoEndPoint }) => (
+                  <FormGroup className="form-check" key={'draftType' + (memoEndPoint || Math.random())}>
+                    <Input
+                      type="radio"
+                      data-testid="radio-choose-saved-draft"
+                      id={memoEndPoint}
+                      name="chooseDraft"
+                      value={memoEndPoint}
+                      onClick={onChoiceOfExistingDraft}
+                      defaultChecked={action === 'continue' && memoEndPoint === chosen.existingDraftEndPoint}
+                    />
+                    <Label htmlFor={memoEndPoint} data-testid="label-saved-draft-radio">
+                      {memoName || memoEndPoint + ' (old memo before namegiving)'}
+                    </Label>
+                  </FormGroup>
+                ))}
+              </Form>
+            </>
+          )) || (
+            <p>
+              <i>{info.noSavedDrafts}</i>
+            </p>
+          )}
+        </div>
         <Row>
           <Col>
             {/* CHOOSE COURSE OFFERING WITH NO MEMOS */}
             <div>
+              <h3>{info.createNew}</h3>
               <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label>
               {(lastTerms && lastTerms.length > 0 && (
                 <Form style={{ width: '20em' }} data-testid="form-select-terms">
@@ -363,15 +353,12 @@ function CreateNewMemo(props) {
             {/* CHOOSE COURSE ROUNDS FOR THE CHOOSEN SEMESTER ABOVE */}
             <div
               data-testid="new-course-offering"
-              className="first-15"
               style={lastTerms && lastTerms.length > 0 && semester ? { marginTop: '0' } : { display: 'none' }}
             >
               {(chosenSemesterAvailableRounds.length > 0 && (
                 <>
-                  <Label className="first-15" htmlFor="choose-from-rounds-list">
-                    {info.chooseRound.availableRounds.label}
-                  </Label>
-                  <Label htmlFor="choose-from-rounds-list">{info.chooseRound.availableRounds.infoText}</Label>
+                  <Label htmlFor="choose-from-rounds-list">{info.chooseRound.availableRounds.label}</Label>
+                  <p>{info.chooseRound.availableRounds.infoText}</p>
                   <Form className={alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''}>
                     {chosenSemesterAvailableRounds.map(round => (
                       <FormGroup
@@ -433,10 +420,8 @@ function CreateNewMemo(props) {
               </div>
               {action === 'copy' &&
                 ((allPublishedCourseMemos.length > 0 && (
-                  <div className="first-15 Start--Creating--From--Copy">
-                    <Label className="first-15" htmlFor="choose-previously-published-memo">
-                      {info.createFrom.labelAllPrevMemos}
-                    </Label>
+                  <div className="Start--Creating--From--Copy">
+                    <Label htmlFor="choose-previously-published-memo">{info.createFrom.labelAllPrevMemos}</Label>
                     <Label htmlFor="choose-previously-published-memo">{info.createFrom.infoTextForMemos}</Label>
                     <Form
                       className={`Existing--Published--Memos ${
@@ -462,7 +447,7 @@ function CreateNewMemo(props) {
                     </Form>
                   </div>
                 )) || (
-                  <p className="subsection-30">
+                  <p>
                     <i>{info.noPrevPublishedAvailable}</i>
                   </p>
                 ))}

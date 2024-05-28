@@ -1,0 +1,91 @@
+@use '~@kth/style/scss/tokens/colors.scss';
+
+// TOOD: karl: copied from kurs-pm-web
+
+%table-style {
+  .flexible-section-style {
+    table {
+      @media (min-width: 992px) {
+        width: 150% !important;
+        table-layout: fixed;
+      }
+      @media print {
+        // must be here, to make it more specific and stronger rule
+        width: 100%;
+      }
+    }
+  }
+
+  table {
+    width: 100% !important;
+
+    text-align: left;
+    p,
+    ul,
+    li,
+    ol,
+    h1,
+    h2,
+    h3,
+    h4,
+    span,
+    div {
+      margin-bottom: 0 !important;
+    }
+
+    tr {
+      th {
+        color: var(--color-on-primary) !important; //Important because of cut and pasted styles?
+        background-color: colors.$color-gray-dark !important; //Important because of cut and pasted styles?
+        font-weight: 500;
+        border-right: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        border-top: 0;
+        padding: 0.75rem;
+        h4 {
+          color: var(--color-on-primary);
+        }
+        &:first-of-type {
+          border-top: 0;
+        }
+        &[scope='row'] {
+          vertical-align: middle;
+          border-top: 1px solid var(--color-border);
+          border-right: 0;
+        }
+      }
+
+      &:first-child {
+        th {
+          border-top: 1px solid var(--color-border);
+        }
+      }
+
+      td {
+        padding: 0.75rem;
+        background-color: colors.$color-gray-lighter;
+        border-top: 1px solid var(--color-border);
+      }
+    }
+
+    th {
+      border-top: 0;
+    }
+
+    //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
+    tbody:first-child {
+      tr:first-of-type > td {
+        color: var(--color-on-primary);
+        background-color: colors.$color-gray-dark !important; //Important because of cut and pasted styles?
+        font-weight: 500;
+        border-right: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+        border-top: 0;
+        p {
+          color: var(--color-on-primary);
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

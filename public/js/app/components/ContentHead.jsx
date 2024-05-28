@@ -1,10 +1,10 @@
-import { HeadingAsteriskModal } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { context } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 import { OnClickPropagationStopper } from '../components/editors/OnClickPropagationStopper'
+import HeadingWithInfoModal from './HeadingWithInfoModal'
 import { EditButton } from './editors/EditButton'
 import { SectionHeading } from './layout/SectionHeading'
 
@@ -82,12 +82,12 @@ const BasicHeaderHead = ({
   return (
     <SectionHeading>
       <OnClickPropagationStopper>
-        <HeadingAsteriskModal
+        <HeadingWithInfoModal
+          headingTag="h3"
           modalBtnAriaLabel={ariaLabel}
           modalId={contentId}
           titleAndInfo={titleAndInfo}
           btnClose={buttons.btnClose}
-          withModal
         />
       </OnClickPropagationStopper>
       {isEditButtonVisible && (

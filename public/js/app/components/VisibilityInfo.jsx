@@ -15,8 +15,7 @@ const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, secti
   const { sourceInfo } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
   return (
-    <span className="section-info word-break">
-      {' '}
+    <span className="section-info">
       <span className="section_info_visibility_label">
         {(isRequired(contentId) && (
           <p className="mandatory" data-testid="data-origin">

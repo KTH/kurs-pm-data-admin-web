@@ -1,0 +1,213 @@
+// TODO: karl: kolla över och kopiera style från kurs-pm-wev
+@import 'table';
+
+/* Breadcrumbs in preview */
+.preview-container {
+  margin-bottom: 115px;
+
+  .breadcrumb {
+    background-color: transparent;
+  }
+
+  .breadcrumb-item button {
+    padding: 0;
+    vertical-align: baseline;
+  }
+
+  /*Course header in preview */
+
+  .course-header-admin-link {
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 14px;
+  }
+
+  /* Side menu in preview */
+
+  .sideMenuLink {
+    color: #000000;
+    &:hover {
+      color: #000000;
+    }
+  }
+
+  .menu-memos-sub {
+    margin-left: 1rem;
+  }
+
+  .menu-memos {
+    button {
+      color: #000000;
+      margin: 0 0 1rem 0;
+      padding: 0;
+      &:hover {
+        color: #000000;
+      }
+    }
+    p {
+      button {
+        margin: 0;
+        text-align: left;
+      }
+    }
+  }
+
+  .menu-memos .active {
+    font-weight: 700;
+  }
+
+  #menu-link-directory {
+    color: #006cb7;
+    margin: 0;
+    padding: 0;
+    &:hover {
+      color: #006cb7;
+    }
+  }
+
+  .preview-content-separation {
+    margin-top: 30px;
+    height: 6px;
+    background-image: linear-gradient(to left, #005ea4, #5c98c4);
+  }
+
+  h4.secondTitle {
+    margin-top: 4px;
+  }
+
+  .preview-side-menu {
+    padding-right: 35px;
+  }
+
+  .preview-content-center {
+    h2 {
+      margin-top: 32px !important; // Resets to KTH Style
+      margin-bottom: 0 !important; // According to sketch
+    }
+    .title-and-info {
+      h3 {
+        margin-top: 24px !important; // Resets to KTH Style
+        margin-bottom: 10px !important; // Resets to KTH Style
+      }
+    }
+    @extend %table-style;
+  }
+
+  h2.preview-info {
+    margin-top: 0;
+  }
+
+  .preview-info-box {
+    background-color: #f4f4f4;
+    padding: 20px;
+    h4 {
+      margin-bottom: 0.5rem;
+    }
+    h4:first-child {
+      margin-top: 0;
+    }
+    p + h4 {
+      margin-top: 1.5rem;
+    }
+    #print-link-with-popup {
+      h4 {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .print-pm-link {
+    margin: 0;
+    padding: 0;
+    width: max-content;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .print-icon {
+    background-image: url(../../node_modules/kth-style/dist/img/kth-style/icons/print-blue.svg);
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 25px;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+  }
+
+  .preview-course-header-title {
+    margin-bottom: 0;
+  }
+
+  .pdf-post-link {
+    margin: 0;
+
+    &:after {
+      height: 0.9em;
+      margin: 0 0 0 0.4em;
+      width: 0.7em;
+      vertical-align: -7%;
+    }
+  }
+
+  .pdf-icon {
+    color: #000;
+    margin-left: 0.5rem;
+    overflow: auto;
+    vertical-align: baseline;
+  }
+
+  .syllabus-marker-icon {
+    height: 0.7rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+    width: 0.7rem;
+  }
+
+  .with-subheader {
+    margin-bottom: 0;
+  }
+
+  .subheader {
+    margin-bottom: 10px;
+  }
+
+  p.sub-section-header {
+    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.5;
+    padding-top: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 768px) {
+    p.sub-section-header {
+      font-size: 1rem;
+    }
+  }
+
+  .syllabus-marker-icon-small {
+    height: 0.5rem;
+    margin-right: 0.3rem;
+    width: 0.5rem;
+  }
+
+  sup {
+    .syllabus-marker-icon {
+      margin-left: 0.3rem;
+    }
+  }
+
+  .link-button {
+    color: var(--color-tertiary);
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    height: 20px;
+  }
+
+  #menu-link-directory.link-button {
+    height: 50px;
+  }
+}

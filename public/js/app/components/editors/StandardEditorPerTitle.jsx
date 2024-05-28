@@ -36,7 +36,7 @@ function StandardEditorPerTitle(props) {
 
   return (
     <HeadingBox isReady={isReady} onToggleEditor={toggleEditor}>
-      <span id={menuId} className={sectionType + ' section-50'}>
+      <span id={menuId} className={sectionType}>
         {sectionType === 'section' && (
           <ContentHead
             contentId={contentId}

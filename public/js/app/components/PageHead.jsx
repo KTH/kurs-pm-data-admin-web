@@ -9,11 +9,11 @@ const PageHead = ({ semester, memoName, userLangIndex }) => {
   const { messages } = i18n.messages[userLangIndex]
   return (
     <div className="page-header-wrapper">
-      <div className="page-header-container section-50">
+      <div className="page-header-container">
         <h4>{messages.page_header_heading_semester}</h4>
         <p className="no-wrap">{seasonStr(userLangIndex, semester)}</p>
       </div>
-      <div className="page-header-container section-50">
+      <div className="page-header-container">
         <h4>{messages.page_header_heading_course_round}</h4>
         <p>{memoName}</p>
       </div>
