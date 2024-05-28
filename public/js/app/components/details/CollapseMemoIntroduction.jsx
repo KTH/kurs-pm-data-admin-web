@@ -270,7 +270,7 @@ HelpCreate.propTypes = {
 const CollapseMemoIntroduction = ({ translate, langAbbr, isDraftOfPublished }) => {
   const { titleMain } = translate
   return (
-    <CollapseDetails ariaLabel={titleMain} title={titleMain} yellow>
+    <CollapseDetails ariaLabel={titleMain} title={titleMain}>
       {isDraftOfPublished ? (
         <HelpEdit langAbbr={langAbbr} isDraftOfPublished={isDraftOfPublished} />
       ) : (

@@ -581,7 +581,7 @@ module.exports = {
       en: `The language of this course memo is English since at least one of the chosen administrative course instances have English as the language of instruction. It is possible to add both administrative course instances with Swedish and English as the language of instruction.`,
     },
     cannotMergeLanguage: 'Cannot be chosen, read abode: Language of memo',
-    commentChanges: 'Describe changes made in this version:',
+    commentChanges: 'Describe changes made in this version (mandatory):',
     contentHeaders: {
       title: 'Headings',
       intro: `<p>All fixed and optional sections in this course memo is listed down below. The sections are grouped in five main heading categories; "Content and learning outcomes", "Preparations before course start", "Examination and completion", "Further information" and "Contact".</p>

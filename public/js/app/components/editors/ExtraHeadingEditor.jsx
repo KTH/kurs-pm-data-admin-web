@@ -155,10 +155,10 @@ function ExtraHeadingEditor(props) {
         )}
 
         {isOpen && (
-          <span data-testid={`extra-content-editor-${contentId}-${uKey}`} className="editor">
+          <span data-testid={`extra-content-editor-${contentId}-${uKey}`}>
             <SectionHeading>
-              <Form className={showEmptyHeadingErrorLabel ? 'error-area' : ''}>
-                <FormGroup className="title">
+              <Form className={`extra-heading-form ${showEmptyHeadingErrorLabel ? 'error-area' : ''}`}>
+                <FormGroup noMargin>
                   <Label className="form-control-label" htmlFor={`headerFor${contentId}-${uKey}`}>
                     {sourceInfo.addNewHeading}
                   </Label>
@@ -196,34 +196,36 @@ function ExtraHeadingEditor(props) {
               onToggleVisibleInMemo={toggleVisibleInMemo}
               userLangIndex={userLangIndex}
             />
-            <OnClickPropagationStopper>
-              <CollapseGuidance
-                title={buttons.showGuidance}
-                details={memoInfoByUserLang[contentId].help}
-                visibleInMemo={visibleInMemo}
-                contentId={contentId}
-                content={htmlContent}
-              />
-            </OnClickPropagationStopper>
-            <OnClickPropagationStopper>
-              <Editor
-                id={`editor-for-${contentId}-${uKey}`}
-                value={htmlContent}
-                init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
-                onEditorChange={setNewContent}
-                onBlur={onSaveByThisContentId}
-              />
-            </OnClickPropagationStopper>
-            <div className="extra-heading-buttons" data-testid="remove-added-heading">
-              <ActionModalButton
-                btnLabel={buttons.btnRemoveHeading}
-                modalId={`beforeRemoving-${contentId}-${uKey}`}
-                type="remove"
-                modalLabels={actionModals.newSectionRemove}
-                onConfirm={onRemoveThisContent}
-              />
-              <SaveAndCloseButton onSaveAndClose={toggleEditor} text={buttons.saveAndCloseEditor} />
-            </div>
+            <span className="editor">
+              <OnClickPropagationStopper>
+                <CollapseGuidance
+                  title={buttons.showGuidance}
+                  details={memoInfoByUserLang[contentId].help}
+                  visibleInMemo={visibleInMemo}
+                  contentId={contentId}
+                  content={htmlContent}
+                />
+              </OnClickPropagationStopper>
+              <OnClickPropagationStopper>
+                <Editor
+                  id={`editor-for-${contentId}-${uKey}`}
+                  value={htmlContent}
+                  init={editorConf(userLangIndex === 1 ? 'sv_SE' : null)}
+                  onEditorChange={setNewContent}
+                  onBlur={onSaveByThisContentId}
+                />
+              </OnClickPropagationStopper>
+              <div className="extra-heading-buttons" data-testid="remove-added-heading">
+                <ActionModalButton
+                  btnLabel={buttons.btnRemoveHeading}
+                  modalId={`beforeRemoving-${contentId}-${uKey}`}
+                  type="remove"
+                  modalLabels={actionModals.newSectionRemove}
+                  onConfirm={onRemoveThisContent}
+                />
+                <SaveAndCloseButton onSaveAndClose={toggleEditor} text={buttons.saveAndCloseEditor} />
+              </div>
+            </span>
           </span>
         )}
 

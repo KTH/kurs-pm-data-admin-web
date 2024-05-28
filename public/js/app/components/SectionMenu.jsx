@@ -41,13 +41,13 @@ function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard })
   const { id, content, extraHeaderTitle } = activeSection
 
   return (
-    <MainMenu extraClasses={['ps-0', 'h-100']}>
+    <nav className="content-overview col">
       {content.map(
         contentId =>
           memoTitlesByMemoLang[contentId] && (
             <NavItemLink
-              key={'nav-litem-leaf-' + contentId}
-              id={id + '-' + contentId}
+              key={`nav-litem-leaf-${contentId}`}
+              id={`${id}-${contentId}`}
               title={memoTitlesByMemoLang[contentId]}
               showEyeSlashIcon={showEyeSlashIcon(contentId, visiblesOfStandard)}
             />
@@ -64,15 +64,9 @@ function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard })
           />
         ))}
       {children}
-    </MainMenu>
+    </nav>
   )
 }
-
-const MainMenu = ({ extraClasses = '', children }) => (
-  <nav id="mainMenu" className={'content-overview col navbar navbar-expand-lg navbar-light ' + extraClasses.join(' ')}>
-    {children}
-  </nav>
-)
 
 const NavItemLink = ({ id, title, showEyeSlashIcon: showIcon }) => (
   <p className="nav-link-to-content-header">
@@ -87,11 +81,6 @@ NavItemLink.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   showEyeSlashIcon: PropTypes.bool.isRequired,
-}
-
-MainMenu.propTypes = {
-  extraClasses: PropTypes.arrayOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired,
 }
 
 SectionMenu.propTypes = {

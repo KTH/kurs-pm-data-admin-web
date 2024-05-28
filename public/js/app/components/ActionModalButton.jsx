@@ -2,7 +2,7 @@
 // kth-reactstrap: src/components/utbildningsinfo/ActionModalButton.js
 
 import React from 'react'
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { Modal, ModalBody, ModalFooter } from 'reactstrap'
 import Button from '../components-shared/Button'
 
 const variantByType = {
@@ -46,7 +46,10 @@ function ActionModalButton({
         {btnLabel}
       </Button>
       <Modal isOpen={isOpen} toggle={toggle} id={modalId}>
-        <ModalHeader toggle={toggle}>{header}</ModalHeader>
+        <div className="modal-header ">
+          <h4 className="modal-title">{header}</h4>
+          <button type="button" className="kth-icon-button close" aria-label={btnClose} onClick={toggle} />
+        </div>
         <ModalBody>
           {children}
           {htmlBody && <div dangerouslySetInnerHTML={{ __html: htmlBody }}></div>}

@@ -565,7 +565,7 @@ module.exports = {
       Det går att lägga till både svenska och engelska kurstillfällen nedan.`,
     },
     cannotMergeLanguage: 'Går ej att välja, se ovan: Språk kurs-PM.',
-    commentChanges: 'Ange alla ändringar i denna version:',
+    commentChanges: 'Ange alla ändringar i denna version (obligatorisk):',
     contentHeaders: {
       title: 'Rubriker',
       intro: `<p>Alla fasta och valbara rubriker i detta kurs-PM visas nedan. Rubrikerna är grupperade i fem sektioner; "Innehåll och lärandemål", "Förberedelser inför kursstart", "Examination och slutförande", "Ytterligare information" and "Kontakter".</p>
