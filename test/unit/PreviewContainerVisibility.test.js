@@ -35,8 +35,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
   )
 }
 
-const { breadCrumbLabels, labelContacts, labelFacts, labelLinks, orderedFilledInAndVisible, sectionsLabels } =
-  translations.en
+const { labelContacts, labelFacts, labelLinks, sectionsLabels } = translations.en
 
 describe('Component <PreviewContainer> to display filled in draft of published memo. All memo data is filled in and only optional data must be invisible. memoLang="en" userLang="sv"', () => {
   beforeEach(() => {

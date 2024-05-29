@@ -1,158 +1,121 @@
-// TODO: karl: kolla över och kopiera style från kurs-pm-wev
+@use '~@kth/style/scss/tokens/typography.scss';
+@use '~@kth/style/scss/utils/prose.scss';
+
+@use '~kth-style/public/sass/variables/_svg_data' as svgData;
+
 @import 'table';
 
-/* Breadcrumbs in preview */
+// Most style in this file is the same as the main scss file in kurs-pm-web as this page
+// is supposed to be a preview of how the published version will look like.
+
 .preview-container {
   margin-bottom: 115px;
 
-  .breadcrumb {
-    background-color: transparent;
+  /* Side menu */
+  .preview-side-menu {
+    padding-right: 35px;
   }
+  .kth-local-navigation.menu-memos {
+    .link-button {
+      text-decoration: none;
+      display: flex;
+      padding-block: 0.5rem;
+      padding-inline-start: 1rem;
 
-  .breadcrumb-item button {
-    padding: 0;
-    vertical-align: baseline;
-  }
-
-  /*Course header in preview */
-
-  .course-header-admin-link {
-    display: block;
-    margin-top: 4px;
-    margin-bottom: 14px;
-  }
-
-  /* Side menu in preview */
-
-  .sideMenuLink {
-    color: #000000;
-    &:hover {
-      color: #000000;
-    }
-  }
-
-  .menu-memos-sub {
-    margin-left: 1rem;
-  }
-
-  .menu-memos {
-    button {
-      color: #000000;
-      margin: 0 0 1rem 0;
-      padding: 0;
-      &:hover {
-        color: #000000;
-      }
-    }
-    p {
-      button {
-        margin: 0;
-        text-align: left;
+      &.active {
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 0.25rem;
+          background-color: var(--color-primary);
+        }
       }
     }
   }
 
-  .menu-memos .active {
-    font-weight: 700;
-  }
+  .link-button {
+    color: var(--color-tertiary);
+    border: none;
+    background: transparent;
+    text-underline-offset: 4px;
 
-  #menu-link-directory {
-    color: #006cb7;
-    margin: 0;
-    padding: 0;
     &:hover {
-      color: #006cb7;
+      text-decoration: underline;
     }
   }
 
   .preview-content-separation {
     margin-top: 30px;
-    height: 6px;
-    background-image: linear-gradient(to left, #005ea4, #5c98c4);
+    margin-bottom: 30px;
+    height: 1px;
+    background: var(--color-border);
   }
 
-  h4.secondTitle {
-    margin-top: 4px;
-  }
-
-  .preview-side-menu {
-    padding-right: 35px;
-  }
-
-  .preview-content-center {
+  .section-wrapper {
     h2 {
-      margin-top: 32px !important; // Resets to KTH Style
-      margin-bottom: 0 !important; // According to sketch
+      margin-block-start: 2rem;
+      margin-block-end: 1rem;
     }
-    .title-and-info {
-      h3 {
-        margin-top: 24px !important; // Resets to KTH Style
-        margin-bottom: 10px !important; // Resets to KTH Style
+    .article {
+      @include prose.prose;
+      & > h3:first-of-type {
+        margin-block-start: 0;
       }
     }
+  }
+
+  .course-presentation {
+    min-height: 150px;
+    @include prose.prose;
+    div {
+      & > p:first-of-type {
+        margin-block-start: 0;
+      }
+    }
+  }
+
+  #course-presentation-image {
+    height: 112.5px;
+    margin: 0px 30px 19px 0;
+  }
+
+  @media (max-width: 575.98px) {
+    #course-presentation-image {
+      height: auto;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 0 23px 0;
+    }
+  }
+  .preview-content-center {
     @extend %table-style;
   }
 
-  h2.preview-info {
-    margin-top: 0;
-  }
-
-  .preview-info-box {
-    background-color: #f4f4f4;
-    padding: 20px;
-    h4 {
-      margin-bottom: 0.5rem;
-    }
-    h4:first-child {
-      margin-top: 0;
-    }
-    p + h4 {
-      margin-top: 1.5rem;
-    }
-    #print-link-with-popup {
-      h4 {
-        margin-bottom: 1rem;
-      }
+  .print-link {
+    &::before {
+      content: '';
+      display: inline-block;
+      background: svgData.$data-print-blue-svg no-repeat;
+      background-size: cover;
+      width: 22px;
+      height: 20px;
+      margin-right: 0.625rem;
+      vertical-align: middle;
     }
   }
-
-  .print-pm-link {
-    margin: 0;
+  button.print-link {
+    color: var(--color-tertiary);
+    border: none;
     padding: 0;
-    width: max-content;
-    outline: none !important;
-    box-shadow: none !important;
-  }
-
-  .print-icon {
-    background-image: url(../../node_modules/kth-style/dist/img/kth-style/icons/print-blue.svg);
-    background-repeat: no-repeat;
-    height: 20px;
-    width: 25px;
-    margin-right: 0.3rem;
-    vertical-align: middle;
-  }
-
-  .preview-course-header-title {
-    margin-bottom: 0;
-  }
-
-  .pdf-post-link {
-    margin: 0;
-
-    &:after {
-      height: 0.9em;
-      margin: 0 0 0 0.4em;
-      width: 0.7em;
-      vertical-align: -7%;
-    }
-  }
-
-  .pdf-icon {
-    color: #000;
-    margin-left: 0.5rem;
-    overflow: auto;
-    vertical-align: baseline;
+    text-align: start;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+    cursor: pointer;
+    @include typography.font-default;
   }
 
   .syllabus-marker-icon {
@@ -160,6 +123,12 @@
     margin-right: 0.5rem;
     vertical-align: baseline;
     width: 0.7rem;
+  }
+
+  sup {
+    .syllabus-marker-icon {
+      margin-left: 0.3rem;
+    }
   }
 
   .with-subheader {
@@ -171,43 +140,42 @@
   }
 
   p.sub-section-header {
-    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #000;
-    line-height: 1.5;
     padding-top: 0.8rem;
     margin-bottom: 0;
   }
 
-  @media (min-width: 768px) {
-    p.sub-section-header {
-      font-size: 1rem;
+  .info-box {
+    $space-between: 14px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: var(--color-background-alt);
+    display: block;
+    word-wrap: break-word;
+
+    h2,
+    h3 {
+      @include typography.font-heading-s;
+      margin-top: 16px;
+      margin-bottom: 14px;
+    }
+    p {
+      margin-bottom: 14px;
+    }
+    & > :first-child {
+      margin-top: 0;
+    }
+    & > :last-child {
+      margin-bottom: 0;
     }
   }
 
-  .syllabus-marker-icon-small {
-    height: 0.5rem;
-    margin-right: 0.3rem;
-    width: 0.5rem;
+  h2:has(+ .info-box) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
   }
-
-  sup {
-    .syllabus-marker-icon {
-      margin-left: 0.3rem;
-    }
-  }
-
-  .link-button {
-    color: var(--color-tertiary);
-    border: none;
-    background: transparent;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    height: 20px;
-  }
-
-  #menu-link-directory.link-button {
-    height: 50px;
+}
+.popover {
+  .popover-header {
+    @include typography.font-heading-xs;
   }
 }

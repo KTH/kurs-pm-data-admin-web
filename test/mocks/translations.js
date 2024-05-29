@@ -1,12 +1,5 @@
 const translations = {
   en: {
-    breadCrumbLabels: {
-      university: 'KTH',
-      student: 'Student på KTH',
-      directory: 'Kurs- och programkatalogen',
-      aboutCourse: 'Om kursen',
-      noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge',
-    },
     buttons: {
       /** ************ BUTTONS ****************** */
       btnAddExtra: 'Add heading to ',

@@ -7,7 +7,7 @@ import Popup from './Popup'
 const communicationWithTeachers = (memoData, labels) =>
   !memoData.communicationDuringCourse || (
     <>
-      <h4>{labels.communicationWithTeachersTitle}</h4>
+      <h3>{labels.communicationWithTeachersTitle}</h3>
       <div dangerouslySetInnerHTML={{ __html: memoData.communicationDuringCourse }} />
     </>
   )
@@ -16,7 +16,7 @@ const communicationWithTeachers = (memoData, labels) =>
 const courseCoordinator = (memoData, labels) =>
   memoData.courseCoordinator ? (
     <>
-      <h4>{labels.courseCoordinatorTitle}</h4>
+      <h3>{labels.courseCoordinatorTitle}</h3>
       <div id="links-course-coordinator" dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
       <Popup
         header={labels.courseCoordinatorTitle}
@@ -26,7 +26,7 @@ const courseCoordinator = (memoData, labels) =>
     </>
   ) : (
     <>
-      <h4>{labels.courseCoordinatorTitle}</h4>
+      <h3>{labels.courseCoordinatorTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -35,13 +35,13 @@ const courseCoordinator = (memoData, labels) =>
 const teacher = (memoData, labels) =>
   memoData.teacher ? (
     <>
-      <h4>{labels.teacherTitle}</h4>
+      <h3>{labels.teacherTitle}</h3>
       <div id="links-teacher" dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
       <Popup header={labels.teacherTitle} body={labels.linkOpensInNewTab} targetId="links-teacher" />
     </>
   ) : (
     <>
-      <h4>{labels.teacherTitle}</h4>
+      <h3>{labels.teacherTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -50,7 +50,7 @@ const teacher = (memoData, labels) =>
 const teacherAssistants = (memoData, labels) =>
   !memoData.teacherAssistants || (
     <>
-      <h4>{labels.teacherAssistantsTitle}</h4>
+      <h3>{labels.teacherAssistantsTitle}</h3>
       <div id="links-teacher-assistants" dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
       <Popup
         header={labels.teacherAssistantsTitle}
@@ -64,13 +64,13 @@ const teacherAssistants = (memoData, labels) =>
 const examiner = (memoData, labels) =>
   memoData.examiner ? (
     <>
-      <h4>{labels.examinerTitle}</h4>
+      <h3>{labels.examinerTitle}</h3>
       <div id="links-examiner" dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
       <Popup header={labels.examinerTitle} body={labels.linkOpensInNewTab} targetId="links-examiner" />
     </>
   ) : (
     <>
-      <h4>{labels.examinerTitle}</h4>
+      <h3>{labels.examinerTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -79,7 +79,7 @@ const examiner = (memoData, labels) =>
 const otherContacts = (memoData, labels) =>
   !memoData.otherContacts || (
     <>
-      <h4>{labels.otherContactsTitle}</h4>
+      <h3>{labels.otherContactsTitle}</h3>
       <div id="links-other-contacts" dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
       <Popup header={labels.otherContactsTitle} body={labels.linkOpensInNewTab} targetId="links-other-contacts" />
     </>
@@ -97,7 +97,7 @@ const CourseContacts = ({ styleId = null, memoData = {}, labels = {} }) => {
       <h2 id="memo-contacts" className="preview-info">
         {labels.courseContactsTitle}
       </h2>
-      <div className="preview-info-box text-break">
+      <div className="info-box">
         {isCommunicationWTVisible && communicationWithTeachers(memoData, labels)}
         {courseCoordinator(memoData, labels)}
         {teacher(memoData, labels)}
