@@ -633,13 +633,6 @@ module.exports = {
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
   },
-  breadCrumbLabels: {
-    university: 'KTH',
-    student: 'Student at KTH',
-    directory: 'Course and programme directory',
-    aboutCourse: 'About course',
-    noLinksInPreview: 'Menu links doesn’t work in review mode',
-  },
   coursePresentationLabels: {
     imageAltText: 'Inspiring image for course',
     imageTitleText: '',
@@ -695,11 +688,6 @@ module.exports = {
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
     mandatoryFieldMissing: 'Missing mandatory information',
-    linkOpensInNewTab: 'Link will open in new tab',
-  },
-  courseHeaderLabels: {
-    adminLinkLabel: 'Administer About course',
-    label_edit_link_info: 'Link does not work in review mode',
     linkOpensInNewTab: 'Link will open in new tab',
   },
   courseImage: {

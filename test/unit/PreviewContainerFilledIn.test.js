@@ -37,8 +37,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
   )
 }
 
-const { breadCrumbLabels, labelContacts, labelFacts, labelLinks, orderedFilledInAndVisible, sectionsLabels } =
-  translations.en
+const { labelContacts, labelFacts, labelLinks, orderedFilledInAndVisible, sectionsLabels } = translations.en
 
 describe('Component <PreviewContainer> to display filled in draft of published memo. All memo data is filled in and visible. memoLang="en" userLang="sv"', () => {
   beforeEach(() => {
@@ -105,11 +104,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const allBtns = getAllByRole('button')
     expect(allBtns.length).toBe(12)
     const expectedBtns = [
-      breadCrumbLabels.university,
-      breadCrumbLabels.student,
-      breadCrumbLabels.directory,
-      breadCrumbLabels.aboutCourse,
-      `‹ ${breadCrumbLabels.directory}`,
       'Inför kursval',
       'Kursens utveckling',
       'Arkiv',

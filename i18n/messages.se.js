@@ -619,13 +619,6 @@ module.exports = {
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersätta befintligt kurs-PM (se "Välj kursomgång" nedan)',
   },
-  breadCrumbLabels: {
-    university: 'KTH',
-    student: 'Student på KTH',
-    directory: 'Kurs- och programkatalogen',
-    aboutCourse: 'Om kursen',
-    noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge',
-  },
   coursePresentationLabels: {
     imageAltText: 'Inspirerande bild för kursen',
     imageTitleText: '',
@@ -682,11 +675,6 @@ module.exports = {
     otherContactsTitle: 'Övriga kontakter',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
-  },
-  courseHeaderLabels: {
-    adminLinkLabel: 'Administrera Om kursen',
-    label_edit_link_info: 'Länk fungerar inte i granska-läge',
-    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
   },
   courseImage: {
     Arkitektur: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',

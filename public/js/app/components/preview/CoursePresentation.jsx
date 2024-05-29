@@ -4,13 +4,10 @@ import PropTypes from 'prop-types'
 const CoursePresentation = ({ courseImageUrl = '', introText = '', labels }) => {
   const { imageAltText, imageTitleText } = labels
   return (
-    <div style={{ minHeight: '160px' }}>
+    <div className="course-presentation">
       <img
-        // >= lg : float left, x margins spacer * .5
-        // < lg : x margins auto, display block
-        className="float-lg-start me-lg-4 mb-lg-3 mx-sm-auto d-sm-block"
-        height="auto"
-        width="150px"
+        id="course-presentation-image"
+        className="float-sm-start"
         src={courseImageUrl}
         alt={imageAltText}
         title={imageTitleText}

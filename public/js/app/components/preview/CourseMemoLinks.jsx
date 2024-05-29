@@ -19,21 +19,20 @@ const formatVersion = (language = 'sv', version) => {
 const version = (language, labels, memoVersion) =>
   memoVersion ? (
     <>
-      <h4>{labels.versionTitle}</h4>
+      <h3>{labels.versionTitle}</h3>
       <p>{`${labels.latest} ${formatVersion(language, memoVersion)}`}</p>
     </>
   ) : (
     <>
-      <h4>{labels.versionTitle}</h4>
+      <h3>{labels.versionTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
 
 const pdfLink = labels => (
   <span id="print-link-with-popup">
-    <h4>{labels.courseMemoPrint}</h4>
-    <button className="link-button print-pm-link" id="print-pm-link">
-      <svg className="print-icon" />
+    <h3>{labels.courseMemoPrint}</h3>
+    <button className="print-link" id="print-pm-link">
       {labels.linkCourseMemoPrint}
     </button>
     <Popup header={labels.courseMemoPrint} body={labels.courseMemoModal} targetId="print-pm-link" />
@@ -41,7 +40,7 @@ const pdfLink = labels => (
 )
 
 const CourseMemoLinks = ({ language, labels, memoData = {} }) => (
-  <div className="preview-info-box">
+  <div className="info-box">
     {version(language, labels, memoData.lastChangeDate)}
     {pdfLink(labels)}
   </div>

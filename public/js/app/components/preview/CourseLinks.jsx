@@ -6,8 +6,8 @@ import { courseLinks } from '../../util/links'
 import Popup from './Popup'
 
 const CourseLinks = ({ language, labels }) => (
-  <aside className="preview-info-box text-break">
-    <h4>{labels.linkHeaderTitle}</h4>
+  <aside className="info-box">
+    <h3>{labels.linkHeaderTitle}</h3>
     {['rightsAndResponsibilities', 'courseAndExamination', 'administrateYouStudy'].map(linkTitle => (
       <p key={`paragraph-for-link-${linkTitle}`}>
         <a

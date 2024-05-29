@@ -46,7 +46,7 @@ const formatRoundsShort = memoData => {
 const offeredBy = (labels, departmentName) =>
   departmentName ? (
     <>
-      <h4>{labels.offeredByTitle}</h4>
+      <h3>{labels.offeredByTitle}</h3>
       <p>
         <a
           id="link-department-name"
@@ -62,7 +62,7 @@ const offeredBy = (labels, departmentName) =>
     </>
   ) : (
     <>
-      <h4>{labels.offeredByTitle}</h4>
+      <h3>{labels.offeredByTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -70,12 +70,12 @@ const offeredBy = (labels, departmentName) =>
 const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
   memoLanguageOfInstructions ? (
     <>
-      <h4>{labels.languageOfInstructionTitle}</h4>
+      <h3>{labels.languageOfInstructionTitle}</h3>
       <p>{memoLanguageOfInstructions}</p>
     </>
   ) : (
     <>
-      <h4>{labels.languageOfInstructionTitle}</h4>
+      <h3>{labels.languageOfInstructionTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -83,12 +83,12 @@ const languageOfInstruction = (labels, memoLanguageOfInstructions) =>
 const rounds = (labels, memoData) =>
   memoData.memoName ? (
     <>
-      <h4>{labels.roundsTitle}</h4>
+      <h3>{labels.roundsTitle}</h3>
       <p>{formatRoundsShort(memoData)}</p>
     </>
   ) : (
     <>
-      <h4>{labels.roundsTitle}</h4>
+      <h3>{labels.roundsTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
@@ -96,18 +96,18 @@ const rounds = (labels, memoData) =>
 const startDate = (labels, memoData) =>
   memoData.roundsStartDate ? (
     <>
-      <h4>{labels.startdate}</h4>
+      <h3>{labels.startdate}</h3>
       <p>{getDateFormat(memoData.roundsStartDate[0])}</p>
     </>
   ) : (
     <>
-      <h4>{labels.startdate}</h4>
+      <h3>{labels.startdate}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
 
 const CourseFacts = ({ labels, departmentName = '', memoData = {} }) => (
-  <div className="preview-info-box text-break">
+  <div className="info-box">
     {startDate(labels, memoData)}
     {rounds(labels, memoData)}
     {languageOfInstruction(labels, memoData.languageOfInstructions)}
