@@ -8,7 +8,7 @@ const CommentChangesTextarea = ({ isError, labels, memoLangIndex, onChange, text
   <Form className={isError ? 'error-area' : ''}>
     <FormGroup>
       <ContentHead contentId="commentAboutMadeChanges" memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
-      <Label className="form-control-label" htmlFor="commentChanges">
+      <Label className="form-control-label" htmlFor="commentChanges" data-testid="text-about-changes">
         {labels.commentChanges}
       </Label>
       <Input

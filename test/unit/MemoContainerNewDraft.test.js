@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 import { render, fireEvent, waitFor, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { StaticRouter } from 'react-router-dom/server'
@@ -8,12 +7,7 @@ import { act } from 'react-dom/test-utils'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
 import i18n from '../../i18n'
-import {
-  getNumOfEditableStandardContent,
-  getOnlyStandardHeaders,
-  getSectionHeadersByType,
-  typeOfThisHeader,
-} from '../../public/js/app/util/fieldsByType.js'
+import { getOnlyStandardHeaders, getSectionHeadersByType } from '../../public/js/app/util/fieldsByType.js'
 import MemoContainer from '../../public/js/app/pages/MemoEditingContainer'
 import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import translations from '../mocks/translations'
@@ -61,12 +55,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     const allH1Headers = getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
-  })
-
-  test('tab: contentAndOutcomes. renders main subheader (course name)(en)', () => {
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+    expect(allH1Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
   test('tab: contentAndOutcomes. renders menu h4', () => {
@@ -112,6 +101,8 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
       'Edit Learning activities',
       'Information about Detailed plan',
       'Edit Detailed plan',
+      null,
+      null,
       null,
       null,
       null,
@@ -311,9 +302,9 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. renders main subheader (course name)(en)', () => {
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
   test('tab: prep. renders (en) menu h4', () => {
@@ -364,6 +355,8 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
       'Edit Software',
       'Information about Support for students with disabilities',
       'Edit Support for students with disabilities',
+      null,
+      null,
       null,
       null,
       null,
@@ -615,9 +608,9 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   })
 
   test('tab: reqToFinal examinations. renders main subheader (course name)(sv)', () => {
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('Skapa och publicera kurs-PMEF1111 Project in Plasma Physics 9.0 hp')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('Skapa och publicera kurs-PMEF1111 Project in Plasma Physics 9.0 hp')
   })
 
   test('tab: reqToFinal examinations. renders (sv) menu h4', () => {
@@ -801,9 +794,9 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   })
 
   test('tab: contactss. renders main subheader (course name)(en)', () => {
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
   test('tab: contacts. renders main subheader (course name)(en) menu h4', () => {
@@ -851,6 +844,8 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
       'Information about Examiner',
       'Information about Other contacts',
       'Edit Other contacts',
+      null,
+      null,
       null,
       null,
       'Exit with draft',
