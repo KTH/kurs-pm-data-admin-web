@@ -318,7 +318,12 @@ function PreviewContainer(props) {
         <Col lg="9">
           <PageHeading heading={concatHeaderMemoName(semester, memoCommonLangAbbr)} subHeading={courseTitle} />
           <Row>
-            <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
+            <Col
+              lg="8"
+              id="flexible-content-of-center"
+              className="preview-content-center"
+              data-testid="preview-main-content"
+            >
               <CoursePresentation
                 courseImageUrl={courseImageUrl}
                 introText={sellingText || ''}
@@ -329,7 +334,7 @@ function PreviewContainer(props) {
               </p>
               {allSections}
             </Col>
-            <Col lg="4" className="preview-content-right">
+            <Col lg="4" className="preview-content-right" data-testid="preview-side-content">
               <CourseFacts labels={courseFactsLabels} departmentName={memoData.departmentName} memoData={memoData} />
               <CourseMemoLinks
                 language={memoCommonLangAbbr}

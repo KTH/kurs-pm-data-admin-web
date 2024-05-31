@@ -129,11 +129,7 @@ function MemoContainer(props) {
     // update course title in case if smth changed in kopps
     store.setCourseTitle(courseTitle)
 
-    return (
-      <span role="heading" aria-level="4">
-        {courseTitle}
-      </span>
-    )
+    return <span>{courseTitle}</span>
   }
 
   const setUpperAlarm = () => {

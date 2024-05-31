@@ -59,7 +59,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
     })
-    const headers = getAllByRole('presentation')
+    const headers = getAllByRole('heading', { level: 1 })
     expect(headers.length).toBe(1)
     expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
@@ -77,7 +77,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     await act(async () => {
       await render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
     })
-    const headers = getAllByRole('presentation')
+    const headers = getAllByRole('heading', { level: 1 })
     expect(headers.length).toBe(1)
     expect(headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
   })

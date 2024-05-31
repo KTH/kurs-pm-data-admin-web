@@ -84,7 +84,6 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
 
   test('tab: contentAndOutcomes (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH3Headers.length).toBe(11)
     const expectedh3ds = introductionEditHeaders.sv
       .concat(informStudentsHeaders.sv)
@@ -128,14 +127,13 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   })
 
   test('tab: contentAndOutcomes (draft of published). renders main subheader (course name)(sv)', () => {
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
   })
 
-  test('tab: contentAndOutcomes (draft of published). renders h4 for help text and other menu h4 (menu headers), ', () => {
+  test('tab: contentAndOutcomes (draft of published). renders h4 for help text', () => {
     const allH4Headers = getAllByRole('heading', { level: 4 })
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH4Headers.length).toBe(2)
     const expectedhds = ['Termin', 'Kursomgång']
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
@@ -160,7 +158,6 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
 
   test('tab: contentAndOutcomes (draft of published). renders main header h2 (page name) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
 
     expect(allH2Headers.length).toBe(1)
     expect(allH2Headers[0]).toHaveTextContent('Redigera kurs-PM')
@@ -182,6 +179,8 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
       'Edit Created by user Second header for section extraHeaders1', // fix header in extra rubrik
       null,
       'Information om Made changes',
+      null,
+      null,
       null,
       null,
       'Avsluta med utkast',
@@ -470,9 +469,9 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   })
 
   test('tab: prep (draft of published). renders main subheader (course name)(sv)', () => {
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
   })
 
   test('tab: prep (draft of published). renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers), ', () => {
@@ -529,6 +528,8 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
       'Edit Created by user Second header for section extraHeaders2', // fix header in extra rubrik
       null,
       'Information om Made changes',
+      null,
+      null,
       null,
       null,
       'Avsluta med utkast',
@@ -796,7 +797,6 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
 
   test('tab: reqToFinal (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = getAllByRole('heading', { level: 3 })
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
     expect(allH3Headers.length).toBe(16)
     const expectedh3ds = introductionEditHeaders.sv
       .concat(informStudentsHeaders.sv)
@@ -859,6 +859,8 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       'Edit Created by user Second header for section extraHeaders3', // fix header in extra rubrik
       null,
       'Information om Made changes',
+      null,
+      null,
       null,
       null,
       'Avsluta med utkast',
@@ -1195,6 +1197,9 @@ describe('Active tab extra. Component <MemoContainer> Edit published. A New draf
       'Information om Made changes',
       null,
       null,
+      null,
+      null,
+      null,
       'Avsluta med utkast',
       null,
     ]
@@ -1405,6 +1410,8 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
       'Information om Other contacts',
       'Edit Other contacts',
       'Information om Made changes',
+      null,
+      null,
       null,
       null,
       'Avsluta med utkast',
