@@ -25,6 +25,7 @@
 
 @import 'shared';
 @import 'preview';
+@import 'table';
 
 .kth-alert {
   margin-bottom: 32px;
@@ -248,6 +249,7 @@ $editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bo
 .mce-content-body {
   margin: 8px;
   background-color: #fff;
+  @extend %table-style;
 }
 
 // Style of section/editor text:
@@ -255,6 +257,7 @@ $editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bo
 // .section-content - Preview of text when editor isn't active (or for required text without editor)
 .mce-content-body,
 .section-content {
+  @extend %table-style;
   @include prose.prose;
   p {
     max-width: unset;

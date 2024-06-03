@@ -237,6 +237,7 @@ function ExtraHeadingEditor(props) {
           /* is included in memo, preview text without editor */
           ((visibleInMemo && (
             <span
+              className="section-content"
               dangerouslySetInnerHTML={{
                 __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet.section}</i></p>`,
               }}
