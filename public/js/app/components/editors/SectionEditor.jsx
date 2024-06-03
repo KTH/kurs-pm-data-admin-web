@@ -62,7 +62,9 @@ export const SectionEditor = ({
               onBlur={onBlur}
             />
           </OnClickPropagationStopper>
-          <SaveAndCloseButton onSaveAndClose={onSaveAndClose} text={buttons.saveAndCloseEditor} />
+          <OnClickPropagationStopper>
+            <SaveAndCloseButton onSaveAndClose={onSaveAndClose} text={buttons.saveAndCloseEditor} />
+          </OnClickPropagationStopper>
         </span>
       )}
 

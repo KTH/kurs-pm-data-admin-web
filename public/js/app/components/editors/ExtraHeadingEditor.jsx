@@ -216,14 +216,18 @@ function ExtraHeadingEditor(props) {
                 />
               </OnClickPropagationStopper>
               <div className="extra-heading-buttons" data-testid="remove-added-heading">
-                <ActionModalButton
-                  btnLabel={buttons.btnRemoveHeading}
-                  modalId={`beforeRemoving-${contentId}-${uKey}`}
-                  type="remove"
-                  modalLabels={actionModals.newSectionRemove}
-                  onConfirm={onRemoveThisContent}
-                />
-                <SaveAndCloseButton onSaveAndClose={toggleEditor} text={buttons.saveAndCloseEditor} />
+                <OnClickPropagationStopper>
+                  <ActionModalButton
+                    btnLabel={buttons.btnRemoveHeading}
+                    modalId={`beforeRemoving-${contentId}-${uKey}`}
+                    type="remove"
+                    modalLabels={actionModals.newSectionRemove}
+                    onConfirm={onRemoveThisContent}
+                  />
+                </OnClickPropagationStopper>
+                <OnClickPropagationStopper>
+                  <SaveAndCloseButton onSaveAndClose={toggleEditor} text={buttons.saveAndCloseEditor} />
+                </OnClickPropagationStopper>
               </div>
             </span>
           </span>

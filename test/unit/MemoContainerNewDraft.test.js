@@ -579,13 +579,16 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. renders "Remove added heading" button and test to click on it.', async () => {
-    const addHeadingTo = getByTestId('add-heading-to')
+    const addHeadingTo = screen.getByTestId('add-heading-to')
     fireEvent.click(addHeadingTo)
     await waitFor(() => {
       const buttonContainer = within(screen.getByTestId('remove-added-heading').parentElement)
-      fireEvent.click(buttonContainer.getByRole('button', { name: 'Remove added heading' }))
+      buttonContainer.getByRole('button', { name: 'Remove added heading' }).click()
     })
-    expect(getByTestId('alert-save-data')).toBeInTheDocument()
+    await waitFor(() => {
+      screen.getByRole('button', { name: 'Yes, delete' }).click()
+    })
+    expect(screen.getByTestId('alert-save-data')).toBeInTheDocument()
   })
 })
 
