@@ -192,223 +192,224 @@ span.section-info {
     }
   }
 
-#menu-link-directory {
-  color: #006cb7;
-  margin: 0;
-  padding: 0;
-  &:hover {
+  #menu-link-directory {
     color: #006cb7;
-  }
-}
-
-.preview-content-separation {
-  margin-top: 30px;
-  height: 6px;
-  background-image: linear-gradient(to left, #005ea4, #5c98c4);
-}
-
-h4.secondTitle {
-  margin-top: 4px;
-}
-
-.preview-container {
-  margin-bottom: 115px;
-}
-
-.preview-side-menu {
-  padding-right: 35px;
-}
-
-.preview-content-center {
-  h2 {
-    margin-top: 0px !important; // Resets to KTH Style
-    margin-bottom: 0 !important; // According to sketch
-  }
-  .title-and-info {
-    h3 {
-      margin-top: 24px !important; // Resets to KTH Style
-      margin-bottom: 10px !important; // Resets to KTH Style
-    }
-  }
-}
-
-.right-block-for-extra {
-  border-left: 1px solid var(--color-border);
-  padding-left: 30px;
-}
-
-.extra-heading-form {
-  width: 100%;
-  .form-control-label {
-    @include typography.font-heading-xs;
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-}
-
-.modal-body {
-  @include prose.prose;
-  div > :first-child {
-    margin-block-start: 0;
-  }
-  div > :last-child {
-    margin-block-end: 0;
-  }
-}
-
-.error-area {
-  outline: solid 1px var(--color-error);
-  outline-offset: 10px;
-}
-.error-label {
-  color: var(--color-error);
-}
-
-//tiny mce editor
-$personal-menu-height: 41px;
-$tab-menu-height: 35px;
-$tab-menu-top-bottom-padding: 40px;
-$editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bottom-padding;
-.memo-content {
-  .tox.tox-tinymce.tox-tinymce--toolbar-sticky-on {
-    padding-top: $editor-menu-offset;
-    .tox-editor-header {
-      margin-top: $editor-menu-offset;
-    }
-  }
-}
-
-.mce-content-body {
-  margin: 8px;
-  background-color: #fff;
-  @extend %table-style;
-}
-
-// Style of section/editor text:
-// .mce-content-body - Text area of Tinymce editor
-// .section-content - Preview of text when editor isn't active (or for required text without editor)
-.mce-content-body,
-.section-content {
-  @extend %table-style;
-  @include prose.prose;
-  p {
-    max-width: unset;
-  }
-  & > :first-child {
-    margin-block-start: 0;
-  }
-  & > :last-child {
-    margin-block-end: 0;
-  }
-  li p {
-    margin-block: 0;
-  }
-}
-
-.heading-box {
-  margin-top: 0;
-  margin-bottom: 2em;
-  width: 100%;
-  background-color: var(--color-background-alt);
-  border: 1px solid transparent;
-  display: grid;
-  padding: 1em;
-
-  & + & {
-    margin-top: 2em;
-  }
-
-  &.with-nested {
-    padding: 0em;
-
-    .nested-section {
-      padding: 1em;
-    }
-
-    > .heading-box {
-      border-bottom: 0;
-      border-left: 0;
-      border-right: 0;
-      margin-bottom: 0;
+    margin: 0;
+    padding: 0;
+    &:hover {
+      color: #006cb7;
     }
   }
 
-  .kth-button.secondary {
-    background-color: var(--color-background);
+  .preview-content-separation {
+    margin-top: 30px;
+    height: 6px;
+    background-image: linear-gradient(to left, #005ea4, #5c98c4);
   }
 
-  &.ready {
-    border: 1px solid var(--color-border);
-    border-radius: 0.25rem;
+  h4.secondTitle {
+    margin-top: 4px;
+  }
+
+  .preview-container {
+    margin-bottom: 115px;
+  }
+
+  .preview-side-menu {
+    padding-right: 35px;
+  }
+
+  .preview-content-center {
+    h2 {
+      margin-top: 0px !important; // Resets to KTH Style
+      margin-bottom: 0 !important; // According to sketch
+    }
+    .title-and-info {
+      h3 {
+        margin-top: 24px !important; // Resets to KTH Style
+        margin-bottom: 10px !important; // Resets to KTH Style
+      }
+    }
+  }
+
+  .right-block-for-extra {
+    border-left: 1px solid var(--color-border);
+    padding-left: 30px;
+  }
+
+  .extra-heading-form {
+    width: 100%;
+    .form-control-label {
+      @include typography.font-heading-xs;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .modal-body {
+    @include prose.prose;
+    div > :first-child {
+      margin-block-start: 0;
+    }
+    div > :last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  .error-area {
+    outline: solid 1px var(--color-error);
+    outline-offset: 10px;
+  }
+  .error-label {
+    color: var(--color-error);
+  }
+
+  //tiny mce editor
+  $personal-menu-height: 41px;
+  $tab-menu-height: 35px;
+  $tab-menu-top-bottom-padding: 40px;
+  $editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bottom-padding;
+  .memo-content {
+    .tox.tox-tinymce.tox-tinymce--toolbar-sticky-on {
+      padding-top: $editor-menu-offset;
+      .tox-editor-header {
+        margin-top: $editor-menu-offset;
+      }
+    }
+  }
+
+  .mce-content-body {
+    margin: 8px;
     background-color: #fff;
+    @extend %table-style;
   }
 
-  &.clickable {
-    cursor: pointer;
+  // Style of section/editor text:
+  // .mce-content-body - Text area of Tinymce editor
+  // .section-content - Preview of text when editor isn't active (or for required text without editor)
+  .mce-content-body,
+  .section-content {
+    @extend %table-style;
+    @include prose.prose;
+    p {
+      max-width: unset;
+    }
+    & > :first-child {
+      margin-block-start: 0;
+    }
+    & > :last-child {
+      margin-block-end: 0;
+    }
+    li p {
+      margin-block: 0;
+    }
   }
 
-  .editor {
+  .heading-box {
+    margin-top: 0;
+    margin-bottom: 2em;
+    width: 100%;
+    background-color: var(--color-background-alt);
+    border: 1px solid transparent;
     display: grid;
-    row-gap: 20px;
+    padding: 1em;
 
-    details {
-      margin: 0;
+    & + & {
+      margin-top: 2em;
     }
 
-    button {
-      justify-self: right;
+    &.with-nested {
+      padding: 0em;
+
+      .nested-section {
+        padding: 1em;
+      }
+
+      > .heading-box {
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    .kth-button.secondary {
+      background-color: var(--color-background);
+    }
+
+    &.ready {
+      border: 1px solid var(--color-border);
+      border-radius: 0.25rem;
+      background-color: #fff;
+    }
+
+    &.clickable {
+      cursor: pointer;
+    }
+
+    .editor {
+      display: grid;
+      row-gap: 20px;
+
+      details {
+        margin: 0;
+      }
+
+      button {
+        justify-self: right;
+      }
+    }
+
+    .extra-heading-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .no-visible-in-memo {
+      opacity: 50%;
     }
   }
-
-  .extra-heading-buttons {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .no-visible-in-memo {
-    opacity: 50%;
-  }
-}
-
-.toggle-editor {
-  background-repeat: no-repeat;
-  height: 16px;
-  width: 20px;
-  cursor: pointer;
-  display: block;
-
-  &.closed {
-    background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/edit-blue.svg');
-  }
-
-  &.opened {
-    background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/close-black.svg');
-  }
-}
-
-.section-heading {
-  display: flex;
-  column-gap: 1em;
-  justify-content: space-between;
-  align-items: center;
-  align-content: stretch;
 
   .toggle-editor {
-    align-self: flex-start;
-  }
-}
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 20px;
+    cursor: pointer;
+    display: block;
 
-// details/summary
-details {
-  summary.grey {
-    padding-left: 0;
-    background-color: var(--color-background-alt);
-    color: var(--color-tertiary);
-    &::before {
-      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iYSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3LjQxIDEyIj4KICA8cGF0aCBkPSJNMCwxMC41OEw0LjU4LDYsMCwxLjQxLDEuNDEsMCw3LjQxLDYsMS40MSwxMmwtMS40MS0xLjQyWiIgc3R5bGU9ImZpbGw6IzAwNmNiNzsiLz4KPC9zdmc+);
+    &.closed {
+      background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/edit-blue.svg');
+    }
+
+    &.opened {
+      background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/close-black.svg');
     }
   }
-  & > :not(summary) {
-    @include prose.prose;
+
+  .section-heading {
+    display: flex;
+    column-gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+    align-content: stretch;
+
+    .toggle-editor {
+      align-self: flex-start;
+    }
+  }
+
+  // details/summary
+  details {
+    summary.grey {
+      padding-left: 0;
+      background-color: var(--color-background-alt);
+      color: var(--color-tertiary);
+      &::before {
+        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iYSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3LjQxIDEyIj4KICA8cGF0aCBkPSJNMCwxMC41OEw0LjU4LDYsMCwxLjQxLDEuNDEsMCw3LjQxLDYsMS40MSwxMmwtMS40MS0xLjQyWiIgc3R5bGU9ImZpbGw6IzAwNmNiNzsiLz4KPC9zdmc+);
+      }
+    }
+    & > :not(summary) {
+      @include prose.prose;
+    }
   }
 }

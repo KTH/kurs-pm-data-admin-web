@@ -16,7 +16,6 @@ import CourseFacts from '../components/preview/CourseFacts'
 import CourseMemoLinks from '../components/preview/CourseMemoLinks'
 import CourseLinks from '../components/preview/CourseLinks'
 import CourseContacts from '../components/preview/CourseContacts'
-import CourseHeader from '../components/preview/CourseHeader'
 import Section from '../components/preview/Section'
 import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
@@ -191,13 +190,8 @@ function PreviewContainer(props) {
 
   const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, sideMenuLabels } = i18n.messages[langIndex]
 
-  const {
-    courseFactsLabels,
-    courseMemoLinksLabels,
-    courseLinksLabels,
-    courseContactsLabels,
-    sectionsLabels,
-  } = i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
+  const { courseFactsLabels, courseMemoLinksLabels, courseLinksLabels, courseContactsLabels, sectionsLabels } =
+    i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
 
   const { validFromTerm } = syllabusValid
 
@@ -284,7 +278,12 @@ function PreviewContainer(props) {
         <Col lg="9">
           <PageHeading heading={concatHeaderMemoName(semester, memoCommonLangAbbr)} subHeading={courseTitle} />
           <Row>
-            <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
+            <Col
+              lg="8"
+              id="flexible-content-of-center"
+              className="preview-content-center"
+              data-testid="preview-main-content"
+            >
               <p>
                 {sectionsLabels.asterisk} {seasonStr(langIndex, validFromTerm)}
               </p>
