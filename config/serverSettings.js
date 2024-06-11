@@ -20,12 +20,13 @@ const { safeGet } = require('safe-utils')
 const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
-const devKursPmDataApi = devDefaults('http://localhost:3001/api/kurs-pm-data?defaultTimeout=10000') // required=true&
+const devKursPmDataApi = devDefaults('http://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000') // required=true&
 const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
 const devSessionKey = devDefaults('kurs-pm-data-admin-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
-// END DEFAULT SETTINGS
+const devUgRestAuthApiTokenUri = devDefaults('https://login.ref.ug.kth.se/adfs/')
+const devUgRestApiUri = devDefaults('https://integral-api.sys.kth.se/test/ug')
 
 const devOidcIssuerURL = devDefaults('https://login.ref.ug.kth.se/adfs')
 const devOidcConfigurationURL = devDefaults(`${devOidcIssuerURL}/.well-known/openid-configuration`)
@@ -34,6 +35,8 @@ const prefixPath = devDefaults('/kursinfoadmin/kurs-pm-data')
 const devOidcCallbackURL = devDefaults(`http://localhost:3000${prefixPath}/auth/login/callback`)
 const devOidcCallbackSilentURL = devDefaults(`http://localhost:3000${prefixPath}/auth/silent/callback`)
 const devOidcLogoutCallbackURL = devDefaults(`http://localhost:3000${prefixPath}/auth/logout/callback`)
+
+// END DEFAULT SETTINGS
 
 module.exports = {
   hostUrl: getEnv('SERVER_HOST_URL', devUrl),
@@ -46,13 +49,13 @@ module.exports = {
   },
 
   oidc: {
-    configurationUrl: getEnv('OIDC_CONFIGURATION_URL', devDefaults(devOidcConfigurationURL)),
+    configurationUrl: getEnv('OIDC_CONFIGURATION_URL', devOidcConfigurationURL),
     clientId: getEnv('OIDC_APPLICATION_ID', null),
     clientSecret: getEnv('OIDC_CLIENT_SECRET', null),
-    tokenSecret: getEnv('OIDC_TOKEN_SECRET', devDefaults(devOidcTokenSecret)),
-    callbackLoginUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
-    callbackSilentLoginUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devDefaults(devOidcCallbackSilentURL)),
-    callbackLogoutUrl: getEnv('OIDC_CALLBACK_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),
+    tokenSecret: getEnv('OIDC_TOKEN_SECRET', devOidcTokenSecret),
+    callbackLoginUrl: getEnv('OIDC_CALLBACK_URL', devOidcCallbackURL),
+    callbackSilentLoginUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devOidcCallbackSilentURL),
+    callbackLogoutUrl: getEnv('OIDC_CALLBACK_LOGOUT_URL', devOidcLogoutCallbackURL),
   },
 
   // API keys
@@ -112,13 +115,13 @@ module.exports = {
 
   // UG API auth properties
   ugAuth: {
-    authTokenURL: getEnv('UG_REST_AUTH_API_TOKEN_URI', null),
+    authTokenURL: getEnv('UG_REST_AUTH_API_TOKEN_URI', devUgRestAuthApiTokenUri),
     authClientId: getEnv('UG_REST_AUTH_CLIENT_ID', null),
     authClientSecret: getEnv('UG_REST_AUTH_CLIENT_SECRET', null),
   },
   // ug redis api base url
   ugRestApiURL: {
-    url: getEnv('UG_REST_API_URI', null),
+    url: getEnv('UG_REST_API_URI', devUgRestApiUri),
     key: getEnv('UG_REST_API_SUBSCRIPTION_KEY', null),
   },
 
