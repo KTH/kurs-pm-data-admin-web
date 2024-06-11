@@ -16,8 +16,6 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
     koppsFreshData: {
       courseMainSubjects: '',
     },
-    browserConfig: { imageStorageUri: 'localhost://' },
-    imageFromAdmin: '',
     noMemoData: () => false,
     memoDatas: [],
     activeTermsPublishedMemos: [],
