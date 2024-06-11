@@ -5,6 +5,8 @@ const redis = require('kth-node-redis')
 const connections = require('@kth/api-call').Connections
 const { server: config } = require('./configuration')
 
+const { roundIsNotOutdated } = require('./utils/helpers')
+
 const koppsOpts = {
   log,
   https: true,
@@ -24,15 +26,6 @@ const koppsConfig = {
 }
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
-
-function removeRoundsOlderThanPreviousYear(checkDate) {
-  const dateToCheck = new Date(checkDate)
-  const dateToCheckYear = dateToCheck.getFullYear()
-  const today = new Date()
-  const currentYear = today.getFullYear()
-
-  return dateToCheckYear >= currentYear - 1
-}
 
 async function getCourseSchool(courseCode) {
   const { client } = api.koppsApi
@@ -63,7 +56,7 @@ async function getKoppsCourseRoundTerms(courseCode) {
     termsWithCourseRounds.forEach(t => {
       const { rounds: koppsCourseRounds } = t
       const rounds = koppsCourseRounds.filter(
-        round => removeRoundsOlderThanPreviousYear(round.lastTuitionDate) && round.state !== 'CANCELLED'
+        round => roundIsNotOutdated(round.lastTuitionDate) && round.state !== 'CANCELLED'
       )
       if (rounds.length > 0) activeTerms.push(t)
     })
