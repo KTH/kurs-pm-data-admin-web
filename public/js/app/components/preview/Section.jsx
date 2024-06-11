@@ -13,7 +13,7 @@ const Section = ({ contentId, menuId, visibleInMemo, html, memoLangIndex }) => {
   }
   const isAddedSubSection = context[contentId].hasParentTitle && contentId !== 'permanentDisabilitySubSection'
   return (
-    <span id={menuId} key={contentId}>
+    <span id={menuId} key={contentId} className="article">
       {isAddedSubSection ? (
         <SubSectionHeaderMessage message={insertedSubSection} />
       ) : (

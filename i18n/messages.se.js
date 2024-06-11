@@ -8,6 +8,8 @@ module.exports = {
      */
     date_format_short: '%Y-%m-%d',
 
+    language_link_lang_en: 'English',
+
     /**
      * Error messages
      */
@@ -563,7 +565,7 @@ module.exports = {
       Det går att lägga till både svenska och engelska kurstillfällen nedan.`,
     },
     cannotMergeLanguage: 'Går ej att välja, se ovan: Språk kurs-PM.',
-    commentChanges: 'Ange alla ändringar i denna version:',
+    commentChanges: 'Ange alla ändringar i denna version (obligatorisk):',
     contentHeaders: {
       title: 'Rubriker',
       intro: `<p>Alla fasta och valbara rubriker i detta kurs-PM visas nedan. Rubrikerna är grupperade i fem sektioner; "Innehåll och lärandemål", "Förberedelser inför kursstart", "Examination och slutförande", "Ytterligare information" and "Kontakter".</p>
@@ -616,13 +618,6 @@ module.exports = {
       'Du behöver fylla i obligatoriska fält (markerade i rött nedan) för att gå vidare till: Granska och publicera',
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersätta befintligt kurs-PM (se "Välj kursomgång" nedan)',
-  },
-  breadCrumbLabels: {
-    university: 'KTH',
-    student: 'Student på KTH',
-    directory: 'Kurs- och programkatalogen',
-    aboutCourse: 'Om kursen',
-    noLinksInPreview: 'Länkar i menyn fungerar inte i granska-läge',
   },
   coursePresentationLabels: {
     imageAltText: 'Inspirerande bild för kursen',
@@ -680,11 +675,6 @@ module.exports = {
     otherContactsTitle: 'Övriga kontakter',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
     mandatoryFieldMissing: 'Obligatoriskt innehåll saknas',
-  },
-  courseHeaderLabels: {
-    adminLinkLabel: 'Administrera Om kursen',
-    label_edit_link_info: 'Länk fungerar inte i granska-läge',
-    linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',
   },
   courseImage: {
     Arkitektur: 'Picture_by_MainFieldOfStudy_01_Architecture.jpg',

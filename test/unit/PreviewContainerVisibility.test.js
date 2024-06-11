@@ -1,17 +1,14 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import i18n from '../../i18n'
 import { StaticRouter } from 'react-router-dom/server'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
 import translations from '../mocks/translations'
 import PreviewContainer from '../../public/js/app/pages/PreviewContainer'
 import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
-import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
-import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoData'
 
-const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText, queryByText } = screen
+const { getAllByRole, queryByText } = screen
 
 const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
   const updatedApplicationStore = {
@@ -35,8 +32,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
   )
 }
 
-const { breadCrumbLabels, labelContacts, labelFacts, labelLinks, orderedFilledInAndVisible, sectionsLabels } =
-  translations.en
+const { labelContacts, labelFacts, labelLinks } = translations.en
 
 describe('Component <PreviewContainer> to display filled in draft of published memo. All memo data is filled in and only optional data must be invisible. memoLang="en" userLang="sv"', () => {
   beforeEach(() => {
@@ -46,9 +42,9 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     done()
   })
 
-  test('renders main header H3 (content) in user lang(sv),  and memo only extra sections headers in memo lang(en)', () => {
-    const allH3Headers = getAllByRole('heading', { level: 3 })
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+  test('renders main header H3 (content) in user lang(sv), and memo only extra sections headers in memo lang(en)', () => {
+    const mainContent = screen.getByTestId('preview-main-content')
+    const allH3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
     expect(allH3Headers.length).toBe(8)
     const expectedh3ds = [
       'Created by user First header for section extraHeaders1',
@@ -64,13 +60,11 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
-  test('renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers), ', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(13) //16
+  test('renders main subheader h3 in side-content,', () => {
+    const mainContent = screen.getByTestId('preview-side-content')
+    const h3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
+    expect(h3Headers.length).toBe(10)
     const expectedhds = [
-      'Termin',
-      'Kursomgång',
-      'EF1111 Project in Plasma Physics 9.0 credits',
       labelFacts.startdate,
       labelFacts.roundsTitle,
       labelFacts.languageOfInstructionTitle,
@@ -82,6 +76,13 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       labelContacts.teacherTitle,
       labelContacts.examinerTitle,
     ]
+    expectedhds.map((h4, index) => expect(h3Headers[index]).toHaveTextContent(h4))
+  })
+
+  test('renders main subheader h4 for help text', () => {
+    const allH4Headers = screen.getAllByRole('heading', { level: 4 })
+    expect(allH4Headers.length).toBe(2)
+    const expectedhds = ['Termin', 'Kursomgång']
     expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
   })
 
@@ -103,10 +104,5 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expect(allLinks.length).toBe(3)
     const expectedLinks = ['Rights and responsibilities', 'Course and examination', `Administrate your studies`]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
-  })
-
-  test('Get Admin link name ', async () => {
-    const adminLinkName = getByText('Administer About course')
-    expect(adminLinkName).toBeInTheDocument()
   })
 })

@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
-import { Container, Row, Col } from 'reactstrap'
-import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
+import { Row, Col } from 'reactstrap'
 
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
 import { useStore } from '../mobx'
+import PageHeading from '../components-shared/PageHeading'
+import ProgressBar from '../components-shared/ProgressBar'
 import AlertMissingDraft from '../components/alerts/AlertMissingDraft'
 import ControlPanel from '../components/ControlPanel'
 import ProgressTitle from '../components/ProgressTitle'
 import PageHead from '../components/PageHead'
-import BreadCrumbs from '../components/preview/BreadCrumbs'
 import SideMenu from '../components/preview/SideMenu'
 import CourseFacts from '../components/preview/CourseFacts'
 import CourseMemoLinks from '../components/preview/CourseMemoLinks'
@@ -74,7 +73,7 @@ const renderAllSections = ({ sections, memoData }) => {
   return sections.map(({ id, content, extraHeaderTitle }) => {
     if (!sectionsWithContent.includes(id)) {
       return (
-        <section key={id}>
+        <section key={id} className="section-wrapper">
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
@@ -87,7 +86,7 @@ const renderAllSections = ({ sections, memoData }) => {
     // Contacts are displayed in the right column
     return (
       id !== 'contacts' && (
-        <section key={id}>
+        <section key={id} className="section-wrapper">
           <h2 id={id} key={'header-' + id}>
             {sectionsLabels[id]}
           </h2>
@@ -190,15 +189,13 @@ function PreviewContainer(props) {
 
   const isDraftOfPublished = Number(version) > FIRST_VERSION
 
-  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, breadCrumbLabels, sideMenuLabels } =
-    i18n.messages[langIndex]
+  const { pagesCreateNewPm, pagesChangePublishedPm, pageTitles, sideMenuLabels } = i18n.messages[langIndex]
 
   const {
     courseFactsLabels,
     courseMemoLinksLabels,
     courseLinksLabels,
     courseContactsLabels,
-    courseHeaderLabels,
     sectionsLabels,
   } = i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
 
@@ -274,31 +271,18 @@ function PreviewContainer(props) {
   }
 
   return (
-    <Container className="kip-container preview-container" fluid>
-      <Row>
-        <PageHeading id="mainHeading" subHeading={courseTitle}>
-          {isDraftOfPublished ? pageTitles.published : pageTitles.new}
-        </PageHeading>
-      </Row>
-      <ProgressBar active={progress} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
+    <div className="kip-container preview-container">
+      <PageHeading heading={isDraftOfPublished ? pageTitles.published : pageTitles.new} subHeading={courseTitle} />
+      <ProgressBar current={progress - 1} steps={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={langIndex} />
       <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
       <div className="preview-content-separation" />
-      <Row>
-        <BreadCrumbs labels={breadCrumbLabels} courseCode={courseCode} />
-      </Row>
       <Row>
         <Col lg="3" className="preview-side-menu">
           <SideMenu courseCode={courseCode} courseMemoItems={courseMemoItems} labels={sideMenuLabels} />
         </Col>
         <Col lg="9">
-          <CourseHeader
-            courseMemo={concatHeaderMemoName(semester, memoCommonLangAbbr)}
-            courseCode={courseCode}
-            courseTitle={courseTitle}
-            labels={courseHeaderLabels}
-            language={memoCommonLangAbbr}
-          />
+          <PageHeading heading={concatHeaderMemoName(semester, memoCommonLangAbbr)} subHeading={courseTitle} />
           <Row>
             <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
               <p>
@@ -306,58 +290,39 @@ function PreviewContainer(props) {
               </p>
               {allSections}
             </Col>
-            <Col lg="4" className="preview-content-right">
-              <Row className="mb-4">
-                <Col>
-                  <CourseFacts
-                    labels={courseFactsLabels}
-                    departmentName={memoData.departmentName}
-                    memoData={memoData}
-                  />
-                </Col>
-              </Row>
-              <Row className="my-4">
-                <Col>
-                  <CourseMemoLinks
-                    language={memoCommonLangAbbr}
-                    labels={courseMemoLinksLabels}
-                    memoData={memoData}
-                    syllabusValid={memoData.syllabusValid}
-                  />
-                </Col>
-              </Row>
-              <Row className="mt-4">
-                <Col>
-                  <CourseLinks language={memoCommonLangAbbr} labels={courseLinksLabels} />
-                </Col>
-              </Row>
-              <Row id="row-for-the-last-element-which-determines-styles" className="mt-4">
-                <Col>
-                  <CourseContacts
-                    styleId="last-element-which-determines-styles"
-                    memoData={memoData}
-                    labels={courseContactsLabels}
-                  />
-                </Col>
-              </Row>
+            <Col lg="4" className="preview-content-right" data-testid="preview-side-content">
+              <CourseFacts labels={courseFactsLabels} departmentName={memoData.departmentName} memoData={memoData} />
+              <CourseMemoLinks
+                language={memoCommonLangAbbr}
+                labels={courseMemoLinksLabels}
+                memoData={memoData}
+                syllabusValid={memoData.syllabusValid}
+              />
+              <CourseLinks language={memoCommonLangAbbr} labels={courseLinksLabels} />
+              <div id="row-for-the-last-element-which-determines-styles">
+                <CourseContacts
+                  styleId="last-element-which-determines-styles"
+                  memoData={memoData}
+                  labels={courseContactsLabels}
+                />
+              </div>
             </Col>
           </Row>
         </Col>
       </Row>
-      <Container className="fixed-bottom">
-        <ControlPanel
-          langIndex={langIndex}
-          onSubmit={publish}
-          onBack={onBack}
-          onCancel={onFinish}
-          progress={progress}
-          isDraftOfPublished={isDraftOfPublished}
-          alertIsOpen={alertIsOpen}
-          alertText={alertText}
-          alertColor={alertColor}
-        />
-      </Container>
-    </Container>
+      <ControlPanel
+        fixedBottom
+        langIndex={langIndex}
+        onSubmit={publish}
+        onBack={onBack}
+        onCancel={onFinish}
+        progress={progress}
+        isDraftOfPublished={isDraftOfPublished}
+        alertIsOpen={alertIsOpen}
+        alertText={alertText}
+        alertColor={alertColor}
+      />
+    </div>
   )
 }
 

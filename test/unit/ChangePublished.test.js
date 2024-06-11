@@ -53,16 +53,16 @@ describe('Component <ChangedPublished> Edit published course memo with empty lis
 
   test('renders main subheader, course name. English.', () => {
     render(<ChangedPublishedEmpty langAbbr="en" langIndex={0} />)
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
   })
 
   test('renders main header h1, course name. Swedish.', () => {
     render(<ChangedPublishedEmpty langAbbr="sv" langIndex={1} />)
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('renders only three buttons if nothing pressed yet', async () => {

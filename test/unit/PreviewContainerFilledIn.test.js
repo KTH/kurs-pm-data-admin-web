@@ -1,7 +1,6 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import i18n from '../../i18n'
 import { StaticRouter } from 'react-router-dom/server'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
@@ -13,7 +12,7 @@ import generatedExtraHeaders from '../mocks/memoData/generateExtraHeaders'
 import generatedStandardMemoData from '../mocks/memoData/generateStandardMemoData'
 import mockCourseMemoItems from '../mocks/courseMemoItems'
 
-const { getAllByRole, getAllByTestId, getAllByText, getByTestId, getByText } = screen
+const { getAllByRole, getAllByTestId, getAllByText, getByText } = screen
 
 const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
   const updatedApplicationStore = {
@@ -37,8 +36,7 @@ const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => 
   )
 }
 
-const { breadCrumbLabels, labelContacts, labelFacts, labelLinks, orderedFilledInAndVisible, sectionsLabels } =
-  translations.en
+const { labelContacts, labelFacts, labelLinks, orderedFilledInAndVisible, sectionsLabels } = translations.en
 
 describe('Component <PreviewContainer> to display filled in draft of published memo. All memo data is filled in and visible. memoLang="en" userLang="sv"', () => {
   beforeEach(() => {
@@ -58,33 +56,33 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   test('renders main header h2 (page name) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH2Headers = getAllByRole('heading', { level: 2 })
     const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
-
-    expect(allH2Headers.length).toBe(6)
-    const expectedh2ds = ['Granska och publicera', contentAndOutcomes, prep, reqToFinal, extra, contacts]
+    expect(allH2Headers.length).toBe(7)
+    const expectedh2ds = [
+      'Granska och publicera',
+      'Om kursen EF1111',
+      contentAndOutcomes,
+      prep,
+      reqToFinal,
+      extra,
+      contacts,
+    ]
     expectedh2ds.map((h2, index) => expect(allH2Headers[index]).toHaveTextContent(h2))
   })
 
   test('renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
-    const allH3Headers = getAllByRole('heading', { level: 3 })
-    const { contentAndOutcomes, prep, reqToFinal, extra, contacts } = sectionsLabels
+    const mainContent = screen.getByTestId('preview-main-content')
+    const allH3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
+
     expect(allH3Headers.length).toBe(29)
     const expectedh3ds = orderedFilledInAndVisible
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
-  test('tab: contentAndOutcomes (draft of published). renders main subheader (course name)(en)', () => {
-    const subheader = getAllByRole('presentation')
-    expect(subheader.length).toBe(1)
-    expect(subheader[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
-  })
-
-  test('renders h4 for help text and other menu h4 (menu headers), ', () => {
-    const allH4Headers = getAllByRole('heading', { level: 4 })
-    expect(allH4Headers.length).toBe(16)
+  test('renders main subheader h3 in side-content,', () => {
+    const mainContent = screen.getByTestId('preview-side-content')
+    const h3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
+    expect(h3Headers.length).toBe(13)
     const expectedhds = [
-      'Termin',
-      'Kursomgång',
-      'EF1111 Project in Plasma Physics 9.0 credits',
       labelFacts.startdate,
       labelFacts.roundsTitle,
       labelFacts.languageOfInstructionTitle,
@@ -98,19 +96,17 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       labelContacts.teacherAssistantsTitle,
       labelContacts.examinerTitle,
     ]
-    expectedhds.map((h4, index) => expect(allH4Headers[index]).toHaveTextContent(h4))
+    expectedhds.map((h3, index) => expect(h3Headers[index]).toHaveTextContent(h3))
   })
 
   test('Get buttons and check it is name', async () => {
     const allBtns = getAllByRole('button')
-    expect(allBtns.length).toBe(12)
+    expect(allBtns.length).toBe(10)
     const expectedBtns = [
-      breadCrumbLabels.university,
-      breadCrumbLabels.student,
-      breadCrumbLabels.directory,
-      breadCrumbLabels.aboutCourse,
-      `‹ ${breadCrumbLabels.directory}`,
+      'Kurs- och programkatalogen',
       'Inför kursval',
+      'Kurs-PM',
+      'Course memo Autumn 2019-1',
       'Kursens utveckling',
       'Arkiv',
       'Print or save',
@@ -131,11 +127,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     expect(allLinks.length).toBe(3)
     const expectedLinks = ['Rights and responsibilities', 'Course and examination', `Administrate your studies`]
     expectedLinks.map((link, index) => expect(allLinks[index]).toHaveTextContent(link))
-  })
-
-  test('Get Admin link name ', async () => {
-    const adminLinkName = getByText('Administer About course')
-    expect(adminLinkName).toBeInTheDocument()
   })
 
   test('get memo name as memo name', async () => {
@@ -171,7 +162,8 @@ describe('Component <SideMenu>', () => {
     done()
   })
   test('renders published active memos', done => {
-    const { getByTestId } = render(<SideMenu labels={sectionsLabels} courseMemoItems={mockCourseMemoItems} />)
+    render(<SideMenu labels={sectionsLabels} courseMemoItems={mockCourseMemoItems} />)
+
     const labels = getAllByTestId('side-menu-labels')
     expect(labels.length).toBe(3)
     const sideMenuMemoLabels = ['1', '2', '4']

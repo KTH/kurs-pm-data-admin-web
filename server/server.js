@@ -95,11 +95,13 @@ server.use(
 server.use(_addProxy('/static/browserConfig'), browserConfigHandler)
 // Files/statics routes
 server.use(_addProxy('/static/kth-style'), express.static('./node_modules/kth-style/dist'))
+server.use(_addProxy('/assets'), express.static('./node_modules/@kth/style/assets'))
+
 // tinymce
 server.use(_addProxy('/static/tinymce'), express.static('./tinymce'))
 // Map static content like images, css and js.
 server.use(_addProxy('/static'), express.static('./dist'))
-// server.use(_addProxy('/static/icon/favicon'), express.static('./public/favicon.ico'))
+server.use(_addProxy('/static/icon/favicon'), express.static('./public/favicon.ico'))
 
 // Return 404 if static file isn't found so we don't go through the rest of the pipeline
 server.use(_addProxy('/static'), (req, res, next) => {
@@ -206,7 +208,7 @@ server.use(
     globalLink: config.blockApi.globalLink,
     addBlocks: config.blockApi.addBlocks,
     redisKey: config.cache.cortinaBlock.redisKey,
-    useStyle10: false,
+    useStyle10: true,
   })
 )
 

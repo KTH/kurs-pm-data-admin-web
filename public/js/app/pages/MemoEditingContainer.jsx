@@ -2,16 +2,17 @@
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect, useRef } from 'react'
 import { observer } from 'mobx-react'
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 import { StickyContainer, Sticky } from 'react-sticky'
-import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
 
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 import i18n from '../../../../i18n'
 import { FIRST_VERSION, SERVICE_URL, SAVED_NEW_PARAM } from '../util/constants'
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
+import Button from '../components-shared/Button'
+import PageHeading from '../components-shared/PageHeading'
+import ProgressBar from '../components-shared/ProgressBar'
 import AlertDraftOfPublished from '../components/alerts/AlertDraftOfPublished'
 import AlertErrorMissingComment from '../components/alerts/AlertErrorMissingComment'
 import AlertSuccessCopiedMemo from '../components/alerts/AlertSuccessCopiedMemo'
@@ -30,13 +31,12 @@ import { context, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
 
 const PROGRESS = 2
-const TAB_HEIGHT = 35
-const TAB_TOP_MARGIN = 15
-const TAB_HEIGHT_WITH_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN}px`
-const PERSONAL_MENU_HEIGHT = 41
-const MINUS_PERSONAL_MENU_HEIGHT = 0 - PERSONAL_MENU_HEIGHT
-const OVERVIEW_TOP_PADDING = `${TAB_HEIGHT + TAB_TOP_MARGIN + PERSONAL_MENU_HEIGHT + 30}px`
-const STICKY_BOTTOM_OFFSEST = 10 // PERSONAL_MENU_HEIGHT +
+const TAB_HEIGHT = 60
+const WHITE_SPACE_UNDER_TABS = 30
+const PERSONAL_MENU_HEIGHT = 40
+const STICKY_TABS_TOP_MARGIN = PERSONAL_MENU_HEIGHT
+const STICKY_SECTION_MENU_TOP_MARGIN = `${PERSONAL_MENU_HEIGHT + TAB_HEIGHT + WHITE_SPACE_UNDER_TABS}px`
+const STICKY_TOP_OFFSET = 0 - PERSONAL_MENU_HEIGHT
 
 function MemoContainer(props) {
   const toTopRef = useRef(null)
@@ -129,11 +129,7 @@ function MemoContainer(props) {
     // update course title in case if smth changed in kopps
     store.setCourseTitle(courseTitle)
 
-    return (
-      <span role="heading" aria-level="4">
-        {courseTitle}
-      </span>
-    )
+    return <span>{courseTitle}</span>
   }
 
   const setUpperAlarm = () => {
@@ -145,7 +141,7 @@ function MemoContainer(props) {
   const onAlert = (alertTranslationId, alertNewColor = 'success', onTimeout = 0) => {
     const translationId =
       isDraftOfPublished && alertTranslationId === 'autoSaved' ? 'autoSavedTemporary' : alertTranslationId
-    const newAlertState = { alertIsOpen: true, alertText: alerts[translationId], alertNewColor }
+    const newAlertState = { alertIsOpen: true, alertText: alerts[translationId], alertColor: alertNewColor }
     if (process.env.NODE_ENV !== 'test') {
       setTimeout(() => {
         setAlert(newAlertState)
@@ -338,8 +334,8 @@ function MemoContainer(props) {
     const { buttons } = i18n.messages[userLangIndex]
 
     return sections.map(({ id, content, extraHeaderTitle }) => (
-      <TabContent key={'tab-content-for-section-' + id} isActive={activeTab === id} sectionId={id}>
-        <span id={'section-header-' + id} ref={toTopRef} />
+      <TabContent key={`tab-content-for-section-${id}`} isActive={activeTab === id} sectionId={id}>
+        <div id={`section-header-${id}`} ref={toTopRef} />
         {/* load editors for only active tab
           to reduce load and trigger dismount all possible 
           overlay windows from other section's editors */}
@@ -377,8 +373,7 @@ function MemoContainer(props) {
               <Button
                 data-testid="add-heading-to"
                 className="element-50"
-                color="secondary"
-                block
+                variant="secondary"
                 onClick={() => onAddNewExtraContent(extraHeaderTitle)}
               >
                 {buttons.btnAddExtra}
@@ -391,14 +386,14 @@ function MemoContainer(props) {
     ))
   }
   return (
-    <Container className="kip-container" fluid>
-      {/* /* style={{ marginBottom: '110px' }} */}
+    <div className="kip-container">
       <Row key="pageHeader" id="scroll-here-if-alert">
-        <PageHeading id="mainHeading" subHeading={courseSubHeader()}>
-          {isDraftOfPublished ? pageTitles.published : pageTitles.new}
-        </PageHeading>
+        <PageHeading
+          heading={isDraftOfPublished ? pageTitles.published : pageTitles.new}
+          subHeading={courseSubHeader()}
+        />
       </Row>
-      <ProgressBar active={PROGRESS} pages={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
+      <ProgressBar current={PROGRESS - 1} steps={isDraftOfPublished ? pagesChangePublishedPm : pagesCreateNewPm} />
       <PageHead semester={semester} memoName={memoName} userLangIndex={userLangIndex} />
       {(isDraftOfPublished && !exactDraftCopyOfPublishedFromPrevVersion && (
         <AlertDraftOfPublished userLangIndex={userLangIndex} />
@@ -410,30 +405,22 @@ function MemoContainer(props) {
       )}
       <AlertSuccessCopiedMemo eventFromParams={eventFromParams} alertMsg={alerts.syllabusUpdated} />
       <AlertErrorMissingComment isError={isError} alertMsg={alerts.warnFillInCommentAboutChanges} />
-      <Row key="section-of-header" className="sections-headers" style={{ marginBottom: '1.875rem' }}>
-        <Col lg="7">
-          <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
-          <CollapseMemoIntroduction
-            translate={extraInfo.summaryIntroductionHelp}
-            isDraftOfPublished={isDraftOfPublished}
-            langAbbr={userLangAbbr}
-          />
-        </Col>
-      </Row>
+      <div key="section-of-header" className="sections-headers">
+        <ProgressTitle id="progress-title" text={pagesCreateNewPm[PROGRESS - 1]} />
+        <CollapseMemoIntroduction
+          translate={extraInfo.summaryIntroductionHelp}
+          isDraftOfPublished={isDraftOfPublished}
+          langAbbr={userLangAbbr}
+        />
+      </div>
       <StickyContainer className="memo-container">
-        <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
+        <Sticky topOffset={STICKY_TOP_OFFSET}>
           {({ style, isSticky }) => (
             <div
-              id="stickyDiv"
+              className={'sticky-tabs-container'}
               style={{
                 ...style,
-                ...{
-                  paddingRight: '0',
-                  // paddingBottom: '0',
-                  paddingTop: isSticky ? TAB_HEIGHT_WITH_TOP_PADDING : '0',
-                  backgroundColor: '#ffffff',
-                  zIndex: 1,
-                },
+                ...{ marginTop: isSticky ? STICKY_TABS_TOP_MARGIN : '0' },
               }}
             >
               <TabNav
@@ -452,21 +439,13 @@ function MemoContainer(props) {
             {renderTabSections()}
           </Col>
           <Col lg="3" className="sticky-overview">
-            <Sticky topOffset={MINUS_PERSONAL_MENU_HEIGHT} bottomOffset={STICKY_BOTTOM_OFFSEST}>
+            <Sticky topOffset={STICKY_TOP_OFFSET}>
               {({ style, isSticky }) => (
                 <div
-                  style={{
-                    ...style,
-                    ...{
-                      paddingRight: '0',
-                      paddingLeft: '1em',
-                      paddingBottom: '110px',
-                      paddingTop: isSticky ? OVERVIEW_TOP_PADDING : '0',
-                    },
-                  }}
+                  className="sticky-section-menu-container"
+                  style={{ ...style, marginTop: isSticky ? STICKY_SECTION_MENU_TOP_MARGIN : '0' }}
                 >
                   <SectionMenu
-                    id="mainMenu"
                     visiblesOfStandard={visibleInMemo}
                     userLangIndex={userLangIndex}
                     memoLangIndex={memoLangIndex}
@@ -489,23 +468,22 @@ function MemoContainer(props) {
           </Col>
         </Row>
       </StickyContainer>
-      <Container className="fixed-bottom">
-        <ControlPanel
-          langIndex={userLangIndex}
-          onSubmit={onContinueToPreview}
-          onSave={onAutoSave}
-          onBack={onBack}
-          onCancel={onCancel}
-          onFinish={onFinish}
-          progress={2}
-          alertText={alertText}
-          alertIsOpen={alertIsOpen}
-          alertColor={alertColor || 'success'}
-          isDraftOfPublished={isDraftOfPublished}
-          openAlertIdUntilFixed={openAlertIdUntilFixed}
-        />
-      </Container>
-    </Container>
+      <ControlPanel
+        fixedBottom
+        langIndex={userLangIndex}
+        onSubmit={onContinueToPreview}
+        onSave={onAutoSave}
+        onBack={onBack}
+        onCancel={onCancel}
+        onFinish={onFinish}
+        progress={2}
+        alertText={alertText}
+        alertIsOpen={alertIsOpen}
+        alertColor={alertColor || 'success'}
+        isDraftOfPublished={isDraftOfPublished}
+        openAlertIdUntilFixed={openAlertIdUntilFixed}
+      />
+    </div>
   )
 }
 

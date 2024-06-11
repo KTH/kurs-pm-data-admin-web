@@ -1,19 +1,20 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
-/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react'
-import { Alert, Col, Container, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
-import { ProgressBar } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
-import { PageHeading } from '@kth/kth-reactstrap/dist/components/studinfo'
 
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 
 import { SERVICE_URL } from '../util/constants'
+import { legacyAlertColorToType } from '../util/legacyAlertColorToType'
+import PageHeading from '../components-shared/PageHeading'
+import ProgressBar from '../components-shared/ProgressBar'
 import ControlPanel from '../components/ControlPanel'
-import SectionHeadingAsteriskModal from '../components/SectionHeadingAsteriskModal'
+import FadeAlert from '../components/FadeAlert'
+import HeadingWithInfoModal from '../components/HeadingWithInfoModal'
 import i18n from '../../../../i18n'
 
 import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
@@ -168,124 +169,119 @@ function ChangePublished(props) {
     setTerm(newSemester)
   }
   return (
-    <Container className="kip-container" style={{ marginBottom: '115px' }} fluid>
-      <Row id="scroll-here-if-alert">
-        <PageHeading id="mainHeading" subHeading={course && combinedCourseName(courseCode, course, langAbbr)}>
-          {pageTitles.published}
-        </PageHeading>
-      </Row>
+    <div className="kip-container">
+      <div id="scroll-here-if-alert">
+        <PageHeading
+          heading={pageTitles.published}
+          subHeading={course && combinedCourseName(courseCode, course, langAbbr)}
+        />
+      </div>
 
-      <ProgressBar active={1} pages={pagesChangePublishedPm} />
+      <ProgressBar current={0} steps={pagesChangePublishedPm} />
       {(alert.isOpen || eventFromParams) && (
-        <Row className="w-100 my-0 mx-auto section-50 upper-alert">
-          <Alert color={alert.type || 'success'} isOpen={!!alert.isOpen || true}>
-            {alerts[alert.textName]}
-            {alerts[alert.textName] && <br />}
+        <FadeAlert
+          className="upper-alert"
+          type={legacyAlertColorToType(alert.type) || 'success'}
+          isOpen={!!alert.isOpen || true}
+        >
+          {alerts[alert.textName]}
+          {alerts[alert.textName] && <br />}
 
-            {eventFromParams && alerts[eventFromParams] ? alerts[eventFromParams] : ''}
-          </Alert>
-        </Row>
+          {eventFromParams && alerts[eventFromParams] ? alerts[eventFromParams] : ''}
+        </FadeAlert>
       )}
 
-      <Container className="First--Step--Choose--Parameters">
-        <Row>
-          <Col>
-            {/* CHOOSE SEMESTER */}
-            <div>
-              <SectionHeadingAsteriskModal
-                langAbbr={langAbbr}
-                modalId="choose-semester"
-                titleAndInfo={info.chooseSemester}
-                btnClose={buttons.btnClose}
-              />
-              <p></p>
-              {/* <Label htmlFor="choose-semester">{info.chooseSemester.label}</Label> */}
-              {(termWithPm && termWithPm.length > 0 && (
-                <Form style={{ width: '20em' }} data-testid="form-select-terms">
-                  <FormGroup key="select-semester" id="choose-semester">
-                    <div className="select-wrapper">
-                      <select
-                        className="form-select"
-                        data-testid="select-terms"
-                        id="term-list"
-                        onChange={onChoiceOfSemester}
-                        defaultValue="PLACEHOLDER"
-                        value={term}
-                      >
-                        {!term && (
-                          <option key="no-chosen" defaultValue="PLACEHOLDER" style={{ display: 'none' }}>
-                            {info.chooseSemester.label}
-                          </option>
-                        )}
-                        {termWithPm.map(({ term: sem }) => (
-                          <option data-testid="select-option" id={`itemFor-${sem}`} key={sem} value={sem}>
-                            {seasonStr(langIndex, sem)}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </FormGroup>
-                </Form>
-              )) || (
-                <p>
-                  <i>{(termWithPm && info.noSemesterAvailable) || info.errKoppsRounds}</i>
-                </p>
-              )}
-            </div>
+      <div className="First--Step--Choose--Parameters">
+        {/* CHOOSE SEMESTER */}
+        <div>
+          <HeadingWithInfoModal
+            modalId="choose-semester"
+            titleAndInfo={info.chooseSemester}
+            btnClose={buttons.btnClose}
+          />
+          {(termWithPm && termWithPm.length > 0 && (
+            <Form style={{ width: '20em' }} data-testid="form-select-terms">
+              <FormGroup key="select-semester" id="choose-semester">
+                <div className="select-wrapper">
+                  <select
+                    className="form-select"
+                    data-testid="select-terms"
+                    id="term-list"
+                    onChange={onChoiceOfSemester}
+                    defaultValue="PLACEHOLDER"
+                    value={term}
+                  >
+                    {!term && (
+                      <option key="no-chosen" defaultValue="PLACEHOLDER" style={{ display: 'none' }}>
+                        {info.chooseSemester.label}
+                      </option>
+                    )}
+                    {termWithPm.map(({ term: sem }) => (
+                      <option data-testid="select-option" id={`itemFor-${sem}`} key={sem} value={sem}>
+                        {seasonStr(langIndex, sem)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </FormGroup>
+            </Form>
+          )) || (
+            <p>
+              <i>{(termWithPm && info.noSemesterAvailable) || info.errKoppsRounds}</i>
+            </p>
+          )}
+        </div>
 
-            {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
-            {term && (
-              <div className="section-50">
-                <SectionHeadingAsteriskModal
-                  langAbbr={langAbbr}
-                  modalId="choose-course-memo"
-                  titleAndInfo={info.chooseMemo}
-                  btnClose={buttons.btnClose}
-                />
-                {(hasMemos && (
-                  <>
-                    <Label htmlFor="choose-existed-memo">{info.chooseRound.publishedMemos.label}</Label>
-                    <Label htmlFor="choose-existed-memo">{info.chooseRound.publishedMemos.infoText}</Label>
-                    <Form
-                      className={`Existed--Memos ${
-                        alert.isOpen && alert.textName === 'errNoInPublishedChosen' ? 'error-area' : ''
-                      }`}
-                      id="choose-existed-memo"
-                    >
-                      {memosToEdit
-                        .filter(memo => memo.semester === String(term))
-                        .map(
-                          ({ memoName, memoEndPoint, status }) =>
-                            memoEndPoint && (
-                              <FormGroup className="form-check" key={'memo' + memoEndPoint}>
-                                <Input
-                                  type="radio"
-                                  id={memoEndPoint}
-                                  data-testid="radio-choose-pub-memo"
-                                  name="chooseMemo"
-                                  value={memoEndPoint}
-                                  onClick={event => onRadioChange(event, status)}
-                                  defaultChecked={memoEndPoint === chosenMemo.existingDraftEndPoint}
-                                />
-                                <Label data-testid="label-radio-choose-pub-memo" htmlFor={memoEndPoint}>
-                                  {memoName || memoEndPoint + ' (old memo before namegiving)'}
-                                  <i>{status === 'draft' ? info.publishedHasDraft : ''}</i>
-                                </Label>
-                              </FormGroup>
-                            )
-                        )}
-                    </Form>
-                  </>
-                )) || (
-                  <p>
-                    <i>{info.noPublishedMemos}</i>
-                  </p>
-                )}
-              </div>
+        {/* CONTINUE TO EDIT EXISTING DRAFT SO USER HAVE TO CHOOSE ONE */}
+        {term && (
+          <div>
+            <HeadingWithInfoModal
+              modalId="choose-course-memo"
+              titleAndInfo={info.chooseMemo}
+              btnClose={buttons.btnClose}
+            />
+            {(hasMemos && (
+              <>
+                <Label htmlFor="choose-existed-memo">{info.chooseRound.publishedMemos.label}</Label>
+                <p>{info.chooseRound.publishedMemos.infoText}</p>
+                <Form
+                  className={`Existed--Memos ${
+                    alert.isOpen && alert.textName === 'errNoInPublishedChosen' ? 'error-area' : ''
+                  }`}
+                  id="choose-existed-memo"
+                >
+                  {memosToEdit
+                    .filter(memo => memo.semester === String(term))
+                    .map(
+                      ({ memoName, memoEndPoint, status }) =>
+                        memoEndPoint && (
+                          <FormGroup className="form-check" key={'memo' + memoEndPoint}>
+                            <Input
+                              type="radio"
+                              id={memoEndPoint}
+                              data-testid="radio-choose-pub-memo"
+                              name="chooseMemo"
+                              value={memoEndPoint}
+                              onClick={event => onRadioChange(event, status)}
+                              defaultChecked={memoEndPoint === chosenMemo.existingDraftEndPoint}
+                            />
+                            <Label data-testid="label-radio-choose-pub-memo" htmlFor={memoEndPoint}>
+                              {memoName || memoEndPoint + ' (old memo before namegiving)'}
+                              <i>{status === 'draft' ? info.publishedHasDraft : ''}</i>
+                            </Label>
+                          </FormGroup>
+                        )
+                    )}
+                </Form>
+              </>
+            )) || (
+              <p>
+                <i>{info.noPublishedMemos}</i>
+              </p>
             )}
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        )}
+      </div>
       <ControlPanel
         langIndex={langIndex}
         chosenMemoEndPoint={chosenMemo.existingDraftEndPoint}
@@ -296,7 +292,7 @@ function ChangePublished(props) {
         memoStatus={chosenMemo.memoStatus}
         event={event}
       />
-    </Container>
+    </div>
   )
 }
 

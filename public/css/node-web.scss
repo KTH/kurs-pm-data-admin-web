@@ -1,812 +1,196 @@
+@use '~@kth/style/scss/utils/layers.scss';
+@use '~@kth/style/scss/utils/reset.scss';
+@use '~@kth/style/scss/utils/mixins.scss';
+@use '~@kth/style/scss/utils/prose.scss';
+
+@use '~@kth/style/scss/tokens/typography.scss';
+@use '~@kth/style/scss/tokens/colors.scss';
+
+@use '~@kth/style/scss/components/logotype.scss';
+@use '~@kth/style/scss/components/search.scss';
+@use '~@kth/style/scss/components/alert.scss';
+@use '~@kth/style/scss/components/footer.scss';
+@use '~@kth/style/scss/components/mega-menu.scss';
+@use '~@kth/style/scss/components/visually-hidden.scss';
+@use '~@kth/style/scss/components/button.scss';
+@use '~@kth/style/scss/components/header.scss';
+@use '~@kth/style/scss/components/mobile-menu.scss';
+@use '~@kth/style/scss/components/menu-item.scss';
+@use '~@kth/style/scss/components/menu-panel.scss';
+@use '~@kth/style/scss/components/content.scss';
+@use '~@kth/style/scss/components/local-navigation.scss';
+@use '~@kth/style/scss/components/kpm.scss';
+
 @import 'node_modules/kth-style/public/sass/custom/common/icons';
 
-// Scss code goes here!
-// Grey
-$grey: #65656c;
-$light-grey-dropdown: #969696;
-$lightGrey: #f6f6f6;
-$light-yellow: #fcf8e3;
-$borderGrey: #d4d4d4;
-$kth-blue: #007fae;
-$blue-link: #006cb7;
-$red: #e01f28;
-$white: #fff;
+@import 'shared';
+@import 'preview';
+@import 'table';
 
-$btn-link-height: 20px;
-
-$border-radius: 0.25rem;
-
-%bordered-area {
-  border: 1px solid $borderGrey;
-  border-radius: $border-radius;
-  border-top: 0;
-  padding-top: 1em;
-  padding-bottom: 1em;
+.kth-alert {
+  margin-bottom: 32px;
 }
 
-%long-text-font-style {
-  font-family: Georgia, 'garamond pro', garamond, 'times new roman', times, serif;
-  word-break: break-word;
-}
-
-%short-text-font-style {
-  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000;
-  line-height: 1.5;
-}
-
-%column {
-  display: flex;
-  flex-direction: column;
-}
-
-%row {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
-
-%react-icon-basic {
-  min-width: 1em;
-  min-height: 1em;
-}
-
-%table-style {
-  .flexible-section-style {
-    table {
-      @media (min-width: 1000px) {
-        width: 150% !important;
-        table-layout: fixed;
-      }
-      @media print {
-        // must be here, to make it more specific and stronger rule
-        width: 100%;
-      }
-    }
+.control-panel {
+  .kth-alert {
+    margin-top: 20px;
+    margin-bottom: 0px;
   }
 
-  table {
-    width: 100% !important;
+  &.fixed-bottom {
+    background-color: var(--color-background);
+    border-top: 1px solid var(--color-border);
 
-    text-align: left;
-    p,
-    ul,
-    li,
-    ol,
-    h1,
-    h2,
-    h3,
-    h4,
-    span,
-    div {
-      @extend %short-text-font-style;
-      margin-bottom: 0 !important;
-    }
-
-    tr {
-      th {
-        color: $white !important;
-        background-color: $grey !important;
-        font-weight: 500;
-        border-right: 1px solid $white;
-        border-bottom: 1px solid $white;
-        border-top: 0;
-        padding: 0.75rem;
-        h4 {
-          color: $white;
-        }
-        &:first-of-type {
-          border-top: 0;
-        }
-        &[scope='row'] {
-          vertical-align: middle;
-          border-top: 1px solid $white;
-          border-right: 0;
-        }
-      }
-
-      &:first-child {
-        th {
-          border-top: 1px solid $white;
-        }
-      }
-
-      td {
-        padding: 0.75rem;
-        background-color: $lightGrey;
-        border-top: 1px solid $white;
-      }
-    }
-
-    th {
-      border-top: 0;
-    }
-
-    //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
-    tbody:first-child {
-      tr:first-of-type > td {
-        color: $white;
-        background-color: $grey !important;
-        font-weight: 500;
-        border-right: 1px solid $white;
-        border-bottom: 1px solid $white;
-        border-top: 0;
-        p {
-          color: $white;
-          margin-bottom: 0;
-        }
-      }
+    .control-buttons {
+      margin-top: 0px;
+      border-top: none;
+      padding-left: 20px;
+      padding-right: 20px;
     }
   }
 }
 
-#app {
-  width: 100%;
-}
-.section-info,
-.sticky-overview,
-.preview-side-menu,
-.preview-content-right {
-  p,
-  ul {
-    @extend %short-text-font-style;
-  }
-}
-
-.word-break {
-  p {
-    word-break: break-word;
-  }
-}
-
-//person
-.person {
-  margin-bottom: 0.3rem;
-}
-.fa,
-.fas {
-  font-weight: 900;
-}
-.kip-container {
-  padding-top: 2em;
-  margin-bottom: 4.5em;
-  width: 100%;
-  .progress-bar-container.row {
-    margin: 0;
-    margin-top: 50px;
-    div {
-      &:first-of-type {
-        text-align: left;
-      }
-      &:nth-of-type(2) {
-        text-align: center;
-      }
-      &:nth-of-type(3) {
-        text-align: right;
-        padding-right: 0;
-      }
-    }
-  }
-  .title-and-info > h3 {
-    margin-top: 0px;
-  }
-  .alert {
-    margin-bottom: 0;
-  }
-  .element-50 {
-    margin-bottom: 0;
-    margin-top: 50px;
-  }
-  .section-50 {
-    //row
-    margin-bottom: 0;
-    padding-top: 50px;
-    & > h2:first-child {
-      margin-top: 0;
-    }
-    .col {
-      margin-bottom: 0;
-    }
-  }
+.memo-container {
   .tab-bar-container .nav.nav-tabs {
-    border-bottom: solid 1px $grey;
+    border-bottom: solid 1px var(--color-border);
 
     .nav-link {
-      padding-right: 1.06em;
-      padding-left: 1.06em;
-      // större kontrasten
-      border-color: $grey;
+      padding-right: 16px;
+      padding-left: 16px;
+      color: var(--color-text);
+      border-color: var(--color-border);
 
       &.active {
-        font-weight: 700 !important;
-        border-bottom: solid 1px #fff;
-      }
-      &[aria-selected='false'] {
-        border-bottom: solid 1px $grey;
-        padding-bottom: 7.4px;
+        font-weight: 700;
+        background-color: var(--color-background);
+        border-bottom: solid 1px var(--color-background);
       }
     }
   }
-  .fixed-bottom.container {
-    padding-left: 0;
-    padding-right: 0;
-    .control-buttons {
-      width: 103%;
+  .memo-content-row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .sticky-tabs-container {
+    background-color: var(--color-background);
+    z-index: 1;
 
-      @media (min-width: 768px) {
-        margin-left: -1.05em;
-        width: 103%;
-      }
+    .white-space-under-tabs {
+      // under sticky tab white space
+      height: 30px;
+      border-right: 1px solid var(--color-border);
+      border-left: 1px solid var(--color-border);
     }
   }
-  //.sections-list-80 FOR LIST VIEW
-  .sections-list-80 {
-    //row
-    margin-bottom: 0;
-    padding-top: 80px;
-    &:first-of-type {
-      padding-top: 0;
-    }
-    & > h2:first-child {
-      margin-top: 0;
-    }
-    .col {
-      margin-bottom: 0;
-    }
-  }
-  .form-group:last-of-type {
-    margin-bottom: 0;
-  }
-  .error-area {
-    .form-group:last-of-type {
-      margin-bottom: 0.3em;
-    }
-  }
-  .subsection-30 {
-    padding-top: 30px;
 
-    .title-and-info > h3 {
-      margin-top: 0;
+  .memo-content.tab-content {
+    border-color: var(--color-border);
+    border-radius: 0;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top: none;
+    border-bottom: none;
+
+    @media (min-width: 992px) {
+      padding-bottom: 80px;
+      border-right: none;
+    }
+
+    .tab-pane {
       padding-top: 0;
     }
   }
-  .subSection {
-    .section-info {
-      margin-top: 30px;
-      // padding-top: 50px;
-    }
-  }
-  .first-15 {
-    padding-top: 15px;
-  }
 
-  .upper-alert {
-    .alert {
-      margin-bottom: 5px;
-      margin-left: 0;
-      margin-right: 0;
-      width: 100%;
-      .btn-link {
-        margin: 0;
-        padding: 0;
-        font-size: inherit;
-        vertical-align: top;
-      }
-    }
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
-.Added--New--Title--And--Info {
-  & > .section-info {
-    margin-top: 0px;
-  }
-  .title-and-info + .section-info {
-    margin-top: 0;
-  }
-  .form-group.title {
-    margin-top: 0;
-  }
-  .error-label {
-    color: $red;
-    font-weight: normal;
-  }
-}
-
-// general BUTTONS STYLES
-.control-buttons {
-  @extend %column;
-  border-top: 1px solid $grey;
-  padding-bottom: 25px;
-  background-color: white;
-  width: 100%;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    margin: 0;
-    width: 100%;
-    .btn-middle {
-      text-align: center;
-    }
-    .btns-helpers {
-      padding-left: 0;
-    }
-    span:nth-of-type(2) > .btn {
-      margin-left: 1.25em;
-    }
-  }
-}
-
-.btn-secondary {
-  background-color: #ffffff;
-}
-
-.btns-helpers {
-  padding-left: 0;
-}
-
-.step-forward,
-.btn-last {
-  padding-right: 0;
-}
-
-.btn-info-modal {
-  margin-left: 10px;
-  min-height: 0.75rem;
-}
-
-//Edit page
-//tabs
-.sectionsTabNav {
-  a {
-    @extend %short-text-font-style;
-  }
-}
-//Edit content
-.memo-content-row {
-  margin-left: 0px;
-  margin-right: 0px;
-}
-.white-space-under-tabs {
-  // under sticky tab white space
-  height: 30px;
-  border-right: 1px solid $grey;
-  border-left: 1px solid $grey;
-}
-.memo-content.tab-content {
-  border-left: 1px solid $grey;
-  padding-bottom: 5em;
-  border-right: none;
-  border-bottom: none;
-  border-top: none;
-  &:first-of-type {
-    padding-top: 0;
-  }
-  & > h2:first-child {
-    margin-top: 0;
-  }
-  .col {
-    margin-bottom: 0;
-  }
-  h2 {
-    margin-bottom: -29px;
-  }
-  .tab-pane {
-    padding-top: 0;
-    border-color: $grey;
-  }
-
-  #contentAndOutcomes-courseContent,
-  #prep-prerequisites,
-  #reqToFinal-gradingScale,
-  #extra-additionalRegulations,
-  #contacts-communicationDuringCourse {
-    .title-and-info {
-      margin-top: 0;
-      h3 {
-        margin-top: 10px;
-      }
-    }
-  }
-  #prep-prerequisites,
-  #reqToFinal-gradingScale {
-    h3 {
-      padding-bottom: 0px;
-    }
-    span:nth-child(3) {
-      p {
-        padding-top: 18px !important;
-      }
-    }
-  }
-  #reqToFinal-examination {
-    span:nth-child(3) {
-      p {
-        padding-top: 0px !important;
-      }
-    }
-  }
-  #prep-literature {
-    .mandatory {
-      padding-top: 8px !important;
-    }
-    ~ span:nth-child(3) {
-      p {
-        padding-top: 18px !important;
-      }
-    }
-  }
-  #contentAndOutcomes-learningOutcomes {
-    .title-and-info {
-      margin-top: 0;
-      h3 {
-        padding-bottom: 0px;
-      }
-    }
-    .mandatory {
-      padding-top: 8px !important;
-    }
-    span:nth-child(3) {
-      ul {
-        margin-top: 0px;
-      }
-      p {
-        padding-top: 18px !important;
-      }
-    }
-  }
-  #contentAndOutcomes-learningActivities,
-  #contentAndOutcomes-scheduleDetails,
-  #prep-preparations {
-    ~ span:nth-child(3) > p:nth-child(1) {
-      padding-top: 18px !important;
-    }
-  }
-
-  #contacts-teacherAssistants,
-  #contacts-teacher,
-  #contacts-courseCoordinator,
-  #extra-additionalRegulations,
-  #contentAndOutcomes-courseContent,
-  #reqToFinal-otherRequirementsForFinalGrade {
-    .title-and-info {
-      margin-top: 0;
-      h3 {
-        padding-bottom: 0px;
-      }
-    }
-    span:nth-child(3) {
-      p {
-        padding-top: 18px !important;
-      }
-    }
-  }
-  #contacts-examiner {
-    .title-and-info {
-      margin-top: 0;
-      h3 {
-        padding-bottom: 0px;
-      }
-    }
-    span:nth-child(2) {
-      .mandatory {
-        padding-top: 10px !important;
-        padding-bottom: 18px !important;
-      }
-    }
-  }
-  #prep-permanentDisability {
-    .mandatoru {
-      padding-bottom: 0px;
-    }
-    span:nth-child(3) {
-      p {
-        padding-top: 18px !important;
-      }
-    }
-  }
-
-  p,
-  ul,
-  span {
-    &:last-of-type {
-      margin-bottom: 0;
-    }
-  }
-  ul {
-    margin-top: 1em;
+  .sticky-overview {
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-bottom: none;
     padding-left: 20px;
-  }
-  span:first-of-type h2 {
-    margin-top: 0;
-  }
-  .title-and-info + p {
-    font-weight: 900;
-  }
-}
+    padding-right: 20px;
+    padding-bottom: 120px;
 
-.sticky-overview {
-  @extend %bordered-area;
-  border-right-color: $grey;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom: none;
-  padding-left: 0;
-
-  #mainMenu {
-    margin-top: 0;
-  }
-
-  @media (min-width: 992px) {
-    #mainMenu.col {
-      max-width: 245px;
-    }
-    .progress-title {
-      display: flex !important;
-    }
-    max-width: 25%;
-  }
-
-  .content-overview {
-    .nav-link-to-content-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      a {
-        width: 13rem;
+    @media (max-width: 991px) {
+      // hacks to disable sticky section menu in smaller screens
+      // TODO: a better solution might be to refactor the sticky feature completly and use position:sticky instead of react-sticky package
+      // hack 1: override position set by react-sticky
+      .sticky-section-menu-container {
+        position: static !important;
+        transform: none !important;
+        width: auto !important;
+        margin-top: 0 !important;
       }
-      svg {
-        // visibility, eye icon
-        margin-left: 15px;
+      & > div:first-child > div:first-child {
+        // hack 2: remove space from extra div added by react-sticky
+        padding-bottom: 0 !important;
+      }
+    }
+
+    .content-overview {
+      display: flex;
+      flex-direction: column;
+      row-gap: 16px;
+      position: relative;
+
+      .nav-link-to-content-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
     }
   }
 }
 
 span.section-info {
-  @extend %row;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
   justify-content: space-between;
-  .mandatory {
-    margin-top: 5px; //  = 20px
-    padding-top: 10px;
-  }
 }
-.section_info_visibility_label {
-  @extend %react-icon-basic;
-  margin-right: 0.63em; //10.08px
-  display: contents;
-  .source::before {
-    content: '|';
-    font-weight: normal;
-    margin-right: 1.25em;
-    margin-left: 1.25em;
-  }
 
-  .form-check {
-    .form-control-label {
-      margin-bottom: 0rem;
-    }
-    &.form-group {
-      margin-top: 15px;
-    }
-    input[type='checkbox'] ~ label:before {
-      background-color: $white;
-      border-radius: $border-radius;
-    }
+.section_info_visibility_label {
+  margin: 20px 0;
+  .form-check.form-group {
+    margin: 0;
   }
 }
-.section_info_visibility_icon_v {
-  @extend %react-icon-basic;
-  margin: 0 1.25em 0 0; //20.8px
-}
+
 .section_info_visibility_icon {
-  @extend %react-icon-basic;
   background-image: url('https://app.kth.se/style/static/kth-style/img/kth-style/icons/eye-off-black.svg');
   background-repeat: no-repeat;
-  vertical-align: middle;
-  position: absolute;
-  right: -5px;
   height: 16px;
   width: 20px;
 }
 
-.step-forward,
-.btn-last,
-.btn-middle {
-  text-align: end;
-}
-
-.change-view {
-  text-align: end;
-  vertical-align: middle;
-  margin-top: 28px;
-}
-
-a.nav-link {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-h1#page-heading {
-  margin-top: 50px;
-  margin-left: 0.25em !important;
-}
-
-.page-sub-heading {
-  margin-left: 0.7em !important;
-  margin-bottom: 30px;
-}
-
-.page-header-wrapper {
-  display: flex;
-  margin: 0;
-  div {
-    margin-right: 30px; //1.25em;
-    &:last-of-type {
-      margin-right: 0;
-    }
-    p {
-      @extend %short-text-font-style;
-    }
+.person {
+  img {
+    vertical-align: middle;
+    margin-right: 6px;
   }
 }
+.person + .person {
+  margin-top: 14px;
+}
 
-.page-header-container {
+.First--Step--Choose--Parameters {
   display: flex;
-  h4 {
-    margin: 0 0.3rem 0 0;
-    line-height: 1.5;
-    font-size: 1em;
-    &:after {
-      content: ':';
-    }
-  }
-}
+  flex-direction: column;
+  row-gap: 40px;
 
-.no-wrap {
-  white-space: nowrap;
-}
-
-.progress-title {
-  margin-top: 28px;
   h2 {
-    margin-bottom: 0;
-    margin-top: 0;
+    margin-bottom: 1rem;
   }
-}
-/* Select course offerings checkboxes and radiooxes */
-div.container.First--Step--Choose--Parameters {
-  padding: 0 0 50px 0;
-  margin: -0.1em;
-  form {
-    .form-group {
-      margin-left: 0.3em;
-    }
-    &.Existed--Memos {
-      .form-group {
-        margin-left: 1.6em;
-      }
-    }
-    input ~ label {
-      font-weight: normal;
-    }
+  h3 {
+    margin-bottom: 0.5rem;
   }
 
-  .right-block-for-extra {
-    border-left: 1px solid $borderGrey;
-    padding-left: 30px;
-  }
-}
-
-label + label {
-  font-weight: normal;
-  padding-bottom: 0.7em;
-  display: block;
-}
-#addingRounds.modal-dialog {
-  max-width: 1000px;
-  span {
-    display: block;
-    padding-bottom: 0.5rem;
-  }
-  input ~ label {
-    font-weight: normal;
-  }
   label {
-    i {
-      padding-left: 30px;
+    @include typography.font-heading-xs;
+    display: block;
+    margin-bottom: 0.25rem;
+    & + p {
+      margin-bottom: 1rem;
     }
   }
-  p {
-    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  }
-  .noAvailableRounds {
-    padding-top: 0.5rem;
-  }
-}
-.modal-body {
-  p {
-    font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  }
-}
-.error-area {
-  outline: solid 1px $red !important;
-  outline-offset: 10px;
-  // border-radius: 0.25rem;
-}
-.error-label {
-  color: $red;
-}
-/* Separation lines */
-.change-view {
-  border-right: 2px solid $borderGrey;
-}
-
-.btn.btn-link {
-  height: $btn-link-height;
-}
-
-#menu-link-directory.btn.btn-link {
-  height: 50px;
-}
-
-/* Breadcrumbs in preview */
-
-.breadcrumb {
-  background-color: transparent;
-}
-
-.breadcrumb-item button {
-  padding: 0;
-  vertical-align: baseline;
-}
-
-/*Course header in preview */
-
-.course-header-admin-link {
-  display: block;
-  margin-top: 4px;
-  margin-bottom: 14px;
-}
-
-/* Side menu in preview */
-
-.sideMenuLink {
-  color: #000000;
-  &:hover {
-    color: #000000;
-  }
-}
-
-.menu-memos-sub {
-  margin-left: 1rem;
-}
-
-.menu-memos {
-  button {
-    color: #000000;
-    margin: 0 0 1rem 0;
-    padding: 0;
-    &:hover {
-      color: #000000;
-    }
-  }
-  p {
-    button {
-      margin: 0;
-      text-align: left;
-    }
-  }
-}
-
-.menu-memos .active {
-  font-weight: 700;
-}
 
 #menu-link-directory {
   color: #006cb7;
@@ -846,117 +230,38 @@ h4.secondTitle {
       margin-bottom: 10px !important; // Resets to KTH Style
     }
   }
-  @extend %table-style;
 }
 
-h2.preview-info {
-  margin-top: 0;
+.right-block-for-extra {
+  border-left: 1px solid var(--color-border);
+  padding-left: 30px;
 }
 
-.preview-info-box {
-  background-color: #f4f4f4;
-  padding: 20px;
-  h4 {
-    margin-bottom: 0.5rem;
-  }
-  h4:first-child {
-    margin-top: 0;
-  }
-  p + h4 {
-    margin-top: 1.5rem;
-  }
-  #print-link-with-popup {
-    h4 {
-      margin-bottom: 1rem;
-    }
-  }
-  .btn-link {
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
+.extra-heading-form {
+  width: 100%;
+  .form-control-label {
+    @include typography.font-heading-xs;
+    display: block;
+    margin-bottom: 0.25rem;
   }
 }
 
-.print-pm-link {
-  margin: 0;
-  padding: 0;
-  width: max-content;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.print-icon {
-  background-image: url(../../node_modules/kth-style/dist/img/kth-style/icons/print-blue.svg);
-  background-repeat: no-repeat;
-  height: 20px;
-  width: 25px;
-  margin-right: 0.3rem;
-  vertical-align: middle;
-}
-
-.preview-course-header-title {
-  margin-bottom: 0;
-}
-
-.pdf-post-link {
-  margin: 0;
-
-  &:after {
-    height: 0.9em;
-    margin: 0 0 0 0.4em;
-    width: 0.7em;
-    vertical-align: -7%;
+.modal-body {
+  @include prose.prose;
+  div > :first-child {
+    margin-block-start: 0;
+  }
+  div > :last-child {
+    margin-block-end: 0;
   }
 }
 
-.pdf-icon {
-  color: #000;
-  margin-left: 0.5rem;
-  overflow: auto;
-  vertical-align: baseline;
+.error-area {
+  outline: solid 1px var(--color-error);
+  outline-offset: 10px;
 }
-
-.syllabus-marker-icon {
-  height: 0.7rem;
-  margin-right: 0.5rem;
-  vertical-align: baseline;
-  width: 0.7rem;
-}
-
-.with-subheader {
-  margin-bottom: 0;
-}
-
-.subheader {
-  margin-bottom: 10px;
-}
-
-p.sub-section-header {
-  font-family: 'Open Sans', Arial, 'Helvetica Neue', helvetica, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #000;
-  line-height: 1.5;
-  padding-top: 0.8rem;
-  margin-bottom: 0;
-}
-
-@media (min-width: 768px) {
-  p.sub-section-header {
-    font-size: 1rem;
-  }
-}
-
-.syllabus-marker-icon-small {
-  height: 0.5rem;
-  margin-right: 0.3rem;
-  width: 0.5rem;
-}
-
-sup {
-  .syllabus-marker-icon {
-    margin-left: 0.3rem;
-  }
+.error-label {
+  color: var(--color-error);
 }
 
 //tiny mce editor
@@ -973,184 +278,83 @@ $editor-menu-offset: $personal-menu-height + $tab-menu-height + $tab-menu-top-bo
   }
 }
 
-//===STYLES FOR EDITOR AND PLAIN TEXT, SHOULD NOT HAVE PARENT CLASSES, BUT BE GLOBAL===
-p,
-ul,
-ol {
-  @extend %long-text-font-style;
+.mce-content-body {
+  margin: 8px;
+  background-color: #fff;
+  @extend %table-style;
 }
-table {
-  width: 100%;
 
-  @media print {
-    width: 100%;
+// Style of section/editor text:
+// .mce-content-body - Text area of Tinymce editor
+// .section-content - Preview of text when editor isn't active (or for required text without editor)
+.mce-content-body,
+.section-content {
+  @extend %table-style;
+  @include prose.prose;
+  p {
+    max-width: unset;
   }
-  text-align: left;
-  p,
-  ul,
-  li,
-  ol,
-  h1,
-  h2,
-  h3,
-  h4,
-  span,
-  div {
-    @extend %short-text-font-style;
-    margin-bottom: 0 !important;
+  & > :first-child {
+    margin-block-start: 0;
   }
-
-  tr {
-    th {
-      color: $white !important;
-      background-color: $grey !important;
-      font-weight: 500;
-      border-right: 1px solid $white;
-      border-bottom: 1px solid $white;
-      border-top: 0;
-      padding: 0.75rem;
-      h4 {
-        color: $white;
-      }
-      &:first-of-type {
-        border-top: 0;
-      }
-      &[scope='row'] {
-        vertical-align: middle;
-        border-top: 1px solid $white;
-        border-right: 0;
-      }
-    }
-
-    &:first-child {
-      th {
-        border-top: 1px solid $white;
-      }
-    }
-
-    td {
-      padding: 0.75rem;
-      background-color: $lightGrey;
-      border-top: 1px solid $white;
-    }
+  & > :last-child {
+    margin-block-end: 0;
   }
-
-  th {
-    border-top: 0;
-  }
-
-  //If table missing header cells(thead, th) and starts directly with tbody, override it's default/inline styles, must be the last
-  tbody:first-child {
-    tr:first-of-type > td {
-      color: $white !important;
-      background-color: $grey !important;
-      font-weight: 500;
-      border-right: 1px solid $white;
-      border-bottom: 1px solid $white;
-      border-top: 0;
-      padding: 0.75rem;
-      p {
-        color: $white !important;
-        margin: 0;
-      }
-    }
+  li p {
+    margin-block: 0;
   }
 }
 
 .heading-box {
-  margin-top: 2em;
+  margin-top: 0;
+  margin-bottom: 2em;
   width: 100%;
-  background-color: $lightGrey;
+  background-color: var(--color-background-alt);
   border: 1px solid transparent;
   display: grid;
-  //row-gap: 10px;
   padding: 1em;
 
-  h3 {
-    padding-bottom: 10px;
-  }
-
-  span:nth-child(3) {
-    > p:nth-child(1) {
-      padding-top: 18px !important;
-    }
-  }
-
-  > section {
-    padding: 1em;
-  }
-
-  > .section-50 {
-    padding-top: 0;
-  }
-
-  .section-info {
-    padding-top: 0;
+  & + & {
+    margin-top: 2em;
   }
 
   &.with-nested {
     padding: 0em;
 
-    h3 {
-      padding-bottom: 5px;
+    .nested-section {
+      padding: 1em;
     }
 
     > .heading-box {
       border-bottom: 0;
       border-left: 0;
       border-right: 0;
-      span:nth-child(2) {
-        p {
-          padding-top: 18px;
-          i > h4 {
-            margin: 0px;
-          }
-        }
-      }
+      margin-bottom: 0;
     }
+  }
 
-    > section {
-      &:not(.heading-box) {
-        padding-bottom: 0;
-      }
-    }
+  .kth-button.secondary {
+    background-color: var(--color-background);
   }
 
   &.ready {
-    border: 1px solid $borderGrey;
-    border-radius: $border-radius;
-
-    background-color: $white;
-    span:nth-child(3) {
-      p {
-        padding-top: 15px;
-      }
-    }
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    background-color: #fff;
   }
 
   &.clickable {
-    h3 {
-      padding-bottom: 0px;
-    }
+    cursor: pointer;
   }
 
-  span.editor {
+  .editor {
     display: grid;
-    //grid-gap: 0.5em;
-    p {
-      padding-bottom: 5px;
-      margin: 0px;
+    row-gap: 20px;
+
+    details {
+      margin: 0;
     }
 
-    p:last-of-type {
-      padding-bottom: 27px;
-    }
-    details {
-      margin-bottom: 0;
-    }
-    span:nth-child(2) > div {
-      margin-bottom: 15px;
-    }
     button {
       justify-self: right;
     }
@@ -1160,18 +364,14 @@ table {
     display: flex;
     justify-content: space-between;
   }
+
   .no-visible-in-memo {
-    p {
-      padding-top: 0px !important;
-    }
     opacity: 50%;
   }
 }
 
 .toggle-editor {
-  @extend %react-icon-basic;
   background-repeat: no-repeat;
-  vertical-align: middle; //flex
   height: 16px;
   width: 20px;
   cursor: pointer;
@@ -1186,106 +386,29 @@ table {
   }
 }
 
-span.section-heading {
+.section-heading {
   display: flex;
   column-gap: 1em;
-  grid-template-columns: auto auto;
   justify-content: space-between;
   align-items: center;
   align-content: stretch;
 
-  Form {
-    width: 100%;
-
-    input,
-    input:focus {
-      background-color: white;
-    }
-  }
-
   .toggle-editor {
     align-self: flex-start;
   }
-  > hr {
-    padding-bottom: '20px' !important;
+}
+
+// details/summary
+details {
+  summary.grey {
+    padding-left: 0;
+    background-color: var(--color-background-alt);
+    color: var(--color-tertiary);
+    &::before {
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iYSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3LjQxIDEyIj4KICA8cGF0aCBkPSJNMCwxMC41OEw0LjU4LDYsMCwxLjQxLDEuNDEsMCw3LjQxLDYsMS40MSwxMmwtMS40MS0xLjQyWiIgc3R5bGU9ImZpbGw6IzAwNmNiNzsiLz4KPC9zdmc+);
+    }
   }
-}
-
-.clickable {
-  cursor: pointer;
-}
-
-details summary.white {
-  padding-left: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-details summary.grey {
-  background-color: $lightGrey;
-  color: #006cb7;
-  padding-left: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-details summary.grey::before {
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iYSIKICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3LjQxIDEyIj4KICA8cGF0aCBkPSJNMCwxMC41OEw0LjU4LDYsMCwxLjQxLDEuNDEsMCw3LjQxLDYsMS40MSwxMmwtMS40MS0xLjQyWiIgc3R5bGU9ImZpbGw6IzAwNmNiNzsiLz4KPC9zdmc+);
-}
-
-// This is needed for the control buttons to have the correct distance from the left side
-.container,
-.container-fluid,
-.container-xl,
-.container-lg,
-.container-md,
-.container-sm {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-// This is needed for the control buttons to have the correct width
-@media (min-width: 576px) {
-  .container-sm,
-  .container {
-    max-width: 540px;
-  }
-}
-@media (min-width: 768px) {
-  .container-md,
-  .container-sm,
-  .container {
-    max-width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .container-lg,
-  .container-md,
-  .container-sm,
-  .container {
-    max-width: 960px;
-  }
-}
-@media (min-width: 1200px) {
-  .container-xl,
-  .container-lg,
-  .container-md,
-  .container-sm,
-  .container {
-    max-width: 1140px;
-  }
-}
-
-.modal-header {
-  .close {
-    background-color: transparent;
-    border: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1;
-    color: #000;
-    text-shadow: 0 1px 0 #fff;
+  & > :not(summary) {
+    @include prose.prose;
   }
 }

@@ -1,0 +1,181 @@
+@use '~@kth/style/scss/tokens/typography.scss';
+@use '~@kth/style/scss/utils/prose.scss';
+
+@use '~kth-style/public/sass/variables/_svg_data' as svgData;
+
+@import 'table';
+
+// Most style in this file is the same as the main scss file in kurs-pm-web as this page
+// is supposed to be a preview of how the published version will look like.
+
+.preview-container {
+  margin-bottom: 115px;
+
+  /* Side menu */
+  .preview-side-menu {
+    padding-right: 35px;
+  }
+  .kth-local-navigation.menu-memos {
+    .link-button {
+      text-decoration: none;
+      display: flex;
+      padding-block: 0.5rem;
+      padding-inline-start: 1rem;
+
+      &.active {
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 0.25rem;
+          background-color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  .link-button {
+    color: var(--color-tertiary);
+    border: none;
+    background: transparent;
+    text-underline-offset: 4px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .preview-content-separation {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .section-wrapper {
+    h2 {
+      margin-block-start: 2rem;
+      margin-block-end: 1rem;
+    }
+    .article {
+      @include prose.prose;
+      & > h3:first-of-type {
+        margin-block-start: 0;
+      }
+    }
+  }
+
+  .course-presentation {
+    min-height: 150px;
+    @include prose.prose;
+    div {
+      & > p:first-of-type {
+        margin-block-start: 0;
+      }
+    }
+  }
+
+  #course-presentation-image {
+    height: 112.5px;
+    margin: 0px 30px 19px 0;
+  }
+
+  @media (max-width: 575.98px) {
+    #course-presentation-image {
+      height: auto;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 0 23px 0;
+    }
+  }
+  .preview-content-center {
+    @extend %table-style;
+  }
+
+  .print-link {
+    &::before {
+      content: '';
+      display: inline-block;
+      background: svgData.$data-print-blue-svg no-repeat;
+      background-size: cover;
+      width: 22px;
+      height: 20px;
+      margin-right: 0.625rem;
+      vertical-align: middle;
+    }
+  }
+  button.print-link {
+    color: var(--color-tertiary);
+    border: none;
+    padding: 0;
+    text-align: start;
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+    cursor: pointer;
+    @include typography.font-default;
+  }
+
+  .syllabus-marker-icon {
+    height: 0.7rem;
+    margin-right: 0.5rem;
+    vertical-align: baseline;
+    width: 0.7rem;
+  }
+
+  sup {
+    .syllabus-marker-icon {
+      margin-left: 0.3rem;
+    }
+  }
+
+  .with-subheader {
+    margin-bottom: 0;
+  }
+
+  .subheader {
+    margin-bottom: 10px;
+  }
+
+  p.sub-section-header {
+    padding-top: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  .info-box {
+    $space-between: 14px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: var(--color-background-alt);
+    display: block;
+    word-wrap: break-word;
+
+    h2,
+    h3 {
+      @include typography.font-heading-s;
+      margin-top: 16px;
+      margin-bottom: 14px;
+    }
+    p {
+      margin-bottom: 14px;
+    }
+    & > :first-child {
+      margin-top: 0;
+    }
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h2:has(+ .info-box) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+.popover {
+  .popover-header {
+    @include typography.font-heading-xs;
+  }
+}

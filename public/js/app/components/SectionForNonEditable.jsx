@@ -26,7 +26,7 @@ const SectionForNonEditable = ({
       <span
         id={menuId}
         key={contentId}
-        className="main-text-section section-50"
+        className="main-text-section"
         data-testid={`section-${typeOfThisHeader}-${contentId}`}
       >
         <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
@@ -39,6 +39,7 @@ const SectionForNonEditable = ({
         />
 
         <span
+          className="section-content"
           data-testid={`text-for-memo-${typeOfThisHeader}-${contentId}`}
           style={visibleInMemo ? {} : { display: 'none' }}
           dangerouslySetInnerHTML={{

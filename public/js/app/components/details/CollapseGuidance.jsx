@@ -6,7 +6,6 @@ const CollapseGuidance = ({ ariaLabel = '', title, details, visibleInMemo, conte
   <CollapseDetails
     ariaLabel={ariaLabel || 'Expand this to see a helping text'}
     title={title}
-    yellow
     color={visibleInMemo ? (content != '' ? 'white' : 'grey') : 'grey'}
   >
     <span

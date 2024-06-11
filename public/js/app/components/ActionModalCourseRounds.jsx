@@ -2,7 +2,6 @@
 /* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react'
 import { Form, FormGroup, Label, Input } from 'reactstrap'
-import { ActionModalButton } from '@kth/kth-reactstrap/dist/components/utbildningsinfo'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
@@ -10,6 +9,7 @@ import i18n from '../../../../i18n'
 
 import { combineMemoName, fetchThisTermRounds, seasonStr } from '../util/helpers'
 import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
+import ActionModalButton from './ActionModalButton'
 
 const roundLangAbbr = round => (round.language.en === 'Swedish' ? 'sv' : 'en')
 
@@ -193,7 +193,7 @@ function ActionModalCourseRounds(props) {
         <p>{extraInfo.aboutMemoLanguage[memoCommonLangAbbr]}</p>
       </span>
       {(combinedAvailableAndTempSavedCourseInstances && combinedAvailableAndTempSavedCourseInstances.length > 0 && (
-        <div className="section-50">
+        <div>
           <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.label}</Label>
           <Label htmlFor="choose-rounds-list">{info.chooseRound.addRounds.infoText}</Label>
           <Form className={`Available--Rounds--To--Add ${alert && alert.isOpen ? 'error-area' : ''}`}>

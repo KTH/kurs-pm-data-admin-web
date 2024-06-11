@@ -8,6 +8,8 @@ module.exports = {
      */
     date_format_short: '%d-%b-%Y',
 
+    language_link_lang_sv: 'Svenska',
+
     /**
      * Error messages
      */
@@ -579,7 +581,7 @@ module.exports = {
       en: `The language of this course memo is English since at least one of the chosen administrative course instances have English as the language of instruction. It is possible to add both administrative course instances with Swedish and English as the language of instruction.`,
     },
     cannotMergeLanguage: 'Cannot be chosen, read abode: Language of memo',
-    commentChanges: 'Describe changes made in this version:',
+    commentChanges: 'Describe changes made in this version (mandatory):',
     contentHeaders: {
       title: 'Headings',
       intro: `<p>All fixed and optional sections in this course memo is listed down below. The sections are grouped in five main heading categories; "Content and learning outcomes", "Preparations before course start", "Examination and completion", "Further information" and "Contact".</p>
@@ -630,13 +632,6 @@ module.exports = {
       'You need to fill in the required fields (marked in red below) to proceed to: Edit course memo',
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
-  },
-  breadCrumbLabels: {
-    university: 'KTH',
-    student: 'Student at KTH',
-    directory: 'Course and programme directory',
-    aboutCourse: 'About course',
-    noLinksInPreview: 'Menu links doesn’t work in review mode',
   },
   coursePresentationLabels: {
     imageAltText: 'Inspiring image for course',
@@ -693,11 +688,6 @@ module.exports = {
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
     mandatoryFieldMissing: 'Missing mandatory information',
-    linkOpensInNewTab: 'Link will open in new tab',
-  },
-  courseHeaderLabels: {
-    adminLinkLabel: 'Administer About course',
-    label_edit_link_info: 'Link does not work in review mode',
     linkOpensInNewTab: 'Link will open in new tab',
   },
   courseImage: {

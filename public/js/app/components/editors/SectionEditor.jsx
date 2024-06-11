@@ -62,7 +62,9 @@ export const SectionEditor = ({
               onBlur={onBlur}
             />
           </OnClickPropagationStopper>
-          <SaveAndCloseButton onSaveAndClose={onSaveAndClose} text={buttons.saveAndCloseEditor} />
+          <OnClickPropagationStopper>
+            <SaveAndCloseButton onSaveAndClose={onSaveAndClose} text={buttons.saveAndCloseEditor} />
+          </OnClickPropagationStopper>
         </span>
       )}
 
@@ -70,6 +72,7 @@ export const SectionEditor = ({
         /* isRequired && empty // type && type === 'mandatoryAndEditable' */
         ((isRequired && (
           <span
+            className="section-content"
             data-testid={`text-for-memo-mandatoryAndEditable-${contentId}`} // "text-for-memo-mandatoryAndEditable"
             dangerouslySetInnerHTML={{
               __html:
@@ -81,6 +84,7 @@ export const SectionEditor = ({
           /* is included in memo, preview text without editor */
           (visibleInMemo && (
             <span
+              className="section-content"
               data-testid={`text-for-memo-optionalEditable-${contentId}`} // "text-for-memo-optionalEditable"
               dangerouslySetInnerHTML={{
                 __html: (htmlContent !== '' && htmlContent) || `<p><i>${sourceInfo.noInfoYet[sectionType]}</i></p>`,

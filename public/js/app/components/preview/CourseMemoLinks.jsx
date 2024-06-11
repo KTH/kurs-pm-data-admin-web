@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'reactstrap'
 import PropTypes from 'prop-types'
 
 import Popup from './Popup'
@@ -20,29 +19,28 @@ const formatVersion = (language = 'sv', version) => {
 const version = (language, labels, memoVersion) =>
   memoVersion ? (
     <>
-      <h4>{labels.versionTitle}</h4>
+      <h3>{labels.versionTitle}</h3>
       <p>{`${labels.latest} ${formatVersion(language, memoVersion)}`}</p>
     </>
   ) : (
     <>
-      <h4>{labels.versionTitle}</h4>
+      <h3>{labels.versionTitle}</h3>
       <p>{labels.mandatoryFieldMissing}</p>
     </>
   )
 
 const pdfLink = labels => (
   <span id="print-link-with-popup">
-    <h4>{labels.courseMemoPrint}</h4>
-    <Button className="print-pm-link" id="print-pm-link" color="link">
-      <svg className="print-icon" />
+    <h3>{labels.courseMemoPrint}</h3>
+    <button className="print-link" id="print-pm-link">
       {labels.linkCourseMemoPrint}
-    </Button>
+    </button>
     <Popup header={labels.courseMemoPrint} body={labels.courseMemoModal} targetId="print-pm-link" />
   </span>
 )
 
 const CourseMemoLinks = ({ language, labels, memoData = {} }) => (
-  <div className="preview-info-box">
+  <div className="info-box">
     {version(language, labels, memoData.lastChangeDate)}
     {pdfLink(labels)}
   </div>
