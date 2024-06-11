@@ -18,7 +18,6 @@ import CourseMemoLinks from '../components/preview/CourseMemoLinks'
 import CourseLinks from '../components/preview/CourseLinks'
 import CourseContacts from '../components/preview/CourseContacts'
 import CourseHeader from '../components/preview/CourseHeader'
-import CoursePresentation from '../components/preview/CoursePresentation'
 import Section from '../components/preview/Section'
 import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
@@ -29,33 +28,6 @@ import { FIRST_VERSION, EMPTY, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '.
 import { TYPE, useToast } from '../hooks/useToast'
 
 const PROGRESS = 3
-
-// Logic copied from kursinfo-web
-export const resolveCourseImage = (imageFromAdmin, courseMainSubjects = '', language) => {
-  // TODO Cleanup translations
-  const [englishTranslations, swedishTranslations] = i18n.messages
-
-  let courseImage = ''
-  // If course administrator has set own picture, use that
-  if (imageFromAdmin && imageFromAdmin.length > 4) {
-    courseImage = imageFromAdmin
-    // Course administrator has not set own picture, get one based on course’s main subjects
-  } else {
-    let mainSubjects = courseMainSubjects.split(',').map(s => s.trim())
-
-    // If main subjects exist, and the language is English, get Swedish translations of main subjects
-    if (mainSubjects && mainSubjects.length > 0 && language === 'en') {
-      mainSubjects = mainSubjects.map(subject => englishTranslations.courseMainSubjects[subject])
-    }
-    // Get picture according to Swedish translation of first main subject
-    courseImage = swedishTranslations.courseImage[mainSubjects.sort()[0]]
-    // If no picture is available for first main subject, use default picture for language
-    courseImage =
-      courseImage ||
-      (language === 'en' ? englishTranslations.courseImage.default : swedishTranslations.courseImage.default)
-  }
-  return courseImage
-}
 
 const renderAllSections = ({ sections, memoData }) => {
   // TODO Use resolved labels instead
@@ -188,7 +160,7 @@ const determineContentFlexibility = () => {
 
 function PreviewContainer(props) {
   const store = useStore()
-  const { browserConfig, langAbbr, langIndex, memoData, sellingText = '', activeTermsPublishedMemos } = store
+  const { langAbbr, langIndex, memoData, activeTermsPublishedMemos } = store
   // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
   const {
@@ -222,7 +194,6 @@ function PreviewContainer(props) {
     i18n.messages[langIndex]
 
   const {
-    coursePresentationLabels,
     courseFactsLabels,
     courseMemoLinksLabels,
     courseLinksLabels,
@@ -231,26 +202,20 @@ function PreviewContainer(props) {
     sectionsLabels,
   } = i18n.messages[memoCommonLangAbbr === 'en' ? 0 : 1]
 
-  const courseImage = resolveCourseImage(
-    store.imageFromAdmin,
-    store.koppsFreshData.courseMainSubjects,
-    store.memoLanguage
-  )
   const { validFromTerm } = syllabusValid
 
   // eslint-disable-next-line testing-library/render-result-naming-convention
   const allSections = renderAllSections(store)
-  const courseImageUrl = `${browserConfig.imageStorageUri}${courseImage}`
 
   // Assumes that API only gave one memoData per memoEndPoint
   // Duplicate id’s filtered out later
   let active = false
-  let courseMemoItems = activeTermsPublishedMemos.map(m => {
-    const { outdated } = m
-    const id = m.memoEndPoint
-    const label = concatMemoName(m.semester, m.applicationCodes, m.memoCommonLangAbbr)
+  let courseMemoItems = activeTermsPublishedMemos.map(memoItem => {
+    const { outdated } = memoItem
+    const id = memoItem.memoEndPoint
+    const label = concatMemoName(memoItem.semester, memoItem.applicationCodes, memoItem.memoCommonLangAbbr)
     // memoEndPoint is currently displayed
-    active = m.memoEndPoint === memoEndPoint
+    active = memoItem.memoEndPoint === memoEndPoint
     return {
       id,
       label,
@@ -336,11 +301,6 @@ function PreviewContainer(props) {
           />
           <Row>
             <Col lg="8" id="flexible-content-of-center" className="preview-content-center">
-              <CoursePresentation
-                courseImageUrl={courseImageUrl}
-                introText={sellingText || ''}
-                labels={coursePresentationLabels}
-              />
               <p>
                 {sectionsLabels.asterisk} {seasonStr(langIndex, validFromTerm)}
               </p>
