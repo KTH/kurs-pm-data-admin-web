@@ -39,28 +39,7 @@ Because OICD library is compatible only with node 12.0.0 or > 14.2.0
 
 ### Secrets for Development
 
-Secrets during local development are ALWAYS stored in a `.env`-file in the root of your project. This file should be in .gitignore.
-
-```
-KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data
-KURS_PM_DATA_API_KEY=[generated in kurs-pm-data-admin-api key for admin page]
-KURS_INFO_API_URI=https://api-r.referens.sys.kth.se/api/kursinfo
-KURS_INFO_API_KEY=[generated in kursinfo-api key for public pages, just for image displaying and selling text]
-REDIS_URI=[redis connection string, azure]
-OIDC_APPLICATION_ID=<FROM ADFS>
-OIDC_CLIENT_SECRET=<FROM ADFS>
-OIDC_TOKEN_SECRET=<Random string>
-SESSION_SECRET=[generate session secret]
-SESSION_KEY=kurs-pm-data-admin-web.pid
-/* Connection Properties of UG Rest Api to fetch names of course staff */
-UG_REST_AUTH_API_TOKEN_URI=https://<LOGIN_HOST>/adfs/
-UG_REST_AUTH_CLIENT_ID=<FROM AZURE KEYVAULT>
-UG_REST_AUTH_CLIENT_SECRET=<FROM AZURE KEYVAULT>
-UG_REST_API_URI=https://<UG_URL>
-UG_REST_API_SUBSCRIPTION_KEY=<FROM AZURE INTEGRAL OR KEYVAULT>
-```
-
-These settings are also available in an `env.in` file.
+Secrets during local development are stored in a gitignored `.env` file (`env.in` can be used as template for your `.env` file). More details about environment variable setup and secrets can be found in [confluence](https://confluence.sys.kth.se/confluence/x/OYKBDQ).
 
 ### Install
 
