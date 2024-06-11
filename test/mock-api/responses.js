@@ -1,5 +1,3 @@
-const fs = require('fs')
-
 module.exports = {
   getAllMemosByCourseCodeAndType: [
     {
@@ -1119,13 +1117,4 @@ module.exports = {
       AF: 'A, B, C, D, E, FX, F',
     },
   },
-  getCourseInfoByCourseCode: {
-    courseCode: 'SF1624',
-    sellingText: {
-      en: '<p>Proper text for students to be read and understood, easy to be tested</p>',
-      sv: '<p>Kurs- och programkatalogen anger f&ouml;ljande text (och den anv&auml;nder jag g&auml;rna):</p>\n\n<p>Algebra och geometri &auml;r en grundl&auml;ggande kurs i linj&auml;r algebra med vektorgeometri. Ett centralt begrepp i kursen &auml;r linj&auml;ritet som ligger till grund f&ouml;r stora delar av anv&auml;ndningen av matematik inom s&aring;v&auml;l naturvetenskap som inom ingenj&ouml;rstill&auml;mpningar.&nbsp;</p>',
-    },
-    imageInfo: 'Picture_by_own_choice_SF1624.jpg',
-  },
-  imageBlobStorage: fs.readFileSync('./static/kth_logo.jpg'),
 }
