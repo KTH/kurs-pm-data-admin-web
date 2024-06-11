@@ -633,10 +633,6 @@ module.exports = {
     warnReplacePm:
       'Observ: Any previously published course memo (see course offering below) will be replaced by the new course memo to be edited.',
   },
-  coursePresentationLabels: {
-    imageAltText: 'Inspiring image for course',
-    imageTitleText: '',
-  },
   sideMenuLabels: {
     directory: 'Course and programme directory',
     aboutCourse: 'About course',
