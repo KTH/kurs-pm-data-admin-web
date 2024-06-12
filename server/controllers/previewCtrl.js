@@ -10,7 +10,6 @@ const apis = require('../api')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
-const { getCourseInfo } = require('../kursInfoApi')
 
 const { getSyllabus, getKoppsCourseRoundTerms } = require('../koppsApi')
 const i18n = require('../../i18n')
@@ -25,10 +24,6 @@ function getCurrentTerm(overrideDate) {
   const currentMonth = currentDate.getMonth()
   const currentSemester = currentMonth < JULY ? SPRING : FALL
   return `${currentYear * 10 + currentSemester}`
-}
-
-function resolveSellingText(sellingText, recruitmentText, lang) {
-  return sellingText[lang] ? sellingText[lang] : recruitmentText
 }
 
 function fetchStartDates(miniKoppsObj, semester) {
@@ -184,10 +179,6 @@ async function renderMemoPreviewPage(req, res, next) {
     })
     applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
     const startDates = fetchStartDates(miniKoppsObj, semester)
-    const { sellingText, imageInfo } = await getCourseInfo(courseCode)
-    const { recruitmentText } = applicationStore.koppsFreshData
-    applicationStore.sellingText = resolveSellingText(sellingText, recruitmentText, memoLangAbbr)
-    applicationStore.imageFromAdmin = imageInfo
     applicationStore.memoData = addRoudsStartDate(startDates, applicationStore.memoData)
     await applicationStore.setSectionsStructure()
     applicationStore.activeTermsPublishedMemos = markOutdatedMemoDatas(applicationStore.memoDatas, miniKoppsObj)

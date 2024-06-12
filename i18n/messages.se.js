@@ -619,10 +619,6 @@ module.exports = {
     warnReplacePm:
       'Observera: publicering av nytt uppladdat kurs-PM kommer att ersätta befintligt kurs-PM (se "Välj kursomgång" nedan)',
   },
-  coursePresentationLabels: {
-    imageAltText: 'Inspirerande bild för kursen',
-    imageTitleText: '',
-  },
   sideMenuLabels: {
     directory: 'Kurs- och programkatalogen',
     aboutCourse: 'Om kursen',

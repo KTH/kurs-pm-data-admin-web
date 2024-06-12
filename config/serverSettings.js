@@ -20,8 +20,7 @@ const { safeGet } = require('safe-utils')
 const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
-const devKursPmDataApi = devDefaults('https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000') // required=true&
-const devKursInfoApi = devDefaults('https://api-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000')
+const devKursPmDataApi = devDefaults('http://localhost:3001/api/kurs-pm-data?defaultTimeout=10000') // required=true&
 const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
 const devSessionKey = devDefaults('kurs-pm-data-admin-web.sid')
 const devSessionUseRedis = devDefaults(true)
@@ -59,7 +58,6 @@ module.exports = {
   // API keys
   apiKey: {
     kursPmDataApi: getEnv('KURS_PM_DATA_API_KEY', devDefaults('1234')),
-    kursInfoApi: getEnv('KURS_INFO_API_KEY', devDefaults('1234')),
   },
 
   // Authentication
@@ -73,7 +71,6 @@ module.exports = {
   // Service API's
   nodeApi: {
     kursPmDataApi: unpackNodeApiConfig('KURS_PM_DATA_API_URI', devKursPmDataApi),
-    kursInfoApi: unpackNodeApiConfig('KURS_INFO_API_URI', devKursInfoApi),
   },
 
   koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),

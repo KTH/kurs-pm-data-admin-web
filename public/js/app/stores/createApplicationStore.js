@@ -73,14 +73,6 @@ function createApplicationStore() {
       Object.fromEntries(getDefaultSections().map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
     ),
     /**
-     * @property {string} sellingText
-     */
-    sellingText: '',
-    /**
-     * @property {string} imageFromAdmin
-     */
-    imageFromAdmin: '',
-    /**
      * @property {object} browserConfig
      */
     browserConfig: null,
