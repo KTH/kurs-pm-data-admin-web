@@ -1,3 +1,5 @@
+import { seasonStr } from '../utils-shared/helpers'
+
 const i18n = require('../../../../i18n')
 
 export const combinedCourseName = (courseCode, course, langAbbr) => {
@@ -12,18 +14,6 @@ export const combinedCourseName = (courseCode, course, langAbbr) => {
 
   const courseName = `${courseCode} ${title[langAbbr]} ${localeCredits} ${creditUnit}`
   return courseName
-}
-export function convertLangToIndex(langShortName) {
-  return langShortName === 'en' ? 0 : 1
-}
-export const seasonStr = (language, semesterRaw) => {
-  if (!semesterRaw) return ''
-  const isLangANumber = typeof language === 'number'
-  const langIndex = isLangANumber ? language : convertLangToIndex(language)
-  const { extraInfo } = i18n.messages[langIndex]
-  const termStringAsSeason = `${extraInfo.season[semesterRaw.toString()[4]]}${semesterRaw.toString().slice(0, 4)}`
-
-  return termStringAsSeason
 }
 
 export const getDateFormat = (date, language) => {

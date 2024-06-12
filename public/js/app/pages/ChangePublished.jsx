@@ -17,7 +17,8 @@ import FadeAlert from '../components/FadeAlert'
 import HeadingWithInfoModal from '../components/HeadingWithInfoModal'
 import i18n from '../../../../i18n'
 
-import { combinedCourseName, fetchParameters, seasonStr } from '../util/helpers'
+import { combinedCourseName, fetchParameters } from '../util/helpers'
+import { seasonStr } from '../utils-shared/helpers'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
   if (!existingDraftEndPoint) return

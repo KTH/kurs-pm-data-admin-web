@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { linkToSchool } from '../../util/links'
-import { seasonStr, getDateFormat } from '../../util/helpers'
+import { getDateFormat } from '../../util/helpers'
+import { seasonStr } from '../../utils-shared/helpers'
 import Popup from './Popup'
 
 const formatRoundsShort = memoData => {

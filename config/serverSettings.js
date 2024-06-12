@@ -20,8 +20,8 @@ const { safeGet } = require('safe-utils')
 const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
-const devKursPmDataApi = devDefaults('http://localhost:3001/api/kurs-pm-data?defaultTimeout=10000') // required=true&
-const devKursInfoApi = devDefaults('http://localhost:3002/api/kursinfo?defaultTimeout=10000')
+const devKursPmDataApi = devDefaults('https://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000') // required=true&
+const devKursInfoApi = devDefaults('https://api-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000')
 const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
 const devSessionKey = devDefaults('kurs-pm-data-admin-web.sid')
 const devSessionUseRedis = devDefaults(true)

@@ -1,4 +1,4 @@
-const { roundIsNotOutdated } = require('../../server/utils/helpers')
+const { roundIsNotOutdated } = require('../../server/utils-shared/helpers')
 
 describe('roundIsNotOutdated', () => {
   it('should return true for a date in the current year', () => {

@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Col, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
 
@@ -22,7 +22,7 @@ import ProgressBar from '../components-shared/ProgressBar'
 import ControlPanel from '../components/ControlPanel'
 import FadeAlert from '../components/FadeAlert'
 import HeadingWithInfoModal from '../components/HeadingWithInfoModal'
-import SemesterDropdown from '../components/SemesterDropDown'
+import SemesterDropdown from '../components/SemesterDropdown'
 import i18n from '../../../../i18n'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
@@ -108,12 +108,11 @@ function CreateNewMemo(props) {
     })
   }
 
-  const onChoiceOfSemester = event => {
-    const newSemester = event.target.value
+  const onChoiceOfSemester = useCallback(selectedSemester => {
     const { existingDraftEndPoint } = chosen
-    setSemester(newSemester)
+    setSemester(selectedSemester)
     _cleanUpPrevCheckboxesState(existingDraftEndPoint)
-  }
+  }, [])
 
   const _roundsCommonLanguages = sortedKoppsInfo => {
     /* Get memo language, if at least one round has 'English' as a languageOfInstructions then memo language is English,
@@ -327,6 +326,7 @@ function CreateNewMemo(props) {
                       handleSelectedSemester={onChoiceOfSemester}
                       semesterList={lastTerms}
                       langIndex={langIndex}
+                      selectedSemester={semester}
                     />
                   </FormGroup>
                 </Form>

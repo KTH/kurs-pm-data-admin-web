@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { seasonStr } from '../util/helpers'
+import { seasonStr } from '../utils-shared/helpers'
 
 import i18n from '../../../../i18n'
 

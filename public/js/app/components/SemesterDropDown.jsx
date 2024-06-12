@@ -1,11 +1,10 @@
-import React, { useState, memo } from 'react'
-import { seasonStr } from '../util/helpers'
+import React, { memo } from 'react'
+import { seasonStr } from '../utils-shared/helpers'
 
-function SemesterDropdown({ chooseSemesterLabel, handleSelectedSemester, semesterList, langIndex }) {
-  const [selectedSemester, setSelectedSemester] = useState()
+function SemesterDropdown({ chooseSemesterLabel, handleSelectedSemester, semesterList, langIndex, selectedSemester }) {
   const handleChange = event => {
-    handleSelectedSemester(event)
-    setSelectedSemester(event.target.value)
+    event.preventDefault()
+    handleSelectedSemester(event.target.value)
   }
   return (
     <div className="select-wrapper">
@@ -15,10 +14,10 @@ function SemesterDropdown({ chooseSemesterLabel, handleSelectedSemester, semeste
         id="semesterDropdownControl"
         aria-label={chooseSemesterLabel}
         onChange={handleChange}
-        defaultValue="PLACEHOLDER"
+        value={selectedSemester}
       >
         {!selectedSemester && (
-          <option key="no-chosen" defaultValue="PLACEHOLDER" style={{ display: 'none' }}>
+          <option key="no-chosen" value={chooseSemesterLabel} style={{ display: 'none' }}>
             {chooseSemesterLabel}
           </option>
         )}
