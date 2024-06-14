@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Col, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 import axios from 'axios'
 
@@ -108,11 +108,11 @@ function CreateNewMemo(props) {
     })
   }
 
-  const onChoiceOfSemester = useCallback(selectedSemester => {
+  const onChoiceOfSemester = selectedSemester => {
     const { existingDraftEndPoint } = chosen
     setSemester(selectedSemester)
     _cleanUpPrevCheckboxesState(existingDraftEndPoint)
-  }, [])
+  }
 
   const _roundsCommonLanguages = sortedKoppsInfo => {
     /* Get memo language, if at least one round has 'English' as a languageOfInstructions then memo language is English,
