@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { seasonStr } from '../utils-shared/helpers'
 
 function SemesterDropdown({ chooseSemesterLabel, handleSelectedSemester, semesterList, langIndex, selectedSemester }) {
@@ -6,12 +6,13 @@ function SemesterDropdown({ chooseSemesterLabel, handleSelectedSemester, semeste
     event.preventDefault()
     handleSelectedSemester(event.target.value)
   }
+
   return (
     <div className="select-wrapper">
       <select
         className="form-control"
         data-testid="select-terms"
-        id="semesterDropdownControl"
+        id="term-list"
         aria-label={chooseSemesterLabel}
         onChange={handleChange}
         value={selectedSemester}
@@ -21,10 +22,9 @@ function SemesterDropdown({ chooseSemesterLabel, handleSelectedSemester, semeste
             {chooseSemesterLabel}
           </option>
         )}
-
         {semesterList &&
-          semesterList.map(({ term }) => (
-            <option data-testid="select-option" id={`itemFor-${term}`} key={term} value={term}>
+          semesterList.map(({ term }, index) => (
+            <option data-testid="select-option" id={`itemFor-${term}`} key={index} value={term}>
               {seasonStr(langIndex, term)}
             </option>
           ))}
@@ -32,4 +32,5 @@ function SemesterDropdown({ chooseSemesterLabel, handleSelectedSemester, semeste
     </div>
   )
 }
-export default memo(SemesterDropdown)
+
+export default SemesterDropdown

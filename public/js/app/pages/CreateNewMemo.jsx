@@ -22,7 +22,7 @@ import ProgressBar from '../components-shared/ProgressBar'
 import ControlPanel from '../components/ControlPanel'
 import FadeAlert from '../components/FadeAlert'
 import HeadingWithInfoModal from '../components/HeadingWithInfoModal'
-import SemesterDropdown from '../components/SemesterDropdown'
+import SemesterDropdown from '../components-shared/SemesterDropdown'
 import i18n from '../../../../i18n'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
