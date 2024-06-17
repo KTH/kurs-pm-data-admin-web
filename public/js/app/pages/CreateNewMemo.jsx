@@ -22,8 +22,10 @@ import ProgressBar from '../components-shared/ProgressBar'
 import ControlPanel from '../components/ControlPanel'
 import FadeAlert from '../components/FadeAlert'
 import HeadingWithInfoModal from '../components/HeadingWithInfoModal'
-import SemesterDropdown from '../components-shared/SemesterDropdown'
+import Dropdown from '../components-shared/Dropdown'
 import i18n from '../../../../i18n'
+
+import { seasonStr } from '../utils-shared/helpers'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
   if (!existingDraftEndPoint) return
@@ -80,6 +82,10 @@ function CreateNewMemo(props) {
   const hasSavedDraft = existingDrafts.length > 0
 
   const { course, lastTermsInfo: lastTerms = null } = miniKoppsObj
+  const convertedLastTerms = lastTerms.map(({ term }) => ({
+    value: term,
+    text: seasonStr(langIndex, term),
+  }))
 
   const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
 
@@ -321,12 +327,11 @@ function CreateNewMemo(props) {
               {(lastTerms && lastTerms.length > 0 && (
                 <Form style={{ width: '20em' }} data-testid="form-select-terms">
                   <FormGroup key="select-semester" id="choose-semester">
-                    <SemesterDropdown
-                      chooseSemesterLabel={info.chooseSemester.label}
-                      handleSelectedSemester={onChoiceOfSemester}
-                      semesterList={lastTerms}
-                      langIndex={langIndex}
-                      selectedSemester={semester}
+                    <Dropdown
+                      placeholderText={info.chooseSemester.label}
+                      onChange={onChoiceOfSemester}
+                      options={convertedLastTerms}
+                      selectedOption={semester}
                     />
                   </FormGroup>
                 </Form>
