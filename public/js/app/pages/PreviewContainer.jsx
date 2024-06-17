@@ -21,7 +21,8 @@ import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
 import i18n from '../../../../i18n'
 import { context } from '../util/fieldsByType'
-import { concatMemoName, seasonStr, concatHeaderMemoName } from '../util/helpers'
+import { concatMemoName, concatHeaderMemoName } from '../util/helpers'
+import { seasonStr } from '../utils-shared/helpers'
 import { FIRST_VERSION, EMPTY, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '../util/constants'
 import { TYPE, useToast } from '../hooks/useToast'
 

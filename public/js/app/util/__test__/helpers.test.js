@@ -1,4 +1,5 @@
-const { combinedCourseName, seasonStr, convertLangToIndex } = require('../helpers')
+const { combinedCourseName } = require('../helpers')
+const { seasonStr, convertLangToIndex } = require('../../utils-shared/helpers')
 
 const coursesTypeOne = {
   course_SV: {

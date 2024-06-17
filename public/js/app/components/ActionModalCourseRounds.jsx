@@ -7,7 +7,8 @@ import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
 import i18n from '../../../../i18n'
 
-import { combineMemoName, fetchThisTermRounds, seasonStr } from '../util/helpers'
+import { combineMemoName, fetchThisTermRounds } from '../util/helpers'
+import { seasonStr } from '../utils-shared/helpers'
 import { FIRST_VERSION, SERVICE_URL } from '../util/constants'
 import ActionModalButton from './ActionModalButton'
 
