@@ -82,7 +82,7 @@ function CreateNewMemo(props) {
   const hasSavedDraft = existingDrafts.length > 0
 
   const { course, lastTermsInfo: lastTerms = null } = miniKoppsObj
-  const convertedLastTerms = lastTerms.map(({ term }) => ({
+  const semesterDropdownOptions = lastTerms.map(({ term }) => ({
     value: term,
     text: seasonStr(langIndex, term),
   }))
@@ -330,7 +330,7 @@ function CreateNewMemo(props) {
                     <Dropdown
                       placeholderText={info.chooseSemester.label}
                       onChange={onChoiceOfSemester}
-                      options={convertedLastTerms}
+                      options={semesterDropdownOptions}
                       selectedOption={semester}
                     />
                   </FormGroup>
