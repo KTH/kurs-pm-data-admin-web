@@ -50,7 +50,7 @@ function MemoContainer(props) {
     memoData,
     memoEndPoint,
     memoLangAbbr,
-    rebuilDraftFromPublishedVer,
+    rebuildDraftFromPublishedVer,
     sections,
     semester,
   } = store
@@ -67,7 +67,7 @@ function MemoContainer(props) {
   const { alertText, alertIsOpen, alertColor } = alert
 
   const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
-  const [exactDraftCopyOfPublishedFromPrevVersion, setDraftOfPublishedState] = useState(rebuilDraftFromPublishedVer)
+  const [exactDraftCopyOfPublishedFromPrevVersion, setDraftOfPublishedState] = useState(rebuildDraftFromPublishedVer)
 
   const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
   const { sectionsLabels } = i18n.messages[memoLangIndex]
