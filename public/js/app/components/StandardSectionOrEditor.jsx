@@ -17,8 +17,11 @@ const StandardSectionOrEditor = ({
 }) => {
   const menuId = sectionId + '-' + contentId
   // eslint-disable-next-line react/destructuring-assignment
-  const { isEditable, isRequired, subSection } = context[contentId]
-  const visibleInMemo = isRequired ? true : checkVisibility(contentId, htmlContent)
+  const { isEditable, subSection, hasParentTitle } = context[contentId]
+
+  if (hasParentTitle) return null // Subsections are included in SectionWithSubSection
+
+  const visibleInMemo = checkVisibility(contentId)
 
   if (isEditable) {
     return (
