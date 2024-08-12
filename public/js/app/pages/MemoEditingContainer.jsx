@@ -30,6 +30,12 @@ import TabContent from '../components/TabContent'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
+import {
+  isStandardHeadingVisibleInEditor,
+  isExtraHeadingVisibleInEditor,
+  htmlHasContent,
+  isStoredAsDefaultVisibleInDB,
+} from '../util/EditorAndPreviewUtils'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 60
@@ -63,7 +69,7 @@ function MemoContainer(props) {
   const [contentIdWithMissingHeading, setContentIdWithMissingHeading] = useState('') // check specific extra content group
   const [openAlertIdUntilFixed, setOpenAlertIdUntilFixed] = useState('')
 
-  const { commentAboutMadeChanges, memoName, visibleInMemo } = memoData
+  const { commentAboutMadeChanges, memoName } = memoData
   const { alertText, alertIsOpen, alertColor } = alert
 
   const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
@@ -235,19 +241,24 @@ function MemoContainer(props) {
     }
   }
 
-  // Check visibility for standard headers
-  const checkVisibility = (contentId, initialValue) => {
-    // first time isInVisibleMemo for those header which have openIfContent=true will be true as well
-    const { openIfContent } = context[contentId]
-    const isInVisibleMemo = (visibleInMemo && visibleInMemo[contentId]) || false
-    if (openIfContent && isInVisibleMemo === 'defaultTrue') {
-      // openIfContent is not required
-      const isDefaultAndHasContent = initialValue !== '' || false // for some headers: if it has a (default) value it must be opened and included(when created from a scratch)
-      store.setVisibilityOfStandard(contentId, isDefaultAndHasContent)
-      return isDefaultAndHasContent
+  // Check visibility for standard headings
+  const checkVisibility = contentId => {
+    const htmlContent = memoData[contentId]
+
+    // First time shown in editor:
+    // If visibleInMemo in DB is set to 'defaultTrue' and html has content
+    // => Set to visibleInMemo in DB to true
+    if (isStoredAsDefaultVisibleInDB(contentId, memoData) && htmlHasContent(htmlContent)) {
+      store.setVisibilityOfStandard(contentId, true)
+      return true
     }
-    return isInVisibleMemo
+
+    return isStandardHeadingVisibleInEditor(contentId, context, memoData)
   }
+
+  // Check visibility for extra headings
+  const checkVisibilityExtraHeading = (extraHeaderTitle, headingIndex) =>
+    isExtraHeadingVisibleInEditor(extraHeaderTitle, headingIndex, memoData)
 
   const toggleStandardVisibleInMemo = contentId => {
     const prevVisibleInMemo = { ...store.memoData.visibleInMemo }
@@ -447,7 +458,8 @@ function MemoContainer(props) {
                   style={{ ...style, marginTop: isSticky ? STICKY_SECTION_MENU_TOP_MARGIN : '0' }}
                 >
                   <SectionMenu
-                    visiblesOfStandard={visibleInMemo}
+                    checkVisibility={checkVisibility}
+                    checkVisibilityExtraHeading={checkVisibilityExtraHeading}
                     userLangIndex={userLangIndex}
                     memoLangIndex={memoLangIndex}
                     activeTab={activeTab}
