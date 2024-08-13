@@ -1,5 +1,6 @@
 import {
   isExtraHeadingVisibleInEditor,
+  isExtraHeadingVisibleInPreview,
   isStandardHeadingVisibleInEditor,
   isStandardHeadingVisibleInPreview,
 } from '../EditorAndPreviewUtils'
@@ -130,4 +131,30 @@ describe('isStandardHeadingVisibleInPreview', () => {
       }
     )
   })
+})
+
+describe('isExtraHeadingVisibleInPreview', () => {
+  test.each([{ extraHeaderTitle: 'extraHeaders1', index: 0 }])(
+    'if html does not have content and visibility is stored as true in db, return false',
+    ({ extraHeaderTitle, index }) => {
+      const visibleInMemo = isExtraHeadingVisibleInPreview(extraHeaderTitle, index, memoData)
+      expect(visibleInMemo).toBe(false)
+    }
+  )
+
+  test.each([{ extraHeaderTitle: 'extraHeaders1', index: 1 }])(
+    'if html has content and visibility is stored as true in db, return true',
+    ({ extraHeaderTitle, index }) => {
+      const visibleInMemo = isExtraHeadingVisibleInPreview(extraHeaderTitle, index, memoData)
+      expect(visibleInMemo).toBe(true)
+    }
+  )
+
+  test.each([{ extraHeaderTitle: 'extraHeaders1', index: 2 }])(
+    'if html has content and visibility is stored as false in db, return false',
+    ({ extraHeaderTitle, index }) => {
+      const visibleInMemo = isExtraHeadingVisibleInPreview(extraHeaderTitle, index, memoData)
+      expect(visibleInMemo).toBe(false)
+    }
+  )
 })
