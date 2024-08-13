@@ -25,7 +25,7 @@ export const isStandardHeadingVisibleInPreview = (contentId, context, memoData) 
   const mandatory = isMandatory(type)
   const mandatoryForSomeOrStoredAsVisible = isMandatoryForSome(type) || isStoredAsVisibleInDB(contentId, memoData)
 
-  return mandatory || (mandatoryForSomeOrStoredAsVisible && htmlHasContent(htmlContent))
+  return mandatory || (htmlHasContent(htmlContent) && mandatoryForSomeOrStoredAsVisible)
 }
 
 export const isExtraHeadingVisibleInEditor = (extraHeaderTitle, index, memoData) => {
