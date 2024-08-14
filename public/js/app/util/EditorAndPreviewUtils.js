@@ -1,13 +1,13 @@
 const isRequiredInEditor = (contentId, context) => context?.[contentId]?.isRequired === true
 
-const isStoredAsVisibleInDB = (contentId, memoData) => memoData?.visibleInMemo?.[contentId] === true
-
-export const isStoredAsDefaultVisibleInDB = (contentId, memoData) =>
-  memoData?.visibleInMemo?.[contentId] === 'defaultTrue'
-
 const isMandatory = type => type === 'mandatory' || type === 'mandatoryAndEditable'
 
 const isMandatoryForSome = type => type === 'mandatoryForSome'
+
+export const isStoredAsVisibleInDB = (contentId, memoData) => memoData?.visibleInMemo?.[contentId] === true
+
+export const isStoredAsDefaultVisibleInDB = (contentId, memoData) =>
+  memoData?.visibleInMemo?.[contentId] === 'defaultTrue'
 
 export const htmlHasContent = htmlContent => htmlContent !== undefined && htmlContent !== ''
 

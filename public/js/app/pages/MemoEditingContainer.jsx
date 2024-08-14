@@ -35,6 +35,7 @@ import {
   isExtraHeadingVisibleInEditor,
   htmlHasContent,
   isStoredAsDefaultVisibleInDB,
+  isStoredAsVisibleInDB,
 } from '../util/EditorAndPreviewUtils'
 
 const PROGRESS = 2
@@ -261,14 +262,8 @@ function MemoContainer(props) {
     isExtraHeadingVisibleInEditor(extraHeaderTitle, headingIndex, memoData)
 
   const toggleStandardVisibleInMemo = contentId => {
-    const prevVisibleInMemo = { ...store.memoData.visibleInMemo }
-    let visible
-    if (prevVisibleInMemo) {
-      visible = contentId in prevVisibleInMemo ? prevVisibleInMemo[contentId] : false
-    } else {
-      visible = false
-    }
-    const newVisibility = !visible
+    const prevVisibility = isStoredAsVisibleInDB(contentId, memoData)
+    const newVisibility = !prevVisibility
     const returnNewVibisility = store.setVisibilityOfStandard(contentId, newVisibility)
     if (contentId === 'examinationSubSection') store.setExaminationModules(newVisibility)
 
