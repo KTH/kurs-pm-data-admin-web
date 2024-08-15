@@ -454,7 +454,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
 
   test('tab: prep. renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
     const dynamicSections = screen.getAllByTestId(`dynamic-empty-content-and-not-included`)
-    expect(dynamicSections.length).toBe(3)
+    expect(dynamicSections.length).toBe(4)
   })
   test('tab: prep. information about empty optional (non-editable) content is not visible because it is not included in memo (checkbox is empy)', async () => {
     const { optional: optionalIsEmpty } = sourceInfo.nothingFetched
