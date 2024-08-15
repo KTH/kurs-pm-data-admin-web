@@ -40,17 +40,26 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     done()
   })
 
-  test('renders main header H3 (content) in user lang(sv), and memo only extra sections headers in memo lang(en)', () => {
+  test('renders main header H3 (content) in main-content (extra headers and standard non-optional headers visible)', () => {
     const mainContent = screen.getByTestId('preview-main-content')
     const allH3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(8)
+    expect(allH3Headers.length).toBe(17)
     const expectedh3ds = [
+      'Course contents',
+      'Intended learning outcomes',
       'Created by user First header for section extraHeaders1',
       'Created by user Second header for section extraHeaders1',
+      'Literature',
+      'Support for students with disabilities',
       'Created by user First header for section extraHeaders2',
       'Created by user Second header for section extraHeaders2',
+      'Grading scale',
+      'Examination',
+      'Other requirements for final grade',
+      'Ethical approach',
       'Created by user First header for section extraHeaders3',
       'Created by user Second header for section extraHeaders3',
+      'Additional regulations',
       'Created by user First header for section extraHeaders4',
       'Created by user Second header for section extraHeaders4',
     ]
