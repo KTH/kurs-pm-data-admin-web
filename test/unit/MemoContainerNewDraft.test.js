@@ -504,13 +504,13 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
 
   test('tab: prep. renders "software" checkbox which are not checked and check it to reveal message about empty content for optionalEditable header', async () => {
     const { section: emptyTextMsg } = sourceInfo.noInfoYet
-    // equipment
+    // software
     const checkboxIncludeInMemo = screen.getByTestId('checkbox-visibility-software')
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
       expect(checkboxIncludeInMemo.checked).toBeTruthy()
-      const equipment = screen.getByTestId('text-for-memo-optionalEditable-software')
-      expect(equipment).toHaveTextContent(emptyTextMsg)
+      const software = screen.getByTestId('text-for-memo-optionalEditable-software')
+      expect(software).toHaveTextContent(emptyTextMsg)
       expect(screen.getByTestId('alert-save-data')).toBeInTheDocument()
     })
   })
