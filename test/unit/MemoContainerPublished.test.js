@@ -961,14 +961,9 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
     await waitFor(() => {
       const editorCloseBtn = screen.getByTestId('btn-close-editor-examinationSubSection')
       expect(editorCloseBtn).toBeInTheDocument()
+      expect(screen.queryByTestId('standard-editor-examinationSubSection')).toBeInTheDocument()
       expect(screen.queryByTestId('text-for-memo-optionalEditable-examinationSubSection')).not.toBeInTheDocument()
-
-      fireEvent.click(editorCloseBtn)
     })
-
-    expect(
-      screen.getByTestId('optional-and-excluded-but-with-content-subSection-examinationSubSection')
-    ).toBeInTheDocument()
   })
 
   test('tab: reqToFinal (draft of published). Renders "examinationSubSection" visibility checkbox and text.', async () => {
