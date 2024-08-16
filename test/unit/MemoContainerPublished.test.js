@@ -972,7 +972,9 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
 
     fireEvent.click(checkboxIncludeInMemo)
     await waitFor(() => {
-      expect(screen.getByTestId('text-for-memo-optionalEditable-examinationSubSection')).toBeInTheDocument()
+      expect(
+        screen.getByTestId('optional-and-excluded-but-with-content-subSection-examinationSubSection')
+      ).toBeInTheDocument()
     })
   })
 
