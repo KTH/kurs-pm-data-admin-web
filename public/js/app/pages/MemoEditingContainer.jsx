@@ -244,14 +244,19 @@ function MemoContainer(props) {
 
   // Check visibility for standard headings
   const checkVisibility = contentId => {
-    const htmlContent = memoData[contentId]
-
-    // First time shown in editor:
-    // If visibleInMemo in DB is set to 'defaultTrue' and html has content
-    // => Set to visibleInMemo in DB to true
-    if (isStoredAsDefaultVisibleInDB(contentId, memoData) && htmlHasContent(htmlContent)) {
-      store.setVisibilityOfStandard(contentId, true)
-      return true
+    // First time in editor: If visibleInMemo in DB is set to 'defaultTrue'
+    // Check if html has content => Set to visibleInMemo in DB to true
+    // else check if editable => Set to visibleInMemo in DB to false
+    if (isStoredAsDefaultVisibleInDB(contentId, memoData)) {
+      const htmlContent = memoData[contentId]
+      const { isEditable } = context[contentId]
+      if (htmlHasContent(htmlContent)) {
+        store.setVisibilityOfStandard(contentId, true)
+        return true
+      } else if (isEditable) {
+        store.setVisibilityOfStandard(contentId, false)
+        return false
+      }
     }
 
     return isStandardHeadingVisibleInEditor(contentId, context, memoData)
