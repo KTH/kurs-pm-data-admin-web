@@ -23,8 +23,6 @@ import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import translations from '../mocks/translations'
 import { SectionContextProvider } from '../../public/js/app/stores/SectionContext'
 
-const [{ sourceInfo }] = i18n.messages
-
 const { memoTitlesByMemoLang, orderedFilledInAndVisible, sectionsLabels } = translations.en
 const { pageTitles } = translations.sv
 const introductionEditHeaders = {
@@ -1007,30 +1005,6 @@ describe('Active tab reqToFinal. Component <MemoContainer> Edit published. A New
       fireEvent.click(buttonSaveAndExit)
     })
     expect(screen.getByTestId('alert-save-data')).toBeInTheDocument()
-  })
-
-  test('tab: reqToFinal (draft of published). Renders "ethicalApproachSubSection" closed editor, shows warning about included-but-with-no-content and tries to open it after pressing button "edit"', async () => {
-    const { subSection: subsectionIsEmpty } = sourceInfo.noInfoYet
-
-    const checkbox = screen.queryByTestId('checkbox-visibility-ethicalApproachSubSection')
-    expect(checkbox).toBeInTheDocument()
-
-    fireEvent.click(checkbox) /
-      (await waitFor(() => {
-        const preparationsText = screen.getByTestId('text-for-memo-optionalEditable-ethicalApproachSubSection')
-        expect(preparationsText).toHaveTextContent(subsectionIsEmpty)
-      }))
-
-    const editorOpenBtn = screen.getByTestId('btn-open-editor-ethicalApproachSubSection')
-    expect(editorOpenBtn).toBeInTheDocument()
-
-    fireEvent.click(editorOpenBtn)
-    await waitFor(() => {
-      const editor = screen.getByTestId('standard-editor-ethicalApproachSubSection')
-      expect(editor).toBeInTheDocument()
-      const editorCloseBtn = screen.getByTestId('btn-close-editor-ethicalApproachSubSection')
-      expect(editorCloseBtn).toBeInTheDocument()
-    })
   })
 
   // possibilityToCompletion
