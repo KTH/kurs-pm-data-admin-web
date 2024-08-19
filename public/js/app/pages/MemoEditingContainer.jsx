@@ -36,7 +36,7 @@ import {
   htmlHasContent,
   isStoredAsDefaultVisibleInDB,
   isStoredAsVisibleInDB,
-} from '../util/EditorAndPreviewUtils'
+} from '../util/editorAndPreviewUtils'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 60

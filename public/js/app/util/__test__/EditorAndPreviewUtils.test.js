@@ -3,7 +3,7 @@ import {
   isExtraHeadingVisibleInPreview,
   isStandardHeadingVisibleInEditor,
   isStandardHeadingVisibleInPreview,
-} from '../EditorAndPreviewUtils'
+} from '../editorAndPreviewUtils'
 
 const context = {
   courseContent: { type: 'mandatory', isRequired: true },

@@ -30,7 +30,7 @@ import {
   htmlHasContent,
   isStandardHeadingVisibleInPreview,
   isExtraHeadingVisibleInPreview,
-} from '../util/EditorAndPreviewUtils'
+} from '../util/editorAndPreviewUtils'
 
 const PROGRESS = 3
 
