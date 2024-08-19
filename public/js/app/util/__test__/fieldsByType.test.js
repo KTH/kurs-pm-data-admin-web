@@ -48,6 +48,7 @@ describe('parse a changed copy of sections for a contract education without chan
         "equipment",
         "software",
         "permanentDisability",
+        "permanentDisabilitySubSection",
       ]
     `)
 
@@ -80,6 +81,7 @@ describe('parse a changed copy of sections for a contract education without chan
           "content": [
             "gradingScale",
             "examination",
+            "examinationSubSection",
             "otherRequirementsForFinalGrade",
             "gradingCriteria",
             "possibilityToCompletion",
@@ -87,6 +89,7 @@ describe('parse a changed copy of sections for a contract education without chan
             "possibilityToCompensate",
             "reportingResults",
             "ethicalApproach",
+            "ethicalApproachSubSection",
           ],
           "extraHeaderTitle": "extraHeaders3",
           "id": "reqToFinal",
@@ -136,6 +139,7 @@ describe('parse a changed copy of sections for a contract education without chan
             "equipment",
             "software",
             "permanentDisability",
+            "permanentDisabilitySubSection",
           ],
           "extraHeaderTitle": "extraHeaders2",
           "id": "prep",
@@ -145,6 +149,7 @@ describe('parse a changed copy of sections for a contract education without chan
           "content": [
             "gradingScale",
             "examination",
+            "examinationSubSection",
             "otherRequirementsForFinalGrade",
             "gradingCriteria",
             "possibilityToCompletion",
@@ -152,6 +157,7 @@ describe('parse a changed copy of sections for a contract education without chan
             "possibilityToCompensate",
             "reportingResults",
             "ethicalApproach",
+            "ethicalApproachSubSection",
           ],
           "extraHeaderTitle": "extraHeaders3",
           "id": "reqToFinal",

@@ -30,7 +30,7 @@ const SectionWithSubSection = ({
   const { memoData } = store
   const subSectionContentId = contentId + 'SubSection'
   const subSectionHtmlContent = memoData[subSectionContentId]
-  const subSectionVisibleInMemo = checkVisibility(subSectionContentId, subSectionHtmlContent)
+  const subSectionVisibleInMemo = checkVisibility(subSectionContentId)
   const { getIsEditorOpen, setIsEditorOpen } = useSectionContext()
   const contentName =
     memoTitlesByMemoLang[contentId] || memoTitlesByMemoLang[contentId.substring(0, contentId.length - 10)]
@@ -117,6 +117,7 @@ SectionWithSubSection.propTypes = {
   html: PropTypes.string, // add default
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired, // add default
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
+  checkVisibility: PropTypes.func.isRequired,
 }
 
 SectionWithSubSection.defaultProps = {

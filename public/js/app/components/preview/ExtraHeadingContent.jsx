@@ -10,24 +10,21 @@ function ExtraHeadingContent(props) {
     initialValue: contentForEditor = '',
     initialTitle: contentForTitle = '',
     memoLanguageIndex,
-    visibleInMemo,
   } = props
 
   return (
-    <span className="Added--New--Title--And--Info">
+    <span className="Added--New--Title--And--Info article">
       {!isEmptyNew && (
         <ExtraHeaderHead header={contentForTitle} contentId={contentId} memoLangIndex={memoLanguageIndex} />
       )}
-
-      {!isEmptyNew &&
+      {!isEmptyNew && (
         /* is included in memo, preview text without editor */
-        visibleInMemo && (
-          <span
-            dangerouslySetInnerHTML={{
-              __html: (contentForEditor !== '' && contentForEditor) || `<p><i>${EMPTY[memoLanguageIndex]}</i></p>`,
-            }}
-          />
-        )}
+        <span
+          dangerouslySetInnerHTML={{
+            __html: (contentForEditor !== '' && contentForEditor) || `<p><i>${EMPTY[memoLanguageIndex]}</i></p>`,
+          }}
+        />
+      )}
     </span>
   )
 }
@@ -38,7 +35,6 @@ ExtraHeadingContent.propTypes = {
   initialTitle: PropTypes.string.isRequired,
   memoLanguageIndex: PropTypes.number.isRequired,
   isEmptyNew: PropTypes.bool,
-  visibleInMemo: PropTypes.bool.isRequired,
 }
 
 ExtraHeadingContent.defaultProps = {

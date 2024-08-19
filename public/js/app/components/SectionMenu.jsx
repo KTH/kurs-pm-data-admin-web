@@ -4,9 +4,6 @@ import { observer } from 'mobx-react'
 import { HashLink as Link } from 'react-router-hash-link'
 import PropTypes from 'prop-types'
 import { useStore } from '../mobx'
-
-import { isRequired } from '../util/fieldsByType'
-
 import i18n from '../../../../i18n'
 
 const scrollWithOffset = el => {
@@ -15,25 +12,7 @@ const scrollWithOffset = el => {
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' })
 }
 
-const showEyeSlashIcon = (contentId, visibleInMemoProp) => {
-  if (isRequired(contentId)) {
-    // Required headers are always visible, don’t show an eye slash icon
-    return false
-  }
-
-  if (visibleInMemoProp && typeof visibleInMemoProp === 'object' && visibleInMemoProp[contentId]) {
-    // Header isn’t required and there’s a display mode saved
-    // Display mode is inverted from whether or not an eye slash icon should be shown
-    return !visibleInMemoProp[contentId]
-  }
-  if (typeof visibleInMemoProp === 'boolean') return !visibleInMemoProp
-
-  // Header isn’t required and there’s no display mode saved
-  // Default is to hide header and therefor to show an eye slash icon
-  return true
-}
-
-function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard }) {
+function SectionMenu({ activeTab, children, memoLangIndex, checkVisibility, checkVisibilityExtraHeading }) {
   const { sections, memoData } = useStore()
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 
@@ -49,18 +28,18 @@ function SectionMenu({ activeTab, children, memoLangIndex, visiblesOfStandard })
               key={`nav-litem-leaf-${contentId}`}
               id={`${id}-${contentId}`}
               title={memoTitlesByMemoLang[contentId]}
-              showEyeSlashIcon={showEyeSlashIcon(contentId, visiblesOfStandard)}
+              showEyeSlashIcon={!checkVisibility(contentId)}
             />
           )
       )}
       {extraHeaderTitle &&
         memoData[extraHeaderTitle] &&
-        memoData[extraHeaderTitle].map(({ uKey, title, visibleInMemo: isVisible }) => (
+        memoData[extraHeaderTitle].map(({ uKey, title }, index) => (
           <NavItemLink
             key={'nav-litem-leaf-' + uKey}
             id={id + '-' + extraHeaderTitle + uKey}
             title={title}
-            showEyeSlashIcon={showEyeSlashIcon(uKey, isVisible)}
+            showEyeSlashIcon={!checkVisibilityExtraHeading(extraHeaderTitle, index)}
           />
         ))}
       {children}
@@ -87,7 +66,8 @@ SectionMenu.propTypes = {
   activeTab: PropTypes.string.isRequired,
   children: PropTypes.node,
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
-  visiblesOfStandard: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool])),
+  checkVisibility: PropTypes.func.isRequired,
+  checkVisibilityExtraHeading: PropTypes.func.isRequired,
 }
 
 SectionMenu.defaultProps = {

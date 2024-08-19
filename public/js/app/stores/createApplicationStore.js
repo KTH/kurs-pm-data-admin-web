@@ -59,9 +59,9 @@ function createApplicationStore() {
      */
     miniMemos: {},
     /**
-     * @property {boolean} rebuilDraftFromPublishedVer
+     * @property {boolean} rebuildDraftFromPublishedVer
      */
-    rebuilDraftFromPublishedVer: false,
+    rebuildDraftFromPublishedVer: false,
     /**
      * @property {boolean} closeEmptyHeadingErrorMessage
      */

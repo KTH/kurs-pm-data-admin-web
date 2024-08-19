@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react'
 import { Row, Col } from 'reactstrap'
 
@@ -25,36 +26,23 @@ import { concatMemoName, concatHeaderMemoName } from '../util/helpers'
 import { seasonStr } from '../utils-shared/helpers'
 import { FIRST_VERSION, EMPTY, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '../util/constants'
 import { TYPE, useToast } from '../hooks/useToast'
+import {
+  htmlHasContent,
+  isStandardHeadingVisibleInPreview,
+  isExtraHeadingVisibleInPreview,
+} from '../util/editorAndPreviewUtils'
 
 const PROGRESS = 3
 
 const renderAllSections = ({ sections, memoData }) => {
-  // TODO Use resolved labels instead
   const memoLanguageIndex = memoData.memoCommonLangAbbr === 'en' ? 0 : 1
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
 
-  // TODO Refactor logic for visible sections
   const sectionsWithContent = []
   sections.forEach(({ id, content, extraHeaderTitle }) => {
     content.forEach(contentId => {
-      const { isRequired, type, subSection, subSectionTitle } = context[contentId]
-      let contentHtml = memoData[contentId]
-      if (subSection) {
-        const subSectionContentHtml = memoData[subSectionTitle]
-        contentHtml += subSectionContentHtml
-      }
-      let visibleInMemo = memoData.visibleInMemo[contentId]
-      if (typeof visibleInMemo === 'undefined') {
-        visibleInMemo = true
-      }
+      const visibleInMemo = isStandardHeadingVisibleInPreview(contentId, context, memoData)
 
-      if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
-        contentHtml = EMPTY[memoLanguageIndex]
-      } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
-        visibleInMemo = false
-      } else if (!contentHtml) {
-        visibleInMemo = false
-      }
       if (visibleInMemo && !sectionsWithContent.includes(id)) {
         sectionsWithContent.push(id)
       }
@@ -69,7 +57,6 @@ const renderAllSections = ({ sections, memoData }) => {
     }
   })
 
-  // TODO Refactor logic for visible sections
   return sections.map(({ id, content, extraHeaderTitle }) => {
     if (!sectionsWithContent.includes(id)) {
       return (
@@ -92,25 +79,11 @@ const renderAllSections = ({ sections, memoData }) => {
           </h2>
           {content.map(contentId => {
             const menuId = id + '-' + contentId
-
-            const { isRequired, type, subSection, subSectionTitle } = context[contentId]
             let contentHtml = memoData[contentId]
-            if (subSection) {
-              const subSectionContentHtml = memoData[subSectionTitle]
-              contentHtml += subSectionContentHtml
-            }
-            let visibleInMemo = memoData.visibleInMemo[contentId]
-            if (typeof visibleInMemo === 'undefined') {
-              visibleInMemo = true
-            }
 
-            if (isRequired && (type === 'mandatory' || type === 'mandatoryAndEditable') && !contentHtml) {
-              contentHtml = `<p><i>${EMPTY[memoLanguageIndex]}</i></p>`
-            } else if (isRequired && type === 'mandatoryForSome' && !contentHtml) {
-              visibleInMemo = false
-            } else if (!contentHtml) {
-              visibleInMemo = false
-            }
+            const visibleInMemo = isStandardHeadingVisibleInPreview(contentId, context, memoData)
+
+            if (visibleInMemo && !htmlHasContent(contentHtml)) contentHtml = `<p><i>${EMPTY[memoLanguageIndex]}</i></p>`
 
             return (
               visibleInMemo && (
@@ -127,18 +100,23 @@ const renderAllSections = ({ sections, memoData }) => {
           })}
           {extraHeaderTitle &&
             Array.isArray(memoData[extraHeaderTitle]) &&
-            memoData[extraHeaderTitle].map(({ title, htmlContent, visibleInMemo, isEmptyNew, uKey }) => (
-              <ExtraHeadingContent
-                contentId={extraHeaderTitle}
-                key={uKey || extraHeaderTitle}
-                initialTitle={title}
-                initialValue={htmlContent}
-                visibleInMemo={visibleInMemo}
-                isEmptyNew={isEmptyNew}
-                uKey={uKey}
-                memoLanguageIndex={memoLanguageIndex}
-              />
-            ))}
+            memoData[extraHeaderTitle].map(({ title, htmlContent, isEmptyNew, uKey }, index) => {
+              const isVisibleInMemo = isExtraHeadingVisibleInPreview(extraHeaderTitle, index, memoData)
+
+              return (
+                isVisibleInMemo && (
+                  <ExtraHeadingContent
+                    contentId={extraHeaderTitle}
+                    key={uKey || extraHeaderTitle}
+                    initialTitle={title}
+                    initialValue={htmlContent}
+                    isEmptyNew={isEmptyNew}
+                    uKey={uKey}
+                    memoLanguageIndex={memoLanguageIndex}
+                  />
+                )
+              )
+            })}
         </section>
       )
     )

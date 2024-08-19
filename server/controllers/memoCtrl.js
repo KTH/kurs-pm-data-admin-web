@@ -66,7 +66,7 @@ async function renderMemoEditorPage(req, res, next) {
     const { semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
 
-    applicationStore.rebuilDraftFromPublishedVer = action === 'rebuild'
+    applicationStore.rebuildDraftFromPublishedVer = action === 'rebuild'
 
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
 

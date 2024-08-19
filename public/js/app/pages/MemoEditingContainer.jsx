@@ -30,6 +30,13 @@ import TabContent from '../components/TabContent'
 import ProgressTitle from '../components/ProgressTitle'
 import { context, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
 import SectionMenu from '../components/SectionMenu'
+import {
+  isStandardHeadingVisibleInEditor,
+  isExtraHeadingVisibleInEditor,
+  htmlHasContent,
+  isStoredAsDefaultVisibleInDB,
+  isStoredAsVisibleInDB,
+} from '../util/editorAndPreviewUtils'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 60
@@ -50,7 +57,7 @@ function MemoContainer(props) {
     memoData,
     memoEndPoint,
     memoLangAbbr,
-    rebuilDraftFromPublishedVer,
+    rebuildDraftFromPublishedVer,
     sections,
     semester,
   } = store
@@ -63,11 +70,11 @@ function MemoContainer(props) {
   const [contentIdWithMissingHeading, setContentIdWithMissingHeading] = useState('') // check specific extra content group
   const [openAlertIdUntilFixed, setOpenAlertIdUntilFixed] = useState('')
 
-  const { commentAboutMadeChanges, memoName, visibleInMemo } = memoData
+  const { commentAboutMadeChanges, memoName } = memoData
   const { alertText, alertIsOpen, alertColor } = alert
 
   const isDraftOfPublished = Number(memoData.version) > FIRST_VERSION
-  const [exactDraftCopyOfPublishedFromPrevVersion, setDraftOfPublishedState] = useState(rebuilDraftFromPublishedVer)
+  const [exactDraftCopyOfPublishedFromPrevVersion, setDraftOfPublishedState] = useState(rebuildDraftFromPublishedVer)
 
   const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
   const { sectionsLabels } = i18n.messages[memoLangIndex]
@@ -235,29 +242,33 @@ function MemoContainer(props) {
     }
   }
 
-  // Check visibility for standard headers
-  const checkVisibility = (contentId, initialValue) => {
-    // first time isInVisibleMemo for those header which have openIfContent=true will be true as well
-    const { openIfContent } = context[contentId]
-    const isInVisibleMemo = (visibleInMemo && visibleInMemo[contentId]) || false
-    if (openIfContent && isInVisibleMemo === 'defaultTrue') {
-      // openIfContent is not required
-      const isDefaultAndHasContent = initialValue !== '' || false // for some headers: if it has a (default) value it must be opened and included(when created from a scratch)
-      store.setVisibilityOfStandard(contentId, isDefaultAndHasContent)
-      return isDefaultAndHasContent
+  // Check visibility for standard headings
+  const checkVisibility = contentId => {
+    // First time in editor: If visibleInMemo in DB is set to 'defaultTrue'
+    // Check if html has content => Set to visibleInMemo in DB to true
+    // else check if editable => Set to visibleInMemo in DB to false
+    if (isStoredAsDefaultVisibleInDB(contentId, memoData)) {
+      const htmlContent = memoData[contentId]
+      const { isEditable } = context[contentId]
+      if (htmlHasContent(htmlContent)) {
+        store.setVisibilityOfStandard(contentId, true)
+        return true
+      } else if (isEditable) {
+        store.setVisibilityOfStandard(contentId, false)
+        return false
+      }
     }
-    return isInVisibleMemo
+
+    return isStandardHeadingVisibleInEditor(contentId, context, memoData)
   }
 
+  // Check visibility for extra headings
+  const checkVisibilityExtraHeading = (extraHeaderTitle, headingIndex) =>
+    isExtraHeadingVisibleInEditor(extraHeaderTitle, headingIndex, memoData)
+
   const toggleStandardVisibleInMemo = contentId => {
-    const prevVisibleInMemo = { ...store.memoData.visibleInMemo }
-    let visible
-    if (prevVisibleInMemo) {
-      visible = contentId in prevVisibleInMemo ? prevVisibleInMemo[contentId] : false
-    } else {
-      visible = false
-    }
-    const newVisibility = !visible
+    const prevVisibility = isStoredAsVisibleInDB(contentId, memoData)
+    const newVisibility = !prevVisibility
     const returnNewVibisility = store.setVisibilityOfStandard(contentId, newVisibility)
     if (contentId === 'examinationSubSection') store.setExaminationModules(newVisibility)
 
@@ -447,7 +458,8 @@ function MemoContainer(props) {
                   style={{ ...style, marginTop: isSticky ? STICKY_SECTION_MENU_TOP_MARGIN : '0' }}
                 >
                   <SectionMenu
-                    visiblesOfStandard={visibleInMemo}
+                    checkVisibility={checkVisibility}
+                    checkVisibilityExtraHeading={checkVisibilityExtraHeading}
                     userLangIndex={userLangIndex}
                     memoLangIndex={memoLangIndex}
                     activeTab={activeTab}
