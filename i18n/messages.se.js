@@ -67,7 +67,7 @@ module.exports = {
     '(c)': 'från Kopps',
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan',
-    '(o)': 'sidan inför kursval',
+    '(o)': 'från sidan inför kursval',
     errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: `Inkluderas alltid (går att redigera)`,

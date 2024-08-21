@@ -555,18 +555,19 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
     expect(screen.getByText('Autumn 2020')).toBeInTheDocument()
   })
 
+  // test('tab: prep. render a correct number of infos about data origin and source info', () => {
+  //   const dataOrigin = screen.getAllByText(/from the page Before course selection/i)
+  //   expect(dataOrigin[0]).toBeInTheDocument()
+  //   expect(dataOrigin.length).toBe(1)
+  // })
+
   test('tab: prep. render a correct number of infos about data origin and source info', () => {
-    const dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
-    console.log(
-      '--------DATA ORIGIN--------:',
-      dataOrigin,
-      '--------DATA ORIGIN[0]--------: ',
-      dataOrigin[0],
-      '--------DATA ORIGIN LENGTH--------: ',
-      dataOrigin.length
-    )
+    let dataOrigin = screen.getAllByText(/from the page Before course selection/i)
     expect(dataOrigin[0]).toBeInTheDocument()
-    expect(dataOrigin.length).toBe(2)
+    expect(dataOrigin.length).toBe(1)
+    dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOrigin.length).toBe(1)
   })
 
   test('tab: prep. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
