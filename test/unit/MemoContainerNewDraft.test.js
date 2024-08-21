@@ -557,6 +557,14 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
 
   test('tab: prep. render a correct number of infos about data origin and source info', () => {
     const dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
+    console.log(
+      '--------DATA ORIGIN--------:',
+      dataOrigin,
+      '--------DATA ORIGIN[0]--------: ',
+      dataOrigin[0],
+      '--------DATA ORIGIN LENGTH--------: ',
+      dataOrigin.length
+    )
     expect(dataOrigin[0]).toBeInTheDocument()
     expect(dataOrigin.length).toBe(2)
   })

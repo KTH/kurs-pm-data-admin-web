@@ -137,7 +137,7 @@ const context = {
     type: 'optional',
     isEditable: false,
     isRequired: false,
-    source: '(c)',
+    source: '(o)',
   }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false },
   scheduleDetails: {

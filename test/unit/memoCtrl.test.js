@@ -21,6 +21,15 @@ const mockedKoppsTemplates = {
   equipmentTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   examinationModules: '<h4>Written Exam ( wTEN1 )</h4>',
 }
+const mockedCourseInfo = {
+  courseCode: 'SF1624',
+  sellingText: 'A selling text for SF1624',
+  supplementaryInfo: 'Some supplementary info',
+  courseDisposition: '',
+  recommendedPrerequisites: 'Some recommended prerequisites',
+  lastChangedBy: '',
+  imageInfo: '',
+}
 
 const links =
   '<p><br/><a title="Schema" href="https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/">Schema HT-2020-CDEPR1-MFL-2</a><br/><a title="Schema" href="https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/">Schema HT-2020-CBIOT2-MFL</a></p>'
@@ -94,40 +103,50 @@ describe('Contol functions for combining data', () => {
   })
 
   test('Merge kopps data and api data, memo api data replaces kopps data', async () => {
-    const newKoppsData = await memoCtrl.mergeKoppsAndMemoData(mockedKoppsTemplates, mockedApi(true))
+    const newKoppsData = await memoCtrl.mergeKoppsCourseAndMemoData(
+      mockedKoppsTemplates,
+      mockedCourseInfo,
+      mockedApi(true)
+    )
     expect(newKoppsData).toMatchInlineSnapshot(`
-      {
-        "equipment": "Text saved by user in section in Equipment section",
-        "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
-        "examinationSubSection": "Text saved by user in section in Examination subsection",
-        "literature": "Text saved by user in Literature section",
-        "possibilityToAddition": "Text saved by user in Opportunity to raise an approved grade via renewed examination section",
-        "possibilityToCompletion": "Text saved by user in Opportunity to complete the requirements via supplementary examination section",
-        "scheduleDetails": "Text saved by user in Detailed plan section",
-        "schemaUrls": [
-          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
-          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
-        ],
-      }
-    `)
+{
+  "equipment": "Text saved by user in section in Equipment section",
+  "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
+  "examinationSubSection": "Text saved by user in section in Examination subsection",
+  "literature": "Text saved by user in Literature section",
+  "possibilityToAddition": "Text saved by user in Opportunity to raise an approved grade via renewed examination section",
+  "possibilityToCompletion": "Text saved by user in Opportunity to complete the requirements via supplementary examination section",
+  "prerequisites": "Some recommended prerequisites",
+  "scheduleDetails": "Text saved by user in Detailed plan section",
+  "schemaUrls": [
+    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
+    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
+  ],
+}
+`)
   })
 
   test('Merge kopps data and api data, memo api has empty values', async () => {
-    const newKoppsData = await memoCtrl.mergeKoppsAndMemoData(mockedKoppsTemplates, mockedApi(false))
+    const newKoppsData = await memoCtrl.mergeKoppsCourseAndMemoData(
+      mockedKoppsTemplates,
+      mockedCourseInfo,
+      mockedApi(false)
+    )
     expect(newKoppsData).toMatchInlineSnapshot(`
-      {
-        "equipment": "",
-        "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
-        "examinationSubSection": "",
-        "literature": "",
-        "possibilityToAddition": "",
-        "possibilityToCompletion": "",
-        "scheduleDetails": "",
-        "schemaUrls": [
-          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
-          "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
-        ],
-      }
-    `)
+{
+  "equipment": "",
+  "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
+  "examinationSubSection": "",
+  "literature": "",
+  "possibilityToAddition": "",
+  "possibilityToCompletion": "",
+  "prerequisites": "Some recommended prerequisites",
+  "scheduleDetails": "",
+  "schemaUrls": [
+    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
+    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
+  ],
+}
+`)
   })
 })

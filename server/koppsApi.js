@@ -222,7 +222,6 @@ function _getCommonInfo(resBody) {
     gradingScale,
     title: c.title || '',
     titleOther: c.titleOther || '',
-    prerequisites: c.prerequisites || '',
     possibilityToCompletionTemplate: c.possibilityToCompletion || '',
     possibilityToAdditionTemplate: c.possibilityToAddition || '',
     schemaUrls: schemaUrls || '',
