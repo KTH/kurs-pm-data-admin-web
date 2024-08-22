@@ -50,7 +50,6 @@ async function mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMe
   const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
   const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
   const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData, courseInfoData)
-  console.log('NEW MEMO DATA: ', newMemoData)
   return newMemoData
 }
 

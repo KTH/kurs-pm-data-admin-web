@@ -79,7 +79,7 @@ const BasicHeaderHead = ({
   const titleAndInfo = {
     header,
     body: memoInfoByUserLang[contentId].body,
-    link: memoInfoByUserLang[contentId].link + courseCode + '?l=' + language ?? '',
+    link: `${memoInfoByUserLang[contentId].link}${courseCode}?l=${language}` ?? '',
   }
   const ariaLabel = getInfoModalAriaLabel(userLangIndex, header)
 
