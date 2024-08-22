@@ -22,8 +22,7 @@ const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
 const devKursPmDataApi = devDefaults('http://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000') // required=true&
 const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
-// const devKursInfoApi = devDefaults('http://api-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000') // required=true&
-const devKursInfoApi = devDefaults('http://localhost:3001/api/kursinfo?defaultTimeout=10000') // required=true&
+const devKursInfoApi = devDefaults('http://api-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000') // required=true&
 const devSessionKey = devDefaults('kurs-pm-data-admin-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')

@@ -4,6 +4,7 @@ import Button from '../components-shared/Button'
 
 export function InfoModal(props) {
   const { isOpen, toggle, infoText, id } = props
+  const baseUrl = window.location.origin
 
   return (
     <div>
@@ -13,7 +14,13 @@ export function InfoModal(props) {
           <button type="button" className="kth-icon-button close" aria-label={infoText.btnClose} onClick={toggle} />
         </div>
         <ModalBody>
-          {infoText.htmlBody && <div dangerouslySetInnerHTML={{ __html: infoText.htmlBody }}></div>}
+          {infoText.htmlBody && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: infoText.htmlBody.replace('href="empty"', `href="${baseUrl + infoText.link}"`),
+              }}
+            ></div>
+          )}
         </ModalBody>
         <ModalFooter>
           <Button variant="secondary" onClick={toggle}>

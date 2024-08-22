@@ -322,6 +322,7 @@ module.exports = {
       <p><b>This information helps the student</b> understand which knowledge is crucial to be updated on when the course starts. Clearly defined information makes it easier for the student to review the correct theories and models before the course begins.</p>
       <p><b>The content is retrieved from the Page Before course selection</b> and can only be edited via the About course administration tool. If you want to change the content, you need to save your course memo as a draft and go to the function <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">Page Before course selection</a > to edit the text. You can choose not to include the title in your course memo.</p>`,
       help: `<p>Under this section, you describe what is particularly important for the student to prepare for. You can encourage the student to review knowledge from the "Specific prerequisites" section in the course syllabus, revisit crucial aspects from the "Recommended prerequisites," remind them to order specific literature on time, or install software.</p>`,
+      link: '/kursinfoadmin/kurser/kurs/edit/',
     },
     reportingResults: {
       body: `<p><b>Reporting of exam results</b> describes when and how the registration of students' results and grades takes place, as well as where the student can access this information.</p>

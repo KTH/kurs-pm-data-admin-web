@@ -4,6 +4,7 @@ import { context } from '../util/fieldsByType'
 
 import i18n from '../../../../i18n'
 import { OnClickPropagationStopper } from '../components/editors/OnClickPropagationStopper'
+import { useStore } from '../mobx'
 import HeadingWithInfoModal from './HeadingWithInfoModal'
 import { EditButton } from './editors/EditButton'
 import { SectionHeading } from './layout/SectionHeading'
@@ -68,12 +69,15 @@ const BasicHeaderHead = ({
   onToggleEditor,
   contentIdAndUKey,
 }) => {
+  const store = useStore()
+  const { courseCode } = store
   const { buttons } = i18n.messages[memoLangIndex]
   const { memoInfoByUserLang } = i18n.messages[userLangIndex]
 
   const titleAndInfo = {
     header,
     body: memoInfoByUserLang[contentId].body,
+    link: memoInfoByUserLang[contentId].link + courseCode ?? '',
   }
   const ariaLabel = getInfoModalAriaLabel(userLangIndex, header)
 
