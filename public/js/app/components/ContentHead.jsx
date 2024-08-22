@@ -74,10 +74,12 @@ const BasicHeaderHead = ({
   const { buttons } = i18n.messages[memoLangIndex]
   const { memoInfoByUserLang } = i18n.messages[userLangIndex]
 
+  const language = userLangIndex === 0 ? 'en' : 'sv'
+
   const titleAndInfo = {
     header,
     body: memoInfoByUserLang[contentId].body,
-    link: memoInfoByUserLang[contentId].link + courseCode ?? '',
+    link: memoInfoByUserLang[contentId].link + courseCode + '?l=' + language ?? '',
   }
   const ariaLabel = getInfoModalAriaLabel(userLangIndex, header)
 
