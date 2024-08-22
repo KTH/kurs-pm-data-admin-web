@@ -556,7 +556,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. render a correct number of infos about data origin and source info', () => {
-    let dataOrigin = screen.getAllByText(/from the page Before course selection/i)
+    let dataOrigin = screen.getAllByText(/Fetched from the page Before course selection/i)
     expect(dataOrigin[0]).toBeInTheDocument()
     expect(dataOrigin.length).toBe(1)
     dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
