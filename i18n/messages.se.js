@@ -308,9 +308,9 @@ module.exports = {
     prerequisites: {
       body: `<p><b>Rekommenderade förkunskaper</b> beskriver vad läraren förväntar sig att studenten behärskar när kursomgången startar.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilken kunskap som är viktig att vara uppdaterad på när kursomgången startar. Tydligt avgränsad information gör det lättare för studenten att repetera rätt teorier och modeller inför kursen start.</p>
-      <p><b>Innehåll hämtas från sidan Inför kursval</b> och kan enbart redigeras via Om kursens administrationsverktyg. Vill du ändra innehållet behöver du spara ditt kurs-PM som utkast och gå till funktionen <a href="empty" target="_blank">Sidan inför kursval</a> för att redigera texten. Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
+      <p><b>Innehåll hämtas från sidan Inför kursval</b> och kan enbart redigeras via Om kursens administrationsverktyg. Vill du ändra innehållet behöver du spara ditt kurs-PM som utkast och gå till funktionen <a href="REPLACE_WITH_ABOUT_COURSE_ADMIN_LINK" target="_blank">Sidan inför kursval</a> för att redigera texten. Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
       help: `<p>Här beskriver du vad som är särskilt viktigt för studenten att förbereda sig på. Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna om att beställa viss kurslitteratur i tid eller installera programvara.</p>`,
-      link: '/kursinfoadmin/kurser/kurs/edit/',
+      link: '/kursinfoadmin/kurser/kurs/edit/<REPLACE_WITH_COURSECODE>?l=sv',
     },
     reportingResults: {
       body: `<p><b>Resultatrapportering</b> beskriver när och hur registrering av studenternas resultat och betyg går till, samt var studenten kan ta del av informationen.</p>

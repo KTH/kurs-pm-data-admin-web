@@ -5,7 +5,7 @@ import { InfoModal } from './InfoModal'
 const HeadingWithInfoModal = ({ modalId, titleAndInfo, btnClose, modalBtnAriaLabel, headingTag: HeadingTag }) => {
   const [modalOpen, setModalOpen] = React.useState(false)
   const toggleModal = () => setModalOpen(!modalOpen)
-  const { header, body = '', link } = titleAndInfo
+  const { header, body = '' } = titleAndInfo
 
   const modalProps = {
     id: modalId,
@@ -15,7 +15,6 @@ const HeadingWithInfoModal = ({ modalId, titleAndInfo, btnClose, modalBtnAriaLab
       header,
       btnClose,
       htmlBody: body,
-      link,
     },
   }
   return (

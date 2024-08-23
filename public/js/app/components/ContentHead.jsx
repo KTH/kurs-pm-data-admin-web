@@ -9,6 +9,20 @@ import HeadingWithInfoModal from './HeadingWithInfoModal'
 import { EditButton } from './editors/EditButton'
 import { SectionHeading } from './layout/SectionHeading'
 
+const createHtmlWithDynamicLink = (userLangIndex, contentId, courseCode) => {
+  const { memoInfoByUserLang } = i18n.messages[userLangIndex]
+  const baseUrl = window.location.origin
+
+  const rawLink = `${memoInfoByUserLang[contentId].link}` ?? ''
+  const dynamicLink = rawLink.replace('<REPLACE_WITH_COURSECODE>', courseCode)
+  const html = memoInfoByUserLang[contentId].body.replace(
+    'href="REPLACE_WITH_ABOUT_COURSE_ADMIN_LINK"',
+    `href="${baseUrl + dynamicLink}"`
+  )
+
+  return html
+}
+
 const getInfoModalAriaLabel = (langIndex, header) =>
   langIndex === 1 ? `Information om ${header}` : `Information about ${header}`
 
@@ -72,14 +86,11 @@ const BasicHeaderHead = ({
   const store = useStore()
   const { courseCode } = store
   const { buttons } = i18n.messages[memoLangIndex]
-  const { memoInfoByUserLang } = i18n.messages[userLangIndex]
-
-  const language = userLangIndex === 0 ? 'en' : 'sv'
+  const html = createHtmlWithDynamicLink(userLangIndex, contentId, courseCode)
 
   const titleAndInfo = {
     header,
-    body: memoInfoByUserLang[contentId].body,
-    link: `${memoInfoByUserLang[contentId].link}${courseCode}?l=${language}` ?? '',
+    body: html,
   }
   const ariaLabel = getInfoModalAriaLabel(userLangIndex, header)
 

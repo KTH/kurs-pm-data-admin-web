@@ -11,6 +11,7 @@
   (c)-course general information
   (r)-course round related info
   (pm)-pm information
+  (o)-course info
  */
 
 const excludedFieldsInContractEducation = [
