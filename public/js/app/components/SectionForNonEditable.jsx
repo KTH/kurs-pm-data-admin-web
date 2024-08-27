@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { typeOfHeader } from '../util/fieldsByType'
 import i18n from '../../../../i18n'
 import HeadingBox from '../components/layout/HeadingBox'
+import { disableLinksInHtml } from '../util/disableLinksInHtml'
 import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 
@@ -37,13 +38,14 @@ const SectionForNonEditable = ({
           onToggleVisibleInMemo={onToggleVisibleInMemo}
           userLangIndex={userLangIndex}
         />
-
         <span
           className="section-content"
           data-testid={`text-for-memo-${typeOfThisHeader}-${contentId}`}
           style={visibleInMemo ? {} : { display: 'none' }}
           dangerouslySetInnerHTML={{
-            __html: html || `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`,
+            __html:
+              disableLinksInHtml(html) ||
+              `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`,
           }}
         />
       </span>

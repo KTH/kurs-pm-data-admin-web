@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { disableLinksInHtml } from '../../util/disableLinksInHtml'
 import Popup from './Popup'
 
 // Volontary information
@@ -17,7 +18,10 @@ const courseCoordinator = (memoData, labels) =>
   memoData.courseCoordinator ? (
     <>
       <h3>{labels.courseCoordinatorTitle}</h3>
-      <div id="links-course-coordinator" dangerouslySetInnerHTML={{ __html: memoData.courseCoordinator }} />
+      <div
+        id="links-course-coordinator"
+        dangerouslySetInnerHTML={{ __html: disableLinksInHtml(memoData.courseCoordinator) }}
+      />
       <Popup
         header={labels.courseCoordinatorTitle}
         body={labels.linkOpensInNewTab}
@@ -36,7 +40,7 @@ const teacher = (memoData, labels) =>
   memoData.teacher ? (
     <>
       <h3>{labels.teacherTitle}</h3>
-      <div id="links-teacher" dangerouslySetInnerHTML={{ __html: memoData.teacher }} />
+      <div id="links-teacher" dangerouslySetInnerHTML={{ __html: disableLinksInHtml(memoData.teacher) }} />
       <Popup header={labels.teacherTitle} body={labels.linkOpensInNewTab} targetId="links-teacher" />
     </>
   ) : (
@@ -51,7 +55,10 @@ const teacherAssistants = (memoData, labels) =>
   !memoData.teacherAssistants || (
     <>
       <h3>{labels.teacherAssistantsTitle}</h3>
-      <div id="links-teacher-assistants" dangerouslySetInnerHTML={{ __html: memoData.teacherAssistants }} />
+      <div
+        id="links-teacher-assistants"
+        dangerouslySetInnerHTML={{ __html: disableLinksInHtml(memoData.teacherAssistants) }}
+      />
       <Popup
         header={labels.teacherAssistantsTitle}
         body={labels.linkOpensInNewTab}
@@ -65,7 +72,7 @@ const examiner = (memoData, labels) =>
   memoData.examiner ? (
     <>
       <h3>{labels.examinerTitle}</h3>
-      <div id="links-examiner" dangerouslySetInnerHTML={{ __html: memoData.examiner }} />
+      <div id="links-examiner" dangerouslySetInnerHTML={{ __html: disableLinksInHtml(memoData.examiner) }} />
       <Popup header={labels.examinerTitle} body={labels.linkOpensInNewTab} targetId="links-examiner" />
     </>
   ) : (
@@ -80,7 +87,7 @@ const otherContacts = (memoData, labels) =>
   !memoData.otherContacts || (
     <>
       <h3>{labels.otherContactsTitle}</h3>
-      <div id="links-other-contacts" dangerouslySetInnerHTML={{ __html: memoData.otherContacts }} />
+      <div id="links-other-contacts" dangerouslySetInnerHTML={{ __html: disableLinksInHtml(memoData.otherContacts) }} />
       <Popup header={labels.otherContactsTitle} body={labels.linkOpensInNewTab} targetId="links-other-contacts" />
     </>
   )
