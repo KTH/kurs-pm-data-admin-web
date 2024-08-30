@@ -60,7 +60,7 @@
       margin-block-start: 2rem;
       margin-block-end: 1rem;
     }
-    .article {
+    article {
       @include prose.prose;
       & > h3:first-of-type {
         margin-block-start: 0;

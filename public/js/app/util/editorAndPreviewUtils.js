@@ -43,3 +43,44 @@ export const isExtraHeadingVisibleInPreview = (extraHeaderTitle, index, memoData
 
   return storedAsVisible && htmlHasContent(htmlContent)
 }
+
+const sectionsToSkip = ['contacts']
+
+export const getAllSectionsAndHeadingsToShowInPreview = ({ sections, context, memoData }) => {
+  const sectionsAndHeadings = []
+  sections
+    .filter(({ id }) => !sectionsToSkip.includes(id))
+    .forEach(({ id, content, extraHeaderTitle }) => {
+      sectionsAndHeadings[id] = []
+      const standardHeadingIds = []
+      const extraHeadingIndices = []
+
+      content.forEach(contentId => {
+        const visibleInMemo = isStandardHeadingVisibleInPreview(contentId, context, memoData)
+
+        if (visibleInMemo) {
+          standardHeadingIds.push(contentId)
+        }
+      })
+
+      memoData[extraHeaderTitle]?.forEach((headingObject, index) => {
+        const visibleInMemo = isExtraHeadingVisibleInPreview(extraHeaderTitle, index, memoData)
+
+        if (visibleInMemo) {
+          extraHeadingIndices.push(index)
+        }
+      })
+
+      const isEmptySection = standardHeadingIds.length === 0 && extraHeadingIndices.length === 0
+
+      sectionsAndHeadings.push({
+        id,
+        standardHeadingIds,
+        extraHeaderTitle,
+        extraHeadingIndices,
+        isEmptySection,
+      })
+    })
+
+  return sectionsAndHeadings
+}
