@@ -60,7 +60,6 @@ const context = {
     subSectionTitle: 'examinationSubSection',
   },
   examinationSubSection: {
-    openIfContent: false,
     isEditable: true,
     isRequired: false,
     hasParentTitle: true,
