@@ -79,6 +79,7 @@ module.exports = {
       section: 'Inget innehåll är inlagt. Lägg in innehåll eller ta bort rubriken från kurs-PM.',
       subSection: 'Inget innehåll är inlagt. Lägg in innehåll eller ta bort avsnittet från kurs-PM.',
     },
+    noInfoYetPreview: 'Ingen information tillagd',
     // includera rubrik
     notIncludedInMemoYet: {
       section: 'Innehåll finns inlagt. Välj: Inkludera för att visa rubrik med innehåll i kurs-PM',
