@@ -17,12 +17,12 @@ export const combinedCourseName = (courseCode, course, langAbbr) => {
 }
 
 export const getDateFormat = (date, language) => {
-  if (language === 1 || language === 'Svenska' || language === 'Swedish' || language === 'sv') {
-    return date
-  }
-  const options = { day: 'numeric', month: 'short', year: 'numeric' }
   const timestamp = Date.parse(date)
   const parsedDate = new Date(timestamp)
+  if (language === 1 || language === 'Svenska' || language === 'Swedish' || language === 'sv') {
+    return parsedDate.toLocaleDateString('sv')
+  }
+  const options = { day: 'numeric', month: 'short', year: 'numeric' }
   return parsedDate.toLocaleDateString('en-GB', options)
 }
 
