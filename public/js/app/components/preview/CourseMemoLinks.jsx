@@ -1,26 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { getDateFormat } from '../../util/helpers'
 import Popup from './Popup'
 
-const formatVersion = (language = 'sv', version) => {
-  const unixTime = Date.parse(version)
+const formatVersionDateAndTime = (language = 'sv', lastChangedDateTime) => {
+  const unixTime = Date.parse(lastChangedDateTime)
   if (unixTime) {
-    if (language === 'sv') {
-      return new Date(unixTime).toLocaleString('sv-SE')
-    } else {
-      const options = { day: 'numeric', month: 'short', year: 'numeric' }
-      return new Date(unixTime).toLocaleDateString('en-GB', options)
-    }
+    const date = new Date(unixTime)
+    const time = date.toLocaleTimeString()
+    return `${getDateFormat(date, language)}  ${time}`
   }
   return null
 }
 
-const version = (language, labels, memoVersion) =>
-  memoVersion ? (
+const version = (language, labels, lastChangedDateTime, memoData) =>
+  lastChangedDateTime ? (
     <>
       <h3>{labels.versionTitle}</h3>
-      <p>{`${labels.latest} ${formatVersion(language, memoVersion)}`}</p>
+      <p>{`Ver ${memoData.version} -  ${formatVersionDateAndTime(language, lastChangedDateTime)}`}</p>
     </>
   ) : (
     <>
@@ -41,7 +39,7 @@ const pdfLink = labels => (
 
 const CourseMemoLinks = ({ language, labels, memoData = {} }) => (
   <div className="info-box">
-    {version(language, labels, memoData.lastChangeDate)}
+    {version(language, labels, memoData.lastChangeDate, memoData)}
     {pdfLink(labels)}
   </div>
 )
