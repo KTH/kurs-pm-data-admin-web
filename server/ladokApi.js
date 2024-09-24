@@ -6,9 +6,22 @@ const { server: serverConfig } = require('./configuration')
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
 async function getLadokCourseData(courseCode, lang) {
-  const course = await client.getLatestCourseVersion(courseCode, lang)
+  try {
+    const course = await client.getLatestCourseVersion(courseCode, lang)
 
-  return course
+    return course
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+async function getCourseMainSubjects(courseCode, lang) {
+  const course = await getLadokCourseData(courseCode, lang)
+  if (course.huvudomraden) {
+    const mainSubjectsArray = course.huvudomraden.map(subject => subject.name)
+    const mainSubjects = mainSubjectsArray.join()
+    return { mainSubjects }
+  } else return {}
 }
 
 async function getCourseRoundsData(courseCode, lang) {
@@ -48,6 +61,7 @@ async function getCourseSchoolCode(courseCode) {
 
 module.exports = {
   getLadokCourseData,
+  getCourseMainSubjects,
   getCourseRoundsData,
   getCourseSchoolCode,
 }

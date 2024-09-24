@@ -5,8 +5,6 @@ const redis = require('kth-node-redis')
 const connections = require('@kth/api-call').Connections
 const { server: config } = require('./configuration')
 
-const { roundIsNotOutdated } = require('./utils-shared/helpers')
-
 const koppsOpts = {
   log,
   https: true,
@@ -26,50 +24,6 @@ const koppsConfig = {
 }
 
 const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
-
-async function getCourseSchool(courseCode) {
-  const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}`
-  try {
-    const { body: course, statusCode } = await client.getAsync({ uri, useCache: true })
-    if (!course || statusCode !== 200) return 'kopps_get_fails'
-
-    const { school } = course
-    if (!school) return 'missing_school_code'
-    const { code } = school
-    if (!code) return 'missing_school_code'
-    return code
-  } catch (err) {
-    return err
-  }
-}
-
-async function getKoppsCourseRoundTerms(courseCode) {
-  // step 1
-  // fetch course round terms
-  const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
-  try {
-    const activeTerms = []
-    const res = await client.getAsync({ uri, useCache: true })
-    const { course, termsWithCourseRounds } = res.body
-    termsWithCourseRounds.forEach(t => {
-      const { rounds: koppsCourseRounds } = t
-      const rounds = koppsCourseRounds.filter(
-        round => roundIsNotOutdated(round.lastTuitionDate) && round.state !== 'CANCELLED'
-      )
-      if (rounds.length > 0) activeTerms.push(t)
-    })
-
-    return {
-      course,
-      lastTermsInfo: activeTerms,
-    }
-  } catch (err) {
-    log.debug('getKoppsCourseRoundTerms has an error:' + err)
-    return err
-  }
-}
 
 /**
  * This is temporary method to fetch only round id for UG Rest Api.
@@ -199,10 +153,6 @@ function _getRecruitmentText(body) {
   return course && course.recruitmentText ? course.recruitmentText : ''
 }
 
-function _getCourseMainSubjects(body) {
-  const { mainSubjects } = body
-  return mainSubjects && mainSubjects.length > 0 ? mainSubjects.join(', ') : ''
-}
 function _getCommonInfo(resBody) {
   // step 2
   const { course: c = {}, roundInfos = [], formattedGradeScales = {} } = resBody
@@ -241,7 +191,6 @@ function parseSyllabus(body, semester, language = 'sv') {
   const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
   const permanentDisability = _choosePermanentDisabilityTemplate(language)
   const recruitmentText = _getRecruitmentText(body)
-  const courseMainSubjects = _getCourseMainSubjects(body)
 
   return {
     ...commonInfo,
@@ -249,7 +198,6 @@ function parseSyllabus(body, semester, language = 'sv') {
     ...selectedSyllabus,
     permanentDisability,
     recruitmentText,
-    courseMainSubjects,
   }
 }
 
@@ -268,8 +216,6 @@ async function getSyllabus(courseCode, semester, language = 'sv') {
 
 module.exports = {
   koppsApi: api,
-  getCourseSchool,
-  getKoppsCourseRoundTerms,
   getSyllabus,
   findSyllabus,
   parseSyllabus,

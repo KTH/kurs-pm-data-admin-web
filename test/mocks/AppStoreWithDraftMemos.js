@@ -1,8 +1,7 @@
-import mockMiniKoppsObj from './miniKoppsObjs'
+import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
+import mockMiniLadokObj from './miniLadokObjs'
 import mockMiniMemos from './miniMemos'
 import usedRounds from './mockUsedRounds'
-
-import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
 
 const applicationStore = createApplicationStore()
 
@@ -22,10 +21,10 @@ const mockApplicationStoreWithDraftMemos = {
     publishedWithNoActiveDraft: [],
     sortedPublishedForAllYears: [],
   },
-  miniKoppsObj: mockMiniKoppsObj,
+  miniLadokObj: mockMiniLadokObj,
 
   showAvailableSemesterRounds(semester) {
-    return applicationStore.showAvailableSemesterRounds(semester, usedRounds[semester], mockMiniKoppsObj)
+    return applicationStore.showAvailableSemesterRounds(semester, usedRounds[semester], mockMiniLadokObj)
   },
 }
 
