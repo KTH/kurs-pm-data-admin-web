@@ -1,5 +1,5 @@
-import memoTypes from './memoData/memoTypes'
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
+import memoTypes from './memoData/memoTypes'
 
 const applicationStore = createApplicationStore()
 

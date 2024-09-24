@@ -133,7 +133,7 @@ const courseML1616 = {
           ladokUID: '77efea1c-c09e-11ec-b81f-5bb105fe4960',
         },
         {
-          //empty exam
+          // empty exam
         },
       ],
     },
@@ -250,7 +250,7 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
 `)
 })
 
-//20222
+// 20222
 
 test('parse the latest syllabus 20222 for 20222', async () => {
   const mergedData = await mergeAllData(courseML1616, ladokMockData, apiMemoDataMock)
