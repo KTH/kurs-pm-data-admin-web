@@ -1,4 +1,4 @@
-const mockMiniKoppsObj = {
+const mockMiniLadokObj = {
   course: {
     title: { sv: 'Projekt i plasmafysik', en: 'Project in Plasma Physics' },
     credits: 9,
@@ -10,7 +10,7 @@ const mockMiniKoppsObj = {
       term: '20211',
       rounds: [
         {
-          //used
+          // used
           shortName: 'CBIOT1 m.fl.',
           firstTuitionDate: '2021-03-20',
           language: { sv: 'Svenska', en: 'Swedish' },
@@ -18,7 +18,7 @@ const mockMiniKoppsObj = {
           state: 'APPROVED',
         },
         {
-          //used
+          // used
           shortName: '',
           firstTuitionDate: '2021-01-18',
           language: { sv: 'Engelska', en: 'English' },
@@ -26,7 +26,7 @@ const mockMiniKoppsObj = {
           state: 'CANCELLED',
         },
         {
-          //todo: add as course round
+          // todo: add as course round
           shortName: '',
           firstTuitionDate: '2021-03-22',
           language: { sv: 'Engelska', en: 'English' },
@@ -168,7 +168,7 @@ const mockMiniKoppsObj = {
           applicationCode: '2',
         },
         {
-          //used only published
+          // used only published
           shortName: 'CDATA',
           firstTuitionDate: '2020-03-16',
           language: { sv: 'Svenska', en: 'Swedish' },
@@ -228,7 +228,7 @@ const mockMiniKoppsObj = {
       term: '20192',
       rounds: [
         {
-          //used only published
+          // used only published
           shortName: '',
           firstTuitionDate: '2019-08-26',
           language: { sv: 'Engelska', en: 'English' },
@@ -236,7 +236,7 @@ const mockMiniKoppsObj = {
           state: 'APPROVED',
         },
         {
-          //used published which have active draft
+          // used published which have active draft
           shortName: '',
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
@@ -244,7 +244,7 @@ const mockMiniKoppsObj = {
           state: 'APPROVED',
         },
         {
-          //used to ad as course instance to course rounde with published memo
+          // used to ad as course instance to course rounde with published memo
           shortName: '',
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
@@ -304,4 +304,4 @@ const mockMiniKoppsObj = {
   ],
 }
 
-export default mockMiniKoppsObj
+export default mockMiniLadokObj

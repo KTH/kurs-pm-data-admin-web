@@ -38,7 +38,7 @@ function ChangePublished(props) {
   const {
     courseCode,
     memoEndPoint: initialMemoEndPoint,
-    miniKoppsObj,
+    miniLadokObj,
     miniMemos,
     langAbbr: storeLangAbbr,
     langIndex: storeLangIndex,
@@ -69,7 +69,7 @@ function ChangePublished(props) {
   const event = 'pm_published'
 
   const { alerts, info, pagesChangePublishedPm, pageTitles, buttons } = i18n.messages[langIndex]
-  const { course, lastTermsInfo: lastTerms = null } = miniKoppsObj
+  const { course, lastTermsInfo: lastTerms = null } = miniLadokObj
 
   const termWithPm = lastTerms.filter(t => memosToEdit.find(memo => memo.semester === t.term))
 

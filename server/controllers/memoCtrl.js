@@ -8,7 +8,7 @@ const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getSyllabus, getLadokRoundIds } = require('../koppsApi')
-const { getLadokCourseData } = require('../ladokApi')
+const { getLadokCourseData, getCourseMainSubjects } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
 const serverPaths = require('../server').getPaths()
@@ -106,6 +106,7 @@ async function renderMemoEditorPage(req, res, next) {
     const koppsFreshData = {
       ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoDataDeepCopy)),
+      ...(await getCourseMainSubjects(courseCode, userLang)),
     }
     const ladokCourseData = await getLadokCourseData(courseCode, userLang)
     applicationStore.memoData = await mergeAllData(koppsFreshData, ladokCourseData, apiMemoData)

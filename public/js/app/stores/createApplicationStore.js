@@ -39,9 +39,9 @@ function createApplicationStore() {
      */
     langAbbr: 'en',
     /**
-     * @property {object} miniKoppsObj
+     * @property {object} miniLadokObj
      */
-    miniKoppsObj: {},
+    miniLadokObj: {},
     /**
      * @property {string} memoEndPoint
      */
@@ -237,7 +237,7 @@ function setMemoBasicInfo(props) {
 }
 
 async function _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLastTerms = null) {
-  const lastTerms = this.miniKoppsObj.lastTermsInfo || koppsLastTerms.lastTermsInfo
+  const lastTerms = this.miniLadokObj.lastTermsInfo || koppsLastTerms.lastTermsInfo
   const thisTerm = (lastTerms && (await lastTerms.find(({ term }) => term === chosenSemester))) || {}
   return (
     (thisTerm &&

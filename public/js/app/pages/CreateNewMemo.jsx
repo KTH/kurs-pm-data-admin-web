@@ -47,7 +47,7 @@ function CreateNewMemo(props) {
   const {
     courseCode,
     memoEndPoint: initialMemoEndPoint,
-    miniKoppsObj,
+    miniLadokObj,
     miniMemos,
     langAbbr: storeLangAbbr,
     langIndex: storeLangIndex,
@@ -81,7 +81,7 @@ function CreateNewMemo(props) {
   const existingDrafts = miniMemos.draftsWithNoActivePublishedVer
   const hasSavedDraft = existingDrafts.length > 0
 
-  const { course, lastTermsInfo: lastTerms = null } = miniKoppsObj
+  const { course, lastTermsInfo: lastTerms = null } = miniLadokObj
   const semesterDropdownOptions = lastTerms.map(({ term }) => ({
     value: term,
     text: seasonStr(langIndex, term),
@@ -470,7 +470,7 @@ CreateNewMemo.propTypes = {
   }),
   langAbbr: PropTypes.oneOf(['sv', 'en']),
   langIndex: PropTypes.oneOf([1, 0]),
-  miniKoppsObj: PropTypes.exact({
+  miniLadokObj: PropTypes.exact({
     course: PropTypes.string.isRequired,
     lastTermsInfo: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])))
       .isRequired,

@@ -56,9 +56,9 @@ export const concatHeaderMemoName = (semester, langAbbr = 'sv') => {
   return `${memoLabel} ${seasonStr(langIndex, semester)}`
 }
 
-export const fetchThisTermRounds = async (miniKoppsObj, memo) => {
+export const fetchThisTermRounds = async (miniLadokObj, memo) => {
   const { semester } = memo
-  const { lastTermsInfo } = miniKoppsObj
+  const { lastTermsInfo } = miniLadokObj
   const thisTermInfo = (lastTermsInfo && (await lastTermsInfo.find(({ term }) => term === semester))) || {}
 
   return (thisTermInfo && thisTermInfo.rounds) || []

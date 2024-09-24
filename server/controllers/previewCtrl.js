@@ -11,7 +11,6 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 
-const { getSyllabus, getKoppsCourseRoundTerms } = require('../koppsApi')
 const i18n = require('../../i18n')
 const { HttpError } = require('../utils/errorUtils')
 const { getCourseRoundsData, getLadokCourseData } = require('../ladokApi')
@@ -28,8 +27,8 @@ function getCurrentTerm(overrideDate) {
   return `${currentYear * 10 + currentSemester}`
 }
 
-function fetchStartDates(miniKoppsObj, semester) {
-  const { lastTermsInfo } = miniKoppsObj
+function fetchStartDates(miniLadokObj, semester) {
+  const { lastTermsInfo } = miniLadokObj
   const thisTermInfo = lastTermsInfo.find(({ term }) => term === semester)
   const { rounds } = thisTermInfo
   const roundsStartDate = rounds.map(round => round.firstTuitionDate)
@@ -89,8 +88,8 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   // Course memo does not meet the criteria
   return true
 }
-function markOutdatedMemoDatas(memoDatas = [], miniKoppsObj) {
-  const { lastTermsInfo } = miniKoppsObj
+function markOutdatedMemoDatas(memoDatas = [], miniLadokObj) {
+  const { lastTermsInfo } = miniLadokObj
 
   if (!Array.isArray(memoDatas)) {
     log.error('markOutdatedMemoDatas received non-Array memoDatas argument', memoDatas)
@@ -183,7 +182,6 @@ async function renderMemoPreviewPage(req, res, next) {
       semester: '',
       memoLangAbbr,
     })
-    // applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
     const startDates = fetchStartDates(miniLadokObj, semester)
     applicationStore.memoData = addRoudsStartDate(startDates, applicationStore.memoData)
     await applicationStore.setSectionsStructure()
