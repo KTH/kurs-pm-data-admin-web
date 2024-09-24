@@ -14,7 +14,6 @@ import { StaticRouter } from 'react-router-dom/server'
 import { act } from 'react-dom/test-utils'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
-import i18n from '../../i18n'
 import { getOnlyStandardHeaders, getSectionHeadersByType } from '../../public/js/app/util/fieldsByType.js'
 
 import MemoContainer from '../../public/js/app/pages/MemoEditingContainer'
@@ -130,7 +129,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
   test('tab: contentAndOutcomes (draft of published). renders main subheader (course name)(sv)', () => {
     const headers = screen.getAllByRole('heading', { level: 1 })
     expect(headers.length).toBe(1)
-    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
+    expect(headers[0]).toHaveTextContent('Ändra publicerat kurs-PMEF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('tab: contentAndOutcomes (draft of published). renders h4 for help text', () => {
@@ -472,7 +471,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   test('tab: prep (draft of published). renders main subheader (course name)(sv)', () => {
     const headers = screen.getAllByRole('heading', { level: 1 })
     expect(headers.length).toBe(1)
-    expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 hp')
+    expect(headers[0]).toHaveTextContent('Ändra publicerat kurs-PMEF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('tab: prep (draft of published). renders main subheader h4 (course name), h4 for help text and other menu h4 (menu headers),', () => {

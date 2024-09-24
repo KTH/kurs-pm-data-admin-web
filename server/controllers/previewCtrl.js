@@ -14,6 +14,8 @@ const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getSyllabus, getKoppsCourseRoundTerms } = require('../koppsApi')
 const i18n = require('../../i18n')
 const { HttpError } = require('../utils/errorUtils')
+const { getCourseRoundsData, getLadokCourseData } = require('../ladokApi')
+const { formatLadokData } = require('../utils/formatLadokData')
 
 function getCurrentTerm(overrideDate) {
   const JULY = 6
@@ -164,11 +166,15 @@ async function renderMemoPreviewPage(req, res, next) {
       type: 'published',
     })
     applicationStore.memoDatas = allApiMemoData
-    const miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
+    const ladokCourseRounds = await getCourseRoundsData(courseCode, userLang)
+    const ladokCourseData = await getLadokCourseData(courseCode, userLang)
+
+    const miniLadokObj = formatLadokData(ladokCourseRounds, ladokCourseData)
+
     const memoDataAsArray = []
     // will be used later for add flag outdated to new pm
     memoDataAsArray.push(apiMemoData)
-    applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniKoppsObj)[0]
+    applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniLadokObj)[0]
     const { semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
     applicationStore.setMemoBasicInfo({
@@ -177,11 +183,11 @@ async function renderMemoPreviewPage(req, res, next) {
       semester: '',
       memoLangAbbr,
     })
-    applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
-    const startDates = fetchStartDates(miniKoppsObj, semester)
+    // applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
+    const startDates = fetchStartDates(miniLadokObj, semester)
     applicationStore.memoData = addRoudsStartDate(startDates, applicationStore.memoData)
     await applicationStore.setSectionsStructure()
-    applicationStore.activeTermsPublishedMemos = markOutdatedMemoDatas(applicationStore.memoDatas, miniKoppsObj)
+    applicationStore.activeTermsPublishedMemos = markOutdatedMemoDatas(applicationStore.memoDatas, miniLadokObj)
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 

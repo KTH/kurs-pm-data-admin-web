@@ -1,6 +1,4 @@
-import mockMiniKoppsObj from './miniKoppsObjs'
 import memoTypes from './memoData/memoTypes'
-import usedRounds from './mockUsedRounds'
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
 
 const applicationStore = createApplicationStore()
@@ -15,7 +13,6 @@ const reducedKoppsData = {
     credits: '9.0',
     creditUnitAbbr: 'hp',
     title: 'Project in Plasma Physics',
-    titleOther: 'Projekt i plasmafysik',
     syllabusValid: {
       validFromTerm: 20191,
       validUntilTerm: 20201,
@@ -24,8 +21,7 @@ const reducedKoppsData = {
   sv: {
     credits: '9.0',
     creditUnitAbbr: 'hp',
-    title: 'Projekt i plasmafysiks',
-    titleOther: 'Project in Plasma Physics',
+    title: 'Projekt i plasmafysik',
     syllabusValid: {
       validFromTerm: 20191,
       validUntilTerm: 20201,

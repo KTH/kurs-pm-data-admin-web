@@ -614,7 +614,7 @@ describe('Active tab: Examination. Component <MemoContainer> Edit. A New fresh d
   test('tab: reqToFinal examinations. renders main subheader (course name)(sv)', () => {
     const headers = screen.getAllByRole('heading', { level: 1 })
     expect(headers.length).toBe(1)
-    expect(headers[0]).toHaveTextContent('Skapa och publicera kurs-PMEF1111 Project in Plasma Physics 9.0 hp')
+    expect(headers[0]).toHaveTextContent('Skapa och publicera kurs-PMEF1111 Projekt i plasmafysik 9.0 hp')
   })
 
   test('tab: reqToFinal examinations. renders (sv) menu h4', () => {
