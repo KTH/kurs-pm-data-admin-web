@@ -8,6 +8,7 @@ const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getSyllabus, getLadokRoundIds } = require('../koppsApi')
+const { getLadokCourseData } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
 const serverPaths = require('../server').getPaths()
@@ -49,6 +50,17 @@ async function mergeKoppsAndMemoData(koppsFreshData, apiMemoData) {
   const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
   const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
   return newMemoData
+}
+
+const mergeAllData = async (koppsData, ladokData, apiMemoData) => {
+  const mergedKoppsAndMemoData = await mergeKoppsAndMemoData(koppsData, apiMemoData)
+  return {
+    credits: ladokData.omfattning,
+    title: ladokData.benamning,
+    departmentName: ladokData.organisation.name,
+    educationalTypeId: ladokData.utbildningstyp.id,
+    ...mergedKoppsAndMemoData,
+  }
 }
 
 async function renderMemoEditorPage(req, res, next) {
@@ -95,8 +107,8 @@ async function renderMemoEditorPage(req, res, next) {
       ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoDataDeepCopy)),
     }
-
-    applicationStore.memoData = await mergeKoppsAndMemoData(koppsFreshData, apiMemoData)
+    const ladokCourseData = await getLadokCourseData(courseCode, userLang)
+    applicationStore.memoData = await mergeAllData(koppsFreshData, ladokCourseData, apiMemoData)
 
     await applicationStore.setSectionsStructure()
 
@@ -152,6 +164,7 @@ async function updateContentByEndpoint(req, res, next) {
 module.exports = {
   combineDefaultValues,
   mergeKoppsAndMemoData,
+  mergeAllData,
   renderMemoEditorPage,
   removeTemplatesFromKoppsFreshData,
   updateContentByEndpoint,

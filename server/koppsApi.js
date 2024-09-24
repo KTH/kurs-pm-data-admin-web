@@ -194,11 +194,6 @@ function _choosePermanentDisabilityTemplate(language = 'sv') {
   return message[language]
 }
 
-function _getDepartment(body) {
-  const { course } = body
-  return course && course.department ? course.department.name : ''
-}
-
 function _getRecruitmentText(body) {
   const { course } = body
   return course && course.recruitmentText ? course.recruitmentText : ''
@@ -213,15 +208,9 @@ function _getCommonInfo(resBody) {
   const { course: c = {}, roundInfos = [], formattedGradeScales = {} } = resBody
   const gradingScale = c.gradeScaleCode ? `<p>${formattedGradeScales[c.gradeScaleCode]}</p>` : ''
   const schemaUrls = roundInfos.filter(roundInfo => roundInfo.schemaUrl !== undefined).map(({ schemaUrl }) => schemaUrl)
-  const isCreditNotStandard =
-    c.credits && c.credits.toString().indexOf('.') < 0 && c.credits.toString().indexOf(',') < 0
   return {
-    credits: isCreditNotStandard ? c.credits + '.0' : c.credits || '',
     creditUnitAbbr: c.creditUnitAbbr || '',
-    educationalTypeId: c.educationalTypeId || null,
     gradingScale,
-    title: c.title || '',
-    titleOther: c.titleOther || '',
     prerequisites: c.prerequisites || '',
     possibilityToCompletionTemplate: c.possibilityToCompletion || '',
     possibilityToAdditionTemplate: c.possibilityToAddition || '',
@@ -251,7 +240,6 @@ function parseSyllabus(body, semester, language = 'sv') {
   const examModules = _parseExamModules(body, semester, language)
   const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
   const permanentDisability = _choosePermanentDisabilityTemplate(language)
-  const departmentName = _getDepartment(body)
   const recruitmentText = _getRecruitmentText(body)
   const courseMainSubjects = _getCourseMainSubjects(body)
 
@@ -260,7 +248,6 @@ function parseSyllabus(body, semester, language = 'sv') {
     ...combinedExamInfo,
     ...selectedSyllabus,
     permanentDisability,
-    departmentName,
     recruitmentText,
     courseMainSubjects,
   }

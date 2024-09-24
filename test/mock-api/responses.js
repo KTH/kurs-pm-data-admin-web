@@ -77,7 +77,6 @@ module.exports = {
       supplementaryInfo:
         '<p><strong><em>Obligatorisk f&#246;r &#229;k1, kan ej l&#228;sas av andra studenter</em></strong></p>',
       title: 'Algebra och geometri',
-      titleOther: 'Algebra and Geometry',
       cancelled: false,
       deactivated: false,
       recruitmentText:

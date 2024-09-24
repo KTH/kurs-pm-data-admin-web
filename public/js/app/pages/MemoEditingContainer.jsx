@@ -127,12 +127,10 @@ function MemoContainer(props) {
   }
 
   const courseSubHeader = () => {
-    const { title, titleOther, credits, creditUnitAbbr } = memoData
+    const { title, credits, creditUnitAbbr } = memoData
 
     const creditsStandard = credits || ''
-    const courseTitle = `${courseCode} ${userLangIndex === memoLangIndex ? title : titleOther} ${creditsStandard} ${
-      userLangIndex === 1 ? creditUnitAbbr : 'credits'
-    }`
+    const courseTitle = `${courseCode} ${title} ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`
 
     // update course title in case if smth changed in kopps
     store.setCourseTitle(courseTitle)

@@ -60,6 +60,7 @@
     "kth-style": "^10.3.3",
     "mobx": "^6.12.3",
     "mobx-react": "^9.1.1",
+    "om-kursen-ladok-client": "file:../studadm-om-kursen-packages/packages/om-kursen-ladok-client",
     "passport": "^0.7.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",

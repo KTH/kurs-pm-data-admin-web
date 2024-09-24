@@ -63,6 +63,18 @@ module.exports = {
     kursPmDataApi: getEnv('KURS_PM_DATA_API_KEY', devDefaults('1234')),
   },
 
+  ladokMellanlagerApi: {
+    clientId: getEnv('LADOK_AUTH_CLIENT_ID', devDefaults('fc1c0e6e-c17b-4b1c-9e34-003ca528740f')),
+    clientSecret: getEnv('LADOK_AUTH_CLIENT_SECRET', null),
+    tokenUrl: getEnv(
+      'LADOK_AUTH_TOKEN_URL',
+      devDefaults('https://login.microsoftonline.com/acd7f330-d613-48d9-85f2-258b1ac4a015/oauth2/v2.0/token')
+    ),
+    scope: getEnv('LADOK_AUTH_SCOPE', devDefaults('api://97fe6696-a7b2-4f7f-adce-726426e35c1c/.default')),
+    baseUrl: getEnv('LADOK_BASE_URL', devDefaults('https://apim-mellanlagring2.azure-api.net')),
+    ocpApimSupscriptionKey: getEnv('LADOK_OCP_APIM_SUBSCRIPTION_KEY', null),
+  },
+
   // Authentication
   auth: {
     // app.kursinfo.superuser = personer tillagda där ska kunna lägga till folk som adminanvändare
