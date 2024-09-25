@@ -37,7 +37,7 @@ async function getCourseRoundsData(courseCode, lang) {
       state: 'APPROVED',
       language: {
         sv: round.undervisningssprak.name,
-        en: round.undervisningssprak.name === 'Svenska' ? 'Swedish' : 'English',
+        en: round.undervisningssprak.nameOther,
       },
       campus: { sv: round.studieort.name, en: round.studieort.name },
     }))
