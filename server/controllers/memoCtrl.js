@@ -59,6 +59,7 @@ const mergeAllData = async (koppsData, ladokData, apiMemoData) => {
     title: ladokData.benamning,
     departmentName: ladokData.organisation.name,
     educationalTypeId: ladokData.utbildningstyp.id,
+    mainSubjects: ladokData.mainSubjects,
     ...mergedKoppsAndMemoData,
   }
 }
@@ -106,9 +107,11 @@ async function renderMemoEditorPage(req, res, next) {
     const koppsFreshData = {
       ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoDataDeepCopy)),
+    }
+    const ladokCourseData = {
+      ...(await getLadokCourseData(courseCode, userLang)),
       ...(await getCourseMainSubjects(courseCode, userLang)),
     }
-    const ladokCourseData = await getLadokCourseData(courseCode, userLang)
     applicationStore.memoData = await mergeAllData(koppsFreshData, ladokCourseData, apiMemoData)
 
     await applicationStore.setSectionsStructure()
