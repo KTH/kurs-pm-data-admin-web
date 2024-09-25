@@ -155,16 +155,12 @@ function _getRecruitmentText(body) {
 
 function _getCommonInfo(resBody) {
   // step 2
-  const { course: c = {}, roundInfos = [], formattedGradeScales = {} } = resBody
-  const gradingScale = c.gradeScaleCode ? `<p>${formattedGradeScales[c.gradeScaleCode]}</p>` : ''
-  const schemaUrls = roundInfos.filter(roundInfo => roundInfo.schemaUrl !== undefined).map(({ schemaUrl }) => schemaUrl)
+  const { course: c = {} } = resBody
   return {
     creditUnitAbbr: c.creditUnitAbbr || '',
-    gradingScale,
     prerequisites: c.prerequisites || '',
     possibilityToCompletionTemplate: c.possibilityToCompletion || '',
     possibilityToAdditionTemplate: c.possibilityToAddition || '',
-    schemaUrls: schemaUrls || '',
     literatureTemplate: c.courseLiterature || '',
     equipmentTemplate: c.requiredEquipment || '',
   }
