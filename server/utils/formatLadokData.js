@@ -1,29 +1,37 @@
+const { roundIsNotOutdated } = require('../utils-shared/helpers')
+
+const addRoundToGroup = (groupedRounds, round) => {
+  const group = groupedRounds.find(roundGroup => roundGroup.term === round.startperiod.inDigits)
+
+  if (group) {
+    group.rounds.push(round)
+  } else {
+    groupedRounds.push({ term: round.startperiod.inDigits, rounds: [round] })
+  }
+}
+
 const formatLadokData = (ladokCourseRounds, ladokCourseData) => {
   const groupedLadokCourseRounds = []
+
   ladokCourseRounds.forEach(round => {
-    if (groupedLadokCourseRounds.length > 0) {
-      groupedLadokCourseRounds.forEach(group => {
-        if (group.term == round.startperiod.inDigits) {
-          group.rounds.push(round)
-        } else {
-          groupedLadokCourseRounds.push({ term: round.startperiod.inDigits, rounds: [round] })
-        }
-      })
-    } else {
-      groupedLadokCourseRounds.push({ term: round.startperiod.inDigits, rounds: [round] })
+    // TODO: We previously also checked if round.state == 'CANCELED'. How do we do this with Ladok?
+    if (!roundIsNotOutdated(round.lastTuitionDate.date)) {
+      return
     }
+    addRoundToGroup(groupedLadokCourseRounds, round)
   })
-  // TODO: Need to find a way to handle state instead of hardcoding it
+
   const ladokCourseRoundTerms = {
     course: {
       title: ladokCourseData.benamning,
       credits: ladokCourseData.omfattning,
       creditUnitLabel: ladokCourseData.utbildningstyp.creditsUnit,
       creditUnitAbbr: ladokCourseData.utbildningstyp.creditsUnit.code.toLowerCase(),
-      state: 'ESTABLISHED',
+      state: 'ESTABLISHED', // TODO: Handle state dynamically instead of hardcoding it
     },
     lastTermsInfo: groupedLadokCourseRounds,
   }
+
   return ladokCourseRoundTerms
 }
 
