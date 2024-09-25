@@ -235,7 +235,6 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
   <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
   "possibilityToAdditionTemplate": "",
   "possibilityToCompletionTemplate": "",
-  "prerequisites": "",
   "recruitmentText": "",
   "syllabusValid": {
     "validFromTerm": 20192,
@@ -308,7 +307,6 @@ test('parse the latest syllabus 20222 for 20231', () => {
   <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
   "possibilityToAdditionTemplate": "",
   "possibilityToCompletionTemplate": "",
-  "prerequisites": "",
   "recruitmentText": "",
   "syllabusValid": {
     "validFromTerm": 20222,
