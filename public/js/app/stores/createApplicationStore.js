@@ -236,8 +236,8 @@ function setMemoBasicInfo(props) {
   this.memoLangAbbr = props.memoLangAbbr || 'sv'
 }
 
-async function _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLastTerms = null) {
-  const lastTerms = this.miniLadokObj.lastTermsInfo || koppsLastTerms.lastTermsInfo
+async function _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, ladokLastTerms = null) {
+  const lastTerms = this.miniLadokObj.lastTermsInfo || ladokLastTerms.lastTermsInfo
   const thisTerm = (lastTerms && (await lastTerms.find(({ term }) => term === chosenSemester))) || {}
   return (
     (thisTerm &&
