@@ -15,7 +15,6 @@ const formatLadokData = (ladokCourseRounds, ladokCourseData) => {
 
   ladokCourseRounds.forEach(round => {
     // TODO: We previously also checked if round.state == 'CANCELED'. How do we do this with Ladok?
-    console.log('HERE IS THE ROUND: ', round)
     if (!roundIsNotOutdated(round.lastTuitionDate)) {
       return
     }
