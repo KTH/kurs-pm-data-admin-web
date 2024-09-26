@@ -206,6 +206,7 @@ const courseML1616 = {
 const ladokMockData = {
   omfattning: '7.5',
   benamning: 'Algebra och Geometri',
+  huvudomraden: [{ name: 'Matematik' }, { name: 'Teknik' }],
   organisation: {
     name: '',
   },
