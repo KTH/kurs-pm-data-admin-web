@@ -15,15 +15,6 @@ async function getLadokCourseData(courseCode, lang) {
   }
 }
 
-async function getCourseMainSubjects(courseCode, lang) {
-  const course = await getLadokCourseData(courseCode, lang)
-  if (course.huvudomraden) {
-    const mainSubjectsArray = course.huvudomraden.map(subject => subject.name)
-    const mainSubjects = mainSubjectsArray.join()
-    return { mainSubjects }
-  } else return {}
-}
-
 async function getCourseRoundsData(courseCode, lang) {
   // TODO: need to find a way to handle state instead of just hardcoding it
   try {
@@ -33,7 +24,7 @@ async function getCourseRoundsData(courseCode, lang) {
       applicationCode: round.tillfalleskod,
       startperiod: round.startperiod,
       firstTuitionDate: round.forstaUndervisningsdatum.date,
-      lastTuitionDate: round.sistaUndervisningsdatum,
+      lastTuitionDate: round.sistaUndervisningsdatum.date,
       state: 'APPROVED',
       language: {
         sv: round.undervisningssprak.name,
@@ -61,7 +52,6 @@ async function getCourseSchoolCode(courseCode) {
 
 module.exports = {
   getLadokCourseData,
-  getCourseMainSubjects,
   getCourseRoundsData,
   getCourseSchoolCode,
 }
