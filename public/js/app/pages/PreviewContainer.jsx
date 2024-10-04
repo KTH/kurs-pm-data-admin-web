@@ -18,110 +18,93 @@ import CourseMemoLinks from '../components/preview/CourseMemoLinks'
 import CourseLinks from '../components/preview/CourseLinks'
 import CourseContacts from '../components/preview/CourseContacts'
 import Section from '../components/preview/Section'
-import ExtraHeadingContent from '../components/preview/ExtraHeadingContent'
 
 import i18n from '../../../../i18n'
-import { context } from '../util/fieldsByType'
+import { context, getDefaultSections } from '../util/fieldsByType'
 import { concatMemoName, concatHeaderMemoName } from '../util/helpers'
 import { seasonStr } from '../utils-shared/helpers'
-import { FIRST_VERSION, EMPTY, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '../util/constants'
+import { FIRST_VERSION, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '../util/constants'
 import { TYPE, useToast } from '../hooks/useToast'
-import {
-  htmlHasContent,
-  isStandardHeadingVisibleInPreview,
-  isExtraHeadingVisibleInPreview,
-} from '../util/editorAndPreviewUtils'
+import { getAllSectionsAndHeadingsToShowInPreview } from '../util/editorAndPreviewUtils'
+import ContentFromNewSectionEditor from '../components/preview/ContentFromNewSectionEditor'
 
 const PROGRESS = 3
 
-const renderAllSections = ({ sections, memoData }) => {
+const renderAllSections = ({ memoData }) => {
   const memoLanguageIndex = memoData.memoCommonLangAbbr === 'en' ? 0 : 1
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
+  const { noInfoYetPreview } = i18n.messages[memoLanguageIndex].sourceInfo
 
-  const sectionsWithContent = []
-  sections.forEach(({ id, content, extraHeaderTitle }) => {
-    content.forEach(contentId => {
-      const visibleInMemo = isStandardHeadingVisibleInPreview(contentId, context, memoData)
+  const sections = getDefaultSections()
+  const sectionsAndContent = getAllSectionsAndHeadingsToShowInPreview({ sections, context, memoData })
 
-      if (visibleInMemo && !sectionsWithContent.includes(id)) {
-        sectionsWithContent.push(id)
-      }
-    })
-
-    if (extraHeaderTitle && Array.isArray(memoData[extraHeaderTitle])) {
-      memoData[extraHeaderTitle].forEach(m => {
-        if (m.visibleInMemo && !sectionsWithContent.includes(id)) {
-          sectionsWithContent.push(id)
-        }
-      })
+  return sectionsAndContent.map(({ id, standardHeadingIds, extraHeaderTitle, extraHeadingIndices, isEmptySection }) => {
+    if (isEmptySection) {
+      return <EmptySection key={id} id={id} sectionsLabels={sectionsLabels} noInfoYetPreview={noInfoYetPreview} />
     }
-  })
 
-  return sections.map(({ id, content, extraHeaderTitle }) => {
-    if (!sectionsWithContent.includes(id)) {
-      return (
-        <section key={id} className="section-wrapper">
-          <h2 id={id} key={'header-' + id}>
-            {sectionsLabels[id]}
-          </h2>
-          <p>
-            <i>{EMPTY[memoLanguageIndex]}</i>
-          </p>
-        </section>
-      )
-    }
-    // Contacts are displayed in the right column
     return (
-      id !== 'contacts' && (
-        <section key={id} className="section-wrapper">
-          <h2 id={id} key={'header-' + id}>
-            {sectionsLabels[id]}
-          </h2>
-          {content.map(contentId => {
-            const menuId = id + '-' + contentId
-            let contentHtml = memoData[contentId]
+      <SectionWrapper key={id} id={id} sectionsLabels={sectionsLabels}>
+        <Sections headings={standardHeadingIds} id={id} memoData={memoData} memoLanguageIndex={memoLanguageIndex} />
 
-            const visibleInMemo = isStandardHeadingVisibleInPreview(contentId, context, memoData)
-
-            if (visibleInMemo && !htmlHasContent(contentHtml)) contentHtml = `<p><i>${EMPTY[memoLanguageIndex]}</i></p>`
-
-            return (
-              visibleInMemo && (
-                <Section
-                  memoLangIndex={memoLanguageIndex}
-                  contentId={contentId}
-                  menuId={menuId}
-                  key={contentId}
-                  visibleInMemo={visibleInMemo}
-                  html={contentHtml}
-                />
-              )
-            )
-          })}
-          {extraHeaderTitle &&
-            Array.isArray(memoData[extraHeaderTitle]) &&
-            memoData[extraHeaderTitle].map(({ title, htmlContent, isEmptyNew, uKey }, index) => {
-              const isVisibleInMemo = isExtraHeadingVisibleInPreview(extraHeaderTitle, index, memoData)
-
-              return (
-                isVisibleInMemo && (
-                  <ExtraHeadingContent
-                    contentId={extraHeaderTitle}
-                    key={uKey || extraHeaderTitle}
-                    initialTitle={title}
-                    initialValue={htmlContent}
-                    isEmptyNew={isEmptyNew}
-                    uKey={uKey}
-                    memoLanguageIndex={memoLanguageIndex}
-                  />
-                )
-              )
-            })}
-        </section>
-      )
+        <ExtraHeaders
+          headingIndices={extraHeadingIndices}
+          extraHeaderTitle={extraHeaderTitle}
+          memoData={memoData}
+          memoLanguageIndex={memoLanguageIndex}
+        />
+      </SectionWrapper>
     )
   })
 }
+
+const EmptySection = ({ id, sectionsLabels, noInfoYetPreview }) => (
+  <SectionWrapper id={id} sectionsLabels={sectionsLabels}>
+    <article>
+      <p>
+        <i>{noInfoYetPreview}</i>
+      </p>
+    </article>
+  </SectionWrapper>
+)
+
+const SectionWrapper = ({ id, sectionsLabels, children }) => (
+  <section key={id} aria-labelledby={id} className="section-wrapper">
+    <h2 id={id} key={'header-' + id}>
+      {sectionsLabels[id]}
+    </h2>
+    {children}
+  </section>
+)
+
+const Sections = ({ headings, id, memoData, memoLanguageIndex }) =>
+  headings.map(contentId => {
+    const menuId = id + '-' + contentId
+    const htmlContent = memoData[contentId]
+
+    return (
+      <Section
+        memoLangIndex={memoLanguageIndex}
+        contentId={contentId}
+        menuId={menuId}
+        key={contentId}
+        htmlContent={htmlContent}
+      />
+    )
+  })
+
+const ExtraHeaders = ({ headingIndices, extraHeaderTitle, memoData, memoLanguageIndex }) =>
+  headingIndices.map(index => {
+    const { uKey, title, htmlContent } = memoData[extraHeaderTitle]?.[index] || {}
+    return (
+      <ContentFromNewSectionEditor
+        key={uKey}
+        title={title}
+        htmlContent={htmlContent}
+        memoLanguageIndex={memoLanguageIndex}
+      />
+    )
+  })
 
 const determineContentFlexibility = () => {
   const lastColLastElem = document.getElementById('last-element-which-determines-styles')

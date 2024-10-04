@@ -87,6 +87,7 @@ module.exports = {
       section: 'No information is inserted. Insert information or remove section from course memo.',
       subSection: 'No information is inserted. Insert information or remove section from course memo.',
     },
+    noInfoYetPreview: 'No information inserted',
     notIncludedInMemoYet: {
       section:
         'There is content that is not included. Check "Include" to make the contents visible in the published course memo.',

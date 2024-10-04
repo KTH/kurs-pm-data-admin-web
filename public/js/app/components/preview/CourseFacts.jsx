@@ -98,7 +98,7 @@ const startDate = (labels, memoData) =>
   memoData.roundsStartDate ? (
     <>
       <h3>{labels.startdate}</h3>
-      <p>{getDateFormat(memoData.roundsStartDate[0])}</p>
+      <p>{getDateFormat(memoData.roundsStartDate[0], memoData.languageOfInstructions)}</p>
     </>
   ) : (
     <>
