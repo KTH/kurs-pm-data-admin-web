@@ -11,6 +11,7 @@
   (c)-course general information
   (r)-course round related info
   (pm)-pm information
+  (o)-course info
  */
 
 const excludedFieldsInContractEducation = [
@@ -136,7 +137,7 @@ const context = {
     type: 'optional',
     isEditable: false,
     isRequired: false,
-    source: '(c)',
+    source: '(o)',
   }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false },
   scheduleDetails: {

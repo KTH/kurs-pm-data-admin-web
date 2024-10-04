@@ -556,9 +556,12 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. render a correct number of infos about data origin and source info', () => {
-    const dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
+    let dataOrigin = screen.getAllByText(/Fetched from the page Before course selection/i)
     expect(dataOrigin[0]).toBeInTheDocument()
-    expect(dataOrigin.length).toBe(2)
+    expect(dataOrigin.length).toBe(1)
+    dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOrigin.length).toBe(1)
   })
 
   test('tab: prep. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
