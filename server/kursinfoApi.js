@@ -7,7 +7,7 @@ function throwGenericError() {
   throw new Error(i18n.messages[1].messages.error_generic)
 }
 
-function parseCourseInfo(body, language = 'sv') {
+function parseCourseInfo(body, language) {
   if (!body) return {}
   return {
     courseCode: body.courseCode,

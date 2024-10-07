@@ -97,7 +97,7 @@ async function renderMemoEditorPage(req, res, next) {
       ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoDataDeepCopy)),
     }
-    const courseInfoData = await getCourseInfo(courseCode, memoLangAbbr)
+    const courseInfoData = await getCourseInfo(courseCode, userLang)
 
     applicationStore.memoData = await mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMemoData)
 
