@@ -26,6 +26,7 @@ async function getCourseRoundsData(courseCode, lang) {
       firstTuitionDate: round.forstaUndervisningsdatum.date,
       lastTuitionDate: round.sistaUndervisningsdatum.date,
       state: 'APPROVED',
+      cancelled: round.installt,
       language: {
         sv: round.undervisningssprak.name,
         en: round.undervisningssprak.nameOther,
