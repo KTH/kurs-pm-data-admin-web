@@ -14,7 +14,7 @@ const formatLadokData = (ladokCourseRounds, ladokCourseData) => {
   const groupedLadokCourseRounds = []
 
   ladokCourseRounds.forEach(round => {
-    if (!roundIsNotOutdated(round.lastTuitionDate) || !round.cancelled) {
+    if (!roundIsNotOutdated(round.lastTuitionDate) || round.cancelled) {
       return
     }
     addRoundToGroup(groupedLadokCourseRounds, round)
