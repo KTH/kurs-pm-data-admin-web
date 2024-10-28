@@ -14,8 +14,7 @@ const formatLadokData = (ladokCourseRounds, ladokCourseData) => {
   const groupedLadokCourseRounds = []
 
   ladokCourseRounds.forEach(round => {
-    // TODO: We previously also checked if round.state == 'CANCELED'. How do we do this with Ladok?
-    if (!roundIsNotOutdated(round.lastTuitionDate)) {
+    if (!roundIsNotOutdated(round.lastTuitionDate) || round.cancelled) {
       return
     }
     addRoundToGroup(groupedLadokCourseRounds, round)
