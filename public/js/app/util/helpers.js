@@ -2,32 +2,13 @@ import { seasonStr } from '../utils-shared/helpers'
 
 const i18n = require('../../../../i18n')
 
-// export const combinedCourseName = (courseCode, course, langAbbr) => {
-//   if (!course) return ''
-//   const { credits, title } = course
-//   let { creditUnitAbbr = '' } = course
-//   creditUnitAbbr = typeof creditUnitAbbr === 'object' ? creditUnitAbbr[langAbbr] : creditUnitAbbr
-//   const creditsStandard = credits.toString().indexOf('.') < 0 ? credits + '.0' : credits
-//   const localeCredits =
-//     langAbbr === 'sv' ? creditsStandard.toLocaleString('sv-SE') : creditsStandard.toLocaleString('en-US')
-//   const creditUnit = langAbbr === 'sv' ? creditUnitAbbr : 'credits'
-
-//   const courseName = `${courseCode} ${title[langAbbr]} ${localeCredits} ${creditUnit}`
-//   return courseName
-// }
-
 export const combinedCourseName = (courseCode, course, langAbbr) => {
   if (!course) return ''
   const { credits, title } = course
   let { creditUnitAbbr = '' } = course
   creditUnitAbbr = typeof creditUnitAbbr === 'object' ? creditUnitAbbr[langAbbr] : creditUnitAbbr
-  // const creditsStandard = credits.number.indexOf('.') < 0 ? credits + '.0' : credits.number
-  // const localeCredits =
-  //   langAbbr === 'sv' ? creditsStandard.toLocaleString('sv-SE') : creditsStandard.toLocaleString('en-US')
   const creditUnit = langAbbr === 'sv' ? creditUnitAbbr : 'credits'
-
   const courseName = `${courseCode} ${title} ${credits.number} ${creditUnit}`
-  // const courseName = `${courseCode} ${title[langAbbr]} ${creditsStandard} ${creditUnit}`
   return courseName
 }
 

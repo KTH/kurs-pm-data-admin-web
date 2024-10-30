@@ -10,7 +10,7 @@ const setMemoBasicInfoTest = props => ({
 })
 const reducedKoppsData = {
   en: {
-    credits: '9.0',
+    credits: { number: '9.0' },
     creditUnitAbbr: 'hp',
     title: 'Project in Plasma Physics',
     syllabusValid: {
@@ -19,7 +19,7 @@ const reducedKoppsData = {
     },
   },
   sv: {
-    credits: '9.0',
+    credits: { number: '9.0' },
     creditUnitAbbr: 'hp',
     title: 'Projekt i plasmafysik',
     syllabusValid: {

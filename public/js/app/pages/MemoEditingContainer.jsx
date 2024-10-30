@@ -129,7 +129,7 @@ function MemoContainer(props) {
   const courseSubHeader = () => {
     const { title, credits, creditUnitAbbr } = memoData
 
-    const creditsStandard = credits || ''
+    const creditsStandard = credits.number || ''
     const courseTitle = `${courseCode} ${title} ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`
 
     // update course title in case if smth changed in kopps

@@ -51,19 +51,21 @@ describe('Component <ChangedPublished> Edit published course memo with empty lis
     expect(allH1Headers[0]).toHaveTextContent(pageTitles.published)
   })
 
+  // TODO: this test currently fails because the ladok data already has the correct translation once it's fetched
+
   // test('renders main subheader, course name. English.', () => {
   //   render(<ChangedPublishedEmpty langAbbr="en" langIndex={0} />)
   //   const headers = getAllByRole('heading', { level: 1 })
   //   expect(headers.length).toBe(1)
-  //   expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+  //   expect(headers[0]).toHaveTextContent('Edit published course memoEF1111 Project in Plasma Physics 9.0 credits')
   // })
 
-  // test('renders main header h1, course name. Swedish.', () => {
-  //   render(<ChangedPublishedEmpty langAbbr="sv" langIndex={1} />)
-  //   const headers = getAllByRole('heading', { level: 1 })
-  //   expect(headers.length).toBe(1)
-  //   expect(headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
-  // })
+  test('renders main header h1, course name. Swedish.', () => {
+    render(<ChangedPublishedEmpty langAbbr="sv" langIndex={1} />)
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('Ändra publicerat kurs-PMEF1111 Projekt i plasmafysik 9.0 hp')
+  })
 
   test('renders only three buttons if nothing pressed yet', async () => {
     render(<ChangedPublishedEmpty langAbbr="en" langIndex={0} />)
