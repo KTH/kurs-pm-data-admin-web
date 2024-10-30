@@ -48,6 +48,8 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(headers[0]).toHaveTextContent(pageTitlesEN.new)
   })
 
+  // TODO: this test currently fails because the ladok data already has the correct translation once it's fetched
+
   // test('renders main subheader, course name. English.', () => {
   //   render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
   //   const headers = screen.getAllByRole('heading', { level: 1 })
@@ -62,12 +64,12 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
     expect(headers[0]).toHaveTextContent(pageTitlesSV.new)
   })
 
-  // test('renders main subheader, course name. Swedish.', () => {
-  //   render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
-  //   const headers = screen.getAllByRole('heading', { level: 1 })
-  //   expect(headers.length).toBe(1)
-  //   expect(headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
-  // })
+  test('renders main subheader, course name. Swedish.', () => {
+    render(<CreateNewMemoPage langAbbr="sv" langIndex={1} />)
+    const headers = screen.getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('EF1111 Projekt i plasmafysik 9.0 hp')
+  })
 
   test('renders main header h2, Choose course offering', () => {
     render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
