@@ -16,9 +16,7 @@ async function getMemoApiData(apiFnName, uriParam) {
   try {
     const { client, paths } = api.kursPmDataApi
     const uri = client.resolve(paths[apiFnName].uri, uriParam)
-    console.log('-----INFO-----: ', paths[apiFnName].uri, uriParam)
     const res = await client.getAsync({ uri, useCache: false })
-    console.log('----RES.BODY----', res.body)
     return res.body
   } catch (error) {
     log.debug('getMemoApi path ', { apiFnName }, ' is not available', { error })

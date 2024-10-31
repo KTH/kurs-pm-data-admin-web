@@ -54,7 +54,6 @@ async function mergeKoppsAndMemoData(koppsFreshData, apiMemoData) {
 
 const mergeAllData = async (koppsData, ladokData, apiMemoData) => {
   const mergedKoppsAndMemoData = await mergeKoppsAndMemoData(koppsData, apiMemoData)
-  // console.log('----MERGED KOPPS AND MEMO DATA----: ', mergedKoppsAndMemoData)
   const mainSubjectsArray = ladokData.huvudomraden.map(subject => subject.name)
   const mainSubjects = mainSubjectsArray.join()
   delete mergedKoppsAndMemoData.courseTitle
@@ -65,7 +64,6 @@ const mergeAllData = async (koppsData, ladokData, apiMemoData) => {
     departmentName: ladokData.organisation.name,
     educationalTypeId: ladokData.utbildningstyp.id,
     mainSubjects,
-    // ...mergedKoppsAndMemoData,
     ...mergedKoppsAndMemoData,
   }
 }
@@ -117,8 +115,6 @@ async function renderMemoEditorPage(req, res, next) {
     const ladokCourseData = await getLadokCourseData(courseCode, userLang)
 
     applicationStore.memoData = await mergeAllData(koppsFreshData, ladokCourseData, apiMemoData)
-
-    console.log('----HERE IS THE CURRENT MEMO DATA----', applicationStore.memoData)
 
     await applicationStore.setSectionsStructure()
 

@@ -164,8 +164,6 @@ async function renderMemoPreviewPage(req, res, next) {
       courseCode,
       type: 'published',
     })
-    console.log('-----------------AAAAAAAAAA------------: ', apiMemoData)
-    // apiMemoData.courseTitle = `${courseCode} `
     applicationStore.memoDatas = allApiMemoData
     const ladokCourseRounds = await getCourseRoundsData(courseCode, userLang)
     const ladokCourseData = await getLadokCourseData(courseCode, userLang)

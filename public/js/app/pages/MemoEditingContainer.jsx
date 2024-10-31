@@ -127,10 +127,9 @@ function MemoContainer(props) {
   }
 
   const courseSubHeader = () => {
-    const { title, credits, creditUnitAbbr } = memoData
+    const { title, credits } = memoData
 
-    const creditsStandard = credits.number || ''
-    const courseTitle = `${courseCode} ${title} ${creditsStandard} ${userLangIndex === 1 ? creditUnitAbbr : 'credits'}`
+    const courseTitle = `${courseCode} ${title} ${credits.formattedWithUnit}`
 
     // update course title in case if smth changed in kopps
     store.setCourseTitle(courseTitle)
@@ -181,7 +180,7 @@ function MemoContainer(props) {
 
   // eslint-disable-next-line consistent-return
   const onSave = async (editorContent, alertTranslationId) => {
-    const { syllabusValid, memoCommonLangAbbr, credits, creditUnitAbbr, title, educationalTypeId } = memoData
+    const { syllabusValid, credits, creditUnitAbbr, title, educationalTypeId } = memoData
     const eduTypeId = educationalTypeId ? { educationalTypeId } : {}
     const { validFromTerm, validUntilTerm } = syllabusValid || {}
     if (syllabusValid)
@@ -191,7 +190,7 @@ function MemoContainer(props) {
     const course = {
       credits,
       creditUnitAbbr,
-      title: { [memoCommonLangAbbr]: title },
+      title,
     }
     const courseTitle = combinedCourseName(courseCode, course)
     const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle, ...eduTypeId } // containt kopps old data, or it is empty first time
