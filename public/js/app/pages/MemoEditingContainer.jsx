@@ -193,7 +193,7 @@ function MemoContainer(props) {
       creditUnitAbbr,
       title: { [memoCommonLangAbbr]: title },
     }
-    const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
+    const courseTitle = combinedCourseName(courseCode, course)
     const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle, ...eduTypeId } // containt kopps old data, or it is empty first time
     try {
       const result = await store.updateDraft(body)

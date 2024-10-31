@@ -220,7 +220,7 @@ function CreateNewMemo(props) {
       const continueToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${existingDraftEndPoint}`
       window.location = continueToEditorUrl
     } else if (sortedApplicationCodes.length > 0 && !existingDraftEndPoint) {
-      const courseTitle = combinedCourseName(courseCode, course, memoCommonLangAbbr)
+      const courseTitle = combinedCourseName(courseCode, course)
       // Create new draft from chosen semester rounds
       const body = {
         courseCode,
@@ -261,7 +261,7 @@ function CreateNewMemo(props) {
   return (
     <div className="kip-container">
       <Row id="scroll-here-if-alert">
-        <PageHeading heading={pageTitles.new} subHeading={course && combinedCourseName(courseCode, course, langAbbr)} />
+        <PageHeading heading={pageTitles.new} subHeading={course && combinedCourseName(courseCode, course)} />
       </Row>
 
       <ProgressBar current={0} steps={pagesCreateNewPm} />

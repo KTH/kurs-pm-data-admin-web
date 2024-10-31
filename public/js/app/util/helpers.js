@@ -2,13 +2,14 @@ import { seasonStr } from '../utils-shared/helpers'
 
 const i18n = require('../../../../i18n')
 
-export const combinedCourseName = (courseCode, course, langAbbr) => {
+export const combinedCourseName = (courseCode, course) => {
   if (!course) return ''
   const { credits, title } = course
-  let { creditUnitAbbr = '' } = course
-  creditUnitAbbr = typeof creditUnitAbbr === 'object' ? creditUnitAbbr[langAbbr] : creditUnitAbbr
-  const creditUnit = langAbbr === 'sv' ? creditUnitAbbr : 'credits'
-  const courseName = `${courseCode} ${title} ${credits.number} ${creditUnit}`
+  // let { creditUnitAbbr = '' } = course
+  // creditUnitAbbr = typeof creditUnitAbbr === 'object' ? creditUnitAbbr[langAbbr] : creditUnitAbbr
+  // const creditUnit = langAbbr === 'sv' ? creditUnitAbbr : 'credits'
+  // const courseName = `${courseCode} ${title} ${credits.number} ${creditUnit}`
+  const courseName = `${courseCode} ${title} ${credits.formattedWithUnit}`
   return courseName
 }
 

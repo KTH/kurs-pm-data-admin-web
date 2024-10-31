@@ -23,12 +23,12 @@ const coursesTypeOne = {
 
 describe('combine course name', () => {
   test('combine course name for an object from a detailed information endpoint in Swedish', () => {
-    const courseTitle = combinedCourseName('ML1616', coursesTypeOne.course_SV, 'sv')
+    const courseTitle = combinedCourseName('ML1616', coursesTypeOne.course_SV)
     expect(courseTitle).toBe('ML1616 Industriell projektledning och projektstyrning 7.5 hp')
   })
 
   test('combine course name for an object from a detailed information endpoint in English', () => {
-    const courseTitle = combinedCourseName('ML1616', coursesTypeOne.course_EN, 'en')
+    const courseTitle = combinedCourseName('ML1616', coursesTypeOne.course_EN)
     expect(courseTitle).toBe('ML1616 Applied Programming and Computer Science 7.5 credits')
   })
 
