@@ -160,11 +160,15 @@ async function renderMemoPreviewPage(req, res, next) {
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(userLang)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+    const { semester, memoCommonLangAbbr } = apiMemoData
+    const memoLangAbbr = memoCommonLangAbbr || userLang
     const allApiMemoData = await getMemoApiData('getAllMemosByCourseCodeAndType', {
       courseCode,
       type: 'published',
     })
     applicationStore.memoDatas = allApiMemoData
+    // const ladokCourseRounds = await getCourseRoundsData(courseCode, memoLangAbbr)
+    // const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
     const ladokCourseRounds = await getCourseRoundsData(courseCode, userLang)
     const ladokCourseData = await getLadokCourseData(courseCode, userLang)
 
@@ -173,9 +177,9 @@ async function renderMemoPreviewPage(req, res, next) {
     const memoDataAsArray = []
     // will be used later for add flag outdated to new pm
     memoDataAsArray.push(apiMemoData)
+    // const { semester, memoCommonLangAbbr } = apiMemoData
+    // const memoLangAbbr = memoCommonLangAbbr || userLang
     applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniLadokObj)[0]
-    const { semester, memoCommonLangAbbr } = apiMemoData
-    const memoLangAbbr = memoCommonLangAbbr || userLang
     applicationStore.setMemoBasicInfo({
       courseCode,
       memoEndPoint,
