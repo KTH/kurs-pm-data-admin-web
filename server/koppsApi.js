@@ -116,42 +116,6 @@ function findSyllabus(body, semester) {
   return selectedFields
 }
 
-function _parseExamModules(body, semester, roundLang) {
-  const { course = {}, examinationSets = {}, formattedGradeScales = {} } = body
-  const { creditUnitAbbr = '' } = course
-  const sortedDescExamTerms = Object.keys(examinationSets).sort((a, b) => Number(b) - Number(a))
-  const matchingExamSetKey = sortedDescExamTerms.find(examTerm => Number(examTerm) <= Number(semester))
-  const { examinationRounds = [] } = examinationSets[matchingExamSetKey] ? examinationSets[matchingExamSetKey] : {}
-  const language = roundLang === 'en' ? 0 : 1
-  let titles = ''
-  let liStrs = ''
-  examinationRounds.forEach(exam => {
-    let { credits: examCredits = '' } = exam
-    const { examCode = '', title = '', gradeScaleCode = '' } = exam
-    examCredits = examCredits.toString().length === 1 ? examCredits + '.0' : examCredits
-    const localeCredits = language === 0 ? examCredits : examCredits.toString().replace('.', ',')
-    const localeCreditUnitAbbr = language === 0 ? 'credits' : creditUnitAbbr
-    let examTitle = examCode || title ? `${examCode} ${examCode && title ? '-' : ''} ${title}` : ''
-    examTitle = examTitle ? `${examTitle}${localeCredits ? `, ${localeCredits} ${localeCreditUnitAbbr}` : ''}` : ''
-
-    titles += examTitle ? `<h4>${examTitle}</h4>` : ''
-    liStrs += examTitle
-      ? `<li>${examTitle}, ${language === 0 ? 'Grading scale' : 'Betygsskala'}: ${
-          formattedGradeScales[gradeScaleCode]
-        }</li>`
-      : ''
-  })
-  return { titles, liStrs }
-}
-
-function _combineExamInfo(examModules, selectedSyllabus) {
-  const { liStrs = '', titles: examinationModules = '' } = examModules
-  const { examComments = '' } = selectedSyllabus
-  const examModulesHtmlList = liStrs ? `<p><ul>${liStrs}</ul></p>` : ''
-  const examination = `${examModulesHtmlList}${examComments ? `<p>${examComments}</p>` : ''}`
-  return { examination, examinationModules }
-}
-
 function _choosePermanentDisabilityTemplate(language = 'sv') {
   const message = {
     en: `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
@@ -196,14 +160,11 @@ function parseSyllabus(body, semester, language = 'sv') {
   if (!body || !semester) return {}
   const selectedSyllabus = findSyllabus(body, semester)
   const commonInfo = _getCommonInfo(body)
-  const examModules = _parseExamModules(body, semester, language)
-  const combinedExamInfo = _combineExamInfo(examModules, selectedSyllabus)
   const permanentDisability = _choosePermanentDisabilityTemplate(language)
   const recruitmentText = _getRecruitmentText(body)
 
   return {
     ...commonInfo,
-    ...combinedExamInfo,
     ...selectedSyllabus,
     permanentDisability,
     recruitmentText,
