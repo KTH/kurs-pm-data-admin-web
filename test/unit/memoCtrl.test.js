@@ -37,6 +37,7 @@ jest.mock('../../server/server', () => ({
   getPaths: () => [],
 }))
 jest.mock('../../server/koppsApi', () => ({}))
+jest.mock('../../server/ladokApi', () => ({}))
 
 const memoCtrl = require('../../server/controllers/memoCtrl')
 
