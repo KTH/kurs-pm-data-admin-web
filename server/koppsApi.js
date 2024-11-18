@@ -59,6 +59,21 @@ async function getLadokRoundIds(courseCode, semester, applicationCodes) {
     return err
   }
 }
+async function getLadokRoundUids(courseCode, semester) {
+  const { client } = api.koppsApi
+  const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
+  try {
+    const { body } = await client.getAsync({ uri, useCache: true })
+    const { termsWithCourseRounds } = body
+    const selectedTerm = termsWithCourseRounds.find(t => t.term.toString() === semester.toString())
+    const ladokRoundIds = selectedTerm.rounds.map(round => round.ladokUID)
+
+    return ladokRoundIds
+  } catch (err) {
+    log.debug('getKoppsCourseRoundTerms has an error:' + err)
+    return err
+  }
+}
 
 /** STEP 2: CONTENT FOR COURSE SYLLLABUS INFO AND OTHER COURES INFO WHEN USER EDIT A MEMO * */
 const _combineStartEndDates = (sortedSyllabuses, indexOf) => {
@@ -107,7 +122,6 @@ function _parseExamModules(body, semester, roundLang) {
   const sortedDescExamTerms = Object.keys(examinationSets).sort((a, b) => Number(b) - Number(a))
   const matchingExamSetKey = sortedDescExamTerms.find(examTerm => Number(examTerm) <= Number(semester))
   const { examinationRounds = [] } = examinationSets[matchingExamSetKey] ? examinationSets[matchingExamSetKey] : {}
-
   const language = roundLang === 'en' ? 0 : 1
   let titles = ''
   let liStrs = ''
@@ -215,4 +229,5 @@ module.exports = {
   findSyllabus,
   parseSyllabus,
   getLadokRoundIds,
+  getLadokRoundUids,
 }

@@ -7,8 +7,8 @@ const apis = require('../api')
 
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
-const { getSyllabus, getLadokRoundIds } = require('../koppsApi')
-const { getLadokCourseData } = require('../ladokApi')
+const { getSyllabus, getLadokRoundIds, getLadokRoundUids } = require('../koppsApi')
+const { getLadokCourseData, getExaminationModules } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
 const serverPaths = require('../server').getPaths()
@@ -52,11 +52,13 @@ async function mergeKoppsAndMemoData(koppsFreshData, apiMemoData) {
   return newMemoData
 }
 
-const mergeAllData = async (koppsData, ladokData, apiMemoData) => {
+const mergeAllData = async (koppsData, ladokData, apiMemoData, combinedExamInfo) => {
   const mergedKoppsAndMemoData = await mergeKoppsAndMemoData(koppsData, apiMemoData)
   const mainSubjectsArray = ladokData.huvudomraden.map(subject => subject.name)
   const mainSubjects = mainSubjectsArray.join()
   delete mergedKoppsAndMemoData.courseTitle
+  delete mergedKoppsAndMemoData.examination
+  delete mergedKoppsAndMemoData.examinationModules
   return {
     credits: ladokData.omfattning,
     title: ladokData.benamning,
@@ -64,8 +66,16 @@ const mergeAllData = async (koppsData, ladokData, apiMemoData) => {
     departmentName: ladokData.organisation.name,
     educationalTypeId: ladokData.utbildningstyp.id,
     mainSubjects,
+    examination: combinedExamInfo.examination,
+    examinationModules: combinedExamInfo.examinationModules,
     ...mergedKoppsAndMemoData,
   }
+}
+
+function combineExamInfo(examinationModules, examComments) {
+  const examModulesHtmlList = examinationModules.liStrs ? `<p><ul>${examinationModules.liStrs}</ul></p>` : ''
+  const examination = `${examModulesHtmlList}${examComments ? `<p>${examComments}</p>` : ''}`
+  return { examination, examinationModules: examinationModules.titles }
 }
 
 async function renderMemoEditorPage(req, res, next) {
@@ -103,20 +113,26 @@ async function renderMemoEditorPage(req, res, next) {
      */
 
     // start
-    const apiMemoDataDeepCopy = JSON.parse(JSON.stringify(apiMemoData))
+    const apiMemoDataDeepCopy = apiMemoData
     const { applicationCodes } = apiMemoDataDeepCopy
 
+    // fix this so there's only one function
     apiMemoDataDeepCopy.ladokRoundIds = await getLadokRoundIds(courseCode, semester, applicationCodes)
+    const ladokRoundUids = await getLadokRoundUids(courseCode, semester)
+
     // end
     const koppsFreshData = {
       ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoDataDeepCopy)),
     }
 
-    const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
-    // const ladokCourseData = await getLadokCourseData(courseCode, userLang)
+    // Just pick one of them
+    const examinationModules = await getExaminationModules(ladokRoundUids[0], memoLangAbbr)
+    const combinedExamInfo = combineExamInfo(examinationModules, koppsFreshData.examComments)
 
-    applicationStore.memoData = await mergeAllData(koppsFreshData, ladokCourseData, apiMemoData)
+    const ladokCourseData = await getLadokCourseData(courseCode, userLang)
+
+    applicationStore.memoData = await mergeAllData(koppsFreshData, ladokCourseData, apiMemoData, combinedExamInfo)
 
     await applicationStore.setSectionsStructure()
 
