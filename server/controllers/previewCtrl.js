@@ -167,18 +167,14 @@ async function renderMemoPreviewPage(req, res, next) {
       type: 'published',
     })
     applicationStore.memoDatas = allApiMemoData
-    // const ladokCourseRounds = await getCourseRoundsData(courseCode, memoLangAbbr)
-    // const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
-    const ladokCourseRounds = await getCourseRoundsData(courseCode, userLang)
-    const ladokCourseData = await getLadokCourseData(courseCode, userLang)
+    const ladokCourseRounds = await getCourseRoundsData(courseCode, memoLangAbbr)
+    const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
 
     const miniLadokObj = formatLadokData(ladokCourseRounds, ladokCourseData)
 
     const memoDataAsArray = []
     // will be used later for add flag outdated to new pm
     memoDataAsArray.push(apiMemoData)
-    // const { semester, memoCommonLangAbbr } = apiMemoData
-    // const memoLangAbbr = memoCommonLangAbbr || userLang
     applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniLadokObj)[0]
     applicationStore.setMemoBasicInfo({
       courseCode,
