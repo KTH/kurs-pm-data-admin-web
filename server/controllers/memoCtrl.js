@@ -81,6 +81,8 @@ async function renderMemoEditorPage(req, res, next) {
 
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
     const { semester, memoCommonLangAbbr } = apiMemoData
+    console.log('apiMemoData: ', apiMemoData)
+    console.log('memoCommonLangAbbr: ', memoCommonLangAbbr)
     const memoLangAbbr = memoCommonLangAbbr || userLang
 
     applicationStore.rebuildDraftFromPublishedVer = action === 'rebuild'

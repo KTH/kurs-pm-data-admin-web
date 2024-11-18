@@ -19,7 +19,6 @@ async function getCourseRoundsData(courseCode, lang) {
   // TODO: need to find a way to handle state instead of just hardcoding it
   try {
     const course = await client.getActiveCourseRounds(courseCode, lang)
-    console.log('------HERE IS THE COURSE------: ', course)
     const mappedRounds = course.map(round => ({
       shortName: round.kortnamn,
       applicationCode: round.tillfalleskod,
