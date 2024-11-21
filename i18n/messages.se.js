@@ -174,8 +174,7 @@ module.exports = {
     },
     equipment: {
       body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången.</p>
-      <p><b>Informationen hjälper studenten</b> att skaffa rätt utrustning inför kursomgångens start.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om utrustning inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att skaffa rätt utrustning inför kursomgångens start.</p>`,
       help: `<p>Här beskriver du vilken utrustning som studenten behöver för att genomföra kursen, om den inte tillhandahålls av KTH. Skrivdon och litteratur räknas inte till utrustning.</p>`,
     },
     examination: {

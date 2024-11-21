@@ -16,7 +16,6 @@ const mockedKoppsTemplates = {
     'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/',
   ],
   literatureTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
-  equipmentTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   examinationModules: '<h4>Written Exam ( wTEN1 )</h4>',
 }
 const mockedCourseInfo = {
@@ -51,9 +50,8 @@ describe('Contol functions for combining data', () => {
   test('Update fetch data with default data from kopps if some api data has no values, except examinationSubSection', done => {
     const emptyApiData = mockedApi()
     const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates)
-    const { examinationSubSection, equipment, literature } = updatedMemoData
+    const { examinationSubSection, literature } = updatedMemoData
     expect(examinationSubSection).toBe(emptyApiData.examinationSubSection)
-    expect(equipment).toBe(mockedKoppsTemplates.equipmentTemplate)
     expect(literature).toBe(mockedKoppsTemplates.literatureTemplate)
     done()
   })
@@ -74,10 +72,7 @@ describe('Contol functions for combining data', () => {
 
   test('Kopps data cleaned up from templates', done => {
     const newKoppsData = memoCtrl.removeTemplatesFromKoppsFreshData(JSON.parse(JSON.stringify(mockedKoppsTemplates)))
-    expect(newKoppsData.equipmentTemplate).toBe(undefined)
     expect(newKoppsData.literatureTemplate).toBe(undefined)
-    expect(newKoppsData.possibilityToCompletionTemplate).toBe(undefined)
-
     done()
   })
 
@@ -113,7 +108,7 @@ describe('Contol functions for combining data', () => {
     )
     expect(newKoppsData).toMatchInlineSnapshot(`
 {
-  "equipment": "<p>Text fetched from kopps and can be edited, removed</p>",
+  "equipment": "",
   "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
   "examinationSubSection": "",
   "literature": "<p>Text fetched from kopps and can be edited, removed</p>",

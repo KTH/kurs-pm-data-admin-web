@@ -224,7 +224,6 @@ function _getCommonInfo(resBody) {
     titleOther: c.titleOther || '',
     schemaUrls: schemaUrls || '',
     literatureTemplate: c.courseLiterature || '',
-    equipmentTemplate: c.requiredEquipment || '',
   }
 }
 

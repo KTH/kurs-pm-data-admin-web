@@ -185,8 +185,7 @@ module.exports = {
     },
     equipment: {
       body: `<p><b>Equipment</b> describes what equipment is not provided by KTH and is needed to follow the course offering.</p>
-      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>
-      <p><b>The content is retrieved from Kopps</b> if there is information about equipment already entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>`,
       help: `<p>Under this section, you describe the equipment that students need to complete the course, if it is not provided by KTH. Writing tools and literature are not considered equipment.</p>`,
     },
     examiner: {
