@@ -8,11 +8,9 @@ const client = createApiClient(serverConfig.ladokMellanlagerApi)
 function formatExaminationTitles(examinationModules, lang) {
   const liStrs = examinationModules.map(
     m =>
-      `<li>${m.examCode} - ${m.title}, ${m.credits} ${lang === 'sv' ? 'hp' : 'credits'}, ${lang === 'sv' ? 'Betygsskala' : 'Grading scale'}: ${m.gradeScaleCode}</li>`
+      `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${lang === 'sv' ? 'Betygsskala' : 'Grading scale'}: ${m.betygsskala.code}</li>`
   )
-  const titles = examinationModules.map(
-    m => `<h4>${m.examCode} - ${m.title}, ${m.credits} ${lang === 'sv' ? 'hp' : 'credits'}</h4>`
-  )
+  const titles = examinationModules.map(m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`)
   const formatted = { liStrs: liStrs.join(), titles: titles.join() }
   return formatted
 }
@@ -65,10 +63,13 @@ async function getCourseSchoolCode(courseCode) {
   }
 }
 
-async function getExaminationModules(instansUid, lang) {
+async function getExaminationModules(utbildningstillfalleUid, language) {
   try {
-    const examinationModules = await client.getModuler(instansUid)
-    const formattedModules = formatExaminationTitles(examinationModules, lang)
+    const examinationModules = await client.getExaminationModulesByUtbildningstillfalleUid(
+      utbildningstillfalleUid,
+      language
+    )
+    const formattedModules = formatExaminationTitles(examinationModules, language)
     return formattedModules
   } catch (error) {
     throw new Error(error.message)
