@@ -282,8 +282,7 @@ module.exports = {
     },
     possibilityToAddition: {
       body: `<p><b>Möjlighet till plussning</b> beskriver om plussning är möjligt på kursomgången, eventuella villkor för plussning och hur plussning går till.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om möjlighet till plussning inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång.</p>`,
       help: `<p>Här beskriver du om det finns möjlighet till plussning på denna kursomgång och i så fall vilka villkor som gäller för det och hur studenten ansöker om att få plussa. Om möjlighet till plussning inte är möjlig för denna kursomgång kan det vara bra att ange detta.</p>`,
     },
     possibilityToCompletion: {

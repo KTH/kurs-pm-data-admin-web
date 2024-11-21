@@ -24,7 +24,7 @@ const combineDefaultValues = (freshMemoData, koppsFreshData) => {
     scheduleDetails: scheduleDetails || '',
     literature: literature || koppsFreshData.literatureTemplate || '',
     possibilityToCompletion: possibilityToCompletion || koppsFreshData.possibilityToCompletionTemplate || '',
-    possibilityToAddition: possibilityToAddition || koppsFreshData.possibilityToAdditionTemplate || '',
+    possibilityToAddition: possibilityToAddition || '',
   }
 
   return updatedWithDefaults
