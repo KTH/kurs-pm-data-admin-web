@@ -225,7 +225,6 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
   "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
   "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
   <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
-  "possibilityToAdditionTemplate": "",
   "possibilityToCompletionTemplate": "",
   "recruitmentText": "",
   "schemaUrls": [
@@ -269,7 +268,6 @@ test('parse the latest syllabus 20222 for 20222', () => {
   "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
   "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
   <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
-  "possibilityToAdditionTemplate": "",
   "possibilityToCompletionTemplate": "",
   "recruitmentText": "",
   "schemaUrls": [
@@ -309,7 +307,6 @@ test('parse the latest syllabus 20222 for 20231', () => {
   "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
   "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
   <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
-  "possibilityToAdditionTemplate": "",
   "possibilityToCompletionTemplate": "",
   "recruitmentText": "",
   "schemaUrls": [

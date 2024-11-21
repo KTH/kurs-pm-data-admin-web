@@ -36,7 +36,6 @@ const removeTemplatesFromKoppsFreshData = async koppsFreshData => {
   await delete koppsFreshData.equipmentTemplate
   await delete koppsFreshData.literatureTemplate
   await delete koppsFreshData.possibilityToCompletionTemplate
-  await delete koppsFreshData.possibilityToAdditionTemplate
   return koppsFreshData
 }
 

@@ -75,7 +75,7 @@ describe('Contol functions for combining data', () => {
   })
 
   test('Kopps data cleaned up from templates', done => {
-    const newKoppsData = memoCtrl.removeTemplatesFromKoppsFreshData(mockedKoppsTemplates)
+    const newKoppsData = memoCtrl.removeTemplatesFromKoppsFreshData(JSON.parse(JSON.stringify(mockedKoppsTemplates)))
     expect(newKoppsData.equipmentTemplate).toBe(undefined)
     expect(newKoppsData.literatureTemplate).toBe(undefined)
     expect(newKoppsData.possibilityToCompletionTemplate).toBe(undefined)
@@ -121,6 +121,7 @@ describe('Contol functions for combining data', () => {
   "literature": "<p>Text fetched from kopps and can be edited, removed</p>",
   "possibilityToAddition": "",
   "possibilityToCompletion": "<p>Text fetched from kopps and can be edited, removed</p>",
+  "prerequisites": "Some recommended prerequisites",
   "scheduleDetails": "",
   "schemaUrls": [
     "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
