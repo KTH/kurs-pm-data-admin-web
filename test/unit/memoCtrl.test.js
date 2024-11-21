@@ -11,7 +11,6 @@ const mockedApi = (withValues = false) => ({
     : '',
 })
 const mockedKoppsTemplates = {
-  possibilityToCompletionTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   schemaUrls: [
     'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/',
     'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/',
@@ -52,11 +51,10 @@ describe('Contol functions for combining data', () => {
   test('Update fetch data with default data from kopps if some api data has no values, except examinationSubSection', done => {
     const emptyApiData = mockedApi()
     const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates)
-    const { examinationSubSection, equipment, literature, possibilityToCompletion } = updatedMemoData
+    const { examinationSubSection, equipment, literature } = updatedMemoData
     expect(examinationSubSection).toBe(emptyApiData.examinationSubSection)
     expect(equipment).toBe(mockedKoppsTemplates.equipmentTemplate)
     expect(literature).toBe(mockedKoppsTemplates.literatureTemplate)
-    expect(possibilityToCompletion).toBe(mockedKoppsTemplates.possibilityToCompletionTemplate)
     done()
   })
 
@@ -120,7 +118,7 @@ describe('Contol functions for combining data', () => {
   "examinationSubSection": "",
   "literature": "<p>Text fetched from kopps and can be edited, removed</p>",
   "possibilityToAddition": "",
-  "possibilityToCompletion": "<p>Text fetched from kopps and can be edited, removed</p>",
+  "possibilityToCompletion": "",
   "prerequisites": "Some recommended prerequisites",
   "scheduleDetails": "",
   "schemaUrls": [
