@@ -11,14 +11,11 @@ const mockedApi = (withValues = false) => ({
     : '',
 })
 const mockedKoppsTemplates = {
-  possibilityToCompletionTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
-  possibilityToAdditionTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   schemaUrls: [
     'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/',
     'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/',
   ],
   literatureTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
-  equipmentTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   examinationModules: '<h4>Written Exam ( wTEN1 )</h4>',
 }
 const mockedCourseInfo = {
@@ -52,37 +49,18 @@ const memoCtrl = require('../../server/controllers/memoCtrl')
 describe('Contol functions for combining data', () => {
   test('Update fetch data with default data from kopps if some api data has no values, except examinationSubSection', done => {
     const emptyApiData = mockedApi()
-    const memoLangAbbr = 'en'
     const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates)
-    const {
-      examinationSubSection,
-      equipment,
-      scheduleDetails,
-      literature,
-      possibilityToCompletion,
-      possibilityToAddition,
-    } = updatedMemoData
+    const { examinationSubSection, literature } = updatedMemoData
     expect(examinationSubSection).toBe(emptyApiData.examinationSubSection)
-    expect(equipment).toBe(mockedKoppsTemplates.equipmentTemplate)
     expect(literature).toBe(mockedKoppsTemplates.literatureTemplate)
-    expect(possibilityToCompletion).toBe(mockedKoppsTemplates.possibilityToCompletionTemplate)
-    expect(possibilityToAddition).toBe(mockedKoppsTemplates.possibilityToAdditionTemplate)
-
     done()
   })
 
   test('Update fetch data with default data from kopps if some api data has no values', done => {
     const filledInApiData = mockedApi(true)
-    const memoLangAbbr = 'en'
     const updatedMemoData = memoCtrl.combineDefaultValues(filledInApiData, mockedKoppsTemplates)
-    const {
-      examinationSubSection,
-      equipment,
-      scheduleDetails,
-      literature,
-      possibilityToCompletion,
-      possibilityToAddition,
-    } = updatedMemoData
+    const { examinationSubSection, equipment, literature, possibilityToCompletion, possibilityToAddition } =
+      updatedMemoData
     expect(examinationSubSection).toBe(filledInApiData.examinationSubSection)
     expect(equipment).toBe(filledInApiData.equipment)
     expect(literature).toBe(filledInApiData.literature)
@@ -93,18 +71,14 @@ describe('Contol functions for combining data', () => {
   })
 
   test('Kopps data cleaned up from templates', done => {
-    const newKoppsData = memoCtrl.removeTemplatesFromKoppsFreshData(mockedKoppsTemplates)
-    expect(newKoppsData.equipmentTemplate).toBe(undefined)
+    const newKoppsData = memoCtrl.removeTemplatesFromKoppsFreshData(JSON.parse(JSON.stringify(mockedKoppsTemplates)))
     expect(newKoppsData.literatureTemplate).toBe(undefined)
-    expect(newKoppsData.possibilityToCompletionTemplate).toBe(undefined)
-    expect(newKoppsData.possibilityToAdditionTemplate).toBe(undefined)
-
     done()
   })
 
   test('Merge kopps data and api data, memo api data replaces kopps data', async () => {
     const newKoppsData = await memoCtrl.mergeKoppsCourseAndMemoData(
-      mockedKoppsTemplates,
+      JSON.parse(JSON.stringify(mockedKoppsTemplates)),
       mockedCourseInfo,
       mockedApi(true)
     )
@@ -128,7 +102,7 @@ describe('Contol functions for combining data', () => {
 
   test('Merge kopps data and api data, memo api has empty values', async () => {
     const newKoppsData = await memoCtrl.mergeKoppsCourseAndMemoData(
-      mockedKoppsTemplates,
+      JSON.parse(JSON.stringify(mockedKoppsTemplates)),
       mockedCourseInfo,
       mockedApi(false)
     )
@@ -137,7 +111,7 @@ describe('Contol functions for combining data', () => {
   "equipment": "",
   "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
   "examinationSubSection": "",
-  "literature": "",
+  "literature": "<p>Text fetched from kopps and can be edited, removed</p>",
   "possibilityToAddition": "",
   "possibilityToCompletion": "",
   "prerequisites": "Some recommended prerequisites",

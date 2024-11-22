@@ -20,11 +20,11 @@ const combineDefaultValues = (freshMemoData, koppsFreshData) => {
   const updatedWithDefaults = {
     ...freshMemoData,
     // eslint-disable-next-line no-use-before-define
-    equipment: equipment || koppsFreshData.equipmentTemplate || '',
+    equipment: equipment || '',
     scheduleDetails: scheduleDetails || '',
     literature: literature || koppsFreshData.literatureTemplate || '',
-    possibilityToCompletion: possibilityToCompletion || koppsFreshData.possibilityToCompletionTemplate || '',
-    possibilityToAddition: possibilityToAddition || koppsFreshData.possibilityToAdditionTemplate || '',
+    possibilityToCompletion: possibilityToCompletion || '',
+    possibilityToAddition: possibilityToAddition || '',
   }
 
   return updatedWithDefaults
@@ -33,10 +33,7 @@ const combineDefaultValues = (freshMemoData, koppsFreshData) => {
 const removeTemplatesFromKoppsFreshData = async koppsFreshData => {
   // no map()
   // to send cleaned up koppsFreshData to client side end then to api
-  await delete koppsFreshData.equipmentTemplate
   await delete koppsFreshData.literatureTemplate
-  await delete koppsFreshData.possibilityToCompletionTemplate
-  await delete koppsFreshData.possibilityToAdditionTemplate
   return koppsFreshData
 }
 

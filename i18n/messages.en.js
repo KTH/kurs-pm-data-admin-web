@@ -185,8 +185,7 @@ module.exports = {
     },
     equipment: {
       body: `<p><b>Equipment</b> describes what equipment is not provided by KTH and is needed to follow the course offering.</p>
-      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>
-      <p><b>The content is retrieved from Kopps</b> if there is information about equipment already entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>`,
       help: `<p>Under this section, you describe the equipment that students need to complete the course, if it is not provided by KTH. Writing tools and literature are not considered equipment.</p>`,
     },
     examiner: {
@@ -293,15 +292,13 @@ module.exports = {
     },
     possibilityToAddition: {
       body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course and the terms for raising the grade.</p>
-      <p><b>This information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination in this course offering.</p>
-      <p><b>Content is retrieved from Kopps</b> if there is information about Opportunity to raise an approved grade via renewed examination entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      <p><b>This information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination in this course offering.</p>`,
       help: `<p>Under this section, you describe if it is possible to raise an approved grade via renewed examination on this course offering and the terms for that. Also describe how the student can apply for a renewed examination.
       If it is not possible to raise an approved grade via renewed examination on this course offering it may be beneficial to indicate this.</p>`,
     },
     possibilityToCompletion: {
       body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes whether there is a chance for supplementary examination in this course offering and if completion can be done only up to a grade E or to a higher grade.</p>
-      <p><b>This information helps the student</b> to understand if it is possible to complete the requirements via supplementary examination and, if so, the conditions for completion in this course offering.</p>
-      <p><b>Content is retrieved from Kopps</b> if there is information about Opportunity to complete the requirements via supplementary examination entered. You can choose to retain that information in your course memo or add new information.</p>`,
+      <p><b>This information helps the student</b> to understand if it is possible to complete the requirements via supplementary examination and, if so, the conditions for completion in this course offering.</p>`,
       help: `<p>Under this section, you describe if it is possible to complete the requirements via supplementary examination on this course offering and, if so, the applicable conditions. Also describe if it is possible to complete the requirements via supplementary examination on each module.</p>
       <p>All modules in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to Pass.  Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
       <p>It is often better to describe opportunity to complete the requirements via supplementary examination for the modules under the heading Examination.</p>`,
