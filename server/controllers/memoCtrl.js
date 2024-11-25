@@ -15,14 +15,14 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
-const combineDefaultValues = (freshMemoData, koppsFreshData) => {
+const combineDefaultValues = freshMemoData => {
   const { equipment, scheduleDetails, literature, possibilityToCompletion, possibilityToAddition } = freshMemoData
   const updatedWithDefaults = {
     ...freshMemoData,
     // eslint-disable-next-line no-use-before-define
     equipment: equipment || '',
     scheduleDetails: scheduleDetails || '',
-    literature: literature || koppsFreshData.literatureTemplate || '',
+    literature: literature || '',
     possibilityToCompletion: possibilityToCompletion || '',
     possibilityToAddition: possibilityToAddition || '',
   }
@@ -30,23 +30,15 @@ const combineDefaultValues = (freshMemoData, koppsFreshData) => {
   return updatedWithDefaults
 }
 
-const removeTemplatesFromKoppsFreshData = async koppsFreshData => {
-  // no map()
-  // to send cleaned up koppsFreshData to client side end then to api
-  await delete koppsFreshData.literatureTemplate
-  return koppsFreshData
-}
-
-const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData, courseInfoData) => ({
+const refreshMemoData = (defaultAndMemoApiValues, koppsFreshData, courseInfoData) => ({
   ...defaultAndMemoApiValues,
-  ...cleanKoppsFreshData,
+  ...koppsFreshData,
   prerequisites: courseInfoData.recommendedPrerequisites,
 })
 
 async function mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMemoData) {
   const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
-  const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
-  const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData, courseInfoData)
+  const newMemoData = refreshMemoData(defaultAndMemoApiValues, koppsFreshData, courseInfoData)
   return newMemoData
 }
 
@@ -153,6 +145,5 @@ module.exports = {
   combineDefaultValues,
   mergeKoppsCourseAndMemoData,
   renderMemoEditorPage,
-  removeTemplatesFromKoppsFreshData,
   updateContentByEndpoint,
 }

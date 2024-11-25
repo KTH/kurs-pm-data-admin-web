@@ -4,6 +4,7 @@ import { useStore } from '../../mobx'
 import CollapseGuidance from '../details/CollapseGuidance'
 import editorConf from '../../util/editorInitConf'
 import i18n from '../../../../../i18n'
+import { typeOfHeader } from '../../util/fieldsByType'
 import { SaveAndCloseButton } from './SaveAndCloseButton'
 import { OnClickPropagationStopper } from './OnClickPropagationStopper'
 
@@ -77,7 +78,7 @@ export const SectionEditor = ({
             dangerouslySetInnerHTML={{
               __html:
                 (htmlContent !== '' && htmlContent) ||
-                `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`,
+                `<p><i>${sourceInfo.nothingFetched[typeOfHeader(contentId)]}</i></p>`,
             }}
           />
         )) ||
