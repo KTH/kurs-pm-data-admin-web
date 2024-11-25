@@ -93,10 +93,9 @@ const context = {
   }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
-    type: 'mandatoryAndEditable',
+    type: 'mandatoryAndEditableWithoutDefault',
     isEditable: true,
     isRequired: true,
-    source: '(c)',
   },
   otherContacts: { type: 'optionalEditable', isEditable: true, isRequired: false },
   otherRequirementsForFinalGrade: {

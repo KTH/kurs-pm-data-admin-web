@@ -4,6 +4,7 @@ import { useStore } from '../../mobx'
 import CollapseGuidance from '../details/CollapseGuidance'
 import editorConf from '../../util/editorInitConf'
 import i18n from '../../../../../i18n'
+import { typeOfHeader } from '../../util/fieldsByType'
 import { SaveAndCloseButton } from './SaveAndCloseButton'
 import { OnClickPropagationStopper } from './OnClickPropagationStopper'
 
@@ -73,11 +74,11 @@ export const SectionEditor = ({
         ((isRequired && (
           <span
             className="section-content"
-            data-testid={`text-for-memo-mandatoryAndEditable-${contentId}`} // "text-for-memo-mandatoryAndEditable"
+            data-testid={`text-for-memo-${typeOfHeader(contentId)}-${contentId}`} // "text-for-memo-mandatoryAndEditable"
             dangerouslySetInnerHTML={{
               __html:
                 (htmlContent !== '' && htmlContent) ||
-                `<p><i>${sourceInfo.nothingFetched.mandatoryAndEditable}</i></p>`,
+                `<p><i>${sourceInfo.nothingFetched[typeOfHeader(contentId)]}</i></p>`,
             }}
           />
         )) ||
