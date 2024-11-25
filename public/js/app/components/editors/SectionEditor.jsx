@@ -74,7 +74,7 @@ export const SectionEditor = ({
         ((isRequired && (
           <span
             className="section-content"
-            data-testid={`text-for-memo-mandatoryAndEditable-${contentId}`} // "text-for-memo-mandatoryAndEditable"
+            data-testid={`text-for-memo-${typeOfHeader(contentId)}-${contentId}`} // "text-for-memo-mandatoryAndEditable"
             dangerouslySetInnerHTML={{
               __html:
                 (htmlContent !== '' && htmlContent) ||
