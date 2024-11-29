@@ -1,5 +1,5 @@
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
-import mockMiniLadokObj from './miniLadokObjs'
+import { mockMiniLadokObj } from './miniLadokObjs'
 import mockMiniMemos from './miniMemos'
 import usedRounds from './mockUsedRounds'
 

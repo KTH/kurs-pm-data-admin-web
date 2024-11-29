@@ -14,8 +14,27 @@ const coursesTypeOne = {
   course_EN: {
     courseCode: 'DD1321',
     gradeScaleCode: 'AF',
-    title: 'Applied Programming and Computer Science',
+    title: 'Industrial Project Management',
     credits: { formattedWithUnit: '7.5 credits' },
+    creditUnitLabel: 'Credits',
+    creditUnitAbbr: 'hp',
+  },
+}
+const coursesTypeTwo = {
+  course_SV: {
+    courseCode: 'ALLLLL',
+    gradeScaleCode: 'AF',
+    title: 'Tillämpad programmering och datalogi',
+    credits: { formattedWithUnit: '9.0 hp' },
+    creditUnitLabel: 'Högskolepoäng',
+    creditUnitAbbr: 'hp',
+    courseLiterature: '<p>Meddelas vid kursstart.</p>',
+  },
+  course_EN: {
+    courseCode: 'ALLLLL',
+    gradeScaleCode: 'AF',
+    title: 'Applied Programming and Computer Science',
+    credits: { formattedWithUnit: '9.0 credits' },
     creditUnitLabel: 'Credits',
     creditUnitAbbr: 'hp',
   },
@@ -29,18 +48,18 @@ describe('combine course name', () => {
 
   test('combine course name for an object from a detailed information endpoint in English', () => {
     const courseTitle = combinedCourseName('ML1616', coursesTypeOne.course_EN)
-    expect(courseTitle).toBe('ML1616 Applied Programming and Computer Science 7.5 credits')
+    expect(courseTitle).toBe('ML1616 Industrial Project Management 7.5 credits')
   })
 
-  // test('combine course name for an object from a course rounds information endpoint in Swedish', () => {
-  //   const courseTitle = combinedCourseName('ALLLLL', courseTypeTwo.course, 'sv')
-  //   expect(courseTitle).toBe('ALLLLL Tillämpad programmering och datalogi 9.0 hp')
-  // })
+  test('combine course name for an object from a course rounds information endpoint in Swedish', () => {
+    const courseTitle = combinedCourseName('ALLLLL', coursesTypeTwo.course_SV, 'sv')
+    expect(courseTitle).toBe('ALLLLL Tillämpad programmering och datalogi 9.0 hp')
+  })
 
-  // test('combine course name for an object from a course rounds endpoint in English', () => {
-  //   const courseTitle = combinedCourseName('ALLLLL', courseTypeTwo.course, 'en')
-  //   expect(courseTitle).toBe('ALLLLL Applied Programming and Computer Science 9.0 credits')
-  // })
+  test('combine course name for an object from a course rounds endpoint in English', () => {
+    const courseTitle = combinedCourseName('ALLLLL', coursesTypeTwo.course_EN, 'en')
+    expect(courseTitle).toBe('ALLLLL Applied Programming and Computer Science 9.0 credits')
+  })
 })
 
 describe('parse termin/semester into a season string', () => {

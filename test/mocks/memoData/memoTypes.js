@@ -1,9 +1,9 @@
+import mockMiniMemos from '../miniMemos'
 import generatedExtraHeaders from './generateExtraHeaders'
 import generatedStandardVisibility from './generateStandardVisibility'
 import generatedStandardMemoData from './generateStandardMemoData'
-import mockMiniMemos from '../miniMemos'
 
-const { draftsOfPublishedMemos, draftsWithNoActivePublishedVer, publishedWithNoActiveDraft } = mockMiniMemos
+const { draftsOfPublishedMemos, draftsWithNoActivePublishedVer } = mockMiniMemos
 
 const memoTypes = {
   // PUBLISHED_WITHOUT_DRAFT: {
