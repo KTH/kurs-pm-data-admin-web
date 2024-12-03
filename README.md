@@ -23,13 +23,16 @@ Course memos servise can be used by teachers, course responsibles and examiners 
 
 ## API
 
-Application is fetching/saving data from/to [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api).
+Application is fetching/saving data from/to: 
+- [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
+- [https://github.com/KTH/studadm-om-kursen-packages] (https://github.com/KTH/studadm-om-kursen-packages)
 
 ### Related projects
 
 - [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
 - [https://github.com/KTH/kurs-pm-web](https://github.com/KTH/kurs-pm-web)
 - [https://github.com/KTH/node-web](https://github.com/KTH/node-api)
+- [https://github.com/KTH/studadm-om-kursen-packages](https://github.com/KTH/studadm-om-kursen-packages)
 
 ## Prerequisites
 
