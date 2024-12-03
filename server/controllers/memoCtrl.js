@@ -73,9 +73,11 @@ const mergeAllData = async (koppsData, ladokData, apiMemoData, combinedExamInfo)
 }
 
 function combineExamInfo(examinationModules, examComments) {
-  const examModulesHtmlList = examinationModules.liStrs ? `<p><ul>${examinationModules.liStrs}</ul></p>` : ''
+  const examModulesHtmlList = examinationModules.completeExaminationStrings
+    ? `<p><ul>${examinationModules.completeExaminationStrings}</ul></p>`
+    : ''
   const examination = `${examModulesHtmlList}${examComments ? `<p>${examComments}</p>` : ''}`
-  return { examination, examinationModules: examinationModules.titles }
+  return { examination, examinationModules: examinationModules.examinationTitles }
 }
 
 async function renderMemoEditorPage(req, res, next) {

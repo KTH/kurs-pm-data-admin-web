@@ -5,13 +5,18 @@ const { server: serverConfig } = require('./configuration')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
-function formatExaminationTitles(examinationModules, lang) {
-  const liStrs = examinationModules.map(
-    m =>
-      `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${lang === 'sv' ? 'Betygsskala' : 'Grading scale'}: ${m.betygsskala.code}</li>`
+function formatExaminationTitles(examinationModules) {
+  const completeExaminationStrings = examinationModules.map(
+    examinationModule =>
+      `<li>${examinationModule.kod} - ${examinationModule.benamning}, ${examinationModule.omfattning.formattedWithUnit}, ${examinationModule.betygsskala.name}: ${examinationModule.betygsskala.code}</li>`
   )
-  const titles = examinationModules.map(m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`)
-  const formatted = { liStrs: liStrs.join(), titles: titles.join() }
+  const examinationTitles = examinationModules.map(
+    m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`
+  )
+  const formatted = {
+    completeExaminationStrings: completeExaminationStrings.join(''),
+    titles: examinationTitles.join(''),
+  }
   return formatted
 }
 
@@ -69,7 +74,7 @@ async function getExaminationModules(utbildningstillfalleUid, language) {
       utbildningstillfalleUid,
       language
     )
-    const formattedModules = formatExaminationTitles(examinationModules, language)
+    const formattedModules = formatExaminationTitles(examinationModules)
     return formattedModules
   } catch (error) {
     throw new Error(error.message)
