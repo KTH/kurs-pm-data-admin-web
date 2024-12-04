@@ -1,7 +1,7 @@
 const mockMiniLadokObj = {
   course: {
-    title: { sv: 'Projekt i plasmafysik', en: 'Project in Plasma Physics' },
-    credits: 9,
+    title: 'Projekt i plasmafysik',
+    credits: { formattedWithUnit: '9.0 hp' },
     creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
     creditUnitAbbr: { sv: 'hp', en: 'hp' },
   },

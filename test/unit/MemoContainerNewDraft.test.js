@@ -54,7 +54,9 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit. A New f
     const allH1Headers = screen.getAllByRole('heading', { level: 1 })
     expect(allH1Headers.length).toBe(1)
     expect(allH1Headers[0]).toHaveTextContent('Create and publish course memo')
-    expect(allH1Headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')
+    expect(allH1Headers[0]).toHaveTextContent(
+      'Create and publish course memoEF1111 Project in Plasma Physics 9.0 credits'
+    )
   })
 
   test('tab: contentAndOutcomes. renders menu h4', () => {

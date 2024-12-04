@@ -172,10 +172,7 @@ function ChangePublished(props) {
   return (
     <div className="kip-container">
       <div id="scroll-here-if-alert">
-        <PageHeading
-          heading={pageTitles.published}
-          subHeading={course && combinedCourseName(courseCode, course, langAbbr)}
-        />
+        <PageHeading heading={pageTitles.published} subHeading={course && combinedCourseName(courseCode, course)} />
       </div>
 
       <ProgressBar current={0} steps={pagesChangePublishedPm} />
