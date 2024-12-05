@@ -13,6 +13,7 @@ jest.mock('../../server/api', () => {})
 jest.mock('../../server/server', () => ({
   getPaths: () => [],
 }))
+jest.mock('../../server/ladokApi', () => ({}))
 
 const courseML1616 = {
   course: {

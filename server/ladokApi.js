@@ -28,10 +28,9 @@ async function getCourseRoundsData(courseCode, lang) {
       state: 'APPROVED',
       cancelled: round.installt,
       language: {
-        sv: round.undervisningssprak.name,
-        en: round.undervisningssprak.nameOther,
+        sv: (lang === 'sv' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
+        en: (lang === 'en' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
       },
-      campus: { sv: round.studieort.name, en: round.studieort.name },
     }))
     return mappedRounds
   } catch (error) {

@@ -8,13 +8,21 @@ import { MobxStoreProvider } from '../../public/js/app/mobx'
 import i18n from '../../i18n'
 
 import CreateNewMemo from '../../public/js/app/pages/CreateNewMemo'
-import mockApplicationStore from '../mocks/ApplicationStore'
+import { mockApplicationStore, mockApplicationStoreEn } from '../mocks/ApplicationStore'
 import mockApplicationStoreWithDraftMemos from '../mocks/AppStoreWithDraftMemos'
 import translations from '../mocks/translations'
 
 const CreateNewMemoPage = ({ ...rest }) => (
   <StaticRouter>
     <MobxStoreProvider initCallback={() => mockApplicationStore}>
+      <CreateNewMemo {...rest} />
+    </MobxStoreProvider>
+  </StaticRouter>
+)
+
+const CreateNewMemoPageEn = ({ ...rest }) => (
+  <StaticRouter>
+    <MobxStoreProvider initCallback={() => mockApplicationStoreEn}>
       <CreateNewMemo {...rest} />
     </MobxStoreProvider>
   </StaticRouter>
@@ -49,7 +57,7 @@ describe('Component <CreateNewMemo> Create and publish course memo, initial stat
   })
 
   test('renders main subheader, course name. English.', () => {
-    render(<CreateNewMemoPage langAbbr="en" langIndex={0} />)
+    render(<CreateNewMemoPageEn langAbbr="en" langIndex={0} />)
     const headers = screen.getAllByRole('heading', { level: 1 })
     expect(headers.length).toBe(1)
     expect(headers[0]).toHaveTextContent('EF1111 Project in Plasma Physics 9.0 credits')

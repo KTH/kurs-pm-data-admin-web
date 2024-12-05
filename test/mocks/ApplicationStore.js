@@ -1,5 +1,5 @@
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
-import mockMiniLadokObj from './miniLadokObjs'
+import { mockMiniLadokObj, mockMiniLadokObjEn } from './miniLadokObjs'
 
 const applicationStore = createApplicationStore()
 
@@ -22,7 +22,7 @@ const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
   return newMemo
 }
 
-const mockApplicationStore = {
+export const mockApplicationStore = {
   ...applicationStore,
   courseCode: 'EF1111',
   langAbbr: 'en',
@@ -51,5 +51,32 @@ const mockApplicationStore = {
     return applicationStore.updateDraft(body, true)
   },
 }
+export const mockApplicationStoreEn = {
+  ...applicationStore,
+  courseCode: 'EF1111',
+  langAbbr: 'en',
+  langIndex: 0,
+  semester: '', // 20201,
+  memoEndPoint: '',
+  rounds: [],
+  miniMemos: {
+    draftsOfPublishedMemos: [],
+    draftsWithNoActivePublishedVer: [],
+    sortedPublishedForAllYears: [],
+  },
+  miniLadokObj: mockMiniLadokObjEn,
+  browserConfig: {
+    storageUri: '',
+  },
+  createNewMemo(action, copyFrom, body) {
+    return tempSaveNewDraft(action, copyFrom, body, true)
+  },
 
-export default mockApplicationStore
+  showAvailableSemesterRounds(semester) {
+    return applicationStore.showAvailableSemesterRounds(semester, [], mockMiniLadokObjEn)
+  },
+
+  updateDraft(body) {
+    return applicationStore.updateDraft(body, true)
+  },
+}
