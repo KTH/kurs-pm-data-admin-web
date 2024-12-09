@@ -1,15 +1,15 @@
 import React from 'react'
-import { MobxStoreProvider } from '../../public/js/app/mobx'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { act } from 'react-dom/test-utils'
 import { StaticRouter } from 'react-router-dom/server'
+import { MobxStoreProvider } from '../../public/js/app/mobx'
+import '@testing-library/jest-dom'
 import i18n from '../../i18n'
 
 import ChangePublished from '../../public/js/app/pages/ChangePublished'
-import mockApplicationStore from '../mocks/ApplicationStore'
+import { mockApplicationStore, mockApplicationStoreEn } from '../mocks/ApplicationStore'
 import mockApplicationStoreWithAllMemos from '../mocks/AppStoreWithAllMemos'
 import translations from '../mocks/translations'
-import { act } from 'react-dom/test-utils'
 
 const { buttons, pageTitles } = translations.en
 
@@ -26,6 +26,13 @@ global.window.location = {
 const ChangedPublishedEmpty = ({ ...rest }) => (
   <StaticRouter>
     <MobxStoreProvider initCallback={() => mockApplicationStore}>
+      <ChangePublished {...rest} />
+    </MobxStoreProvider>
+  </StaticRouter>
+)
+const ChangedPublishedEmptyEn = ({ ...rest }) => (
+  <StaticRouter>
+    <MobxStoreProvider initCallback={() => mockApplicationStoreEn}>
       <ChangePublished {...rest} />
     </MobxStoreProvider>
   </StaticRouter>
@@ -51,14 +58,12 @@ describe('Component <ChangedPublished> Edit published course memo with empty lis
     expect(allH1Headers[0]).toHaveTextContent(pageTitles.published)
   })
 
-  // TODO: this test currently fails because the ladok data already has the correct translation once it's fetched
-
-  // test('renders main subheader, course name. English.', () => {
-  //   render(<ChangedPublishedEmpty langAbbr="en" langIndex={0} />)
-  //   const headers = getAllByRole('heading', { level: 1 })
-  //   expect(headers.length).toBe(1)
-  //   expect(headers[0]).toHaveTextContent('Edit published course memoEF1111 Project in Plasma Physics 9.0 credits')
-  // })
+  test('renders main subheader, course name. English.', () => {
+    render(<ChangedPublishedEmptyEn langAbbr="en" langIndex={0} />)
+    const headers = getAllByRole('heading', { level: 1 })
+    expect(headers.length).toBe(1)
+    expect(headers[0]).toHaveTextContent('Edit published course memoEF1111 Project in Plasma Physics 9.0 credits')
+  })
 
   test('renders main header h1, course name. Swedish.', () => {
     render(<ChangedPublishedEmpty langAbbr="sv" langIndex={1} />)

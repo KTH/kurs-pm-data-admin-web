@@ -41,13 +41,10 @@ async function getCourseRoundsData(courseCode, lang) {
       firstTuitionDate: round.forstaUndervisningsdatum.date,
       lastTuitionDate: round.sistaUndervisningsdatum.date,
       state: 'APPROVED',
+      cancelled: round.installt,
       language: {
-        sv: round.undervisningssprak ? round.undervisningssprak.name : '',
-        en: round.undervisningssprak ? round.undervisningssprak.nameOther : '',
-      },
-      campus: {
-        sv: round.studieort ? round.studieort.name : '',
-        en: round.studieort ? round.studieort.nameOther : '',
+        sv: (lang === 'sv' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
+        en: (lang === 'en' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
       },
     }))
     return mappedRounds
