@@ -7,7 +7,7 @@ const apis = require('../api')
 
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
-const { getSyllabus, getLadokRoundIds, getLadokRoundUids } = require('../koppsApi')
+const { getSyllabus, getLadokRoundIds } = require('../koppsApi')
 const { getLadokCourseData, getExaminationModules } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
@@ -118,9 +118,8 @@ async function renderMemoEditorPage(req, res, next) {
     const apiMemoDataDeepCopy = apiMemoData
     const { applicationCodes } = apiMemoDataDeepCopy
 
-    // fix this so there's only one function
     apiMemoDataDeepCopy.ladokRoundIds = await getLadokRoundIds(courseCode, semester, applicationCodes)
-    const ladokRoundUids = await getLadokRoundUids(courseCode, semester)
+    const ladokRoundIds = await getLadokRoundIds(courseCode, semester)
 
     // end
     const koppsFreshData = {
@@ -128,7 +127,7 @@ async function renderMemoEditorPage(req, res, next) {
       ...(await getCourseEmployees(apiMemoDataDeepCopy)),
     }
 
-    const examinationModules = await getExaminationModules(ladokRoundUids[0], memoLangAbbr)
+    const examinationModules = await getExaminationModules(ladokRoundIds[0], memoLangAbbr)
     const combinedExamInfo = combineExamInfo(examinationModules, koppsFreshData.examComments)
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
 

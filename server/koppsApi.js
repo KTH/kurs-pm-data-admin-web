@@ -30,45 +30,38 @@ const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
  * Because UG Rest Api is using ladok round id in its group names still.
  * So once it gets updated then this method will be removed.
  */
-async function getLadokRoundIds(courseCode, semester, applicationCodes) {
+
+async function getLadokRoundIds(courseCode, semester, applicationCodes = null) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
+
   try {
     const { body } = await client.getAsync({ uri, useCache: true })
     const { termsWithCourseRounds } = body
     const selectedTerm = termsWithCourseRounds.find(t => t.term.toString() === semester.toString())
-    const ladokRoundIds = []
-    if (selectedTerm) {
-      const { rounds = [] } = selectedTerm
-      if (rounds.length > 0) {
-        for (const { applicationCode = '', ladokRoundId } of rounds) {
-          const index = applicationCodes.findIndex(x => x.toString() === applicationCode.toString())
-          if (index >= 0) {
-            ladokRoundIds.push(ladokRoundId)
-            applicationCodes.splice(index, 0)
-          }
-          if (applicationCodes.length === 0) {
-            break
-          }
+
+    if (!selectedTerm) {
+      return []
+    }
+
+    const { rounds = [] } = selectedTerm
+
+    if (applicationCodes) {
+      const ladokRoundIds = []
+      for (const { applicationCode = '', ladokRoundId } of rounds) {
+        const index = applicationCodes.findIndex(x => x.toString() === applicationCode.toString())
+        if (index >= 0) {
+          ladokRoundIds.push(ladokRoundId)
+          applicationCodes.splice(index, 0)
+        }
+        if (applicationCodes.length === 0) {
+          break
         }
       }
+      return ladokRoundIds
+    } else {
+      return rounds.map(round => round.ladokUID)
     }
-    return ladokRoundIds
-  } catch (err) {
-    log.debug('getKoppsCourseRoundTerms has an error:' + err)
-    return err
-  }
-}
-async function getLadokRoundUids(courseCode, semester) {
-  const { client } = api.koppsApi
-  const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
-  try {
-    const { body } = await client.getAsync({ uri, useCache: true })
-    const { termsWithCourseRounds } = body
-    const selectedTerm = termsWithCourseRounds.find(t => t.term.toString() === semester.toString())
-    const ladokRoundIds = selectedTerm.rounds.map(round => round.ladokUID)
-
-    return ladokRoundIds
   } catch (err) {
     log.debug('getKoppsCourseRoundTerms has an error:' + err)
     return err
@@ -190,5 +183,4 @@ module.exports = {
   findSyllabus,
   parseSyllabus,
   getLadokRoundIds,
-  getLadokRoundUids,
 }
