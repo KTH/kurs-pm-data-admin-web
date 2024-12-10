@@ -5,6 +5,21 @@ const { server: serverConfig } = require('./configuration')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
+function formatExaminationTitles(language, examinationModules) {
+  const completeExaminationStrings = examinationModules.map(
+    examinationModule =>
+      `<li>${examinationModule.kod} - ${examinationModule.benamning}, ${examinationModule.omfattning.formattedWithUnit}, ${language === 'sv' ? 'Betygsskala' : 'Grading scale'}: ${examinationModule.betygsskala.code}</li>`
+  )
+  const examinationTitles = examinationModules.map(
+    m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`
+  )
+  const formatted = {
+    completeExaminationStrings: completeExaminationStrings.join(''),
+    titles: examinationTitles.join(''),
+  }
+  return formatted
+}
+
 async function getLadokCourseData(courseCode, lang) {
   try {
     const course = await client.getLatestCourseVersion(courseCode, lang)
@@ -50,7 +65,21 @@ async function getCourseSchoolCode(courseCode) {
   }
 }
 
+async function getExaminationModules(utbildningstillfalleUid, language) {
+  try {
+    const examinationModules = await client.getExaminationModulesByUtbildningstillfalleUid(
+      utbildningstillfalleUid,
+      language
+    )
+    const formattedModules = formatExaminationTitles(language, examinationModules)
+    return formattedModules
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
 module.exports = {
+  getExaminationModules,
   getLadokCourseData,
   getCourseRoundsData,
   getCourseSchoolCode,
