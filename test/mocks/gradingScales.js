@@ -1,0 +1,81 @@
+export const gradingScales = {
+  PF: {
+    kod: 'PF',
+    benamning: { en: 'Two point grading scale', sv: 'Tvågradig betygsskala' },
+    beskrivning: {},
+    betygsgrader: [
+      {
+        id: '131658',
+        benamning: { en: 'Pass', sv: 'Godkänd' },
+        kod: 'P',
+        ordningsnummer: 1,
+        dolt: false,
+      },
+      {
+        id: '131663',
+        benamning: { en: 'Failed', sv: 'Underkänd' },
+        kod: 'F',
+        ordningsnummer: 2,
+        dolt: false,
+      },
+    ],
+    orderedCodes: 'P, F',
+  },
+  AF: {
+    kod: 'AF',
+    benamning: { en: 'Seven point grading scale', sv: 'Sjugradig betygsskala' },
+    beskrivning: {},
+    betygsgrader: [
+      {
+        id: '131661',
+        benamning: { en: 'Excellent', sv: 'Utmärkt' },
+        kod: 'A',
+        ordningsnummer: 1,
+        dolt: false,
+      },
+      {
+        id: '131667',
+        benamning: { en: 'Very Good', sv: 'Mycket bra' },
+        kod: 'B',
+        ordningsnummer: 2,
+        dolt: false,
+      },
+      {
+        id: '131673',
+        benamning: { en: 'Good', sv: 'Bra' },
+        kod: 'C',
+        ordningsnummer: 3,
+        dolt: false,
+      },
+      {
+        id: '131679',
+        benamning: { en: 'Satisfactory', sv: 'Tillfredsställande' },
+        kod: 'D',
+        ordningsnummer: 4,
+        dolt: false,
+      },
+      {
+        id: '131691',
+        benamning: { en: 'Sufficient', sv: 'Tillräcklig' },
+        kod: 'E',
+        ordningsnummer: 5,
+        dolt: false,
+      },
+      {
+        id: '131696',
+        benamning: { en: 'Not satisfactory', sv: 'Underkänd' },
+        kod: 'FX',
+        ordningsnummer: 6,
+        dolt: false,
+      },
+      {
+        id: '131697',
+        benamning: { en: 'Failed', sv: 'Underkänd' },
+        kod: 'F',
+        ordningsnummer: 7,
+        dolt: false,
+      },
+    ],
+    orderedCodes: 'A, B, C, D, E, FX, F',
+  },
+}
