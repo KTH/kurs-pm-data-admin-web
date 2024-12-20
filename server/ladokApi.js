@@ -5,28 +5,44 @@ const { server: serverConfig } = require('./configuration')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
-function formatExaminationTitles(language, examinationModules) {
-  const completeExaminationStrings = examinationModules.map(
-    examinationModule =>
-      `<li>${examinationModule.kod} - ${examinationModule.benamning}, ${examinationModule.omfattning.formattedWithUnit}, ${language === 'sv' ? 'Betygsskala' : 'Grading scale'}: ${examinationModule.betygsskala.code}</li>`
-  )
-  const examinationTitles = examinationModules.map(
-    m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`
-  )
-  const formatted = {
-    completeExaminationStrings: completeExaminationStrings.join(''),
-    titles: examinationTitles.join(''),
+async function getGradingScales() {
+  try {
+    return await client.getGradingScales()
+  } catch (error) {
+    throw new Error(`Failed to fetch grading scales: ${error.message}`)
   }
-  return formatted
+}
+
+async function formatExaminationTitles(language, examinationModules) {
+  try {
+    const gradingScales = await getGradingScales()
+
+    const completeExaminationStrings = examinationModules.map(m => {
+      const gradingScale = gradingScales[m.betygsskala.code]
+
+      return `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${
+        language === 'sv' ? 'Betygsskala' : 'Grading scale'
+      }: ${gradingScale.orderedCodes}</li>`
+    })
+
+    const examinationTitles = examinationModules.map(
+      m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`
+    )
+
+    return {
+      completeExaminationStrings: completeExaminationStrings.join(''),
+      titles: examinationTitles.join(''),
+    }
+  } catch (error) {
+    throw new Error(`Failed to format examination titles: ${error.message}`)
+  }
 }
 
 async function getLadokCourseData(courseCode, lang) {
   try {
-    const course = await client.getLatestCourseVersion(courseCode, lang)
-
-    return course
+    return await client.getLatestCourseVersion(courseCode, lang)
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(`Failed to fetch Ladok course data: ${error.message}`)
   }
 }
 
@@ -79,6 +95,7 @@ async function getExaminationModules(utbildningstillfalleUid, language) {
 }
 
 module.exports = {
+  getGradingScales,
   getExaminationModules,
   getLadokCourseData,
   getCourseRoundsData,
