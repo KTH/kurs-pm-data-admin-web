@@ -47,7 +47,7 @@ const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => ({
 
 async function mergeKoppsAndMemoData(koppsFreshData, apiMemoData) {
   const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
-  const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData) // Här
+  const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
   const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
   return newMemoData
 }
@@ -134,17 +134,6 @@ async function renderMemoEditorPage(req, res, next) {
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
     const gradingScales = await getGradingScales()
 
-    // eslint-disable-next-line no-console
-    console.log('koppsFreshData', koppsFreshData)
-    // eslint-disable-next-line no-console
-    console.log('combinedExamInfo', koppsFreshData)
-    // eslint-disable-next-line no-console
-    console.log('ladokCourseData', ladokCourseData)
-    // eslint-disable-next-line no-console
-    console.log('gradingScales', gradingScales)
-    // eslint-disable-next-line no-console
-    console.log('apiMemoData', apiMemoData)
-
     applicationStore.memoData = await mergeAllData(
       koppsFreshData,
       ladokCourseData,
@@ -153,8 +142,6 @@ async function renderMemoEditorPage(req, res, next) {
       gradingScales
     )
 
-    // eslint-disable-next-line no-console
-    console.log('applicationStore.memoData', applicationStore.memoData)
     await applicationStore.setSectionsStructure()
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
