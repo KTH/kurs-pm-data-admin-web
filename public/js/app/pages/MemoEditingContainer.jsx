@@ -83,7 +83,6 @@ function MemoContainer(props) {
 
   useEffect(() => {
     // check if it is time to hide red alert about empty titles of extra section
-    // console.log('check all sections has title')
     const hasAllExtraHeadingsNamed = store.checkAllSectionsHasTitles()
 
     if (hasAllExtraHeadingsNamed && !!openAlertIdUntilFixed) {
