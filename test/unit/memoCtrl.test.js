@@ -103,7 +103,7 @@ describe('Contol functions for combining data', () => {
   "equipment": "",
   "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
   "examinationSubSection": "",
-  "literature": "",
+  "literature": "<p>Text fetched from kopps and can be edited, removed</p>",
   "possibilityToAddition": "",
   "possibilityToCompletion": "",
   "prerequisites": "Some recommended prerequisites",
