@@ -15,7 +15,6 @@ const mockedKoppsTemplates = {
     'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/',
     'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/',
   ],
-  literatureTemplate: '<p>Text fetched from kopps and can be edited, removed</p>',
   examinationModules: '<h4>Written Exam ( wTEN1 )</h4>',
 }
 const mockedCourseInfo = {
@@ -47,12 +46,11 @@ jest.mock('../../server/koppsApi', () => ({}))
 const memoCtrl = require('../../server/controllers/memoCtrl')
 
 describe('Contol functions for combining data', () => {
-  test('Update fetch data with default data from kopps if some api data has no values, except examinationSubSection', done => {
+  test('Update fetch data if some api data has no values, except examinationSubSection', done => {
     const emptyApiData = mockedApi()
     const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates)
-    const { examinationSubSection, literature } = updatedMemoData
+    const { examinationSubSection } = updatedMemoData
     expect(examinationSubSection).toBe(emptyApiData.examinationSubSection)
-    expect(literature).toBe(mockedKoppsTemplates.literatureTemplate)
     done()
   })
 
@@ -67,12 +65,6 @@ describe('Contol functions for combining data', () => {
     expect(possibilityToCompletion).toBe(filledInApiData.possibilityToCompletion)
     expect(possibilityToAddition).toBe(filledInApiData.possibilityToAddition)
 
-    done()
-  })
-
-  test('Kopps data cleaned up from templates', done => {
-    const newKoppsData = memoCtrl.removeTemplatesFromKoppsFreshData(JSON.parse(JSON.stringify(mockedKoppsTemplates)))
-    expect(newKoppsData.literatureTemplate).toBe(undefined)
     done()
   })
 
@@ -111,7 +103,7 @@ describe('Contol functions for combining data', () => {
   "equipment": "",
   "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
   "examinationSubSection": "",
-  "literature": "<p>Text fetched from kopps and can be edited, removed</p>",
+  "literature": "",
   "possibilityToAddition": "",
   "possibilityToCompletion": "",
   "prerequisites": "Some recommended prerequisites",

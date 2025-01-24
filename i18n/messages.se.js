@@ -71,6 +71,7 @@ module.exports = {
     errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: `Inkluderas alltid (går att redigera)`,
+    mandatoryAndEditableWithoutDefault: `Inkluderas alltid (går att redigera)`,
     mandatoryForSome: 'Inkluderas när innehåll finns i kursplan',
     includeInMemo: {
       section: 'Inkludera i kurs-PM',
@@ -88,6 +89,7 @@ module.exports = {
     },
     nothingFetched: {
       mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. Välj Redigera för att lägga in innehåll.`,
+      mandatoryAndEditableWithoutDefault: 'Välj Redigera för att lägga in innehåll',
       mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
       mandatoryForSome: `Inget innehåll fanns att hämta. Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan. Du kan också välja att inte inkludera rubriken.`,
@@ -249,8 +251,7 @@ module.exports = {
     },
     literature: {
       body: `<p><b>Kurslitteratur</b> beskriver vilken litteratur som används i kursomgången.</p>
-      <p><b>Informationen hjälper studenten</b> att skaffa rätt kurslitteratur inför kursomgångens start. För studenter med funktionsnedsättning är det extra viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om kurslitteratur inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Rubriken ingår alltid i ditt kurs-PM.  </p>`,
+      <p><b>Informationen hjälper studenten</b> att skaffa rätt kurslitteratur inför kursomgångens start. För studenter med funktionsnedsättning är det extra viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst.</p>`,
       help: `<p>Här beskriver du vilken kurslitteratur som används i denna kursomgång. Rubriken är obligatorisk i kurs-PM.
       Lista kurslitteraturen med författare, utgivningsår, titel och förlag. Hänvisa även till platser litteraturen kan laddas ner, om den finns tillgänglig i digital form.</p>
       <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det så att studenten vet detta.</p>`,

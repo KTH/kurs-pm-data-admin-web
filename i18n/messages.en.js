@@ -78,6 +78,7 @@ module.exports = {
     errorEmptyHeading: 'You need to name the header',
     mandatory: 'Always included',
     mandatoryAndEditable: 'Always included',
+    mandatoryAndEditableWithoutDefault: 'Always included',
     mandatoryForSome: 'Included when there is content in the course syllabus',
     includeInMemo: {
       section: 'Include in course memo',
@@ -96,6 +97,7 @@ module.exports = {
     },
     nothingFetched: {
       mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
+      mandatoryAndEditableWithoutDefault: 'Click Edit to add the text',
       mandatory:
         'There was no content to fetch to this course memo. The heading will despite that be included in the published course memo. Read more on how to change fetched information in the information icon next to the heading above.',
       mandatoryForSome:
@@ -258,8 +260,7 @@ module.exports = {
     },
     literature: {
       body: `<p><b>Literature</b> describes the literature used in the course offering.</p>
-      <p><b>This information helps the student</b> acquire the correct literature before the start of the course. For students with disabilities, it is especially important to know in good time which literature will apply in order to get it as talking books.</p>
-      <p><b>Content is retrieved from Kopps</b> if there is information about literature already entered. You can choose to retain that information in your course memo or add new information. The heading is always included in your course memo.</p>`,
+      <p><b>This information helps the student</b> acquire the correct literature before the start of the course. For students with disabilities, it is especially important to know in good time which literature will apply in order to get it as talking books.</p>`,
       help: `<p>Under this section, you describe the literature used in this course offering. This heading is mandatory in the course memo.
       List the literature with author, publication year, title, and publisher. Also, provide references to locations where the literature can be downloaded if available in digital form.</p>
       <p>If literature is not relevant for this course offering, it's helpful to state this so that students do not need to inquire.</p>`,
