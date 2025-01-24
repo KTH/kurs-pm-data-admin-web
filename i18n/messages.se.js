@@ -174,8 +174,7 @@ module.exports = {
     },
     equipment: {
       body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången.</p>
-      <p><b>Informationen hjälper studenten</b> att skaffa rätt utrustning inför kursomgångens start.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om utrustning inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att skaffa rätt utrustning inför kursomgångens start.</p>`,
       help: `<p>Här beskriver du vilken utrustning som studenten behöver för att genomföra kursen, om den inte tillhandahålls av KTH. Skrivdon och litteratur räknas inte till utrustning.</p>`,
     },
     examination: {
@@ -282,14 +281,12 @@ module.exports = {
     },
     possibilityToAddition: {
       body: `<p><b>Möjlighet till plussning</b> beskriver om plussning är möjligt på kursomgången, eventuella villkor för plussning och hur plussning går till.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om möjlighet till plussning inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång.</p>`,
       help: `<p>Här beskriver du om det finns möjlighet till plussning på denna kursomgång och i så fall vilka villkor som gäller för det och hur studenten ansöker om att få plussa. Om möjlighet till plussning inte är möjlig för denna kursomgång kan det vara bra att ange detta.</p>`,
     },
     possibilityToCompletion: {
       body: `<p><b>Möjlighet till komplettering</b> beskriver om det finns möjlighet till komplettering på denna kursomgång och om komplettering kan göras endast till betyg E eller till högre betyg.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till komplettering på denna kursomgång och i så fall villkoren för komplettering.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om möjlighet till komplettering inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till komplettering på denna kursomgång och i så fall villkoren för komplettering.</p>`,
       help: `<p>Under rubriken beskriver du om det finns möjlighet till komplettering på denna kursomgång och i så fall vilka villkor som gäller. Beskriv också vad som gäller för kursens moduler.</p>
       <p>För modul med betygsskala A-F måste möjlighet till komplettering från Fx till Godkänt ges. För modul med betygsskala P/F kan det erbjudas av examinator.</p>
       <p>Det kan i många fall vara mer tydligt att istället beskriva möjlighet till komplettering om varje modul under rubriken Examination.</p>`,
