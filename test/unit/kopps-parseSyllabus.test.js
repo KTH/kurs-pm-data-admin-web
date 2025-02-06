@@ -214,7 +214,7 @@ const ladokMockData = {
   utbildningstyp: {
     id: '',
   },
-  betygsskala: { code: 'AF' },
+  betygsskala: { code: 'AF', formatted: 'A, B, C, D, E, FX, F' },
 }
 
 const combinedExamInfo = {

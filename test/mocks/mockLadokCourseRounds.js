@@ -55,7 +55,7 @@ const ladokCourseData = {
     creditsUnit: { code: 'HP', sv: 'Högskolepoäng', en: 'Credits' },
     level: { code: '1', name: 'Grundnivå' },
   },
-  betygsskala: { id: '131657', code: 'AF', name: 'Sjugradig betygsskala' },
+  betygsskala: { id: '131657', code: 'AF', name: 'Sjugradig betygsskala', formatted: 'A, B, C, D, E, FX, F' },
   huvudomraden: [
     { id: '16262', code: 'MAAMK', name: 'Matematik' },
     { id: '16268', code: 'TEKNK', name: 'Teknik' },
