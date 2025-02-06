@@ -1,6 +1,5 @@
 const { parseSyllabus } = require('../../server/koppsApi')
 const { mergeAllData } = require('../../server/controllers/memoCtrl')
-const { gradingScales } = require('../mocks/gradingScales')
 
 jest.mock('../../server/configuration', () => ({
   server: {
@@ -255,7 +254,7 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
 // 20222
 
 test('parse the latest syllabus 20222 for 20222', async () => {
-  const mergedData = await mergeAllData(courseML1616, ladokMockData, apiMemoDataMock, combinedExamInfo, gradingScales)
+  const mergedData = await mergeAllData(courseML1616, ladokMockData, apiMemoDataMock, combinedExamInfo)
   expect(mergedData.credits).toBe('7.5')
 
   // expect(foundSyllabus).toMatchInlineSnapshot(`

@@ -5,25 +5,14 @@ const { server: serverConfig } = require('./configuration')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
-async function getGradingScales() {
-  try {
-    return await client.getGradingScales()
-  } catch (error) {
-    throw new Error(`Failed to fetch grading scales: ${error.message}`)
-  }
-}
-
 async function formatExaminationTitles(language, examinationModules) {
   try {
-    const gradingScales = await getGradingScales()
-
-    const completeExaminationStrings = examinationModules.map(m => {
-      const gradingScale = gradingScales[m.betygsskala.code]
-
-      return `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${
-        language === 'sv' ? 'Betygsskala' : 'Grading scale'
-      }: ${gradingScale.orderedCodes}</li>`
-    })
+    const completeExaminationStrings = examinationModules.map(
+      m =>
+        `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${
+          language === 'sv' ? 'Betygsskala' : 'Grading scale'
+        }: ${m.betygsskala.formatted}</li>`
+    )
 
     const examinationTitles = examinationModules.map(
       m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`
@@ -95,7 +84,6 @@ async function getExaminationModules(utbildningstillfalleUid, language) {
 }
 
 module.exports = {
-  getGradingScales,
   getExaminationModules,
   getLadokCourseData,
   getCourseRoundsData,
