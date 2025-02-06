@@ -41,7 +41,6 @@ export const mockMiniLadokObj = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {
@@ -116,7 +115,6 @@ export const mockMiniLadokObj = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {
@@ -182,7 +180,6 @@ export const mockMiniLadokObj = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {
@@ -259,7 +256,6 @@ export const mockMiniLadokObj = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {
@@ -346,7 +342,6 @@ export const mockMiniLadokObjEn = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {
@@ -421,7 +416,6 @@ export const mockMiniLadokObjEn = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {
@@ -487,7 +481,6 @@ export const mockMiniLadokObjEn = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {
@@ -564,7 +557,6 @@ export const mockMiniLadokObjEn = {
           credits: 9,
           creditUnitLabel: { sv: 'Högskolepoäng', en: 'Credits' },
           creditUnitAbbr: { sv: 'hp', en: 'hp' },
-          gradeScaleCode: 'PF',
         },
       ],
       courseSyllabus: {

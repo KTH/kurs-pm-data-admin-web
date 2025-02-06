@@ -5,13 +5,11 @@ const { server: serverConfig } = require('./configuration')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
-async function formatExaminationTitles(language, examinationModules) {
+async function formatExaminationTitles(examinationModules) {
   try {
     const completeExaminationStrings = examinationModules.map(
       m =>
-        `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${
-          language === 'sv' ? 'Betygsskala' : 'Grading scale'
-        }: ${m.betygsskala.formatted}</li>`
+        `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${m.betygsskala.name}: ${m.betygsskala.formatted}</li>`
     )
 
     const examinationTitles = examinationModules.map(
@@ -76,7 +74,10 @@ async function getExaminationModules(utbildningstillfalleUid, language) {
       utbildningstillfalleUid,
       language
     )
-    const formattedModules = formatExaminationTitles(language, examinationModules)
+    console.log('examinationModules first: ', examinationModules)
+    console.log('language: ', language)
+    console.log('utbildningstillfalleUid: ', utbildningstillfalleUid)
+    const formattedModules = formatExaminationTitles(examinationModules)
     return formattedModules
   } catch (error) {
     throw new Error(error.message)

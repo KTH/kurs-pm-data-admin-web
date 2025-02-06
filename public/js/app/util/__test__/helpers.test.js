@@ -4,7 +4,6 @@ const { seasonStr, convertLangToIndex } = require('../../utils-shared/helpers')
 const coursesTypeOne = {
   course_SV: {
     courseCode: 'ML1616',
-    gradeScaleCode: 'AF',
     title: 'Industriell projektledning och projektstyrning',
     credits: { formattedWithUnit: '7.5 hp' },
     creditUnitLabel: 'Högskolepoäng',
@@ -13,7 +12,6 @@ const coursesTypeOne = {
   },
   course_EN: {
     courseCode: 'DD1321',
-    gradeScaleCode: 'AF',
     title: 'Industrial Project Management',
     credits: { formattedWithUnit: '7.5 credits' },
     creditUnitLabel: 'Credits',
@@ -23,7 +21,6 @@ const coursesTypeOne = {
 const coursesTypeTwo = {
   course_SV: {
     courseCode: 'ALLLLL',
-    gradeScaleCode: 'AF',
     title: 'Tillämpad programmering och datalogi',
     credits: { formattedWithUnit: '9.0 hp' },
     creditUnitLabel: 'Högskolepoäng',
@@ -32,7 +29,6 @@ const coursesTypeTwo = {
   },
   course_EN: {
     courseCode: 'ALLLLL',
-    gradeScaleCode: 'AF',
     title: 'Applied Programming and Computer Science',
     credits: { formattedWithUnit: '9.0 credits' },
     creditUnitLabel: 'Credits',

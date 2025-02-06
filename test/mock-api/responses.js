@@ -73,7 +73,6 @@ module.exports = {
         name: 'SCI/Matematik',
       },
       educationalLevelCode: 'BASIC',
-      gradeScaleCode: 'AF',
       supplementaryInfo:
         '<p><strong><em>Obligatorisk f&#246;r &#229;k1, kan ej l&#228;sas av andra studenter</em></strong></p>',
       title: 'Algebra och geometri',
@@ -990,7 +989,6 @@ module.exports = {
           {
             examCode: 'TEN1',
             title: 'Tentamen',
-            gradeScaleCode: 'AF',
             credits: 7.5,
             creditUnitLabel: 'Högskolepoäng',
             creditUnitAbbr: 'hp',

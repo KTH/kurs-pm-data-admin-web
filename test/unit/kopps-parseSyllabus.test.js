@@ -24,7 +24,6 @@ const courseML1616 = {
       name: 'ITM/Hållbar produktionsutveckling',
     },
     educationalLevelCode: 'BASIC',
-    gradeScaleCode: 'AF',
     title: 'Industriell projektledning och projektstyrning',
     credits: 7.5,
     creditUnitLabel: 'Högskolepoäng',
@@ -59,7 +58,6 @@ const courseML1616 = {
         {
           examCode: 'INL1',
           title: 'Inlämningsuppgifter',
-          gradeScaleCode: 'AF',
           credits: 3.5,
           creditUnitLabel: 'Högskolepoäng',
           creditUnitAbbr: 'hp',
@@ -68,7 +66,6 @@ const courseML1616 = {
         {
           examCode: 'TEN1',
           title: 'Skriftlig tentamen',
-          gradeScaleCode: 'AF',
           credits: 4,
           creditUnitLabel: 'Högskolepoäng',
           creditUnitAbbr: 'hp',
@@ -84,7 +81,6 @@ const courseML1616 = {
         {
           examCode: 'INL1',
           title: 'Inlämningsuppgifter',
-          gradeScaleCode: 'AF',
           credits: 3.5,
           creditUnitLabel: 'Högskolepoäng',
           creditUnitAbbr: 'hp',
@@ -93,7 +89,6 @@ const courseML1616 = {
         {
           examCode: 'KON1',
           title: 'Kontrollskrivning',
-          gradeScaleCode: 'PF',
           credits: 1,
           creditUnitLabel: 'Högskolepoäng',
           creditUnitAbbr: 'hp',
@@ -102,8 +97,6 @@ const courseML1616 = {
         {
           examCode: 'KON2',
           title: 'Kontrollskrivning',
-          gradeScaleCode: 'PF',
-          credits: 1,
           creditUnitLabel: 'Högskolepoäng',
           creditUnitAbbr: 'hp',
           ladokUID: '1253a551-c09e-11ec-b81f-5bb105fe4960',
@@ -111,7 +104,6 @@ const courseML1616 = {
         {
           examCode: 'KON3',
           title: 'Kontrollskrivning',
-          gradeScaleCode: 'PF',
           credits: 1,
           creditUnitLabel: 'Högskolepoäng',
           creditUnitAbbr: 'hp',
@@ -120,7 +112,6 @@ const courseML1616 = {
         {
           examCode: 'KON4',
           title: 'Kontrollskrivning',
-          gradeScaleCode: 'PF',
           credits: 1,
           creditUnitLabel: 'Högskolepoäng',
           creditUnitAbbr: 'hp',
@@ -129,7 +120,6 @@ const courseML1616 = {
         {
           examCode: 'TENA',
           title: 'Hemtentamen',
-          gradeScaleCode: 'AF',
           // missing credits
           ladokUID: '77efea1c-c09e-11ec-b81f-5bb105fe4960',
         },
@@ -199,10 +189,6 @@ const courseML1616 = {
     },
   ],
   socialCoursePageUrl: 'https://www.kth.se/social/course/ML1616/',
-  formattedGradeScales: {
-    AF: 'A, B, C, D, E, FX, F',
-    PF: 'P, F',
-  },
 }
 const ladokMockData = {
   omfattning: '7.5',
@@ -219,7 +205,7 @@ const ladokMockData = {
 
 const combinedExamInfo = {
   examination:
-    '<p><ul><li>TEN1 - Tentamen, 7.5 credits, Grading scale: AF</li></ul></p><p>Based on recommendation from KTH’s coordinator for disabilities, the examiner will decide how to adapt an examination for students with documented disability. <br><br>The examiner may apply another examination format when re-examining individual students.<p>The examiner decides, in consultation with KTHs Coordinator of students with disabilities (Funka), about any customized examination for students with documented, lasting disability.&#160;</p></p>',
+    '<p><ul><li>TEN1 - Tentamen, 7.5 credits, Grading scale: A, B, C, D, E, FX, F</li></ul></p><p>Based on recommendation from KTH’s coordinator for disabilities, the examiner will decide how to adapt an examination for students with documented disability. <br><br>The examiner may apply another examination format when re-examining individual students.<p>The examiner decides, in consultation with KTHs Coordinator of students with disabilities (Funka), about any customized examination for students with documented, lasting disability.&#160;</p></p>',
   examinationModules: '<h4>TEN1 - Tentamen, 7.5 credits</h4>',
 }
 const apiMemoDataMock = {}
@@ -256,6 +242,7 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
 test('parse the latest syllabus 20222 for 20222', async () => {
   const mergedData = await mergeAllData(courseML1616, ladokMockData, apiMemoDataMock, combinedExamInfo)
   expect(mergedData.credits).toBe('7.5')
+  expect(mergedData.gradingScale).toBe('A, B, C, D, E, FX, F')
 
   // expect(foundSyllabus).toMatchInlineSnapshot(`
   //   {
