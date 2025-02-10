@@ -32,9 +32,6 @@ export const combineMemoName = (roundInfo, semester, langAbbr = 'sv') => {
   return `${seasonOrShortName} ${startDateAndLanguage}`
 }
 
-// "Kurs-pm "+ [termin] "-" [kurstillfälleskoder separerade med bindestreck]
-// label + formatted semester + applicationCodes
-
 export const concatMemoName = (semester, applicationCodes, langAbbr = 'sv') => {
   const langIndex = langAbbr === 'en' ? 0 : 1
   const { memoLabel } = i18n.messages[langIndex].messages

@@ -59,6 +59,7 @@ const mergeAllData = async (koppsData, ladokData, apiMemoData, combinedExamInfo)
   delete mergedKoppsAndMemoData.courseTitle
   delete mergedKoppsAndMemoData.examination
   delete mergedKoppsAndMemoData.examinationModules
+  delete mergedKoppsAndMemoData.gradingScale
   return {
     credits: ladokData.omfattning,
     title: ladokData.benamning,
@@ -68,6 +69,7 @@ const mergeAllData = async (koppsData, ladokData, apiMemoData, combinedExamInfo)
     mainSubjects,
     examination: combinedExamInfo.examination,
     examinationModules: combinedExamInfo.examinationModules,
+    gradingScale: ladokData.betygsskala.formatted,
     ...mergedKoppsAndMemoData,
   }
 }
