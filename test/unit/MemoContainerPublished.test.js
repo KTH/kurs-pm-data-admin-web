@@ -666,7 +666,7 @@ describe('Active tab prep. Component <MemoContainer> Edit published. A New draft
   })
 
   test('tab: prep (draft of published). Show text from editor, renders "literature" open editor button, then click it to open editor', async () => {
-    const showText = screen.queryByTestId('text-for-memo-mandatoryAndEditable-literature')
+    const showText = screen.queryByTestId('text-for-memo-mandatoryAndEditableWithoutDefault-literature')
     expect(showText).toBeInTheDocument()
     expect(showText).toHaveTextContent('Some test data for section literature')
 
