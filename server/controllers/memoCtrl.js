@@ -7,6 +7,7 @@ const apis = require('../api')
 
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
+const { getCourseInfo } = require('../kursinfoApi')
 const { getSyllabus, getLadokRoundIds } = require('../koppsApi')
 const { getLadokCourseData, getExaminationModules } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
@@ -15,51 +16,42 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
-const combineDefaultValues = (freshMemoData, koppsFreshData) => {
+const combineDefaultValues = freshMemoData => {
   const { equipment, scheduleDetails, literature, possibilityToCompletion, possibilityToAddition } = freshMemoData
   const updatedWithDefaults = {
     ...freshMemoData,
-    // eslint-disable-next-line no-use-before-define
-    equipment: equipment || koppsFreshData.equipmentTemplate || '',
+    equipment: equipment || '',
     scheduleDetails: scheduleDetails || '',
-    literature: literature || koppsFreshData.literatureTemplate || '',
-    possibilityToCompletion: possibilityToCompletion || koppsFreshData.possibilityToCompletionTemplate || '',
-    possibilityToAddition: possibilityToAddition || koppsFreshData.possibilityToAdditionTemplate || '',
+    literature: literature || '',
+    possibilityToCompletion: possibilityToCompletion || '',
+    possibilityToAddition: possibilityToAddition || '',
   }
 
   return updatedWithDefaults
 }
 
-const removeTemplatesFromKoppsFreshData = async koppsFreshData => {
-  // no map()
-  // to send cleaned up koppsFreshData to client side end then to api
-  await delete koppsFreshData.equipmentTemplate
-  await delete koppsFreshData.literatureTemplate
-  await delete koppsFreshData.possibilityToCompletionTemplate
-  await delete koppsFreshData.possibilityToAdditionTemplate
-  return koppsFreshData
-}
-
-const refreshMemoData = (defaultAndMemoApiValues, cleanKoppsFreshData) => ({
+const refreshMemoData = (defaultAndMemoApiValues, koppsFreshData, courseInfoData) => ({
   ...defaultAndMemoApiValues,
-  ...cleanKoppsFreshData,
+  ...koppsFreshData,
+  prerequisites: courseInfoData.recommendedPrerequisites,
 })
 
-async function mergeKoppsAndMemoData(koppsFreshData, apiMemoData) {
+async function mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMemoData) {
   const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
-  const cleanKoppsFreshData = await removeTemplatesFromKoppsFreshData(koppsFreshData)
-  const newMemoData = refreshMemoData(defaultAndMemoApiValues, cleanKoppsFreshData)
+  const newMemoData = refreshMemoData(defaultAndMemoApiValues, koppsFreshData, courseInfoData)
   return newMemoData
 }
 
-const mergeAllData = async (koppsData, ladokData, apiMemoData, combinedExamInfo) => {
-  const mergedKoppsAndMemoData = await mergeKoppsAndMemoData(koppsData, apiMemoData)
+const mergeAllData = async (koppsData, courseInfoData, ladokData, apiMemoData, combinedExamInfo) => {
+  // eslint-disable-next-line no-console
+  console.log('courseInfoData: ', courseInfoData)
+  const mergedKoppsCourseAndMemoData = await mergeKoppsCourseAndMemoData(koppsData, courseInfoData, apiMemoData)
   const mainSubjectsArray = ladokData.huvudomraden.map(subject => subject.name)
   const mainSubjects = mainSubjectsArray.join()
-  delete mergedKoppsAndMemoData.courseTitle
-  delete mergedKoppsAndMemoData.examination
-  delete mergedKoppsAndMemoData.examinationModules
-  delete mergedKoppsAndMemoData.gradingScale
+  delete mergedKoppsCourseAndMemoData.courseTitle
+  delete mergedKoppsCourseAndMemoData.examination
+  delete mergedKoppsCourseAndMemoData.examinationModules
+  delete mergedKoppsCourseAndMemoData.gradingScale
   return {
     credits: ladokData.omfattning,
     title: ladokData.benamning,
@@ -70,7 +62,7 @@ const mergeAllData = async (koppsData, ladokData, apiMemoData, combinedExamInfo)
     examination: combinedExamInfo.examination,
     examinationModules: combinedExamInfo.examinationModules,
     gradingScale: ladokData.betygsskala.formatted,
-    ...mergedKoppsAndMemoData,
+    ...mergedKoppsCourseAndMemoData,
   }
 }
 
@@ -128,12 +120,22 @@ async function renderMemoEditorPage(req, res, next) {
       ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
       ...(await getCourseEmployees(apiMemoDataDeepCopy)),
     }
+    const courseInfoData = await getCourseInfo(courseCode, memoLangAbbr)
+
+    // applicationStore.memoData = await mergeKoppsAndMemoData(koppsFreshData, apiMemoData
+    // applicationStore.memoData = await mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMemoData)
 
     const examinationModules = await getExaminationModules(ladokRoundIds[0], memoLangAbbr)
     const combinedExamInfo = combineExamInfo(examinationModules, koppsFreshData.examComments)
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
 
-    applicationStore.memoData = await mergeAllData(koppsFreshData, ladokCourseData, apiMemoData, combinedExamInfo)
+    applicationStore.memoData = await mergeAllData(
+      koppsFreshData,
+      courseInfoData,
+      ladokCourseData,
+      apiMemoData,
+      combinedExamInfo
+    )
 
     await applicationStore.setSectionsStructure()
 
@@ -188,9 +190,9 @@ async function updateContentByEndpoint(req, res, next) {
 
 module.exports = {
   combineDefaultValues,
-  mergeKoppsAndMemoData,
+  mergeKoppsCourseAndMemoData,
+  // mergeKoppsAndMemoData,
   mergeAllData,
   renderMemoEditorPage,
-  removeTemplatesFromKoppsFreshData,
   updateContentByEndpoint,
 }

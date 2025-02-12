@@ -67,9 +67,11 @@ module.exports = {
     '(c)': 'från Kopps',
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan',
+    '(o)': 'från sidan inför kursval',
     errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: `Inkluderas alltid (går att redigera)`,
+    mandatoryAndEditableWithoutDefault: `Inkluderas alltid (går att redigera)`,
     mandatoryForSome: 'Inkluderas när innehåll finns i kursplan',
     includeInMemo: {
       section: 'Inkludera i kurs-PM',
@@ -87,6 +89,7 @@ module.exports = {
     },
     nothingFetched: {
       mandatoryAndEditable: `Inget innehåll är inlagt. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. Välj Redigera för att lägga in innehåll.`,
+      mandatoryAndEditableWithoutDefault: 'Välj Redigera för att lägga in innehåll',
       mandatory: `Inget innehåll fanns att hämta. Rubriken är obligatorisk och kommer att inkluderas i kurs-PM. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan.`,
       mandatoryForSome: `Inget innehåll fanns att hämta. Rubriken gäller således inte för den här kursen och kommer därför inte att inkluderas i kurs-PM.`,
       optional: `Inget innehåll fanns att hämta. Instruktioner om hur man ändrar hämtad information ges i informationsikonen ovan. Du kan också välja att inte inkludera rubriken.`,
@@ -173,8 +176,7 @@ module.exports = {
     },
     equipment: {
       body: `<p><b>Utrustning</b> beskriver vilken utrustning som inte tillhandahålls av KTH och som behövs för att kunna följa kursomgången.</p>
-      <p><b>Informationen hjälper studenten</b> att skaffa rätt utrustning inför kursomgångens start.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om utrustning inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att skaffa rätt utrustning inför kursomgångens start.</p>`,
       help: `<p>Här beskriver du vilken utrustning som studenten behöver för att genomföra kursen, om den inte tillhandahålls av KTH. Skrivdon och litteratur räknas inte till utrustning.</p>`,
     },
     examination: {
@@ -249,8 +251,7 @@ module.exports = {
     },
     literature: {
       body: `<p><b>Kurslitteratur</b> beskriver vilken litteratur som används i kursomgången.</p>
-      <p><b>Informationen hjälper studenten</b> att skaffa rätt kurslitteratur inför kursomgångens start. För studenter med funktionsnedsättning är det extra viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om kurslitteratur inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information. Rubriken ingår alltid i ditt kurs-PM.  </p>`,
+      <p><b>Informationen hjälper studenten</b> att skaffa rätt kurslitteratur inför kursomgångens start. För studenter med funktionsnedsättning är det extra viktigt att i god tid veta vilken kurslitteratur som ska gälla för att kunna få den inläst.</p>`,
       help: `<p>Här beskriver du vilken kurslitteratur som används i denna kursomgång. Rubriken är obligatorisk i kurs-PM.
       Lista kurslitteraturen med författare, utgivningsår, titel och förlag. Hänvisa även till platser litteraturen kan laddas ner, om den finns tillgänglig i digital form.</p>
       <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det så att studenten vet detta.</p>`,
@@ -281,14 +282,12 @@ module.exports = {
     },
     possibilityToAddition: {
       body: `<p><b>Möjlighet till plussning</b> beskriver om plussning är möjligt på kursomgången, eventuella villkor för plussning och hur plussning går till.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om möjlighet till plussning inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till plussning på denna kursomgång.</p>`,
       help: `<p>Här beskriver du om det finns möjlighet till plussning på denna kursomgång och i så fall vilka villkor som gäller för det och hur studenten ansöker om att få plussa. Om möjlighet till plussning inte är möjlig för denna kursomgång kan det vara bra att ange detta.</p>`,
     },
     possibilityToCompletion: {
       body: `<p><b>Möjlighet till komplettering</b> beskriver om det finns möjlighet till komplettering på denna kursomgång och om komplettering kan göras endast till betyg E eller till högre betyg.</p>
-      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till komplettering på denna kursomgång och i så fall villkoren för komplettering.</p>
-      <p><b>Innehåll hämtas från Kopps</b> om det finns uppgifter om möjlighet till komplettering inlagt. Du kan välja att behålla den informationen i ditt kurs-PM, eller skriva in ny information.</p>`,
+      <p><b>Informationen hjälper studenten</b> att förstå om det finns möjlighet till komplettering på denna kursomgång och i så fall villkoren för komplettering.</p>`,
       help: `<p>Under rubriken beskriver du om det finns möjlighet till komplettering på denna kursomgång och i så fall vilka villkor som gäller. Beskriv också vad som gäller för kursens moduler.</p>
       <p>För modul med betygsskala A-F måste möjlighet till komplettering från Fx till Godkänt ges. För modul med betygsskala P/F kan det erbjudas av examinator.</p>
       <p>Det kan i många fall vara mer tydligt att istället beskriva möjlighet till komplettering om varje modul under rubriken Examination.</p>`,
@@ -308,8 +307,9 @@ module.exports = {
     prerequisites: {
       body: `<p><b>Rekommenderade förkunskaper</b> beskriver vad läraren förväntar sig att studenten behärskar när kursomgången startar.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilken kunskap som är viktig att vara uppdaterad på när kursomgången startar. Tydligt avgränsad information gör det lättare för studenten att repetera rätt teorier och modeller inför kursen start.</p>
-      <p><b>Innehåll hämtas från Kopps</b> och kan enbart redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (båda länkarna öppnas i ny flik). Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
+      <p><b>Innehåll hämtas från sidan Inför kursval</b> och kan enbart redigeras via Om kursens administrationsverktyg. Vill du ändra innehållet behöver du spara ditt kurs-PM som utkast och gå till funktionen <a href="REPLACE_WITH_ABOUT_COURSE_ADMIN_LINK" target="_blank">Sidan inför kursval</a> för att redigera texten. Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
       help: `<p>Här beskriver du vad som är särskilt viktigt för studenten att förbereda sig på. Du kan här uppmana studenten att repetera kunskap från "Särskild behörighet" i kursplanen, repetera viktiga delar från "Rekommenderade förkunskaper", påminna om att beställa viss kurslitteratur i tid eller installera programvara.</p>`,
+      link: '/kursinfoadmin/kurser/kurs/edit/<REPLACE_WITH_COURSECODE>?l=sv',
     },
     reportingResults: {
       body: `<p><b>Resultatrapportering</b> beskriver när och hur registrering av studenternas resultat och betyg går till, samt var studenten kan ta del av informationen.</p>

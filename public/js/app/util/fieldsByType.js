@@ -11,6 +11,7 @@
   (c)-course general information
   (r)-course round related info
   (pm)-pm information
+  (o)-course info
  */
 
 const excludedFieldsInContractEducation = [
@@ -92,10 +93,9 @@ const context = {
   }, // Läraktiviteter
   learningOutcomes: { type: 'mandatory', isEditable: false, isRequired: true, source: '(s)' },
   literature: {
-    type: 'mandatoryAndEditable',
+    type: 'mandatoryAndEditableWithoutDefault',
     isEditable: true,
     isRequired: true,
-    source: '(c)',
   },
   otherContacts: { type: 'optionalEditable', isEditable: true, isRequired: false },
   otherRequirementsForFinalGrade: {
@@ -136,7 +136,7 @@ const context = {
     type: 'optional',
     isEditable: false,
     isRequired: false,
-    source: '(c)',
+    source: '(o)',
   }, // Rekommenderade förkunskaper
   reportingResults: { isEditable: true, isRequired: false },
   scheduleDetails: {

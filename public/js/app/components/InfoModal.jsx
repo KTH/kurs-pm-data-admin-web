@@ -13,7 +13,13 @@ export function InfoModal(props) {
           <button type="button" className="kth-icon-button close" aria-label={infoText.btnClose} onClick={toggle} />
         </div>
         <ModalBody>
-          {infoText.htmlBody && <div dangerouslySetInnerHTML={{ __html: infoText.htmlBody }}></div>}
+          {infoText.htmlBody && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: infoText.htmlBody,
+              }}
+            ></div>
+          )}
         </ModalBody>
         <ModalFooter>
           <Button variant="secondary" onClick={toggle}>
