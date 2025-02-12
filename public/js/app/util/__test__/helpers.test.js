@@ -8,6 +8,7 @@ const coursesTypeOne = {
     credits: { formattedWithUnit: '7.5 hp' },
     creditUnitLabel: 'Högskolepoäng',
     creditUnitAbbr: 'hp',
+    courseLiterature: '<p>Meddelas vid kursstart.</p>',
   },
   course_EN: {
     courseCode: 'DD1321',

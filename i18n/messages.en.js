@@ -74,11 +74,9 @@ module.exports = {
     '(c)': 'from Kopps',
     '(r)': 'from course round information',
     '(s)': 'from course syllabus',
-    '(o)': 'from the page Before course selection',
     errorEmptyHeading: 'You need to name the header',
     mandatory: 'Always included',
     mandatoryAndEditable: 'Always included',
-    mandatoryAndEditableWithoutDefault: 'Always included',
     mandatoryForSome: 'Included when there is content in the course syllabus',
     includeInMemo: {
       section: 'Include in course memo',
@@ -97,7 +95,6 @@ module.exports = {
     },
     nothingFetched: {
       mandatoryAndEditable: 'No information was available to fetch, click Edit to add own text',
-      mandatoryAndEditableWithoutDefault: 'Click Edit to add the text',
       mandatory:
         'There was no content to fetch to this course memo. The heading will despite that be included in the published course memo. Read more on how to change fetched information in the information icon next to the heading above.',
       mandatoryForSome:
@@ -187,7 +184,8 @@ module.exports = {
     },
     equipment: {
       body: `<p><b>Equipment</b> describes what equipment is not provided by KTH and is needed to follow the course offering.</p>
-      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>`,
+      <p><b>This information helps the student</b> acquire the right equipment before the start of the course offering.</p>
+      <p><b>The content is retrieved from Kopps</b> if there is information about equipment already entered. You can choose to retain that information in your course memo or add new information.</p>`,
       help: `<p>Under this section, you describe the equipment that students need to complete the course, if it is not provided by KTH. Writing tools and literature are not considered equipment.</p>`,
     },
     examiner: {
@@ -260,7 +258,8 @@ module.exports = {
     },
     literature: {
       body: `<p><b>Literature</b> describes the literature used in the course offering.</p>
-      <p><b>This information helps the student</b> acquire the correct literature before the start of the course. For students with disabilities, it is especially important to know in good time which literature will apply in order to get it as talking books.</p>`,
+      <p><b>This information helps the student</b> acquire the correct literature before the start of the course. For students with disabilities, it is especially important to know in good time which literature will apply in order to get it as talking books.</p>
+      <p><b>Content is retrieved from Kopps</b> if there is information about literature already entered. You can choose to retain that information in your course memo or add new information. The heading is always included in your course memo.</p>`,
       help: `<p>Under this section, you describe the literature used in this course offering. This heading is mandatory in the course memo.
       List the literature with author, publication year, title, and publisher. Also, provide references to locations where the literature can be downloaded if available in digital form.</p>
       <p>If literature is not relevant for this course offering, it's helpful to state this so that students do not need to inquire.</p>`,
@@ -293,13 +292,15 @@ module.exports = {
     },
     possibilityToAddition: {
       body: `<p><b>Opportunity to raise an approved grade via renewed examination</b> describes if it is possible to raise an approved grade on this course and the terms for raising the grade.</p>
-      <p><b>This information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination in this course offering.</p>`,
+      <p><b>This information helps the student</b> to understand if it is possible to raise an approved grade via renewed examination in this course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> if there is information about Opportunity to raise an approved grade via renewed examination entered. You can choose to retain that information in your course memo or add new information.</p>`,
       help: `<p>Under this section, you describe if it is possible to raise an approved grade via renewed examination on this course offering and the terms for that. Also describe how the student can apply for a renewed examination.
       If it is not possible to raise an approved grade via renewed examination on this course offering it may be beneficial to indicate this.</p>`,
     },
     possibilityToCompletion: {
       body: `<p><b>Opportunity to complete the requirements via supplementary examination</b> describes whether there is a chance for supplementary examination in this course offering and if completion can be done only up to a grade E or to a higher grade.</p>
-      <p><b>This information helps the student</b> to understand if it is possible to complete the requirements via supplementary examination and, if so, the conditions for completion in this course offering.</p>`,
+      <p><b>This information helps the student</b> to understand if it is possible to complete the requirements via supplementary examination and, if so, the conditions for completion in this course offering.</p>
+      <p><b>Content is retrieved from Kopps</b> if there is information about Opportunity to complete the requirements via supplementary examination entered. You can choose to retain that information in your course memo or add new information.</p>`,
       help: `<p>Under this section, you describe if it is possible to complete the requirements via supplementary examination on this course offering and, if so, the applicable conditions. Also describe if it is possible to complete the requirements via supplementary examination on each module.</p>
       <p>All modules in a course with differentiated grading scale must offer an opportunity to complete the requirements via supplementary examination from Fx to Pass.  Opportunity to complete the requirements via supplementary examination can be offered by the examiner for modules with grading scale P/F.</p>
       <p>It is often better to describe opportunity to complete the requirements via supplementary examination for the modules under the heading Examination.</p>`,
@@ -319,9 +320,8 @@ module.exports = {
     prerequisites: {
       body: `<p><b>Recommended prerequisites</b> describe what the teacher expects the student to have mastered when the course begins.</p>
       <p><b>This information helps the student</b> understand which knowledge is crucial to be updated on when the course starts. Clearly defined information makes it easier for the student to review the correct theories and models before the course begins.</p>
-      <p><b>The content is retrieved from the Page Before course selection</b> and can only be edited via the About course administration tool. If you want to change the content, you need to save your course memo as a draft and go to the function <a href="REPLACE_WITH_ABOUT_COURSE_ADMIN_LINK" target="_blank">Page Before course selection</a > to edit the text. You can choose not to include the title in your course memo.</p>`,
+      <p><b>Content is retrieved from Kopps</b> and can only be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs). You can choose not to include the heading in your course memo.</p>`,
       help: `<p>Under this section, you describe what is particularly important for the student to prepare for. You can encourage the student to review knowledge from the "Specific prerequisites" section in the course syllabus, revisit crucial aspects from the "Recommended prerequisites," remind them to order specific literature on time, or install software.</p>`,
-      link: '/kursinfoadmin/kurser/kurs/edit/<REPLACE_WITH_COURSECODE>?=en',
     },
     reportingResults: {
       body: `<p><b>Reporting of exam results</b> describes when and how the registration of students' results and grades takes place, as well as where the student can access this information.</p>

@@ -28,6 +28,7 @@ const courseML1616 = {
     credits: 7.5,
     creditUnitLabel: 'Högskolepoäng',
     creditUnitAbbr: 'hp',
+    courseLiterature: '<p>Meddelas vid kursstart.</p>',
   },
   roundInfos: [
     {
@@ -213,27 +214,27 @@ test('parse an older syllabus 20192 information for 20212 without breaking if TE
   const foundSyllabus = parseSyllabus(courseML1616, '20212')
   expect(foundSyllabus.syllabusValid.validFromTerm).toBe(20192)
   expect(foundSyllabus).toMatchInlineSnapshot(`
-  {
-    "additionalRegulations": "",
-    "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
-    "creditUnitAbbr": "hp",
-    "equipmentTemplate": "",
-    "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
-    "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning. Examinator f&#229;r medge annan examinationsform vid omexamination av enstaka studenter.</p>",
-    "learningOutcomes": "<p>Efter avklarad kurs skall studenten f&#246;r betyg E kunna:</p><p>&#8226;&#160;&#160; &#160;identifiera de olika roller och ansvarsomr&#229;den som &#228;r n&#246;dv&#228;ndiga f&#246;r effektiv projektledning<br />&#8226;&#160;&#160; &#160;f&#246;rklara metoder, tekniker, verktyg och processer som &#228;r anv&#228;ndbara inom omr&#229;det projektledning f&#246;r effektiv ledning och styrning av projekt inom industrin<br />&#8226;&#160;&#160; &#160;skapa en projektmodell/projektprocess samt kunna till&#228;mpa den p&#229; ett verkligt och tidsbegr&#228;nsat projekt inom industriell teknik och produktionsunderh&#229;ll<br />&#8226;&#160;&#160; &#160;identifiera sin egen roll och p&#229;verkan som projektledare och avg&#246;ra det egna behovet av utveckling inom omr&#229;det projektledning<br />&#8226;&#160;&#160; &#160;redog&#246;ra muntligt och skriftligt f&#246;r aspekter inom projektledning<br />F&#246;r h&#246;gre betyg ska studenten &#228;ven kunna:</p><p>&#8226;&#160;&#160; &#160;visa kompentes f&#246;r punkterna ovan p&#229; ett djupare plan, samt d&#228;rut&#246;ver<br />&#8226;&#160;&#160; &#160;agera i flera av de olika roller och ansvarsomr&#229;den som &#228;r n&#246;dv&#228;ndiga f&#246;r effektiv projektledning<br />&#8226;&#160;&#160; &#160;implementera metoder, tekniker, verktyg och processer som &#228;r anv&#228;ndbara inom omr&#229;det projektledning f&#246;r effektiv ledning och styrning av projekt inom industrin<br />&#8226;&#160;&#160; &#160;utv&#228;rdera en industriellt anknuten projektmodell/projektprocess</p>",
-    "literatureTemplate": "",
-    "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
-    "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
-    <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
-    "possibilityToAdditionTemplate": "",
-    "possibilityToCompletionTemplate": "",
-    "recruitmentText": "",
-    "syllabusValid": {
-      "validFromTerm": 20192,
-      "validUntilTerm": 20221,
-    },
-  }
-  `)
+{
+  "additionalRegulations": "",
+  "courseContent": "<p>Kursen behandlar:</p><ul><li>Roller och ansvar inom projektledning</li></ul><ul><li>Metoder, tekniker, verktyg, processer och modeller som &#228;r anv&#228;ndbara inom omr&#229;det projektledning</li></ul><ul><li>Teoretisk och praktisk projektledning</li></ul>",
+  "creditUnitAbbr": "hp",
+  "equipmentTemplate": "",
+  "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
+  "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning. Examinator f&#229;r medge annan examinationsform vid omexamination av enstaka studenter.</p>",
+  "learningOutcomes": "<p>Efter avklarad kurs skall studenten f&#246;r betyg E kunna:</p><p>&#8226;&#160;&#160; &#160;identifiera de olika roller och ansvarsomr&#229;den som &#228;r n&#246;dv&#228;ndiga f&#246;r effektiv projektledning<br />&#8226;&#160;&#160; &#160;f&#246;rklara metoder, tekniker, verktyg och processer som &#228;r anv&#228;ndbara inom omr&#229;det projektledning f&#246;r effektiv ledning och styrning av projekt inom industrin<br />&#8226;&#160;&#160; &#160;skapa en projektmodell/projektprocess samt kunna till&#228;mpa den p&#229; ett verkligt och tidsbegr&#228;nsat projekt inom industriell teknik och produktionsunderh&#229;ll<br />&#8226;&#160;&#160; &#160;identifiera sin egen roll och p&#229;verkan som projektledare och avg&#246;ra det egna behovet av utveckling inom omr&#229;det projektledning<br />&#8226;&#160;&#160; &#160;redog&#246;ra muntligt och skriftligt f&#246;r aspekter inom projektledning<br />F&#246;r h&#246;gre betyg ska studenten &#228;ven kunna:</p><p>&#8226;&#160;&#160; &#160;visa kompentes f&#246;r punkterna ovan p&#229; ett djupare plan, samt d&#228;rut&#246;ver<br />&#8226;&#160;&#160; &#160;agera i flera av de olika roller och ansvarsomr&#229;den som &#228;r n&#246;dv&#228;ndiga f&#246;r effektiv projektledning<br />&#8226;&#160;&#160; &#160;implementera metoder, tekniker, verktyg och processer som &#228;r anv&#228;ndbara inom omr&#229;det projektledning f&#246;r effektiv ledning och styrning av projekt inom industrin<br />&#8226;&#160;&#160; &#160;utv&#228;rdera en industriellt anknuten projektmodell/projektprocess</p>",
+  "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
+  "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
+  "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
+  <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",
+  "possibilityToAdditionTemplate": "",
+  "possibilityToCompletionTemplate": "",
+  "recruitmentText": "",
+  "syllabusValid": {
+    "validFromTerm": 20192,
+    "validUntilTerm": 20221,
+  },
+}
+`)
 })
 
 // 20222
@@ -292,7 +293,7 @@ test('parse the latest syllabus 20222 for 20231', () => {
   "ethicalApproach": "<ul><li>Vid grupparbete har alla i gruppen ansvar för gruppens arbete.</li><li>Vid examination ska varje student ärligt redovisa hjälp som erhållits och källor som använts.</li><li>Vid muntlig examination ska varje student kunna redogöra för hela uppgiften och hela lösningen.</li></ul>",
   "examComments": "Examinator beslutar, baserat på rekommendation från KTH:s samordnare för funktionsnedsättning, om eventuell anpassad examination för studenter med dokumenterad, varaktig funktionsnedsättning. <br><br>Examinator får medge annan examinationsform vid omexamination av enstaka studenter.<p>Examinator beslutar, i samr&#229;d med KTH:s samordnare f&#246;r funktionsneds&#228;ttning (Funka), om eventuell anpassad examination f&#246;r studenter med dokumenterad, varaktig funktionsneds&#228;ttning. Examinator f&#229;r medge annan examinationsform vid omexamination av enstaka studenter.</p><p>TENA &#228;r ett valfritt examinationsmoment f&#246;r att uppn&#229; h&#246;gre betyg &#228;n E p&#229; kursen.</p>",
   "learningOutcomes": "<p>Efter godk&#228;nd kurs ska studenten kunna:</p><p>1.&#160; &#160; &#160; identifiera de olika roller och ansvarsomr&#229;den som &#228;r n&#246;dv&#228;ndiga f&#246;r effektiv projektledning</p><p>2.&#160;&#160;&#160;&#160;&#160; f&#246;rklara metoder, tekniker, verktyg och processer som &#228;r anv&#228;ndbara inom omr&#229;det projektledning f&#246;r effektiv ledning och styrning av projekt inom industrin</p><p>3.&#160;&#160;&#160;&#160;&#160; skapa en projektmodell/projektprocess samt kunna till&#228;mpa den p&#229; ett verkligt och tidsbegr&#228;nsat projekt inom industriell teknik och produktionsunderh&#229;ll</p><p>4.&#160;&#160;&#160;&#160;&#160; identifiera sin egen roll och p&#229;verkan som projektledare och avg&#246;ra det egna behovet av utveckling inom omr&#229;det projektledning</p><p>5.&#160;&#160;&#160;&#160;&#160; redog&#246;ra muntligt och skriftligt f&#246;r aspekter inom projektledning</p><p>F&#246;r h&#246;gre betyg ska studenten &#228;ven kunna:</p><p>6.&#160;&#160;&#160;&#160;&#160; visa kompetens f&#246;r punkterna ovan p&#229; ett djupare plan, samt d&#228;rut&#246;ver</p><p>7.&#160;&#160;&#160;&#160;&#160;&#160; agera i flera av de olika roller och ansvarsomr&#229;den som &#228;r n&#246;dv&#228;ndiga f&#246;r effektiv projektledning</p><p>8.&#160;&#160;&#160;&#160;&#160; implementera metoder, tekniker, verktyg och processer som &#228;r anv&#228;ndbara inom omr&#229;det projektledning f&#246;r effektiv ledning och styrning av projekt inom industrin</p><p>9.&#160;&#160;&#160;&#160;&#160;&#160; utv&#228;rdera en industriellt anknuten projektmodell/projektprocess</p>",
-  "literatureTemplate": "",
+  "literatureTemplate": "<p>Meddelas vid kursstart.</p>",
   "otherRequirementsForFinalGrade": "<p>N&#228;rvaro vid specificerade obligatoriska kurstillf&#228;llen (eller genomf&#246;rd kompensationsuppgift till dessa) &#228;r krav f&#246;r slutlig betygs&#228;ttning.</p>",
   "permanentDisability": "<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
   <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>",

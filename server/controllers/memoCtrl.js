@@ -15,16 +15,16 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
-const combineDefaultValues = freshMemoData => {
+const combineDefaultValues = (freshMemoData, koppsFreshData) => {
   const { equipment, scheduleDetails, literature, possibilityToCompletion, possibilityToAddition } = freshMemoData
   const updatedWithDefaults = {
     ...freshMemoData,
     // eslint-disable-next-line no-use-before-define
-    equipment: equipment || '',
+    equipment: equipment || koppsFreshData.equipmentTemplate || '',
     scheduleDetails: scheduleDetails || '',
-    literature: literature || '',
-    possibilityToCompletion: possibilityToCompletion || '',
-    possibilityToAddition: possibilityToAddition || '',
+    literature: literature || koppsFreshData.literatureTemplate || '',
+    possibilityToCompletion: possibilityToCompletion || koppsFreshData.possibilityToCompletionTemplate || '',
+    possibilityToAddition: possibilityToAddition || koppsFreshData.possibilityToAdditionTemplate || '',
   }
 
   return updatedWithDefaults
@@ -33,10 +33,10 @@ const combineDefaultValues = freshMemoData => {
 const removeTemplatesFromKoppsFreshData = async koppsFreshData => {
   // no map()
   // to send cleaned up koppsFreshData to client side end then to api
-  delete koppsFreshData.equipmentTemplate
-  delete koppsFreshData.literatureTemplate
-  delete koppsFreshData.possibilityToCompletionTemplate
-  delete koppsFreshData.possibilityToAdditionTemplate
+  await delete koppsFreshData.equipmentTemplate
+  await delete koppsFreshData.literatureTemplate
+  await delete koppsFreshData.possibilityToCompletionTemplate
+  await delete koppsFreshData.possibilityToAdditionTemplate
   return koppsFreshData
 }
 

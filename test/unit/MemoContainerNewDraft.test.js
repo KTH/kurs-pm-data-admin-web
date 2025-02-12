@@ -432,8 +432,8 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. renders <StandardEditorPerTitle>, all standard headers mandatory and editable (literature)  have a correct message about an empty content and closed editor', async () => {
-    const { mandatoryAndEditableWithoutDefault: emptyTextMsg } = sourceInfo.nothingFetched
-    const contentType = 'mandatoryAndEditableWithoutDefault'
+    const { mandatoryAndEditable: emptyTextMsg } = sourceInfo.nothingFetched
+    const contentType = 'mandatoryAndEditable'
     const headers = getSectionHeadersByType(contentType, 'prep')
     expect(headers.length).toBe(1)
     headers.forEach(contentId => {
@@ -558,9 +558,9 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. render a correct number of infos about data origin and source info', () => {
-    const dataOrigin = screen.getAllByText(/Fetched from the page Before course selection/i)
+    const dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
     expect(dataOrigin[0]).toBeInTheDocument()
-    expect(dataOrigin.length).toBe(1)
+    expect(dataOrigin.length).toBe(2)
   })
 
   test('tab: prep. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {

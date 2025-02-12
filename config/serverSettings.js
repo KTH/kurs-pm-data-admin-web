@@ -22,7 +22,6 @@ const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
 const devKursPmDataApi = devDefaults('http://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000') // required=true&
 const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
-const devKursInfoApi = devDefaults('http://api-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000') // required=true&
 const devSessionKey = devDefaults('kurs-pm-data-admin-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
@@ -62,7 +61,6 @@ module.exports = {
   // API keys
   apiKey: {
     kursPmDataApi: getEnv('KURS_PM_DATA_API_KEY', devDefaults('1234')),
-    kursinfoApi: getEnv('KURSINFO_API_KEY', devDefaults('123489')),
   },
 
   ladokMellanlagerApi: {
@@ -88,7 +86,6 @@ module.exports = {
   // Service API's
   nodeApi: {
     kursPmDataApi: unpackNodeApiConfig('KURS_PM_DATA_API_URI', devKursPmDataApi),
-    kursinfoApi: unpackNodeApiConfig('KURSINFO_API_URI', devKursInfoApi),
   },
 
   koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
@@ -125,10 +122,6 @@ module.exports = {
     koppsApi: {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
       expireTime: getEnv('KOPPS_API_CACHE_EXPIRE_TIME', 60 * 60), // 60 minuteS
-    },
-    kursinfoApi: {
-      redis: unpackRedisConfig('REDIS_URI', devRedis),
-      expireTime: getEnv('KURSINFO_API_CACHE_EXPIRE_TIME', 2 * 60), // 2 * 60 s = 2 MINUTES
     },
   },
 
