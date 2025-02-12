@@ -43,8 +43,6 @@ async function mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMe
 }
 
 const mergeAllData = async (koppsData, courseInfoData, ladokData, apiMemoData, combinedExamInfo) => {
-  // eslint-disable-next-line no-console
-  console.log('courseInfoData: ', courseInfoData)
   const mergedKoppsCourseAndMemoData = await mergeKoppsCourseAndMemoData(koppsData, courseInfoData, apiMemoData)
   const mainSubjectsArray = ladokData.huvudomraden.map(subject => subject.name)
   const mainSubjects = mainSubjectsArray.join()
