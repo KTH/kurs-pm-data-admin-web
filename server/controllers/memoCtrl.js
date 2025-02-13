@@ -109,9 +109,17 @@ async function renderMemoEditorPage(req, res, next) {
     // start
     const apiMemoDataDeepCopy = apiMemoData
     const { applicationCodes } = apiMemoDataDeepCopy
+    let ladokRoundIds
+    let combinedExamInfo
 
-    apiMemoDataDeepCopy.ladokRoundIds = await getLadokRoundIds(courseCode, semester, applicationCodes)
-    const ladokRoundIds = await getLadokRoundIds(courseCode, semester)
+    try {
+      apiMemoDataDeepCopy.ladokRoundIds = await getLadokRoundIds(courseCode, semester, applicationCodes)
+      ladokRoundIds = await getLadokRoundIds(courseCode, semester)
+    } catch (error) {
+      log.error(`Failed to fetch Ladok Round IDs: ${error}`)
+      apiMemoDataDeepCopy.ladokRoundIds = []
+      ladokRoundIds = []
+    }
 
     // end
     const koppsFreshData = {
@@ -120,11 +128,12 @@ async function renderMemoEditorPage(req, res, next) {
     }
     const courseInfoData = await getCourseInfo(courseCode, memoLangAbbr)
 
-    // applicationStore.memoData = await mergeKoppsAndMemoData(koppsFreshData, apiMemoData
-    // applicationStore.memoData = await mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMemoData)
-
-    const examinationModules = await getExaminationModules(ladokRoundIds[0], memoLangAbbr)
-    const combinedExamInfo = combineExamInfo(examinationModules, koppsFreshData.examComments)
+    if (ladokRoundIds.length > 0) {
+      const examinationModules = await getExaminationModules(ladokRoundIds[0], memoLangAbbr)
+      combinedExamInfo = combineExamInfo(examinationModules, koppsFreshData.examComments)
+    } else {
+      combinedExamInfo = {}
+    }
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
 
     applicationStore.memoData = await mergeAllData(
@@ -146,7 +155,6 @@ async function renderMemoEditorPage(req, res, next) {
       compressedStoreCode,
       html: view,
       title: userLang === 'sv' ? 'Administrera Om kursen' : 'Administer About course',
-      // initialState: JSON.stringify(hydrateStores(renderProps)),
       kursinfoadmin: {
         title: i18n.messages[langIndex].messages.main_site_name,
         url: `${server.hostUrl}${server.hostUrl.includes('.se/') ? '' : '/'}kursinfoadmin/kurser/kurs/${courseCode}`,
@@ -189,7 +197,6 @@ async function updateContentByEndpoint(req, res, next) {
 module.exports = {
   combineDefaultValues,
   mergeKoppsCourseAndMemoData,
-  // mergeKoppsAndMemoData,
   mergeAllData,
   renderMemoEditorPage,
   updateContentByEndpoint,

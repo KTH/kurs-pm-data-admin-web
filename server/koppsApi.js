@@ -40,10 +40,6 @@ async function getLadokRoundIds(courseCode, semester, applicationCodes = null) {
     const { termsWithCourseRounds } = body
     const selectedTerm = termsWithCourseRounds.find(t => t.term.toString() === semester.toString())
 
-    if (!selectedTerm) {
-      return []
-    }
-
     const { rounds = [] } = selectedTerm
 
     if (applicationCodes) {
@@ -63,8 +59,7 @@ async function getLadokRoundIds(courseCode, semester, applicationCodes = null) {
       return rounds.map(round => round.ladokUID)
     }
   } catch (err) {
-    log.debug('getKoppsCourseRoundTerms has an error:' + err)
-    return err
+    throw new Error(err)
   }
 }
 
