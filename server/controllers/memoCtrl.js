@@ -113,10 +113,12 @@ async function renderMemoEditorPage(req, res, next) {
     let combinedExamInfo
 
     try {
-      apiMemoDataDeepCopy.ladokRoundIds = await getLadokRoundIds(courseCode, semester, applicationCodes)
-      ladokRoundIds = await getLadokRoundIds(courseCode, semester)
+      ;[apiMemoDataDeepCopy.ladokRoundIds, ladokRoundIds] = await Promise.all([
+        getLadokRoundIds(courseCode, semester, applicationCodes),
+        getLadokRoundIds(courseCode, semester),
+      ])
     } catch (error) {
-      log.error(`Failed to fetch Ladok Round IDs: ${error}`)
+      log.error(error)
       apiMemoDataDeepCopy.ladokRoundIds = []
       ladokRoundIds = []
     }

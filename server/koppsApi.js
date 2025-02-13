@@ -59,7 +59,7 @@ async function getLadokRoundIds(courseCode, semester, applicationCodes = null) {
       return rounds.map(round => round.ladokUID)
     }
   } catch (err) {
-    throw new Error(err)
+    throw new Error(`Failed to get Ladok Round IDs for course ${courseCode} in semester ${semester}: ${err.message}`)
   }
 }
 
