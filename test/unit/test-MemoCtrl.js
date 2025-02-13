@@ -4,18 +4,15 @@
 
 const { expect } = require('chai')
 const nock = require('nock')
-const mockery = require('mockery')
 const httpMocks = require('node-mocks-http')
 
-const mockLogger = {}
-mockLogger.debug = mockLogger.info = mockLogger.error = mockLogger.warn = () => {}
-mockLogger.init = () => {}
-
-mockery.registerMock('@kth/log', mockLogger)
-mockery.enable({
-  warnOnReplace: false,
-  warnOnUnregistered: false,
-})
+jest.mock('@kth/log', () => ({
+  debug: jest.fn(),
+  info: jest.fn(),
+  error: jest.fn(),
+  warn: jest.fn(),
+  init: jest.fn(),
+}))
 
 const paths = require('../mocks/apipaths.json')
 const api = nock('http://localhost:3001/api/node').get('/_paths').reply(200, paths).get('/_checkAPIkey').reply(200, {})

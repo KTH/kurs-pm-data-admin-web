@@ -129,10 +129,6 @@ function _getCommonInfo(resBody) {
   const { course: c = {} } = resBody
   return {
     creditUnitAbbr: c.creditUnitAbbr || '',
-    possibilityToCompletionTemplate: c.possibilityToCompletion || '',
-    possibilityToAdditionTemplate: c.possibilityToAddition || '',
-    literatureTemplate: c.courseLiterature || '',
-    equipmentTemplate: c.requiredEquipment || '',
   }
 }
 

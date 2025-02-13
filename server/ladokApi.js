@@ -74,9 +74,6 @@ async function getExaminationModules(utbildningstillfalleUid, language) {
       utbildningstillfalleUid,
       language
     )
-    console.log('examinationModules first: ', examinationModules)
-    console.log('language: ', language)
-    console.log('utbildningstillfalleUid: ', utbildningstillfalleUid)
     const formattedModules = formatExaminationTitles(examinationModules)
     return formattedModules
   } catch (error) {
