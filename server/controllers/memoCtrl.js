@@ -120,9 +120,6 @@ async function renderMemoEditorPage(req, res, next) {
     }
     const courseInfoData = await getCourseInfo(courseCode, memoLangAbbr)
 
-    // applicationStore.memoData = await mergeKoppsAndMemoData(koppsFreshData, apiMemoData
-    // applicationStore.memoData = await mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMemoData)
-
     const examinationModules = await getExaminationModules(ladokRoundIds[0], memoLangAbbr)
     const combinedExamInfo = combineExamInfo(examinationModules, koppsFreshData.examComments)
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
