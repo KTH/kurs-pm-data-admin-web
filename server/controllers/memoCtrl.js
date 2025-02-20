@@ -69,7 +69,7 @@ function combineExamInfo(examinationModules, examComments) {
     ? `<p><ul>${examinationModules.completeExaminationStrings}</ul></p>`
     : ''
   const examination = `${examModulesHtmlList}${examComments ? `<p>${examComments}</p>` : ''}`
-  return { examination, examinationModules: examinationModules.examinationTitles }
+  return { examination, examinationModules: examinationModules.titles }
 }
 
 async function renderMemoEditorPage(req, res, next) {
