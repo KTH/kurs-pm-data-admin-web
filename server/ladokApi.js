@@ -5,7 +5,7 @@ const { server: serverConfig } = require('./configuration')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
-async function wrapInHtml(examinationModules) {
+async function formatExaminationTitles(examinationModules) {
   const { completeExaminationStrings, titles } = examinationModules
   try {
     const completeExaminationStringsFormatted = completeExaminationStrings.map(m => `<li>${m}</li>`)
@@ -70,7 +70,7 @@ async function getExaminationModules(utbildningstillfalleUid, language) {
       utbildningstillfalleUid,
       language
     )
-    const formattedModules = wrapInHtml(examinationModules)
+    const formattedModules = formatExaminationTitles(examinationModules)
     return formattedModules
   } catch (error) {
     throw new Error(error.message)
