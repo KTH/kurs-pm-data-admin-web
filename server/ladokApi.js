@@ -6,19 +6,15 @@ const { server: serverConfig } = require('./configuration')
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
 async function formatExaminationTitles(examinationModules) {
+  const { completeExaminationStrings, titles } = examinationModules
   try {
-    const completeExaminationStrings = examinationModules.map(
-      m =>
-        `<li>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}, ${m.betygsskala.name}: ${m.betygsskala.formatted}</li>`
-    )
+    const completeExaminationStringsFormatted = completeExaminationStrings.map(m => `<li>${m}</li>`)
 
-    const examinationTitles = examinationModules.map(
-      m => `<h4>${m.kod} - ${m.benamning}, ${m.omfattning.formattedWithUnit}</h4>`
-    )
+    const examinationTitlesFormatted = titles.map(t => `<h4>${t}</h4>`)
 
     return {
-      completeExaminationStrings: completeExaminationStrings.join(''),
-      titles: examinationTitles.join(''),
+      completeExaminationStrings: completeExaminationStringsFormatted.join(''),
+      titles: examinationTitlesFormatted.join(''),
     }
   } catch (error) {
     throw new Error(`Failed to format examination titles: ${error.message}`)
