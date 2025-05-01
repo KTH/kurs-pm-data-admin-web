@@ -15,7 +15,7 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2021-03-20',
           language: { sv: 'Svenska', en: 'Swedish' },
           applicationCode: '3',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used
@@ -31,7 +31,7 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2021-03-22',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
-          state: 'APPROVED',
+          status: 'S3',
         },
       ],
       examinationRounds: [
@@ -90,7 +90,7 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2020-10-30',
           language: { sv: 'Svenska', en: 'Swedish' },
           applicationCode: '3',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used merged T
@@ -98,14 +98,14 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2020-08-24',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '2',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           shortName: '',
           firstTuitionDate: '2020-10-26',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
-          state: 'APPROVED',
+          status: 'S3',
         },
       ],
       examinationRounds: [
@@ -230,7 +230,7 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2019-08-26',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '2',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used published which have active draft
@@ -238,7 +238,7 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used to ad as course instance to course rounde with published memo
@@ -246,7 +246,7 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '3',
-          state: 'APPROVED',
+          status: 'S3',
         },
       ],
       examinationRounds: [
@@ -316,7 +316,7 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2021-03-20',
           language: { sv: 'Svenska', en: 'Swedish' },
           applicationCode: '3',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used
@@ -332,7 +332,7 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2021-03-22',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
-          state: 'APPROVED',
+          status: 'S3',
         },
       ],
       examinationRounds: [
@@ -391,7 +391,7 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2020-10-30',
           language: { sv: 'Svenska', en: 'Swedish' },
           applicationCode: '3',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used merged T
@@ -399,14 +399,14 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2020-08-24',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '2',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           shortName: '',
           firstTuitionDate: '2020-10-26',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
-          state: 'APPROVED',
+          status: 'S3',
         },
       ],
       examinationRounds: [
@@ -531,7 +531,7 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2019-08-26',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '2',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used published which have active draft
@@ -539,7 +539,7 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '1',
-          state: 'APPROVED',
+          status: 'S3',
         },
         {
           // used to ad as course instance to course rounde with published memo
@@ -547,7 +547,7 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2019-10-28',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '3',
-          state: 'APPROVED',
+          status: 'S3',
         },
       ],
       examinationRounds: [

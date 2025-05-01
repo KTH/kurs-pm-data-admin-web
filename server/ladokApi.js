@@ -30,16 +30,16 @@ async function getLadokCourseData(courseCode, lang) {
 }
 
 async function getCourseRoundsData(courseCode, lang) {
-  // TODO: need to find a way to handle state instead of just hardcoding it
   try {
-    const course = await client.getActiveCourseRounds(courseCode, lang)
-    const mappedRounds = course.map(round => ({
+    const rounds = await client.getActiveAndFutureCourseRounds(courseCode, lang)
+    const mappedRounds = rounds.map(round => ({
       shortName: round.kortnamn,
       applicationCode: round.tillfalleskod,
       startperiod: round.startperiod,
       firstTuitionDate: round.forstaUndervisningsdatum.date,
       lastTuitionDate: round.sistaUndervisningsdatum.date,
-      state: 'APPROVED',
+      status: round.status.code,
+      full: round.fullsatt,
       cancelled: round.installt,
       language: {
         sv: (lang === 'sv' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
