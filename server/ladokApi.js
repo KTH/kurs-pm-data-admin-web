@@ -31,7 +31,8 @@ async function getLadokCourseData(courseCode, lang) {
 
 async function getCourseRoundsData(courseCode, lang) {
   try {
-    const rounds = await client.getActiveAndFutureCourseRounds(courseCode, lang)
+    const previousYear = new Date().getFullYear() - 1
+    const rounds = await client.getCourseRoundsFromPeriod(courseCode, `VT${previousYear}`, lang)
     const mappedRounds = rounds.map(round => ({
       shortName: round.kortnamn,
       applicationCode: round.tillfalleskod,
