@@ -26,8 +26,7 @@ const formatLadokData = (ladokCourseRounds, ladokCourseData) => {
       credits: ladokCourseData.omfattning,
       creditUnitLabel: ladokCourseData.utbildningstyp.creditsUnit,
       creditUnitAbbr: ladokCourseData.utbildningstyp.creditsUnit.code.toLowerCase(),
-      status: ladokCourseData.status.code,
-      discontinued: ladokCourseData.avvecklad,
+      state: 'ESTABLISHED', // TODO: Handle state dynamically instead of hardcoding it
     },
     lastTermsInfo: groupedLadokCourseRounds,
   }

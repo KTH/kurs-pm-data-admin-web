@@ -83,8 +83,7 @@ module.exports = {
       credits: 7.5,
       creditUnitLabel: 'Högskolepoäng',
       creditUnitAbbr: 'hp',
-      status: 'S3',
-      discontinued: false,
+      state: 'ESTABLISHED',
     },
     examiners: [
       {

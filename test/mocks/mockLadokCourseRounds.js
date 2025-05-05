@@ -125,8 +125,7 @@ const formattedData = {
     credits: '7.5',
     creditUnitLabel: { code: 'HP', sv: 'Högskolepoäng', en: 'Credits' },
     creditUnitAbbr: 'hp',
-    status: 'S3',
-    discontinued: false,
+    state: 'ESTABLISHED',
   },
   lastTermsInfo: groupedLadokCourseRounds,
 }
