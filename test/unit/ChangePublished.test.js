@@ -11,6 +11,13 @@ import { mockApplicationStore, mockApplicationStoreEn } from '../mocks/Applicati
 import mockApplicationStoreWithAllMemos from '../mocks/AppStoreWithAllMemos'
 import translations from '../mocks/translations'
 
+jest.mock('@kth/om-kursen-ladok-client', () => ({
+  LadokStatusCode: {
+    Started: 'S2',
+    Complete: 'S3',
+  },
+}))
+
 const { buttons, pageTitles } = translations.en
 
 const { info } = i18n.messages[0]

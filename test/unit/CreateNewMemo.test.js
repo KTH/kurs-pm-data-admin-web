@@ -12,6 +12,13 @@ import { mockApplicationStore, mockApplicationStoreEn } from '../mocks/Applicati
 import mockApplicationStoreWithDraftMemos from '../mocks/AppStoreWithDraftMemos'
 import translations from '../mocks/translations'
 
+jest.mock('@kth/om-kursen-ladok-client', () => ({
+  LadokStatusCode: {
+    Started: 'S2',
+    Complete: 'S3',
+  },
+}))
+
 const CreateNewMemoPage = ({ ...rest }) => (
   <StaticRouter>
     <MobxStoreProvider initCallback={() => mockApplicationStore}>
