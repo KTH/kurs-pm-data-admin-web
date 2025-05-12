@@ -31,6 +31,8 @@ async function getLadokCourseData(courseCode, lang) {
 
 async function getCourseRoundsData(courseCode, lang) {
   try {
+    // TODO: Add endpoint to ladok client for retieving data from previous year onward
+    // See requirements in http://kth-se.atlassian.net/browse/KUI-1653
     const previousYear = new Date().getFullYear() - 1
     const rounds = await client.getCourseRoundsFromPeriod(courseCode, `VT${previousYear}`, lang)
     const mappedRounds = rounds.map(round => ({
