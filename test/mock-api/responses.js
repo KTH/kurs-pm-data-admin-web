@@ -119,7 +119,8 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: 'e67ddb10-3dfd-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
+          full: true,
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -230,7 +231,8 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: 'f25eeedd-3dfd-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
+          full: false,
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -368,7 +370,7 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: 'fd3cea6f-3dfd-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -452,7 +454,7 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: '1338f7ae-3dfe-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -549,7 +551,7 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: '1e7d2f24-3dfe-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -633,7 +635,7 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: '28f8714b-3dfe-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -717,7 +719,7 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: '429dfe8e-3dfe-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -813,7 +815,7 @@ module.exports = {
         ldapTeachers: [],
         round: {
           ladokUID: '4cd7caf2-3dfe-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',
@@ -918,7 +920,7 @@ module.exports = {
         ],
         round: {
           ladokUID: '5a8dec5b-3dfe-11eb-b960-5f936a674375',
-          state: 'APPROVED',
+          status: 'S3',
           tutoringTimeOfDay: {
             name: 'DAG',
             key: 'tutoringtime.DAG',

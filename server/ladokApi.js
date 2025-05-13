@@ -30,16 +30,19 @@ async function getLadokCourseData(courseCode, lang) {
 }
 
 async function getCourseRoundsData(courseCode, lang) {
-  // TODO: need to find a way to handle state instead of just hardcoding it
   try {
-    const course = await client.getActiveCourseRounds(courseCode, lang)
-    const mappedRounds = course.map(round => ({
+    // TODO: Add endpoint to ladok client for retieving data from previous year onward
+    // See requirements in http://kth-se.atlassian.net/browse/KUI-1653
+    const previousYear = new Date().getFullYear() - 1
+    const rounds = await client.getCourseRoundsFromPeriod(courseCode, `VT${previousYear}`, lang)
+    const mappedRounds = rounds.map(round => ({
       shortName: round.kortnamn,
       applicationCode: round.tillfalleskod,
       startperiod: round.startperiod,
       firstTuitionDate: round.forstaUndervisningsdatum.date,
       lastTuitionDate: round.sistaUndervisningsdatum.date,
-      state: 'APPROVED',
+      status: round.status.code,
+      full: round.fullsatt,
       cancelled: round.installt,
       language: {
         sv: (lang === 'sv' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
