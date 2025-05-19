@@ -8,68 +8,70 @@ const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getCourseInfo } = require('../kursinfoApi')
-const { getSyllabus, getLadokRoundIds } = require('../koppsApi')
-const { getLadokCourseData, getExaminationModules } = require('../ladokApi')
+const { getLadokRoundIdsFromKopps } = require('../koppsApi')
+const { getLadokCourseData, getLadokCourseSyllabus } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
 
-const combineDefaultValues = freshMemoData => {
-  const { equipment, scheduleDetails, literature, possibilityToCompletion, possibilityToAddition } = freshMemoData
-  const updatedWithDefaults = {
-    ...freshMemoData,
-    equipment: equipment || '',
-    scheduleDetails: scheduleDetails || '',
-    literature: literature || '',
-    possibilityToCompletion: possibilityToCompletion || '',
-    possibilityToAddition: possibilityToAddition || '',
-  }
-
-  return updatedWithDefaults
-}
-
-const refreshMemoData = (defaultAndMemoApiValues, koppsFreshData, courseInfoData) => ({
-  ...defaultAndMemoApiValues,
-  ...koppsFreshData,
-  prerequisites: courseInfoData.recommendedPrerequisites,
+const addDefaultValues = data => ({
+  ...data,
+  equipment: data.equipment || '',
+  scheduleDetails: data.scheduleDetails || '',
+  literature: data.literature || '',
+  possibilityToCompletion: data.possibilityToCompletion || '',
+  possibilityToAddition: data.possibilityToAddition || '',
 })
 
-async function mergeKoppsCourseAndMemoData(koppsFreshData, courseInfoData, apiMemoData) {
-  const defaultAndMemoApiValues = await combineDefaultValues(apiMemoData, koppsFreshData)
-  const newMemoData = refreshMemoData(defaultAndMemoApiValues, koppsFreshData, courseInfoData)
-  return newMemoData
-}
+const mergeAllData = async (
+  memoApiData,
+  courseInfoApiData,
+  ladokCourseData,
+  ladokCourseSyllabusData,
+  koppsEmployeesData
+) => {
+  const memoDataWithDefaults = addDefaultValues(memoApiData)
 
-const mergeAllData = async (koppsData, courseInfoData, ladokData, apiMemoData, combinedExamInfo) => {
-  const mergedKoppsCourseAndMemoData = await mergeKoppsCourseAndMemoData(koppsData, courseInfoData, apiMemoData)
-  const mainSubjectsArray = ladokData.huvudomraden.map(subject => subject.name)
-  const mainSubjects = mainSubjectsArray.join()
-  delete mergedKoppsCourseAndMemoData.courseTitle
-  delete mergedKoppsCourseAndMemoData.examination
-  delete mergedKoppsCourseAndMemoData.examinationModules
-  delete mergedKoppsCourseAndMemoData.gradingScale
-  return {
-    credits: ladokData.omfattning,
-    title: ladokData.benamning,
-    courseTitle: `${ladokData.kod} ${ladokData.benamning} ${ladokData.omfattning.formattedWithUnit}`,
-    departmentName: ladokData.organisation.name,
-    educationalTypeId: ladokData.utbildningstyp.id,
-    mainSubjects,
-    examination: combinedExamInfo.examination,
-    examinationModules: combinedExamInfo.examinationModules,
-    gradingScale: ladokData.betygsskala.formatted,
-    ...mergedKoppsCourseAndMemoData,
+  // Source: kursinfo-api
+  const courseInfoApiValues = {
+    prerequisites: courseInfoApiData.recommendedPrerequisites,
   }
-}
 
-function combineExamInfo(examinationModules, examComments) {
-  const examModulesHtmlList = examinationModules.completeExaminationStrings
-    ? `<p><ul>${examinationModules.completeExaminationStrings}</ul></p>`
-    : ''
-  const examination = `${examModulesHtmlList}${examComments ? `<p>${examComments}</p>` : ''}`
-  return { examination, examinationModules: examinationModules.titles }
+  // Source: Ladok
+  const ladokCourseValues = {
+    credits: ladokCourseData.omfattning,
+    title: ladokCourseData.benamning,
+    courseTitle: `${ladokCourseData.kod} ${ladokCourseData.benamning} ${ladokCourseData.omfattning.formattedWithUnit}`,
+    departmentName: ladokCourseData.organisation.name,
+    educationalTypeId: ladokCourseData.utbildningstyp.id,
+  }
+
+  // Source: Ladok
+  const examinationContent = `<p><ul>${ladokCourseSyllabusData.kursplan.examinationModules.completeExaminationStrings}</ul></p>${ladokCourseSyllabusData.kursplan.kommentartillexamination}`
+  const ladokCourseSyllabusValues = {
+    courseContent: ladokCourseSyllabusData.kursplan.kursinnehall,
+    learningOutcomes: ladokCourseSyllabusData.kursplan.larandemal,
+    gradingScale: ladokCourseSyllabusData.course.betygsskala,
+    examination: examinationContent,
+    examinationModules: ladokCourseSyllabusData.kursplan.examinationModules.titles,
+    otherRequirementsForFinalGrade: ladokCourseSyllabusData.kursplan.ovrigakravforslutbetyg,
+    ethicalApproach: ladokCourseSyllabusData.kursplan.etisktforhallandesatt,
+    additionalRegulations: ladokCourseSyllabusData.kursplan.faststallande,
+  }
+
+  // Source: Static content
+  const { permanentDisability } = i18n.messages[language === 'en' ? 0 : 1].staticMemoBodyByUserLang
+
+  return {
+    ...memoDataWithDefaults,
+    ...courseInfoApiValues,
+    ...ladokCourseValues,
+    ...ladokCourseSyllabusValues,
+    ...permanentDisability,
+    ...koppsEmployeesData,
+  }
 }
 
 async function renderMemoEditorPage(req, res, next) {
@@ -83,8 +85,8 @@ async function renderMemoEditorPage(req, res, next) {
     const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
     const applicationStore = createStore()
 
-    const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
-    const { semester, memoCommonLangAbbr } = apiMemoData
+    const memoApiData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+    const { semester, memoCommonLangAbbr } = memoApiData
     const memoLangAbbr = memoCommonLangAbbr || userLang
 
     applicationStore.rebuildDraftFromPublishedVer = action === 'rebuild'
@@ -107,43 +109,28 @@ async function renderMemoEditorPage(req, res, next) {
      */
 
     // start
-    const apiMemoDataDeepCopy = apiMemoData
-    const { applicationCodes } = apiMemoDataDeepCopy
-    let ladokRoundIds
-    let combinedExamInfo
+    const memoApiDataDeepCopy = memoApiData
+    const { applicationCodes } = memoApiDataDeepCopy
 
     try {
-      ;[apiMemoDataDeepCopy.ladokRoundIds, ladokRoundIds] = await Promise.all([
-        getLadokRoundIds(courseCode, semester, applicationCodes),
-        getLadokRoundIds(courseCode, semester),
-      ])
+      memoApiDataDeepCopy.ladokRoundIds = await getLadokRoundIdsFromKopps(courseCode, semester, applicationCodes)
     } catch (error) {
       log.error(error)
-      apiMemoDataDeepCopy.ladokRoundIds = []
-      ladokRoundIds = []
+      memoApiDataDeepCopy.ladokRoundIds = []
     }
-
     // end
-    const koppsFreshData = {
-      ...(await getSyllabus(courseCode, semester, memoLangAbbr)),
-      ...(await getCourseEmployees(apiMemoDataDeepCopy)),
-    }
-    const courseInfoData = await getCourseInfo(courseCode, memoLangAbbr)
+    const koppsEmployeesData = await getCourseEmployees(memoApiDataDeepCopy)
 
-    if (ladokRoundIds.length > 0) {
-      const examinationModules = await getExaminationModules(ladokRoundIds[0], memoLangAbbr)
-      combinedExamInfo = combineExamInfo(examinationModules, koppsFreshData.examComments)
-    } else {
-      combinedExamInfo = {}
-    }
+    const courseInfoApiData = await getCourseInfo(courseCode, memoLangAbbr)
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
+    const ladokCourseSyllabusData = await getLadokCourseSyllabus(courseCode, semester, memoLangAbbr)
 
     applicationStore.memoData = await mergeAllData(
-      koppsFreshData,
-      courseInfoData,
+      memoApiData,
+      courseInfoApiData,
       ladokCourseData,
-      apiMemoData,
-      combinedExamInfo
+      ladokCourseSyllabusData,
+      koppsEmployeesData
     )
 
     await applicationStore.setSectionsStructure()
@@ -197,8 +184,6 @@ async function updateContentByEndpoint(req, res, next) {
 }
 
 module.exports = {
-  combineDefaultValues,
-  mergeKoppsCourseAndMemoData,
   mergeAllData,
   renderMemoEditorPage,
   updateContentByEndpoint,

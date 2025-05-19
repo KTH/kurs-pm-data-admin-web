@@ -31,7 +31,7 @@ const api = connections.setup(koppsConfig, koppsConfig, koppsOpts)
  * So once it gets updated then this method will be removed.
  */
 
-async function getLadokRoundIds(courseCode, semester, applicationCodes = null) {
+async function getLadokRoundIdsFromKopps(courseCode, semester, applicationCodes = null) {
   const { client } = api.koppsApi
   const uri = `${config.koppsApi.basePath}course/${encodeURIComponent(courseCode)}/courseroundterms`
 
@@ -173,5 +173,5 @@ module.exports = {
   getSyllabus,
   findSyllabus,
   parseSyllabus,
-  getLadokRoundIds,
+  getLadokRoundIdsFromKopps,
 }

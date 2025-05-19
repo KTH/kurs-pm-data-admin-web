@@ -5,22 +5,6 @@ const { server: serverConfig } = require('./configuration')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
-async function formatExaminationTitles(examinationModules) {
-  const { completeExaminationStrings, titles } = examinationModules
-  try {
-    const completeExaminationStringsFormatted = completeExaminationStrings.map(m => `<li>${m}</li>`)
-
-    const examinationTitlesFormatted = titles.map(t => `<h4>${t}</h4>`)
-
-    return {
-      completeExaminationStrings: completeExaminationStringsFormatted.join(''),
-      titles: examinationTitlesFormatted.join(''),
-    }
-  } catch (error) {
-    throw new Error(`Failed to format examination titles: ${error.message}`)
-  }
-}
-
 async function getLadokCourseData(courseCode, lang) {
   try {
     return await client.getLatestCourseVersion(courseCode, lang)
@@ -67,22 +51,19 @@ async function getCourseSchoolCode(courseCode) {
   }
 }
 
-async function getExaminationModules(utbildningstillfalleUid, language) {
+async function getLadokCourseSyllabus(courseCode, semester, lang) {
   try {
-    const examinationModules = await client.getExaminationModulesByUtbildningstillfalleUid(
-      utbildningstillfalleUid,
-      language
-    )
-    const formattedModules = formatExaminationTitles(examinationModules)
-    return formattedModules
+    const courseSyllabus = await client.getCourseSyllabus(courseCode, semester, lang)
+
+    return courseSyllabus
   } catch (error) {
     throw new Error(error.message)
   }
 }
 
 module.exports = {
-  getExaminationModules,
   getLadokCourseData,
   getCourseRoundsData,
   getCourseSchoolCode,
+  getLadokCourseSyllabus,
 }
