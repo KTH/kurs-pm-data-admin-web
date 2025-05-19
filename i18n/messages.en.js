@@ -352,6 +352,10 @@ module.exports = {
       <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs). You have the option not to include the heading in your course memo.</p>`,
     },
   },
+  staticMemoBodyByUserLang: {
+    permanentDisability: `<p>Students at KTH with a permanent disability can get support during studies from Funka:</p>
+    <p><a href="https://www.kth.se/en/student/stod/studier/funktionsnedsattning/funka">Funka - compensatory support for students with disabilities</a></p>`,
+  },
   pagesCreateNewPm: [
     {
       title: 'Choose course offering',
