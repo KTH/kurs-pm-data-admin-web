@@ -5,7 +5,7 @@ const i18n = require('../../../../i18n')
 export const combinedCourseName = (courseCode, course) => {
   if (!course) return ''
   const { credits, title } = course
-  const courseName = `${courseCode} ${title} ${credits.formattedWithUnit}`
+  const courseName = `${courseCode} ${title} ${credits?.formattedWithUnit}`
   return courseName
 }
 

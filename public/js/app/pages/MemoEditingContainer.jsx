@@ -128,7 +128,7 @@ function MemoContainer(props) {
   const courseSubHeader = () => {
     const { title, credits } = memoData
 
-    const courseTitle = `${courseCode} ${title} ${credits.formattedWithUnit}`
+    const courseTitle = `${courseCode} ${title} ${credits?.formattedWithUnit}`
 
     // update course title in case if smth changed in kopps
     store.setCourseTitle(courseTitle)

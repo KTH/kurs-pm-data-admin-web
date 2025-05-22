@@ -1,3 +1,50 @@
+const memoCtrl = require('../../server/controllers/memoCtrl')
+
+jest.mock('../../server/api', () => ({}))
+jest.mock('../../server/kursinfoApi.js', () => ({
+  getCourseInfo: jest.fn(),
+}))
+jest.mock('../../server/koppsApi', () => ({
+  getLadokRoundIdsFromKopps: jest.fn(),
+}))
+jest.mock('../../server/ladokApi', () => ({
+  getLadokCourseData: jest.fn(),
+  getLadokCourseSyllabus: jest.fn(),
+}))
+jest.mock('../../server/kursPmDataApi', () => ({
+  getMemoApiData: jest.fn(),
+  changeMemoApiData: jest.fn(),
+}))
+jest.mock('../../server/ugRestApi', () => ({
+  getCourseEmployees: jest.fn(),
+}))
+jest.mock('../../server/utils/serverSideRendering', () => ({
+  getServerSideFunctions: jest.fn(),
+}))
+jest.mock('../../server/server', () => ({
+  getPaths: () => ({ examplePath: '/example' }),
+}))
+jest.mock('../../server/configuration', () => ({
+  browser: {},
+  server: { hostUrl: 'http://localhost', proxyPrefixPath: { uri: '' }, toolbar: { url: '' } },
+}))
+jest.mock('@kth/kth-node-web-common/lib/language', () => ({
+  getLanguage: jest.fn(() => 'en'),
+}))
+jest.mock('@kth/log', () => ({
+  info: jest.fn(),
+  error: jest.fn(),
+  debug: jest.fn(),
+}))
+
+const { getMemoApiData, changeMemoApiData } = require('../../server/kursPmDataApi')
+const { getCourseInfo } = require('../../server/kursinfoApi')
+const { getLadokCourseData, getLadokCourseSyllabus } = require('../../server/ladokApi')
+const { getLadokRoundIdsFromKopps } = require('../../server/koppsApi')
+const { getCourseEmployees } = require('../../server/ugRestApi')
+const { getServerSideFunctions } = require('../../server/utils/serverSideRendering')
+
+// Mocks
 const mockedApi = (withValues = false) => ({
   examinationSubSection: withValues ? 'Text saved by user in section in Examination subsection' : '',
   equipment: withValues ? 'Text saved by user in section in Equipment section' : '',
@@ -10,151 +57,130 @@ const mockedApi = (withValues = false) => ({
     ? 'Text saved by user in Opportunity to raise an approved grade via renewed examination section'
     : '',
 })
-const mockedKoppsTemplates = {
-  schemaUrls: [
-    'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/',
-    'https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/',
-  ],
-  examinationModules: '<h4>Written Exam ( wTEN1 )</h4>',
+
+const koppsEmployeesDataMock = {
+  teacher: 'teacher mock',
+  examiner: 'examiner mock',
+  courseCoordinator: 'coordinator mock',
+  teacherAssistants: '',
 }
 
-const ladokMockData = {
-  omfattning: '7.5',
+const ladokCourseDataMock = {
+  kod: 'SF1624',
   benamning: 'Algebra och Geometri',
-  huvudomraden: [{ name: 'Matematik' }, { name: 'Teknik' }],
-  organisation: {
-    name: '',
-  },
-  utbildningstyp: {
-    id: '',
-  },
-  betygsskala: { code: 'AF', formatted: 'A, B, C, D, E, FX, F' },
+  omfattning: { formattedWithUnit: '7.5 hp' },
+  organisation: { name: 'Math Department' },
+  utbildningstyp: { id: 'abc123' },
 }
 
-const combinedExamInfo = {
-  examination:
-    '<p><ul><li>TEN1 - Tentamen, 7.5 credits, Grading scale: A, B, C, D, E, FX, F</li></ul></p><p>Based on recommendation from KTH’s coordinator for disabilities, the examiner will decide how to adapt an examination for students with documented disability. <br><br>The examiner may apply another examination format when re-examining individual students.<p>The examiner decides, in consultation with KTHs Coordinator of students with disabilities (Funka), about any customized examination for students with documented, lasting disability.&#160;</p></p>',
-  examinationModules: '<h4>TEN1 - Tentamen, 7.5 credits</h4>',
+const ladokCourseSyllabusDataMock = {
+  kursplan: {
+    kursinnehall: 'Course content example',
+    larandemal: 'Learning outcomes example',
+    examinationModules: {
+      completeExaminationStrings: '<li>TEN1 - Tentamen, 7.5 credits</li>',
+      titles: '<h4>TEN1 - Tentamen, 7.5 credits</h4>',
+    },
+    kommentartillexamination: '<p>Exam comment</p>',
+    ovrigakravforslutbetyg: 'Additional requirements for final grade',
+    etisktforhallandesatt: 'Ethical approach',
+    faststallande: 'Additional regulations',
+  },
+  course: {
+    betygsskala: 'A, B, C, D, E, FX, F',
+  },
 }
 
-const mockedCourseInfo = {
-  courseCode: 'ML1616',
-  sellingText: '<p>Exempel på text</p>',
-  supplementaryInfo: '<p><strong><em>Exempel på övriga info</em></strong></p>',
-  courseDisposition: '',
+const courseInfoApiDataMock = {
   recommendedPrerequisites: 'Some recommended prerequisites',
-  lastChangedBy: 'charja',
-  imageInfo: '',
 }
 
-const apiMemoDataMock = {}
-
-jest.mock('../../server/configuration', () => ({
-  server: {
-    logging: { log: { level: 'info' } },
-    proxyPrefixPath: {},
-    session: { options: { sessionOptions: { secret: '' } } },
-  },
-}))
-jest.mock('../../server/api', () => {})
-jest.mock('../../server/server', () => ({
-  getPaths: () => [],
-}))
-jest.mock('../../server/koppsApi', () => ({}))
-jest.mock('../../server/ladokApi', () => ({}))
-
-const memoCtrl = require('../../server/controllers/memoCtrl')
-
-describe('Contol functions for combining data', () => {
-  test('Update fetch data if some api data has no values, except examinationSubSection', done => {
-    const emptyApiData = mockedApi()
-    const updatedMemoData = memoCtrl.combineDefaultValues(emptyApiData, mockedKoppsTemplates)
-    const { examinationSubSection } = updatedMemoData
-    expect(examinationSubSection).toBe(emptyApiData.examinationSubSection)
-    done()
-  })
-
-  test('Update fetch data with default data from kopps if some api data has no values', done => {
-    const filledInApiData = mockedApi(true)
-    const updatedMemoData = memoCtrl.combineDefaultValues(filledInApiData, mockedKoppsTemplates)
-    const { examinationSubSection, equipment, literature, possibilityToCompletion, possibilityToAddition } =
-      updatedMemoData
-    expect(examinationSubSection).toBe(filledInApiData.examinationSubSection)
-    expect(equipment).toBe(filledInApiData.equipment)
-    expect(literature).toBe(filledInApiData.literature)
-    expect(possibilityToCompletion).toBe(filledInApiData.possibilityToCompletion)
-    expect(possibilityToAddition).toBe(filledInApiData.possibilityToAddition)
-
-    done()
-  })
-
-  test('Merge kopps data, course info data and api data, memo api data replaces kopps data', async () => {
-    const newKoppsData = await memoCtrl.mergeKoppsCourseAndMemoData(
-      JSON.parse(JSON.stringify(mockedKoppsTemplates)),
-      mockedCourseInfo,
-      mockedApi(true)
-    )
-    expect(newKoppsData).toMatchInlineSnapshot(`
-{
-  "equipment": "Text saved by user in section in Equipment section",
-  "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
-  "examinationSubSection": "Text saved by user in section in Examination subsection",
-  "literature": "Text saved by user in Literature section",
-  "possibilityToAddition": "Text saved by user in Opportunity to raise an approved grade via renewed examination section",
-  "possibilityToCompletion": "Text saved by user in Opportunity to complete the requirements via supplementary examination section",
-  "prerequisites": "Some recommended prerequisites",
-  "scheduleDetails": "Text saved by user in Detailed plan section",
-  "schemaUrls": [
-    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
-    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
-  ],
-}
-`)
-  })
-
-  test('Merge kopps data, course info data and api data, memo api has empty values', async () => {
-    const newKoppsData = await memoCtrl.mergeKoppsCourseAndMemoData(
-      JSON.parse(JSON.stringify(mockedKoppsTemplates)),
-      mockedCourseInfo,
-      mockedApi(false)
-    )
-    expect(newKoppsData).toMatchInlineSnapshot(`
-{
-  "equipment": "",
-  "examinationModules": "<h4>Written Exam ( wTEN1 )</h4>",
-  "examinationSubSection": "",
-  "literature": "",
-  "possibilityToAddition": "",
-  "possibilityToCompletion": "",
-  "prerequisites": "Some recommended prerequisites",
-  "scheduleDetails": "",
-  "schemaUrls": [
-    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cdepr1-mfl-2/calendar/",
-    "https://www-r.referens.sys.kth.se/social/course/SF1624/subgroup/ht-2020-cbiot2-mfl/calendar/",
-  ],
-}
-`)
-  })
-
-  test('merge all data sources correctly', async () => {
-    const newKoppsData = await memoCtrl.mergeKoppsCourseAndMemoData(
-      JSON.parse(JSON.stringify(mockedKoppsTemplates)),
-      mockedCourseInfo,
-      mockedApi(false)
+describe('mergeAllData', () => {
+  it('should merge all sources correctly', async () => {
+    const merged = await memoCtrl.mergeAllData(
+      mockedApi(true),
+      courseInfoApiDataMock,
+      ladokCourseDataMock,
+      ladokCourseSyllabusDataMock,
+      koppsEmployeesDataMock
     )
 
-    const result = await memoCtrl.mergeAllData(
-      newKoppsData,
-      mockedCourseInfo,
-      ladokMockData,
-      apiMemoDataMock,
-      combinedExamInfo
-    )
+    expect(merged).toHaveProperty('equipment', 'Text saved by user in section in Equipment section')
+    expect(merged).toHaveProperty('credits', ladokCourseDataMock.omfattning)
+    expect(merged).toHaveProperty('courseContent', 'Course content example')
+    expect(merged).toHaveProperty('prerequisites', 'Some recommended prerequisites')
+    expect(merged).toHaveProperty('teacher', 'teacher mock')
+  })
+})
 
-    expect(result.credits).toBe('7.5')
-    expect(result.title).toBe('Algebra och Geometri')
-    expect(result.departmentName).toBe('')
-    expect(result.mainSubjects).toBe('Matematik,Teknik')
-    expect(result.gradingScale).toBe('A, B, C, D, E, FX, F')
+describe('renderMemoEditorPage', () => {
+  it('should render memo page', async () => {
+    const req = {
+      params: { courseCode: 'SF1624', memoEndPoint: 'some-memo' },
+      query: {},
+      url: '/example-url',
+    }
+    const res = {
+      render: jest.fn(),
+    }
+    const next = jest.fn()
+
+    getMemoApiData.mockResolvedValue({
+      semester: '20241',
+      memoCommonLangAbbr: 'en',
+      applicationCodes: ['1'],
+    })
+
+    getCourseEmployees.mockResolvedValue(koppsEmployeesDataMock)
+    getLadokRoundIdsFromKopps.mockResolvedValue(['round1'])
+    getCourseInfo.mockResolvedValue(courseInfoApiDataMock)
+    getLadokCourseData.mockResolvedValue(ladokCourseDataMock)
+    getLadokCourseSyllabus.mockResolvedValue(ladokCourseSyllabusDataMock)
+
+    getServerSideFunctions.mockReturnValue({
+      createStore: () => ({
+        setMemoBasicInfo: jest.fn(),
+        doSetLanguageIndex: jest.fn(),
+        setBrowserConfig: jest.fn(),
+        rebuildDraftFromPublishedVer: false,
+        setSectionsStructure: jest.fn(),
+      }),
+      getCompressedStoreCode: () => 'compressed-code',
+      renderStaticPage: () => '<div>Rendered Page</div>',
+    })
+
+    await memoCtrl.renderMemoEditorPage(req, res, next)
+
+    expect(res.render).toHaveBeenCalledWith(
+      'memo/index',
+      expect.objectContaining({
+        html: expect.stringContaining('Rendered Page'),
+        compressedStoreCode: 'compressed-code',
+      })
+    )
+  })
+})
+
+describe('updateContentByEndpoint', () => {
+  it('should call changeMemoApiData and return JSON', async () => {
+    const req = {
+      params: { memoEndPoint: 'some-memo' },
+      body: { title: 'Updated memo title' },
+    }
+    const res = {
+      json: jest.fn(),
+    }
+    const next = jest.fn()
+
+    changeMemoApiData.mockResolvedValue({ success: true })
+
+    await memoCtrl.updateContentByEndpoint(req, res, next)
+
+    expect(changeMemoApiData).toHaveBeenCalledWith(
+      'updateCreatedDraft',
+      { memoEndPoint: 'some-memo' },
+      { title: 'Updated memo title' }
+    )
+    expect(res.json).toHaveBeenCalledWith({ success: true })
   })
 })
