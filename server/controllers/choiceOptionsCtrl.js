@@ -4,9 +4,10 @@ const log = require('@kth/log')
 const language = require('@kth/kth-node-web-common/lib/language')
 
 const { safeGet } = require('safe-utils')
+const { formatLadokData } = require('../utils/formatLadokData')
 const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
-const { getKoppsCourseRoundTerms } = require('../koppsApi')
+const { getLadokCourseData, getCourseRoundsData } = require('../ladokApi')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
@@ -54,9 +55,14 @@ async function getCourseOptionsPage(req, res, next) {
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
-    const koppsCourseRoundTerms = await getKoppsCourseRoundTerms(courseCode)
-    applicationStore.miniKoppsObj = koppsCourseRoundTerms
-    const memoParams = getMemosParams(courseCode, applicationStore.miniKoppsObj)
+
+    const ladokCourseRounds = await getCourseRoundsData(courseCode, lang)
+    const ladokCourseData = await getLadokCourseData(courseCode, lang)
+
+    const ladokCourseRoundTerms = formatLadokData(ladokCourseRounds, ladokCourseData)
+
+    applicationStore.miniLadokObj = ladokCourseRoundTerms
+    const memoParams = getMemosParams(courseCode, applicationStore.miniLadokObj)
 
     applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', memoParams)
 
@@ -151,6 +157,7 @@ async function removeMemoDraft(req, res, next) {
 module.exports = {
   createDraftByMemoEndPoint,
   getCourseOptionsPage,
+  formatLadokData,
   getUsedRounds,
   getUsedDrafts,
   removeMemoDraft,

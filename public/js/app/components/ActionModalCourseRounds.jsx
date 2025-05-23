@@ -22,7 +22,7 @@ const canMerge = (memoLangAbbr, round) => {
 
 function ActionModalCourseRounds(props) {
   const store = useStore()
-  const { courseCode, langAbbr: storeLangAbbr, langIndex: storeLangIndex, miniKoppsObj, miniMemos } = store
+  const { courseCode, langAbbr: storeLangAbbr, langIndex: storeLangIndex, miniLadokObj, miniMemos } = store
   const uniqueMemos = [
     ...(miniMemos.draftsOfPublishedMemos || []),
     ...(miniMemos.publishedWithNoActiveDraft || []),
@@ -63,7 +63,7 @@ function ActionModalCourseRounds(props) {
   async function fetchMatchingRounds(newMemo) {
     const { semester: memoSemester } = newMemo
     const newAvailableRounds = await store.showAvailableSemesterRounds(memoSemester)
-    const allNewRounds = await fetchThisTermRounds(miniKoppsObj, newMemo || memo)
+    const allNewRounds = await fetchThisTermRounds(miniLadokObj, newMemo || memo)
 
     setRoundsGroup({
       allRounds: allNewRounds,
@@ -231,7 +231,7 @@ ActionModalCourseRounds.propTypes = {
   chosenMemoEndPoint: PropTypes.string, // version, published/draft?, semester
   langAbbr: PropTypes.oneOf(['sv', 'en']),
   langIndex: PropTypes.oneOf([1, 0]),
-  miniKoppsObj: PropTypes.exact({
+  miniLadokObj: PropTypes.exact({
     // eslint-disable-next-line react/no-unused-prop-types
     course: PropTypes.string.isRequired,
     // eslint-disable-next-line react/no-unused-prop-types

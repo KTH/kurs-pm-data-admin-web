@@ -5,6 +5,7 @@
 // eslint-disable-next-line no-unused-vars
 import { observable, action } from 'mobx'
 import axios from 'axios'
+import { LadokStatusCode } from '@kth/om-kursen-ladok-client'
 import { SERVICE_URL } from '../util/constants'
 import {
   getDefaultSections,
@@ -39,9 +40,9 @@ function createApplicationStore() {
      */
     langAbbr: 'en',
     /**
-     * @property {object} miniKoppsObj
+     * @property {object} miniLadokObj
      */
-    miniKoppsObj: {},
+    miniLadokObj: {},
     /**
      * @property {string} memoEndPoint
      */
@@ -236,14 +237,18 @@ function setMemoBasicInfo(props) {
   this.memoLangAbbr = props.memoLangAbbr || 'sv'
 }
 
-async function _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, koppsLastTerms = null) {
-  const lastTerms = this.miniKoppsObj.lastTermsInfo || koppsLastTerms.lastTermsInfo
+async function _filterOutUsedRounds(usedRoundsThisTerm, chosenSemester, ladokLastTerms = null) {
+  const lastTerms = this.miniLadokObj.lastTermsInfo || ladokLastTerms.lastTermsInfo
   const thisTerm = (lastTerms && (await lastTerms.find(({ term }) => term === chosenSemester))) || {}
   return (
     (thisTerm &&
       thisTerm.rounds &&
       (await thisTerm.rounds
-        .filter(r => !usedRoundsThisTerm.includes(r.applicationCode) && (r.state === 'APPROVED' || r.state === 'FULL'))
+        .filter(
+          r =>
+            !usedRoundsThisTerm.includes(r.applicationCode) &&
+            (r.status === LadokStatusCode.Started || r.status === LadokStatusCode.Complete || r.full)
+        )
         .reverse())) ||
     []
   )

@@ -1,11 +1,12 @@
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
-import mockMiniKoppsObj from './miniKoppsObjs'
+import { mockMiniLadokObj, mockMiniLadokObjEn } from './miniLadokObjs'
+
 const applicationStore = createApplicationStore()
 
 const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
-  const newMemo = await applicationStore.createNewMemo(action, copyFrom, body, isTest) //function exist
+  const newMemo = await applicationStore.createNewMemo(action, copyFrom, body, isTest) // function exist
   const { applicationCodes, memoCommonLangAbbr, memoEndPoint, memoName, semester } = newMemo
-  //Example where data saves
+  // Example where data saves
   const objToSave = {
     applicationCodes,
     memoCommonLangAbbr,
@@ -21,12 +22,12 @@ const tempSaveNewDraft = async (action, copyFrom, body, isTest) => {
   return newMemo
 }
 
-const mockApplicationStore = {
+export const mockApplicationStore = {
   ...applicationStore,
   courseCode: 'EF1111',
   langAbbr: 'en',
   langIndex: 0,
-  semester: '', //20201,
+  semester: '', // 20201,
   memoEndPoint: '',
   rounds: [],
   miniMemos: {
@@ -34,7 +35,7 @@ const mockApplicationStore = {
     draftsWithNoActivePublishedVer: [],
     sortedPublishedForAllYears: [],
   },
-  miniKoppsObj: mockMiniKoppsObj,
+  miniLadokObj: mockMiniLadokObj,
   browserConfig: {
     storageUri: '',
   },
@@ -43,12 +44,39 @@ const mockApplicationStore = {
   },
 
   showAvailableSemesterRounds(semester) {
-    return applicationStore.showAvailableSemesterRounds(semester, [], mockMiniKoppsObj)
+    return applicationStore.showAvailableSemesterRounds(semester, [], mockMiniLadokObj)
   },
 
   updateDraft(body) {
     return applicationStore.updateDraft(body, true)
   },
 }
+export const mockApplicationStoreEn = {
+  ...applicationStore,
+  courseCode: 'EF1111',
+  langAbbr: 'en',
+  langIndex: 0,
+  semester: '', // 20201,
+  memoEndPoint: '',
+  rounds: [],
+  miniMemos: {
+    draftsOfPublishedMemos: [],
+    draftsWithNoActivePublishedVer: [],
+    sortedPublishedForAllYears: [],
+  },
+  miniLadokObj: mockMiniLadokObjEn,
+  browserConfig: {
+    storageUri: '',
+  },
+  createNewMemo(action, copyFrom, body) {
+    return tempSaveNewDraft(action, copyFrom, body, true)
+  },
 
-export default mockApplicationStore
+  showAvailableSemesterRounds(semester) {
+    return applicationStore.showAvailableSemesterRounds(semester, [], mockMiniLadokObjEn)
+  },
+
+  updateDraft(body) {
+    return applicationStore.updateDraft(body, true)
+  },
+}

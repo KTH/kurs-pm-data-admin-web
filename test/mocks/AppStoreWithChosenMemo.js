@@ -1,7 +1,5 @@
-import mockMiniKoppsObj from './miniKoppsObjs'
-import memoTypes from './memoData/memoTypes'
-import usedRounds from './mockUsedRounds'
 import createApplicationStore from '../../public/js/app/stores/createApplicationStore'
+import memoTypes from './memoData/memoTypes'
 
 const applicationStore = createApplicationStore()
 
@@ -12,20 +10,18 @@ const setMemoBasicInfoTest = props => ({
 })
 const reducedKoppsData = {
   en: {
-    credits: '9.0',
+    credits: { formattedWithUnit: '9.0 credits' },
     creditUnitAbbr: 'hp',
     title: 'Project in Plasma Physics',
-    titleOther: 'Projekt i plasmafysik',
     syllabusValid: {
       validFromTerm: 20191,
       validUntilTerm: 20201,
     },
   },
   sv: {
-    credits: '9.0',
+    credits: { formattedWithUnit: '9.0 hp' },
     creditUnitAbbr: 'hp',
-    title: 'Projekt i plasmafysiks',
-    titleOther: 'Project in Plasma Physics',
+    title: 'Projekt i plasmafysik',
     syllabusValid: {
       validFromTerm: 20191,
       validUntilTerm: 20201,

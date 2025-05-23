@@ -23,13 +23,16 @@ Course memos servise can be used by teachers, course responsibles and examiners 
 
 ## API
 
-Application is fetching/saving data from/to [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api).
+Application is fetching/saving data from/to: 
+- [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
+- [https://github.com/KTH/studadm-om-kursen-packages] (https://github.com/KTH/studadm-om-kursen-packages)
 
 ### Related projects
 
 - [https://github.com/KTH/kurs-pm-data-api](https://github.com/KTH/kurs-pm-data-api)
 - [https://github.com/KTH/kurs-pm-web](https://github.com/KTH/kurs-pm-web)
 - [https://github.com/KTH/node-web](https://github.com/KTH/node-api)
+- [https://github.com/KTH/studadm-om-kursen-packages](https://github.com/KTH/studadm-om-kursen-packages)
 
 ## Prerequisites
 
@@ -180,8 +183,8 @@ Password find in gsv-key vault. More information you can find in confluence.
 ```
 KURS_PM_DATA_API_URI=http://localhost:3001/api/kurs-pm-data
 KURS_PM_DATA_API_KEY=[generated in kurs-pm-data-admin-api key for admin page]
-KURS_INFO_API_URI=https://api-r.referens.sys.kth.se/api/kursinfo
-KURS_INFO_API_KEY=[generated in kursinfo-api key for public pages, just for image displaying and selling text]
+KURSINFO_API_URI=https://api-r.referens.sys.kth.se/api/kursinfo
+KURSINFO_API_KEY=[generated in kursinfo-api key for public pages, just for image displaying and selling text]
 REDIS_URI=[redis connection string, azure]
 OIDC_APPLICATION_ID=<FROM ADFS>
 OIDC_CLIENT_SECRET=<FROM ADFS>

@@ -340,6 +340,10 @@ module.exports = {
       <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik). Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
     },
   },
+  staticMemoBodyByUserLang: {
+    permanentDisability: `<p>Om du har en funktionsnedsättning kan du få stöd via Funka:</p>
+  <p><a href="https://www.kth.se/student/stod/studier/funktionsnedsattning/funka">Funka- stöd för studenter med funktionsnedsättningar</a></p>`,
+  },
   pagesCreateNewPm: [
     {
       title: 'Välj kursomgång',

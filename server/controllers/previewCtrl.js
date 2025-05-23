@@ -11,9 +11,10 @@ const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 
-const { getSyllabus, getKoppsCourseRoundTerms } = require('../koppsApi')
 const i18n = require('../../i18n')
 const { HttpError } = require('../utils/errorUtils')
+const { getCourseRoundsData, getLadokCourseData } = require('../ladokApi')
+const { formatLadokData } = require('../utils/formatLadokData')
 
 function getCurrentTerm(overrideDate) {
   const JULY = 6
@@ -26,8 +27,8 @@ function getCurrentTerm(overrideDate) {
   return `${currentYear * 10 + currentSemester}`
 }
 
-function fetchStartDates(miniKoppsObj, semester) {
-  const { lastTermsInfo } = miniKoppsObj
+function fetchStartDates(miniLadokObj, semester) {
+  const { lastTermsInfo } = miniLadokObj
   const thisTermInfo = lastTermsInfo.find(({ term }) => term === semester)
   const { rounds } = thisTermInfo
   const roundsStartDate = rounds.map(round => round.firstTuitionDate)
@@ -87,8 +88,8 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
   // Course memo does not meet the criteria
   return true
 }
-function markOutdatedMemoDatas(memoDatas = [], miniKoppsObj) {
-  const { lastTermsInfo } = miniKoppsObj
+function markOutdatedMemoDatas(memoDatas = [], miniLadokObj) {
+  const { lastTermsInfo } = miniLadokObj
 
   if (!Array.isArray(memoDatas)) {
     log.error('markOutdatedMemoDatas received non-Array memoDatas argument', memoDatas)
@@ -159,29 +160,32 @@ async function renderMemoPreviewPage(req, res, next) {
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(userLang)
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+    const { semester, memoCommonLangAbbr } = apiMemoData
+    const memoLangAbbr = memoCommonLangAbbr || userLang
     const allApiMemoData = await getMemoApiData('getAllMemosByCourseCodeAndType', {
       courseCode,
       type: 'published',
     })
     applicationStore.memoDatas = allApiMemoData
-    const miniKoppsObj = await getKoppsCourseRoundTerms(courseCode)
+    const ladokCourseRounds = await getCourseRoundsData(courseCode, memoLangAbbr)
+    const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
+
+    const miniLadokObj = formatLadokData(ladokCourseRounds, ladokCourseData)
+
     const memoDataAsArray = []
     // will be used later for add flag outdated to new pm
     memoDataAsArray.push(apiMemoData)
-    applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniKoppsObj)[0]
-    const { semester, memoCommonLangAbbr } = apiMemoData
-    const memoLangAbbr = memoCommonLangAbbr || userLang
+    applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniLadokObj)[0]
     applicationStore.setMemoBasicInfo({
       courseCode,
       memoEndPoint,
       semester: '',
       memoLangAbbr,
     })
-    applicationStore.koppsFreshData = await getSyllabus(courseCode, semester, memoLangAbbr)
-    const startDates = fetchStartDates(miniKoppsObj, semester)
+    const startDates = fetchStartDates(miniLadokObj, semester)
     applicationStore.memoData = addRoudsStartDate(startDates, applicationStore.memoData)
     await applicationStore.setSectionsStructure()
-    applicationStore.activeTermsPublishedMemos = markOutdatedMemoDatas(applicationStore.memoDatas, miniKoppsObj)
+    applicationStore.activeTermsPublishedMemos = markOutdatedMemoDatas(applicationStore.memoDatas, miniLadokObj)
 
     const compressedStoreCode = getCompressedStoreCode(applicationStore)
 
