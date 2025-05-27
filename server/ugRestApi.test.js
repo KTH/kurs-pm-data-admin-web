@@ -11,29 +11,29 @@ log.error = jest.fn()
 
 const userInfoToCheckDuplicate = {
   email: faker.internet.email(),
-  givenName: faker.name.firstName(),
+  givenName: faker.person.firstName(),
   id: faker.datatype.uuid(),
-  surname: faker.name.lastName(),
+  surname: faker.person.lastName(),
 }
 
 const users = [
   {
     email: faker.internet.email(),
-    givenName: faker.name.firstName(),
+    givenName: faker.person.firstName(),
     id: faker.datatype.uuid(),
-    surname: faker.name.lastName(),
+    surname: faker.person.lastName(),
   },
   {
     email: faker.internet.email(),
-    givenName: faker.name.firstName(),
+    givenName: faker.person.firstName(),
     id: faker.datatype.uuid(),
-    surname: faker.name.lastName(),
+    surname: faker.person.lastName(),
   },
   {
     email: faker.internet.email(),
-    givenName: faker.name.firstName(),
+    givenName: faker.person.firstName(),
     id: faker.datatype.uuid(),
-    surname: faker.name.lastName(),
+    surname: faker.person.lastName(),
   },
   userInfoToCheckDuplicate,
   userInfoToCheckDuplicate,
