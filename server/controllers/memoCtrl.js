@@ -49,12 +49,13 @@ const mergeAllData = async (
   }
 
   // Source: Ladok
-  const examinationContent = `<p><ul>${ladokCourseSyllabusData.kursplan.examinationModules.completeExaminationStrings}</ul></p>${ladokCourseSyllabusData.kursplan.kommentartillexamination}`
   const ladokCourseSyllabusValues = {
     courseContent: ladokCourseSyllabusData.kursplan.kursinnehall,
     learningOutcomes: ladokCourseSyllabusData.kursplan.larandemal,
     gradingScale: ladokCourseSyllabusData.course.betygsskala,
-    examination: examinationContent,
+    examination:
+      ladokCourseSyllabusData.kursplan.examinationModules.completeExaminationStrings +
+      ladokCourseSyllabusData.kursplan.kommentartillexamination,
     examinationModules: ladokCourseSyllabusData.kursplan.examinationModules.titles,
     otherRequirementsForFinalGrade: ladokCourseSyllabusData.kursplan.ovrigakravforslutbetyg,
     ethicalApproach: ladokCourseSyllabusData.kursplan.etisktforhallandesatt,
