@@ -8,7 +8,6 @@ const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getCourseInfo } = require('../kursinfoApi')
-const { getLadokRoundIdsFromKopps } = require('../koppsApi')
 const { getLadokCourseData, getLadokCourseSyllabus } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
@@ -32,7 +31,6 @@ const mergeAllData = async (
   ladokCourseSyllabusData,
   ugEmployeesData
 ) => {
-  console.log('ugEmployeesData: ', ugEmployeesData)
   const memoDataWithDefaults = addDefaultValues(memoApiData)
 
   // Source: kursinfo-api
@@ -66,13 +64,20 @@ const mergeAllData = async (
   // Source: Static content
   const { permanentDisability } = i18n.messages[language === 'en' ? 0 : 1].staticMemoBodyByUserLang
 
+  // Source: UG Admin
+  const ugEmployeesValues = {
+    examiner: ugEmployeesData.examiners,
+    teacher: ugEmployeesData.teachers,
+    courseCoordinator: ugEmployeesData.courseCoordinators,
+  }
+
   return {
     ...memoDataWithDefaults,
     ...courseInfoApiValues,
     ...ladokCourseValues,
     ...ladokCourseSyllabusValues,
     ...permanentDisability,
-    ...ugEmployeesData,
+    ...ugEmployeesValues,
   }
 }
 

@@ -999,7 +999,7 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   })
 
   test('tab: contacts. render a correct number of infos about data origin and source info', () => {
-    const dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
+    const dataOrigin = screen.getAllByText(/Fetched from UG Admin/i)
     expect(dataOrigin[0]).toBeInTheDocument()
     expect(dataOrigin.length).toBe(3)
   })
