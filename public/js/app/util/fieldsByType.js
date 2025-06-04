@@ -145,12 +145,6 @@ const context = {
     isRequired: false,
   },
   software: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Programvara
-  teacherAssistants: {
-    type: 'optional',
-    isEditable: false,
-    isRequired: false,
-    source: '(c)',
-  }, // Lärarassistenter
   teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Lärare
 }
 
@@ -203,14 +197,7 @@ const getDefaultSections = () => [
   {
     id: 'contacts',
     title: 'Kontakter',
-    content: [
-      'communicationDuringCourse',
-      'courseCoordinator',
-      'teacher',
-      'teacherAssistants',
-      'examiner',
-      'otherContacts',
-    ],
+    content: ['communicationDuringCourse', 'courseCoordinator', 'teacher', 'examiner', 'otherContacts'],
     extraHeaderTitle: null,
   },
 ]

@@ -836,13 +836,12 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
 
   test('tab: contacts. renders all buttons', async () => {
     const allButtons = screen.getAllByRole('button')
-    expect(allButtons.length).toBe(12)
+    expect(allButtons.length).toBe(11)
     const expectedAriaLabels = [
       'Information about Communication during course',
       'Edit Communication during course',
       'Information about Course coordinator',
       'Information about Teachers',
-      'Information about Teacher assistants',
       'Information about Examiner',
       'Information about Other contacts',
       'Edit Other contacts',
@@ -855,7 +854,6 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
     ]
     allButtons.forEach((b, index) => expect(b.getAttribute('aria-label')).toBe(expectedAriaLabels[index]))
     const expectedTextLabel = [
-      '',
       '',
       '',
       '',
@@ -877,23 +875,21 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
 
     expect(screen.queryByTestId('btn-open-editor-courseCoordinator')).not.toBeInTheDocument()
     expect(screen.queryByTestId('btn-open-editor-teacher')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('btn-open-editor-teacherAssistants')).not.toBeInTheDocument()
     expect(screen.queryByTestId('btn-open-editor-examiner')).not.toBeInTheDocument()
 
     expect(screen.queryByTestId('btn-close-editor-courseCoordinator')).not.toBeInTheDocument()
     expect(screen.queryByTestId('btn-close-editor-teacher')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('btn-close-editor-teacherAssistants')).not.toBeInTheDocument()
     expect(screen.queryByTestId('btn-close-editor-examiner')).not.toBeInTheDocument()
   })
 
   test('tab: contacts. check how many message about empty content is showed for content which is editable (mandatoryAndEditable + optionalEditable)', async () => {
     const msgs = screen.getAllByTestId('msg-text-about-empty')
-    expect(msgs.length).toBe(4)
+    expect(msgs.length).toBe(3)
   })
 
   test('tab: contacts. check how many standard headers are shown for active tab, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('contacts')
-    expect(headers.length).toBe(6)
+    expect(headers.length).toBe(5)
     headers.forEach(headerId => {
       const contentAndMenyHd = screen.getAllByText(memoTitlesByMemoLang[headerId])
       expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
@@ -929,12 +925,6 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
     expect(headersAndSubHds.length).toBe(2)
   })
 
-  test('tab: contacts. renders <StandardEditorPerTitle>, check number of all section/subsection which are optional and non-editable and have no content (not included as well)', async () => {
-    const contentType = 'optional'
-    const headersAndSubHds = getSectionHeadersByType(contentType, 'contacts')
-    expect(headersAndSubHds.length).toBe(1)
-  })
-
   test('tab: contacts. renders <StandardEditorPerTitle>, check number of all are optional (non-editable + editable) and have no content (not included as well)', async () => {
     const dynamicSections = screen.getAllByTestId(`dynamic-empty-content-and-not-included`)
     expect(dynamicSections.length).toBe(2)
@@ -965,27 +955,6 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
       const text = screen.getByTestId('text-for-memo-optionalEditable-otherContacts')
       expect(text).toHaveTextContent(sectionIsEmpty)
       expect(screen.getByTestId('alert-save-data')).toBeInTheDocument()
-    })
-  })
-
-  // checkbox-visibility-teacherAssistants
-  test('tab: contacts. Renders "teacherAssistants" checkbox which are not checked and check it to reveal message about empty content', async () => {
-    const { optional: optionalIsEmpty } = sourceInfo.nothingFetched
-    const checkboxIncludeInMemo = screen.getByTestId('checkbox-visibility-teacherAssistants')
-    fireEvent.click(checkboxIncludeInMemo)
-    await waitFor(() => {
-      expect(checkboxIncludeInMemo.checked).toBeTruthy()
-      const text = screen.getByTestId('text-for-memo-optional-teacherAssistants')
-      expect(text).toHaveTextContent(optionalIsEmpty)
-      expect(screen.getByTestId('alert-save-data')).toBeInTheDocument()
-    })
-  })
-
-  test('tab: contacts. renders alert about result of saving data', async () => {
-    const checkboxIncludeInMemo = screen.getByTestId('checkbox-visibility-teacherAssistants')
-    fireEvent.click(checkboxIncludeInMemo)
-    await waitFor(() => {
-      expect(screen.getByTestId('alert-save-data')).toHaveTextContent('Something went wrong. Contact IT Support.')
     })
   })
 
@@ -1032,13 +1001,11 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   test('tab: contacts. render a correct number of infos about data origin and source info', () => {
     const dataOrigin = screen.getAllByText(/Fetched from Kopps/i)
     expect(dataOrigin[0]).toBeInTheDocument()
-    expect(dataOrigin.length).toBe(4)
+    expect(dataOrigin.length).toBe(3)
   })
 
   test('tab: contacts. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {
     expect(screen.getAllByText('Always included').length).toBe(3)
-    expect(screen.getAllByText('Include in course memo').length).toBe(3)
-    // expect(screen.getAllByText('Included when there is content in the course syllabus').length).toBe(0)
-    // expect(screen.getAllByText('Include additional section').length).toBe(2)
+    expect(screen.getAllByText('Include in course memo').length).toBe(2)
   })
 })

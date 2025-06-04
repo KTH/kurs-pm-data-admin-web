@@ -128,7 +128,6 @@ module.exports = {
     scheduleDetails: 'Detaljplanering',
     software: 'Programvara',
     teacher: 'Lärare',
-    teacherAssistants: 'Lärarassistenter',
   },
   memoInfoByUserLang: {
     additionalRegulations: {
@@ -257,8 +256,8 @@ module.exports = {
       <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det så att studenten vet detta.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med, och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare.</p>
-			<p><b>Informationen hjälper studenten</b> med kontaktuppgifter till personer som kan besvara frågor som inte kan besvaras av examinator, kursansvarig, lärare eller lärarassistenter.</p>`,
+      body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med, och som inte har någon av rollerna examinator, kursansvarig eller lärare. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare.</p>
+			<p><b>Informationen hjälper studenten</b> med kontaktuppgifter till personer som kan besvara frågor som inte kan besvaras av examinator, kursansvarig eller lärare.</p>`,
       help: `<p>Här anger du vilka personer eller funktioner som kan vara relevanta att kontakta under kursomgången. Ange namn, mailadress och/eller telefonnummer. Beskriv kortfattat vilka frågor eller synpunkter de kan kontaktas om.</p>
       <p>Kontaktuppgifter till examinator, kursansvarig och lärare hämtas automatiskt till ditt kurs-PM, du behöver därför inte ange dessa uppgifter på nytt.</p>`,
     },
@@ -333,11 +332,6 @@ module.exports = {
       body: `<p><b>Lärare</b> innehåller kontaktinformation till personer som har rollen lärare under denna kursomgång.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till lärare under kursomgången.</p>
       <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik).</p>`,
-    },
-    teacherAssistants: {
-      body: `<p><b>Lärarassistenter</b> innehåller kontaktinformation till personer som har rollen lärarassistent under denna kursomgång.</p>
-      <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till lärarassistenter under kursomgången.</p>
-      <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik). Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
     },
   },
   staticMemoBodyByUserLang: {
@@ -671,7 +665,6 @@ module.exports = {
     communicationWithTeachersTitle: 'Kommunikation i kursen',
     courseCoordinatorTitle: 'Kursansvarig',
     teacherTitle: 'Lärare',
-    teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',

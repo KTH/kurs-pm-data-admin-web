@@ -62,7 +62,6 @@ const koppsEmployeesDataMock = {
   teacher: 'teacher mock',
   examiner: 'examiner mock',
   courseCoordinator: 'coordinator mock',
-  teacherAssistants: '',
 }
 
 const ladokCourseDataMock = {

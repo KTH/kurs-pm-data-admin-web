@@ -50,23 +50,6 @@ const teacher = (memoData, labels) =>
     </>
   )
 
-// Volontary information
-const teacherAssistants = (memoData, labels) =>
-  !memoData.teacherAssistants || (
-    <>
-      <h3>{labels.teacherAssistantsTitle}</h3>
-      <div
-        id="links-teacher-assistants"
-        dangerouslySetInnerHTML={{ __html: disableLinksInHtml(memoData.teacherAssistants) }}
-      />
-      <Popup
-        header={labels.teacherAssistantsTitle}
-        body={labels.linkOpensInNewTab}
-        targetId="links-teacher-assistants"
-      />
-    </>
-  )
-
 // Mandatory information
 const examiner = (memoData, labels) =>
   memoData.examiner ? (
@@ -94,11 +77,7 @@ const otherContacts = (memoData, labels) =>
 
 const CourseContacts = ({ styleId = null, memoData = {}, labels = {} }) => {
   const { visibleInMemo = {} } = memoData
-  const {
-    communicationDuringCourse: isCommunicationWTVisible,
-    otherContacts: isOtherContactsVisible,
-    teacherAssistants: isTeacherAssistantsVisible,
-  } = visibleInMemo
+  const { communicationDuringCourse: isCommunicationWTVisible, otherContacts: isOtherContactsVisible } = visibleInMemo
   return (
     <section id={styleId} aria-labelledby="memo-contacts">
       <h2 id="memo-contacts" className="preview-info">
@@ -108,7 +87,6 @@ const CourseContacts = ({ styleId = null, memoData = {}, labels = {} }) => {
         {isCommunicationWTVisible && communicationWithTeachers(memoData, labels)}
         {courseCoordinator(memoData, labels)}
         {teacher(memoData, labels)}
-        {isTeacherAssistantsVisible && teacherAssistants(memoData, labels)}
         {examiner(memoData, labels)}
         {isOtherContactsVisible && otherContacts(memoData, labels)}
       </div>
@@ -124,7 +102,6 @@ CourseContacts.propTypes = {
     courseCoordinator: PropTypes.string,
     examiner: PropTypes.string,
     teacher: PropTypes.string,
-    teacherAssistants: PropTypes.string,
     otherContacts: PropTypes.string,
   }),
   labels: PropTypes.shape({
@@ -134,7 +111,6 @@ CourseContacts.propTypes = {
     examinerTitle: PropTypes.string.isRequired,
     linkOpensInNewTab: PropTypes.string.isRequired,
     mandatoryFieldMissing: PropTypes.string.isRequired,
-    teacherAssistantsTitle: PropTypes.string.isRequired,
     teacherTitle: PropTypes.string.isRequired,
     otherContactsTitle: PropTypes.string.isRequired,
   }).isRequired,

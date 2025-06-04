@@ -139,7 +139,6 @@ module.exports = {
     scheduleDetails: 'Detailed plan',
     software: 'Software',
     teacher: 'Teachers',
-    teacherAssistants: 'Teacher assistants',
   },
   memoInfoByUserLang: {
     additionalRegulations: {
@@ -266,8 +265,8 @@ module.exports = {
       <p>If literature is not relevant for this course offering, it's helpful to state this so that students do not need to inquire.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Other contacts</b> provides contact information for individuals and roles that students may need to reach out to, and who do not hold the roles of examiner, course coordinator, teacher, or teaching assistants. Other contacts may include course administrators, lab supervisors, project supervisors, etc.</p>
-			<p><b>This information helps the students</b> in obtaining contact details for individuals who can address questions that cannot be answered by the examiner, course coordinator, teachers, or teaching assistants.</p>`,
+      body: `<p><b>Other contacts</b> provides contact information for individuals and roles that students may need to reach out to, and who do not hold the roles of examiner, course coordinator, or teacher. Other contacts may include course administrators, lab supervisors, project supervisors, etc.</p>
+			<p><b>This information helps the students</b> in obtaining contact details for individuals who can address questions that cannot be answered by the examiner, course coordinator, or teachers.</p>`,
       help: `<p>Under this section, you provide the names, email addresses, and/or phone numbers of individuals or roles that may be relevant to contact during the course offering. Briefly describe the types of questions or feedback they can be contacted for.</p>
       <p>Contact information for the examiner, course coordinator, and teachers is automatically retrieved for your course memo, so you do not need to provide this information again.</p>`,
     },
@@ -345,11 +344,6 @@ module.exports = {
       body: `<p><b>Teachers</b> contains contact information for individuals holding the role of teacher during this course offering.</p>
       <p><b>This information helps the student</b> in obtaining contact details for the teachers during the course offering.</p>
       <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs).</p>`,
-    },
-    teacherAssistants: {
-      body: `<p><b>Teacher assistants</b> contains contact information for individuals holding the role of teacher assistants during this course offering.</p>
-      <p><b>This information helps the student</b> in obtaining contact details for the teacher assistants during the course offering.</p>
-      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs). You have the option not to include the heading in your course memo.</p>`,
     },
   },
   staticMemoBodyByUserLang: {
@@ -685,7 +679,6 @@ module.exports = {
     communicationWithTeachersTitle: 'Communication during course',
     courseCoordinatorTitle: 'Course Coordinator',
     teacherTitle: 'Teachers',
-    teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
     mandatoryFieldMissing: 'Missing mandatory information',
