@@ -110,8 +110,6 @@ async function _getGroupsWithAttributes(courseGroup, courseRoundGroups, courseCo
     requestEndTime: _getCurrentDateTime(),
   })
 
-  console.log('groupDetails: ', groupDetails)
-
   return groupDetails
 }
 
@@ -155,8 +153,6 @@ async function _getUsersFromGroupAttributes(groupsWithAttributes, courseCode, se
     semester,
     requestEndTime: _getCurrentDateTime(),
   })
-
-  console.log('usersByRole: ', JSON.stringify(usersByRole, null, 2))
 
   return usersByRole
 }
