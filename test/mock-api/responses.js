@@ -49,7 +49,6 @@ module.exports = {
       courseCoordinator:
         '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/xyz" alt="Profile picture" width="31" height="31">\n      <a href="/profile/xyz/" target="_blank" property="teach:teacher">\n          Xyz Xyz \n      </a> \n    </p>',
       otherContacts: '<p>&Ouml;vriga kontakter</p>',
-      teacherAssistants: '',
       teacher:
         '<p class = "person">\n      <img src="https://www.kth.se/files/thumbnail/xyz" alt="Profile picture" width="31" height="31">\n      <a href="/profile/xyz/" target="_blank" property="teach:teacher">\n          Xyz Xyz \n      </a> \n    </p>',
       courseCode: 'SF1624',

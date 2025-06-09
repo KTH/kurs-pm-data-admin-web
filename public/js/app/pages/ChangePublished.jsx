@@ -225,7 +225,7 @@ function ChangePublished(props) {
             </Form>
           )) || (
             <p>
-              <i>{(termWithPm && info.noSemesterAvailable) || info.errKoppsRounds}</i>
+              <i>{(termWithPm && info.noSemesterAvailable) || info.errLadokRounds}</i>
             </p>
           )}
         </div>

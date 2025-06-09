@@ -23,7 +23,7 @@ module.exports = {
     contact_support: 'Kontakta',
     for_questions: 'vid frågor.',
     friendly_message_have_not_rights: 'Du saknar behörighet att använda Om kursens administrationsverktyg',
-    message_have_not_rights: `Du saknar behörighet att använda Om kursens administrationsverktyg. Behörighet ges per automatik till de som är inlagda som examinator, kursansvarig eller lärare för kursen i Kopps.`,
+    message_have_not_rights: `Du saknar behörighet att använda Om kursens administrationsverktyg. Behörighet ges per automatik till de som är inlagda som examinator, kursansvarig eller lärare för kursen i UG Admin.`,
     message_have_not_rights_link_pre_text: 'Det är möjligt att',
     message_have_not_rights_link_href:
       'https://intra.kth.se/utbildning/systemstod/om-kursen/behorighet-for-om-kursen-1.1051642',
@@ -64,7 +64,7 @@ module.exports = {
   sourceInfo: {
     addNewHeading: 'Ange rubrik',
     fetched: 'Innehåll hämtas ',
-    '(c)': 'från Kopps',
+    '(ug)': 'från UG Admin',
     '(r)': 'från kurstillfällesinformation',
     '(s)': 'från kursplan',
     '(o)': 'från sidan inför kursval',
@@ -128,13 +128,12 @@ module.exports = {
     scheduleDetails: 'Detaljplanering',
     software: 'Programvara',
     teacher: 'Lärare',
-    teacherAssistants: 'Lärarassistenter',
   },
   memoInfoByUserLang: {
     additionalRegulations: {
       body: `<p><b>Övriga föreskrifter</b> beskriver föreskrifter i kursplanen som inte ryms under övriga rubriker.</p>
       <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande.</p> 
-      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan  <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik). Om det inte finns något innehåll kommer rubriken inte visas i ditt kurs-PM.</p>`,
+      <p><b>Innehåll hämtas från kursplanen i Ladok och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan  <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik). Om det inte finns något innehåll kommer rubriken inte visas i ditt kurs-PM.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Gjorda ändringar</b> utgör en logg av de ändringar som gjorts i ett publicerat kurs-PM. Informationen kommer inte att visas publikt. Gjorda ändringar ska innefatta kort vilka rubriker som ändrats och varför det ändrats. Systemet sparar datum och tidpunkt för varje publicerad ändring.</p>`,
@@ -150,19 +149,19 @@ module.exports = {
     courseContent: {
       body: `<p><b>Kursinnehåll</b> beskriver ämnesinnehållet och de generella färdigheter som behandlas i kursomgången.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilka begrepp, ämnen, färdigheter m.m. som den behöver läsa in sig på inför och under kursomgången.</p>
-      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b>
+      <p><b>Innehåll hämtas från kursplanen i Ladok och kan inte redigeras här.</b>
       Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan 
       <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
     },
     courseCoordinator: {
       body: `<p><b>Kursansvarig</b> innehåller kontaktinformation till personer som har rollen kursansvarig under denna kursomgång.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till kursansvarig under kursomgången.</p>
-      <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik).</p>`,
+      <p><b>Innehåll hämtas från UG Admin</b> och kan redigeras där.</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Etiskt förhållningssätt</b> beskriver KTH:s etiska värdegrund.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilka etiska värderingar som gäller på kursomgången, vilka skyldigheter den har och vilka riktlinjer den har att rätta sig efter under kursen genomförande. Tydligt beskrivna etiska riktlinjer ökar studentens förtroende för KTH.</p>
-      <p><b>Innehåll hämtas från kursplanen i Kopps</b> (den fasta texten överst) men kan även kompletteras genom att lägga till ett ytterligare stycke om Etiskt förhållningssätt.</p>`,
+      <p><b>Innehåll hämtas från kursplanen i Ladok</b> (den fasta texten överst) men kan även kompletteras genom att lägga till ett ytterligare stycke om Etiskt förhållningssätt.</p>`,
       help: `<p>Under rubriken finns två sektioner. Överst visas en fast text från kursens kursplan. Texten är generella etiska riktlinjer för alla kurser på KTH och är inte redigerbar. 
       Efter den fasta texten följer en sektion där du kan ange information om etiskt förhållningssätt som är specifik för eller extra relevant i denna kursomgång. Du kan beskriva om det finns särskilda regler för t.ex. grupparbete, hemuppgifter, programmering m.m. 
       Läs mer om KTH:s <a href="https://intra.kth.se/polopoly_fs/1.738196.1562741233!/L%C3%A4sanvisningar%20till%20etisk%20policy%20f%C3%B6r%20KTH%20FR%202017-02-08.pdf" target="_blank">etiska policy</a> för att få stöd. Du kan också ta hjälp av <a href="https://www.kth.se/eecs/utbildning/hederskodex" target="_blank">EECS-skolans hederskodex</a> (öppnas i ny flik) för lärare och studenter.</p>`,
@@ -182,7 +181,7 @@ module.exports = {
     examination: {
       body: `<p><b>Examination</b> beskriver hur kursen examineras och detaljer om de examinerande modulerna.</p>
       <p><b>Informationen hjälper studenten</b> att planera kursens genomförande och att förbereda sig inför examinationsmodulerna.</p>
-      <p><b>Innehåll hämtas från kursplanen i Kopps</b> (den fasta texten överst) men kan även kompletteras genom att lägga till ett ytterligare stycke om examination.
+      <p><b>Innehåll hämtas från kursplanen i Ladok</b> (den fasta texten överst) men kan även kompletteras genom att lägga till ett ytterligare stycke om examination.
       Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
     },
     examinationSubSection: {
@@ -194,7 +193,7 @@ module.exports = {
     examiner: {
       body: `<p><b>Examinator</b> innehåller kontaktinformation till personer som har rollen examinator för denna kurs.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till examinator under kursomgången.</p>
-      <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik).</p>`,
+      <p><b>Innehåll hämtas från UG Admin</b> och kan redigeras där.</p>`,
     },
     extraHeaders1: {
       body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Innehåll och lärandemål".</p>
@@ -231,7 +230,7 @@ module.exports = {
     gradingScale: {
       body: `<p><b>Betygsskala</b> beskriver betygsskalan för slutbetyg på hela kursen.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vilket betyg den kan förvänta sig efter slutförd kurs.</p>
-      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
+      <p><b>Innehåll hämtas från kursplanen i Ladok och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
     },
     infoForReregisteredStudents: {
       body: `<p><b>Ändringar inför denna kursomgång</b> beskriver vilka större ändringar som har införts till denna kursomgång.</p>
@@ -247,7 +246,7 @@ module.exports = {
     learningOutcomes: {
       body: `<p><b>Lärandemål</b> tydliggör vilka kunskaper, färdigheter, värderingsförmågor och förhållningssätt som studenten ska visa efter genomgången kurs.</p>
       <p><b>Informationen hjälper studenten</b> att förstå vad den behöver uppnå för att få ett godkänt betyg.</p>
-      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
+      <p><b>Innehåll hämtas från kursplanen i Ladok och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>`,
     },
     literature: {
       body: `<p><b>Kurslitteratur</b> beskriver vilken litteratur som används i kursomgången.</p>
@@ -257,15 +256,15 @@ module.exports = {
       <p>Om kurslitteratur inte är relevant för denna kursomgång är det bra att skriva det så att studenten vet detta.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med, och som inte har någon av rollerna examinator, kursansvarig, lärare eller lärarassistenter. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare.</p>
-			<p><b>Informationen hjälper studenten</b> med kontaktuppgifter till personer som kan besvara frågor som inte kan besvaras av examinator, kursansvarig, lärare eller lärarassistenter.</p>`,
+      body: `<p><b>Övriga kontakter</b> beskriver kontaktinformation till personer och funktioner som studenten kan behöva komma i kontakt med, och som inte har någon av rollerna examinator, kursansvarig eller lärare. Övriga kontakter kan vara kursadministratör, labbhandledare, projekthandledare.</p>
+			<p><b>Informationen hjälper studenten</b> med kontaktuppgifter till personer som kan besvara frågor som inte kan besvaras av examinator, kursansvarig eller lärare.</p>`,
       help: `<p>Här anger du vilka personer eller funktioner som kan vara relevanta att kontakta under kursomgången. Ange namn, mailadress och/eller telefonnummer. Beskriv kortfattat vilka frågor eller synpunkter de kan kontaktas om.</p>
       <p>Kontaktuppgifter till examinator, kursansvarig och lärare hämtas automatiskt till ditt kurs-PM, du behöver därför inte ange dessa uppgifter på nytt.</p>`,
     },
     otherRequirementsForFinalGrade: {
       body: `<p><b>Övriga krav för slutbetyg</b> beskriver ytterligare krav för betyg på hel kurs, utöver vad som anges under rubriken Examination, t.ex. krav på närvaro.</p>
       <p><b>Informationen hjälper studenten</b> att planera och förbereda kursomgångens genomförande.</p>
-      <p><b>Innehåll hämtas från kursplanen i Kopps och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
+      <p><b>Innehåll hämtas från kursplanen i Ladok och kan inte redigeras här.</b> Läs mer om riktlinjer för att ändra innehåll i kursplan på sidan <a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a> (öppnas i ny flik).</p>
       <p><b>Om det inte finns något innehåll</b> kommer rubriken inte visas i ditt kurs-PM.</p>`,
     },
     permanentDisability: {
@@ -332,12 +331,7 @@ module.exports = {
     teacher: {
       body: `<p><b>Lärare</b> innehåller kontaktinformation till personer som har rollen lärare under denna kursomgång.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till lärare under kursomgången.</p>
-      <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik).</p>`,
-    },
-    teacherAssistants: {
-      body: `<p><b>Lärarassistenter</b> innehåller kontaktinformation till personer som har rollen lärarassistent under denna kursomgång.</p>
-      <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till lärarassistenter under kursomgången.</p>
-      <p><b>Innehåll hämtas från Kopps</b> och kan redigeras i <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> av <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">personal med behörighet</a> (Båda länkarna öppnas i ny flik). Du kan välja att inte inkludera rubriken i ditt kurs-PM.</p>`,
+      <p><b>Innehåll hämtas från UG Admin</b> och kan redigeras där.</p>`,
     },
   },
   staticMemoBodyByUserLang: {
@@ -526,7 +520,7 @@ module.exports = {
       basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kursomgång',
     },
     publishedHasDraft: ' - Utkast',
-    errKoppsRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
+    errLadokRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
     noRoundsToAdd:
       'Det finns inga kurstillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
     noCourseRoundsAvailable:
@@ -598,7 +592,7 @@ module.exports = {
     autoSavedTemporary: 'Ändringar sparade temporärt inför publicering.',
     addedRoundId: 'Kurstillfällen har ändrats',
     errorEmptyHeading: 'Du behöver ange ett namn på rubriken (se markering i rött ovan)',
-    errKoppsRounds:
+    errLadokRounds:
       'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
@@ -671,7 +665,6 @@ module.exports = {
     communicationWithTeachersTitle: 'Kommunikation i kursen',
     courseCoordinatorTitle: 'Kursansvarig',
     teacherTitle: 'Lärare',
-    teacherAssistantsTitle: 'Lärarassistenter',
     examinerTitle: 'Examinator',
     otherContactsTitle: 'Övriga kontakter',
     linkOpensInNewTab: 'Länken kommer att öppnas i ny flik',

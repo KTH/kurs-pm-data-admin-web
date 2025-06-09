@@ -100,10 +100,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
     const otherContacts = queryByText(labelContacts.communicationWithTeachersTitle)
     expect(otherContacts).not.toBeInTheDocument()
   })
-  test('Get no Teacher assistans if it renders', async () => {
-    const otherContacts = queryByText(labelContacts.teacherAssistantsTitle)
-    expect(otherContacts).not.toBeInTheDocument()
-  })
 
   test('Get all link names if it renders', async () => {
     const allLinks = getAllByRole('link')

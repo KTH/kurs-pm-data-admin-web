@@ -337,7 +337,7 @@ function CreateNewMemo(props) {
                 </Form>
               )) || (
                 <p>
-                  <i>{(lastTerms && info.noSemesterAvailable) || info.errKoppsRounds}</i>
+                  <i>{(lastTerms && info.noSemesterAvailable) || info.errLadokRounds}</i>
                 </p>
               )}
             </div>

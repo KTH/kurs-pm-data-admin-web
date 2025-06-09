@@ -79,7 +79,7 @@ describe('Component <PreviewContainer> to display filled in draft of published m
   test('renders main subheader h3 in side-content,', () => {
     const mainContent = screen.getByTestId('preview-side-content')
     const h3Headers = within(mainContent).getAllByRole('heading', { level: 3 })
-    expect(h3Headers.length).toBe(13)
+    expect(h3Headers.length).toBe(12)
     const expectedhds = [
       labelFacts.startdate,
       labelFacts.roundsTitle,
@@ -91,7 +91,6 @@ describe('Component <PreviewContainer> to display filled in draft of published m
       labelContacts.communicationWithTeachersTitle,
       labelContacts.courseCoordinatorTitle,
       labelContacts.teacherTitle,
-      labelContacts.teacherAssistantsTitle,
       labelContacts.examinerTitle,
     ]
     expectedhds.map((h3, index) => expect(h3Headers[index]).toHaveTextContent(h3))

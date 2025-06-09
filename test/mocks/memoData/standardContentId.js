@@ -30,7 +30,6 @@ const standardMemoContent = [
   'scheduleDetails',
   'software',
   'teacher',
-  'teacherAssistants',
 ]
 
 describe('Control generation of headers which are standard for memo content', () => {
