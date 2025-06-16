@@ -8,7 +8,7 @@
 // 4.egna tillagda rubriker
 /*
   (s)-syllabus
-  (c)-course general information
+  (ug)-ug information
   (r)-course round related info
   (pm)-pm information
   (o)-course info
@@ -38,7 +38,7 @@ const context = {
     isEditable: true,
     isRequired: false,
   }, // Kommunikation med lärare
-  courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Kursansvarig
+  courseCoordinator: { type: 'mandatory', isEditable: false, isRequired: true, source: '(ug)' }, // Kursansvarig
   ethicalApproach: {
     type: 'mandatory',
     isEditable: false,
@@ -65,7 +65,7 @@ const context = {
     isRequired: false,
     hasParentTitle: true,
   },
-  examiner: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' },
+  examiner: { type: 'mandatory', isEditable: false, isRequired: true, source: '(ug)' },
   extraHeaders1: { isEditable: true, isRequired: false },
   extraHeaders2: { isEditable: true, isRequired: false },
   extraHeaders3: { isEditable: true, isRequired: false },
@@ -145,13 +145,7 @@ const context = {
     isRequired: false,
   },
   software: { type: 'optionalEditable', isEditable: true, isRequired: false }, // Programvara
-  teacherAssistants: {
-    type: 'optional',
-    isEditable: false,
-    isRequired: false,
-    source: '(c)',
-  }, // Lärarassistenter
-  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(c)' }, // Lärare
+  teacher: { type: 'mandatory', isEditable: false, isRequired: true, source: '(ug)' }, // Lärare
 }
 
 // it is a function to avoid accident change of getDefaultSections() somewhere else
@@ -203,14 +197,7 @@ const getDefaultSections = () => [
   {
     id: 'contacts',
     title: 'Kontakter',
-    content: [
-      'communicationDuringCourse',
-      'courseCoordinator',
-      'teacher',
-      'teacherAssistants',
-      'examiner',
-      'otherContacts',
-    ],
+    content: ['communicationDuringCourse', 'courseCoordinator', 'teacher', 'examiner', 'otherContacts'],
     extraHeaderTitle: null,
   },
 ]

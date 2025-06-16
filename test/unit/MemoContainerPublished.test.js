@@ -1343,7 +1343,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). renders main header H3 (content) in user lang(sv),  and memo sections headers in memo lang(en)', () => {
     const allH3Headers = screen.getAllByRole('heading', { level: 3 })
-    expect(allH3Headers.length).toBe(11)
+    expect(allH3Headers.length).toBe(10)
   })
 
   test('tab: contacts (draft of published). renders no collapse and no buttons to close editor for help-text for all editors because they are open', () => {
@@ -1372,13 +1372,12 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). renders all buttons', async () => {
     const allButtons = screen.getAllByRole('button')
-    expect(allButtons.length).toBe(13)
+    expect(allButtons.length).toBe(12)
     const expectedAriaLabels = [
       'Information om Communication during course',
       'Edit Communication during course',
       'Information om Course coordinator',
       'Information om Teachers',
-      'Information om Teacher assistants',
       'Information om Examiner',
       'Information om Other contacts',
       'Edit Other contacts',
@@ -1395,7 +1394,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). check how many standard headers are shown, check if each header appear twice: once in content of memo, once in overview meny', async () => {
     const headers = getOnlyStandardHeaders('contacts')
-    expect(headers.length).toBe(6)
+    expect(headers.length).toBe(5)
     headers.forEach(headerId => {
       const contentAndMenyHd = screen.getAllByText(memoTitlesByMemoLang[headerId])
       expect(contentAndMenyHd.length).toBe(2) // content header and header in overview meny
@@ -1440,15 +1439,6 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
     const otherContactsEditor = screen.getByTestId(`btn-open-editor-otherContacts`)
     expect(otherContactsEditor).toBeInTheDocument()
-  })
-
-  test('tab: contacts (draft of published). renders <StandardEditorPerTitle>, check the text of prerequisites which is optional and non-editable is visible', async () => {
-    const contentType = 'optional'
-    const headersAndSubHds = getSectionHeadersByType(contentType, 'contacts')
-    expect(headersAndSubHds.length).toBe(1)
-    const teacherAssistants = screen.getByTestId(`text-for-memo-${contentType}-teacherAssistants`)
-    expect(teacherAssistants).toBeInTheDocument()
-    expect(teacherAssistants).toHaveTextContent('Some test data for section teacherAssistants')
   })
 
   test('tab: contacts (draft of published). renders <StandardEditorPerTitle>, no message about emptiness of optional (non-editable + editable)', async () => {
@@ -1501,23 +1491,6 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
     })
   })
 
-  test('tab: contacts (draft of published). Renders "teacherAssistants" checkbox which are checked and shows filled in content as a text', async () => {
-    const checkboxIncludeInMemo = screen.getByTestId('checkbox-visibility-teacherAssistants')
-    expect(checkboxIncludeInMemo.checked).toBeTruthy()
-
-    const text = screen.queryByTestId('text-for-memo-optional-teacherAssistants')
-    expect(text).toBeInTheDocument()
-
-    fireEvent.click(checkboxIncludeInMemo)
-    await waitFor(() => {
-      expect(checkboxIncludeInMemo.checked).toBeFalsy()
-      const filledInButNotIncludedMsg = screen.queryByTestId('text-for-memo-optional-teacherAssistants')
-      expect(filledInButNotIncludedMsg).toBeInTheDocument()
-
-      expect(screen.getByTestId('alert-save-data')).toBeInTheDocument()
-    })
-  })
-
   test('tab: contacts (draft of published). check texts of buttons in control panel it is different for Edit published', async () => {
     expect(screen.getByText('Välj kurs-PM')).toBeInTheDocument()
     expect(screen.getByText('Spara')).toBeInTheDocument()
@@ -1540,7 +1513,7 @@ describe('Active tab contacts. Component <MemoContainer> Edit published. A New d
 
   test('tab: contacts (draft of published). render correct number of include label, standard + extra headers', () => {
     expect(screen.getAllByText('Inkluderas alltid').length).toBe(3)
-    expect(screen.getAllByText('Inkludera i kurs-PM').length).toBe(3)
+    expect(screen.getAllByText('Inkludera i kurs-PM').length).toBe(2)
     expect(screen.queryByText('Inkluderas när innehåll finns i kursplan')).not.toBeInTheDocument()
     expect(screen.queryByText('Inkludera ytterligare avsnitt')).not.toBeInTheDocument()
   })

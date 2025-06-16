@@ -10,7 +10,6 @@ const defaultVisibilities = {
   possibilityToCompletion: 'defaultTrue',
   prerequisites: 'defaultTrue',
   scheduleDetails: 'defaultTrue',
-  teacherAssistants: 'defaultTrue',
 }
 
 const generatedStandardVisibility = (onlyDefaults = false, allVisible = false) => {

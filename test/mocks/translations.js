@@ -27,7 +27,6 @@ const translations = {
       communicationWithTeachersTitle: 'Communication during course',
       courseCoordinatorTitle: 'Course Coordinator',
       teacherTitle: 'Teachers',
-      teacherAssistantsTitle: 'Teacher Assistants',
       examinerTitle: 'Examiner',
       otherContactsTitle: 'Other Contacts',
     },
@@ -75,7 +74,6 @@ const translations = {
       scheduleDetails: 'Detailed plan',
       software: 'Software',
       teacher: 'Teachers',
-      teacherAssistants: 'Teacher assistants',
     },
     orderedFilledInAndVisible: [
       'Course contents',

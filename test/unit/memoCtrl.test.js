@@ -58,11 +58,10 @@ const mockedApi = (withValues = false) => ({
     : '',
 })
 
-const koppsEmployeesDataMock = {
-  teacher: 'teacher mock',
-  examiner: 'examiner mock',
-  courseCoordinator: 'coordinator mock',
-  teacherAssistants: '',
+const ugAdminEmployeesDataMock = {
+  teachers: 'teacher mock',
+  examiners: 'examiner mock',
+  courseCoordinators: 'coordinator mock',
 }
 
 const ladokCourseDataMock = {
@@ -102,7 +101,7 @@ describe('mergeAllData', () => {
       courseInfoApiDataMock,
       ladokCourseDataMock,
       ladokCourseSyllabusDataMock,
-      koppsEmployeesDataMock
+      ugAdminEmployeesDataMock
     )
 
     expect(merged).toHaveProperty('equipment', 'Text saved by user in section in Equipment section')
@@ -131,7 +130,7 @@ describe('renderMemoEditorPage', () => {
       applicationCodes: ['1'],
     })
 
-    getCourseEmployees.mockResolvedValue(koppsEmployeesDataMock)
+    getCourseEmployees.mockResolvedValue(ugAdminEmployeesDataMock)
     getLadokRoundIdsFromKopps.mockResolvedValue(['round1'])
     getCourseInfo.mockResolvedValue(courseInfoApiDataMock)
     getLadokCourseData.mockResolvedValue(ladokCourseDataMock)

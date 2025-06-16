@@ -24,7 +24,7 @@ module.exports = {
     contact_support: 'Contact',
     for_questions: 'if you have any questions.',
     friendly_message_have_not_rights: "You don't have permission to use About course's administration tool",
-    message_have_not_rights: `You don't have permission to use About course's administration tool. Permission is automatically given to those who are added as an examiner, course coordinator or teacher for the course in Kopps.`,
+    message_have_not_rights: `You don't have permission to use About course's administration tool. Permission is automatically given to those who are added as an examiner, course coordinator or teacher for the course in UG Admin.`,
     message_have_not_rights_link_pre_text: 'It is possible',
     message_have_not_rights_link_href:
       'https://intra.kth.se/en/utbildning/systemstod/om-kursen/behorighet-for-om-kursen-1.1051642',
@@ -71,7 +71,7 @@ module.exports = {
   sourceInfo: {
     addNewHeading: 'Name heading',
     fetched: 'Fetched ', // IF NOT EDITABLE
-    '(c)': 'from Kopps',
+    '(ug)': 'from UG Admin',
     '(r)': 'from course round information',
     '(s)': 'from course syllabus',
     '(o)': 'from the page Before course selection',
@@ -139,13 +139,12 @@ module.exports = {
     scheduleDetails: 'Detailed plan',
     software: 'Software',
     teacher: 'Teachers',
-    teacherAssistants: 'Teacher assistants',
   },
   memoInfoByUserLang: {
     additionalRegulations: {
       body: `<p><b>Additional regulations</b> describe regulations in the course syllabus that do not fit under other headings.</p>
       <p><b>This information helps the student</b> in planning and preparing for the implementation of the course offering.</p>
-      <p><b>Content is retrieved from the course syllabus in Kopps</b> and cannot be edited here. For guidelines on changing the content in the course syllabus, please refer to the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). If there is no content, the heading will not be displayed in your course memo.</p>`,
+      <p><b>Content is retrieved from the course syllabus in Ladok</b> and cannot be edited here. For guidelines on changing the content in the course syllabus, please refer to the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). If there is no content, the heading will not be displayed in your course memo.</p>`,
     },
     commentAboutMadeChanges: {
       body: `<p><b>Made changes</b> can be seen as a change log containing the changes made to a published course memo. The information is not public. Made changes shall include a short description of the changed sections and the reason of the changes. The system itself saves date and time of each published change to this course memo.</p>`,
@@ -163,18 +162,18 @@ module.exports = {
     courseContent: {
       body: `<p><b>Course contents</b> describes the content and the general skills covered in the course.</p>
       <p><b>This information helps the student</b> understand which concepts, topics, skills, etc., they need to familiarize themselves with before and during the course.</p>
-      <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page
+      <p><b>The content is retrieved from the course syllabus in Ladok and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page
       &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     courseCoordinator: {
       body: `<p><b>Course coordinator</b> contains contact information for individuals holding the role of course coordinator during this course offering.</p>
       <p><b>This information helps the students</b> in obtaining contact details for the course coordinator during the course offering.</p>
-      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs).</p>`,
+      <p><b>Content is retrieved from UG Admin</b> and can be edited there.</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Ethical approach</b> describes KTH's ethical values.</p>
       <p><b>This information helps the student</b> understand the ethical values applicable to the course offering, their obligations, and the guidelines they need to adhere to during the course. Clearly defined ethical guidelines enhance the student's confidence in KTH.</p>
-      <p><b>Content is retrieved from the course syllabus in Kopps</b> (the fixed text at the top) but can also be supplemented by adding an additional paragraph about Ethical Approach.</p>`,
+      <p><b>Content is retrieved from the course syllabus in Ladok</b> (the fixed text at the top) but can also be supplemented by adding an additional paragraph about Ethical Approach.</p>`,
       help: `<p>There are two sections under the heading. First there is a fixed text from the course syllabus. It is not possible to edit the text, since it is a general text for all courses at KTH.
       In the second section, you can describe specific information regarding ethical approach for this course offering. Here you can describe any values and regulations applicable for the activities in this course offering, for example group projects, assignments, programming tasks etc.
       Read more about the KTH <a href="https://intra.kth.se/polopoly_fs/1.831693.1562754447!/Ethical_Policy.pdf" target="_blank">Ethical policy</a> to find more detailed support and information. You can also find useful information in the <a href="https://www.kth.se/en/eecs/utbildning/hederskodex/inledning" target="_blank">EECS Code of honour</a> (opens in new tab) for students and teachers. </p>`,
@@ -193,12 +192,12 @@ module.exports = {
     examiner: {
       body: `<p><b>Examiner</b> contains contact information for individuals holding the role of examiner during this course offering.</p>
       <p><b>This information helps the student</b> in obtaining contact details for the examiner during the course offering.</p>
-      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs).</p>`,
+      <p><b>Content is retrieved from UG Admin</b> and can be edited there.</p>`,
     },
     examination: {
       body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course module.</p>
       <p><b>This information helps the student</b> in planning the course and preparing for each course module. </p>
-      <p><b>The content is retrieved from the course syllabus in Kopps</b> (the fixed text at the top), but it can also be supplemented by adding an additional paragraph about the examination.
+      <p><b>The content is retrieved from the course syllabus in Ladok</b> (the fixed text at the top), but it can also be supplemented by adding an additional paragraph about the examination.
       Read more about guidelines for changing content in the course syllabus on the page &quot;<a href=" https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     examinationSubSection: {
@@ -239,7 +238,7 @@ module.exports = {
     gradingScale: {
       body: `<p><b>Grading scale</b> describes the grading scale for the final grades of the entire course.</p>
         <p><b>This information helps the student</b> understand what grade they can expect upon completing the course.</p>
-        <p><b>Content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).
+        <p><b>Content is retrieved from the course syllabus in Ladok and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).
         </p>`,
     },
     infoForReregisteredStudents: {
@@ -256,7 +255,7 @@ module.exports = {
     learningOutcomes: {
       body: `<p><b>Intended learning outcomes</b> clarify the knowledge, skills, evaluative abilities, and approaches that the student should demonstrate after completing the course.</p>
       <p><b>This information helps the student</b> understand what they need to achieve to receive a passing grade.</p>      
-      <p><b>The content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
+      <p><b>The content is retrieved from the course syllabus in Ladok and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish).</p>`,
     },
     literature: {
       body: `<p><b>Literature</b> describes the literature used in the course offering.</p>
@@ -266,15 +265,15 @@ module.exports = {
       <p>If literature is not relevant for this course offering, it's helpful to state this so that students do not need to inquire.</p>`,
     },
     otherContacts: {
-      body: `<p><b>Other contacts</b> provides contact information for individuals and roles that students may need to reach out to, and who do not hold the roles of examiner, course coordinator, teacher, or teaching assistants. Other contacts may include course administrators, lab supervisors, project supervisors, etc.</p>
-			<p><b>This information helps the students</b> in obtaining contact details for individuals who can address questions that cannot be answered by the examiner, course coordinator, teachers, or teaching assistants.</p>`,
+      body: `<p><b>Other contacts</b> provides contact information for individuals and roles that students may need to reach out to, and who do not hold the roles of examiner, course coordinator, or teacher. Other contacts may include course administrators, lab supervisors, project supervisors, etc.</p>
+			<p><b>This information helps the students</b> in obtaining contact details for individuals who can address questions that cannot be answered by the examiner, course coordinator, or teachers.</p>`,
       help: `<p>Under this section, you provide the names, email addresses, and/or phone numbers of individuals or roles that may be relevant to contact during the course offering. Briefly describe the types of questions or feedback they can be contacted for.</p>
       <p>Contact information for the examiner, course coordinator, and teachers is automatically retrieved for your course memo, so you do not need to provide this information again.</p>`,
     },
     otherRequirementsForFinalGrade: {
       body: `<p><b>Other requirements for final grade</b> describe additional criteria for the overall course grade, beyond what is specified under the "Examination" heading, such as attendance requirements.</p>
       <p><b>This information helps the student</b> in planning and preparing for the overall execution of the course offering.</p>
-      <p><b>Content is retrieved from the course syllabus in Kopps and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). </p>
+      <p><b>Content is retrieved from the course syllabus in Ladok and cannot be edited here.</b> Read more about guidelines for changing content in the course syllabus on the page &quot;<a href="https://intra.kth.se/utbildning/utbi/planera-utbildning" target="_blank">Planera utbildningsutbud</a>&quot; (opens in new tab, only in Swedish). </p>
       <p><b>If there is no content,</b> the heading will not appear in your course memo.</p>`,
     },
     permanentDisability: {
@@ -344,12 +343,7 @@ module.exports = {
     teacher: {
       body: `<p><b>Teachers</b> contains contact information for individuals holding the role of teacher during this course offering.</p>
       <p><b>This information helps the student</b> in obtaining contact details for the teachers during the course offering.</p>
-      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs).</p>`,
-    },
-    teacherAssistants: {
-      body: `<p><b>Teacher assistants</b> contains contact information for individuals holding the role of teacher assistants during this course offering.</p>
-      <p><b>This information helps the student</b> in obtaining contact details for the teacher assistants during the course offering.</p>
-      <p><b>Content is retrieved from Kopps</b> and can be edited in <a href="https://app.kth.se/kopps/admin/courses" target="_blank">Kopps</a> by <a href="https://app.kth.se/kopps/admin/userlist" target="_blank">authorized personnel</a> (both links open in new tabs). You have the option not to include the heading in your course memo.</p>`,
+      <p><b>Content is retrieved from UG Admin</b> and can be edited there.</p>`,
     },
   },
   staticMemoBodyByUserLang: {
@@ -541,15 +535,15 @@ module.exports = {
       basedOnAnotherMemo: 'Copy of a course memo from a previous course offering',
     },
     publishedHasDraft: ' - Draft',
-    errKoppsRounds:
-      'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
+    errLadokRounds:
+      'Could not fetch all available administrative course instances because of error in Ladok. Try to refresh page',
     noRoundsToAdd:
       'All administrative course instances this semester has a published course memo or a draft of a course memo. Therefore, there is no administrative course instance to add to this course memo. View saved drafts on this page or published course memos on the page "About course memo" for this course.',
     noCourseRoundsAvailable:
       'All administrative course instances the chosen semester are already included in a course offering that has a published course memo or draft. See drafts or published course memos on the page Prepare and take course/Course memo.',
     noSavedDrafts: 'There are no saved drafts.',
     noSemesterAvailable:
-      'There are no semesters to choose since there are no current or future course offerings for this course. Check Kopps if you expect course offerings to create course memos for.',
+      'There are no semesters to choose since there are no current or future course offerings for this course. Check Ladok if you expect course offerings to create course memos for.',
     noPrevPublishedAvailable: 'There are no published course memos for previous course offerings.',
     noPublishedMemos: 'There are no published course memos for this, the previous or the upcoming semester.',
   },
@@ -613,8 +607,8 @@ module.exports = {
     autoSavedTemporary: 'Changes save temporarily before publishing.',
     addedRoundId: 'Course offerings were changed',
     errorEmptyHeading: 'You need to name the header (look for error marks above)',
-    errKoppsRounds:
-      'Could not fetch all available administrative course instances because of error in Kopps. Try to refresh page',
+    errLadokRounds:
+      'Could not fetch all available administrative course instances because of error in Ladok. Try to refresh page',
     errNoChosen:
       'You must choose a draft or at least one administrative course instance to go further to the next step Edit course memo.',
     errNoChosenTemplate:
@@ -685,7 +679,6 @@ module.exports = {
     communicationWithTeachersTitle: 'Communication during course',
     courseCoordinatorTitle: 'Course Coordinator',
     teacherTitle: 'Teachers',
-    teacherAssistantsTitle: 'Teacher Assistants',
     examinerTitle: 'Examiner',
     otherContactsTitle: 'Other Contacts',
     mandatoryFieldMissing: 'Missing mandatory information',

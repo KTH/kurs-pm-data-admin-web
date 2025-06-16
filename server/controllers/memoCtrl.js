@@ -8,7 +8,6 @@ const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getCourseInfo } = require('../kursinfoApi')
-const { getLadokRoundIdsFromKopps } = require('../koppsApi')
 const { getLadokCourseData, getLadokCourseSyllabus } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
@@ -30,7 +29,7 @@ const mergeAllData = async (
   courseInfoApiData,
   ladokCourseData,
   ladokCourseSyllabusData,
-  koppsEmployeesData
+  ugEmployeesData
 ) => {
   const memoDataWithDefaults = addDefaultValues(memoApiData)
 
@@ -65,13 +64,20 @@ const mergeAllData = async (
   // Source: Static content
   const { permanentDisability } = i18n.messages[language === 'en' ? 0 : 1].staticMemoBodyByUserLang
 
+  // Source: UG Admin
+  const ugEmployeesValues = {
+    examiner: ugEmployeesData.examiners,
+    teacher: ugEmployeesData.teachers,
+    courseCoordinator: ugEmployeesData.courseCoordinators,
+  }
+
   return {
     ...memoDataWithDefaults,
     ...courseInfoApiValues,
     ...ladokCourseValues,
     ...ladokCourseSyllabusValues,
     ...permanentDisability,
-    ...koppsEmployeesData,
+    ...ugEmployeesValues,
   }
 }
 
@@ -103,35 +109,17 @@ async function renderMemoEditorPage(req, res, next) {
       memoLangAbbr,
     })
 
-    /**
-     * This is temporary to fetch only round id for UG Rest Api.
-     * Because UG Rest Api is using ladok round id in its group names still.
-     * So once it gets updated then this will be removed.
-     */
-
-    // start
-    const memoApiDataDeepCopy = memoApiData
-    const { applicationCodes } = memoApiDataDeepCopy
-
-    try {
-      memoApiDataDeepCopy.ladokRoundIds = await getLadokRoundIdsFromKopps(courseCode, semester, applicationCodes)
-    } catch (error) {
-      log.error(error)
-      memoApiDataDeepCopy.ladokRoundIds = []
-    }
-    // end
-    const koppsEmployeesData = await getCourseEmployees(memoApiDataDeepCopy)
-
     const courseInfoApiData = await getCourseInfo(courseCode, memoLangAbbr)
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
     const ladokCourseSyllabusData = await getLadokCourseSyllabus(courseCode, semester, memoLangAbbr)
+    const ugEmployeesData = await getCourseEmployees(memoApiData)
 
     applicationStore.memoData = await mergeAllData(
       memoApiData,
       courseInfoApiData,
       ladokCourseData,
       ladokCourseSyllabusData,
-      koppsEmployeesData
+      ugEmployeesData
     )
 
     await applicationStore.setSectionsStructure()
