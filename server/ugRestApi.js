@@ -2,14 +2,30 @@ const { ugRestApiHelper } = require('@kth/ug-rest-api-helper')
 const log = require('@kth/log')
 const serverConfig = require('./configuration').server
 
-const _groupNames = (courseCode, semester, applicationCodes) => ({
-  // Used to get examiners, teachers and course coordinators from UG Redis
-  course: [`ladok2.kurser.${String(courseCode).slice(0, 2)}.${courseCode.slice(2)}`],
-  courseRound: applicationCodes.map(
-    applicationCode =>
-      `ladok2.kurser.${String(courseCode).slice(0, 2)}.${courseCode.slice(2)}.${semester}.${applicationCode}`
-  ),
-})
+const _getOrgPart = courseCode => {
+  if (courseCode.length === 7) return courseCode.slice(0, 3)
+  if (courseCode.length === 6) return courseCode.slice(0, 2)
+  return undefined
+}
+
+const _getNumberPart = courseCode => {
+  if (courseCode.length === 7) return courseCode.slice(3)
+  if (courseCode.length === 6) return courseCode.slice(2)
+  return undefined
+}
+
+const _groupNames = (courseCode, semester, applicationCodes) => {
+  const courseOrgPart = _getOrgPart(courseCode)
+  const courseNumberPart = _getNumberPart(courseCode)
+
+  return {
+    // Used to get examiners, teachers and course coordinators from UG Redis
+    course: [`ladok2.kurser.${courseOrgPart}.${courseNumberPart}`],
+    courseRound: applicationCodes.map(
+      applicationCode => `ladok2.kurser.${courseOrgPart}.${courseNumberPart}.${semester}.${applicationCode}`
+    ),
+  }
+}
 
 const _createPersonHtml = (personList = []) => {
   let personString = ''
