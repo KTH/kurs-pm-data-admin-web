@@ -44,16 +44,16 @@ const _createPersonHtml = (personList = []) => {
   return personString
 }
 
-const _getAllGroups = (course, courseRound) => {
+const _getAllGroups = (courseGroups, courseRoundGroups) => {
   const groups = []
-  if (course.length) {
-    course.forEach(examiner => {
-      groups.push(examiner)
+  if (courseGroups.length) {
+    courseGroups.forEach(courseGroup => {
+      groups.push(courseGroup)
     })
   }
-  if (courseRound.length) {
-    courseRound.forEach(other => {
-      groups.push(other)
+  if (courseRoundGroups.length) {
+    courseRoundGroups.forEach(courseRoundGroup => {
+      groups.push(courseRoundGroup)
     })
   }
   return groups
@@ -101,16 +101,16 @@ function _initializeUGConnection() {
 
 /**
  * Fetches group data along with attributes from the UG REST API.
- * @param {string} courseGroup - Course group name.
- * @param {string} courseRoundGroups - Course round group names.
+ * @param {string[]} courseGroups - Course group name.
+ * @param {string[]} courseRoundGroups - Course round group names.
  * @param {string} courseCode - Course code, used for logging.
  * @param {string} semester - Semester, used for logging.
  * @returns {Promise<Object[]>} Group details with attributes.
  */
-async function _getGroupsWithAttributes(courseGroup, courseRoundGroups, courseCode, semester) {
+async function _getGroupsWithAttributes(courseGroups, courseRoundGroups, courseCode, semester) {
   _initializeUGConnection()
 
-  const groups = _getAllGroups(courseGroup, courseRoundGroups)
+  const groups = _getAllGroups(courseGroups, courseRoundGroups)
 
   log.info('Fetching course and course round groups with attributes', {
     courseCode,
@@ -175,11 +175,11 @@ async function _getUsersFromGroupAttributes(groupsWithAttributes, courseCode, se
 
 async function getCourseEmployees({ courseCode, semester, applicationCodes = [] }) {
   try {
-    const { course: courseGroup, courseRound: courseRoundGroups } = _groupNames(courseCode, semester, applicationCodes)
+    const { course: courseGroups, courseRound: courseRoundGroups } = _groupNames(courseCode, semester, applicationCodes)
 
     // get all groups along with attributes from UG Rest Api
     const groupsAlongWithAttributes = await _getGroupsWithAttributes(
-      courseGroup,
+      courseGroups,
       courseRoundGroups,
       courseCode,
       semester
