@@ -4,31 +4,37 @@ const { ugRestApiHelper } = require('@kth/ug-rest-api-helper')
 const log = require('@kth/log')
 const serverConfig = require('./configuration').server
 
+// Extracts the organization part of the course code (e.g., 'SF')
 const _getOrgPart = courseCode => {
   if (courseCode.length === 7) return courseCode.slice(0, 3)
   if (courseCode.length === 6) return courseCode.slice(0, 2)
   return undefined
 }
 
+// Extracts the numerical part of the course code (e.g., '1624')
 const _getNumberPart = courseCode => {
   if (courseCode.length === 7) return courseCode.slice(3)
   if (courseCode.length === 6) return courseCode.slice(2)
   return undefined
 }
 
-const _groupNames = (courseCode, semester, applicationCodes) => {
+// Builds full course group name in UG format: 'ladok2.kurser.SF.1624'
+const _getCourseGroupName = courseCode => {
   const courseOrgPart = _getOrgPart(courseCode)
   const courseNumberPart = _getNumberPart(courseCode)
+  return `ladok2.kurser.${courseOrgPart}.${courseNumberPart}`
+}
 
+// Builds UG group names for course and each course round based on semester and application codes
+const _groupNames = (courseCode, semester, applicationCodes) => {
+  const courseGroupName = _getCourseGroupName(courseCode)
   return {
-    // Used to get examiners, teachers and course coordinators from UG Redis
-    course: [`ladok2.kurser.${courseOrgPart}.${courseNumberPart}`],
-    courseRound: applicationCodes.map(
-      applicationCode => `ladok2.kurser.${courseOrgPart}.${courseNumberPart}.${semester}.${applicationCode}`
-    ),
+    course: [courseGroupName],
+    courseRound: applicationCodes.map(applicationCode => `${courseGroupName}.${semester}.${applicationCode}`),
   }
 }
 
+// Creates HTML representation for a list of users
 const _createPersonHtml = (personList = []) => {
   let personString = ''
   personList.forEach(person => {
@@ -46,6 +52,7 @@ const _createPersonHtml = (personList = []) => {
   return personString
 }
 
+// Combines course and course round group names into one array
 const _getAllGroups = (courseGroups, courseRoundGroups) => {
   const groups = []
   if (courseGroups.length) {
@@ -61,6 +68,7 @@ const _getAllGroups = (courseGroups, courseRoundGroups) => {
   return groups
 }
 
+// Converts lists of users for each role into an object with HTML content
 const _getEmployeeObject = (examiners, teachers, courseCoordinators) => {
   const employee = {}
   if (examiners && examiners.length > 0) {
@@ -75,6 +83,7 @@ const _getEmployeeObject = (examiners, teachers, courseCoordinators) => {
   return employee
 }
 
+// Returns the current date and time in a readable string format
 const _getCurrentDateTime = () => {
   const today = new Date()
   const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
@@ -175,18 +184,24 @@ async function _getUsersFromGroupAttributes(groupsWithAttributes, courseCode, se
   return usersByRole
 }
 
+/**
+ * Main function to fetch course employees by role and return formatted HTML.
+ * @param {Object} options - Course details.
+ * @param {string} options.courseCode - Course code.
+ * @param {string} options.semester - Semester.
+ * @param {string[]} options.applicationCodes - Course application codes.
+ * @returns {Promise<Object>} Object with HTML strings per role.
+ */
 async function getCourseEmployees({ courseCode, semester, applicationCodes = [] }) {
   try {
     const { course: courseGroups, courseRound: courseRoundGroups } = _groupNames(courseCode, semester, applicationCodes)
 
-    // get all groups along with attributes from UG Rest Api
     const groupsAlongWithAttributes = await _getGroupsWithAttributes(
       courseGroups,
       courseRoundGroups,
       courseCode,
       semester
     )
-    // get all users based on above attributes from UG Rest Api
     const { examiners, teachers, courseCoordinators } = await _getUsersFromGroupAttributes(
       groupsAlongWithAttributes,
       courseCode,
@@ -200,6 +215,59 @@ async function getCourseEmployees({ courseCode, semester, applicationCodes = [] 
   }
 }
 
+/**
+ * Fetches all UG groups where a specific user is assigned a course role.
+ * @param {string} userKthId - The user's KTH ID.
+ * @returns {Promise<Object>} Groups grouped by role.
+ */
+async function _getGroupsWithUserAsAttribute(userKthId) {
+  _initializeUGConnection()
+
+  const groupsByRole = {
+    examiners: [],
+    teachers: [],
+    courseCoordinators: [],
+  }
+
+  log.info('Fetching groups having employee with kthId', {
+    kthId: userKthId,
+    requestStartTime: _getCurrentDateTime(),
+  })
+
+  await Promise.all(
+    Object.keys(groupsByRole).map(async role => {
+      const groupNames = await ugRestApiHelper.getUGGroups(role, 'contains', userKthId)
+      groupsByRole[role].push(...groupNames.flat())
+    })
+  )
+
+  log.info('Fetched groups having employee with kthId succefully', {
+    kthId: userKthId,
+    requestEndTime: _getCurrentDateTime(),
+  })
+
+  return groupsByRole
+}
+
+/**
+ * Determines if a user holds any of the defined course roles (examiner, teacher, coordinator).
+ * @param {string} userKthId - User's KTH ID.
+ * @param {string} courseCode - Course code.
+ * @returns {Promise<Object>} Boolean flags for each role.
+ */
+async function getEmployeeRoleForCourse(userKthId, courseCode) {
+  const courseGroupName = _getCourseGroupName(courseCode)
+
+  const { examiners, teachers, courseCoordinators } = await _getGroupsWithUserAsAttribute(userKthId)
+
+  const isCourseCoordinator = courseCoordinators.map(x => x.name).some(groupName => groupName.includes(courseGroupName))
+  const isCourseTeacher = teachers.map(x => x.name).some(groupName => groupName.includes(courseGroupName))
+  const isExaminer = examiners.map(x => x.name).some(groupName => groupName.includes(courseGroupName))
+
+  return { isCourseCoordinator, isCourseTeacher, isExaminer }
+}
+
 module.exports = {
   getCourseEmployees,
+  getEmployeeRoleForCourse,
 }

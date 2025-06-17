@@ -30,7 +30,7 @@ log.info = jest.fn()
 log.debug = jest.fn()
 log.error = jest.fn()
 
-const { getCourseEmployees } = require('./ugRestApi')
+const { getCourseEmployees, getEmployeeRoleForCourse } = require('./ugRestApi')
 
 describe('getCourseEmployees', () => {
   const createUser = () => ({
@@ -74,12 +74,10 @@ describe('getCourseEmployees', () => {
       applicationCodes: ['11111'],
     })
 
-    // Basic structural assertions
     expect(result.examiners).toContain('<p class="person">')
     expect(result.teachers).toContain('<p class="person">')
     expect(result.courseCoordinators).toContain('<p class="person">')
 
-    // Spot-check known names in the HTML output
     examiners.forEach(user => {
       expect(result.examiners).toContain(user.username)
       expect(result.examiners).toContain(user.givenName)
@@ -137,5 +135,70 @@ describe('getCourseEmployees', () => {
     })
 
     expect(result).toEqual({})
+  })
+})
+
+describe('getEmployeeRoleForCourse', () => {
+  const user = {
+    kthid: faker.string.uuid(),
+    username: faker.internet.userName(),
+  }
+
+  const courseCode = 'SF1624'
+  const courseGroupName = `ladok2.kurser.SF.1624`
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  test('should correctly identify all roles for a user', async () => {
+    ugRestApiHelper.getUGGroups.mockImplementation((role, _op, kthid) => {
+      if (kthid !== user.kthid) return Promise.resolve([])
+      return Promise.resolve([[{ name: `${courseGroupName}` }]])
+    })
+
+    const result = await getEmployeeRoleForCourse(user.kthid, courseCode)
+
+    expect(result).toEqual({
+      isCourseCoordinator: true,
+      isCourseTeacher: true,
+      isExaminer: true,
+    })
+  })
+
+  test('should return false for all roles if user not in any group', async () => {
+    ugRestApiHelper.getUGGroups.mockResolvedValue([])
+
+    const result = await getEmployeeRoleForCourse(user.kthid, courseCode)
+
+    expect(result).toEqual({
+      isCourseCoordinator: false,
+      isCourseTeacher: false,
+      isExaminer: false,
+    })
+  })
+
+  test('should return mixed roles if user is in some but not all', async () => {
+    ugRestApiHelper.getUGGroups.mockImplementation(role => {
+      if (role === 'examiners') return Promise.resolve([{ name: `${courseGroupName}` }])
+      if (role === 'teachers') return Promise.resolve([])
+      if (role === 'courseCoordinators') return Promise.resolve([{ name: 'some.other.course.group' }])
+      return Promise.resolve([])
+    })
+
+    const result = await getEmployeeRoleForCourse(user.kthid, courseCode)
+
+    expect(result).toEqual({
+      isCourseCoordinator: false,
+      isCourseTeacher: false,
+      isExaminer: true,
+    })
+  })
+
+  test('should handle errors in getUGGroups', async () => {
+    const error = new Error('UG group fetch failed')
+    ugRestApiHelper.getUGGroups.mockRejectedValue(error)
+
+    await expect(getEmployeeRoleForCourse(user.kthid, courseCode)).rejects.toThrow('UG group fetch failed')
   })
 })
