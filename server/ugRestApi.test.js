@@ -20,7 +20,6 @@ jest.mock('@kth/ug-rest-api-helper', () => ({
   },
 }))
 
-const { faker } = require('@faker-js/faker')
 const { ugRestApiHelper } = require('@kth/ug-rest-api-helper')
 
 jest.mock('@kth/log')
@@ -30,112 +29,143 @@ log.info = jest.fn()
 log.debug = jest.fn()
 log.error = jest.fn()
 
-const { getCourseEmployees } = require('./ugRestApi')
+// Import all the updated functions to test
+const {
+  fetchCourseAndRoundGroups,
+  fetchUsersInGroupsCategorizedByRole,
+  fetchGroupsForUserCategorizedByRole,
+  getCourseGroupName,
+} = require('./ugRestApi')
 
-describe('getCourseEmployees', () => {
-  const createUser = () => ({
-    username: faker.internet.userName(),
-    kthid: faker.string.uuid(),
-    givenName: faker.person.firstName(),
-    surname: faker.person.lastName(),
+describe('getCourseGroupName', () => {
+  test('returns correct UG group name for 7-char course code', () => {
+    expect(getCourseGroupName('AOK6241')).toBe('ladok2.kurser.AOK.6241')
   })
 
-  const examiners = [createUser(), createUser()]
-  const teachers = [createUser()]
-  const courseCoordinators = [createUser()]
+  test('returns correct UG group name for 6-char course code', () => {
+    expect(getCourseGroupName('SF1624')).toBe('ladok2.kurser.SF.1624')
+  })
 
-  const mockGroups = [
-    {
-      name: 'edu.courses.SF.1624',
-      examiners: examiners.map(u => u.kthid),
-    },
-    {
-      name: 'edu.courses.SF.1624.20222.11111',
-      teachers: teachers.map(u => u.kthid),
-      courseCoordinators: courseCoordinators.map(u => u.kthid),
-    },
-  ]
+  test('returns undefined for invalid length', () => {
+    expect(getCourseGroupName('SF16')).toBeUndefined()
+    expect(getCourseGroupName('')).toBeUndefined()
+  })
+})
 
+describe('fetchCourseAndRoundGroups', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-
-    ugRestApiHelper.getUGGroups.mockResolvedValue(mockGroups)
-
-    ugRestApiHelper.getUGUsers.mockImplementation((_key, _op, kthid) => {
-      const all = [...examiners, ...teachers, ...courseCoordinators]
-      return Promise.resolve([all.find(u => u.kthid === kthid)])
-    })
   })
 
-  test('should return expected HTML for examiners, teachers, and course coordinators', async () => {
-    const result = await getCourseEmployees({
-      courseCode: 'SF1624',
-      semester: '20222',
-      applicationCodes: ['11111'],
-    })
+  test('initializes connection and fetches groups with correct parameters', async () => {
+    const courseCode = 'SF1624'
+    const semester = '20222'
+    const applicationCodes = ['11111', '22222']
 
-    // Basic structural assertions
-    expect(result.examiners).toContain('<p class="person">')
-    expect(result.teachers).toContain('<p class="person">')
-    expect(result.courseCoordinators).toContain('<p class="person">')
+    // Mock getUGGroups to return dummy groups
+    const dummyGroups = [{ name: 'group1' }, { name: 'group2' }]
+    ugRestApiHelper.getUGGroups.mockResolvedValue(dummyGroups)
 
-    // Spot-check known names in the HTML output
-    examiners.forEach(user => {
-      expect(result.examiners).toContain(user.username)
-      expect(result.examiners).toContain(user.givenName)
-    })
+    const result = await fetchCourseAndRoundGroups(courseCode, semester, applicationCodes)
 
-    teachers.forEach(user => {
-      expect(result.teachers).toContain(user.username)
-    })
+    expect(ugRestApiHelper.initConnectionProperties).toHaveBeenCalledTimes(1)
 
-    courseCoordinators.forEach(user => {
-      expect(result.courseCoordinators).toContain(user.username)
-    })
+    const expectedCourseGroupName = 'ladok2.kurser.SF.1624'
+    const expectedGroupNames = [
+      expectedCourseGroupName,
+      `${expectedCourseGroupName}.${semester}.11111`,
+      `${expectedCourseGroupName}.${semester}.22222`,
+    ]
+
+    expect(ugRestApiHelper.getUGGroups).toHaveBeenCalledWith('name', 'in', expectedGroupNames, false)
+
+    expect(result).toBe(dummyGroups)
+  })
+})
+
+describe('fetchUsersInGroupsCategorizedByRole', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 
-  test('should return undefined for missing roles', async () => {
-    const modifiedGroups = mockGroups.map(group => ({
-      ...group,
-      teachers: [],
-      courseCoordinators: [],
-    }))
-    ugRestApiHelper.getUGGroups.mockResolvedValue(modifiedGroups)
+  test('fetches users for all roles and removes duplicates', async () => {
+    // Prepare groups with KTH ids
+    const groups = [
+      {
+        examiners: ['id1', 'id2'],
+        teachers: ['id3'],
+        courseCoordinators: ['id4', 'id2'], // note 'id2' duplicate in examiners/courseCoordinators
+      },
+    ]
 
-    const result = await getCourseEmployees({
-      courseCode: 'SF1624',
-      semester: '20222',
-      applicationCodes: ['11111'],
-    })
+    // Map from KTH id to fake user
+    const usersMap = {
+      id1: { kthid: 'id1', username: 'user1' },
+      id2: { kthid: 'id2', username: 'user2' },
+      id3: { kthid: 'id3', username: 'user3' },
+      id4: { kthid: 'id4', username: 'user4' },
+    }
 
-    expect(result.teachers).toBeUndefined()
-    expect(result.courseCoordinators).toBeUndefined()
-    expect(result.examiners).toContain('<p class="person">')
+    ugRestApiHelper.getUGUsers.mockImplementation((_key, _op, kthid) => Promise.resolve([usersMap[kthid]]))
+
+    const result = await fetchUsersInGroupsCategorizedByRole(groups)
+
+    expect(ugRestApiHelper.initConnectionProperties).toHaveBeenCalled()
+
+    // Duplicates removed - id2 only once per role list
+    expect(result.examiners).toHaveLength(2)
+    expect(result.teachers).toHaveLength(1)
+    expect(result.courseCoordinators).toHaveLength(2)
+
+    // Check correct users fetched
+    expect(result.examiners).toEqual(expect.arrayContaining([usersMap.id1, usersMap.id2]))
+    expect(result.teachers).toEqual(expect.arrayContaining([usersMap.id3]))
+    expect(result.courseCoordinators).toEqual(expect.arrayContaining([usersMap.id4, usersMap.id2]))
   })
 
-  test('should handle UG API error and log it', async () => {
-    const error = new Error('UG API failure')
-    ugRestApiHelper.getUGGroups.mockRejectedValue(error)
+  test('handles groups with missing role arrays gracefully', async () => {
+    const groups = [{ examiners: ['id1'] }, { teachers: ['id2'] }, { courseCoordinators: null }]
 
-    const result = await getCourseEmployees({
-      courseCode: 'SF1624',
-      semester: '20222',
-      applicationCodes: ['11111'],
-    })
+    ugRestApiHelper.getUGUsers.mockImplementation((_key, _op, kthid) =>
+      Promise.resolve([{ kthid, username: `user-${kthid}` }])
+    )
 
-    expect(log.info).toHaveBeenCalledWith('Exception from UG Rest API - multi', { error })
-    expect(result).toBe(error)
+    const result = await fetchUsersInGroupsCategorizedByRole(groups)
+
+    expect(result.examiners).toHaveLength(1)
+    expect(result.teachers).toHaveLength(1)
+    expect(result.courseCoordinators).toHaveLength(0)
+  })
+})
+
+describe('fetchGroupsForUserCategorizedByRole', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
   })
 
-  test('should return empty object when no groups found', async () => {
-    ugRestApiHelper.getUGGroups.mockResolvedValue([])
+  test('fetches groups for all roles for a user', async () => {
+    const userKthId = 'user1'
 
-    const result = await getCourseEmployees({
-      courseCode: 'SF1624',
-      semester: '20222',
-      applicationCodes: ['11111'],
-    })
+    const groupsByRole = {
+      examiners: [{ name: 'examiners-group' }],
+      teachers: [{ name: 'teachers-group' }],
+      courseCoordinators: [{ name: 'coordinators-group' }],
+    }
 
-    expect(result).toEqual({})
+    ugRestApiHelper.getUGGroups.mockImplementation(role => Promise.resolve(groupsByRole[role]))
+
+    const result = await fetchGroupsForUserCategorizedByRole(userKthId)
+
+    expect(ugRestApiHelper.initConnectionProperties).toHaveBeenCalled()
+
+    expect(result.examiners).toEqual(groupsByRole.examiners)
+    expect(result.teachers).toEqual(groupsByRole.teachers)
+    expect(result.courseCoordinators).toEqual(groupsByRole.courseCoordinators)
+
+    // Check getUGGroups called with correct args
+    expect(ugRestApiHelper.getUGGroups).toHaveBeenCalledTimes(3)
+    expect(ugRestApiHelper.getUGGroups).toHaveBeenCalledWith('examiners', 'contains', userKthId)
+    expect(ugRestApiHelper.getUGGroups).toHaveBeenCalledWith('teachers', 'contains', userKthId)
+    expect(ugRestApiHelper.getUGGroups).toHaveBeenCalledWith('courseCoordinators', 'contains', userKthId)
   })
 })

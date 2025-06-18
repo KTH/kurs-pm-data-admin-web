@@ -1,7 +1,7 @@
 const memoCtrl = require('../../server/controllers/memoCtrl')
 
 jest.mock('../../server/api', () => ({}))
-jest.mock('../../server/kursinfoApi.js', () => ({
+jest.mock('../../server/kursinfoApi', () => ({
   getCourseInfo: jest.fn(),
 }))
 jest.mock('../../server/koppsApi', () => ({
@@ -15,7 +15,7 @@ jest.mock('../../server/kursPmDataApi', () => ({
   getMemoApiData: jest.fn(),
   changeMemoApiData: jest.fn(),
 }))
-jest.mock('../../server/ugRestApi', () => ({
+jest.mock('../../server/controllers/ugRestCtrl', () => ({
   getCourseEmployees: jest.fn(),
 }))
 jest.mock('../../server/utils/serverSideRendering', () => ({
@@ -41,7 +41,7 @@ const { getMemoApiData, changeMemoApiData } = require('../../server/kursPmDataAp
 const { getCourseInfo } = require('../../server/kursinfoApi')
 const { getLadokCourseData, getLadokCourseSyllabus } = require('../../server/ladokApi')
 const { getLadokRoundIdsFromKopps } = require('../../server/koppsApi')
-const { getCourseEmployees } = require('../../server/ugRestApi')
+const { getCourseEmployees } = require('../../server/controllers/ugRestCtrl')
 const { getServerSideFunctions } = require('../../server/utils/serverSideRendering')
 
 // Mocks
@@ -143,6 +143,7 @@ describe('renderMemoEditorPage', () => {
         setBrowserConfig: jest.fn(),
         rebuildDraftFromPublishedVer: false,
         setSectionsStructure: jest.fn(),
+        memoData: {},
       }),
       getCompressedStoreCode: () => 'compressed-code',
       renderStaticPage: () => '<div>Rendered Page</div>',
