@@ -5,7 +5,7 @@ const log = require('@kth/log')
 
 const i18n = require('../i18n')
 const ladokCourseData = require('./ladokApi')
-const ugData = require('./ugRestApi')
+const { getEmployeeRoleForCourse } = require('./controllers/ugRestCtrl')
 
 const schools = () => ['abe', 'eecs', 'itm', 'cbh', 'sci']
 
@@ -48,10 +48,7 @@ module.exports.requireRole = (...roles) =>
     const { user = {} } = req.session.passport
 
     const courseCode = req.params.courseCode.toUpperCase()
-    const { isCourseCoordinator, isCourseTeacher, isExaminer } = await ugData.getEmployeeRoleForCourse(
-      user.kthId,
-      courseCode
-    )
+    const { isCourseCoordinator, isCourseTeacher, isExaminer } = await getEmployeeRoleForCourse(user.kthId, courseCode)
 
     const basicUserCourseRoles = {
       isCourseCoordinator,
