@@ -127,7 +127,7 @@ describe('renderMemoEditorPage', () => {
     getMemoApiData.mockResolvedValue({
       semester: '20241',
       memoCommonLangAbbr: 'en',
-      applicationCodes: ['1'],
+      applicationCodes: ['11111'],
     })
 
     getCourseEmployees.mockResolvedValue(ugAdminEmployeesDataMock)

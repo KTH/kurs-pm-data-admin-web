@@ -12,7 +12,7 @@ const TEST_MEMO_DATA_1_ROUND = {
   memoName: 'CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska)',
   languageOfInstructions: '',
   departmentName: '',
-  applicationCodes: ['1'],
+  applicationCodes: ['11111'],
   semester: '20202',
 }
 
@@ -20,7 +20,7 @@ const TEST_MEMO_DATA_2_ROUNDS = {
   memoName: 'CDEPR1 m.fl. (Startdatum 2020-08-24, Svenska), CMEDT1 (Startdatum 2020-10-26, Svenska)',
   languageOfInstructions: 'Svenska',
   departmentName: 'SCI/Matematik',
-  applicationCodes: ['1', '2'],
+  applicationCodes: ['11111', '22222'],
   semester: '20202',
 }
 
@@ -48,16 +48,16 @@ describe('Component <CourseFacts>', () => {
 
   test('renders course memo name as one round ', done => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_1_ROUND} />)
-    const round_1 = screen.getByText('CDEPR1 HT 2020-1')
+    const round_1 = screen.getByText('CDEPR1 HT 2020-11111')
     expect(round_1).toBeInTheDocument()
     done()
   })
 
   test('renders course memo name as two rounds', done => {
     render(<CourseFacts labels={courseFactsLabels} memoData={TEST_MEMO_DATA_2_ROUNDS} />)
-    const round_1 = screen.getByText('CDEPR1 HT 2020-1')
+    const round_1 = screen.getByText('CDEPR1 HT 2020-11111')
     expect(round_1).toBeInTheDocument()
-    const round_2 = screen.getByText('CMEDT1 HT 2020-2')
+    const round_2 = screen.getByText('CMEDT1 HT 2020-22222')
     expect(round_2).toBeInTheDocument()
     done()
   })
