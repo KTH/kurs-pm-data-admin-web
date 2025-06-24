@@ -156,9 +156,11 @@ async function renderMemoPreviewPage(req, res, next) {
     // STORE MANIPULATIONS
     const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
     const applicationStore = createStore()
-
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(userLang)
+    const { user } = req.session.passport
+    applicationStore.setUserInfo(user)
+
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
     const { semester, memoCommonLangAbbr } = apiMemoData
     const memoLangAbbr = memoCommonLangAbbr || userLang
@@ -167,7 +169,7 @@ async function renderMemoPreviewPage(req, res, next) {
       type: 'published',
     })
     applicationStore.memoDatas = allApiMemoData
-    const ladokCourseRounds = await getCourseRoundsData(courseCode, memoLangAbbr)
+    const ladokCourseRounds = await getCourseRoundsData(courseCode, memoLangAbbr, user)
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
 
     const miniLadokObj = formatLadokData(ladokCourseRounds, ladokCourseData)
