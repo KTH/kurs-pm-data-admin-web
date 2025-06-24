@@ -58,22 +58,22 @@ module.exports.requireRole = (...requiredRoles) =>
       teachers: groupNamesByRole.teachers,
     }
 
-    let semester, applicationCode
+    let semester, applicationCodes
 
-    // If memoEndPoint is provided, extract semester and applicationCode from it
+    // If memoEndPoint is provided, extract semester and applicationCodes from it
     if (memoEndPoint) {
       const parsed = parseMemoEndPointString(memoEndPoint)
       if (parsed) {
-        ;({ semester, applicationCode } = parsed)
+        ;({ semester, applicationCodes } = parsed)
       }
     }
 
-    // Determine the user's role in the course (and possibly in a specific course instance)
+    // Determine the user's role in the course (and possibly in a specific course instances)
     const { isCourseCoordinator, isCourseTeacher, isExaminer } = await getEmployeeRoleForCourse(
       user.kthId,
       courseCode,
       semester,
-      applicationCode
+      applicationCodes
     )
 
     // Build a full list of role flags for the user

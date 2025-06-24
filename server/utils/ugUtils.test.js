@@ -61,9 +61,10 @@ describe('ugUtils', () => {
     const courseCode = 'ABC1234'
     const semester = '20222'
     const applicationCode = '11111'
+    const extraApplicationCode = '22222'
 
     test('returns true if user has any admin role', () => {
-      const roles = ['isExaminator', 'isKursinfoAdmin', 'isSchoolAdmin', 'isSuperUser']
+      const roles = ['isExaminer', 'isKursinfoAdmin', 'isSchoolAdmin', 'isSuperUser']
 
       roles.forEach(role => {
         const user = {
@@ -105,8 +106,36 @@ describe('ugUtils', () => {
 
     test('returns false if missing courseRoundGroupName', () => {
       const user = { ...baseUser, groups: { courseCoordinator: ['group'], teachers: ['group'] } }
-      // Missing semester/applicationCode means courseRoundGroupName is undefined
       expect(resolveUserAccessRights(user, courseCode, null, null)).toBe(false)
+    })
+
+    test('returns true if user is courseCoordinator for one of multiple application codes', () => {
+      const groupName = `ladok2.kurser.ABC.1234.${semester}.${extraApplicationCode}`
+      const user = {
+        ...baseUser,
+        groups: { courseCoordinator: [groupName], teachers: [] },
+      }
+      const applicationCodes = [applicationCode, extraApplicationCode]
+      expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(true)
+    })
+
+    test('returns true if user is teacher for one of multiple application codes', () => {
+      const groupName = `ladok2.kurser.ABC.1234.${semester}.${extraApplicationCode}`
+      const user = {
+        ...baseUser,
+        groups: { courseCoordinator: [], teachers: [groupName] },
+      }
+      const applicationCodes = [applicationCode, extraApplicationCode]
+      expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(true)
+    })
+
+    test('returns false if user has no matching group in multiple application codes', () => {
+      const user = {
+        ...baseUser,
+        groups: { courseCoordinator: ['non.matching.group'], teachers: [] },
+      }
+      const applicationCodes = ['00000', '99999']
+      expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(false)
     })
   })
 

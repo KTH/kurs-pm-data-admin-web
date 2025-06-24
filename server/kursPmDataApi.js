@@ -29,8 +29,8 @@ async function getMemoApiData(apiFnName, uriParam, user) {
         return { ...draft, canBeAccessedByUser: false }
       }
 
-      const { courseCode, semester, applicationCode } = parsed
-      const canBeAccessedByUser = resolveUserAccessRights(user, courseCode, semester, applicationCode)
+      const { courseCode, semester, applicationCodes } = parsed
+      const canBeAccessedByUser = resolveUserAccessRights(user, courseCode, semester, applicationCodes)
 
       return { ...draft, canBeAccessedByUser }
     })

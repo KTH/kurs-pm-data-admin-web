@@ -35,24 +35,30 @@ async function getCourseEmployees({ courseCode, semester, applicationCodes }) {
 
 /**
  * Checks which roles (examiner, teacher, or course coordinator) a specific user has
- * for a given course (and optionally course round).
+ * for a given course and optional course rounds (defined by semester and application codes).
  *
  * @param {string} userKthId - The KTH ID of the user.
  * @param {string} courseCode - The course code (e.g., 'SF1624').
- * @param {string} semester - The semester (e.g., '20241').
- * @param {string} [applicationCode] - Optional application code for the course round.
+ * @param {string | undefined} semester - Optional semester (e.g., '20241').
+ * @param {string[] | undefined} applicationCodes - Optional array of application codes for the course round(s).
  * @returns {Promise<Object>} An object with boolean flags for each role.
  */
-async function getEmployeeRoleForCourse(userKthId, courseCode, semester, applicationCode) {
+async function getEmployeeRoleForCourse(userKthId, courseCode, semester, applicationCodes) {
   const groupNamesByRole = await fetchGroupNamesForUserCategorizedByRole(userKthId)
   const courseGroupName = getCourseGroupName(courseCode)
-  const courseRoundGroupName =
-    semester && applicationCode ? getCourseRoundGroupName(courseCode, semester, applicationCode) : courseGroupName
+
+  // Build all round group names if both semester and application codes are present
+  const courseRoundGroupNames =
+    semester && Array.isArray(applicationCodes)
+      ? applicationCodes.map(appCode => getCourseRoundGroupName(courseCode, semester, appCode)).filter(Boolean)
+      : [courseGroupName]
 
   return {
     isExaminer: groupNamesByRole.examiners.some(name => name.includes(courseGroupName)),
-    isCourseTeacher: groupNamesByRole.teachers.some(name => name.includes(courseRoundGroupName)),
-    isCourseCoordinator: groupNamesByRole.courseCoordinators.some(name => name.includes(courseRoundGroupName)),
+    isCourseTeacher: courseRoundGroupNames.some(group => groupNamesByRole.teachers.some(name => name.includes(group))),
+    isCourseCoordinator: courseRoundGroupNames.some(group =>
+      groupNamesByRole.courseCoordinators.some(name => name.includes(group))
+    ),
   }
 }
 

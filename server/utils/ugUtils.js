@@ -31,25 +31,30 @@ function getCourseRoundGroupName(courseCode, semester, applicationCode) {
 
 /**
  * Determines whether a user has access rights for a specific course round.
- * This checks for admin or examiner roles, or if the user is listed in the course round groups.
+ * This checks for admin or examiner roles, or if the user is listed in any of the course round groups.
  *
  * @param {Object} user - The user object containing roles and groups.
  * @param {string} courseCode - The course code.
  * @param {string} semester - The semester code.
- * @param {string} applicationCode - The application code.
+ * @param {string|string[]} applicationCode - One or more application codes.
  * @returns {boolean} True if the user has access, otherwise false.
  */
 function resolveUserAccessRights(user, courseCode, semester, applicationCode) {
   const { roles, groups } = user
-  const { isExaminator, isKursinfoAdmin, isSchoolAdmin, isSuperUser } = roles
-  if (isExaminator || isKursinfoAdmin || isSchoolAdmin || isSuperUser) return true
+  const { isExaminer, isKursinfoAdmin, isSchoolAdmin, isSuperUser } = roles
 
-  const courseRoundGroupName = getCourseRoundGroupName(courseCode, semester, applicationCode)
+  // Grant access to high-level roles immediately
+  if (isExaminer || isKursinfoAdmin || isSchoolAdmin || isSuperUser) return true
 
-  return (
-    groups.courseCoordinator?.some(x => x.includes(courseRoundGroupName)) ||
-    groups.teachers?.some(x => x.includes(courseRoundGroupName))
-  )
+  const applicationCodeArray = Array.isArray(applicationCode) ? applicationCode : [applicationCode]
+
+  // Check if user belongs to any relevant course round group
+  return applicationCodeArray.some(appCode => {
+    const groupName = getCourseRoundGroupName(courseCode, semester, appCode)
+    return (
+      groups.courseCoordinator?.some(x => x.includes(groupName)) || groups.teachers?.some(x => x.includes(groupName))
+    )
+  })
 }
 
 /**

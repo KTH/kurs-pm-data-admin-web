@@ -1,21 +1,25 @@
 /**
- * Parses a memo endpoint string into its course code, semester, and application code components.
+ * Parses a memo endpoint string into its course code, semester, and one or more application codes.
  *
- * Example input: "SF162400202-11111"
- * Output: { courseCode: 'SF1624', semester: '00202', applicationCode: '11111' }
+ * Example inputs:
+ *   "SF162420252-10276" → { courseCode: 'SF1624', semester: '20252', applicationCodes: ['10276'] }
+ *   "SF162420252-10276-50299" → { courseCode: 'SF1624', semester: '20252', applicationCodes: ['10276', '50299'] }
+ *   "SFK162420252-10276-50299-77777" → { courseCode: 'SFK1624', semester: '20252', applicationCodes: ['10276', '50299', '77777'] }
  *
- * @param {string} memoEndPoint - A memo endpoint string, typically formatted as "<courseCode><semester>-<applicationCode>"
- * @returns {{ courseCode: string, semester: string, applicationCode: string } | undefined}
+ * @param {string} memoEndPoint - A memo endpoint string formatted as "<courseCode><semester>-<applicationCode>[-<applicationCode>...]"
+ * @returns {{ courseCode: string, semester: string, applicationCodes: string[] } | undefined}
  *          An object with parsed values, or undefined if the format is invalid.
  */
 function parseMemoEndPointString(memoEndPoint) {
-  const regex = /^([A-Z]{2,3}\d{4})(\d{5})-([^-\s]+)/ // Matches first application code, if many
+  const regex = /^([A-Z]{2,4}\d{4})(\d{5})-((?:\d{5}-?)+)$/
   const match = memoEndPoint.match(regex)
 
   if (!match) return undefined
 
-  const [, courseCode, semester, applicationCode] = match
-  return { courseCode, semester, applicationCode }
+  const [, courseCode, semester, appCodeStr] = match
+  const applicationCodes = appCodeStr.split('-')
+
+  return { courseCode, semester, applicationCodes }
 }
 
 module.exports = {
