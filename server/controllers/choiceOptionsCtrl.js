@@ -55,8 +55,10 @@ async function getCourseOptionsPage(req, res, next) {
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
+    const { user } = req.session.passport
+    applicationStore.setUserInfo(user)
 
-    const ladokCourseRounds = await getCourseRoundsData(courseCode, lang)
+    const ladokCourseRounds = await getCourseRoundsData(courseCode, lang, user)
     const ladokCourseData = await getLadokCourseData(courseCode, lang)
 
     const ladokCourseRoundTerms = formatLadokData(ladokCourseRounds, ladokCourseData)
@@ -64,7 +66,7 @@ async function getCourseOptionsPage(req, res, next) {
     applicationStore.miniLadokObj = ladokCourseRoundTerms
     const memoParams = getMemosParams(courseCode, applicationStore.miniLadokObj)
 
-    applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', memoParams)
+    applicationStore.miniMemos = await getMemoApiData('getMemosStartingFromPrevYearSemester', memoParams, user)
 
     applicationStore.setMemoBasicInfo({
       courseCode,

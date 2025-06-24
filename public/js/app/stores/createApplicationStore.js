@@ -26,7 +26,7 @@ function createApplicationStore() {
     dirtyEditor: observable.box(''),
     semester: null,
     sections: observable.box([]), // will change it it's UPP - contract education
-    tempSavedCourseInstances: ['1'],
+    tempSavedCourseInstances: ['11111'],
     /**
      * @property {object} koppsFreshData
      */
@@ -105,10 +105,18 @@ function createApplicationStore() {
     updateDraft: action(updateDraft),
     setBrowserConfig: action(setBrowserConfig),
     doSetLanguageIndex: action(doSetLanguageIndex),
+    setUserInfo: action(setUserInfo),
     updateContractEducationSections: action(updateContractEducationSections),
   }
 
   return store
+}
+
+function setUserInfo(user) {
+  this.user = {
+    roles: user.roles,
+    groups: user.groups,
+  }
 }
 
 function setCourseTitle(courseTitle) {

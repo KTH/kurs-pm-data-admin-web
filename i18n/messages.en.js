@@ -31,6 +31,7 @@ module.exports = {
     message_have_not_rights_link_text: 'to apply for administrator access to the About course administration tool',
     message_have_not_rights_link_after_text:
       "The application must be made by the school's Educational Administration Manager.",
+    not_authorized_publish_new: 'You are not course coordinator/teacher for this instance and cannot select it.',
 
     /**
      * Message keys

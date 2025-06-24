@@ -87,7 +87,7 @@ function CreateNewMemo(props) {
     text: seasonStr(langIndex, term),
   }))
 
-  const { alerts, info, pagesCreateNewPm, pageTitles, buttons } = i18n.messages[langIndex]
+  const { alerts, info, pagesCreateNewPm, pageTitles, buttons, messages } = i18n.messages[langIndex]
 
   useEffect(() => {
     const urlParams = fetchParameters(window)
@@ -294,7 +294,7 @@ function CreateNewMemo(props) {
                 className={`Existed--Memos ${alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''}`}
                 id="choose-existed-memo"
               >
-                {existingDrafts.map(({ memoName, memoEndPoint }) => (
+                {existingDrafts.map(({ memoName, memoEndPoint, canBeAccessedByUser }) => (
                   <FormGroup className="form-check" key={'draftType' + (memoEndPoint || Math.random())}>
                     <Input
                       type="radio"
@@ -302,11 +302,22 @@ function CreateNewMemo(props) {
                       id={memoEndPoint}
                       name="chooseDraft"
                       value={memoEndPoint}
-                      onClick={onChoiceOfExistingDraft}
+                      onChange={onChoiceOfExistingDraft}
                       defaultChecked={action === 'continue' && memoEndPoint === chosen.existingDraftEndPoint}
+                      disabled={!canBeAccessedByUser}
                     />
-                    <Label htmlFor={memoEndPoint} data-testid="label-saved-draft-radio">
+                    <Label
+                      htmlFor={memoEndPoint}
+                      data-testid="label-saved-draft-radio"
+                      className={`${!canBeAccessedByUser ? 'text-muted fst-italic fw-light' : ''}`}
+                    >
                       {memoName || memoEndPoint + ' (old memo before namegiving)'}
+                      {!canBeAccessedByUser && (
+                        <>
+                          {' '}
+                          <small aria-hidden="true">{messages.not_authorized_publish_new}</small>
+                        </>
+                      )}
                     </Label>
                   </FormGroup>
                 ))}
@@ -351,31 +362,43 @@ function CreateNewMemo(props) {
                   <Label htmlFor="choose-from-rounds-list">{info.chooseRound.availableRounds.label}</Label>
                   <p>{info.chooseRound.availableRounds.infoText}</p>
                   <Form className={alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''}>
-                    {chosenSemesterAvailableRounds.map(round => (
-                      <FormGroup
-                        data-testid="form-choose-new"
-                        className="form-check"
-                        id="choose-from-rounds-list"
-                        key={'new' + round.applicationCode}
-                      >
-                        <Input
-                          type="checkbox"
-                          data-testid="checkbox-choose-available-round"
-                          id={'new' + round.applicationCode}
-                          name="chooseNew"
-                          value={round.applicationCode}
-                          onClick={event => onChoiceOfAvailableRounds(event, round)}
-                          defaultChecked={false}
-                        />
-                        <Label
-                          htmlFor={'new' + round.applicationCode}
-                          data-testid="label-checkbox-choose-available-round"
+                    {chosenSemesterAvailableRounds.map(round => {
+                      const { applicationCode, canBeAccessedByUser } = round
+                      const inputId = `new${applicationCode}`
+
+                      return (
+                        <FormGroup
+                          data-testid="form-choose-new"
+                          className="form-check"
+                          id="choose-from-rounds-list"
+                          key={inputId}
                         >
-                          {/* Namegiving according to user interface language */}
-                          {combineMemoName(round, semester, langAbbr)}
-                        </Label>
-                      </FormGroup>
-                    ))}
+                          <Input
+                            type="checkbox"
+                            data-testid="checkbox-choose-available-round"
+                            id={inputId}
+                            name="chooseNew"
+                            value={applicationCode}
+                            onChange={event => onChoiceOfAvailableRounds(event, round)}
+                            disabled={!canBeAccessedByUser}
+                            defaultChecked={false}
+                          />
+                          <Label
+                            htmlFor={inputId}
+                            data-testid="label-checkbox-choose-available-round"
+                            className={`${!canBeAccessedByUser ? 'text-muted fst-italic fw-light' : ''}`}
+                          >
+                            {combineMemoName(round, semester, langAbbr)}
+                            {!canBeAccessedByUser && (
+                              <>
+                                {' '}
+                                <small aria-hidden="true">{messages.not_authorized_publish_new}</small>
+                              </>
+                            )}
+                          </Label>
+                        </FormGroup>
+                      )
+                    })}
                   </Form>
                 </>
               )) || (
