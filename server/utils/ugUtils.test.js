@@ -54,7 +54,7 @@ describe('ugUtils', () => {
         isSuperUser: false,
       },
       groups: {
-        courseCoordinator: [],
+        courseCoordinators: [],
         teachers: [],
       },
     }
@@ -79,7 +79,7 @@ describe('ugUtils', () => {
       const groupName = `ladok2.kurser.ABC.1234.${semester}.${applicationCode}`
       const user = {
         ...baseUser,
-        groups: { courseCoordinator: [groupName], teachers: [] },
+        groups: { courseCoordinators: [groupName], teachers: [] },
       }
       expect(resolveUserAccessRights(user, courseCode, semester, applicationCode)).toBe(true)
     })
@@ -88,7 +88,7 @@ describe('ugUtils', () => {
       const groupName = `ladok2.kurser.ABC.1234.${semester}.${applicationCode}`
       const user = {
         ...baseUser,
-        groups: { courseCoordinator: [], teachers: [groupName] },
+        groups: { courseCoordinators: [], teachers: [groupName] },
       }
       expect(resolveUserAccessRights(user, courseCode, semester, applicationCode)).toBe(true)
     })
@@ -97,7 +97,7 @@ describe('ugUtils', () => {
       const user = {
         ...baseUser,
         groups: {
-          courseCoordinator: ['some.other.group'],
+          courseCoordinators: ['some.other.group'],
           teachers: ['another.group'],
         },
       }
@@ -113,7 +113,7 @@ describe('ugUtils', () => {
       const groupName = `ladok2.kurser.ABC.1234.${semester}.${extraApplicationCode}`
       const user = {
         ...baseUser,
-        groups: { courseCoordinator: [groupName], teachers: [] },
+        groups: { courseCoordinators: [groupName], teachers: [] },
       }
       const applicationCodes = [applicationCode, extraApplicationCode]
       expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(true)
@@ -123,7 +123,7 @@ describe('ugUtils', () => {
       const groupName = `ladok2.kurser.ABC.1234.${semester}.${extraApplicationCode}`
       const user = {
         ...baseUser,
-        groups: { courseCoordinator: [], teachers: [groupName] },
+        groups: { courseCoordinators: [], teachers: [groupName] },
       }
       const applicationCodes = [applicationCode, extraApplicationCode]
       expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(true)
@@ -132,7 +132,7 @@ describe('ugUtils', () => {
     test('returns false if user has no matching group in multiple application codes', () => {
       const user = {
         ...baseUser,
-        groups: { courseCoordinator: ['non.matching.group'], teachers: [] },
+        groups: { courseCoordinators: ['non.matching.group'], teachers: [] },
       }
       const applicationCodes = ['00000', '99999']
       expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(false)

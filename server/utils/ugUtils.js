@@ -52,7 +52,7 @@ function resolveUserAccessRights(user, courseCode, semester, applicationCode) {
   return applicationCodeArray.some(appCode => {
     const groupName = getCourseRoundGroupName(courseCode, semester, appCode)
     return (
-      groups.courseCoordinator?.some(x => x.includes(groupName)) || groups.teachers?.some(x => x.includes(groupName))
+      groups.courseCoordinators?.some(x => x.includes(groupName)) || groups.teachers?.some(x => x.includes(groupName))
     )
   })
 }
