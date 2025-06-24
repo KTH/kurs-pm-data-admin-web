@@ -1,53 +1,26 @@
+// Be aware that this entire file, or most of it, is replicated in multiple apps,
+// so changes here should probably be synced to the other apps.
+// See https://confluence.sys.kth.se/confluence/x/6wYJDQ for more information.
+
 const log = require('@kth/log')
+
 const {
   fetchCourseAndRoundGroups,
   fetchUsersInGroupsCategorizedByRole,
-  fetchGroupsForUserCategorizedByRole,
-  getCourseGroupName,
+  fetchGroupNamesForUserCategorizedByRole,
 } = require('../ugRestApi')
 
-/**
- * Converts a list of person objects into HTML snippets with links and profile pictures.
- *
- * @param {Array<Object>} personList - List of person objects with `username`, `givenName`, and `surname`.
- * @returns {string} HTML string representing the persons.
- */
-function createPersonHtml(personList) {
-  return personList
-    .map(
-      person => `
-    <p class="person">
-      <img class="profile-picture" src="https://www.kth.se/files/thumbnail/${person.username}" width="31" height="31">
-      <a href="/profile/${person.username}/">${person.givenName} ${person.surname}</a> 
-    </p>`
-    )
-    .join('')
-}
+const { buildEmployeesHtmlObject, getCourseGroupName, getCourseRoundGroupName } = require('../utils/ugUtils')
 
 /**
- * Builds an object containing HTML strings for course employees categorized by role.
+ * Fetches the examiners, teachers, and course coordinators for a given course
+ * and returns them formatted as an object suitable for rendering in HTML.
  *
- * @param {Array<Object>} examiners - List of examiner users.
- * @param {Array<Object>} teachers - List of teacher users.
- * @param {Array<Object>} courseCoordinators - List of course coordinator users.
- * @returns {Object} Object with optional HTML fields: `examiners`, `teachers`, `courseCoordinators`.
- */
-function buildEmployeesHtmlObject(examiners, teachers, courseCoordinators) {
-  return {
-    ...(examiners?.length && { examiners: createPersonHtml(examiners) }),
-    ...(teachers?.length && { teachers: createPersonHtml(teachers) }),
-    ...(courseCoordinators?.length && { courseCoordinators: createPersonHtml(courseCoordinators) }),
-  }
-}
-
-/**
- * Fetches course-related groups and returns users categorized by role in HTML format.
- *
- * @param {Object} params - Input parameters.
- * @param {string} params.courseCode - Course code.
- * @param {string} params.semester - Semester code (e.g., "20241").
- * @param {Array<string>} params.applicationCodes - Application codes for course rounds.
- * @returns {Promise<Object>} Object with HTML strings for `examiners`, `teachers`, and `courseCoordinators`.
+ * @param {Object} params
+ * @param {string} params.courseCode - The course code (e.g., 'SF1624').
+ * @param {string} params.semester - The semester (e.g., '20241').
+ * @param {string[]} params.applicationCodes - List of application codes for course rounds.
+ * @returns {Promise<Object>} Object containing categorized user data ready for HTML rendering.
  */
 async function getCourseEmployees({ courseCode, semester, applicationCodes }) {
   try {
@@ -61,20 +34,25 @@ async function getCourseEmployees({ courseCode, semester, applicationCodes }) {
 }
 
 /**
- * Determines if a user is an examiner, teacher, or coordinator for a specific course.
+ * Checks which roles (examiner, teacher, or course coordinator) a specific user has
+ * for a given course (and optionally course round).
  *
- * @param {string} userKthId - KTH ID of the user.
- * @param {string} courseCode - Course code to check against.
- * @returns {Promise<Object>} Object with boolean values: `isExaminer`, `isCourseTeacher`, `isCourseCoordinator`.
+ * @param {string} userKthId - The KTH ID of the user.
+ * @param {string} courseCode - The course code (e.g., 'SF1624').
+ * @param {string} semester - The semester (e.g., '20241').
+ * @param {string} [applicationCode] - Optional application code for the course round.
+ * @returns {Promise<Object>} An object with boolean flags for each role.
  */
-async function getEmployeeRoleForCourse(userKthId, courseCode) {
-  const groupsByRole = await fetchGroupsForUserCategorizedByRole(userKthId)
+async function getEmployeeRoleForCourse(userKthId, courseCode, semester, applicationCode) {
+  const groupNamesByRole = await fetchGroupNamesForUserCategorizedByRole(userKthId)
   const courseGroupName = getCourseGroupName(courseCode)
+  const courseRoundGroupName =
+    semester && applicationCode ? getCourseRoundGroupName(courseCode, semester, applicationCode) : courseGroupName
 
   return {
-    isExaminer: groupsByRole.examiners.some(g => g.name.includes(courseGroupName)),
-    isCourseTeacher: groupsByRole.teachers.some(g => g.name.includes(courseGroupName)),
-    isCourseCoordinator: groupsByRole.courseCoordinators.some(g => g.name.includes(courseGroupName)),
+    isExaminer: groupNamesByRole.examiners.some(name => name.includes(courseGroupName)),
+    isCourseTeacher: groupNamesByRole.teachers.some(name => name.includes(courseRoundGroupName)),
+    isCourseCoordinator: groupNamesByRole.courseCoordinators.some(name => name.includes(courseRoundGroupName)),
   }
 }
 

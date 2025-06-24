@@ -3,6 +3,8 @@
 const log = require('@kth/log')
 const api = require('./api')
 const { HttpError } = require('./utils/errorUtils')
+const { resolveUserAccessRights } = require('./utils/ugUtils')
+const { parseMemoEndPointString } = require('./utils/memoUtils')
 
 const clientActions = {
   copyFromAPublishedMemo: 'postAsync',
@@ -11,13 +13,29 @@ const clientActions = {
   deleteDraftByMemoEndPoint: 'delAsync',
   updateCreatedDraft: 'putAsync',
 }
+
 // Gets a list of used round ids for a semester in a course
-async function getMemoApiData(apiFnName, uriParam) {
+async function getMemoApiData(apiFnName, uriParam, user) {
   try {
     const { client, paths } = api.kursPmDataApi
     const uri = client.resolve(paths[apiFnName].uri, uriParam)
     const res = await client.getAsync({ uri, useCache: false })
-    return res.body
+    const memos = res.body
+
+    // Check if drafts can be accessed by user
+    memos.draftsWithNoActivePublishedVer = memos.draftsWithNoActivePublishedVer?.map(draft => {
+      const parsed = parseMemoEndPointString(draft.memoEndPoint)
+      if (!parsed) {
+        return { ...draft, canBeAccessedByUser: false }
+      }
+
+      const { courseCode, semester, applicationCode } = parsed
+      const canBeAccessedByUser = resolveUserAccessRights(user, courseCode, semester, applicationCode)
+
+      return { ...draft, canBeAccessedByUser }
+    })
+
+    return memos
   } catch (error) {
     log.debug('getMemoApi path ', { apiFnName }, ' is not available', { error })
     return error

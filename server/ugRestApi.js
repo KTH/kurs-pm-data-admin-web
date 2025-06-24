@@ -3,6 +3,7 @@
 // See https://confluence.sys.kth.se/confluence/x/6wYJDQ for more information.
 
 const { ugRestApiHelper } = require('@kth/ug-rest-api-helper')
+const { getCourseGroupName } = require('./utils/ugUtils')
 const { server: serverConfig } = require('./configuration')
 
 /**
@@ -23,19 +24,7 @@ function initializeUGConnection() {
 }
 
 /**
- * Converts a course code to its corresponding UG course group name.
- *
- * @param {string} courseCode - The Ladok course code (6 or 7 characters).
- * @returns {string|undefined} UG course group name or undefined if format is invalid.
- */
-function getCourseGroupName(courseCode) {
-  if (courseCode.length === 7) return `ladok2.kurser.${courseCode.slice(0, 3)}.${courseCode.slice(3)}`
-  if (courseCode.length === 6) return `ladok2.kurser.${courseCode.slice(0, 2)}.${courseCode.slice(2)}`
-  return undefined
-}
-
-/**
- * Fetches UG course group and round group objects for a given course.
+ * Fetches UG course group and round groups for a given course.
  *
  * @param {string} courseCode - The Ladok course code.
  * @param {string} semester - The semester code (e.g., '20241').
@@ -46,10 +35,9 @@ async function fetchCourseAndRoundGroups(courseCode, semester, applicationCodes)
   initializeUGConnection()
 
   const courseGroupName = getCourseGroupName(courseCode)
-  const courseGroupNames = [courseGroupName]
   const courseRoundGroupNames = applicationCodes.map(code => `${courseGroupName}.${semester}.${code}`)
 
-  return await ugRestApiHelper.getUGGroups('name', 'in', [...courseGroupNames, ...courseRoundGroupNames], false)
+  return await ugRestApiHelper.getUGGroups('name', 'in', [courseGroupName, ...courseRoundGroupNames], false)
 }
 
 /**
@@ -98,30 +86,29 @@ async function fetchUsersInGroupsCategorizedByRole(groups) {
 }
 
 /**
- * Fetches all UG groups in which a given user appears as a role attribute,
+ * Fetches all UG group names in which a given user appears as a role attribute,
  * categorized by the user's role in those groups (examiner, teacher, or courseCoordinator).
  *
  * @param {string} userKthId - The user's KTH ID.
- * @returns {Promise<Object>} An object mapping roles to arrays of UG group objects.
+ * @returns {Promise<Object>} An object mapping roles to arrays of group names.
  */
-async function fetchGroupsForUserCategorizedByRole(userKthId) {
+async function fetchGroupNamesForUserCategorizedByRole(userKthId) {
   initializeUGConnection()
 
-  const groupsByRole = { examiners: [], teachers: [], courseCoordinators: [] }
+  const groupNamesByRole = { examiners: [], teachers: [], courseCoordinators: [] }
 
   await Promise.all(
-    Object.keys(groupsByRole).map(async role => {
+    Object.keys(groupNamesByRole).map(async role => {
       const groups = await ugRestApiHelper.getUGGroups(role, 'contains', userKthId)
-      groupsByRole[role].push(...groups)
+      groupNamesByRole[role].push(...groups.map(group => group.name))
     })
   )
 
-  return groupsByRole
+  return groupNamesByRole
 }
 
 module.exports = {
   fetchCourseAndRoundGroups,
   fetchUsersInGroupsCategorizedByRole,
-  fetchGroupsForUserCategorizedByRole,
-  getCourseGroupName,
+  fetchGroupNamesForUserCategorizedByRole,
 }
