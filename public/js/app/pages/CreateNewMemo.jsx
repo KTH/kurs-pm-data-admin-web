@@ -294,7 +294,7 @@ function CreateNewMemo(props) {
                 className={`Existed--Memos ${alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''}`}
                 id="choose-existed-memo"
               >
-                {existingDrafts.map(({ memoName, memoEndPoint, canBeAccessedByUser }) => (
+                {existingDrafts.map(({ memoName, memoEndPoint, userAccessDenied }) => (
                   <FormGroup className="form-check" key={'draftType' + (memoEndPoint || Math.random())}>
                     <Input
                       type="radio"
@@ -304,15 +304,15 @@ function CreateNewMemo(props) {
                       value={memoEndPoint}
                       onChange={onChoiceOfExistingDraft}
                       defaultChecked={action === 'continue' && memoEndPoint === chosen.existingDraftEndPoint}
-                      disabled={!canBeAccessedByUser}
+                      disabled={userAccessDenied}
                     />
                     <Label
                       htmlFor={memoEndPoint}
                       data-testid="label-saved-draft-radio"
-                      className={`${!canBeAccessedByUser ? 'text-muted fst-italic fw-light' : ''}`}
+                      className={`${userAccessDenied ? 'text-muted fst-italic fw-light' : ''}`}
                     >
                       {memoName || memoEndPoint + ' (old memo before namegiving)'}
-                      {!canBeAccessedByUser && (
+                      {userAccessDenied && (
                         <>
                           {' '}
                           <small aria-hidden="true">{messages.not_authorized_publish_new}</small>
@@ -363,7 +363,7 @@ function CreateNewMemo(props) {
                   <p>{info.chooseRound.availableRounds.infoText}</p>
                   <Form className={alert.isOpen && alert.textName === 'errNoChosen' ? 'error-area' : ''}>
                     {chosenSemesterAvailableRounds.map(round => {
-                      const { applicationCode, canBeAccessedByUser } = round
+                      const { applicationCode, userAccessDenied } = round
                       const inputId = `new${applicationCode}`
 
                       return (
@@ -380,16 +380,16 @@ function CreateNewMemo(props) {
                             name="chooseNew"
                             value={applicationCode}
                             onChange={event => onChoiceOfAvailableRounds(event, round)}
-                            disabled={!canBeAccessedByUser}
+                            disabled={userAccessDenied}
                             defaultChecked={false}
                           />
                           <Label
                             htmlFor={inputId}
                             data-testid="label-checkbox-choose-available-round"
-                            className={`${!canBeAccessedByUser ? 'text-muted fst-italic fw-light' : ''}`}
+                            className={`${userAccessDenied ? 'text-muted fst-italic fw-light' : ''}`}
                           >
                             {combineMemoName(round, semester, langAbbr)}
-                            {!canBeAccessedByUser && (
+                            {userAccessDenied && (
                               <>
                                 {' '}
                                 <small aria-hidden="true">{messages.not_authorized_publish_new}</small>

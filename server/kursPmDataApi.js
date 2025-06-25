@@ -26,13 +26,13 @@ async function getMemoApiData(apiFnName, uriParam, user) {
     memos.draftsWithNoActivePublishedVer = memos.draftsWithNoActivePublishedVer?.map(draft => {
       const parsed = parseMemoEndPointString(draft.memoEndPoint)
       if (!parsed) {
-        return { ...draft, canBeAccessedByUser: false }
+        return { ...draft, userAccessDenied: true }
       }
 
       const { courseCode, semester, applicationCodes } = parsed
-      const canBeAccessedByUser = resolveUserAccessRights(user, courseCode, semester, applicationCodes)
+      const userAccessDenied = resolveUserAccessRights(user, courseCode, semester, applicationCodes)
 
-      return { ...draft, canBeAccessedByUser }
+      return { ...draft, userAccessDenied }
     })
 
     return memos

@@ -33,7 +33,7 @@ async function getCourseRoundsData(courseCode, lang, user) {
         sv: (lang === 'sv' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
         en: (lang === 'en' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
       },
-      canBeAccessedByUser: resolveUserAccessRights(user, courseCode, round.startperiod?.inDigits, round.tillfalleskod),
+      userAccessDenied: !resolveUserAccessRights(user, courseCode, round.startperiod?.inDigits, round.tillfalleskod),
     }))
     return mappedRounds
   } catch (error) {

@@ -10,7 +10,7 @@ const ladokCourseRounds = [
     cancelled: false,
     language: { sv: 'Svenska', en: 'Swedish' },
     campus: { sv: 'KTH Campus', en: 'KTH Campus' },
-    canBeAccessedByUser: true,
+    userAccessDenied: false,
   },
   {
     shortName: 'CDEPR1 m.fl.',
@@ -23,7 +23,7 @@ const ladokCourseRounds = [
     cancelled: false,
     language: { sv: 'Svenska', en: 'Swedish' },
     campus: { sv: 'KTH Campus', en: 'KTH Campus' },
-    canBeAccessedByUser: true,
+    userAccessDenied: false,
   },
   {
     shortName: 'CMATD1 m.fl.',
@@ -35,7 +35,7 @@ const ladokCourseRounds = [
     cancelled: false,
     language: { sv: 'Svenska', en: 'Swedish' },
     campus: { sv: 'KTH Campus', en: 'KTH Campus' },
-    canBeAccessedByUser: true,
+    userAccessDenied: false,
   },
 ]
 
@@ -89,7 +89,7 @@ const groupedLadokCourseRounds = [
         cancelled: false,
         language: { sv: 'Svenska', en: 'Swedish' },
         campus: { sv: 'KTH Campus', en: 'KTH Campus' },
-        canBeAccessedByUser: true,
+        userAccessDenied: false,
       },
       {
         shortName: 'CDEPR1 m.fl.',
@@ -102,7 +102,7 @@ const groupedLadokCourseRounds = [
         cancelled: false,
         language: { sv: 'Svenska', en: 'Swedish' },
         campus: { sv: 'KTH Campus', en: 'KTH Campus' },
-        canBeAccessedByUser: true,
+        userAccessDenied: false,
       },
     ],
   },
@@ -119,7 +119,7 @@ const groupedLadokCourseRounds = [
         cancelled: false,
         language: { sv: 'Svenska', en: 'Swedish' },
         campus: { sv: 'KTH Campus', en: 'KTH Campus' },
-        canBeAccessedByUser: true,
+        userAccessDenied: false,
       },
     ],
   },

@@ -85,7 +85,7 @@ const mockMiniMemos = {
       semester: '20202',
       status: 'draft',
       version: '1',
-      canBeAccessedByUser: true,
+      userAccessDenied: false,
     },
     {
       applicationCodes: ['33333'],
@@ -96,7 +96,7 @@ const mockMiniMemos = {
       semester: '20211',
       status: 'draft',
       version: '1',
-      canBeAccessedByUser: true,
+      userAccessDenied: false,
     },
     {
       applicationCodes: ['22222'],
@@ -107,7 +107,7 @@ const mockMiniMemos = {
       semester: '20211',
       status: 'draft',
       version: '1',
-      canBeAccessedByUser: true,
+      userAccessDenied: false,
     },
   ],
 }
