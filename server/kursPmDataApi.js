@@ -30,7 +30,7 @@ async function getMemoApiData(apiFnName, uriParam, user) {
       }
 
       const { courseCode, semester, applicationCodes } = parsed
-      const userAccessDenied = resolveUserAccessRights(user, courseCode, semester, applicationCodes)
+      const userAccessDenied = !resolveUserAccessRights(user, courseCode, semester, applicationCodes)
 
       return { ...draft, userAccessDenied }
     })
