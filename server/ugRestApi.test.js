@@ -40,7 +40,7 @@ describe('fetchCourseAndRoundGroups', () => {
     jest.clearAllMocks()
   })
 
-  test('initializes connection and fetches groups with correct parameters', async () => {
+  test('fetches groups with correct parameters', async () => {
     const courseCode = 'SF1624'
     const semester = '20222'
     const applicationCodes = ['11111', '22222']
@@ -52,8 +52,6 @@ describe('fetchCourseAndRoundGroups', () => {
     jest.spyOn(require('./utils/ugUtils'), 'getCourseGroupName').mockReturnValue('ladok2.kurser.SF.1624')
 
     const result = await fetchCourseAndRoundGroups(courseCode, semester, applicationCodes)
-
-    expect(ugRestApiHelper.initConnectionProperties).toHaveBeenCalledTimes(1)
 
     const expectedCourseGroupName = 'ladok2.kurser.SF.1624'
     const expectedGroupNames = [
@@ -92,8 +90,6 @@ describe('fetchUsersInGroupsCategorizedByRole', () => {
     ugRestApiHelper.getUGUsers.mockImplementation((_key, _op, kthid) => Promise.resolve([usersMap[kthid]]))
 
     const result = await fetchUsersInGroupsCategorizedByRole(groups)
-
-    expect(ugRestApiHelper.initConnectionProperties).toHaveBeenCalled()
 
     // Duplicates removed - id2 only once per role list
     expect(result.examiners).toHaveLength(2)
@@ -138,8 +134,6 @@ describe('fetchGroupNamesForUserCategorizedByRole', () => {
     ugRestApiHelper.getUGGroups.mockImplementation(role => Promise.resolve(groupsByRole[role]))
 
     const result = await fetchGroupNamesForUserCategorizedByRole(userKthId)
-
-    expect(ugRestApiHelper.initConnectionProperties).toHaveBeenCalled()
 
     expect(result.examiners).toEqual(['examiners-group'])
     expect(result.teachers).toEqual(['teachers-group'])

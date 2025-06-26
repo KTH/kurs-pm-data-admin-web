@@ -23,6 +23,9 @@ function initializeUGConnection() {
   })
 }
 
+// Initialize once at module load
+initializeUGConnection()
+
 /**
  * Fetches UG course group and round groups for a given course.
  *
@@ -32,8 +35,6 @@ function initializeUGConnection() {
  * @returns {Promise<Object[]>} List of UG group objects.
  */
 async function fetchCourseAndRoundGroups(courseCode, semester, applicationCodes) {
-  initializeUGConnection()
-
   const courseGroupName = getCourseGroupName(courseCode)
   const courseRoundGroupNames = applicationCodes.map(code => `${courseGroupName}.${semester}.${code}`)
 
@@ -66,8 +67,6 @@ function removeDuplicateUsers(roles) {
  * @returns {Promise<Object>} An object mapping roles to arrays of user objects.
  */
 async function fetchUsersInGroupsCategorizedByRole(groups) {
-  initializeUGConnection()
-
   const usersByRole = { examiners: [], teachers: [], courseCoordinators: [] }
 
   for (const group of groups) {
@@ -93,8 +92,6 @@ async function fetchUsersInGroupsCategorizedByRole(groups) {
  * @returns {Promise<Object>} An object mapping roles to arrays of group names.
  */
 async function fetchGroupNamesForUserCategorizedByRole(userKthId) {
-  initializeUGConnection()
-
   const groupNamesByRole = { examiners: [], teachers: [], courseCoordinators: [] }
 
   await Promise.all(
