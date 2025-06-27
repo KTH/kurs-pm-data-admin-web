@@ -3,7 +3,7 @@
 const log = require('@kth/log')
 const api = require('./api')
 const { HttpError } = require('./utils/errorUtils')
-const { resolveUserAccessRights } = require('./utils/ugUtils')
+const { resolveUserAccessRights } = require('./ugRestApi')
 const { parseMemoEndPointString } = require('./utils/memoUtils')
 
 const clientActions = {
@@ -23,17 +23,25 @@ async function getMemoApiData(apiFnName, uriParam, user) {
     const memos = res.body
 
     // Check if drafts can be accessed by user
-    memos.draftsWithNoActivePublishedVer = memos.draftsWithNoActivePublishedVer?.map(draft => {
-      const parsed = parseMemoEndPointString(draft.memoEndPoint)
-      if (!parsed) {
-        return { ...draft, userAccessDenied: true }
-      }
+    if (memos.draftsWithNoActivePublishedVer) {
+      memos.draftsWithNoActivePublishedVer = await Promise.all(
+        memos.draftsWithNoActivePublishedVer.map(async draft => {
+          const { courseCode, semester, applicationCodes } = parseMemoEndPointString(draft.memoEndPoint)
+          if (!semester && !applicationCodes) {
+            return { ...draft, userAccessDenied: true }
+          }
 
-      const { courseCode, semester, applicationCodes } = parsed
-      const userAccessDenied = !resolveUserAccessRights(user, courseCode, semester, applicationCodes)
+          const accessResults = await Promise.all(
+            applicationCodes.map(applicationCode =>
+              resolveUserAccessRights(user, courseCode, semester, applicationCode)
+            )
+          )
 
-      return { ...draft, userAccessDenied }
-    })
+          const userHasAccess = accessResults.some(result => result)
+          return { ...draft, userAccessDenied: !userHasAccess }
+        })
+      )
+    }
 
     return memos
   } catch (error) {

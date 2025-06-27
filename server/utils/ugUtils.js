@@ -30,34 +30,6 @@ function getCourseRoundGroupName(courseCode, semester, applicationCode) {
 }
 
 /**
- * Determines whether a user has access rights for a specific course round.
- * This checks for admin or examiner roles, or if the user is listed in any of the course round groups.
- *
- * @param {Object} user - The user object containing roles and groups.
- * @param {string} courseCode - The course code.
- * @param {string} semester - The semester code.
- * @param {string|string[]} applicationCode - One or more application codes.
- * @returns {boolean} True if the user has access, otherwise false.
- */
-function resolveUserAccessRights(user, courseCode, semester, applicationCode) {
-  const { roles, groups } = user
-  const { isExaminer, isKursinfoAdmin, isSchoolAdmin, isSuperUser } = roles
-
-  // Grant access to high-level roles immediately
-  if (isExaminer || isKursinfoAdmin || isSchoolAdmin || isSuperUser) return true
-
-  const applicationCodeArray = Array.isArray(applicationCode) ? applicationCode : [applicationCode]
-
-  // Check if user belongs to any relevant course round group
-  return applicationCodeArray.some(appCode => {
-    const groupName = getCourseRoundGroupName(courseCode, semester, appCode)
-    return (
-      groups.courseCoordinators?.some(x => x.includes(groupName)) || groups.teachers?.some(x => x.includes(groupName))
-    )
-  })
-}
-
-/**
  * Converts a list of person objects into HTML snippets.
  *
  * @param {Object[]} personList - List of person objects containing `username`, `givenName`, and `surname`.
@@ -94,7 +66,6 @@ function buildEmployeesHtmlObject(examiners, teachers, courseCoordinators) {
 module.exports = {
   getCourseGroupName,
   getCourseRoundGroupName,
-  resolveUserAccessRights,
   createPersonHtml,
   buildEmployeesHtmlObject,
 }

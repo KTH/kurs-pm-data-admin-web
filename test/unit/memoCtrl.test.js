@@ -15,7 +15,7 @@ jest.mock('../../server/kursPmDataApi', () => ({
   getMemoApiData: jest.fn(),
   changeMemoApiData: jest.fn(),
 }))
-jest.mock('../../server/controllers/ugRestCtrl', () => ({
+jest.mock('../../server/ugRestApi', () => ({
   getCourseEmployees: jest.fn(),
 }))
 jest.mock('../../server/utils/serverSideRendering', () => ({
@@ -41,7 +41,7 @@ const { getMemoApiData, changeMemoApiData } = require('../../server/kursPmDataAp
 const { getCourseInfo } = require('../../server/kursinfoApi')
 const { getLadokCourseData, getLadokCourseSyllabus } = require('../../server/ladokApi')
 const { getLadokRoundIdsFromKopps } = require('../../server/koppsApi')
-const { getCourseEmployees } = require('../../server/controllers/ugRestCtrl')
+const { getCourseEmployees } = require('../../server/ugRestApi')
 const { getServerSideFunctions } = require('../../server/utils/serverSideRendering')
 
 // Mocks

@@ -3,7 +3,8 @@
 // See https://confluence.sys.kth.se/confluence/x/6wYJDQ for more information.
 
 const { ugRestApiHelper } = require('@kth/ug-rest-api-helper')
-const { getCourseGroupName } = require('./utils/ugUtils')
+const log = require('@kth/log')
+const { getCourseGroupName, getCourseRoundGroupName, buildEmployeesHtmlObject } = require('./utils/ugUtils')
 const { server: serverConfig } = require('./configuration')
 
 /**
@@ -104,8 +105,106 @@ async function fetchGroupNamesForUserCategorizedByRole(userKthId) {
   return groupNamesByRole
 }
 
+/**
+ * Checks which roles (examiner, teacher, or course coordinator) a specific user has
+ * for a given course (not course round).
+ *
+ * @param {string} userKthId - The KTH ID of the user.
+ * @param {string} courseCode - The course code (e.g., 'SF1624').
+ * @returns {Promise<Object>} An object with boolean flags for each role at course level.
+ */
+async function getEmployeeRoleForCourse(userKthId, courseCode) {
+  const groupNamesByRole = await fetchGroupNamesForUserCategorizedByRole(userKthId)
+  const courseGroupName = getCourseGroupName(courseCode)
+
+  return {
+    isExaminer: groupNamesByRole.examiners.some(name => name.includes(courseGroupName)),
+    isCourseTeacher: groupNamesByRole.teachers.some(name => name.includes(courseGroupName)),
+    isCourseCoordinator: groupNamesByRole.courseCoordinators.some(name => name.includes(courseGroupName)),
+  }
+}
+
+/**
+ * Checks which roles (examiner, teacher, or course coordinator) a specific user has
+ * for a given course round (semester + application code).
+ *
+ * @param {string} userKthId - The KTH ID of the user.
+ * @param {string} courseCode - The course code (e.g., 'SF1624').
+ * @param {string} semester - Semester for the course round (e.g., '20241').
+ * @param {string} applicationCode - Application code for the course round (e.g., '11111').
+ * @returns {Promise<Object>} An object with boolean flags for each role at course round level.
+ */
+async function getEmployeeRoleForCourseRound(userKthId, courseCode, semester, applicationCode) {
+  const groupNamesByRole = await fetchGroupNamesForUserCategorizedByRole(userKthId)
+  const courseGroupName = getCourseGroupName(courseCode)
+  const courseRoundGroupName = getCourseRoundGroupName(courseCode, semester, applicationCode)
+
+  return {
+    isExaminer: groupNamesByRole.examiners.some(name => name.includes(courseGroupName)), // Always checked on the course version level
+    isCourseTeacher: groupNamesByRole.teachers.some(name => name.includes(courseRoundGroupName)), // Checked on the course round level
+    isCourseCoordinator: groupNamesByRole.courseCoordinators?.some(name => name.includes(courseRoundGroupName)), // Checked on the course round level
+  }
+}
+
+/**
+ * Fetches the examiners, teachers, and course coordinators for a given course
+ * and returns them formatted as an object suitable for rendering in HTML.
+ *
+ * @param {Object} params
+ * @param {string} params.courseCode - The course code (e.g., 'SF1624').
+ * @param {string} params.semester - The semester (e.g., '20241').
+ * @param {string[]} params.applicationCodes - List of application codes for course rounds.
+ * @returns {Promise<Object>} Object containing categorized user data ready for HTML rendering.
+ */
+async function getCourseEmployees({ courseCode, semester, applicationCodes }) {
+  try {
+    const groups = await fetchCourseAndRoundGroups(courseCode, semester, applicationCodes)
+    const usersByRole = await fetchUsersInGroupsCategorizedByRole(groups)
+    return buildEmployeesHtmlObject(usersByRole.examiners, usersByRole.teachers, usersByRole.courseCoordinators)
+  } catch (err) {
+    log.info('Error in getCourseEmployees', { error: err })
+    throw err
+  }
+}
+
+/**
+ * Determines whether a user has access rights for a specific course round.
+ *
+ * @param {Object} user - The user object containing role flags and identifiers.
+ * @param {string} courseCode - The course code related to the course round.
+ * @param {string} semester - The semester code to check (e.g., '20241').
+ * @param {string} applicationCode - A single application code representing the course round.
+ * @returns {boolean} True if the user has the required access; otherwise, false.
+ */
+
+async function resolveUserAccessRights(user, courseCode, semester, applicationCode) {
+  const { isKursinfoAdmin, isSchoolAdmin, isSuperUser } = user
+
+  // Grant access to high-level roles immediately
+  if (isKursinfoAdmin || isSchoolAdmin || isSuperUser) return true
+
+  const { isExaminer, isCourseTeacher, isCourseCoordinator } = await getEmployeeRoleForCourseRound(
+    user.kthId,
+    courseCode,
+    semester,
+    applicationCode
+  )
+
+  // Grant access if the user is an examiner, teacher, or course coordinator for the course round
+  // Note: isExaminer is always checked on the course version level,
+  //       while isTeacher and isCourseCoordinator are checked on the course round level
+  if (isExaminer || isCourseTeacher || isCourseCoordinator) return true
+
+  // Else, return false
+  return false
+}
+
 module.exports = {
   fetchCourseAndRoundGroups,
   fetchUsersInGroupsCategorizedByRole,
   fetchGroupNamesForUserCategorizedByRole,
+  getEmployeeRoleForCourse,
+  getEmployeeRoleForCourseRound,
+  getCourseEmployees,
+  resolveUserAccessRights,
 }

@@ -105,18 +105,10 @@ function createApplicationStore() {
     updateDraft: action(updateDraft),
     setBrowserConfig: action(setBrowserConfig),
     doSetLanguageIndex: action(doSetLanguageIndex),
-    setUserInfo: action(setUserInfo),
     updateContractEducationSections: action(updateContractEducationSections),
   }
 
   return store
-}
-
-function setUserInfo(user) {
-  this.user = {
-    roles: user.roles,
-    groups: user.groups,
-  }
 }
 
 function setCourseTitle(courseTitle) {

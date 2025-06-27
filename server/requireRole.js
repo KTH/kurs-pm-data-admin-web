@@ -5,9 +5,8 @@ const log = require('@kth/log')
 
 const i18n = require('../i18n')
 const ladokCourseData = require('./ladokApi')
-const { getEmployeeRoleForCourse } = require('./controllers/ugRestCtrl')
 const { parseMemoEndPointString } = require('./utils/memoUtils')
-const { fetchGroupNamesForUserCategorizedByRole } = require('./ugRestApi')
+const { getEmployeeRoleForCourse, getEmployeeRoleForCourseRound } = require('./ugRestApi')
 
 const schools = () => ['abe', 'eecs', 'itm', 'cbh', 'sci']
 
@@ -49,34 +48,31 @@ module.exports.requireRole = (...requiredRoles) =>
     const { user = {} } = req.session.passport
     const { courseCode, memoEndPoint } = req.params
 
-    // Fetch UG group names the user belongs to, categorized by role (coordinator, teacher, etc.)
-    const groupNamesByRole = await fetchGroupNamesForUserCategorizedByRole(user.kthId)
+    // Determine the user's role in the course (and possibly in a specific course instance)
+    let isCourseCoordinator = false
+    let isCourseTeacher = false
+    let isExaminer = false
 
-    // Attach user group names to the session object for use in other parts of the app
-    req.session.passport.user.groups = {
-      courseCoordinators: groupNamesByRole.courseCoordinators,
-      teachers: groupNamesByRole.teachers,
-    }
-
-    let semester, applicationCodes
-
-    // If memoEndPoint is provided, extract semester and applicationCodes from it
     if (memoEndPoint) {
-      const parsed = parseMemoEndPointString(memoEndPoint)
-      if (parsed) {
-        ;({ semester, applicationCodes } = parsed)
-      }
+      // --- Course round level role check ---
+      // If memoEndPoint is provided, extract semester and applicationCodes from it
+      const { semester, applicationCodes } = parseMemoEndPointString(memoEndPoint)
+      // Check roles for each course round (application code) individually
+      const roundRoles = await Promise.all(
+        applicationCodes.map(code => getEmployeeRoleForCourseRound(user.kthId, courseCode, semester, [code]))
+      )
+
+      // If user is coordinator/teacher/examiner for ANY round, grant that role
+      isCourseCoordinator = roundRoles.some(r => r.isCourseCoordinator)
+      isCourseTeacher = roundRoles.some(r => r.isCourseTeacher)
+      isExaminer = roundRoles.some(r => r.isExaminer)
+    } else {
+      // --- Course level role check ---
+      // If no memoEndPoint, check roles for the course as a whole (not a specific round)
+      ;({ isCourseCoordinator, isCourseTeacher, isExaminer } = await getEmployeeRoleForCourse(user.kthId, courseCode))
     }
 
-    // Determine the user's role in the course (and possibly in a specific course instances)
-    const { isCourseCoordinator, isCourseTeacher, isExaminer } = await getEmployeeRoleForCourse(
-      user.kthId,
-      courseCode,
-      semester,
-      applicationCodes
-    )
-
-    // Build a full list of role flags for the user
+    // Build a full list of role flags
     const roles = {
       isCourseCoordinator,
       isCourseTeacher,
@@ -85,9 +81,6 @@ module.exports.requireRole = (...requiredRoles) =>
       isSuperUser: user.isSuperUser,
       isSchoolAdmin: null, // Will be resolved below if needed
     }
-
-    // Save role info in session for later use in the app
-    req.session.passport.user.roles = roles
 
     // Check if the user has at least one of the required roles
     const isAuthorized = requiredRoles.some(role => roles[role])
@@ -99,10 +92,10 @@ module.exports.requireRole = (...requiredRoles) =>
     }
 
     // Otherwise, check whether the user is a school admin for the given course
-    const isAdmin = await _isAdminOfCourseSchool(courseCode, user)
-    req.session.passport.user.roles.isSchoolAdmin = isAdmin
+    const isScoolAdmin = await _isAdminOfCourseSchool(courseCode, user)
+    req.session.passport.user.isSchoolAdmin = isScoolAdmin
 
     // Allow or deny access based on school admin status
-    if (isAdmin) return next()
+    if (isScoolAdmin) return next()
     else return next(messageHaveNotRights(lang))
   }

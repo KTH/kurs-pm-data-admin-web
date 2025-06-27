@@ -158,8 +158,7 @@ async function renderMemoPreviewPage(req, res, next) {
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(userLang)
-    const { user } = req.session.passport
-    applicationStore.setUserInfo(user)
+    const { user = {} } = req.session.passport
 
     const apiMemoData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
     const { semester, memoCommonLangAbbr } = apiMemoData

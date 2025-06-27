@@ -55,8 +55,7 @@ async function getCourseOptionsPage(req, res, next) {
     const applicationStore = createStore()
     applicationStore.setBrowserConfig(browser, serverPaths, apis, server.hostUrl)
     applicationStore.doSetLanguageIndex(lang)
-    const { user } = req.session.passport
-    applicationStore.setUserInfo(user)
+    const { user = {} } = req.session.passport
 
     const ladokCourseRounds = await getCourseRoundsData(courseCode, lang, user)
     const ladokCourseData = await getLadokCourseData(courseCode, lang)

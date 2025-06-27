@@ -1,10 +1,4 @@
-const {
-  getCourseGroupName,
-  getCourseRoundGroupName,
-  resolveUserAccessRights,
-  createPersonHtml,
-  buildEmployeesHtmlObject,
-} = require('./ugUtils')
+const { getCourseGroupName, getCourseRoundGroupName, buildEmployeesHtmlObject, createPersonHtml } = require('./ugUtils')
 
 describe('ugUtils', () => {
   describe('getCourseGroupName', () => {
@@ -42,100 +36,6 @@ describe('ugUtils', () => {
 
     test('returns undefined if course group name is undefined', () => {
       expect(getCourseRoundGroupName('AB123', '20222', '11111')).toBeUndefined()
-    })
-  })
-
-  describe('resolveUserAccessRights', () => {
-    const baseUser = {
-      roles: {
-        isExaminator: false,
-        isKursinfoAdmin: false,
-        isSchoolAdmin: false,
-        isSuperUser: false,
-      },
-      groups: {
-        courseCoordinators: [],
-        teachers: [],
-      },
-    }
-    const courseCode = 'ABC1234'
-    const semester = '20222'
-    const applicationCode = '11111'
-    const extraApplicationCode = '22222'
-
-    test('returns true if user has any admin role', () => {
-      const roles = ['isExaminer', 'isKursinfoAdmin', 'isSchoolAdmin', 'isSuperUser']
-
-      roles.forEach(role => {
-        const user = {
-          ...baseUser,
-          roles: { ...baseUser.roles, [role]: true },
-        }
-        expect(resolveUserAccessRights(user, courseCode, semester, applicationCode)).toBe(true)
-      })
-    })
-
-    test('returns true if user is courseCoordinator with matching group', () => {
-      const groupName = `ladok2.kurser.ABC.1234.${semester}.${applicationCode}`
-      const user = {
-        ...baseUser,
-        groups: { courseCoordinators: [groupName], teachers: [] },
-      }
-      expect(resolveUserAccessRights(user, courseCode, semester, applicationCode)).toBe(true)
-    })
-
-    test('returns true if user is teacher with matching group', () => {
-      const groupName = `ladok2.kurser.ABC.1234.${semester}.${applicationCode}`
-      const user = {
-        ...baseUser,
-        groups: { courseCoordinators: [], teachers: [groupName] },
-      }
-      expect(resolveUserAccessRights(user, courseCode, semester, applicationCode)).toBe(true)
-    })
-
-    test('returns false if no roles and no matching groups', () => {
-      const user = {
-        ...baseUser,
-        groups: {
-          courseCoordinators: ['some.other.group'],
-          teachers: ['another.group'],
-        },
-      }
-      expect(resolveUserAccessRights(user, courseCode, semester, applicationCode)).toBe(false)
-    })
-
-    test('returns false if missing courseRoundGroupName', () => {
-      const user = { ...baseUser, groups: { courseCoordinator: ['group'], teachers: ['group'] } }
-      expect(resolveUserAccessRights(user, courseCode, null, null)).toBe(false)
-    })
-
-    test('returns true if user is courseCoordinator for one of multiple application codes', () => {
-      const groupName = `ladok2.kurser.ABC.1234.${semester}.${extraApplicationCode}`
-      const user = {
-        ...baseUser,
-        groups: { courseCoordinators: [groupName], teachers: [] },
-      }
-      const applicationCodes = [applicationCode, extraApplicationCode]
-      expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(true)
-    })
-
-    test('returns true if user is teacher for one of multiple application codes', () => {
-      const groupName = `ladok2.kurser.ABC.1234.${semester}.${extraApplicationCode}`
-      const user = {
-        ...baseUser,
-        groups: { courseCoordinators: [], teachers: [groupName] },
-      }
-      const applicationCodes = [applicationCode, extraApplicationCode]
-      expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(true)
-    })
-
-    test('returns false if user has no matching group in multiple application codes', () => {
-      const user = {
-        ...baseUser,
-        groups: { courseCoordinators: ['non.matching.group'], teachers: [] },
-      }
-      const applicationCodes = ['00000', '99999']
-      expect(resolveUserAccessRights(user, courseCode, semester, applicationCodes)).toBe(false)
     })
   })
 
