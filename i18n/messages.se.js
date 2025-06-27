@@ -30,6 +30,7 @@ module.exports = {
     message_have_not_rights_link_text: 'beställa administratörsbehörighet till Om kursens administrationsverktyg',
     message_have_not_rights_link_after_text:
       'Beställningen behöver göras av Utbildningsadministrativt Ansvarig (UA) på skolan, eller av närmsta chef i samråd med UA.',
+    not_authorized_publish_new: 'Du är inte kursansvarig/lärare för detta kurstillfälle och kan därför inte välja det.',
 
     /**
      * Message keys

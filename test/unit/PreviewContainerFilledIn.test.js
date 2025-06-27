@@ -163,7 +163,7 @@ describe('Component <SideMenu>', () => {
 
     const labels = getAllByTestId('side-menu-labels')
     expect(labels.length).toBe(3)
-    const sideMenuMemoLabels = ['1', '2', '4']
+    const sideMenuMemoLabels = ['11111', '22222', '44444']
     sideMenuMemoLabels.map((roundName, i) => expect(labels[i]).toHaveTextContent(roundName))
     done()
   })

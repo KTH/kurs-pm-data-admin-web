@@ -26,7 +26,7 @@ function createApplicationStore() {
     dirtyEditor: observable.box(''),
     semester: null,
     sections: observable.box([]), // will change it it's UPP - contract education
-    tempSavedCourseInstances: ['1'],
+    tempSavedCourseInstances: ['11111'],
     /**
      * @property {object} koppsFreshData
      */

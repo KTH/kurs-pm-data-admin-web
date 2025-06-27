@@ -3,6 +3,8 @@
 const log = require('@kth/log')
 const api = require('./api')
 const { HttpError } = require('./utils/errorUtils')
+const { resolveUserAccessRights } = require('./ugRestApi')
+const { parseMemoEndPointString } = require('./utils/memoUtils')
 
 const clientActions = {
   copyFromAPublishedMemo: 'postAsync',
@@ -11,13 +13,37 @@ const clientActions = {
   deleteDraftByMemoEndPoint: 'delAsync',
   updateCreatedDraft: 'putAsync',
 }
+
 // Gets a list of used round ids for a semester in a course
-async function getMemoApiData(apiFnName, uriParam) {
+async function getMemoApiData(apiFnName, uriParam, user) {
   try {
     const { client, paths } = api.kursPmDataApi
     const uri = client.resolve(paths[apiFnName].uri, uriParam)
     const res = await client.getAsync({ uri, useCache: false })
-    return res.body
+    const memos = res.body
+
+    // Check if drafts can be accessed by user
+    if (memos.draftsWithNoActivePublishedVer) {
+      memos.draftsWithNoActivePublishedVer = await Promise.all(
+        memos.draftsWithNoActivePublishedVer.map(async draft => {
+          const { courseCode, semester, applicationCodes } = parseMemoEndPointString(draft.memoEndPoint)
+          if (!semester && !applicationCodes) {
+            return { ...draft, userAccessDenied: true }
+          }
+
+          const accessResults = await Promise.all(
+            applicationCodes.map(applicationCode =>
+              resolveUserAccessRights(user, courseCode, semester, applicationCode)
+            )
+          )
+
+          const userHasAccess = accessResults.some(result => result)
+          return { ...draft, userAccessDenied: !userHasAccess }
+        })
+      )
+    }
+
+    return memos
   } catch (error) {
     log.debug('getMemoApi path ', { apiFnName }, ' is not available', { error })
     return error
