@@ -11,7 +11,7 @@
  *          An object with parsed values, or undefined if the format is invalid.
  */
 function parseMemoEndPointString(memoEndPoint) {
-  const regex = /^([A-Z]{2,4}\d{4})(\d{5})-((?:\d{5}-?)+)$/
+  const regex = /^([A-Z0-9]{6,7})(\d{5})-((?:\d{5}-?)+)$/
   const match = memoEndPoint.match(regex)
 
   if (!match) return undefined
