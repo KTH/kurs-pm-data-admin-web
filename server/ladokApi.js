@@ -2,6 +2,7 @@
 
 const { createApiClient } = require('@kth/om-kursen-ladok-client')
 const { server: serverConfig } = require('./configuration')
+const { resolveUserAccessRights } = require('./ugRestApi')
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
@@ -13,26 +14,34 @@ async function getLadokCourseData(courseCode, lang) {
   }
 }
 
-async function getCourseRoundsData(courseCode, lang) {
+async function getCourseRoundsData(courseCode, lang, user) {
   try {
     // TODO: Add endpoint to ladok client for retieving data from previous year onward
     // See requirements in http://kth-se.atlassian.net/browse/KUI-1653
     const previousYear = new Date().getFullYear() - 1
     const rounds = await client.getCourseRoundsFromPeriod(courseCode, `VT${previousYear}`, lang)
-    const mappedRounds = rounds.map(round => ({
-      shortName: round.kortnamn,
-      applicationCode: round.tillfalleskod,
-      startperiod: round.startperiod,
-      firstTuitionDate: round.forstaUndervisningsdatum.date,
-      lastTuitionDate: round.sistaUndervisningsdatum.date,
-      status: round.status.code,
-      full: round.fullsatt,
-      cancelled: round.installt,
-      language: {
-        sv: (lang === 'sv' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
-        en: (lang === 'en' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
-      },
-    }))
+    const mappedRounds = await Promise.all(
+      rounds.map(async round => ({
+        shortName: round.kortnamn,
+        applicationCode: round.tillfalleskod,
+        startperiod: round.startperiod,
+        firstTuitionDate: round.forstaUndervisningsdatum.date,
+        lastTuitionDate: round.sistaUndervisningsdatum.date,
+        status: round.status.code,
+        full: round.fullsatt,
+        cancelled: round.installt,
+        language: {
+          sv: (lang === 'sv' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
+          en: (lang === 'en' ? round.undervisningssprak?.name : round.undervisningssprak?.nameOther) ?? '',
+        },
+        userAccessDenied: !(await resolveUserAccessRights(
+          user,
+          courseCode,
+          round.startperiod?.inDigits,
+          round.tillfalleskod
+        )),
+      }))
+    )
     return mappedRounds
   } catch (error) {
     throw new Error(error.message)

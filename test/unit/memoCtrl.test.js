@@ -1,7 +1,7 @@
 const memoCtrl = require('../../server/controllers/memoCtrl')
 
 jest.mock('../../server/api', () => ({}))
-jest.mock('../../server/kursinfoApi.js', () => ({
+jest.mock('../../server/kursinfoApi', () => ({
   getCourseInfo: jest.fn(),
 }))
 jest.mock('../../server/koppsApi', () => ({
@@ -127,7 +127,7 @@ describe('renderMemoEditorPage', () => {
     getMemoApiData.mockResolvedValue({
       semester: '20241',
       memoCommonLangAbbr: 'en',
-      applicationCodes: ['1'],
+      applicationCodes: ['11111'],
     })
 
     getCourseEmployees.mockResolvedValue(ugAdminEmployeesDataMock)
@@ -143,6 +143,7 @@ describe('renderMemoEditorPage', () => {
         setBrowserConfig: jest.fn(),
         rebuildDraftFromPublishedVer: false,
         setSectionsStructure: jest.fn(),
+        memoData: {},
       }),
       getCompressedStoreCode: () => 'compressed-code',
       renderStaticPage: () => '<div>Rendered Page</div>',

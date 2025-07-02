@@ -182,6 +182,8 @@ const oidc = new OpenIDConnect(server, passport, {
   extendUser: (user, claims) => {
     const { memberOf } = claims
 
+    user.kthId = claims.kthid
+
     user.isSuperUser = memberOf.includes(config.auth.superuserGroup)
     user.isKursinfoAdmin = memberOf.includes(config.auth.kursinfoAdmins)
 
@@ -256,9 +258,9 @@ appRoute.post(
   _addProxy('/internal-api/draft-updates/:courseCode/:memoEndPoint'),
   oidc.silentLogin,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -271,9 +273,9 @@ appRoute.post(
   _addProxy('/internal-api/create-draft/:courseCode/:memoEndPoint/copyFrom/:anotherMemoEndPoint'),
   oidc.silentLogin,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -286,9 +288,9 @@ appRoute.post(
   _addProxy('/internal-api/create-draft/:courseCode/:memoEndPoint'),
   oidc.silentLogin,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -301,9 +303,9 @@ appRoute.post(
   _addProxy('/internal-api/publish-memo/:courseCode/:memoEndPoint'),
   oidc.silentLogin,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -317,9 +319,9 @@ appRoute.get(
   _addProxy('/internal-api/used-rounds/:courseCode/:semester'),
   oidc.silentLogin,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -332,9 +334,9 @@ appRoute.delete(
   _addProxy('/internal-api/draft-to-remove/:courseCode/:memoEndPoint'),
   oidc.silentLogin,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -347,9 +349,9 @@ appRoute.get(
   _addProxy('/published/:courseCode'),
   oidc.login,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -362,9 +364,9 @@ appRoute.get(
   _addProxy('/:courseCode/:memoEndPoint'),
   oidc.login,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -377,9 +379,9 @@ appRoute.get(
   _addProxy('/:courseCode/:memoEndPoint/preview'),
   oidc.login,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -392,9 +394,9 @@ appRoute.get(
   _addProxy('/:courseCode/'),
   oidc.login,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'
@@ -407,9 +409,9 @@ appRoute.get(
   _addProxy('/gateway'),
   oidc.silentLogin,
   requireRole(
-    'isCourseResponsible',
+    'isCourseCoordinator',
     'isCourseTeacher',
-    'isExaminator',
+    'isExaminer',
     'isKursinfoAdmin',
     'isSuperUser',
     'isSchoolAdmin'

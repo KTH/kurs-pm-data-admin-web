@@ -224,7 +224,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     const edit = screen.getByText('Edit')
     fireEvent.click(edit)
     await waitFor(() => {
-      expect(window.location).toBe('/kursinfoadmin/kurs-pm-data/EF1111/EF111120192-1')
+      expect(window.location).toBe('/kursinfoadmin/kurs-pm-data/EF1111/EF111120192-11111')
     })
   })
 })
@@ -250,7 +250,7 @@ describe('Component <ChangedPublished> Add course instances to chosed published 
       const checkboxAddRounds = getAllByTestId('checkbox-add-rounds-to-saved-memo')
       expect(checkboxAddRounds.length).toBe(1)
       const labelAddRound = getAllByTestId('label-checkbox-add-rounds-to-saved-memo')[0]
-      expect(labelAddRound).toHaveTextContent('HT 2019-3 (Startdatum 2019-10-28, Engelska)')
+      expect(labelAddRound).toHaveTextContent('HT 2019-33333 (Startdatum 2019-10-28, Engelska)')
     })
   })
 
@@ -276,7 +276,7 @@ describe('Component <ChangedPublished> Add course instances to chosed published 
       const checkboxAddRounds = getAllByTestId('checkbox-add-rounds-to-saved-memo')
       expect(checkboxAddRounds.length).toBe(1)
       const labelAddRound = getAllByTestId('label-checkbox-add-rounds-to-saved-memo')[0]
-      expect(labelAddRound).toHaveTextContent('Autumn 2019-3 (Start date 28 Oct 2019, English)')
+      expect(labelAddRound).toHaveTextContent('Autumn 2019-33333 (Start date 28 Oct 2019, English)')
     })
     const save = screen.getByText('Save')
     fireEvent.click(save)

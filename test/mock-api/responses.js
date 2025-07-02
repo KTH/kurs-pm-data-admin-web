@@ -2,7 +2,7 @@ module.exports = {
   getAllMemosByCourseCodeAndType: [
     {
       _id: '1',
-      applicationCodes: ['9'],
+      applicationCodes: ['99999'],
       lastChangeDate: 'Fri Mar 27 2020 12:04:37 GMT+0000 (Coordinated Universal Time)',
       semester: '20192',
       status: 'published',
