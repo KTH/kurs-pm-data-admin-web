@@ -7,13 +7,7 @@
  * *************************************************
  *
  */
-const {
-  getEnv,
-  devDefaults,
-  unpackRedisConfig,
-  unpackNodeApiConfig,
-  unpackKOPPSConfig,
-} = require('kth-node-configuration')
+const { getEnv, devDefaults, unpackRedisConfig, unpackNodeApiConfig } = require('kth-node-configuration')
 const { safeGet } = require('safe-utils')
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
@@ -21,7 +15,6 @@ const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
 const devKursPmDataApi = devDefaults('http://api-r.referens.sys.kth.se/api/kurs-pm-data?defaultTimeout=10000') // required=true&
-const devKoppsApi = devDefaults('https://api-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=10000')
 const devKursInfoApi = devDefaults('http://api-r.referens.sys.kth.se/api/kursinfo?defaultTimeout=10000') // required=true&
 const devSessionKey = devDefaults('kurs-pm-data-admin-web.sid')
 const devSessionUseRedis = devDefaults(true)
@@ -88,8 +81,6 @@ module.exports = {
     kursinfoApi: unpackNodeApiConfig('KURSINFO_API_URI', devKursInfoApi),
   },
 
-  koppsApi: unpackKOPPSConfig('KOPPS_URI', devKoppsApi),
-
   // Cortina
   blockApi: {
     blockUrl: getEnv('CM_HOST_URL', devDefaults('https://www-r.referens.sys.kth.se/cm/')), // Block API base URL
@@ -116,10 +107,6 @@ module.exports = {
     cortinaBlock: {
       redis: unpackRedisConfig('REDIS_URI', devRedis),
       redisKey: 'CortinaBlock_kurs-pm-data-admin-web_',
-    },
-    koppsApi: {
-      redis: unpackRedisConfig('REDIS_URI', devRedis),
-      expireTime: getEnv('KOPPS_API_CACHE_EXPIRE_TIME', 60 * 60), // 60 minuteS
     },
     kursinfoApi: {
       redis: unpackRedisConfig('REDIS_URI', devRedis),

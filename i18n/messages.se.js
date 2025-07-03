@@ -521,14 +521,14 @@ module.exports = {
       basedOnAnotherMemo: 'Kopia av kurs-PM från en tidigare kursomgång',
     },
     publishedHasDraft: ' - Utkast',
-    errLadokRounds: 'Kunde inte få kursomgångar på grund av fel i Kopps. Försöka refresha sidan.',
+    errLadokRounds: 'Kunde inte få kursomgångar på grund av fel i Ladok. Försöka refresha sidan.',
     noRoundsToAdd:
       'Det finns inga kurstillfällen för denna termin som inte redan har ett publicerat kurs-pm eller ett utkast till ett kurs-pm.',
     noCourseRoundsAvailable:
       'Samtliga kurstillfällen för denna termin ingår redan i en kursomgång som har ett publicerat kurs-PM eller utkast. Se sparade utkast på denna sida eller publicerade kurs-PM på sidan Förbereda och gå kurs/Kurs-PM.',
     noSavedDrafts: 'Det finns inga sparade utkast.',
     noSemesterAvailable:
-      'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Kopps om du förväntar dig kursomgångar att skriva kurs-PM för.',
+      'Det finns inga terminer att välja eftersom det saknas aktuella eller kommande kursomgångar för denna kurs. Kontrollera i systemet Ladok om du förväntar dig kursomgångar att skriva kurs-PM för.',
     noPrevPublishedAvailable: 'Det finns inga publicerade kurs-PM tidigare kursomgångar.',
     noPublishedMemos: 'Det finns inga publicerade kurs-PM för denna, föregående eller kommande termin.',
   },
@@ -594,7 +594,7 @@ module.exports = {
     addedRoundId: 'Kurstillfällen har ändrats',
     errorEmptyHeading: 'Du behöver ange ett namn på rubriken (se markering i rött ovan)',
     errLadokRounds:
-      'Kunde inte hämta information om kursomgångar på grund av fel i Kopps. Ladda om sidan eller kontakta IT-support.',
+      'Kunde inte hämta information om kursomgångar på grund av fel i Ladok. Ladda om sidan eller kontakta IT-support.',
     errNoChosen:
       'Du måste välja ett utkast eller minst ett kurstillfälle för att kunna gå vidare till nästa steg Redigera kurs-PM.',
     errNoChosenTemplate:
