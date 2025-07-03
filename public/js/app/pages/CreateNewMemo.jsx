@@ -11,7 +11,7 @@ import {
   combinedCourseName,
   combineMemoName,
   emptyCheckboxesByIds,
-  sortRoundAndKoppsInfo,
+  sortRoundAndLadokInfo,
   removeAndSortApplicationAndInfo,
   uncheckRadioById,
   fetchParameters,
@@ -65,7 +65,7 @@ function CreateNewMemo(props) {
     existingDraftEndPoint: initialMemoEndPoint || '',
     newMemoName: '',
     sortedApplicationCodes: rounds || [],
-    sortedKoppsInfo: [], // use it for next step
+    sortedLadokInfo: [], // use it for next step
   })
   const [alert, setAlert] = useState({
     type: '', // danger, success, warn
@@ -110,7 +110,7 @@ function CreateNewMemo(props) {
       existingDraftEndPoint: memoEndPoint || '',
       newMemoName: '',
       sortedApplicationCodes: [],
-      sortedKoppsInfo: [],
+      sortedLadokInfo: [],
     })
   }
 
@@ -120,17 +120,17 @@ function CreateNewMemo(props) {
     _cleanUpPrevCheckboxesState(existingDraftEndPoint)
   }
 
-  const _roundsCommonLanguages = sortedKoppsInfo => {
+  const _roundsCommonLanguages = sortedLadokInfo => {
     /* Get memo language, if at least one round has 'English' as a languageOfInstructions then memo language is English,
     otherwise, if all f.e., have swedish then Swedish. Saved as 'sv', en', used to extract syllabus by this lang */
-    const allRoundsLanguages = sortedKoppsInfo.map(round => round.language.en)
+    const allRoundsLanguages = sortedLadokInfo.map(round => round.language.en)
     const uniqueLanguages = Array.from(new Set(allRoundsLanguages))
     const memoLanguage = uniqueLanguages.length === 1 ? uniqueLanguages[0] : 'English'
     const memoCommonLangAbbr = memoLanguage === 'Swedish' ? 'sv' : 'en'
     /* After we get a language of memo, we need to extract string for a student view by chosen above memo language,
     if rounds have different lang, then join those languages ex, Swedish/English */
     const uniqueCourseLanguagesByMemoLang = Array.from(
-      new Set(sortedKoppsInfo.map(round => round.language[memoCommonLangAbbr]))
+      new Set(sortedLadokInfo.map(round => round.language[memoCommonLangAbbr]))
     )
     const languageOfInstructions = uniqueCourseLanguagesByMemoLang.join('/')
     return { memoCommonLangAbbr, languageOfInstructions }
@@ -152,12 +152,12 @@ function CreateNewMemo(props) {
     const { checked, value } = event.target
     const { existingDraftEndPoint } = chosen
     if (existingDraftEndPoint) uncheckRadioById(existingDraftEndPoint)
-    const { sortedApplicationCodes, sortedKoppsInfo } = checked
-      ? sortRoundAndKoppsInfo(chosenRoundObj, chosen)
+    const { sortedApplicationCodes, sortedLadokInfo } = checked
+      ? sortRoundAndLadokInfo(chosenRoundObj, chosen)
       : removeAndSortApplicationAndInfo(value, chosen)
 
-    const { memoCommonLangAbbr, languageOfInstructions } = _roundsCommonLanguages(sortedKoppsInfo)
-    const newMemoName = sortedKoppsInfo // remove
+    const { memoCommonLangAbbr, languageOfInstructions } = _roundsCommonLanguages(sortedLadokInfo)
+    const newMemoName = sortedLadokInfo // remove
       .map(round => combineMemoName(round, semester, memoCommonLangAbbr)) // document.getElementById('new' + round).parentElement.textContent.trim()
       .join(', ')
     setAction('create')
@@ -168,7 +168,7 @@ function CreateNewMemo(props) {
       existingDraftEndPoint: '',
       newMemoName,
       sortedApplicationCodes,
-      sortedKoppsInfo,
+      sortedLadokInfo,
     })
   }
 
