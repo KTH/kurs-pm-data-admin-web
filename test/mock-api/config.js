@@ -46,11 +46,6 @@ module.exports = {
     },
     {
       method: 'get',
-      url: '/kopps/course/*/detailedinformation',
-      response: detailedInformationResponse,
-    },
-    {
-      method: 'get',
       url: '/cm/*',
       response: '',
     },

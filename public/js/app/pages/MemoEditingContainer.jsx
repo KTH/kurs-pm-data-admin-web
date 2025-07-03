@@ -130,7 +130,7 @@ function MemoContainer(props) {
 
     const courseTitle = `${courseCode} ${title} ${credits?.formattedWithUnit}`
 
-    // update course title in case if smth changed in kopps
+    // update course title in case if smth changed in Ladok
     store.setCourseTitle(courseTitle)
 
     return <span>{courseTitle}</span>
@@ -192,7 +192,7 @@ function MemoContainer(props) {
       title,
     }
     const courseTitle = combinedCourseName(courseCode, course)
-    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle, ...eduTypeId } // containt kopps old data, or it is empty first time
+    const body = { courseCode, memoEndPoint, ...editorContent, syllabusValid, courseTitle, ...eduTypeId }
     try {
       const result = await store.updateDraft(body)
       if (result.status >= 400) {

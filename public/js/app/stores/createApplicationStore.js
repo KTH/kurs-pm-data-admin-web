@@ -28,10 +28,6 @@ function createApplicationStore() {
     sections: observable.box([]), // will change it it's UPP - contract education
     tempSavedCourseInstances: ['11111'],
     /**
-     * @property {object} koppsFreshData
-     */
-    koppsFreshData: {},
-    /**
      * @property {number} langIndex
      */
     langIndex: 0,

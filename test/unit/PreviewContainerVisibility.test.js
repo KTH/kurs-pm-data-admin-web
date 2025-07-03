@@ -13,9 +13,6 @@ const { getAllByRole, queryByText } = screen
 const PreviewPublishedMemo = ({ memoLang = 'en', userLang = 'en', ...rest }) => {
   const updatedApplicationStore = {
     ...mockApplicationStoreWithChosenMemo('DRAFT_OF_PUBLISHED', 'filledInAndInvisible', memoLang, userLang),
-    koppsFreshData: {
-      courseMainSubjects: '',
-    },
     noMemoData: () => false,
     memoDatas: [],
     activeTermsPublishedMemos: [],

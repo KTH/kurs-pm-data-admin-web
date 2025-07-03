@@ -90,7 +90,7 @@ describe('Active tab contentAndOutcomes. Component <MemoContainer> Edit publishe
     expectedh3ds.map((h3, index) => expect(allH3Headers[index]).toHaveTextContent(h3))
   })
 
-  test('tab: contentAndOutcomes (draft of published). renders alert about kopps data were updated', () => {
+  test('tab: contentAndOutcomes (draft of published). renders alert about Ladok data were updated', () => {
     const alertText = screen.getByText(
       'Information som hämtas från kursplan och kontakter har uppdaterats automatiskt.'
     )

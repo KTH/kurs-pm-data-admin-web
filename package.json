@@ -28,7 +28,6 @@
     "test-pub-memo": "cross-env NODE_ENV=test jest ./test/unit/ChangePublished.test.js --watch --notify",
     "test-edit-new": "cross-env NODE_ENV=test jest ./test/unit/MemoContainerNewDraft.test.js --watch --notify",
     "test-edit-published": "cross-env NODE_ENV=test jest ./test/unit/MemoContainerPublished.test.js --watch --notify",
-    "test-kopps": "NODE_ENV=test jest ./test/unit/kopps-parseSyllabus.test.js --watch --notify",
     "test:watch": "NODE_ENV=test jest --watch",
     "test:notify": "NODE_ENV=test jest --watch --notify"
   },
