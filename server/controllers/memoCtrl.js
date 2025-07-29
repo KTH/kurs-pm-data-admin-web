@@ -57,7 +57,7 @@ const mergeAllData = async (
       ladokCourseSyllabusData.kursplan.kommentartillexamination,
     examinationModules: ladokCourseSyllabusData.kursplan.examinationModules.titles,
     otherRequirementsForFinalGrade: ladokCourseSyllabusData.kursplan.ovrigakravforslutbetyg,
-    ethicalApproach: ladokCourseSyllabusData.kursplan.etisktforhallandesatt,
+    ethicalApproach: ladokCourseSyllabusData.kursplan.etisktforhallningssatt,
     additionalRegulations: ladokCourseSyllabusData.kursplan.faststallande,
   }
 

@@ -82,7 +82,7 @@ const ladokCourseSyllabusDataMock = {
     },
     kommentartillexamination: '<p>Exam comment</p>',
     ovrigakravforslutbetyg: 'Additional requirements for final grade',
-    etisktforhallandesatt: 'Ethical approach',
+    etisktforhallningssatt: 'Ethical approach',
     faststallande: 'Additional regulations',
   },
   course: {
