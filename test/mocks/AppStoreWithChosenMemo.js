@@ -8,7 +8,7 @@ const setMemoBasicInfoTest = props => ({
   memoLangAbbr: props.memoCommonLangAbbr || 'sv',
   semester: props.semester || '',
 })
-const reducedKoppsData = {
+const reducedLadokData = {
   en: {
     credits: { formattedWithUnit: '9.0 credits' },
     creditUnitAbbr: 'hp',
@@ -47,7 +47,7 @@ const mockApplicationStoreWithChosenMemo = (
     memoEndPoint: '',
     rounds: [],
     ...updateStoreWith,
-    memoData: { ...mockedMemoData, ...reducedKoppsData[userLang] },
+    memoData: { ...mockedMemoData, ...reducedLadokData[userLang] },
     extraContentState: { extraHeaders1: [], extraHeaders2: [], extraHeaders3: [], extraHeaders4: [] },
     examinationModules: '<h4>INL1 - Inlämningsuppgifter, 3,5 hp</h4>',
   }

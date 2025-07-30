@@ -4,9 +4,6 @@ jest.mock('../../server/api', () => ({}))
 jest.mock('../../server/kursinfoApi', () => ({
   getCourseInfo: jest.fn(),
 }))
-jest.mock('../../server/koppsApi', () => ({
-  getLadokRoundIdsFromKopps: jest.fn(),
-}))
 jest.mock('../../server/ladokApi', () => ({
   getLadokCourseData: jest.fn(),
   getLadokCourseSyllabus: jest.fn(),
@@ -40,7 +37,6 @@ jest.mock('@kth/log', () => ({
 const { getMemoApiData, changeMemoApiData } = require('../../server/kursPmDataApi')
 const { getCourseInfo } = require('../../server/kursinfoApi')
 const { getLadokCourseData, getLadokCourseSyllabus } = require('../../server/ladokApi')
-const { getLadokRoundIdsFromKopps } = require('../../server/koppsApi')
 const { getCourseEmployees } = require('../../server/ugRestApi')
 const { getServerSideFunctions } = require('../../server/utils/serverSideRendering')
 
@@ -131,7 +127,6 @@ describe('renderMemoEditorPage', () => {
     })
 
     getCourseEmployees.mockResolvedValue(ugAdminEmployeesDataMock)
-    getLadokRoundIdsFromKopps.mockResolvedValue(['round1'])
     getCourseInfo.mockResolvedValue(courseInfoApiDataMock)
     getLadokCourseData.mockResolvedValue(ladokCourseDataMock)
     getLadokCourseSyllabus.mockResolvedValue(ladokCourseSyllabusDataMock)

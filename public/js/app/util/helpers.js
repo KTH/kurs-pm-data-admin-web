@@ -68,22 +68,22 @@ export const emptyCheckboxesByIds = (sortedApplicationCodes, startOfId) => {
   })
 }
 
-export const sortRoundAndKoppsInfo = (roundKopps, prevSortedInfo) => {
-  const { applicationCode } = roundKopps
-  const { sortedApplicationCodes, sortedKoppsInfo } = prevSortedInfo
+export const sortRoundAndLadokInfo = (roundLadok, prevSortedInfo) => {
+  const { applicationCode } = roundLadok
+  const { sortedApplicationCodes, sortedLadokInfo } = prevSortedInfo
   sortedApplicationCodes.push(applicationCode)
   const sortedRounds = sortedApplicationCodes.sort()
   const addIndex = sortedRounds.indexOf(applicationCode)
-  sortedKoppsInfo.splice(addIndex, 0, roundKopps)
-  return { sortedApplicationCodes, sortedKoppsInfo }
+  sortedLadokInfo.splice(addIndex, 0, roundLadok)
+  return { sortedApplicationCodes, sortedLadokInfo }
 }
 
 export const removeAndSortApplicationAndInfo = (applicationCode, prevSortedInfo) => {
-  const { sortedApplicationCodes, sortedKoppsInfo } = prevSortedInfo
+  const { sortedApplicationCodes, sortedLadokInfo } = prevSortedInfo
   const removeIndex = sortedApplicationCodes.indexOf(applicationCode)
   sortedApplicationCodes.splice(removeIndex, 1)
-  sortedKoppsInfo.splice(removeIndex, 1)
-  return { sortedApplicationCodes, sortedKoppsInfo }
+  sortedLadokInfo.splice(removeIndex, 1)
+  return { sortedApplicationCodes, sortedLadokInfo }
 }
 
 export const fetchParameters = props => {

@@ -109,12 +109,12 @@ function ActionModalCourseRounds(props) {
     return uncheckedRounds
   }
 
-  const _koppsInfoForChecked = sortedApplicationCodes => {
-    const sortedKoppsInfo = []
+  const _ladokInfoForChecked = sortedApplicationCodes => {
+    const sortedLadokInfo = []
     for (let i = 0; i < sortedApplicationCodes.length; i++) {
-      sortedKoppsInfo.push(allRounds.find(round => sortedApplicationCodes[i] === round.applicationCode))
+      sortedLadokInfo.push(allRounds.find(round => sortedApplicationCodes[i] === round.applicationCode))
     }
-    return sortedKoppsInfo
+    return sortedLadokInfo
   }
 
   const onSave = async () => {
@@ -129,9 +129,9 @@ function ActionModalCourseRounds(props) {
       const updatedSortedApplicationCodes = sortedApplicationCodes
         .filter(code => !uncheckedRounds.includes(code))
         .filter((value, index, self) => self.indexOf(value) === index)
-      const sortedKoppsInfo = _koppsInfoForChecked(updatedSortedApplicationCodes)
+      const sortedLadokInfo = _ladokInfoForChecked(updatedSortedApplicationCodes)
 
-      const newMemoName = sortedKoppsInfo.map(round => combineMemoName(round, semester, memoCommonLangAbbr)).join(', ')
+      const newMemoName = sortedLadokInfo.map(round => combineMemoName(round, semester, memoCommonLangAbbr)).join(', ')
       const firstDraft = version === FIRST_VERSION && status === 'draft'
       const newMemoEndPoint = firstDraft
         ? courseCode + semester + '-' + updatedSortedApplicationCodes.join('-')
