@@ -28,15 +28,16 @@ import StandardSectionOrEditor from '../components/StandardSectionOrEditor'
 import TabNav from '../components/TabNav'
 import TabContent from '../components/TabContent'
 import ProgressTitle from '../components/ProgressTitle'
-import { context, getExtraHeaderIdBySectionId } from '../util/fieldsByType'
+import { getExtraHeaderIdBySectionId, isEditable } from '../util/sectionAndHeaderUtils'
 import SectionMenu from '../components/SectionMenu'
 import {
-  isStandardHeadingVisibleInEditor,
-  isExtraHeadingVisibleInEditor,
+  getStandardContentVisibility,
+  getExtraContentVisibility,
   htmlHasContent,
   isStoredAsDefaultVisibleInDB,
   isStoredAsVisibleInDB,
-} from '../util/editorAndPreviewUtils'
+  MemoViewMode,
+} from '../util/visibilityUtils'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 60
@@ -245,22 +246,22 @@ function MemoContainer(props) {
     // else check if editable => Set to visibleInMemo in DB to false
     if (isStoredAsDefaultVisibleInDB(contentId, memoData)) {
       const htmlContent = memoData[contentId]
-      const { isEditable } = context[contentId]
+      const contentIsEditable = isEditable(contentId)
       if (htmlHasContent(htmlContent)) {
         store.setVisibilityOfStandard(contentId, true)
         return true
-      } else if (isEditable) {
+      } else if (contentIsEditable) {
         store.setVisibilityOfStandard(contentId, false)
         return false
       }
     }
 
-    return isStandardHeadingVisibleInEditor(contentId, context, memoData)
+    return getStandardContentVisibility(contentId, memoData, MemoViewMode.Editor)
   }
 
   // Check visibility for extra headings
   const checkVisibilityExtraHeading = (extraHeaderTitle, headingIndex) =>
-    isExtraHeadingVisibleInEditor(extraHeaderTitle, headingIndex, memoData)
+    getExtraContentVisibility(extraHeaderTitle, headingIndex, memoData, MemoViewMode.Editor)
 
   const toggleStandardVisibleInMemo = contentId => {
     const prevVisibility = isStoredAsVisibleInDB(contentId, memoData)

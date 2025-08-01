@@ -1,4 +1,4 @@
-import { allStandardHeadersAndSubHd } from '../../../public/js/app/util/fieldsByType'
+import { allStandardHeadersAndSubHd } from '../../../public/js/app/util/sectionAndHeaderUtils'
 
 const standardMemoContent = [
   'additionalRegulations',

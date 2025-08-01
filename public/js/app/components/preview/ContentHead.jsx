@@ -3,10 +3,9 @@ import { FaAsterisk } from 'react-icons/fa'
 import PropTypes from 'prop-types'
 import i18n from '../../../../../i18n'
 
-export const ContentHead = ({ contentId, memoLangIndex, fromSyllabus }) => {
+export const ContentHead = ({ contentId, memoLangIndex, isFromSyllabus }) => {
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
   const header = memoTitlesByMemoLang[contentId]
-  const { is: isFromSyllabus } = fromSyllabus
   return header ? (
     <>
       <h3>
@@ -32,9 +31,7 @@ export const SubSectionHeaderMessage = ({ message }) => (
 ContentHead.propTypes = {
   contentId: PropTypes.string.isRequired,
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
-  fromSyllabus: PropTypes.shape({
-    is: PropTypes.bool.isRequired,
-  }).isRequired,
+  isFromSyllabus: PropTypes.bool.isRequired,
 }
 ExtraHeaderHead.propTypes = {
   // eslint-disable-next-line react/require-default-props

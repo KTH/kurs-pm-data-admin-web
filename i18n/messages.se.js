@@ -65,10 +65,9 @@ module.exports = {
   sourceInfo: {
     addNewHeading: 'Ange rubrik',
     fetched: 'Innehåll hämtas ',
+    '(s)': 'från kursplan i Ladok',
+    '(c)': 'från kursinformation i Ladok',
     '(ug)': 'från UG Admin',
-    '(r)': 'från kurstillfällesinformation',
-    '(s)': 'från kursplan',
-    '(o)': 'från sidan inför kursval',
     errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: `Inkluderas alltid (går att redigera)`,

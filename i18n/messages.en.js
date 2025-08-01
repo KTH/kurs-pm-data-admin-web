@@ -72,10 +72,9 @@ module.exports = {
   sourceInfo: {
     addNewHeading: 'Name heading',
     fetched: 'Fetched ', // IF NOT EDITABLE
+    '(s)': 'from course syllabus in Ladok',
+    '(c)': 'from course information in Ladok',
     '(ug)': 'from UG Admin',
-    '(r)': 'from course round information',
-    '(s)': 'from course syllabus',
-    '(o)': 'from the page Before course selection',
     errorEmptyHeading: 'You need to name the header',
     mandatory: 'Always included',
     mandatoryAndEditable: 'Always included',

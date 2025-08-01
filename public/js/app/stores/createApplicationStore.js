@@ -8,10 +8,10 @@ import axios from 'axios'
 import { LadokStatusCode } from '@kth/om-kursen-ladok-client'
 import { SERVICE_URL } from '../util/constants'
 import {
-  getDefaultSections,
-  excludedFieldsInContractEducation,
+  standardSections,
+  excludedHeadersInContractEducation,
   getContractEducationStructure,
-} from '../util/fieldsByType'
+} from '../util/sectionAndHeaderUtils'
 
 function createApplicationStore() {
   const store = {
@@ -67,7 +67,7 @@ function createApplicationStore() {
      * @property {object} extraContentState
      */
     extraContentState: observable.box(
-      Object.fromEntries(getDefaultSections().map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
+      Object.fromEntries(standardSections.map(({ extraHeaderTitle }) => [extraHeaderTitle, []])) || {}
     ),
     /**
      * @property {object} browserConfig
@@ -139,7 +139,7 @@ function setNewEmptyExtraContent(extraHeaderTitle) {
 function updateContractEducationSections() {
   const updatedSections = getContractEducationStructure()
 
-  for (const excludedProp of excludedFieldsInContractEducation) {
+  for (const excludedProp of excludedHeadersInContractEducation) {
     this.memoData[excludedProp] = ''
     if (this.memoData.visibleInMemo) {
       this.memoData.visibleInMemo[excludedProp] = false
@@ -162,7 +162,7 @@ async function setSectionsStructure() {
 
   const isContractEducation = checkIfContractEducation(educationalTypeId)
 
-  this.sections = isContractEducation ? await this.updateContractEducationSections() : getDefaultSections()
+  this.sections = isContractEducation ? await this.updateContractEducationSections() : standardSections
 }
 
 function setVisibilityOfStandard(contentId, value) {

@@ -1,23 +1,23 @@
-const { getDefaultSections, getContractEducationStructure } = require('../fieldsByType')
+const { getContractEducationStructure, standardSections } = require('../sectionAndHeaderUtils')
 
 describe('parse a changed copy of sections for a contract education without changing default sections', () => {
   test('compare a copy of sections content (ids: extra, prep) without changing the default sections content', () => {
     const changedSections = getContractEducationStructure()
     const [, changedPrepSection, , changedExtraSection] = changedSections
-    const [, defaultPrepSection, , defaultExtraSection] = getDefaultSections()
+    const [, defaultPrepSection, , defaultExtraSection] = standardSections
 
     expect(changedPrepSection).not.toMatchObject(defaultPrepSection)
     expect(changedExtraSection).not.toMatchObject(defaultExtraSection)
   })
   test('compare a copy of sections with the default sections (default structure must be unchanged)', () => {
     const changedSections = getContractEducationStructure()
-    expect(changedSections).not.toMatchObject(getDefaultSections())
+    expect(changedSections).not.toMatchObject(standardSections)
   })
 
   test('compare snapshots of a copy of sections content (ids: extra, prep) without changing the default sections content', () => {
     const changedSections = getContractEducationStructure()
     const [, changedPrepSection, , changedExtraSection] = changedSections
-    const [, defaultPrepSection, , defaultExtraSection] = getDefaultSections()
+    const [, defaultPrepSection, , defaultExtraSection] = standardSections
 
     expect(changedPrepSection.content).toMatchInlineSnapshot(`
       [
@@ -117,7 +117,7 @@ describe('parse a changed copy of sections for a contract education without chan
         },
       ]
     `)
-    expect(getDefaultSections()).toMatchInlineSnapshot(`
+    expect(standardSections).toMatchInlineSnapshot(`
       [
         {
           "content": [

@@ -13,7 +13,7 @@ import { act } from 'react-dom/test-utils'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
 import i18n from '../../i18n'
-import { getOnlyStandardHeaders, getSectionHeadersByType } from '../../public/js/app/util/fieldsByType.js'
+import { getOnlyStandardHeaders, getSectionHeadersByType } from '../../public/js/app/util/sectionAndHeaderUtils.js'
 import MemoContainer from '../../public/js/app/pages/MemoEditingContainer'
 import mockApplicationStoreWithChosenMemo from '../mocks/AppStoreWithChosenMemo'
 import translations from '../mocks/translations'
@@ -558,7 +558,7 @@ describe('Active tab prep. Component <MemoContainer> Edit. A New fresh draft of 
   })
 
   test('tab: prep. render a correct number of infos about data origin and source info', () => {
-    const dataOrigin = screen.getAllByText(/Fetched from the page Before course selection/i)
+    const dataOrigin = screen.getAllByText(/Fetched from course information in Ladok/i)
     expect(dataOrigin[0]).toBeInTheDocument()
     expect(dataOrigin.length).toBe(1)
   })

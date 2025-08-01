@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import i18n from '../../../../i18n'
 import { useStore } from '../mobx'
 import { useSectionContext } from '../stores/SectionContext'
-import { typeOfHeader } from '../util/fieldsByType'
+import { getHeaderType } from '../util/sectionAndHeaderUtils'
 import { ContentHead } from './ContentHead'
 import VisibilityInfo from './VisibilityInfo'
 import { EditButton } from './editors/EditButton'
@@ -25,7 +25,7 @@ const SectionWithSubSection = ({
 }) => {
   const { nothingFetched } = i18n.messages[userLangIndex].sourceInfo
   const { buttons, memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
-  const typeOfThisHeader = typeOfHeader(contentId)
+  const headerType = getHeaderType(contentId)
   const store = useStore()
   const { memoData } = store
   const subSectionContentId = contentId + 'SubSection'
@@ -54,7 +54,7 @@ const SectionWithSubSection = ({
           id={menuId}
           key={contentId}
           className="main-text-section"
-          data-testid={`section-${typeOfThisHeader}-${contentId}`}
+          data-testid={`section-${headerType}-${contentId}`}
         >
           <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
           <VisibilityInfo
@@ -67,10 +67,10 @@ const SectionWithSubSection = ({
 
           <span
             className="section-content"
-            data-testid={`text-for-memo-${typeOfThisHeader}-${subSectionContentId}`}
+            data-testid={`text-for-memo-${headerType}-${subSectionContentId}`}
             style={visibleInMemo ? {} : { display: 'none' }}
             dangerouslySetInnerHTML={{
-              __html: html || `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`,
+              __html: html || `<p data-testid='msg-text-about-empty'><i>${nothingFetched[headerType]}</i></p>`,
             }}
           />
         </span>

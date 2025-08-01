@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { context } from '../util/fieldsByType'
+import { isEditable } from '../util/sectionAndHeaderUtils'
 
 import i18n from '../../../../i18n'
 import { OnClickPropagationStopper } from '../components/editors/OnClickPropagationStopper'
@@ -29,7 +29,7 @@ const getInfoModalAriaLabel = (langIndex, header) =>
 export const ContentHead = ({ contentId, isEditorOpen, memoLangIndex, onToggleEditor, userLangIndex }) => {
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 
-  const { isEditable = false } = context[contentId] || {}
+  const contentIsEditable = isEditable(contentId)
 
   const contentName =
     memoTitlesByMemoLang[contentId] || memoTitlesByMemoLang[contentId.substring(0, contentId.length - 10)]
@@ -40,7 +40,7 @@ export const ContentHead = ({ contentId, isEditorOpen, memoLangIndex, onToggleEd
       contentId={contentId}
       contentName={contentName}
       header={header}
-      isEditButtonVisible={isEditable}
+      isEditButtonVisible={contentIsEditable}
       isEditorOpen={isEditorOpen}
       memoLangIndex={memoLangIndex}
       onToggleEditor={onToggleEditor}
