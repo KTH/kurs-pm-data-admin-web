@@ -3,14 +3,15 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { context, contentParam, isRequired, typeOfHeader } from '../util/fieldsByType'
+import { isHeaderInConfig, isRequired, getHeaderType, getHeaderSource } from '../util/sectionAndHeaderUtils'
 
 import i18n from '../../../../i18n'
 import { OnClickPropagationStopper } from './editors/OnClickPropagationStopper'
 
 const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, sectionType, userLangIndex, children }) => {
-  const dataOrigin = contentParam(contentId, 'source')
-  const isHeaderInConf = !!context[contentId]
+  const headerType = getHeaderType(contentId)
+  const headerSource = getHeaderSource(contentId)
+  const headerInConfig = isHeaderInConfig(contentId)
 
   const { sourceInfo } = i18n.messages[userLangIndex]
   const { fetched } = sourceInfo
@@ -19,9 +20,9 @@ const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, secti
       <span className="section_info_visibility_label">
         {(isRequired(contentId) && (
           <p className="mandatory" data-testid="data-origin">
-            <b>{sourceInfo[typeOfHeader(contentId)]}</b>
-            {dataOrigin && ' \u007C ' + fetched}
-            {dataOrigin && sourceInfo[dataOrigin]}
+            <b>{sourceInfo[headerType]}</b>
+            {headerSource && ' \u007C ' + fetched}
+            {headerSource && sourceInfo[headerSource]}
           </p>
         )) || (
           <OnClickPropagationStopper>
@@ -46,8 +47,8 @@ const VisibilityInfo = ({ contentId, visibleInMemo, onToggleVisibleInMemo, secti
                   {' '}
                   {sourceInfo.includeInMemo[sectionType]}
                 </label>
-                {isHeaderInConf && dataOrigin && ` ${'\u007C'} ${fetched}`}
-                {isHeaderInConf && dataOrigin && sourceInfo[dataOrigin]}
+                {headerInConfig && headerSource && ` ${'\u007C'} ${fetched}`}
+                {headerInConfig && headerSource && sourceInfo[headerSource]}
               </div>
             </form>
           </OnClickPropagationStopper>

@@ -14,7 +14,7 @@ import { StaticRouter } from 'react-router-dom/server'
 import { act } from 'react-dom/test-utils'
 import { MobxStoreProvider } from '../../public/js/app/mobx'
 
-import { getOnlyStandardHeaders, getSectionHeadersByType } from '../../public/js/app/util/fieldsByType.js'
+import { getOnlyStandardHeaders, getSectionHeadersByType } from '../../public/js/app/util/sectionAndHeaderUtils.js'
 
 import MemoContainer from '../../public/js/app/pages/MemoEditingContainer'
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useStore } from '../../mobx'
 
 import { ContentHead } from '../ContentHead'
-import { context } from '../../util/fieldsByType'
+import { isRequired, isSubSection } from '../../util/sectionAndHeaderUtils'
 import { useSectionContext } from '../../stores/SectionContext'
 import HeadingBox from '../layout/HeadingBox'
 import EditorWithVisibility from './EditorWithVisibility'
@@ -14,11 +14,12 @@ function StandardEditorPerTitle(props) {
   const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
   const { contentId, htmlContent, menuId, visibleInMemo, onToggleVisibleInMemo, onSave } = props
 
-  const { isRequired, hasParentTitle } = context[contentId]
+  const contentIsRequired = isRequired(contentId)
+  const contentIsSubSection = isSubSection(contentId)
 
   const { getIsEditorOpen, setIsEditorOpen } = useSectionContext()
 
-  const sectionType = hasParentTitle ? 'subSection' : 'section'
+  const sectionType = contentIsSubSection ? 'subSection' : 'section'
 
   useEffect(() => {
     // used when visibleInMemo changes or open/close editor (but not when editor content changed, done in updateMemoContent)
@@ -55,7 +56,7 @@ function StandardEditorPerTitle(props) {
         userLangIndex={userLangIndex}
         visibleInMemo={visibleInMemo}
         isEditorOpen={getIsEditorOpen(contentId)}
-        isRequired={isRequired}
+        isRequired={contentIsRequired}
         onSave={onSave}
         onToggleEditor={toggleEditor}
       />

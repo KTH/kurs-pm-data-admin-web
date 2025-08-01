@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { typeOfHeader } from '../util/fieldsByType'
+import { getHeaderType } from '../util/sectionAndHeaderUtils'
 import i18n from '../../../../i18n'
 import HeadingBox from '../components/layout/HeadingBox'
 import { disableLinksInHtml } from '../util/disableLinksInHtml'
@@ -18,7 +18,7 @@ const SectionForNonEditable = ({
   userLangIndex,
 }) => {
   const { nothingFetched } = i18n.messages[userLangIndex].sourceInfo
-  const typeOfThisHeader = typeOfHeader(contentId)
+  const headerType = getHeaderType(contentId)
 
   const isReady = React.useMemo(() => visibleInMemo && html !== '', [visibleInMemo, html])
 
@@ -28,7 +28,7 @@ const SectionForNonEditable = ({
         id={menuId}
         key={contentId}
         className="main-text-section"
-        data-testid={`section-${typeOfThisHeader}-${contentId}`}
+        data-testid={`section-${headerType}-${contentId}`}
       >
         <ContentHead contentId={contentId} memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
         <VisibilityInfo
@@ -40,12 +40,12 @@ const SectionForNonEditable = ({
         />
         <span
           className="section-content"
-          data-testid={`text-for-memo-${typeOfThisHeader}-${contentId}`}
+          data-testid={`text-for-memo-${headerType}-${contentId}`}
           style={visibleInMemo ? {} : { display: 'none' }}
           dangerouslySetInnerHTML={{
             __html:
               disableLinksInHtml(html) ||
-              `<p data-testid='msg-text-about-empty'><i>${nothingFetched[typeOfThisHeader]}</i></p>`,
+              `<p data-testid='msg-text-about-empty'><i>${nothingFetched[headerType]}</i></p>`,
           }}
         />
       </span>
