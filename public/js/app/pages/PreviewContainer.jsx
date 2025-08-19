@@ -20,12 +20,12 @@ import CourseContacts from '../components/preview/CourseContacts'
 import Section from '../components/preview/Section'
 
 import i18n from '../../../../i18n'
-import { context, getDefaultSections } from '../util/fieldsByType'
+import { standardSections } from '../util/sectionAndHeaderUtils'
 import { concatMemoName, concatHeaderMemoName } from '../util/helpers'
 import { seasonStr } from '../utils-shared/helpers'
 import { FIRST_VERSION, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '../util/constants'
 import { TYPE, useToast } from '../hooks/useToast'
-import { getAllSectionsAndHeadingsToShowInPreview } from '../util/editorAndPreviewUtils'
+import { getAllSectionsAndHeadingsToShow, MemoViewMode } from '../util/visibilityUtils'
 import ContentFromNewSectionEditor from '../components/preview/ContentFromNewSectionEditor'
 
 const PROGRESS = 3
@@ -35,8 +35,12 @@ const renderAllSections = ({ memoData }) => {
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
   const { noInfoYetPreview } = i18n.messages[memoLanguageIndex].sourceInfo
 
-  const sections = getDefaultSections()
-  const sectionsAndContent = getAllSectionsAndHeadingsToShowInPreview({ sections, context, memoData })
+  const sections = standardSections
+  const sectionsAndContent = getAllSectionsAndHeadingsToShow({
+    sections,
+    memoData,
+    mode: MemoViewMode.Preview,
+  })
 
   return sectionsAndContent.map(({ id, standardHeadingIds, extraHeaderTitle, extraHeadingIndices, isEmptySection }) => {
     if (isEmptySection) {

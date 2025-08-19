@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { context } from '../util/fieldsByType'
+import { isEditable, hasSubSection, isSubSection } from '../util/sectionAndHeaderUtils'
 import StandardEditorPerTitle from './editors/StandardEditorPerTitle'
 import SectionForNonEditable from './SectionForNonEditable'
 import SectionWithSubSection from './SectionWithSubSection'
@@ -16,14 +16,15 @@ const StandardSectionOrEditor = ({
   checkVisibility,
 }) => {
   const menuId = sectionId + '-' + contentId
-  // eslint-disable-next-line react/destructuring-assignment
-  const { isEditable, subSection, hasParentTitle } = context[contentId]
+  const contentIsEditable = isEditable(contentId)
+  const contentHasSubSection = hasSubSection(contentId)
+  const contentIsSubSection = isSubSection(contentId)
 
-  if (hasParentTitle) return null // Subsections are included in SectionWithSubSection
+  if (contentIsSubSection) return null // Subsections are included in SectionWithSubSection
 
   const visibleInMemo = checkVisibility(contentId)
 
-  if (isEditable) {
+  if (contentIsEditable) {
     return (
       <StandardEditorPerTitle
         contentId={contentId}
@@ -35,7 +36,7 @@ const StandardSectionOrEditor = ({
         onSave={onSave}
       />
     )
-  } else if (subSection) {
+  } else if (contentHasSubSection) {
     return (
       <SectionWithSubSection
         memoLangIndex={memoLangIndex}
