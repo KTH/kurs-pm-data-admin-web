@@ -64,8 +64,6 @@ const mergeAllData = async (
   // Source: Static content
   const { permanentDisability } = i18n.messages[language === 'en' ? 0 : 1].staticMemoBodyByUserLang
 
-  console.log('permanentDisability', permanentDisability)
-
   // Source: UG Admin
   const ugEmployeesValues = {
     examiner: ugEmployeesData.examiners,
@@ -123,7 +121,6 @@ async function renderMemoEditorPage(req, res, next) {
       ladokCourseSyllabusData,
       ugEmployeesData
     )
-    console.log('await mergeAllData', applicationStore.memoData)
 
     await applicationStore.setSectionsStructure()
 
