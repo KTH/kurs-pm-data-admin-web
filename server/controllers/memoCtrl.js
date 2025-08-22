@@ -29,7 +29,8 @@ const mergeAllData = async (
   courseInfoApiData,
   ladokCourseData,
   ladokCourseSyllabusData,
-  ugEmployeesData
+  ugEmployeesData,
+  staticData
 ) => {
   const memoDataWithDefaults = addDefaultValues(memoApiData)
 
@@ -61,9 +62,6 @@ const mergeAllData = async (
     additionalRegulations: ladokCourseSyllabusData.kursplan.faststallande,
   }
 
-  // Source: Static content
-  const { permanentDisability } = i18n.messages[language === 'en' ? 0 : 1].staticMemoBodyByUserLang
-
   // Source: UG Admin
   const ugEmployeesValues = {
     examiner: ugEmployeesData.examiners,
@@ -71,13 +69,18 @@ const mergeAllData = async (
     courseCoordinator: ugEmployeesData.courseCoordinators,
   }
 
+  // Source: Static data
+  const staticValues = {
+    permanentDisability: staticData.permanentDisability,
+  }
+
   return {
     ...memoDataWithDefaults,
     ...courseInfoApiValues,
     ...ladokCourseValues,
     ...ladokCourseSyllabusValues,
-    permanentDisability,
     ...ugEmployeesValues,
+    ...staticValues,
   }
 }
 
@@ -113,13 +116,15 @@ async function renderMemoEditorPage(req, res, next) {
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
     const ladokCourseSyllabusData = await getLadokCourseSyllabus(courseCode, semester, memoLangAbbr)
     const ugEmployeesData = await getCourseEmployees(memoApiData)
+    const staticData = i18n.messages[memoLangAbbr === 'en' ? 0 : 1].staticMemoBodyByUserLang
 
     applicationStore.memoData = await mergeAllData(
       memoApiData,
       courseInfoApiData,
       ladokCourseData,
       ladokCourseSyllabusData,
-      ugEmployeesData
+      ugEmployeesData,
+      staticData
     )
 
     await applicationStore.setSectionsStructure()

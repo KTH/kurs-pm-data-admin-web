@@ -92,12 +92,17 @@ const courseInfoApiDataMock = {
 
 describe('mergeAllData', () => {
   it('should merge all sources correctly', async () => {
+    const staticDataMock = {
+      permanentDisability: 'Mocked permanent disability (EN)',
+    }
+
     const merged = await memoCtrl.mergeAllData(
       mockedApi(true),
       courseInfoApiDataMock,
       ladokCourseDataMock,
       ladokCourseSyllabusDataMock,
-      ugAdminEmployeesDataMock
+      ugAdminEmployeesDataMock,
+      staticDataMock
     )
 
     expect(merged).toHaveProperty('equipment', 'Text saved by user in section in Equipment section')
@@ -105,6 +110,7 @@ describe('mergeAllData', () => {
     expect(merged).toHaveProperty('courseContent', 'Course content example')
     expect(merged).toHaveProperty('prerequisites', 'Some recommended prerequisites')
     expect(merged).toHaveProperty('teacher', 'teacher mock')
+    expect(merged).toHaveProperty('permanentDisability', 'Mocked permanent disability (EN)')
   })
 })
 
