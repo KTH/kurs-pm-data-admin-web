@@ -92,9 +92,8 @@ const courseInfoApiDataMock = {
 
 describe('mergeAllData', () => {
   it('should merge all sources correctly', async () => {
-    const staticDataMock = {
-      permanentDisability: 'Mocked permanent disability (EN)',
-    }
+    const i18n = require('../../i18n')
+    const staticData = i18n.messages[0].staticMemoBodyByUserLang // assuming English
 
     const merged = await memoCtrl.mergeAllData(
       mockedApi(true),
@@ -102,7 +101,7 @@ describe('mergeAllData', () => {
       ladokCourseDataMock,
       ladokCourseSyllabusDataMock,
       ugAdminEmployeesDataMock,
-      staticDataMock
+      staticData
     )
 
     expect(merged).toHaveProperty('equipment', 'Text saved by user in section in Equipment section')
@@ -110,7 +109,9 @@ describe('mergeAllData', () => {
     expect(merged).toHaveProperty('courseContent', 'Course content example')
     expect(merged).toHaveProperty('prerequisites', 'Some recommended prerequisites')
     expect(merged).toHaveProperty('teacher', 'teacher mock')
-    expect(merged).toHaveProperty('permanentDisability', 'Mocked permanent disability (EN)')
+    expect(merged.permanentDisability).toContain(
+      'Students at KTH with a permanent disability can get support during studies from Funka:'
+    )
   })
 })
 
