@@ -1,3 +1,7 @@
+// Be aware that this entire file, or most of it, is replicated in multiple apps,
+// so changes here should probably be synced to the other apps.
+// See https://confluence.sys.kth.se/confluence/x/6wYJDQ for more information.
+
 const HeaderType = Object.freeze({
   Mandatory: 'mandatory', // Obligatoriska rubriker (från KTH-mallen), ej redigerbara
   MandatoryAndEditable: 'mandatoryAndEditable', // Obligatoriska rubriker (från KTH-mallen), redigerbara

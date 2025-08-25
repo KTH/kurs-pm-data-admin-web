@@ -9,7 +9,7 @@ const Section = ({ contentId, menuId, htmlContent, memoLangIndex = 0 /* en */ })
   const { noInfoYetPreview, insertedSubSection } = i18n.messages[memoLangIndex].sourceInfo
 
   const contentSource = getHeaderSource(contentId)
-  const isFromSyllabus = contentSource === HeaderSource.SYLLABUS
+  const isFromSyllabus = contentSource === HeaderSource.CourseSyllabus
 
   const contentIsSubSection = isSubSection(contentId)
 

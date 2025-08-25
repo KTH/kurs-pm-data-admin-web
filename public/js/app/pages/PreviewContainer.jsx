@@ -35,9 +35,8 @@ const renderAllSections = ({ memoData }) => {
   const { sectionsLabels } = i18n.messages[memoLanguageIndex]
   const { noInfoYetPreview } = i18n.messages[memoLanguageIndex].sourceInfo
 
-  const sections = standardSections
   const sectionsAndContent = getAllSectionsAndHeadingsToShow({
-    sections,
+    sections: standardSections,
     memoData,
     mode: MemoViewMode.Preview,
   })
