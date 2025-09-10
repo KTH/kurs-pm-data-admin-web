@@ -22,7 +22,7 @@ const formatLadokData = (ladokCourseRounds, ladokCourseData) => {
 
   const ladokCourseRoundTerms = {
     course: {
-      title: ladokCourseData.benamning,
+      title: ladokCourseData.benamning.name,
       credits: ladokCourseData.omfattning,
       creditUnitLabel: ladokCourseData.utbildningstyp?.creditsUnit,
       creditUnitAbbr: ladokCourseData.utbildningstyp?.creditsUnit.code.toLowerCase(),
