@@ -42,7 +42,7 @@ const mergeAllData = async (
   // Source: Ladok
   const ladokCourseValues = {
     credits: ladokCourseData.omfattning,
-    title: ladokCourseData.benamning,
+    title: ladokCourseData.benamning.name,
     courseTitle: `${ladokCourseData.kod} ${ladokCourseData.benamning} ${ladokCourseData.omfattning.formattedWithUnit}`,
     departmentName: ladokCourseData.organisation.name,
     educationalTypeId: ladokCourseData.utbildningstyp.id,
