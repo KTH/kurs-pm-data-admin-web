@@ -42,8 +42,8 @@ const mergeAllData = async (
   // Source: Ladok
   const ladokCourseValues = {
     credits: ladokCourseData.omfattning,
-    title: ladokCourseData.benamning,
-    courseTitle: `${ladokCourseData.kod} ${ladokCourseData.benamning} ${ladokCourseData.omfattning.formattedWithUnit}`,
+    title: ladokCourseData.benamning.name,
+    courseTitle: `${ladokCourseData.kod} ${ladokCourseData.benamning.name} ${ladokCourseData.omfattning.formattedWithUnit}`,
     departmentName: ladokCourseData.organisation.name,
     educationalTypeId: ladokCourseData.utbildningstyp.id,
   }
@@ -52,7 +52,7 @@ const mergeAllData = async (
   const ladokCourseSyllabusValues = {
     courseContent: ladokCourseSyllabusData.kursplan.kursinnehall,
     learningOutcomes: ladokCourseSyllabusData.kursplan.larandemal,
-    gradingScale: ladokCourseSyllabusData.course.betygsskala,
+    gradingScale: ladokCourseSyllabusData.course.betygsskala.formattedWithUnit,
     examination:
       ladokCourseSyllabusData.kursplan.examinationModules.completeExaminationStrings +
       ladokCourseSyllabusData.kursplan.kommentartillexamination,

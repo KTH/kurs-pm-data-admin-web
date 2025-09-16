@@ -51,7 +51,7 @@ const ladokCourseData = {
     nameEn: 'Complete',
   },
   avvecklad: false,
-  benamning: 'Algebra och geometri',
+  benamning: { name: 'Algebra och geometri', nameOther: 'Algebra and Geometry' },
   omfattning: '7.5',
   organisation: {
     id: '',
