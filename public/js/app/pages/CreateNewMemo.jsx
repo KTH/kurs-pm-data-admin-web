@@ -26,6 +26,7 @@ import Dropdown from '../components-shared/Dropdown'
 import i18n from '../../../../i18n'
 
 import { seasonStr } from '../utils-shared/helpers'
+import { setLocationHref } from '../util/location'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
   if (!existingDraftEndPoint) return
@@ -218,7 +219,7 @@ function CreateNewMemo(props) {
     } else if (action === 'continue' && existingDraftEndPoint) {
       // Draft exists just go to next step
       const continueToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${existingDraftEndPoint}`
-      window.location = continueToEditorUrl
+      setLocationHref(continueToEditorUrl)
     } else if (sortedApplicationCodes.length > 0 && !existingDraftEndPoint) {
       const courseTitle = combinedCourseName(courseCode, course)
       // Create new draft from chosen semester rounds
@@ -242,7 +243,8 @@ function CreateNewMemo(props) {
         const goToEditorUrl = `${SERVICE_URL.courseMemoAdmin}${courseCode}/${body.memoEndPoint}${
           action === 'copy' ? '?event=copy' : ''
         }`
-        window.location = goToEditorUrl
+        setLocationHref(goToEditorUrl)
+
         return result
       } catch (error) {
         setAlarm('danger', 'errWhileSaving')
@@ -254,7 +256,7 @@ function CreateNewMemo(props) {
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}`
 
     setTimeout(() => {
-      window.location = startAdminPageUrl
+      setLocationHref(startAdminPageUrl)
     }, 500)
   }
 

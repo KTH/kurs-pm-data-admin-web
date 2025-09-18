@@ -27,6 +27,7 @@ import { FIRST_VERSION, SERVICE_URL, SAVED_NEW_PARAM, ADMIN_URL } from '../util/
 import { TYPE, useToast } from '../hooks/useToast'
 import { getAllSectionsAndHeadingsToShow, MemoViewMode } from '../util/visibilityUtils'
 import ContentFromNewSectionEditor from '../components/preview/ContentFromNewSectionEditor'
+import { getLocation, setLocationHref } from '../util/location'
 
 const PROGRESS = 3
 
@@ -195,8 +196,8 @@ function PreviewContainer(props) {
   courseMemoItems = courseMemoItems.filter((item, index, arr) => index === arr.findIndex(t => t.id === item.id))
 
   const onBack = () => {
-    const editLocation = window.location.href.replace(/\/preview/, '')
-    window.location = editLocation
+    const editLocation = getLocation().href.replace(/\/preview/, '')
+    setLocationHref(editLocation)
   }
 
   const publish = () =>
@@ -210,9 +211,11 @@ function PreviewContainer(props) {
           `Ver ${version} - ${new Date(memoData.lastChangeDate).toLocaleString(langIndex === 0 ? 'en-GB' : 'sv-SE')}`
         )
         const publishType = isDraftOfPublished ? 'pub_changed' : 'pub'
-        window.location = `${ADMIN_URL}${courseCode}?serv=pmdata&event=${publishType}&ver=${versionStr}&term=${semester}&name=${encodeURIComponent(
-          memoName
-        )}&memoendpoint=${memoEndPoint}&ladokRound=${applicationCodes.join('-')}`
+        setLocationHref(
+          `${ADMIN_URL}${courseCode}?serv=pmdata&event=${publishType}&ver=${versionStr}&term=${semester}&name=${encodeURIComponent(
+            memoName
+          )}&memoendpoint=${memoEndPoint}&ladokRound=${applicationCodes.join('-')}`
+        )
       })
       // eslint-disable-next-line no-console
       .catch(() => {
@@ -225,7 +228,7 @@ function PreviewContainer(props) {
     }`
 
     setTimeout(() => {
-      window.location = startAdminPageUrl
+      setLocationHref(startAdminPageUrl)
     }, 500)
   }
 

@@ -38,6 +38,7 @@ import {
   isStoredAsVisibleInDB,
   MemoViewMode,
 } from '../util/visibilityUtils'
+import { setLocationHref } from '../util/location'
 
 const PROGRESS = 2
 const TAB_HEIGHT = 60
@@ -288,7 +289,7 @@ function MemoContainer(props) {
     const resAfterSavingMemoData = await onSave(store.memoData, 'autoSaved')
     if (nextUrl && hasAllExtraHeadingsNamed && resAfterSavingMemoData)
       setTimeout(() => {
-        window.location = nextUrl
+        setLocationHref(nextUrl)
       }, 500)
     return true
   }
@@ -311,7 +312,7 @@ function MemoContainer(props) {
     onAutoSave()
 
     setTimeout(() => {
-      window.location = startAdminPageUrl
+      setLocationHref(startAdminPageUrl)
     }, 500)
   }
 
@@ -319,7 +320,7 @@ function MemoContainer(props) {
     const startAdminPageUrl = `${SERVICE_URL.courseMemoAdmin}${isDraftOfPublished ? 'published/' : ''}${courseCode}`
 
     setTimeout(() => {
-      window.location = startAdminPageUrl
+      setLocationHref(startAdminPageUrl)
     }, 500)
   }
 

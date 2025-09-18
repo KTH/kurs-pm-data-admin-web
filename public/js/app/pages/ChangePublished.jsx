@@ -19,10 +19,11 @@ import i18n from '../../../../i18n'
 
 import { combinedCourseName, fetchParameters } from '../util/helpers'
 import { seasonStr } from '../utils-shared/helpers'
+import { getLocation, replaceLocation, setLocationHref, setSearch } from '../util/location'
 
 function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
   if (!existingDraftEndPoint) return
-  const { href, search } = window.location
+  const { href, search } = getLocation()
   const matchSearch = `memoEndPoint=${existingDraftEndPoint}&semester=${semester}&`
   if (search && search.includes(matchSearch)) {
     const searchLeftovers = `${search}`.replace(matchSearch, '')
@@ -31,7 +32,7 @@ function cleanMemoEndPointInSearchParams(existingDraftEndPoint, semester) {
     if (searchLeftovers === '?') url = url.replace(`?${matchSearch}`, '')
     else url = url.replace(`${matchSearch}`, '')
 
-    window.history.replaceState({}, '', url)
+    setSearch(url)
   }
 }
 function ChangePublished(props) {
@@ -40,12 +41,11 @@ function ChangePublished(props) {
     memoEndPoint: initialMemoEndPoint,
     miniLadokObj,
     miniMemos,
-    langAbbr: storeLangAbbr,
     langIndex: storeLangIndex,
     semester: initialSemester,
   } = useStore()
 
-  const { langAbbr = storeLangAbbr, langIndex = storeLangIndex } = props
+  const { langIndex = storeLangIndex } = props
   const [chosenMemo, setMemo] = useState({ existingDraftEndPoint: initialMemoEndPoint || '', memoStatus: '' })
   const [alert, setAlert] = useState({
     type: '', // danger, success, warn
@@ -74,7 +74,7 @@ function ChangePublished(props) {
   const termWithPm = lastTerms.filter(t => memosToEdit.find(memo => memo.semester === t.term))
 
   useEffect(() => {
-    const { search } = window.location
+    const { search } = getLocation()
     const urlParamsWithinEffect = fetchParameters(window)
     const matchSearch = `event=addedRoundId`
     const eventDelete = `event=deleteUnsavedChanges`
@@ -121,7 +121,7 @@ function ChangePublished(props) {
       }
       const eventFromParams = 'deleteUnsavedChanges'
       const reloadUrl = `${SERVICE_URL.courseMemoAdmin}published/${courseCode}?memoEndPoint=${chosenMemo.existingDraftEndPoint}&semester=${term}&event=${eventFromParams}`
-      window.location.replace(reloadUrl)
+      replaceLocation(reloadUrl)
     } catch (err) {
       setAlarm('danger', 'errWhileSaving')
       if (err.response) {
@@ -138,7 +138,7 @@ function ChangePublished(props) {
     const memosProps = await memosToEdit.find(published => published.memoEndPoint === chosenMemo.existingDraftEndPoint)
 
     if (memosProps && memosProps.status === 'draft') {
-      window.location = goToEditorUrl
+      setLocationHref(goToEditorUrl)
     } else if (memosProps && memosProps.status === 'published') {
       const body = { memoEndPoint: chosenMemo.existingDraftEndPoint }
 
@@ -150,7 +150,7 @@ function ChangePublished(props) {
           setAlarm('danger', 'errWhileSaving')
           return 'ERROR-' + result.status
         }
-        window.location = goToEditorUrl
+        setLocationHref(goToEditorUrl)
       } catch (error) {
         setAlarm('danger', 'errWhileSaving')
       }
@@ -161,7 +161,7 @@ function ChangePublished(props) {
     const startAdminPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}`
 
     setTimeout(() => {
-      window.location = startAdminPageUrl
+      setLocationHref(startAdminPageUrl)
     }, 500)
   }
 

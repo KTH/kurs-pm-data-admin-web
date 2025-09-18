@@ -10,6 +10,17 @@ import ChangePublished from '../../public/js/app/pages/ChangePublished'
 import { mockApplicationStore, mockApplicationStoreEn } from '../mocks/ApplicationStore'
 import mockApplicationStoreWithAllMemos from '../mocks/AppStoreWithAllMemos'
 import translations from '../mocks/translations'
+import { setLocationHref } from '../../public/js/app/util/location'
+
+jest.mock('../../public/js/app/util/location', () => ({
+  setLocationHref: jest.fn(),
+  setSearch: jest.fn(),
+  replaceLocation: jest.fn(),
+  getLocation: jest.fn(() => ({
+    href: 'http://localhost:3000/kursinfoadmin/kurs-pm-data/published/EF1111',
+    search: '?memoEndPoint=EF111120192-1&semester=20192&event=addedRoundId',
+  })),
+}))
 
 jest.mock('@kth/om-kursen-ladok-client', () => ({
   LadokStatusCode: {
@@ -24,12 +35,6 @@ const { info } = i18n.messages[0]
 const { info: infoSV } = i18n.messages[1]
 const { getAllByRole, getAllByTestId, getByTestId, getByText } = screen
 
-delete global.window.location
-
-global.window.location = {
-  href: 'http://localhost:3000/kursinfoadmin/kurs-pm-data/published/EF1111',
-  search: '',
-}
 const ChangedPublishedEmpty = ({ ...rest }) => (
   <StaticRouter>
     <MobxStoreProvider initCallback={() => mockApplicationStore}>
@@ -212,7 +217,6 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
   })
 
   test('check location for next step to edit published memos after click Edit', async () => {
-    //delete window.location
     render(<ChangedPublishedWithData langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20192' } })
@@ -224,7 +228,7 @@ describe('Component <ChangedPublished> Edit published course memo. Several publi
     const edit = screen.getByText('Edit')
     fireEvent.click(edit)
     await waitFor(() => {
-      expect(window.location).toBe('/kursinfoadmin/kurs-pm-data/EF1111/EF111120192-11111')
+      expect(setLocationHref).toHaveBeenCalledWith('/kursinfoadmin/kurs-pm-data/EF1111/EF111120192-11111')
     })
   })
 })
@@ -255,12 +259,6 @@ describe('Component <ChangedPublished> Add course instances to chosed published 
   })
 
   test('show a modal Add course instances if clicked button Add a course instance to a saved draft. Memo in English can be merged with any round', async () => {
-    Object.defineProperty(window, 'location', {
-      value: {
-        search: '?memoEndPoint=EF111120192-1&semester=20192&event=addedRoundId',
-      },
-    })
-
     render(<ChangedPublishedWithData langAbbr="en" langIndex={0} />)
     const selectInput = getByTestId('select-terms')
     fireEvent.change(selectInput, { target: { value: '20192' } })
@@ -280,8 +278,5 @@ describe('Component <ChangedPublished> Add course instances to chosed published 
     })
     const save = screen.getByText('Save')
     fireEvent.click(save)
-    await waitFor(() => {
-      expect(window.location.search).toBe('?memoEndPoint=EF111120192-1&semester=20192&event=addedRoundId')
-    })
   })
 })

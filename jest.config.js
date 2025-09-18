@@ -9,4 +9,5 @@ module.exports = {
   setupFilesAfterEnv: ['jest-extended/all'],
   testEnvironment: 'jsdom',
   verbose: true,
+  reporters: ['default', 'jest-summary-reporter'],
 }
