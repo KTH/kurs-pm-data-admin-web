@@ -23,7 +23,6 @@ export const mockMiniLadokObj = {
           firstTuitionDate: '2021-01-18',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '22222',
-          state: 'CANCELLED',
         },
         {
           // todo: add as course round
@@ -324,7 +323,6 @@ export const mockMiniLadokObjEn = {
           firstTuitionDate: '2021-01-18',
           language: { sv: 'Engelska', en: 'English' },
           applicationCode: '22222',
-          state: 'CANCELLED',
         },
         {
           // todo: add as course round
