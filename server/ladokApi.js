@@ -70,9 +70,20 @@ async function getLadokCourseSyllabus(courseCode, semester, lang) {
   }
 }
 
+async function getLadokCourseSyllabuses(courseCode, semester, lang) {
+  try {
+    const courseSyllabuses = await client.getCourseSyllabuses(courseCode, semester, lang)
+
+    return courseSyllabuses
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
 module.exports = {
   getLadokCourseData,
   getCourseRoundsData,
   getCourseSchoolCode,
   getLadokCourseSyllabus,
+  getLadokCourseSyllabuses,
 }

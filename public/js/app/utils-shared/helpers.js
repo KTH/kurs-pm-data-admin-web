@@ -7,9 +7,9 @@ const seasonStr = (language, semesterRaw) => {
   const isLangANumber = typeof language === 'number'
   const langIndex = isLangANumber ? language : convertLangToIndex(language)
   const { extraInfo } = i18n.messages[langIndex]
-  const termStringAsSeason = `${extraInfo.season[semesterRaw.toString()[4]]}${semesterRaw.toString().slice(0, 4)}`
-
-  return termStringAsSeason
+  return /^(HT|VT)\d{4}$/.test(semesterRaw)
+    ? `${semesterRaw.slice(0, 2)} ${semesterRaw.slice(2, 6)}`
+    : `${extraInfo.season[semesterRaw.toString()[4]]}${semesterRaw.toString().slice(0, 4)}`
 }
 
 export { convertLangToIndex, seasonStr }

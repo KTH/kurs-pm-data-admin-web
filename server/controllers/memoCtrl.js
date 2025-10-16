@@ -8,9 +8,10 @@ const apis = require('../api')
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 const { getCourseInfo } = require('../kursinfoApi')
-const { getLadokCourseData, getLadokCourseSyllabus } = require('../ladokApi')
+const { getLadokCourseData, getLadokCourseSyllabus, getLadokCourseSyllabuses } = require('../ladokApi')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 const { getCourseEmployees } = require('../ugRestApi')
+const { getValidUntilTerm } = require('../utils/getValidUntilTerm')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
@@ -29,15 +30,14 @@ const mergeAllData = async (
   courseInfoApiData,
   ladokCourseData,
   ladokCourseSyllabusData,
+  syllabusValidUntilTerm,
   ugEmployeesData,
   staticData
 ) => {
   const memoDataWithDefaults = addDefaultValues(memoApiData)
 
   // Source: kursinfo-api
-  const courseInfoApiValues = {
-    prerequisites: courseInfoApiData.recommendedPrerequisites,
-  }
+  const courseInfoApiValues = { prerequisites: courseInfoApiData.recommendedPrerequisites }
 
   // Source: Ladok
   const ladokCourseValues = {
@@ -60,6 +60,10 @@ const mergeAllData = async (
     otherRequirementsForFinalGrade: ladokCourseSyllabusData.kursplan.ovrigakravforslutbetyg,
     ethicalApproach: ladokCourseSyllabusData.kursplan.etisktforhallningssatt,
     additionalRegulations: ladokCourseSyllabusData.kursplan.faststallande,
+    syllabusValid: {
+      validFromTerm: ladokCourseSyllabusData.kursplan.giltigfrom,
+      validUntilTerm: syllabusValidUntilTerm ?? '',
+    },
   }
 
   // Source: UG Admin
@@ -70,9 +74,7 @@ const mergeAllData = async (
   }
 
   // Source: Static data
-  const staticValues = {
-    permanentDisability: staticData.permanentDisability,
-  }
+  const staticValues = { permanentDisability: staticData.permanentDisability }
 
   return {
     ...memoDataWithDefaults,
@@ -105,16 +107,14 @@ async function renderMemoEditorPage(req, res, next) {
 
     applicationStore.doSetLanguageIndex(userLang)
 
-    applicationStore.setMemoBasicInfo({
-      courseCode,
-      memoEndPoint,
-      semester,
-      memoLangAbbr,
-    })
+    applicationStore.setMemoBasicInfo({ courseCode, memoEndPoint, semester, memoLangAbbr })
 
     const courseInfoApiData = await getCourseInfo(courseCode, memoLangAbbr)
     const ladokCourseData = await getLadokCourseData(courseCode, memoLangAbbr)
     const ladokCourseSyllabusData = await getLadokCourseSyllabus(courseCode, semester, memoLangAbbr)
+
+    const ladokCourseSyllabusesData = await getLadokCourseSyllabuses(courseCode, semester, memoLangAbbr)
+    const syllabusValidUntilTerm = getValidUntilTerm(ladokCourseSyllabusesData, ladokCourseSyllabusData)
     const ugEmployeesData = await getCourseEmployees(memoApiData)
     const staticData = i18n.messages[memoLangAbbr === 'en' ? 0 : 1].staticMemoBodyByUserLang
 
@@ -123,6 +123,7 @@ async function renderMemoEditorPage(req, res, next) {
       courseInfoApiData,
       ladokCourseData,
       ladokCourseSyllabusData,
+      syllabusValidUntilTerm,
       ugEmployeesData,
       staticData
     )
@@ -177,8 +178,4 @@ async function updateContentByEndpoint(req, res, next) {
   }
 }
 
-module.exports = {
-  mergeAllData,
-  renderMemoEditorPage,
-  updateContentByEndpoint,
-}
+module.exports = { mergeAllData, renderMemoEditorPage, updateContentByEndpoint }
