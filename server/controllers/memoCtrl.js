@@ -52,7 +52,7 @@ const mergeAllData = async (
   const ladokCourseSyllabusValues = {
     courseContent: ladokCourseSyllabusData.kursplan.kursinnehall,
     learningOutcomes: ladokCourseSyllabusData.kursplan.larandemal,
-    gradingScale: ladokCourseSyllabusData.course.betygsskala.formattedWithUnit,
+    gradingScale: ladokCourseSyllabusData.course.betygsskala.formatted,
     examination:
       ladokCourseSyllabusData.kursplan.examinationModules.completeExaminationStrings +
       ladokCourseSyllabusData.kursplan.kommentartillexamination,
