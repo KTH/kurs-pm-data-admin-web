@@ -21,4 +21,9 @@ describe('getValidUntilTerm', () => {
     const result = getValidUntilTerm(syllabuses, make('HT2018'))
     expect(result).toBe(undefined)
   })
+  it('should return undefined if syllabuses array is empty', () => {
+    const syllabuses = []
+    const result = getValidUntilTerm(syllabuses, make('HT2018'))
+    expect(result).toBe(undefined)
+  })
 })
