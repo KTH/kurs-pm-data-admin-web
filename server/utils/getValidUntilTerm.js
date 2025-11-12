@@ -7,7 +7,7 @@ import {
 
 const getValidUntilTerm = (syllabuses, currentSyllabus) => {
   // Sort syllabuses by semester in ascending order
-  if (syllabuses.length === 0) {
+  if (!Array.isArray(syllabuses) || syllabuses.length === 0 || !currentSyllabus) {
     return undefined
   }
   const sorted = syllabuses.sort((a, b) => {
@@ -25,6 +25,7 @@ const getValidUntilTerm = (syllabuses, currentSyllabus) => {
     if (A.year !== B.year) return A.year - B.year
     return A.termOrder - B.termOrder
   })
+  if (sorted.length === 0) return undefined
   // Prevent duplicates
   const seen = new Set()
   const syllabusesNoGiltigFromDups = sorted.filter(item => {
