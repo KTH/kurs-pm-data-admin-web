@@ -3,7 +3,8 @@ import {
   parseSemesterIntoYearSemesterNumber,
   SemesterNumber,
   LadokSemesterPrefix,
-} from './semesterUtils'
+  parseLadokSemester,
+} from '../../shared/semesterUtils'
 
 const getValidUntilTerm = (syllabuses, currentSyllabus) => {
   // Sort syllabuses by semester in ascending order
@@ -11,36 +12,28 @@ const getValidUntilTerm = (syllabuses, currentSyllabus) => {
     return undefined
   }
   const sorted = syllabuses.sort((a, b) => {
-    const parse = s => {
-      const term = s.slice(0, 2)
-      const year = parseInt(s.slice(2))
-      const termOrder = term === 'VT' ? 0 : 1
-      return { year, termOrder }
-    }
-
-    const A = parse(a.kursplan?.giltigfrom)
-    const B = parse(b.kursplan?.giltigfrom)
+    const [yearA, semesterNumberA] = parseLadokSemester(a.kursplan?.giltigfrom)
+    const [yearB, semesterNumberB] = parseLadokSemester(b.kursplan?.giltigfrom)
 
     // First sort by year, then by termOrder
-    if (A.year !== B.year) return A.year - B.year
-    return A.termOrder - B.termOrder
+    if (yearA !== yearB) return yearA - yearB
+    return semesterNumberA - semesterNumberB
   })
-  if (sorted.length === 0) return undefined
   // Prevent duplicates
   const seen = new Set()
-  const syllabusesNoGiltigFromDups = sorted.filter(item => {
+  const syllabusesUniqueGiltigFrom = sorted.filter(item => {
     const key = item.kursplan.giltigfrom
     if (seen.has(key)) return false
     seen.add(key)
     return true
   })
 
-  const index = syllabusesNoGiltigFromDups.indexOf(
-    syllabusesNoGiltigFromDups.find(syllabus => syllabus.kursplan.giltigfrom === currentSyllabus.kursplan.giltigfrom)
+  const index = syllabusesUniqueGiltigFrom.indexOf(
+    syllabusesUniqueGiltigFrom.find(syllabus => syllabus.kursplan.giltigfrom === currentSyllabus.kursplan.giltigfrom)
   )
   // validUntilTerm will be the term/semester before the next syllabus validFromTerm semester
-  if (index !== -1 && index < syllabusesNoGiltigFromDups.length - 1) {
-    const nextSyllabusValidFrom = syllabusesNoGiltigFromDups[index + 1].kursplan.giltigfrom
+  if (index !== -1 && index < syllabusesUniqueGiltigFrom.length - 1) {
+    const nextSyllabusValidFrom = syllabusesUniqueGiltigFrom[index + 1].kursplan.giltigfrom
     const semester = parseSemesterIntoYearSemesterNumber(nextSyllabusValidFrom)
     return semester.semesterNumber === SemesterNumber.Autumn
       ? LadokSemesterPrefix.Spring + semester.year

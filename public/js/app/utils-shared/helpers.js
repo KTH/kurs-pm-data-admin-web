@@ -1,4 +1,4 @@
-import { parseSemesterIntoYearSemesterNumber } from '../../../../server/utils/semesterUtils'
+import { parseSemesterIntoYearSemesterNumber } from '../../../../shared/semesterUtils'
 
 const i18n = require('../../../../i18n')
 
@@ -9,7 +9,8 @@ const seasonStr = (language, semesterRaw) => {
   const isLangANumber = typeof language === 'number'
   const langIndex = isLangANumber ? language : convertLangToIndex(language)
   const { extraInfo } = i18n.messages[langIndex]
-  return `${extraInfo.season[parseSemesterIntoYearSemesterNumber(semesterRaw).semesterNumber]}${parseSemesterIntoYearSemesterNumber(semesterRaw).year}`
+  const { year, semesterNumber } = parseSemesterIntoYearSemesterNumber(semesterRaw)
+  return `${extraInfo.season[semesterNumber]}${year}`
 }
 
 export { convertLangToIndex, seasonStr }

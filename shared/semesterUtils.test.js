@@ -4,7 +4,6 @@ import {
   parseSemesterIntoYearSemesterNumber,
   parseSemesterIntoYearSemesterNumberArray,
   SemesterNumber,
-  // convertToYearSemesterNumberOrGetCurrent,
 } from './semesterUtils'
 
 describe('semesterUtils', () => {

@@ -76,7 +76,7 @@ export const getPeriodCodeForDate = date => {
  * @param semester Semester string in ladok format, e.g. "VT2024"
  * @returns YearSemesterNumberArray, e.g. [2024, 1]
  */
-const parseLadokSemester = semester => {
+export const parseLadokSemester = semester => {
   let match = undefined
   if (semester) {
     match = semester.match(/(HT|VT)(\d{4})/)
