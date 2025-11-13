@@ -1,6 +1,7 @@
 import {
   calcPreviousSemester,
   getPeriodCodeForDate,
+  parseLadokSemester,
   parseSemesterIntoYearSemesterNumber,
   parseSemesterIntoYearSemesterNumberArray,
   SemesterNumber,
@@ -101,6 +102,12 @@ describe('semesterUtils', () => {
           "Invalid semester format. Expected 'HTYYYY' or 'VTYYYY'."
         )
       })
+    })
+  })
+
+  describe('parseLadokSemester', () => {
+    test('parseLadokSemester', () => {
+      expect(parseLadokSemester('HT2024')).toEqual([2024, 2])
     })
   })
 
