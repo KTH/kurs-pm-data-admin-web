@@ -12,8 +12,8 @@ const getValidUntilTerm = (syllabuses, currentSyllabus) => {
     return undefined
   }
   const sorted = syllabuses.sort((a, b) => {
-    const [yearA, semesterNumberA] = parseLadokSemester(a.kursplan?.giltigfrom)
-    const [yearB, semesterNumberB] = parseLadokSemester(b.kursplan?.giltigfrom)
+    const { yearA, semesterNumberA } = parseSemesterIntoYearSemesterNumber(a.kursplan?.giltigfrom)
+    const { yearB, semesterNumberB } = parseSemesterIntoYearSemesterNumber(b.kursplan?.giltigfrom)
 
     // First sort by year, then by termOrder
     if (yearA !== yearB) return yearA - yearB

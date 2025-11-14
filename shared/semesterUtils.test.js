@@ -108,6 +108,7 @@ describe('semesterUtils', () => {
   describe('parseLadokSemester', () => {
     test('parseLadokSemester', () => {
       expect(parseLadokSemester('HT2024')).toEqual([2024, 2])
+      expect(parseLadokSemester('VT2024')).toEqual([2024, 1])
     })
   })
 
