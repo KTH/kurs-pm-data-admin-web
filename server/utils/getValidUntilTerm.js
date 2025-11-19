@@ -3,7 +3,6 @@ import {
   parseSemesterIntoYearSemesterNumber,
   SemesterNumber,
   LadokSemesterPrefix,
-  parseLadokSemester,
 } from '../../shared/semesterUtils'
 
 const getValidUntilTerm = (syllabuses, currentSyllabus) => {
