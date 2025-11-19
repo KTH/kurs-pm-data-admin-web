@@ -7,12 +7,12 @@
  * semester: 20242 (Number) -> Autumn 2024
  */
 
-export const SemesterNumber = {
+const SemesterNumber = {
   Spring: 1,
   Autumn: 2,
 }
 
-export const LadokSemesterPrefix = {
+const LadokSemesterPrefix = {
   Spring: 'VT',
   Autumn: 'HT',
 }
@@ -23,7 +23,7 @@ export const LadokSemesterPrefix = {
  * @param param0 YearSemesterNumber, e.g. { year: 2024, semesterNumber: 1 }
  * @returns YearSemesterNumber, e.g. { year: 2023, semesterNumber: 2 }
  */
-export const calcPreviousSemester = ({ year, semesterNumber }) => {
+const calcPreviousSemester = ({ year, semesterNumber }) => {
   if (semesterNumber === 2) {
     return {
       year,
@@ -46,7 +46,7 @@ export const calcPreviousSemester = ({ year, semesterNumber }) => {
  * @param semester "20241" or 20241
  * @returns [2024, 1]
  */
-export const parseSemesterIntoYearSemesterNumberArray = semester => {
+const parseSemesterIntoYearSemesterNumberArray = semester => {
   const yearSemesterNumberArrayStrings = semester.toString().match(/.{1,4}/g)
 
   return yearSemesterNumberArrayStrings.map(str => Number(str))
@@ -59,7 +59,7 @@ export const parseSemesterIntoYearSemesterNumberArray = semester => {
  * @param date
  * @returns a KTH semester string "20241"
  */
-export const getPeriodCodeForDate = date => {
+const getPeriodCodeForDate = date => {
   const JULY = 6
   const year = date.getFullYear()
   const month = date.getMonth()
@@ -76,7 +76,7 @@ export const getPeriodCodeForDate = date => {
  * @param semester Semester string in ladok format, e.g. "VT2024"
  * @returns YearSemesterNumberArray, e.g. [2024, 1]
  */
-export const parseLadokSemester = semester => {
+const parseLadokSemester = semester => {
   let match = undefined
   if (semester) {
     match = semester.match(/(HT|VT)(\d{4})/)
@@ -99,7 +99,7 @@ export const parseLadokSemester = semester => {
  * @param semester Semester string in KTH format, e.g. 20241
  * @returns  YearSemesterNumberArray, e.g. [2024, 1]
  */
-export const parseSemester = semester => {
+const parseSemester = semester => {
   let match = undefined
   if (semester) {
     match = semester.match(/^(\d{4})([1|2])$/)
@@ -121,7 +121,7 @@ export const parseSemester = semester => {
  * @param semester A semester string|number in either KTH or Ladok format, e.g. "VT2024", "20241", 20241
  * @returns YearSemesterNumber, e.g. { year: 2024, semesterNumber: 1 }
  */
-export const parseSemesterIntoYearSemesterNumber = semester => {
+const parseSemesterIntoYearSemesterNumber = semester => {
   const semesterString = semester.toString()
   const semesterRegex = /^([A-Za-z]{2}\d{4})$/
   const ladokFormat = semesterRegex.test(semesterString)
@@ -138,4 +138,15 @@ export const parseSemesterIntoYearSemesterNumber = semester => {
       semesterNumber,
     }
   }
+}
+
+module.exports = {
+  SemesterNumber,
+  LadokSemesterPrefix,
+  calcPreviousSemester,
+  parseSemesterIntoYearSemesterNumberArray,
+  getPeriodCodeForDate,
+  parseLadokSemester,
+  parseSemester,
+  parseSemesterIntoYearSemesterNumber,
 }

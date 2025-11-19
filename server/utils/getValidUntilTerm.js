@@ -1,9 +1,9 @@
-import {
+const {
   calcPreviousSemester,
   parseSemesterIntoYearSemesterNumber,
   SemesterNumber,
   LadokSemesterPrefix,
-} from '../../shared/semesterUtils'
+} = require('../../shared/semesterUtils')
 
 const getValidUntilTerm = (syllabuses, currentSyllabus) => {
   // Sort syllabuses by semester in ascending order
