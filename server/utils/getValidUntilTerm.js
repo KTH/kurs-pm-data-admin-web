@@ -5,22 +5,26 @@ const {
   LadokSemesterPrefix,
 } = require('../../shared/semesterUtils')
 
-const getValidUntilTerm = (syllabuses, currentSyllabus) => {
-  // Sort syllabuses by semester in ascending order
-  if (!Array.isArray(syllabuses) || syllabuses.length === 0 || !currentSyllabus) {
-    return undefined
-  }
-  const sorted = syllabuses.sort((a, b) => {
-    const { yearA, semesterNumberA } = parseSemesterIntoYearSemesterNumber(a.kursplan?.giltigfrom)
-    const { yearB, semesterNumberB } = parseSemesterIntoYearSemesterNumber(b.kursplan?.giltigfrom)
+const sortSyllabusesByGiltigFrom = syllabuses =>
+  syllabuses.sort((a, b) => {
+    const { year: yearA, semesterNumber: semesterNumberA } = parseSemesterIntoYearSemesterNumber(a.kursplan?.giltigfrom)
+
+    const { year: yearB, semesterNumber: semesterNumberB } = parseSemesterIntoYearSemesterNumber(b.kursplan?.giltigfrom)
 
     // First sort by year, then by termOrder
     if (yearA !== yearB) return yearA - yearB
     return semesterNumberA - semesterNumberB
   })
+
+const getValidUntilTerm = (syllabuses, currentSyllabus) => {
+  // Sort syllabuses by semester in ascending order
+  if (!Array.isArray(syllabuses) || syllabuses.length === 0 || !currentSyllabus) {
+    return undefined
+  }
+  const syllabusesSortedByGiltigFrom = sortSyllabusesByGiltigFrom(syllabuses)
   // Prevent duplicates
   const seen = new Set()
-  const syllabusesUniqueGiltigFrom = sorted.filter(item => {
+  const syllabusesUniqueGiltigFrom = syllabusesSortedByGiltigFrom.filter(item => {
     const key = item.kursplan.giltigfrom
     if (seen.has(key)) return false
     seen.add(key)
@@ -44,4 +48,5 @@ const getValidUntilTerm = (syllabuses, currentSyllabus) => {
 
 module.exports = {
   getValidUntilTerm,
+  sortSyllabusesByGiltigFrom,
 }

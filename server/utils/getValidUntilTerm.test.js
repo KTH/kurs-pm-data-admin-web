@@ -1,4 +1,4 @@
-const { getValidUntilTerm } = require('../utils/getValidUntilTerm')
+const { getValidUntilTerm, sortSyllabusesByGiltigFrom } = require('../utils/getValidUntilTerm')
 
 describe('getValidUntilTerm', () => {
   const make = term => ({ kursplan: { giltigfrom: term } })
@@ -25,5 +25,16 @@ describe('getValidUntilTerm', () => {
     const syllabuses = []
     const result = getValidUntilTerm(syllabuses, make('HT2018'))
     expect(result).toBe(undefined)
+  })
+  it('should sort syllabuses correctly', () => {
+    const syllabuses = [make('HT2023'), make('VT2021'), make('VT2019'), make('VT2019'), make('HT2020')]
+    const result = sortSyllabusesByGiltigFrom(syllabuses)
+    expect(result).toStrictEqual([
+      { kursplan: { giltigfrom: 'VT2019' } },
+      { kursplan: { giltigfrom: 'VT2019' } },
+      { kursplan: { giltigfrom: 'HT2020' } },
+      { kursplan: { giltigfrom: 'VT2021' } },
+      { kursplan: { giltigfrom: 'HT2023' } },
+    ])
   })
 })
