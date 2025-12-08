@@ -59,7 +59,7 @@ const mergeAllData = async (
     examinationModules: ladokCourseSyllabusData.kursplan.examinationModules.titles,
     otherRequirementsForFinalGrade: ladokCourseSyllabusData.kursplan.ovrigakravforslutbetyg,
     ethicalApproach: ladokCourseSyllabusData.kursplan.etisktforhallningssatt,
-    additionalRegulations: ladokCourseSyllabusData.kursplan.faststallande,
+    additionalRegulations: ladokCourseSyllabusData.kursplan.ovrigaForeskrifter,
   }
 
   // Source: UG Admin
