@@ -124,7 +124,6 @@ const determineContentFlexibility = () => {
 function PreviewContainer(props) {
   const store = useStore()
   const { langAbbr, langIndex, memoData, activeTermsPublishedMemos } = store
-  // eslint-disable-next-line react/destructuring-assignment
   const progress = props.progress ? Number(props.progress) : 3
   const {
     courseCode,
@@ -256,12 +255,7 @@ function PreviewContainer(props) {
             </Col>
             <Col lg="4" className="preview-content-right" data-testid="preview-side-content">
               <CourseFacts labels={courseFactsLabels} departmentName={memoData.departmentName} memoData={memoData} />
-              <CourseMemoLinks
-                language={memoCommonLangAbbr}
-                labels={courseMemoLinksLabels}
-                memoData={memoData}
-                syllabusValid={memoData.syllabusValid}
-              />
+              <CourseMemoLinks language={memoCommonLangAbbr} labels={courseMemoLinksLabels} memoData={memoData} />
               <CourseLinks language={memoCommonLangAbbr} labels={courseLinksLabels} />
               <div id="row-for-the-last-element-which-determines-styles">
                 <CourseContacts
@@ -294,7 +288,4 @@ PreviewContainer.propTypes = {
   progress: PropTypes.number,
 }
 
-PreviewContainer.defaultProps = {
-  progress: 3,
-}
 export default PreviewContainer

@@ -63,7 +63,7 @@ function MemoContainer(props) {
     semester,
   } = store
 
-  const { initialActiveTab } = props // used for test
+  const { initialActiveTab = null } = props // used for test
   const [isError, setErrorBool] = useState(false)
   const [alert, setAlert] = useState({ alertIsOpen: false, alertText: '', alertColor: '' })
   const [activeTab, setActiveTab] = useState(initialActiveTab || sections[0].id)
@@ -503,10 +503,6 @@ MemoContainer.propTypes = {
     push: PropTypes.func,
   }),
   initialActiveTab: PropTypes.string,
-}
-
-MemoContainer.defaultProps = {
-  initialActiveTab: null,
 }
 
 export default observer(MemoContainer)

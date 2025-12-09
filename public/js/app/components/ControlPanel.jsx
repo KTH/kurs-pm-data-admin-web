@@ -8,19 +8,25 @@ import FadeAlert from './FadeAlert'
 import ActionModalButton from './ActionModalButton'
 import ActionModalCourseRounds from './ActionModalCourseRounds'
 
-const ControlPanel = props => {
-  const {
-    chosenMemoEndPoint,
-    langIndex,
-    onCancel,
-    onRemove,
-    onSubmit,
-    progress,
-    openAlertIdUntilFixed,
-    memoStatus,
-    fixedBottom,
-  } = props
-  const { alertIsOpen, alertText, alertColor, onBack, onSave, isDraftOfPublished, event = '' } = props
+const ControlPanel = ({
+  alertIsOpen = false,
+  alertText = 'Success!',
+  alertColor = 'success',
+  onBack = null,
+  onSave = null,
+  onCancel,
+  onRemove = null,
+  onSubmit = null,
+
+  event = '',
+  isDraftOfPublished = false,
+  openAlertIdUntilFixed = '',
+  chosenMemoEndPoint = null,
+  langIndex,
+  progress = 1,
+  memoStatus,
+  fixedBottom,
+}) => {
   const { actionModals, alerts, buttons } = i18n.messages[langIndex]
   const progressNum = Number(progress) || 1
 
@@ -154,20 +160,6 @@ ControlPanel.propTypes = {
   onBack: PropTypes.func,
   isDraftOfPublished: PropTypes.bool,
   openAlertIdUntilFixed: PropTypes.oneOf(['', 'errorEmptyHeading']),
-}
-
-ControlPanel.defaultProps = {
-  alertIsOpen: false,
-  alertText: 'Success!',
-  alertColor: 'success',
-  chosenMemoEndPoint: null,
-  isDraftOfPublished: false,
-  onBack: null,
-  onRemove: null,
-  onSave: null,
-  onSubmit: null,
-  progress: 1,
-  openAlertIdUntilFixed: '',
 }
 
 export default ControlPanel

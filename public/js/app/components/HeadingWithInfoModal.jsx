@@ -2,7 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { InfoModal } from './InfoModal'
 
-const HeadingWithInfoModal = ({ modalId, titleAndInfo, btnClose, modalBtnAriaLabel, headingTag: HeadingTag }) => {
+const HeadingWithInfoModal = ({
+  modalId,
+  titleAndInfo,
+  btnClose = 'Close',
+  modalBtnAriaLabel,
+  headingTag: HeadingTag = 'h2',
+}) => {
   const [modalOpen, setModalOpen] = React.useState(false)
   const toggleModal = () => setModalOpen(!modalOpen)
   const { header, body = '' } = titleAndInfo
@@ -34,11 +40,6 @@ HeadingWithInfoModal.propTypes = {
   }).isRequired,
   btnClose: PropTypes.string,
   headingTag: PropTypes.oneOf(['h1', 'h2', 'h3']),
-}
-
-HeadingWithInfoModal.defaultProps = {
-  btnClose: 'Close',
-  headingTag: 'h2',
 }
 
 export default HeadingWithInfoModal

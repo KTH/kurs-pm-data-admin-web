@@ -4,7 +4,7 @@ import i18n from '../../../../../i18n'
 import { SERVICE_URL } from '../../util/constants'
 import UpperAlertRow from './UpperAlertRow'
 
-const AlertMissingDraft = ({ courseCode, langAbbr, langIndex }) => {
+const AlertMissingDraft = ({ courseCode = '', langAbbr = 'sv', langIndex = 0 }) => {
   const startPageUrl = `${SERVICE_URL.aboutCourseAdmin}${courseCode}`
   const title = i18n.messages[langIndex].messages.main_site_name
   const alertMsg =
@@ -36,12 +36,6 @@ AlertMissingDraft.propTypes = {
   courseCode: PropTypes.string,
   langAbbr: PropTypes.oneOf(['sv', 'en']),
   langIndex: PropTypes.oneOf([1, 0]),
-}
-
-AlertMissingDraft.defaultProps = {
-  courseCode: '',
-  langAbbr: 'sv',
-  langIndex: 0,
 }
 
 export default AlertMissingDraft
