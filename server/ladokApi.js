@@ -2,7 +2,7 @@
 
 const i18n = require('../i18n')
 const { createApiClient } = require('@kth/om-kursen-ladok-client')
-const { HttpError } = require('./utils/errorUtils')
+const { HttpError } = require('./utils/HttpError')
 const { server: serverConfig } = require('./configuration')
 const { resolveUserAccessRights } = require('./ugRestApi')
 
@@ -14,7 +14,9 @@ async function getLadokCourseData(courseCode, lang) {
   const courseData = await client.getLatestCourseVersion(courseCode, lang)
 
   if (courseData.statusCode >= HTTP_CODE_400 || courseData.apiError) {
-    throw new HttpError(i18n.message('error_not_found', lang), courseData.statusCode)
+    const errorMessage =
+      courseData.statusCode === 404 ? i18n.message('error_not_found', lang) : i18n.message('error_generic', lang)
+    throw new HttpError(errorMessage, courseData.statusCode)
   }
 
   return courseData

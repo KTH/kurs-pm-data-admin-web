@@ -12,7 +12,7 @@ const { browser, server } = require('../configuration')
 const { getMemoApiData, changeMemoApiData } = require('../kursPmDataApi')
 
 const i18n = require('../../i18n')
-const { HttpError } = require('../utils/errorUtils')
+const { HttpError } = require('../utils/HttpError')
 const { getCourseRoundsData, getLadokCourseData } = require('../ladokApi')
 const { formatLadokData } = require('../utils/formatLadokData')
 
