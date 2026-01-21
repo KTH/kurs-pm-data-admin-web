@@ -1,17 +1,25 @@
 'use strict'
 
+const i18n = require('../i18n')
 const { createApiClient } = require('@kth/om-kursen-ladok-client')
+const { HttpError } = require('./utils/HttpError')
 const { server: serverConfig } = require('./configuration')
 const { resolveUserAccessRights } = require('./ugRestApi')
+
+const HTTP_CODE_400 = 400
 
 const client = createApiClient(serverConfig.ladokMellanlagerApi)
 
 async function getLadokCourseData(courseCode, lang) {
-  try {
-    return await client.getLatestCourseVersion(courseCode, lang)
-  } catch (error) {
-    throw new Error(`Failed to fetch Ladok course data: ${error.message}`)
+  const courseData = await client.getLatestCourseVersion(courseCode, lang)
+
+  if (courseData.statusCode >= HTTP_CODE_400 || courseData.apiError) {
+    const errorMessage =
+      courseData.statusCode === 404 ? i18n.message('error_not_found', lang) : i18n.message('error_generic', lang)
+    throw new HttpError(errorMessage, courseData.statusCode)
   }
+
+  return courseData
 }
 
 async function getCourseRoundsData(courseCode, lang, user) {
