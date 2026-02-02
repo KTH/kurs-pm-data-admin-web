@@ -125,6 +125,4 @@ CourseFacts.propTypes = {
   labels: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
-CourseFacts.defaultProps = { departmentName: '', memoData: {} }
-
 export default CourseFacts

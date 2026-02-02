@@ -170,7 +170,7 @@ InformStudentsEdit.propTypes = {
 }
 
 // eslint-disable-next-line react/prop-types
-const MoreHelp = ({ langAbbr, isDraftOfPublished }) => {
+const MoreHelp = ({ langAbbr, isDraftOfPublished = false }) => {
   const userManual = isDraftOfPublished ? 'andra-publicerat-kurs-pm-1.1184949' : 'skapa-publicera-nytt-1.1184947'
   return langAbbr === 'sv' ? (
     <>
@@ -234,10 +234,6 @@ const MoreHelp = ({ langAbbr, isDraftOfPublished }) => {
 MoreHelp.propTypes = {
   langAbbr: PropTypes.string.isRequired,
   isDraftOfPublished: PropTypes.bool,
-}
-
-MoreHelp.defaultProps = {
-  isDraftOfPublished: false,
 }
 
 const HelpEdit = ({ langAbbr, isDraftOfPublished }) => (

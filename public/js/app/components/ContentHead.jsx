@@ -26,7 +26,13 @@ const createHtmlWithDynamicLink = (userLangIndex, contentId, courseCode) => {
 const getInfoModalAriaLabel = (langIndex, header) =>
   langIndex === 1 ? `Information om ${header}` : `Information about ${header}`
 
-export const ContentHead = ({ contentId, isEditorOpen, memoLangIndex, onToggleEditor, userLangIndex }) => {
+export const ContentHead = ({
+  contentId,
+  isEditorOpen = false,
+  memoLangIndex,
+  onToggleEditor = null,
+  userLangIndex,
+}) => {
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 
   const contentIsEditable = isEditable(contentId)
@@ -77,10 +83,10 @@ const BasicHeaderHead = ({
   userLangIndex,
   memoLangIndex,
   header,
-  isEditButtonVisible,
-  isEditorOpen,
-  contentName,
-  onToggleEditor,
+  isEditButtonVisible = false,
+  isEditorOpen = false,
+  contentName = '',
+  onToggleEditor = null,
   contentIdAndUKey,
 }) => {
   const store = useStore()
@@ -132,12 +138,6 @@ BasicHeaderHead.propTypes = {
   onToggleEditor: PropTypes.func,
   contentIdAndUKey: PropTypes.bool,
 }
-BasicHeaderHead.defaultProps = {
-  contentName: '',
-  isEditButtonVisible: false,
-  isEditorOpen: false,
-  onToggleEditor: null,
-}
 
 ContentHead.propTypes = {
   contentId: PropTypes.string.isRequired,
@@ -145,10 +145,6 @@ ContentHead.propTypes = {
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
   onToggleEditor: PropTypes.func,
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
-}
-ContentHead.defaultProps = {
-  isEditorOpen: false,
-  onToggleEditor: null,
 }
 
 ExtraHeaderHead.propTypes = {

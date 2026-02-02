@@ -8,11 +8,10 @@ import { useSectionContext } from '../../stores/SectionContext'
 import HeadingBox from '../layout/HeadingBox'
 import EditorWithVisibility from './EditorWithVisibility'
 
-function StandardEditorPerTitle(props) {
+function StandardEditorPerTitle({ contentId, htmlContent = '', menuId, visibleInMemo, onToggleVisibleInMemo, onSave }) {
   const store = useStore()
   const { langIndex: userLangIndex, memoLangAbbr } = store
   const memoLangIndex = memoLangAbbr === 'sv' ? 1 : 0
-  const { contentId, htmlContent, menuId, visibleInMemo, onToggleVisibleInMemo, onSave } = props
 
   const contentIsRequired = isRequired(contentId)
   const contentIsSubSection = isSubSection(contentId)
@@ -71,10 +70,6 @@ StandardEditorPerTitle.propTypes = {
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
   onSave: PropTypes.func.isRequired,
-}
-
-StandardEditorPerTitle.defaultProps = {
-  htmlContent: '',
 }
 
 export default StandardEditorPerTitle

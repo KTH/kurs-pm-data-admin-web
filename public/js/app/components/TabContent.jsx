@@ -19,8 +19,5 @@ TabContent.propTypes = {
   isActive: PropTypes.bool.isRequired,
   sectionId: PropTypes.string.isRequired,
 }
-TabContent.defaultProps = {
-  scrollUp: false,
-}
 
 export default TabContent
