@@ -12,7 +12,7 @@ const scrollWithOffset = el => {
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' })
 }
 
-function SectionMenu({ activeTab, children, memoLangIndex, checkVisibility, checkVisibilityExtraHeading }) {
+function SectionMenu({ activeTab, children = '', memoLangIndex, checkVisibility, checkVisibilityExtraHeading }) {
   const { sections, memoData } = useStore()
   const { memoTitlesByMemoLang } = i18n.messages[memoLangIndex]
 
@@ -68,10 +68,6 @@ SectionMenu.propTypes = {
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired,
   checkVisibility: PropTypes.func.isRequired,
   checkVisibilityExtraHeading: PropTypes.func.isRequired,
-}
-
-SectionMenu.defaultProps = {
-  children: '',
 }
 
 export default observer(SectionMenu)

@@ -13,7 +13,7 @@ const SectionForNonEditable = ({
   menuId,
   visibleInMemo,
   onToggleVisibleInMemo,
-  html,
+  html = null,
   memoLangIndex,
   userLangIndex,
 }) => {
@@ -57,13 +57,9 @@ SectionForNonEditable.propTypes = {
   menuId: PropTypes.string.isRequired,
   visibleInMemo: PropTypes.bool.isRequired,
   onToggleVisibleInMemo: PropTypes.func.isRequired, // add default
-  html: PropTypes.string, // add default
+  html: PropTypes.string,
   memoLangIndex: PropTypes.oneOf([1, 0]).isRequired, // add default
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
-}
-
-SectionForNonEditable.defaultProps = {
-  html: null,
 }
 
 export default SectionForNonEditable

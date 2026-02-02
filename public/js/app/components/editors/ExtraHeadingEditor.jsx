@@ -19,13 +19,11 @@ import { EditButton } from './EditButton'
 import { SaveAndCloseButton } from './SaveAndCloseButton'
 import { OnClickPropagationStopper } from './OnClickPropagationStopper'
 
-function ExtraHeadingEditor(props) {
+function ExtraHeadingEditor({ currentIndex, contentId, menuId, showError = false, uKey, onSave, onAlert }) {
   const store = useStore()
   // observer needed for dirtyEditor
   // and when heading is added/deleted
   const { langIndex: userLangIndex, memoLangAbbr, memoData, dirtyEditor } = store
-
-  const { currentIndex, contentId, menuId, showError, uKey } = props
 
   const [localExtraContent, setLocalExtraContent] = useState(memoData[contentId][currentIndex] || {})
   const { title = '', htmlContent = '', visibleInMemo } = localExtraContent
@@ -65,7 +63,7 @@ function ExtraHeadingEditor(props) {
     const latestMemoData = store.memoData[contentId]
 
     if (dirtyEditor === uKey) {
-      props.onSave({ [contentId]: latestMemoData }, 'autoSaved')
+      onSave({ [contentId]: latestMemoData }, 'autoSaved')
     }
     store.setDirtyEditor('')
   }
@@ -96,8 +94,8 @@ function ExtraHeadingEditor(props) {
     store.setDirtyEditor(uKey)
     store.removeExtraContent(contentId, currentIndex)
     onSaveByThisContentId()
-    if (wasEmpty) props.onAlert('removedEmptyHeading', 'success', 500)
-    else props.onAlert('removedAddedHeading', 'success', 500)
+    if (wasEmpty) onAlert('removedEmptyHeading', 'success', 500)
+    else onAlert('removedAddedHeading', 'success', 500)
   }
 
   const toggleVisibleInMemo = () => {
@@ -117,7 +115,7 @@ function ExtraHeadingEditor(props) {
       }
       if (hasEmptyHeading) {
         setEmptyHeadingErrorLabel(true)
-        props.onAlert('errorEmptyHeading', 'danger')
+        onAlert('errorEmptyHeading', 'danger')
 
         return false
       }
@@ -269,10 +267,6 @@ ExtraHeadingEditor.propTypes = {
   onSave: PropTypes.func.isRequired,
   showError: PropTypes.bool,
   uKey: PropTypes.string.isRequired,
-}
-
-ExtraHeadingEditor.defaultProps = {
-  showError: false,
 }
 
 export default observer(ExtraHeadingEditor)

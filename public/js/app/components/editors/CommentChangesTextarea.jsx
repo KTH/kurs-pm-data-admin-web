@@ -4,7 +4,7 @@ import { Form, FormGroup, Label, Input } from 'reactstrap'
 
 import { ContentHead } from '../ContentHead'
 
-const CommentChangesTextarea = ({ isError, labels, memoLangIndex, onChange, textAboutChanges, userLangIndex }) => (
+const CommentChangesTextarea = ({ isError, labels, memoLangIndex, onChange, textAboutChanges = '', userLangIndex }) => (
   <Form className={isError ? 'error-area' : ''}>
     <FormGroup>
       <ContentHead contentId="commentAboutMadeChanges" memoLangIndex={memoLangIndex} userLangIndex={userLangIndex} />
@@ -32,10 +32,6 @@ CommentChangesTextarea.propTypes = {
   userLangIndex: PropTypes.oneOf([1, 0]).isRequired,
   textAboutChanges: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-}
-
-CommentChangesTextarea.defaultProps = {
-  textAboutChanges: '',
 }
 
 export default CommentChangesTextarea

@@ -2,7 +2,7 @@
 
 const log = require('@kth/log')
 const api = require('./api')
-const { HttpError } = require('./utils/errorUtils')
+const { HttpError } = require('./utils/HttpError')
 const { resolveUserAccessRights } = require('./ugRestApi')
 const { parseMemoEndPointString } = require('./utils/memoUtils')
 

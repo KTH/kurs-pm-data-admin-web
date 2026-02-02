@@ -28,12 +28,6 @@ ProgressTitle.propTypes = {
     intro: PropTypes.string,
     info: PropTypes.string,
   }).isRequired,
-  // style: PropTypes.objectOf(PropTypes.string),
-  // withInfoModal: PropTypes.bool,
 }
-// ProgressTitle.defaultProps = {
-//   style: {},
-//   withInfoModal: false,
-// }
 
 export default ProgressTitle

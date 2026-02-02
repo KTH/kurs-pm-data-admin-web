@@ -28,7 +28,7 @@ const getVariantClass = variant => {
   return 'primary'
 }
 
-const Button = ({ children, variant, className, ...rest }) => {
+const Button = ({ children, variant = 'primary', className, ...rest }) => {
   const variantClassname = getVariantClass(variant)
   const cn = `kth-button ${variantClassname} ${className ?? ''}`
   if (rest.href) {
@@ -49,11 +49,7 @@ const Button = ({ children, variant, className, ...rest }) => {
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  variant: PropTypes.oneOf(['back', 'next', 'previous', 'primary', 'secondary', 'success', 'error']).isRequired,
-}
-
-Button.defaultProps = {
-  variant: 'primary',
+  variant: PropTypes.oneOf(['back', 'next', 'previous', 'primary', 'secondary', 'success', 'error']),
 }
 
 export default Button

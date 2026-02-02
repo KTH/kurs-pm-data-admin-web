@@ -47,7 +47,7 @@ const CourseMemoLinks = ({ language, labels, memoData = {} }) => (
 CourseMemoLinks.propTypes = {
   memoData: PropTypes.shape({
     lastChangeDate: PropTypes.string,
-    courseCode: PropTypes.string.isRequired,
+    version: PropTypes.string,
   }).isRequired,
   labels: PropTypes.shape({
     versionTitle: PropTypes.string.isRequired,
@@ -59,17 +59,6 @@ CourseMemoLinks.propTypes = {
     courseMemoModal: PropTypes.string.isRequired,
   }).isRequired,
   language: PropTypes.oneOf(['sv', 'en']).isRequired,
-  syllabusValid: PropTypes.shape({
-    validFromTerm: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    validUntilTerm: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  }),
-}
-
-CourseMemoLinks.defaultProps = {
-  syllabusValid: {
-    validFromTerm: '',
-    validUntilTerm: '',
-  },
 }
 
 export default CourseMemoLinks
