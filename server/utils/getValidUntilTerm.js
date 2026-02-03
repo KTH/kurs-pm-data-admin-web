@@ -1,0 +1,52 @@
+const {
+  calcPreviousSemester,
+  parseSemesterIntoYearSemesterNumber,
+  SemesterNumber,
+  LadokSemesterPrefix,
+} = require('../../shared/semesterUtils')
+
+const sortSyllabusesByGiltigFrom = syllabuses =>
+  syllabuses.sort((a, b) => {
+    const { year: yearA, semesterNumber: semesterNumberA } = parseSemesterIntoYearSemesterNumber(a.kursplan?.giltigfrom)
+
+    const { year: yearB, semesterNumber: semesterNumberB } = parseSemesterIntoYearSemesterNumber(b.kursplan?.giltigfrom)
+
+    // First sort by year, then by termOrder
+    if (yearA !== yearB) return yearA - yearB
+    return semesterNumberA - semesterNumberB
+  })
+
+const getValidUntilTerm = (syllabuses, currentSyllabus) => {
+  // Sort syllabuses by semester in ascending order
+  if (!Array.isArray(syllabuses) || syllabuses.length === 0 || !currentSyllabus) {
+    return undefined
+  }
+  const syllabusesSortedByGiltigFrom = sortSyllabusesByGiltigFrom(syllabuses)
+  // Prevent duplicates
+  const seen = new Set()
+  const syllabusesUniqueGiltigFrom = syllabusesSortedByGiltigFrom.filter(item => {
+    const key = item.kursplan.giltigfrom
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+
+  const index = syllabusesUniqueGiltigFrom.indexOf(
+    syllabusesUniqueGiltigFrom.find(syllabus => syllabus.kursplan.giltigfrom === currentSyllabus.kursplan.giltigfrom)
+  )
+  // validUntilTerm will be the term/semester before the next syllabus validFromTerm semester
+  if (index !== -1 && index < syllabusesUniqueGiltigFrom.length - 1) {
+    const nextSyllabusValidFrom = syllabusesUniqueGiltigFrom[index + 1].kursplan.giltigfrom
+    const semester = parseSemesterIntoYearSemesterNumber(nextSyllabusValidFrom)
+    return semester.semesterNumber === SemesterNumber.Autumn
+      ? LadokSemesterPrefix.Spring + semester.year
+      : LadokSemesterPrefix.Autumn + calcPreviousSemester(semester).year
+  } else {
+    return undefined
+  }
+}
+
+module.exports = {
+  getValidUntilTerm,
+  sortSyllabusesByGiltigFrom,
+}

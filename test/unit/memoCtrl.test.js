@@ -7,6 +7,7 @@ jest.mock('../../server/kursinfoApi', () => ({
 jest.mock('../../server/ladokApi', () => ({
   getLadokCourseData: jest.fn(),
   getLadokCourseSyllabus: jest.fn(),
+  getLadokCourseSyllabuses: jest.fn(),
 }))
 jest.mock('../../server/kursPmDataApi', () => ({
   getMemoApiData: jest.fn(),
@@ -36,7 +37,7 @@ jest.mock('@kth/log', () => ({
 
 const { getMemoApiData, changeMemoApiData } = require('../../server/kursPmDataApi')
 const { getCourseInfo } = require('../../server/kursinfoApi')
-const { getLadokCourseData, getLadokCourseSyllabus } = require('../../server/ladokApi')
+const { getLadokCourseData, getLadokCourseSyllabus, getLadokCourseSyllabuses } = require('../../server/ladokApi')
 const { getCourseEmployees } = require('../../server/ugRestApi')
 const { getServerSideFunctions } = require('../../server/utils/serverSideRendering')
 
@@ -85,6 +86,26 @@ const ladokCourseSyllabusDataMock = {
     betygsskala: 'A, B, C, D, E, FX, F',
   },
 }
+const ladokCourseSyllabusesDataMock = [
+  {
+    kursplan: {
+      kursinnehall: 'Course content example',
+      larandemal: 'Learning outcomes example',
+      examinationModules: {
+        completeExaminationStrings: '<li>TEN1 - Tentamen, 7.5 credits</li>',
+        titles: '<h4>TEN1 - Tentamen, 7.5 credits</h4>',
+      },
+      kommentartillexamination: '<p>Exam comment</p>',
+      ovrigakravforslutbetyg: 'Additional requirements for final grade',
+      etisktforhallningssatt: 'Ethical approach',
+      faststallande: 'Additional regulations',
+      giltigfrom: 'HT2020',
+    },
+    course: {
+      betygsskala: 'A, B, C, D, E, FX, F',
+    },
+  },
+]
 
 const courseInfoApiDataMock = {
   recommendedPrerequisites: 'Some recommended prerequisites',
@@ -100,6 +121,7 @@ describe('mergeAllData', () => {
       courseInfoApiDataMock,
       ladokCourseDataMock,
       ladokCourseSyllabusDataMock,
+      ladokCourseSyllabusesDataMock,
       ugAdminEmployeesDataMock,
       staticData
     )
@@ -137,6 +159,7 @@ describe('renderMemoEditorPage', () => {
     getCourseInfo.mockResolvedValue(courseInfoApiDataMock)
     getLadokCourseData.mockResolvedValue(ladokCourseDataMock)
     getLadokCourseSyllabus.mockResolvedValue(ladokCourseSyllabusDataMock)
+    getLadokCourseSyllabuses.mockResolvedValue(ladokCourseSyllabusesDataMock)
 
     getServerSideFunctions.mockReturnValue({
       createStore: () => ({

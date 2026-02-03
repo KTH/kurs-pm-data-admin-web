@@ -59,9 +59,7 @@ async function getCourseOptionsPage(req, res, next) {
 
     const ladokCourseRounds = await getCourseRoundsData(courseCode, lang, user)
     const ladokCourseData = await getLadokCourseData(courseCode, lang)
-
     const ladokCourseRoundTerms = formatLadokData(ladokCourseRounds, ladokCourseData)
-
     applicationStore.miniLadokObj = ladokCourseRoundTerms
     const memoParams = getMemosParams(courseCode, applicationStore.miniLadokObj)
 
