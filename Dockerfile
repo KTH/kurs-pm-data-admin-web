@@ -8,6 +8,7 @@ ENV TZ Europe/Stockholm
 # Copy files used by Gulp.
 COPY ["config", "config"]
 COPY ["public", "public"]
+COPY ["shared", "shared"]
 COPY ["tinymce", "tinymce"]
 COPY ["i18n", "i18n"]
 COPY [".babelrc", ".babelrc"]
