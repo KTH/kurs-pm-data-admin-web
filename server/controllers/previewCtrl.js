@@ -15,6 +15,7 @@ const i18n = require('../../i18n')
 const { HttpError } = require('../utils/HttpError')
 const { getCourseRoundsData, getLadokCourseData } = require('../ladokApi')
 const { formatLadokData } = require('../utils/formatLadokData')
+const { adminLinkWithSource } = require('../utils/adminPageLink')
 
 function getCurrentTerm(overrideDate) {
   const JULY = 6
@@ -65,6 +66,10 @@ function outdatedMemoData(offerings, startSelectionYear, memoData) {
     const { term } = offer
     if (rounds.length > 0) {
       const { applicationCode = '' } = rounds[0]
+      // Check if memoData.applicationCodes exists and is an array
+      if (!memoData.applicationCodes || !Array.isArray(memoData.applicationCodes)) {
+        return false
+      }
       if (memoData.applicationCodes.includes(applicationCode) && memoData.semester === String(term)) {
         return offer
       }
@@ -177,6 +182,13 @@ async function renderMemoPreviewPage(req, res, next) {
     // will be used later for add flag outdated to new pm
     memoDataAsArray.push(apiMemoData)
     applicationStore.memoData = markOutdatedMemoDatas(memoDataAsArray, miniLadokObj)[0]
+
+    // Check if applicationCode was undefined and redirect to admin start page
+    if (applicationStore.memoData.outdated && !apiMemoData.applicationCodes) {
+      const link = adminLinkWithSource(courseCode, 'kursinfoadmin')
+      res.redirect(link)
+    }
+
     applicationStore.setMemoBasicInfo({
       courseCode,
       memoEndPoint,

@@ -199,7 +199,7 @@ export const standardSections = Object.freeze([
   },
   {
     id: 'extra',
-    title: 'Ytterligare Information',
+    title: 'Ytterligare information',
     content: ['additionalRegulations', 'infoForReregisteredStudents'],
     extraHeaderTitle: 'extraHeaders4',
   },
