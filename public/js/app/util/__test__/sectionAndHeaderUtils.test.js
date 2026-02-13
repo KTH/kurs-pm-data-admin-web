@@ -101,7 +101,7 @@ describe('parse a changed copy of sections for a contract education without chan
           ],
           "extraHeaderTitle": "extraHeaders4",
           "id": "extra",
-          "title": "Ytterligare Information",
+          "title": "Ytterligare information",
         },
         {
           "content": [
@@ -169,7 +169,7 @@ describe('parse a changed copy of sections for a contract education without chan
           ],
           "extraHeaderTitle": "extraHeaders4",
           "id": "extra",
-          "title": "Ytterligare Information",
+          "title": "Ytterligare information",
         },
         {
           "content": [
