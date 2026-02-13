@@ -185,7 +185,7 @@ async function renderMemoPreviewPage(req, res, next) {
 
     // Check if applicationCode was undefined and redirect to admin start page
     if (applicationStore.memoData.outdated && !apiMemoData.applicationCodes) {
-      const link = adminLinkWithSource(courseCode, 'kursinfoadmin')
+      const link = adminLinkWithSource(courseCode, 'missingMemoDraft')
       res.redirect(link)
     }
 
