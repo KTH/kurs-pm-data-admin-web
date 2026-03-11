@@ -15,6 +15,8 @@ export const HeaderSource = Object.freeze({
   CourseSyllabus: '(s)', // Course syllabus info
   CourseVersion: '(c)', // Course general info
   UG: '(ug)', // UG info
+  UPL: '(upl)', // UPL info
+  UPLEx: '(upl-ex)', // UPL info
 })
 
 export const headerConfig = Object.freeze({
@@ -35,7 +37,7 @@ export const headerConfig = Object.freeze({
     isEditable: true,
     isRequired: false,
   }, // Kommunikation med lärare
-  courseCoordinator: { type: HeaderType.Mandatory, isEditable: false, isRequired: true, source: HeaderSource.UG }, // Kursansvarig
+  courseCoordinator: { type: HeaderType.Mandatory, isEditable: false, isRequired: true, source: HeaderSource.UPL }, // Kursansvarig
   ethicalApproach: {
     type: HeaderType.Mandatory,
     isEditable: false,
@@ -60,7 +62,7 @@ export const headerConfig = Object.freeze({
     isRequired: false,
     isSubSection: true,
   },
-  examiner: { type: HeaderType.Mandatory, isEditable: false, isRequired: true, source: HeaderSource.UG },
+  examiner: { type: HeaderType.Mandatory, isEditable: false, isRequired: true, source: HeaderSource.UPLEx }, // Examinator
   extraHeaders1: { isEditable: true, isRequired: false },
   extraHeaders2: { isEditable: true, isRequired: false },
   extraHeaders3: { isEditable: true, isRequired: false },
@@ -149,7 +151,7 @@ export const headerConfig = Object.freeze({
     isRequired: false,
   },
   software: { type: HeaderType.OptionalEditable, isEditable: true, isRequired: false }, // Programvara
-  teacher: { type: HeaderType.Mandatory, isEditable: false, isRequired: true, source: HeaderSource.UG }, // Lärare
+  teacher: { type: HeaderType.Mandatory, isEditable: false, isRequired: true, source: HeaderSource.UPL }, // Lärare
 })
 
 export const excludedHeadersInContractEducation = [
