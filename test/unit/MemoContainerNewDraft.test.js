@@ -999,9 +999,15 @@ describe('Active tab: contacts. Component <MemoContainer> Edit. A New fresh draf
   })
 
   test('tab: contacts. render a correct number of infos about data origin and source info', () => {
-    const dataOrigin = screen.getAllByText(/Fetched from UG Admin/i)
+    const dataOrigin = screen.getAllByText(/course instance in Ladok/i)
     expect(dataOrigin[0]).toBeInTheDocument()
-    expect(dataOrigin.length).toBe(3)
+    expect(dataOrigin.length).toBe(2)
+  })
+
+  test('tab: contacts. render a correct number of infos about data origin and source info. Examiner', () => {
+    const dataOrigin = screen.getAllByText(/course in Ladok/i)
+    expect(dataOrigin[0]).toBeInTheDocument()
+    expect(dataOrigin.length).toBe(1)
   })
 
   test('tab: contacts. render a correct number of "include" labels, only of standard stype (no extra headers)', () => {

@@ -68,6 +68,8 @@ module.exports = {
     '(s)': 'från kursplan i Ladok',
     '(c)': 'från kursinformation i Ladok',
     '(ug)': 'från UG Admin',
+    '(upl)': 'kurstillfället i Ladok',
+    '(upl-ex)': 'kursen i Ladok',
     errorEmptyHeading: 'Du måste ange en rubrik',
     mandatory: 'Inkluderas alltid',
     mandatoryAndEditable: `Inkluderas alltid (går att redigera)`,
@@ -156,7 +158,7 @@ module.exports = {
     courseCoordinator: {
       body: `<p><b>Kursansvarig</b> innehåller kontaktinformation till personer som har rollen kursansvarig under denna kursomgång.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till kursansvarig under kursomgången.</p>
-      <p><b>Innehåll hämtas från Medarbetarkopplingar på kurstillfället i Ladok (UPL)</b> och kan redigeras där.</p>`,
+      <p><b>Innehåll hämtas från kurstillfället i Ladok</b> och kan redigeras där.</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Etiskt förhållningssätt</b> beskriver KTH:s etiska värdegrund.</p>
@@ -193,7 +195,7 @@ module.exports = {
     examiner: {
       body: `<p><b>Examinator</b> innehåller kontaktinformation till personer som har rollen examinator för denna kurs.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till examinator under kursomgången.</p>
-      <p><b>Innehåll hämtas från Medarbetarkopplingar på kursen i Ladok (UPL)</b> och kan redigeras där.</p>`,
+      <p><b>Innehåll hämtas från kursen i Ladok</b> och kan redigeras där.</p>`,
     },
     extraHeaders1: {
       body: `<p><b>Information under en tillagd rubrik</b> kan hjälpa studenter på denna kursomgång att förbereda sig på eller planera för kursen med hjälp av information som inte passar in under någon av kurs-PM:ets ordinarie rubriker relaterade till "Innehåll och lärandemål".</p>
@@ -331,7 +333,7 @@ module.exports = {
     teacher: {
       body: `<p><b>Lärare</b> innehåller kontaktinformation till personer som har rollen lärare under denna kursomgång.</p>
       <p><b>Informationen hjälper studenten</b> med kontaktuppgifter till lärare under kursomgången.</p>
-      <p><b>Innehåll hämtas från Medarbetarkopplingar på kurstillfället i Ladok (UPL)</b> och kan redigeras där.</p>`,
+      <p><b>Innehåll hämtas från kurstillfället i Ladok</b> och kan redigeras där.</p>`,
     },
   },
   staticMemoBodyByUserLang: {
