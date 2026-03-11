@@ -168,7 +168,7 @@ module.exports = {
     courseCoordinator: {
       body: `<p><b>Course coordinator</b> contains contact information for individuals holding the role of course coordinator during this course offering.</p>
       <p><b>This information helps the students</b> in obtaining contact details for the course coordinator during the course offering.</p>
-      <p><b>Content is retrieved from UG Admin</b> and can be edited there.</p>`,
+      <p><b>This information is retrieved from Medarbetarkopplingar on course in Ladok (UPL)</b> and can be edited there.</p>`,
     },
     ethicalApproach: {
       body: `<p><b>Ethical approach</b> describes KTH's ethical values.</p>
@@ -192,7 +192,7 @@ module.exports = {
     examiner: {
       body: `<p><b>Examiner</b> contains contact information for individuals holding the role of examiner during this course offering.</p>
       <p><b>This information helps the student</b> in obtaining contact details for the examiner during the course offering.</p>
-      <p><b>Content is retrieved from UG Admin</b> and can be edited there.</p>`,
+      <p><b>This information is retrieved from Medarbetarkopplingar on course instance in Ladok (UPL)</b> and can be edited there.</p>`,
     },
     examination: {
       body: `<p><b>Examination</b> describes the examination of the course and the examination details of each course module.</p>
@@ -343,7 +343,7 @@ module.exports = {
     teacher: {
       body: `<p><b>Teachers</b> contains contact information for individuals holding the role of teacher during this course offering.</p>
       <p><b>This information helps the student</b> in obtaining contact details for the teachers during the course offering.</p>
-      <p><b>Content is retrieved from UG Admin</b> and can be edited there.</p>`,
+      <p><b>This information is retrieved from Medarbetarkopplingar on course instance in Ladok (UPL)</b> and can be edited there.</p>`,
     },
   },
   staticMemoBodyByUserLang: {
