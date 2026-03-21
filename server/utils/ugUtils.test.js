@@ -1,4 +1,4 @@
-const { getCourseGroupName, getCourseRoundGroupName, buildEmployeesHtmlObject, createPersonHtml } = require('./ugUtils')
+const { getCourseGroupName, getCourseRoundGroupName, buildEmployeesHtmlObject, createPersonHtml, escapeHtml } = require('./ugUtils')
 
 describe('ugUtils', () => {
   describe('getCourseGroupName', () => {
@@ -57,6 +57,22 @@ describe('ugUtils', () => {
     test('returns empty string for empty array', () => {
       expect(createPersonHtml([])).toBe('')
     })
+
+    test('escapes HTML special characters in username to prevent XSS', () => {
+      const persons = [{ username: 'user"><script>alert(1)</script>', givenName: 'John', surname: 'Doe' }]
+      const html = createPersonHtml(persons)
+      expect(html).not.toContain('<script>')
+      expect(html).toContain('&lt;script&gt;')
+      expect(html).toContain('&quot;')
+    })
+
+    test('escapes HTML special characters in givenName and surname to prevent XSS', () => {
+      const persons = [{ username: 'user1', givenName: '<b>Evil</b>', surname: 'Name & Co' }]
+      const html = createPersonHtml(persons)
+      expect(html).not.toContain('<b>')
+      expect(html).toContain('&lt;b&gt;Evil&lt;/b&gt;')
+      expect(html).toContain('Name &amp; Co')
+    })
   })
 
   describe('buildEmployeesHtmlObject', () => {
@@ -90,6 +106,29 @@ describe('ugUtils', () => {
       expect(result).toHaveProperty('examiners')
       expect(result).not.toHaveProperty('teachers')
       expect(result).not.toHaveProperty('courseCoordinators')
+    })
+  })
+
+  describe('escapeHtml', () => {
+    test('escapes &, <, >, ", and \' characters', () => {
+      expect(escapeHtml('&')).toBe('&amp;')
+      expect(escapeHtml('<')).toBe('&lt;')
+      expect(escapeHtml('>')).toBe('&gt;')
+      expect(escapeHtml('"')).toBe('&quot;')
+      expect(escapeHtml("'")).toBe('&#x27;')
+    })
+
+    test('leaves safe strings unchanged', () => {
+      expect(escapeHtml('hello world')).toBe('hello world')
+      expect(escapeHtml('user1')).toBe('user1')
+    })
+
+    test('converts non-string values to string before escaping', () => {
+      expect(escapeHtml(42)).toBe('42')
+      expect(escapeHtml(null)).toBe('null')
+      expect(escapeHtml(undefined)).toBe('undefined')
+      expect(escapeHtml('')).toBe('')
+      expect(escapeHtml({ toString: () => '<obj>' })).toBe('&lt;obj&gt;')
     })
   })
 })
