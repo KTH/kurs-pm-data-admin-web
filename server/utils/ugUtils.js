@@ -3,6 +3,17 @@
 // See https://confluence.sys.kth.se/confluence/x/6wYJDQ for more information.
 
 /**
+ * Escapes HTML special characters to prevent XSS when values are interpolated into HTML strings.
+ *
+ * @param {string} value - The raw string to escape.
+ * @returns {string} HTML-escaped string.
+ */
+function escapeHtml(value) {
+  const escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;' }
+  return String(value).replace(/[&<>"']/g, char => escapeMap[char])
+}
+
+/**
  * Converts a course code into its UG course group name.
  *
  * @param {string} courseCode - The Ladok course code (typically 6 or 7 characters).
@@ -40,8 +51,8 @@ function createPersonHtml(personList) {
     .map(
       person => `
       <p class="person">
-        <img class="profile-picture" src="https://www.kth.se/files/thumbnail/${person.username}" width="31" height="31">
-        <a href="/profile/${person.username}/">${person.givenName} ${person.surname}</a> 
+        <img class="profile-picture" src="https://www.kth.se/files/thumbnail/${escapeHtml(person.username)}" width="31" height="31">
+        <a href="/profile/${escapeHtml(person.username)}/">${escapeHtml(person.givenName)} ${escapeHtml(person.surname)}</a> 
       </p>`
     )
     .join('')
@@ -68,4 +79,5 @@ module.exports = {
   getCourseRoundGroupName,
   createPersonHtml,
   buildEmployeesHtmlObject,
+  escapeHtml,
 }
