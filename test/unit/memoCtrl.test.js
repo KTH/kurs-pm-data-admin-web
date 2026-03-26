@@ -138,29 +138,19 @@ describe('mergeAllData', () => {
 })
 
 describe('renderMemoEditorPage', () => {
-  it('should render memo page', async () => {
-    const req = {
-      params: { courseCode: 'SF1624', memoEndPoint: 'some-memo' },
-      query: {},
-      url: '/example-url',
-    }
-    const res = {
-      render: jest.fn(),
-    }
-    const next = jest.fn()
+  const res = {
+    render: jest.fn(),
+    redirect: jest.fn(),
+  }
+  const next = jest.fn()
 
-    getMemoApiData.mockResolvedValue({
-      semester: '20241',
-      memoCommonLangAbbr: 'en',
-      applicationCodes: ['11111'],
-    })
+  const createReq = courseCode => ({
+    params: { courseCode, memoEndPoint: 'some-memo' },
+    query: {},
+    url: '/example-url',
+  })
 
-    getCourseEmployees.mockResolvedValue(ugAdminEmployeesDataMock)
-    getCourseInfo.mockResolvedValue(courseInfoApiDataMock)
-    getLadokCourseData.mockResolvedValue(ladokCourseDataMock)
-    getLadokCourseSyllabus.mockResolvedValue(ladokCourseSyllabusDataMock)
-    getLadokCourseSyllabuses.mockResolvedValue(ladokCourseSyllabusesDataMock)
-
+  beforeEach(() => {
     getServerSideFunctions.mockReturnValue({
       createStore: () => ({
         setMemoBasicInfo: jest.fn(),
@@ -174,6 +164,22 @@ describe('renderMemoEditorPage', () => {
       renderStaticPage: () => '<div>Rendered Page</div>',
     })
 
+    getCourseEmployees.mockResolvedValue(ugAdminEmployeesDataMock)
+    getCourseInfo.mockResolvedValue(courseInfoApiDataMock)
+    getLadokCourseData.mockResolvedValue(ladokCourseDataMock)
+    getLadokCourseSyllabus.mockResolvedValue(ladokCourseSyllabusDataMock)
+    getLadokCourseSyllabuses.mockResolvedValue(ladokCourseSyllabusesDataMock)
+  })
+
+  it('should render memo page', async () => {
+    const req = createReq('SF1624')
+
+    getMemoApiData.mockResolvedValue({
+      semester: '20241',
+      memoCommonLangAbbr: 'en',
+      applicationCodes: ['11111'],
+    })
+
     await memoCtrl.renderMemoEditorPage(req, res, next)
 
     expect(res.render).toHaveBeenCalledWith(
@@ -184,6 +190,42 @@ describe('renderMemoEditorPage', () => {
       })
     )
   })
+
+  it('should render memo page if memoCommonLangAbbr is undefined', async () => {
+    const req = createReq('SF1624')
+
+    getMemoApiData.mockResolvedValue({
+      semester: '20241',
+      applicationCodes: ['11111'],
+    })
+
+    await memoCtrl.renderMemoEditorPage(req, res, next)
+
+    expect(getCourseInfo).toHaveBeenCalledWith('SF1624', 'en')
+
+    expect(res.render).toHaveBeenCalledWith(
+      'memo/index',
+      expect.objectContaining({
+        html: expect.stringContaining('Rendered Page'),
+        compressedStoreCode: 'compressed-code',
+      })
+    )
+
+    expect(res.redirect).not.toHaveBeenCalled()
+  })
+
+  it.each(['SF1624', 'otherCourseCode'])(
+    'redirects to kursinfo-admin-web if no semester in memoApiData for courseCode %s',
+    async courseCode => {
+      const req = createReq(courseCode)
+
+      getMemoApiData.mockResolvedValue({})
+
+      await memoCtrl.renderMemoEditorPage(req, res, next)
+
+      expect(res.redirect).toHaveBeenCalledWith(`/kursinfoadmin/kurser/kurs/${courseCode}?source=missingMemoDraft`)
+    }
+  )
 })
 
 describe('updateContentByEndpoint', () => {

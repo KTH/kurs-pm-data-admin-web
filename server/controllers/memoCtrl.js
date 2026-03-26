@@ -15,6 +15,7 @@ const { getValidUntilTerm } = require('../utils/getValidUntilTerm')
 const serverPaths = require('../server').getPaths()
 const { browser, server } = require('../configuration')
 const i18n = require('../../i18n')
+const { adminLinkWithSource } = require('../utils/adminPageLink')
 
 const addDefaultValues = data => ({
   ...data,
@@ -98,7 +99,15 @@ async function renderMemoEditorPage(req, res, next) {
     const applicationStore = createStore()
 
     const memoApiData = await getMemoApiData('getDraftByEndPoint', { memoEndPoint })
+
     const { semester, memoCommonLangAbbr } = memoApiData
+
+    // In case semester is undefined, we have not received data from memoApi, which means there os no draft for this memoEndPoint
+    if (!semester) {
+      const link = adminLinkWithSource(courseCode, 'missingMemoDraft')
+      res.redirect(link)
+    }
+
     const memoLangAbbr = memoCommonLangAbbr || userLang
 
     applicationStore.rebuildDraftFromPublishedVer = action === 'rebuild'
