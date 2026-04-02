@@ -1,4 +1,4 @@
-FROM kthregistry.azurecr.io/kth-nodejs-18:latest
+FROM kthregistry.azurecr.io/kth-nodejs-22:latest
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
