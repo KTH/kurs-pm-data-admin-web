@@ -44,7 +44,7 @@
     "@kth/kth-reactstrap": "^0.5.0",
     "@kth/log": "^4.0.8",
     "@kth/monitor": "^4.3.2",
-    "@kth/om-kursen-ladok-client": "3.1.1",
+    "@kth/om-kursen-ladok-client": "3.3.0",
     "@kth/server": "^4.1.0",
     "@kth/session": "^3.1.1",
     "@kth/style": "^1.13.1",
