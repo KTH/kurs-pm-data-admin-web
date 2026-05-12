@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 jest.mock('../../server/configuration', () => ({ server: {} }))
 jest.mock('../../server/api', () => {})
 
